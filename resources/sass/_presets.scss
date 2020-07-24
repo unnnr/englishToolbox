@@ -1,0 +1,92 @@
+@import "mixins";
+
+// extra extra  large (desktops, more than 1400px)
+$xxl-min-width: 1400px;
+// extra large (desktops, less than 1400px)
+$xl-max-width: 1400px; 
+// large devices (desktops, less than 1200px)
+$lg-max-width: 1200px;
+// medium devices (tablets, less than 1000px) 
+$md-max-width: 1000px; 
+// small devices (phones, less than 770px) 
+$sm-max-width: 770px;
+// extra small devices (phones, less than 576px)
+$xs-max-width: 576px;
+// extra extra small devices (phones, less than 370px)
+$xxs-max-width: 370px;
+// custom width
+@mixin custom-width($custom-width) { 
+  @media (max-width: #{$custom-width}) {
+    @content;
+  }
+}
+// more than 1400px
+@mixin xxl-devices {  
+  @media (min-width: #{$xxl-min-width}) {
+    @content;
+  }
+}
+// less than 1400px
+@mixin xl-devices { 
+  @media (max-width: #{$xl-max-width}) {
+    @content;
+  }
+}
+//  less than 1200px
+@mixin lg-devices {
+  @media (max-width: #{$lg-max-width}) {
+    @content;
+  }
+}
+// less than 1000px
+@mixin md-devices {
+  @media (max-width: #{$md-max-width}) {
+    @content;
+  }
+}
+// less than 770px
+@mixin sm-devices {
+  @media (max-width: #{$sm-max-width}) {
+    @content;
+  }
+}
+// less than 576px
+@mixin xs-devices {
+  @media (max-width: #{$xs-max-width}) {
+    @content;
+  }
+}
+// less than 370px
+@mixin xxs-devices {
+  @media (max-width: #{$xxs-max-width}) {
+    @content;
+  }
+}
+// container 
+.container {
+  box-sizing: border-box;
+  // more than 1400px
+  @include xxl-devices(){
+    padding: 0 vw(150,1920);
+  }
+  // less than 1400px
+  @include xl-devices(){
+    padding: 0 vw(75,1400);
+  }
+  // less than 1200px
+  @include lg-devices(){
+    padding: 0 vw(50,1200);
+  }
+  // less than 1000px
+  @include md-devices(){
+    padding: 0 vw(75,1000);
+  }
+  // less than 770px
+  @include sm-devices(){
+    padding: 0 vw(50,770);
+  }
+  // less than 576px 
+  @include xs-devices(){   
+    padding: 0 vw(25,576);
+  }
+}

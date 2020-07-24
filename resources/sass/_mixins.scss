@@ -1,0 +1,14 @@
+// css bg images
+
+@mixin background-image($url) {
+  background-image: url("/" + $url);
+  background-position-x: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+// functions 
+
+@function vw($p,$w) {
+  @return $p / $w * 100 + vw;
+}

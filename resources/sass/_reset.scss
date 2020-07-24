@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea,
+input,
+select {
+  border: 1px solid black;
+}
+
+button {
+  background: none;
+}
