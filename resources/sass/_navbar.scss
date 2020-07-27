@@ -1,4 +1,4 @@
-.navbar {
+.navbar-desktop {
   display: flex;
   justify-content: space-between;
   padding-top: 50px;
@@ -8,19 +8,19 @@
   }
 }
 
-.navbar__links {
+.navbar-desktop__links {
   display: flex;
   align-items: center;
 }
 
-.navbar__logo {
+.navbar-desktop__logo {
   color: $text-main;
   font-weight: $bold;
   font-size: 25px;
   margin-right: vw(75, 1920);
 }
 
-.navbar__link {
+.navbar-desktop__link {
   font-size: 20px;
   font-weight: $semibold;
   color: $text-second;
@@ -36,7 +36,7 @@
   }
 }
 
-.navbar__link--active {
+.navbar-desktop__link--active {
   color: $text-main;
 
   &:hover {
@@ -44,16 +44,16 @@
   }
 }
 
-.navbar__link--last {
+.navbar-desktop__link--last {
   margin-right: 0;
 }
 
-.navbar__aside {
+.navbar-desktop__aside {
   display: flex;
   align-items: center;
 }
 
-.navbar__aside-link {
+.navbar-desktop__aside-link {
   font-weight: $semibold;
   font-size: 20px;
 
@@ -62,12 +62,12 @@
   }
 }
 
-.navbar__aside-link--login-in {
+.navbar-desktop__aside-link--login-in {
   color: $text-main;
   margin: 0px vw(30, 1920) 0px vw(75, 1920);
 }
 
-.navbar__aside-link--sign-up {
+.navbar-desktop__aside-link--sign-up {
   background: $color-main;
   color: $text-fourth;
   padding: 10px 30px;
@@ -79,7 +79,7 @@
   }
 }
 
-.navbar__account-link {
+.navbar-desktop__account-link {
   height: 42px;
 
   span {

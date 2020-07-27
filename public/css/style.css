@@ -63,7 +63,7 @@ button {
   }
 }
 
-.navbar {
+.navbar-desktop {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -74,12 +74,12 @@ button {
 }
 
 @media (max-width: 1200px) {
-  .navbar {
+  .navbar-desktop {
     display: none;
   }
 }
 
-.navbar__links {
+.navbar-desktop__links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -88,44 +88,44 @@ button {
           align-items: center;
 }
 
-.navbar__logo {
+.navbar-desktop__logo {
   color: #2f2e44;
   font-weight: 700;
   font-size: 25px;
   margin-right: 3.90625vw;
 }
 
-.navbar__link {
+.navbar-desktop__link {
   font-size: 20px;
   font-weight: 600;
   color: #848499;
   margin-right: 2.60417vw;
 }
 
-.navbar__link:hover {
+.navbar-desktop__link:hover {
   color: #5f5f72;
 }
 
 @media (max-width: 1400px) {
-  .navbar__link {
+  .navbar-desktop__link {
     font-size: 18px;
     margin-right: 2.60417vw;
   }
 }
 
-.navbar__link--active {
+.navbar-desktop__link--active {
   color: #2f2e44;
 }
 
-.navbar__link--active:hover {
+.navbar-desktop__link--active:hover {
   color: #0f0f16;
 }
 
-.navbar__link--last {
+.navbar-desktop__link--last {
   margin-right: 0;
 }
 
-.navbar__aside {
+.navbar-desktop__aside {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -134,23 +134,23 @@ button {
           align-items: center;
 }
 
-.navbar__aside-link {
+.navbar-desktop__aside-link {
   font-weight: 600;
   font-size: 20px;
 }
 
 @media (max-width: 1400px) {
-  .navbar__aside-link {
+  .navbar-desktop__aside-link {
     font-size: 18px;
   }
 }
 
-.navbar__aside-link--login-in {
+.navbar-desktop__aside-link--login-in {
   color: #2f2e44;
   margin: 0px 1.5625vw 0px 3.90625vw;
 }
 
-.navbar__aside-link--sign-up {
+.navbar-desktop__aside-link--sign-up {
   background: #6666ff;
   color: #fff;
   padding: 10px 30px;
@@ -159,22 +159,22 @@ button {
   transition: background .3s;
 }
 
-.navbar__aside-link--sign-up:hover {
+.navbar-desktop__aside-link--sign-up:hover {
   background: #5353FF;
 }
 
-.navbar__account-link {
+.navbar-desktop__account-link {
   height: 42px;
 }
 
-.navbar__account-link span {
+.navbar-desktop__account-link span {
   font-size: 42px;
   color: #6666ff;
   -webkit-transition: color .3s;
   transition: color .3s;
 }
 
-.navbar__account-link span:hover {
+.navbar-desktop__account-link span:hover {
   color: #5353FF;
 }
 
