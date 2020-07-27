@@ -1,0 +1,94 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+
+  @include lg-devices {
+    display: none;
+  }
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo {
+  color: $text-main;
+  font-weight: $bold;
+  font-size: 25px;
+  margin-right: vw(75, 1920);
+}
+
+.navbar__link {
+  font-size: 20px;
+  font-weight: $semibold;
+  color: $text-second;
+  margin-right: vw(50, 1920);
+
+  &:hover {
+    color: darken($color: $text-second, $amount: 15);
+  }
+
+  @include xl-devices {
+    font-size: 18px;
+    margin-right: vw(50, 1920);
+  }
+}
+
+.navbar__link--active {
+  color: $text-main;
+
+  &:hover {
+    color: darken($color: $text-main, $amount: 15);
+  }
+}
+
+.navbar__link--last {
+  margin-right: 0;
+}
+
+.navbar__aside {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__aside-link {
+  font-weight: $semibold;
+  font-size: 20px;
+
+  @include xl-devices {
+    font-size: 18px;
+  }
+}
+
+.navbar__aside-link--login-in {
+  color: $text-main;
+  margin: 0px vw(30, 1920) 0px vw(75, 1920);
+}
+
+.navbar__aside-link--sign-up {
+  background: $color-main;
+  color: $text-fourth;
+  padding: 10px 30px;
+  border-radius: 30px;
+  transition: background .3s;
+
+  &:hover {
+    background: $color-main--hover;
+  }
+}
+
+.navbar__account-link {
+  height: 42px;
+
+  span {
+    font-size: 42px;
+    color: $color-main;
+    transition: color .3s;
+
+    &:hover {
+      color: $color-main--hover;
+    }
+  }
+}

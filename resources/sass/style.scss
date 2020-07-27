@@ -1,7 +1,13 @@
+// presets
 @import "reset";
+@import "variables";
 @import "mixins";
 @import "presets";
-  
+// sections 
+@import "navbar";
+@import "navbar-mobile";
+
 body {
   background: #fafafa;
+  font-family: 'Montserrat', sans-serif;
 }

@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <!-- custom css -->
   <link rel="stylesheet" href="/public/css/style.css">
+  <!-- google services -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
 </head>
-<body>
-  
-  <main>
-    
-  </main>
 
+<body>
+
+  <main>
+
+    <section class="navbar container">
+      <nav class="navbar__links">
+        <a href="#" class="navbar__logo">Namehere</a>
+        <a href="#" class="navbar__link navbar__link--active">about me</a>
+        <a href="#" class="navbar__link">video</a>
+        <a href="#" class="navbar__link">audio</a>
+        <a href="#" class="navbar__link">images</a>
+        <a href="#" class="navbar__link">games</a>
+        <a href="#" class="navbar__link navbar__link--last">i recomend</a>
+      </nav>
+      <div class="navbar__aside">
+        <a href="#" class="navbar__aside-link navbar__aside-link--login-in">login in</a>
+        <a href="#" class="navbar__aside-link navbar__aside-link--sign-up">sing up</a>
+        <!-- <a href="#" class="navbar__account-link"><span class="material-icons-round">account_circle</span></a> -->
+      </div>
+    </section>
+
+    <section class="navbar-mobile container">
+      <button class="navbar-mobile__button navbar-mobile__button--show"><span
+          class="material-icons-round">menu</span></button>
+      <a href="#" class="navbar-mobile__logo">Namehere</a>
+      <nav class="navbar-mobile__links">
+        <div class="navbar-mobile__header">
+          <!-- <a href="#" class="navbar-mobile__account-link"><span class="material-icons-round">account_circle</span></a> -->
+          <button class="navbar-mobile__button navbar-mobile__button--hide"><span
+              class="material-icons-round">clear</span></button>
+        </div>
+        <a href="#" class="navbar-mobile__link navbar-mobile__link--first navbar-mobile__link--active">about me</a>
+        <a href="#" class="navbar-mobile__link">video</a>
+        <a href="#" class="navbar-mobile__link">audio</a>
+        <a href="#" class="navbar-mobile__link">images</a>
+        <a href="#" class="navbar-mobile__link">games</a>
+        <a href="#" class="navbar-mobile__link">i recomend</a>
+        <div class="navbar-mobile__footer">
+          <a href="#" class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in">login in</a>
+          <a href="#" class="navbar-mobile__footer-link navbar-mobile__footer-link--sign-up">sing up</a>
+        </div>
+      </nav>
+      <div class="navbar-mobile__overlay"></div>
+    </section>
+
+  </main>
+  <script src="/resources/js/main.js"></script>
 </body>
+
 </html>

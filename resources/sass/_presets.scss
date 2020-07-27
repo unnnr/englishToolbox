@@ -90,3 +90,31 @@ $xxs-max-width: 370px;
     padding: 0 vw(25,576);
   }
 }
+
+@mixin container {
+  box-sizing: border-box;
+  // more than 1400px
+  @include xxl-devices(){
+    padding: 0 vw(150,1920);
+  }
+  // less than 1400px
+  @include xl-devices(){
+    padding: 0 vw(75,1400);
+  }
+  // less than 1200px
+  @include lg-devices(){
+    padding: 0 vw(50,1200);
+  }
+  // less than 1000px
+  @include md-devices(){
+    padding: 0 vw(75,1000);
+  }
+  // less than 770px
+  @include sm-devices(){
+    padding: 0 vw(50,770);
+  }
+  // less than 576px 
+  @include xs-devices(){   
+    padding: 0 vw(25,576);
+  }
+}
