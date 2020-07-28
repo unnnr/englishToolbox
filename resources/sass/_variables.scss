@@ -1,21 +1,19 @@
-// background colors
-$bg-main: #fafafa;
-$bg-second: #f5f5f5;
-$bg-third: #f0f0f0;
-$bg-fourth: #ebebeb;
-$bg-fifth: #fff;
-// text colors
-$text-main: #2f2e44;
-$text-second: #848499;
-$text-third: #a1a1b1;
-$text-fourth: #fff;
-// color palette 
-$color-main: #6666ff;
-$color-main--hover: #5353FF;
-$color-second: #ff6688;
-$color-third: #1dd1bb;
-// font weight
-$bold: 700;
-$semibold: 600;
-$medium: 500;
-$regular: 400;
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
