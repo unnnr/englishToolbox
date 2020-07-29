@@ -1,0 +1,95 @@
+// presets
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "presets";
+
+body {
+  background: #fafafa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+// heading 
+.heading-fourth {
+  color: $text-main;
+  font-weight: $semibold;
+  font-size: 30px;
+}
+
+.heading-fifth {
+  color: $text-main;
+  font-weight: $semibold;
+  font-size: 25px;
+}
+
+// text
+.text-fourth {
+  color: $text-second;
+  font-weight: $medium;
+  font-size: 18px;
+}
+
+// inputs 
+.input-main {
+  height: 60px;
+  border-radius: 15px;
+  border: none;
+  font-size: 18px;
+  color: $text-main;
+  box-shadow: $shadow-second;
+  transition: box-shadow .2s;
+
+  &::placeholder {
+    font-weight: $medium;
+    color: $text-third;
+  }
+  
+  &:focus {
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.15);
+  }
+
+  @include sm-devices {
+    height: 50px;
+    font-size: 16px;
+  }
+}
+
+// buttons 
+.button-main {
+  min-height: 60px;
+  background: $color-main;
+  color: $text-fourth;
+  font-weight: $medium;
+  box-shadow: $shadow-second;
+  border-radius: 15px;
+  font-size: 18px;
+  transition: background .2s, transform .1s ease-in-out, box-shadow .1s ease-in-out;
+
+  &:hover {
+    background: $color-main--hover;
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+
+  &:active {
+    transform: scale(0.99);
+    background: $color-main--hover;
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+
+  @include sm-devices {
+    min-height: 50px;
+    font-size: 16px;
+  }
+}
+
+
+// sections 
+@import "navbar";
+@import "navbar-mobile";
+
+// login in and sign up pages 
+@import "auth";
+
+
+
+@import "footer";
