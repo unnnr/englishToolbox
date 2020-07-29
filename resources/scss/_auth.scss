@@ -1,0 +1,257 @@
+.sign-up {
+  display: flex;
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  @include sm-devices {
+    padding: 100px 0;
+  }
+}
+
+.login-in {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  @include sm-devices {
+    padding: 50px 0;
+  }
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: 100%;
+  justify-content: center;
+  margin-right: 55px;
+  
+  @include xl-devices {
+    margin-right: 40px;
+    width: 100%;
+    align-items: center;
+  }
+  @include sm-devices {
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+}
+
+.auth__title {
+  margin-bottom: 30px;
+}
+
+.auth__input-group {
+  position: relative;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+.auth__input {
+  width: 500px;
+  padding-left: 55px;
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+.auth__input-icon {
+  font-size: 25px !important;
+  position: absolute;
+
+  @include sm-devices {
+    font-size: 20px !important;
+  }
+}
+
+.auth__input-icon--type {
+  left: 15px;
+  color: $color-main;
+}
+
+.auth__input-icon--visibility {
+  right: 15px;
+  color: $text-third;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.auth__input-icon--alarm {
+  right: -40px;
+  color: $color-second !important;
+
+  @include sm-devices {
+    right: -25px;
+  }
+}
+
+.auth__input-icon--success {
+  right: -40px;
+  color: $color-third !important;
+
+  @include sm-devices {
+    right: -25px;
+  }
+}
+
+.auth__input-error {
+  position: absolute;
+  bottom: -12.5px;
+  transform: translateY(+50%);
+  margin-left: 15px;
+  font-size: 12px;
+  color: $color-second;
+  font-weight: $medium;
+}
+
+.auth__input-button {
+  width: 500px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+
+.form__poster {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  @include xl-devices {
+    display: none;
+  }
+}
+
+.form__poster--login-in {
+  justify-content: flex-start;
+}
+
+.form__img {
+ width: vw(725,1920);
+}
+
+// login with
+
+.login-with {
+  width: 500px;
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+.login-with__text {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.login-with__buttons {
+  display: flex;
+  margin: 25px 0px;
+
+  @include xs-devices {
+    flex-direction: column;
+  }
+}
+
+.login-with__button {
+  background: $bg-fifth;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  box-shadow: $shadow-second;
+  transition: box-shadow .2s;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.15);
+  }
+
+  &:active {
+    transform: scale(0.99);
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+
+  @include xs-devices {
+    height: 60px;
+  }
+}
+
+.login-with__button--first {
+  margin-right: 20px;
+
+  @include xs-devices {
+    margin-right: 0px;
+  }
+}
+.login-with__button--second {
+  margin: 0px 10px;
+
+  @include xs-devices {
+    margin: 15px 0;
+  }
+}
+
+.login-with__button--third {
+  margin-left: 20px;
+
+  @include xs-devices {
+    margin-left: 0;
+  }
+}
+
+.login-with__icon {
+  font-size: 45px;
+  transition: font-size .2s;
+
+  @include xs-devices {
+    font-size: 35px;
+  }
+}
+
+.login-with__icon--google {
+  color: #e44134;
+}
+
+.login-with__icon--facebook {
+  color: #1977f3;
+}
+
+.login-with__icon--twetter {
+  color: #1da1f2;
+}
+
+.login-with__link {
+  color: $color-main;
+  display: inline-flex;
+  text-align: center;
+  display: block;
+  transition: color .2s;
+
+  @include xs-devices {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: $color-main--hover;
+  }
+}
+
+
