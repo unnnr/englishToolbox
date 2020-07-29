@@ -1,0 +1,30 @@
+// presets
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "presets";
+
+body {
+  background: #fafafa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+// heading 
+.heading-fifth {
+  color: $text-main;
+  font-weight: $semibold;
+  font-size: 25px;
+}
+
+// text
+.text-fourth {
+  color: $text-second;
+  font-weight: $medium;
+  font-size: 18px;
+}
+
+// sections 
+@import "navbar";
+@import "navbar-mobile";
+
+@import "footer";
