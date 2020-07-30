@@ -18,8 +18,8 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('audio', 'AudioController@index');
-Route::post('audio', 'AudioController@create');
+Route::get('images', 'ImageController@index');
+Route::post('images', 'ImageController@create');
 
 Route::middleware(['auth'])->group(function ()
 {

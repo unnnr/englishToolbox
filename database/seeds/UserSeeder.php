@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Creating default permissions
         $permissions = [
             'Manage Content',
             'Delete Comments',
@@ -23,14 +24,15 @@ class UserSeeder extends Seeder
         foreach ($permissions as $permission)
             Permission::create(['name' => $permission]);
 
-        $adminRole = Role::create([
-            'name' => 'Super Admin'
-        ]);
-
+        // Creating Super Admin
         $admin = User::create([
             'name' => 'admin',
             'email' => 'dummy@dumb.dum',
             'password' => '123'
+        ]);
+        
+        $adminRole = Role::create([
+            'name' => 'Super Admin'
         ]);
 
         $adminRole->syncPermissions($permissions);
