@@ -15,7 +15,8 @@ class CreateAudioTable extends Migration
     {
         Schema::create('audio', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->string('path')->unique();
             $table->string('text');
             $table->string('description');
             $table->timestamps();
