@@ -19,7 +19,7 @@ Auth::routes([
 ]);
 
 Route::get('images', 'ImageController@index');
-Route::post('images', 'ImageController@create');
+Route::post('images', 'ImageController@store')->name('images');
 
 Route::middleware(['auth'])->group(function ()
 {

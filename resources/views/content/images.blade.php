@@ -6,36 +6,21 @@
     <body>
         <main class="images">
 
-            <object>
-                Desk
-            </object>
-
-            <object>
-                Desk
-            </object>
-
-            <object>
-                Desk
-            </object>
-
-            <object>
-                Desk
-            </object>
-
-            <object>
-                Desk
-            </object>
-
-            <object>
-                Desk
-            </object>
+            <object>Desk</object>
+            <object>Desk</object>
+            <object>Desk</object>
+            <object>Desk</object>
+            <object>Desk</object>
+            <object>Desk</object>
 
         </main>
 
         <aside class="editor">
-            <form>
-                <input placeholder="Title">
-                <input type="file">
+            <form method="POST" action="{{ route('images') }}" enctype="multipart/form-data">
+                @csrf
+
+                <input name="title"placeholder="Title">
+                <input name="image" type="file" accept="image/*">
                 <input type="submit">
             </form>
         </aside>
@@ -73,6 +58,7 @@
                 font-size: 30px;
                 color: white;
                 background: hotpink;
+                box-shadow: 0 .75rem .5rem -.5rem hsl(0, 50%, 80%);
             }
 
             form {
