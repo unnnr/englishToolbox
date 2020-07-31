@@ -1,3 +1,17 @@
+// extra extra  large (desktops, more than 1400px)
+$xxl-min-width: 1400px;
+// extra large (desktops, less than 1400px)
+$xl-max-width: 1400px; 
+// large devices (desktops, less than 1200px)
+$lg-max-width: 1200px;
+// medium devices (tablets, less than 1000px) 
+$md-max-width: 1000px; 
+// small devices (phones, less than 770px) 
+$sm-max-width: 770px;
+// extra small devices (phones, less than 576px)
+$xs-max-width: 576px;
+// extra extra small devices (phones, less than 370px)
+$xxs-max-width: 370px;
 // background colors
 $bg-main: #fafafa;
 $bg-second: #f5f5f5;
