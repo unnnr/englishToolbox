@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes([
+    'reset' => false,
+    'verify' => false
+]);
+
+Route::get('images', 'ImageController@index');
+Route::post('images', 'ImageController@store')->name('images');
+
+Route::middleware(['auth'])->group(function ()
+{
+    Route::get('/',  'HomeController@index');
+    Route::get('/home', 'HomeController@index')->name('home');   
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
