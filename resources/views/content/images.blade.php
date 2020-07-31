@@ -26,9 +26,62 @@
             </form>
         </aside>
 
+        <script>
+            function EditorForm()
+            {
+                const form = document.querySelector('form');
+                const action = form.getAttribute('action');
+                const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const wrapper = document.querySelector('main');
+
+                function appendPost(data)
+                {
+                    let img = document.createElement('img');
+
+                    img.src = data.path;
+
+                    let label = document.createElement('p');
+
+                    label.classList.add('label');
+                    label.innerText = data.title;
+
+                    let post = document.createElement('div');
+
+                    post.classList.add('post');
+                    post.appendChild(img);
+                    post.appendChild(label);
+
+                    wrapper.appendChild(post);
+                }
+
+                form.onsubmit = async function (event)
+                {
+                    event.preventDefault();
+
+                    if (action)
+                    {
+                        let responce = await fetch(action, {
+                            method: "POST",
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest",
+                                'X-CSRF-TOKEN': csrf
+                            },
+                            body: new FormData(form)
+                        });
+
+                        if (!!!responce.ok)
+                            return; 
+
+                        let data = await responce.json();
+
+                        appendPost(data);
+                    }
+                }
+            }
+            EditorForm();
+        </script>
 
     </body>
-    
 
         <style>
             body {

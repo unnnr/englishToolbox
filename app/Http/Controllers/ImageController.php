@@ -19,11 +19,14 @@ class ImageController extends Controller
         $filename = basename($fullpath);
         $title =  $request->input('title');
 
-        dump($filename);
-        
         Image::create([
             'title' => $title,
             'filename' => $filename
         ]); 
+
+        return [
+            'title' => $title,
+            'path' => asset("storage/img/${filename}")
+        ];
     }
 }
