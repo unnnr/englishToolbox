@@ -10,17 +10,20 @@ class ImageController extends Controller
 {
     public function index()
     {
-        return view('content.images');
+        return view('content.images', ['posts' => Image::limit(10)->get()]);
     }
 
     public function store(UploadImage $request)
     {
-        $path = $request->file('image')->store('public/img');
+        $fullpath = $request->file('image')->store('public/img');
+        $filename = basename($fullpath);
         $title =  $request->input('title');
 
+        dump($filename);
+        
         Image::create([
             'title' => $title,
-            'path' => $path
+            'filename' => $filename
         ]); 
     }
 }
