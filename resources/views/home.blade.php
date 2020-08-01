@@ -15,8 +15,7 @@
   <section class="updates posts container">
     <h3 class="posts__title heading-third">Latest updates</h3>
     <div class="posts__content">
-
-      <div class="post-card post-card--updates">
+      <div class="post-card post-card--square">
         <div class="post-card__image">
           <div class="post-card__header">
             <button class="post-card__favorite-button">
@@ -29,17 +28,188 @@
           </div>
           <div class="post-card__title heading-fifth">Post card title</div>
         </div>
-        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm odtempor incididunt morbi leo.</div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
         <div class="post-card__footer">
           <div class="post-card__tags">
-            
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
           </div>
           <span class="post-card__date">July 19 2020</span>
         </div>
       </div>
+      <div class="post-card post-card--square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
+      <div class="post-card post-card--square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
+      <div class="post-card post-card--square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
-
+  <section class="popular posts container">
+    <h3 class="posts__title heading-third">The most popular </h3>
+    <div class="posts__content">
+      <div class="post-card post-card--big-square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
+      <div class="post-card post-card--big-square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
+      <div class="post-card post-card--big-square">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
+            </div>
+          </div>
+          <div class="post-card__title heading-fifth">Post card title</div>
+        </div>
+        <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
+          odtempor incididunt morbi leo.</div>
+        <div class="post-card__footer">
+          <div class="post-card__tags">
+            <div class="post-card__icons">
+              <div class="post-card__icon post-card__icon--third"></div>
+              <div class="post-card__icon post-card__icon--second"></div>
+              <div class="post-card__icon post-card__icon--first"></div>
+            </div>
+            <span class="post-card__label">Label name</span>
+          </div>
+          <span class="post-card__date">July 19 2020</span>
+        </div>
+      </div>
     </div>
   </section>
 
