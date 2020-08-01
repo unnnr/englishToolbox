@@ -1,5 +1,12 @@
+.popular {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
 .posts__content {
   display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
 }
 
 .posts__title {
