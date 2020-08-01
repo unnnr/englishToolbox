@@ -1,0 +1,15 @@
+@import "presets/import";
+@import "sections/banner";
+@import "sections/posts";
+@import "sections/post-card";
+@import "sections/about-me";
+@import "sections/reviews";
+
+
+.footer {
+  background: $bg-third;
+}
+
+.copyright {
+  background: $bg-fourth;
+}

@@ -1,0 +1,160 @@
+.navbar-mobile {
+  display: none;
+  justify-content: space-between;
+  padding-top: 30px;
+
+  @include lg-devices {
+    display: flex;
+  }
+}
+
+
+.navbar-mobile__button {
+
+  span {
+    font-size: 35px;
+    color: $text-main;
+    transition: color .2s;
+
+    &:hover {
+      color: $color-main;
+      cursor: pointer;
+    }
+  }
+}
+
+.navbar-mobile__button--show {
+  position: relative;
+  z-index: 3;
+}
+
+.navbar-mobile__button--hide {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 174px;
+  width: 100%;
+}
+
+.navbar-mobile__logo {
+  color: $text-main;
+  font-weight: $bold;
+  font-size: 26px;
+}
+
+
+.navbar-mobile__links {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background: $bg-fifth;
+  height: 100vh;
+  max-width: 0px;
+  overflow: hidden;
+  transition: max-width .3s ease-in-out, box-shadow .3s ease-in-out;
+  white-space: nowrap;
+  padding-top: 25px;
+}
+
+.navbar-mobile__links--slide {
+  max-width: 315px;
+  box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-mobile__header {
+  display: flex;
+  margin-bottom: 30px;
+  padding: 0 35px;
+}
+
+.navbar-mobile__account-link {
+
+  span {
+    color: $color-main;
+    font-size: 35px;
+    transition: color .2s;
+
+    &:hover {
+      color: $color-main--hover;
+    }
+  }
+}
+
+.navbar-mobile__link {
+  font-size: 22px;
+  font-weight: $semibold;
+  color: $text-second;
+  margin: 25px 150px 0px 30px;
+  transition: color .2s;
+
+  &:hover {
+    color: darken($color: $text-second, $amount: 15);
+  }
+}
+
+.navbar-mobile__link--first {
+  margin-top: 0;
+}
+
+.navbar-mobile__link--active {
+  color: $text-main;
+
+  &:hover {
+    color: darken($color: $text-main, $amount: 15);
+  }
+}
+
+.navbar-mobile__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 35px;
+  padding: 0 30px;
+}
+
+.navbar-mobile__footer-link {
+  font-size: 20px;
+  font-weight: $semibold;
+}
+
+.navbar-mobile__footer-link--login-in {
+  color: $text-main;
+  margin-right: 40px;
+}
+
+.navbar-mobile__footer-link--sign-up {
+  color: $text-fourth;
+  background: $color-main;
+  padding: 10px 30px;
+  border-radius: 30px;
+  transition: background .3s, box-shadow .1s ease-in-out, transform .1s ease-in-out;
+
+  &:hover {
+    background: $color-main--hover;
+  }
+
+  &:active {
+    transform: scale(0.99);
+    background: $color-main--hover;
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.1);
+  }
+}
+
+.navbar-mobile__overlay {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  transition: opacity .3s, z-index;
+}
+
+.navbar-mobile__overlay--visible {
+  z-index: 1;
+  opacity: 0.5;
+}
