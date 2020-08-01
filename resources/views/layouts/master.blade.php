@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
   <!-- custom css -->
-  <link rel="stylesheet" href="{{ asset("css/min/style.min.css") }}">
+  <link rel="stylesheet" href="{{ asset("css/style.css") }}">
   @yield('css')
   <!-- google services -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">

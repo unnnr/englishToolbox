@@ -1,9 +1,9 @@
-@extends('layouts\master')
+@extends('layouts.master')
 
 @section('title', 'homepage')
 
 @section('css')
-  <link rel="stylesheet" href="{{ asset("css/min/home.min.css") }}">
+  <link rel="stylesheet" href="{{ asset("css/home.css") }}">
 @endsection
 
 @section('content')

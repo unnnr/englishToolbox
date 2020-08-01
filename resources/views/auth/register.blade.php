@@ -1,9 +1,9 @@
-@extends('layouts\master')
+@extends('layouts.master')
 
 @section('title', 'register')
 
 @section('css')
-  <link rel="stylesheet" href="{{ asset("css/min/register.min.css") }}">
+  <link rel="stylesheet" href="{{ asset("css/register.css") }}">
 @endsection
 
 @section('content')
