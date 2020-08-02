@@ -3,11 +3,7 @@
 @section('title', 'homepage')
 
 @section('css')
-<<<<<<< HEAD
-<link rel="stylesheet" href="{{ asset("css/min/home.min.css") }}">
-=======
   <link rel="stylesheet" href="{{ asset("css/home.css") }}">
->>>>>>> 43aec4f90a6ba4294919e08b2b750572b82d658e
 @endsection
 
 @section('content')
@@ -48,18 +44,27 @@
       <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
         odtempor incididunt morbi leo.</div>
       <div class="post-card__footer">
-        <div class="tag">
-          <div class="tag__icon"></div>
-          <div class="tag__icon"></div>
-          <div class="tag__icon"></div>
-          <span class="tag__name">tag name</span>
-        </div>
-        <div class="tooltip post-card__tooltip">
-          <div class="tooltip__arrow"></div>
-          <div class="tag">
-            <div class="tag__icon"></div>
-            <span class="tag__name">tag name</span>
+        <div class="tag post-card__tag">
+          <div class="tag__icon post-card__tag-icon">
+            <div class="tooltip post-card__tooltip">
+              <div class="tooltip__arrow"></div>
+              <div class="tag">
+                <div class="tag__icon"></div>
+                <span class="tag__name">tag name</span>
+              </div>
+            </div>
           </div>
+          <div class="tag__icon post-card__tag-icon">
+            <div class="tooltip post-card__tooltip">
+              <div class="tooltip__arrow"></div>
+              <div class="tag">
+                <div class="tag__icon"></div>
+                <span class="tag__name">tag name</span>
+              </div>
+            </div>
+          </div>
+          <div class="tag__icon post-card__tag-icon"></div>
+          <span class="tag__name">tag name</span>
         </div>
         <span class="post-card__date">July 19 2020</span>
       </div>

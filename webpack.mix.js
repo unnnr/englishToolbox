@@ -30,6 +30,6 @@ getFiles('resources/scss').forEach(function (SASSpath) {
 });
 
 mix.browserSync({
-    proxy: 'etoolbox:80',
+    proxy: 'englishToolbox:80',
     files: ['public/**/*.css', 'resources/**/*']
 });
