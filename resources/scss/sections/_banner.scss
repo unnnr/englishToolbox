@@ -1,6 +1,6 @@
 .banner {
-  padding-top: 75px;
-  padding-bottom: 75px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .banner__carousel {
@@ -9,4 +9,5 @@
   background: $color-main;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: $shadow-second;
 }

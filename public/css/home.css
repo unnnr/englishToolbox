@@ -23,8 +23,8 @@ button {
 }
 
 .banner {
-  padding-top: 75px;
-  padding-bottom: 75px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .banner__carousel {
@@ -33,11 +33,13 @@ button {
   background: #6666ff;
   border-radius: 15px;
   overflow: hidden;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 .popular {
-  margin-top: 150px;
-  margin-bottom: 150px;
+  padding-top: 75px;
+  padding-bottom: 75px;
 }
 
 .posts__content {
@@ -81,6 +83,7 @@ button {
 
 .post-card--rectangle .post-card__image {
   padding-bottom: 56.25%;
+  border: 5px solid white;
 }
 
 .post-card__image {
@@ -230,12 +233,22 @@ button {
 }
 
 .post-card__tags {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.post-card__tags:hover {
+  cursor: pointer;
+}
+
+.post-card__tags:hover .post-card__tooltip {
+  opacity: 1;
+  z-index: 1;
 }
 
 .post-card__icons {
@@ -249,18 +262,20 @@ button {
   width: 30px;
   background-color: #a1a1b1;
   border-radius: 100%;
-  -webkit-box-shadow: 0px 0px 0px 3px #fafafa;
-          box-shadow: 0px 0px 0px 3px #fafafa;
 }
 
 .post-card__icon--first {
   position: relative;
   margin-left: -10px;
+  -webkit-box-shadow: 0px 0px 0px 3px #fafafa;
+          box-shadow: 0px 0px 0px 3px #fafafa;
 }
 
 .post-card__icon--second {
   position: relative;
   margin-left: -10px;
+  -webkit-box-shadow: 0px 0px 0px 3px #fafafa;
+          box-shadow: 0px 0px 0px 3px #fafafa;
 }
 
 .post-card__label {
@@ -268,6 +283,12 @@ button {
   margin-left: 10px;
   font-weight: 600;
   color: #a1a1b1;
+}
+
+.post-card__tooltip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .about-me {
@@ -555,7 +576,7 @@ button {
 
 .reviews__title {
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 75px;
 }
 
 .reviews__cards {
@@ -664,6 +685,118 @@ button {
   font-weight: 600;
   border-radius: 30px;
   height: 30px;
+}
+
+.tag {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tag__icon {
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  background: #a1a1b1;
+}
+
+.tag__icon:not(:first-child) {
+  margin-left: -8px;
+  -webkit-box-shadow: 0px 0px 0px 3px #fafafa;
+          box-shadow: 0px 0px 0px 3px #fafafa;
+}
+
+.tag__name {
+  margin-left: 10px;
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: 600;
+  color: #a1a1b1;
+}
+
+.tag__checkbox {
+  visibility: hidden;
+  position: absolute;
+}
+
+.tag__checkbox:checked + .tag__checkbox-label .tag__icon--checkbox {
+  -webkit-box-shadow: inset 0px 0px 0px 17.5px #6666ff;
+          box-shadow: inset 0px 0px 0px 17.5px #6666ff;
+}
+
+.tag__checkbox:checked + .tag__checkbox-label .tag__name--checkbox {
+  color: #6666ff;
+}
+
+.tag__checkbox-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tag__checkbox-label:hover {
+  cursor: pointer;
+}
+
+.tag__checkbox-label:hover .tag__icon--checkbox {
+  -webkit-box-shadow: inset 0px 0px 0px 4px #848499;
+          box-shadow: inset 0px 0px 0px 4px #848499;
+}
+
+.tag__checkbox-label:hover .tag__name--checkbox {
+  color: #848499;
+}
+
+.tag__checkbox-label:active {
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+
+.tag__icon--checkbox {
+  background: #fff;
+  -webkit-box-shadow: inset 0px 0px 0px 3.5px #a1a1b1;
+          box-shadow: inset 0px 0px 0px 3.5px #a1a1b1;
+  -webkit-transition: -webkit-box-shadow .3s ease-in-out;
+  transition: -webkit-box-shadow .3s ease-in-out;
+  transition: box-shadow .3s ease-in-out;
+  transition: box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+}
+
+.tag__name--checkbox {
+  -webkit-transition: color .3s ease-in-out;
+  transition: color .3s ease-in-out;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tooltip {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  position: relative;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip__arrow {
+  top: 0;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid rgba(0, 0, 0, 0.9);
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  position: absolute;
 }
 
 .footer {

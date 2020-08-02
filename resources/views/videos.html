@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>videos</title>
+  <!-- custom css -->
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/videos.css">
+  <!-- google services -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/6b69b7366d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <main>
+  
+    <section class="filter container">
+      <div class="filter__body">
+        <div class="filter__tags">
+
+          <div class="tag">
+            <input class="tag__checkbox" type="checkbox" id="tag__checkbox">
+            <label class="tag__checkbox-label" for="tag__checkbox">
+              <div class="tag__icon tag__icon--checkbox"></div>
+              <span class="tag__name tag__name--checkbox">tag name</span>
+            </label>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <div class="tooltip">
+      <div class="tooltip__arrow"></div>
+      <div class="tag">
+        <div class="tag__icon"></div>
+        <span class="tag__name">tag name</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/resources/js/main.js"></script>
+
+</body>
