@@ -5,6 +5,10 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
 
+  button {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   @include custom-devices(1500px) {
     font-size: 9px;
   }
@@ -34,6 +38,12 @@ body {
   color: $text-main;
   font-weight: $bold;
   font-size: 6.5em;
+}
+
+.heading-second {
+  color: $text-main;
+  font-weight: $bold;
+  font-size: 4em;
 }
 
 .heading-third {
@@ -138,6 +148,6 @@ body {
 
 // sections for all pages
 
-@import "section/navbar";
-@import "section/navbar-mobile";
-@import "section/footer";
+@import "sections/navbar";
+@import "sections/navbar-mobile";
+@import "sections/footer";

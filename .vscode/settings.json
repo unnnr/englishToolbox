@@ -13,5 +13,6 @@
         "extensionName": ".min.css",
         "savePath": "/public/css/min/"
     }
+    
   ]
 }

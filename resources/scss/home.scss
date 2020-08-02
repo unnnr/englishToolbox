@@ -4,7 +4,8 @@
 @import "sections/post-card";
 @import "sections/about-me";
 @import "sections/reviews";
-
+@import "components/tags";
+@import "components/tooltips";
 
 .footer {
   background: $bg-third;
