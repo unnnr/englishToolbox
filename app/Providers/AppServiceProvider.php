@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\SchemaService;
+use App\Services\AudioService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        SchemaService::class => SchemaService::class
+        SchemaService::class => SchemaService::class,
+        AudioService::class => AudioService::class
     ];
 }
