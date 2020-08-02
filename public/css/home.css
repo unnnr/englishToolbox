@@ -3,8 +3,7 @@
   padding: 0;
   border: 0;
   outline: none;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   text-decoration: none;
 }
 
@@ -43,8 +42,6 @@ button {
 }
 
 .posts__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -56,9 +53,12 @@ button {
 }
 
 .post-card {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
+<<<<<<< HEAD
+  flex-direction: column;
+  flex-basis: 25%;
+  width: 100%;
+=======
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -83,7 +83,11 @@ button {
 
 .post-card--rectangle .post-card__image {
   padding-bottom: 56.25%;
+<<<<<<< HEAD
   border: 5px solid white;
+=======
+>>>>>>> 3bbb551163e72af0e6c86144356ae7ee8a089835
+>>>>>>> 43aec4f90a6ba4294919e08b2b750572b82d658e
 }
 
 .post-card__image {
@@ -92,37 +96,23 @@ button {
   padding-bottom: 100%;
   width: 100%;
   border-radius: 15px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  justify-content: center;
   display: flex;
   margin-bottom: 30px;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 .post-card__header {
   position: absolute;
   padding: 10px;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .post-card__favorite-button {
-  -webkit-transition: -webkit-transform .1s ease-in-out;
-  transition: -webkit-transform .1s ease-in-out;
-  transition: transform .1s ease-in-out;
-  transition: transform .1s ease-in-out, -webkit-transform .1s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 }
 
 .post-card__favorite-button:hover {
@@ -130,8 +120,7 @@ button {
 }
 
 .post-card__favorite-button:active {
-  -webkit-transform: scale(0.96);
-          transform: scale(0.96);
+  transform: scale(0.96);
 }
 
 .post-card__favorite-icon {
@@ -149,13 +138,15 @@ button {
 .post-card__views {
   background: #fff;
   border-radius: 50px;
+<<<<<<< HEAD
+  padding: 4px 10px;
+=======
   padding: 6px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
+>>>>>>> 3bbb551163e72af0e6c86144356ae7ee8a089835
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -176,23 +167,15 @@ button {
 .post-card__title {
   position: absolute;
   bottom: 0;
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  transform: translateY(50%);
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   border-radius: 50px;
   height: 60px;
   width: 90%;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 .post-card__text {
@@ -205,13 +188,15 @@ button {
   color: #a1a1b1;
   background: #fff;
   border-radius: 50px;
+<<<<<<< HEAD
+  padding: 4px 10px;
+=======
   padding: 6px 20px;
   display: -webkit-box;
   display: -ms-flexbox;
+>>>>>>> 3bbb551163e72af0e6c86144356ae7ee8a089835
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -305,26 +290,18 @@ button {
 }
 
 .about-me__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {
   .about-me__content {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
 }
 
 .about-me__person {
-  -ms-flex-preferred-size: 33.3%;
-      flex-basis: 33.3%;
+  flex-basis: 33.3%;
   width: 100%;
   position: relative;
   margin-bottom: 37.5px;
@@ -344,36 +321,23 @@ button {
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 125%;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 .about-me__name {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   border-radius: 70px;
   height: 75px;
   width: 90%;
   bottom: 0;
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  transform: translateY(50%);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 @media (max-width: 1200px) {
@@ -383,9 +347,8 @@ button {
 }
 
 .about-me__paragraph {
-  padding: 0px 5.20833vw;
-  -ms-flex-preferred-size: 66.6%;
-      flex-basis: 66.6%;
+  padding: 0px 5.2083333333vw;
+  flex-basis: 66.6%;
 }
 
 @media (max-width: 1500px) {
@@ -409,7 +372,7 @@ button {
 }
 
 .about-me__title {
-  margin-bottom: 2.60417vw;
+  margin-bottom: 2.6041666667vw;
   text-align: center;
 }
 
@@ -426,30 +389,22 @@ button {
 }
 
 .about-me__merits {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-top: 100px;
 }
 
 @media (max-width: 1000px) {
   .about-me__merits {
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    align-items: center;
+    flex-direction: column;
     margin-top: 50px;
   }
 }
 
 .about-me__card {
-  -ms-flex-preferred-size: 33.3%;
-      flex-basis: 33.3%;
+  flex-basis: 33.3%;
   width: 100%;
-  padding: 0 1.30208vw;
+  padding: 0 1.3020833333vw;
 }
 
 @media (max-width: 1000px) {
@@ -472,7 +427,7 @@ button {
 }
 
 .about-me__wrapper {
-  padding: 0 2.60417vw;
+  padding: 0 2.6041666667vw;
 }
 
 @media (max-width: 1500px) {
@@ -483,7 +438,7 @@ button {
 
 @media (max-width: 1400px) {
   .about-me__wrapper {
-    padding: 0 2.14286vw;
+    padding: 0 2.1428571429vw;
   }
 }
 
@@ -498,16 +453,11 @@ button {
   padding-bottom: 75%;
   background: #a1a1b1;
   border-radius: 15px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   position: relative;
   margin-bottom: 27.5px;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 .about-me__picture--first {
@@ -533,24 +483,16 @@ button {
 
 .about-me__merit {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   border-radius: 70px;
   height: 55px;
   width: 90%;
   bottom: 0;
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  transform: translateY(50%);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 @media (max-width: 1000px) {
@@ -580,26 +522,17 @@ button {
 }
 
 .reviews__cards {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .reviews__card {
   background: #fff;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   padding: 75px 30px;
   border-radius: 15px;
-  -ms-flex-preferred-size: 25%;
-      flex-basis: 25%;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex-basis: 25%;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .reviews__card--first,
@@ -617,17 +550,12 @@ button {
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
 }
 
 .reviews__card-person {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   margin-bottom: 35px;
 }
 
@@ -640,27 +568,17 @@ button {
 }
 
 .reviews__card-grade {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 100%;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .reviews__card-stars {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .reviews__card-star {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 30px;
   width: 30px;
@@ -806,3 +724,4 @@ button {
 .copyright {
   background: #ebebeb;
 }
+
