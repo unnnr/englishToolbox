@@ -3,26 +3,18 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\SchemaService;
+use App\Services\AudioService;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * All of the container singletons that should be registered.
      *
-     * @return void
+     * @var array
      */
-    public function register()
-    {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
+    public $singletons = [
+        SchemaService::class => SchemaService::class,
+        AudioService::class => AudioService::class
+    ];
 }

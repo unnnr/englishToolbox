@@ -18,8 +18,11 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('images', 'ImageController@index');
-Route::post('images', 'ImageController@store')->name('images');
+Route::post('audio', 'AudioController@store');
+Route::get('audio', 'AudioController@index')->name('audio');
+
+Route::post('images', 'SchemaController@store');
+Route::get('images', 'SchemaController@index')->name('schemas');
 
 Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');

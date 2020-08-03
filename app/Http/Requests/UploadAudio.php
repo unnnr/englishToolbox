@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadImage extends FormRequest
+class UploadAudio extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class UploadImage extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'image' => 'required|image|max:20480'
+            'description' => 'max:300',  // required
+            'file' => 'required|max:10240|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav'
         ];
     }
 }
