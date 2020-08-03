@@ -28,10 +28,11 @@
   visibility: hidden;
   position: absolute;
 
-  &:checked + .tag__checkbox-label .tag__icon--checkbox {
+  &:checked+.tag__checkbox-label .tag__icon--checkbox {
     box-shadow: inset 0px 0px 0px 17.5px $color-main;
   }
-  &:checked + .tag__checkbox-label .tag__name--checkbox {
+
+  &:checked+.tag__checkbox-label .tag__name--checkbox {
     color: $color-main;
   }
 }
@@ -47,6 +48,7 @@
   &:hover .tag__icon--checkbox {
     box-shadow: inset 0px 0px 0px 4px $text-second;
   }
+
   &:hover .tag__name--checkbox {
     color: $text-second;
   }
@@ -58,12 +60,46 @@
 
 .tag__icon--checkbox {
   background: $bg-fifth;
-  box-shadow: inset 0px 0px 0px 3.5px $text-third;
-  transition: box-shadow .3s ease-in-out;
+  box-shadow: inset 0px 0px 0px 3px $text-third;
+  transition: box-shadow .3s ease-in-out; 
 }
 
 .tag__name--checkbox {
   transition: color .3s ease-in-out;
   font-size: 18px;
-  font-weight: $medium;
+  font-weight: $semibold;
+}
+
+.tag__tooltip {
+  opacity: 0;
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+  visibility: hidden;
+}
+
+.tag__icon {
+  transition: height .1s ease-in-out, width .1s ease-in-out;
+
+  &:not(:nth-last-child(2)):hover {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+  }
+
+  &:not(:nth-last-child(2)):hover .tag__tooltip {
+    opacity: 1;
+    bottom: -5px;
+    visibility: visible;
+  }
+
+  &:nth-child(1):hover .tag__tooltip {
+    left: -5px;
+  }
+
+  
+  &:nth-child(2):hover .tag__tooltip {
+    left: 5px;
+  }
 }

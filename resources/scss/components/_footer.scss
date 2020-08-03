@@ -1,3 +1,9 @@
+.basement {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
 .footer {
   display: flex;
   background: $bg-second;
@@ -18,7 +24,7 @@
   margin-right: 150px;
 
   @include xl-devices {
-    margin-right: vw(150,1400);
+    margin-right: vw(150, 1400);
   }
 
   @include lg-devices {
@@ -42,8 +48,8 @@
 }
 
 .footer__inner {
- display: flex;
- flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 
   @include xs-devices {
     flex-direction: column;
@@ -68,14 +74,15 @@
   display: flex;
   margin-bottom: 20px;
   align-items: center;
-  
+
   &:hover {
     cursor: pointer;
   }
 
-  &:hover .footer__icon{
+  &:hover .footer__icon {
     color: $text-main;
   }
+
   &:hover .footer__text {
     color: $text-main;
   }
@@ -116,7 +123,8 @@
   }
 }
 
-.footer__element--last, .footer__link--last {
+.footer__element--last,
+.footer__link--last {
   margin-bottom: 0;
 
   @include xs-devices {
@@ -135,7 +143,7 @@
   font-size: 18px;
   font-weight: $medium;
   color: $text-third;
- 
+
   @include lg-devices {
     font-size: 16px;
   }

@@ -27,7 +27,7 @@
 </section>
 
 <section class="posts container">
-  <div class="posts__content">
+  <div class="pool">
     <div class="post-card post-card--square">
       <div class="post-card__image">
         <div class="post-card__header">
@@ -44,9 +44,9 @@
       <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
         odtempor incididunt morbi leo.</div>
       <div class="post-card__footer">
-        <div class="tag post-card__tag">
-          <div class="tag__icon post-card__tag-icon">
-            <div class="tooltip post-card__tooltip">
+        <div class="tag">
+          <div class="tag__icon">
+            <div class="tooltip tag__tooltip">
               <div class="tooltip__arrow"></div>
               <div class="tag">
                 <div class="tag__icon"></div>
@@ -54,8 +54,8 @@
               </div>
             </div>
           </div>
-          <div class="tag__icon post-card__tag-icon">
-            <div class="tooltip post-card__tooltip">
+          <div class="tag__icon">
+            <div class="tooltip tag__tooltip">
               <div class="tooltip__arrow"></div>
               <div class="tag">
                 <div class="tag__icon"></div>
@@ -63,7 +63,7 @@
               </div>
             </div>
           </div>
-          <div class="tag__icon post-card__tag-icon"></div>
+          <div class="tag__icon"></div>
           <span class="tag__name">tag name</span>
         </div>
         <span class="post-card__date">July 19 2020</span>

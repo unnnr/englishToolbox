@@ -3,7 +3,8 @@
   padding: 0;
   border: 0;
   outline: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   text-decoration: none;
 }
 
@@ -21,14 +22,27 @@ button {
   background: none;
 }
 
+html,
+body,
+main {
+  height: 100vh;
+}
+
 .auth {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   height: 100%;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-right: 55px;
 }
 
@@ -36,7 +50,9 @@ button {
   .auth {
     margin-right: 40px;
     width: 100%;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
 
@@ -54,8 +70,12 @@ button {
 .auth__input-group {
   position: relative;
   margin-bottom: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -128,7 +148,8 @@ button {
 .auth__input-error {
   position: absolute;
   bottom: -12.5px;
-  transform: translateY(50%);
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
   margin-left: 15px;
   font-size: 12px;
   color: #ff6688;
@@ -150,9 +171,13 @@ button {
 }
 
 .form__poster {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 @media (max-width: 1400px) {
@@ -162,11 +187,13 @@ button {
 }
 
 .form__poster--login-in {
-  justify-content: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .form__img {
-  width: 37.7604166667vw;
+  width: 37.76042vw;
 }
 
 .login-with {
@@ -185,36 +212,54 @@ button {
 }
 
 .login-with__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 25px 0px;
 }
 
 @media (max-width: 576px) {
   .login-with__buttons {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 
 .login-with__button {
   background: #fff;
   border-radius: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 90px;
   width: 100%;
-  box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-  transition: box-shadow 0.2s;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  -webkit-transition: -webkit-box-shadow .2s;
+  transition: -webkit-box-shadow .2s;
+  transition: box-shadow .2s;
+  transition: box-shadow .2s, -webkit-box-shadow .2s;
 }
 
 .login-with__button:hover {
   cursor: pointer;
-  box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.15);
+  -webkit-box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.15);
+          box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.15);
 }
 
 .login-with__button:active {
-  transform: scale(0.99);
-  box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
+  -webkit-transform: scale(0.99);
+          transform: scale(0.99);
+  -webkit-box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
+          box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
 }
 
 @media (max-width: 576px) {
@@ -255,7 +300,8 @@ button {
 
 .login-with__icon {
   font-size: 45px;
-  transition: font-size 0.2s;
+  -webkit-transition: font-size .2s;
+  transition: font-size .2s;
 }
 
 @media (max-width: 576px) {
@@ -278,10 +324,13 @@ button {
 
 .login-with__link {
   color: #6666ff;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   text-align: center;
   display: block;
-  transition: color 0.2s;
+  -webkit-transition: color .2s;
+  transition: color .2s;
 }
 
 @media (max-width: 576px) {
@@ -295,8 +344,13 @@ button {
 }
 
 .login-in {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row-reverse;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
   padding-top: 100px;
   padding-bottom: 100px;
 }
@@ -310,4 +364,3 @@ button {
 .auth {
   margin-right: 0px;
 }
-

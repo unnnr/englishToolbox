@@ -4,9 +4,23 @@ body {
   background: #fafafa;
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
+  overflow-x: hidden;
+
+  textarea,input {
+    font-family: 'Montserrat', sans-serif;
+  }
 
   button {
     font-family: 'Montserrat', sans-serif;
+    transition: transform .1s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
   }
 
   @include custom-devices(1500px) {
@@ -64,6 +78,12 @@ body {
   font-size: 25px;
 }
 
+.heading-sixth {
+  color: $text-main;
+  font-weight: $semibold;
+  font-size: 2em;
+}
+
 // text
 
 .text-first {
@@ -117,6 +137,20 @@ body {
   }
 }
 
+.input-second {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid $text-fifth;
+  font-size: 14px;
+  color: $text-main;
+  padding: 5px 15px;
+
+  &::placeholder {
+    font-weight: $medium;
+    color: $text-third;
+  }
+}
+
 // buttons 
 
 .button-main {
@@ -135,7 +169,6 @@ body {
   }
 
   &:active {
-    transform: scale(0.99);
     background: $color-main--hover;
     box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
   }
@@ -146,8 +179,41 @@ body {
   }
 }
 
+.button-second {
+  min-height: 40px;
+  background: $color-main;
+  color: $text-fourth;
+  font-weight: $medium;
+  box-shadow: $shadow-second;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: background .2s, transform .1s ease-in-out, box-shadow .1s ease-in-out;
+
+  &:hover {
+    background: $color-main--hover;
+    box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+
+  &:active {
+    background: $color-main--hover;
+    box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+}
+
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
 // sections for all pages
 
-@import "sections/navbar";
-@import "sections/navbar-mobile";
-@import "sections/footer";
+@import "components/navbar";
+@import "components/footer";
+
+// temporary
+
+.space {
+  height: 500px;
+  width: 100%;
+}

@@ -26,7 +26,7 @@
     @include('sections.basement')
   </main>
 
-  <script src="/resources/js/main.js"></script>
+  <script src="{{ asset("js/main.js") }}"></script>
   @yield('js')
 
 </body>

@@ -23,11 +23,11 @@ let getFiles = function (dir) {
     });
 };
 
-getFiles('resources/scss').forEach(function (SASSpath) {
-    if(SASSpath.charAt(0) !== '_'){  // Do not mix which files start with '_' (underscore) 
-        mix.sass('resources/scss/' + SASSpath, 'public/css');
-    }
-});
+// getFiles('resources/scss').forEach(function (SASSpath) {
+//     if(SASSpath.charAt(0) !== '_'){  // Do not mix which files start with '_' (underscore) 
+//         mix.sass('resources/scss/' + SASSpath, 'public/css');
+//     }
+// });
 
 mix.browserSync({
     proxy: 'englishToolbox:80',

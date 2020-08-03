@@ -23,3 +23,7 @@ Route::post('images', 'ImageController@store')->name('images');
 
 Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/videos', function () {
+    return view('content/videos');
+});
