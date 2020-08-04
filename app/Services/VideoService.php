@@ -11,6 +11,7 @@ class VideoService
     {
         return Video::create([
             'title' => 'video №' . Video::count(),
+            'description' => $request->input('description'),
             'url' => $request->input('url')
         ]);
     }
@@ -22,7 +23,7 @@ class VideoService
 
     public function all()
     {
-
+        return Video::all();
     }
 
     public function update()

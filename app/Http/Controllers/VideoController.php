@@ -8,9 +8,11 @@ use App\Http\Requests\UploadVideo;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function index(VideoService $videoService)
     {
-        return view('content.videos');
+        return view('content.videos', [
+            'videos' => $videoService->all()
+        ]);
     }
 
     public function create(UploadVideo $request, VideoService $videoService)

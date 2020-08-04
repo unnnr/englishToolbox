@@ -85,47 +85,48 @@
 
   <section class="pool container">
 
-    <div class="post-card post-card--rectangle">
-      <div class="post-card__image">
-        <div class="post-card__header">
-          <button class="post-card__favorite-button">
-            <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
-          </button>
-          <div class="post-card__views">
-            <span class="post-card__views-icon material-icons-round">visibility</span>
-            <span class="post-card__views-count">1337</span>
-          </div>
-        </div>
-        <div class="post-card__title heading-fifth">Post card title</div>
-      </div>
-      <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
-        odtempor incididunt morbi leo.</div>
-      <div class="post-card__footer">
-        <div class="tag">
-          <div class="tag__icon">
-            <div class="tooltip tag__tooltip">
-              <div class="tooltip__arrow"></div>
-              <div class="tag">
-                <div class="tag__icon"></div>
-                <span class="tag__name">tag name</span>
-              </div>
+    @foreach ($videos as $video)   
+      <div class="post-card post-card--rectangle">
+        <div class="post-card__image">
+          <div class="post-card__header">
+            <button class="post-card__favorite-button">
+              <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+            </button>
+            <div class="post-card__views">
+              <span class="post-card__views-icon material-icons-round">visibility</span>
+              <span class="post-card__views-count">1337</span>
             </div>
           </div>
-          <div class="tag__icon">
-            <div class="tooltip tag__tooltip">
-              <div class="tooltip__arrow"></div>
-              <div class="tag">
-                <div class="tag__icon"></div>
-                <span class="tag__name">tag name</span>
+          <div class="post-card__title heading-fifth">{{{ $video->title }}}</div>
+        </div>
+        <div class="post-card__text text-third">{{{ $video->description }}}</div>
+        <div class="post-card__footer">
+          <div class="tag">
+            <div class="tag__icon">
+              <div class="tooltip tag__tooltip">
+                <div class="tooltip__arrow"></div>
+                <div class="tag">
+                  <div class="tag__icon"></div>
+                  <span class="tag__name">tag name</span>
+                </div>
               </div>
             </div>
+            <div class="tag__icon">
+              <div class="tooltip tag__tooltip">
+                <div class="tooltip__arrow"></div>
+                <div class="tag">
+                  <div class="tag__icon"></div>
+                  <span class="tag__name">tag name</span>
+                </div>
+              </div>
+            </div>
+            <div class="tag__icon"></div>
+            <span class="tag__name">tag name</span>
           </div>
-          <div class="tag__icon"></div>
-          <span class="tag__name">tag name</span>
+          <span class="post-card__date">July 19 2020</span>
         </div>
-        <span class="post-card__date">July 19 2020</span>
       </div>
-    </div>
+    @endforeach
 
   </section>
 

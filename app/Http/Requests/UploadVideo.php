@@ -25,7 +25,8 @@ class UploadVideo extends FormRequest
     {
         return [
             // 'title' => '',
-            'url' => 'required|url|max:1000' 
+            'url' => 'required|url|unique:videos,url|max:1000',
+            'description' => 'max:300'
         ];
     }
 }
