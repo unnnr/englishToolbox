@@ -19,11 +19,16 @@
 <body>
 
   <main>
-    @include('sections.navbar')
+
+    @php
+      $links = [['about me' => 'home'], 'videos', 'audio', 'games','schemas', 'i recommend']
+    @endphp
+
+    @include('sections.navbar', ['links' => $links])
 
     @yield('content')
 
-    @include('sections.basement')
+    @include('sections.basement',  ['links' =>  $links])
   </main>
 
   <script src="{{ asset("js/main.js") }}"></script>

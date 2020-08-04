@@ -36,16 +36,21 @@
     <div class="footer__wrapper">
       <div class="footer__inner">
         <h5 class="footer__title heading-fifth">links</h5>
-        <div class="footer__segment footer__segment--first">
-          <a href="#" class="footer__link footer__text text-fourth">about me</a>
-          <a href="#" class="footer__link footer__text text-fourth">video</a>
-          <a href="#" class="footer__link footer__link--last footer__text text-fourth">audio</a>
-        </div>
-        <div class="footer__segment">
-          <a href="#" class="footer__link footer__text text-fourth">images</a>
-          <a href="#" class="footer__link footer__text text-fourth">games</a>
-          <a href="#" class="footer__link footer__link--last footer__text text-fourth">i recomend</a>
-        </div>
+
+        @foreach (array_chunk($links, 3) as $section)
+          <div class="footer__segment footer__segment--first">
+
+          @foreach ($section as $link)
+            @if (gettype($link) == 'array')
+              <a href="{{ Route::has(current($link)) ? route(current($link)) : '' }}" class="footer__link footer__text text-fourth">{{ key($link) }}</a>
+            @else
+              <a href="{{ Route::has($link) ? route($link) : '' }}" class="footer__link footer__text text-fourth">{{ $link }}</a>
+            @endif
+          @endforeach 
+            
+            </div>
+        @endforeach
+
       </div>
     </div>
   </footer>

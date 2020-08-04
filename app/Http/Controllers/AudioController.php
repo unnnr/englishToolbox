@@ -10,7 +10,7 @@ class AudioController extends Controller
 {
     public function index()
     {
-        return view('audio');
+        return view('content.audio');
     }
 
     public function store(UploadAudio $request)
