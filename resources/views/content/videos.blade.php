@@ -6,13 +6,17 @@
   <link rel="stylesheet" href="{{ asset("css/videos.css") }}">
 @endsection
 
+@section('js')
+  <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
+@endsection
+
 
 @section('selected')
 
   <section class="selected container">
     <div class="selected__player">
       <div class="selected__rationed">
-        <iframe class="selected__video" src="https://www.youtube.com/embed/5qap5aO4i9A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="selected__video" temp-src="https://www.youtube.com/embed/5qap5aO4i9A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="selected__player-overlay">
           <object class="selected__overlay-image" data="{{ asset("img/svg/player-overlay.svg") }}" type="image/svg+xml"></object>
         </div>
@@ -23,22 +27,21 @@
       </div>
       <div class="selected__comments">
       </div> --}}
-      <div class="selected__editor">
+      <form class="selected__editor" action="{{ route('videos') }}" method="POST">
+        @csrf
         <div class="selected__editor-header">
           <h6 class="selected__editor-title heading-sixth">New video</h6>
         </div>
         <div class="selected__editor-body">
-          <form action="">
-            <label class="selected__editor-label text-fourth">YouTube link</label>
-            <input class="selected__editor-input input-second" type="text">
-            <label class="selected__editor-label text-fourth">Custom description</label>
-            <textarea class="selected__editor-textarea input-second"></textarea>
-          </form>
+          <label class="selected__editor-label text-fourth">YouTube link</label>
+          <input class="selected__editor-input input-second" type="text" name ='url' required>
+          <label class="selected__editor-label text-fourth">Custom description</label>
+          <textarea class="selected__editor-textarea input-second" name='description'></textarea>
         </div>
         <div class="selected__editor-footer">
-          <button class="selected__editor-button button-second">confirm</button>
+          <button class="selected__editor-button button-second" type="submit">confirm</button>
         </div>
-      </div>
+      </form>
     </div>
     <div class="selected__footer">
       <h2 class="selected__title heading-third">Lorem ipsum dolor</h2>
