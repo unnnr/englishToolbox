@@ -1,7 +1,7 @@
 .selected {
   display: flex;
   flex-flow: row wrap;
-  margin: 0 -7.5px 50px;
+  margin: 0 -7.5px 0;
 }
 
 .selected__player {
@@ -30,7 +30,7 @@
 .selected__footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 20px;
   flex-basis: 100%;
   padding: 0 7.5px;
 }
@@ -109,7 +109,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   border-radius: 15px;
   box-shadow: white 0px 0px 0px 1px;
   display: flex;

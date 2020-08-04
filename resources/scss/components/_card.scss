@@ -1,27 +1,50 @@
-.post-card {
+.card {
   display: flex;
   flex-direction: column;
   padding: 0 15px;
 }
 
-.post-card--square {
+.card--square {
   flex-basis: 25%;
 }
 
-.post-card--big-square {
+.card--big-square {
   flex-basis: 33.3%;
 }
 
-.post-card--rectangle {
+.card--add {
   flex-basis: 33.3%;
 
-  .post-card__image {
+  .card__image {
     padding-bottom: 56.25%;
-    border: 5px solid white;
+    background: $bg-fifth;
+
   }
 }
 
-.post-card__image {
+.card--margin {
+  margin-bottom: 75px;
+}
+
+.card__add-icon {
+  color: $color-main !important;
+  font-size: 100px !important;
+  position: absolute;
+  display: flex;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.card--rectangle {
+  flex-basis: 33.3%;
+
+  .card__image {
+    padding-bottom: 56.25%;
+    border: 5px solid $bg-fifth;
+  }
+}
+
+.card__image {
   position: relative;
   background: $text-third;
   padding-bottom: 100%;
@@ -33,7 +56,7 @@
   box-shadow: $shadow-second;
 }
 
-.post-card__header {
+.card__header {
   position: absolute;
   padding: 10px;
   width: 100%;
@@ -42,7 +65,7 @@
   justify-content: space-between;
 }
 
-.post-card__favorite-button {
+.card__favorite-button {
   transition: transform .1s ease-in-out;
 
   &:hover {
@@ -54,7 +77,7 @@
   }
 }
 
-.post-card__favorite-icon {
+.card__favorite-icon {
   font-size: 24px !important;
   color: $text-third;
   background: $bg-fifth;
@@ -62,11 +85,11 @@
   padding: 6px;
 }
 
-.post-card__favorite-icon--active {
+.card__favorite-icon--active {
   color: $color-second !important;
 }
 
-.post-card__views {
+.card__views {
   background: $bg-fifth;
   border-radius: 50px;
   padding: 6px 10px;
@@ -75,19 +98,19 @@
   height: max-content;
 }
 
-.post-card__views-count {
+.card__views-count {
   font-size: 14px;
   font-weight: $semibold;
   color: $text-third;
 }
 
-.post-card__views-icon {
+.card__views-icon {
   margin-right: 5px;
   font-size: 15px !important;
   color: $text-third !important;
 }
 
-.post-card__title {
+.card__title {
   position: absolute;
   bottom: 0;
   transform: translateY(50%);
@@ -101,11 +124,11 @@
   box-shadow: $shadow-second;
 }
 
-.post-card__text {
+.card__text {
   margin-top: 20px;
 }
 
-.post-card__date {
+.card__date {
   font-size: 14px;
   font-weight: $semibold;
   color: $text-third;
@@ -119,7 +142,7 @@
   box-shadow: $shadow-second;
 }
 
-.post-card__footer {
+.card__footer {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;

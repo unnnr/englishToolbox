@@ -203,7 +203,8 @@ body {
 .pool {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  margin: 0 -15px 0;
+  padding-top: 50px;
 }
 
 // sections for all pages

@@ -9,10 +9,32 @@
   width: 25px;
   border-radius: 100%;
   background: $text-third;
+  transition: height .1s ease-in-out, width .1s ease-in-out;
 
   &:not(:first-child) {
     margin-left: -8px;
     box-shadow: 0px 0px 0px 3px $bg-main;
+  }
+
+  &:not(:nth-last-child(2)):hover {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+  }
+
+  &:not(:nth-last-child(2)):hover .tag__tooltip {
+    opacity: 1;
+    bottom: -5px;
+    visibility: visible;
+  }
+
+  &:nth-child(1):hover .tag__tooltip {
+    left: -5px;
+  }
+
+  
+  &:nth-child(2):hover .tag__tooltip {
+    left: 5px;
   }
 }
 
@@ -77,29 +99,4 @@
   left: 0;
   transform: translateY(100%);
   visibility: hidden;
-}
-
-.tag__icon {
-  transition: height .1s ease-in-out, width .1s ease-in-out;
-
-  &:not(:nth-last-child(2)):hover {
-    cursor: pointer;
-    height: 30px;
-    width: 30px;
-  }
-
-  &:not(:nth-last-child(2)):hover .tag__tooltip {
-    opacity: 1;
-    bottom: -5px;
-    visibility: visible;
-  }
-
-  &:nth-child(1):hover .tag__tooltip {
-    left: -5px;
-  }
-
-  
-  &:nth-child(2):hover .tag__tooltip {
-    left: 5px;
-  }
 }

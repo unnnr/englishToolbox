@@ -12,38 +12,25 @@
   <div class="banner__carousel"></div>
 </section>
 
-<section class="updates posts container">
+<section class="updates container">
   <h3 class="posts__title heading-third">Latest updates</h3>
-  <div class="posts__content">
-
-  </div>
-</section>
-
-<section class="popular posts container">
-  <h3 class="posts__title heading-third">The most popular </h3>
-  <div class="posts__content">
-
-  </div>
-</section>
-
-<section class="posts container">
   <div class="pool">
-    <div class="post-card post-card--square">
-      <div class="post-card__image">
-        <div class="post-card__header">
-          <button class="post-card__favorite-button">
-            <span class="post-card__favorite-icon post-card__favorite-icon--active material-icons-round">favorite</span>
+
+    <div class="card card--square">
+      <div class="card__image">
+        <div class="card__header">
+          <button class="card__favorite-button">
+            <span class="card__favorite-icon material-icons-round">favorite</span>
           </button>
-          <div class="post-card__views">
-            <span class="post-card__views-icon material-icons-round">visibility</span>
-            <span class="post-card__views-count">1337</span>
+          <div class="card__views">
+            <span class="card__views-icon material-icons-round">visibility</span>
+            <span class="card__views-count">1337</span>
           </div>
         </div>
-        <div class="post-card__title heading-fifth">Post card title</div>
+        <div class="card__title heading-fifth"></div>
       </div>
-      <div class="post-card__text text-third">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusm
-        odtempor incididunt morbi leo.</div>
-      <div class="post-card__footer">
+      <div class="card__text text-third"></div>
+      <div class="card__footer">
         <div class="tag">
           <div class="tag__icon">
             <div class="tooltip tag__tooltip">
@@ -66,9 +53,58 @@
           <div class="tag__icon"></div>
           <span class="tag__name">tag name</span>
         </div>
-        <span class="post-card__date">July 19 2020</span>
+        <span class="card__date">July 19 2020</span>
       </div>
     </div>
+
+  </div>
+</section>
+
+<section class="popular container">
+  <h3 class="posts__title heading-third">The most popular </h3>
+  <div class="pool">
+
+    <div class="card card--big-square">
+      <div class="card__image">
+        <div class="card__header">
+          <button class="card__favorite-button">
+            <span class="card__favorite-icon material-icons-round">favorite</span>
+          </button>
+          <div class="card__views">
+            <span class="card__views-icon material-icons-round">visibility</span>
+            <span class="card__views-count">1337</span>
+          </div>
+        </div>
+        <div class="card__title heading-fifth"></div>
+      </div>
+      <div class="card__text text-third"></div>
+      <div class="card__footer">
+        <div class="tag">
+          <div class="tag__icon">
+            <div class="tooltip tag__tooltip">
+              <div class="tooltip__arrow"></div>
+              <div class="tag">
+                <div class="tag__icon"></div>
+                <span class="tag__name">tag name</span>
+              </div>
+            </div>
+          </div>
+          <div class="tag__icon">
+            <div class="tooltip tag__tooltip">
+              <div class="tooltip__arrow"></div>
+              <div class="tag">
+                <div class="tag__icon"></div>
+                <span class="tag__name">tag name</span>
+              </div>
+            </div>
+          </div>
+          <div class="tag__icon"></div>
+          <span class="tag__name">tag name</span>
+        </div>
+        <span class="card__date">July 19 2020</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
