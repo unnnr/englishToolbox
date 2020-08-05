@@ -28,32 +28,15 @@ main {
   height: 100vh;
 }
 
+body,
+textarea,
+input,
+button {
+  font-family: 'Montserrat', sans-serif;
+}
+
 body {
-  background: #fafafa;
-  font-family: 'Montserrat', sans-serif;
   font-size: 10px;
-  overflow-x: hidden;
-}
-
-body textarea, body input {
-  font-family: 'Montserrat', sans-serif;
-}
-
-body button {
-  font-family: 'Montserrat', sans-serif;
-  -webkit-transition: -webkit-transform .1s ease-in-out;
-  transition: -webkit-transform .1s ease-in-out;
-  transition: transform .1s ease-in-out;
-  transition: transform .1s ease-in-out, -webkit-transform .1s ease-in-out;
-}
-
-body button:hover {
-  cursor: pointer;
-}
-
-body button:active {
-  -webkit-transform: scale(0.98);
-          transform: scale(0.98);
 }
 
 @media (max-width: 1500px) {
@@ -77,6 +60,54 @@ body button:active {
 @media (max-width: 770px) {
   body {
     font-size: 6px;
+  }
+}
+
+main {
+  background: #fafafa;
+  overflow-x: hidden;
+}
+
+.pool {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 0 -15px;
+  padding-top: 50px;
+}
+
+.pool .card {
+  -ms-flex-preferred-size: 33.3%;
+      flex-basis: 33.3%;
+}
+
+@media (max-width: 1400px) {
+  .pool .card {
+    -ms-flex-preferred-size: 50%;
+        flex-basis: 50%;
+    padding: 0 7.5px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .pool .card {
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 1400px) {
+  .pool {
+    margin: 0 -7.5px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .pool {
+    margin: 0;
   }
 }
 
@@ -142,13 +173,13 @@ body button:active {
 .heading-fourth {
   color: #2f2e44;
   font-weight: 600;
-  font-size: 3.0em;
+  font-size: 3em;
 }
 
 .heading-fifth {
   color: #2f2e44;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 2.5em;
 }
 
 .heading-sixth {
@@ -179,7 +210,19 @@ body button:active {
 .text-fourth {
   color: #848499;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.8em;
+}
+
+.text-fifth {
+  color: #848499;
+  font-weight: 500;
+  font-size: 1.6em;
+}
+
+.text-sixth {
+  color: #848499;
+  font-weight: 500;
+  font-size: 1.4em;
 }
 
 .input-main {
@@ -257,6 +300,22 @@ body button:active {
   color: #a1a1b1;
 }
 
+button {
+  -webkit-transition: -webkit-transform .1s ease-in-out;
+  transition: -webkit-transform .1s ease-in-out;
+  transition: transform .1s ease-in-out;
+  transition: transform .1s ease-in-out, -webkit-transform .1s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+
 .button-main {
   min-height: 60px;
   background: #6666ff;
@@ -316,16 +375,6 @@ body button:active {
   background: #5353FF;
   -webkit-box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
           box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
-}
-
-.pool {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin: 0 -15px 0;
-  padding-top: 50px;
 }
 
 .navbar-desktop {
@@ -876,6 +925,6 @@ body button:active {
 }
 
 .space {
-  height: 500px;
+  min-height: 1000px;
   width: 100%;
 }

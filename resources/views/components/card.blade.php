@@ -35,6 +35,6 @@
       <div class="tag__icon"></div>
       <span class="tag__name">tag name</span>
     </div>
-    <span class="card__date">July 19 2020</span>
+    <time class="card__date">July 19 2020</time>
   </div>
 </div>

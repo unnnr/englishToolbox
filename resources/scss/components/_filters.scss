@@ -9,21 +9,33 @@
   box-shadow: $shadow-second;
   display: flex;
   justify-content: space-between;
-  padding: 0 30px;
-  position: relative;
+  padding: 0 30px 0 15px;
 }
 
-.filter__tags {
+.filter__sort-button {
   display: flex;
   align-items: center;
-  height: 100%;
+
+  .material-icons-round {
+    font-size: 30px;
+    color: $color-main;
+  }
 }
 
-.filter__tag {
-  margin-right: 50px;
+.filter__search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
 }
 
-.filter__button {
+.filter__search-button {
+  position: absolute;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  transition: margin .2s ease-in-out;
 
   .material-icons-round {
     font-size: 25px;
@@ -31,36 +43,186 @@
   }
 }
 
-.filter__sort-dropdown {
-  position: absolute !important;
-  bottom: 10px;
-  right: 10px;
-  height: max-content;
-  transform: translateY(100%);
-  padding: 15px 30px !important;
-
-  .dropdown__arrow {
-    right: 28px;
-  }
+.filter__search-button--active {
+  margin-left: 10px; 
 }
 
-.filter__sort-dropdown-button {
-  display: none;
-  font-size: 17px;
-  color: $text-third;
-  display: flex;
-  align-items: flex-start;
+.filter__search-input {
+  height: 35px;
+  background: $bg-main;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  color: $text-main;
+  max-width: 0;
+  overflow: hidden;
+  padding: 5px 0;
+  transition: max-width .3s ease-in-out, padding .3s ease-in-out;
   margin-right: 25px;
 
-  &:not(:last-child){
-    margin-bottom: 15px;
+  &::placeholder {
+    font-weight: $medium;
+    color: $text-third;
   }
 }
 
-.filter__sort-dropdown-button--active {
-  color: $text-fourth;
+.filter__search-input--active {
+  max-width: 400px;
+  width: 100%;
+  padding: 5px 15px 5px 45px;
 }
 
-.filter__tags-dropdown {
-  position: absolute !important;
+
+// sidebar 
+
+.sidebar {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
 }
+
+.sidebar__body {
+  padding: 25px 0;
+  max-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 100vh;
+  background: $bg-fifth;
+  transition: max-width .3s ease-in-out;
+}
+
+.sidebar__body--active {
+  max-width: 350px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-main;
+    border-radius: 20px;
+    margin: 15px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $text-fifth;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-third;
+  }
+}
+
+.sidebar__header {
+  margin : 0 75px 40px 50px;
+}
+
+.sidebar__close-button {
+  span {
+    font-size: 35px;
+  }
+}
+
+.sidebar__title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebar__sort {
+  display: flex;
+  flex-direction: column;
+  margin : 0 75px 40px 50px;
+}
+
+.sidebar__sort-button {
+  width: max-content;
+  font-size: 20px;
+  font-weight: $semibold;
+  color: $text-second;
+  
+  &:not(:last-child){
+    margin-bottom: 20px;
+  }
+}
+
+.sidebar__sort-button--active {
+  color: $text-main;
+}
+
+
+.sidebar__tag {
+  &:not(:last-child){
+    margin-bottom: 20px;
+  }
+}
+
+
+.sidebar__tag-list {
+  margin : 0 75px 40px 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .filter__sort-dropdown {
+//   position: absolute !important;
+//   bottom: 10px;
+//   right: 10px;
+//   height: max-content;
+//   transform: translateY(100%);
+//   padding: 15px 30px !important;
+
+//   .dropdown__arrow {
+//     right: 28px;
+//   }
+// }
+
+// .filter__sort-dropdown-button {
+//   display: none;
+//   font-size: 17px;
+//   color: $text-third;
+//   display: flex;
+//   align-items: flex-start;
+//   margin-right: 25px;
+
+//   &:not(:last-child){
+//     margin-bottom: 15px;
+//   }
+// }
+
+// .filter__sort-dropdown-button--active {
+//   color: $text-fourth;
+// }
+
+// .filter__tags-dropdown {
+//   position: absolute !important;
+// }

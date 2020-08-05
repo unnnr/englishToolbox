@@ -1,172 +1,67 @@
+@import "player";
+@import "description";
+@import "comments";
+
 .selected {
   display: flex;
   flex-flow: row wrap;
   margin: 0 -7.5px 0;
+  margin-bottom: 50px;
 }
 
-.selected__player {
-  position: relative;
-  flex-basis: 70%;
-  padding: 0 7.5px;
-}
+// ========
+// addition 
+// ========
 
-.selected__rationed {
-  background: $bg-fifth;
-  border-radius: 15px;
-  padding-bottom: 56.25%;
-  width: 100%;
-  position: relative;
-  box-shadow: $shadow-second;
-}
-
-.selected__video {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.selected__footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  flex-basis: 100%;
-  padding: 0 7.5px;
-}
-
-.selected__elements {
-  display: flex;
-  align-items: center;
-}
-
-.selected__tag {
-  margin-right: 15px;
-}
-
-.selected__date {
-  font-size: 14px;
-  color: $text-third;
-  font-weight: $semibold;
-  background: $bg-fifth;
-  box-shadow: $shadow-second;
-  border-radius: 30px;
-  padding: 8px 20px;
-  height: max-content;
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.selected__views {
-  display: flex;
-  height: max-content;
-  align-items: center;
-  padding: 8px 20px;
-  background: $bg-fifth;
-  box-shadow: $shadow-second;
-  border-radius: 30px;
-}
-
-.selected__views-icon {
-  font-size: 15px !important;
-  color: $text-third;
-  margin-right: 8px;
-}
-
-.selected__views-count {
-  font-size: 14px;
-  color: $text-third;
-  font-weight: $semibold;
-}
-
-.selected__addition {
+.addition {
   flex-basis: 30%;
   padding: 0 7.5px;
   display: flex;
-  flex-direction: column;
 }
 
-.selected__description {
-  min-height: 55px;
-  border-radius: 15px;
+.addition__body {
+  padding: 25px;
   background: $bg-fifth;
-  margin-bottom: 15px;
-  box-shadow: $shadow-second;
-}
-
-.selected__comments {
-  height: 100%;
   border-radius: 15px;
-  background: $bg-fifth;
-  box-shadow: $shadow-second;
-}
-
-// admin 
-
-.selected__player-overlay {
-  background: $bg-fifth;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1;
-  border-radius: 15px;
-  box-shadow: white 0px 0px 0px 1px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.selected__overlay-image {
-  width: vw(650,1920) !important;
-}
-
-.selected__editor {
+  flex-direction: column;
   flex-grow: 1;
-  background: $bg-fifth;
-  border-radius: 15px;
   box-shadow: $shadow-second;
-  padding: 25px 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
-.selected__editor-header {
+.addition__header {
+  display: flex;
+  padding: 0 0 15px;
   border-bottom: 1px solid $text-fifth;
+  height: max-content;
+  width: 100%;
 }
 
-.selected__editor-title {
-  margin-bottom: 10px;
+.addition__header-button {
+  margin-right: 25px;
+  font-weight: $semibold;
 }
 
-.selected__editor-body {
-  overflow-y: scroll;
-  flex-grow: 1;
-}
-
-.selected__editor-footer {
-  border-top: 1px solid $text-fifth;
-}
-
-.selected__editor-label {
-  margin-top: 15px;
+.addition__header-button--active {
   color: $text-main;
-  display: block;
 }
 
-.selected__editor-input {
-  width: 100%;
-  margin-top: 10px;
+// =============
+// addition tabs
+// =============
+
+.addition__tab {
+  flex-grow: 1;
+  position: relative;
 }
 
-.selected__editor-textarea {
+.addition__tab-content {
+  position: absolute;
   width: 100%;
-  height: 80px;
-  margin-top: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.selected__editor-button {
-  width: 100%;
-  margin-top: 10px;
-}
+
+

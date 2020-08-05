@@ -1,0 +1,105 @@
+
+// ===========
+// description
+// ===========
+
+// =================
+// description__body
+// =================
+
+.description__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding-right: 5px;
+  margin-top: 15px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-main;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $text-fifth;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-third;
+  }
+}
+
+// title and text
+
+.description__title {
+  position: sticky;
+  z-index: 3;
+  padding: 0 0 10px;
+  background: $bg-fifth;
+  top: 0;
+}
+
+.description__text {
+  margin-top: 20px;
+}
+
+// tags 
+
+.description__body-tags {
+  padding: 15px 15px 0;
+  margin: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(102, 102, 255, 0.1);
+  border-radius: 10px;
+}
+
+.description__body-tag {
+  margin-bottom: 15px;
+}
+
+.description__tags-title {
+  margin-bottom: 15px;
+}
+
+// ===================
+// description__footer 
+// ===================
+
+.description__footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.description__date {
+  font-size: 1.6em;
+  font-weight: $semibold;
+  color: $text-third;
+  margin-right: 25px;
+}
+
+// views 
+
+.description__views {
+  display: flex;
+  align-items: center;
+  color: $text-third;
+}
+
+.description__views-icon {
+  font-size: 16px;
+  margin-right: 5px;
+  display: flex;
+  align-self: center;
+}
+
+.description__views-count {
+  font-size: 1.6em;
+  font-weight: $semibold;
+}

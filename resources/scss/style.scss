@@ -1,27 +1,22 @@
 @import "presets/import";
 
-body {
-  background: #fafafa;
+// ==========
+// font style 
+// ==========
+
+body,
+textarea,
+input,
+button {
   font-family: 'Montserrat', sans-serif;
+}
+
+// =========
+// font size 
+// =========
+
+body {
   font-size: 10px;
-  overflow-x: hidden;
-
-  textarea,input {
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  button {
-    font-family: 'Montserrat', sans-serif;
-    transition: transform .1s ease-in-out;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
 
   @include custom-devices(1500px) {
     font-size: 9px;
@@ -40,13 +35,55 @@ body {
   }
 }
 
+// ===================
+// style for all pages 
+// ===================
+
+main {
+  background: #fafafa;
+  overflow-x: hidden;
+}
+
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+  padding-top: 50px;
+
+  .card {
+    flex-basis: 33.3%;
+
+    @include xl-devices {
+      flex-basis: 50%;
+      padding: 0 7.5px;
+    }
+
+    @include md-devices {
+      flex-basis: 100%;
+      padding: 0;
+    }
+  }
+
+  @include xl-devices {
+    margin: 0 -7.5px;
+  }
+
+  @include md-devices {
+    margin: 0;
+  }
+}
+
+// ==========
 // containers 
+// ==========
 
 .container {
   @include container;
 }
 
+// =======
 // heading 
+// =======
 
 .heading-first {
   color: $text-main;
@@ -69,13 +106,13 @@ body {
 .heading-fourth {
   color: $text-main;
   font-weight: $semibold;
-  font-size: 3.0em;
+  font-size: 3em;
 }
 
 .heading-fifth {
   color: $text-main;
   font-weight: $semibold;
-  font-size: 25px;
+  font-size: 2.5em;
 }
 
 .heading-sixth {
@@ -83,8 +120,9 @@ body {
   font-weight: $semibold;
   font-size: 2em;
 }
-
+// ====
 // text
+// ====
 
 .text-first {
   color: $text-second;
@@ -108,10 +146,23 @@ body {
 .text-fourth {
   color: $text-second;
   font-weight: $medium;
-  font-size: 18px;
+  font-size: 1.8em;
 }
 
+.text-fifth {
+  color: $text-second;
+  font-weight: $medium;
+  font-size: 1.6em;
+}
+
+.text-sixth {
+  color: $text-second;
+  font-weight: $medium;
+  font-size: 1.4em;
+}
+// ======
 // inputs 
+// ======
 
 .input-main {
   height: 60px;
@@ -151,7 +202,21 @@ body {
   }
 }
 
+// =======
 // buttons 
+// =======
+
+button {
+  transition: transform .1s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
 
 .button-main {
   min-height: 60px;
@@ -200,21 +265,18 @@ body {
   }
 }
 
-.pool {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -15px 0;
-  padding-top: 50px;
-}
-
+// ======================
 // sections for all pages
+// ======================
 
 @import "components/navbar";
 @import "components/footer";
 
-// temporary
+// ===============
+// temporary style
+// ===============
 
 .space {
-  height: 500px;
+  min-height: 1000px;
   width: 100%;
 }
