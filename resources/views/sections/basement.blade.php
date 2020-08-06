@@ -41,14 +41,10 @@
           <div class="footer__segment footer__segment--first">
 
           @foreach ($section as $link)
-            @if (gettype($link) == 'array')
-              <a href="{{ Route::has(current($link)) ? route(current($link)) : '' }}" class="footer__link footer__text text-fourth">{{ key($link) }}</a>
-            @else
-              <a href="{{ Route::has($link) ? route($link) : '' }}" class="footer__link footer__text text-fourth">{{ $link }}</a>
-            @endif
+            <a href="{{ $link['url'] }}" class="footer__link footer__text text-fourth">{{ $link['label'] }}</a>
           @endforeach 
             
-            </div>
+          </div>
         @endforeach
 
       </div>

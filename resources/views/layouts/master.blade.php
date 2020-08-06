@@ -21,7 +21,7 @@
   <main>
 
     @php
-      $links = [['about me' => 'home'], 'videos', 'audio', 'games','schemas', 'i recommend']
+      $links = parseLinks([['about me' => 'home'], 'videos', 'audio', 'games','schemas', 'i recommend']);
     @endphp
 
     @include('sections.navbar', ['links' => $links])
