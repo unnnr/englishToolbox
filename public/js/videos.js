@@ -113,36 +113,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'tag-list'
+  name: 'tag-list',
+  data: function data() {
+    return {
+      tags: ['nisiQuisEleifend', 'maurisPellentesque', 'tortorCondimentum', 'justoLaoreet', 'nequeLaoreet']
+    };
+  }
 });
 
 /***/ }),
@@ -680,139 +657,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "editor__tags" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._l(_vm.tags, function(tag, index) {
+        return _c(
+          "div",
+          { key: index, staticClass: "tag tag--main editor__tag" },
+          [
+            _c("input", {
+              staticClass: "tag__checkbox",
+              attrs: { type: "checkbox", id: "tag__checkbox_1" }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "tag__checkbox-label",
+                attrs: { for: "tag__checkbox_1" }
+              },
+              [
+                _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+                  _vm._v(_vm._s(tag))
+                ])
+              ]
+            )
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "space" })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "editor__tags" }, [
-      _c("h4", { staticClass: "editor__label text-fourth" }, [
-        _vm._v("Add tags"),
-        _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
-      ]),
+    return _c("h4", { staticClass: "editor__label text-fourth" }, [
+      _vm._v("Add tags"),
+      _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tag tag--new editor__tag" }, [
+      _c("label", { staticClass: "tag__icon", attrs: { for: "tag_new" } }),
       _vm._v(" "),
-      _c("div", { staticClass: "tag tag--new editor__tag" }, [
-        _c("label", { staticClass: "tag__icon", attrs: { for: "tag_new" } }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "tag__input",
-          attrs: { type: "text", placeholder: "add new tag", id: "tag_new" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tag tag--main editor__tag" }, [
-        _c("input", {
-          staticClass: "tag__checkbox",
-          attrs: { type: "checkbox", id: "tag__checkbox_1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "tag__checkbox-label",
-            attrs: { for: "tag__checkbox_1" }
-          },
-          [
-            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-              _vm._v("nisiQuisEleifend")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tag editor__tag" }, [
-        _c("input", {
-          staticClass: "tag__checkbox",
-          attrs: { type: "checkbox", id: "tag__checkbox_2" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "tag__checkbox-label",
-            attrs: { for: "tag__checkbox_2" }
-          },
-          [
-            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-              _vm._v("maurisPellentesque")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tag editor__tag" }, [
-        _c("input", {
-          staticClass: "tag__checkbox",
-          attrs: { type: "checkbox", id: "tag__checkbox_3" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "tag__checkbox-label",
-            attrs: { for: "tag__checkbox_3" }
-          },
-          [
-            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-              _vm._v("tortorCondimentum")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tag editor__tag" }, [
-        _c("input", {
-          staticClass: "tag__checkbox",
-          attrs: { type: "checkbox", id: "tag__checkbox_4" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "tag__checkbox-label",
-            attrs: { for: "tag__checkbox_4" }
-          },
-          [
-            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-              _vm._v("justoLaoreet")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tag editor__tag" }, [
-        _c("input", {
-          staticClass: "tag__checkbox",
-          attrs: { type: "checkbox", id: "tag__checkbox_5" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "tag__checkbox-label",
-            attrs: { for: "tag__checkbox_5" }
-          },
-          [
-            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-              _vm._v("nequeLaoreet")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "space" })
+      _c("input", {
+        staticClass: "tag__input",
+        attrs: { type: "text", placeholder: "add new tag", id: "tag_new" }
+      })
     ])
   }
 ]

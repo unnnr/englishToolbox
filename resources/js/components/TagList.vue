@@ -5,47 +5,31 @@
                 <label class="tag__icon" for="tag_new"></label>
                 <input class="tag__input" type="text" placeholder="add new tag" id="tag_new">
             </div>
-            <div class="tag tag--main editor__tag">
+            <div v-for="(tag, index) of tags" :key="index"  class="tag tag--main editor__tag">
                 <input class="tag__checkbox" type="checkbox" id="tag__checkbox_1">
                 <label class="tag__checkbox-label" for="tag__checkbox_1">
                     <div class="tag__icon tag__icon--checkbox"></div>
-                    <span class="tag__name tag__name--checkbox">nisiQuisEleifend</span>
-                </label>
-            </div>
-            <div class="tag editor__tag">
-                <input class="tag__checkbox" type="checkbox" id="tag__checkbox_2">
-                <label class="tag__checkbox-label" for="tag__checkbox_2">
-                    <div class="tag__icon tag__icon--checkbox"></div>
-                    <span class="tag__name tag__name--checkbox">maurisPellentesque</span>
-                </label>
-            </div>
-            <div class="tag editor__tag">
-                <input class="tag__checkbox" type="checkbox" id="tag__checkbox_3">
-                <label class="tag__checkbox-label" for="tag__checkbox_3">
-                    <div class="tag__icon tag__icon--checkbox"></div>
-                    <span class="tag__name tag__name--checkbox">tortorCondimentum</span>
-                </label>
-            </div>
-            <div class="tag editor__tag">
-                <input class="tag__checkbox" type="checkbox" id="tag__checkbox_4">
-                <label class="tag__checkbox-label" for="tag__checkbox_4">
-                    <div class="tag__icon tag__icon--checkbox"></div>
-                    <span class="tag__name tag__name--checkbox">justoLaoreet</span>
-                </label>
-            </div>
-            <div class="tag editor__tag">
-                <input class="tag__checkbox" type="checkbox" id="tag__checkbox_5">
-                <label class="tag__checkbox-label" for="tag__checkbox_5">
-                    <div class="tag__icon tag__icon--checkbox"></div>
-                    <span class="tag__name tag__name--checkbox">nequeLaoreet</span>
+                    <span class="tag__name tag__name--checkbox">{{ tag }}</span>
                 </label>
             </div>
             <div class="space"></div>
-          </div>
+        </div>
 </template>
 
 <script>
 export default {
-    name: 'tag-list'
+    name: 'tag-list',
+
+    data: function () {
+        return {
+            tags: [
+                'nisiQuisEleifend',
+                'maurisPellentesque',
+                'tortorCondimentum',
+                'justoLaoreet',
+                'nequeLaoreet'
+            ]
+        }
+    }
 }
 </script>
