@@ -10,7 +10,6 @@
   <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
 @endsection
 
-
 @section('selected')
 
  @include('components.videoPlayer')
@@ -19,6 +18,9 @@
     <div class="addition__wrapper">
 
       <div class="addition__body">
+
+        <video-editor></video-editor>
+        {{-- @include('components.videoEditor') --}}
 
         <div class="addition__header">
           <button class="addition__header-button addition__header-button--active text-fourth">Description</button>
@@ -36,9 +38,7 @@
           </div>
 
         </div>
-  
-        @include('components.videoEditor')
-
+     
       </div>
 
     </div>
