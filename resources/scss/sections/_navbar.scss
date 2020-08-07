@@ -129,7 +129,6 @@
 
 .navbar-mobile__button--show {
   position: relative;
-  z-index: 3;
 }
 
 .navbar-mobile__button--hide {
@@ -150,7 +149,7 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 10;
+  z-index: $z-fifth;
   top: 0;
   left: 0;
   background: $bg-fifth;
@@ -248,7 +247,7 @@
 
 .navbar-mobile__overlay {
   position: fixed;
-  z-index: -1;
+  z-index: $z-negative;
   top: 0;
   left: 0;
   opacity: 0;
@@ -259,7 +258,7 @@
 }
 
 .navbar-mobile__overlay--visible {
-  z-index: 1;
+  z-index: $z-fourth;
   opacity: 0.5;
 }
 

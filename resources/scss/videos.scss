@@ -1,6 +1,9 @@
 @import "presets/import";
-@import "components/filters";
+
 @import "components/tags";
 @import "components/tooltips";
-@import "components/selected";
 @import "components/card";
+
+@import "sections/selected";
+@import "sections/filter";
+

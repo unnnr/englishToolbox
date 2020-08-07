@@ -2,9 +2,9 @@
 
 @section('content')
     
-  @include('components.filter')
+  @include('sections.filter')
   
-  @yield('selected')
+  @include('sections.selected')
   
   @yield('pool')
 
