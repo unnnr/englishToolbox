@@ -22,6 +22,8 @@
         <video-editor></video-editor>
         {{-- @include('components.videoEditor') --}}
 
+
+        {{-- HEAR MUST BE WRAPPER --}}
         <div class="addition__header">
           <button class="addition__header-button addition__header-button--active text-fourth">Description</button>
           <button class="addition__header-button text-fourth">Comments</button>
@@ -38,6 +40,8 @@
           </div>
 
         </div>
+        {{-- HEAR MUST BE WRAPPER ENDING--}}
+
      
       </div>
 

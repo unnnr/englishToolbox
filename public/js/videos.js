@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VideoEditor.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VideoEditor.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TagList.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TagList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -141,6 +141,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'tag-list'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VideoEditor.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VideoEditor.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TagList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TagList.vue */ "./resources/js/components/TagList.vue");
 //
 //
 //
@@ -158,10 +174,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      description: 'Custom description',
+      link: 'YouTube link'
+    };
+  },
+  components: {
+    TagList: _TagList_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -635,10 +665,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VideoEditor.vue?vue&type=template&id=519d1ea6&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VideoEditor.vue?vue&type=template&id=519d1ea6& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -657,19 +687,168 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "editor" }, [
-      _c("form", { staticClass: "editor__form" }, [
-        _c("div", { staticClass: "editor__header" }, [
-          _c("h5", { staticClass: "editor__title text-third" }, [
-            _vm._v("New video")
-          ])
-        ]),
+    return _c("div", { staticClass: "editor__tags" }, [
+      _c("h4", { staticClass: "editor__label text-fourth" }, [
+        _vm._v("Add tags"),
+        _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag tag--new editor__tag" }, [
+        _c("label", { staticClass: "tag__icon", attrs: { for: "tag_new" } }),
         _vm._v(" "),
-        _c("div", { staticClass: "editor__body", attrs: { action: "" } }, [
+        _c("input", {
+          staticClass: "tag__input",
+          attrs: { type: "text", placeholder: "add new tag", id: "tag_new" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag tag--main editor__tag" }, [
+        _c("input", {
+          staticClass: "tag__checkbox",
+          attrs: { type: "checkbox", id: "tag__checkbox_1" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "tag__checkbox-label",
+            attrs: { for: "tag__checkbox_1" }
+          },
+          [
+            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+              _vm._v("nisiQuisEleifend")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag editor__tag" }, [
+        _c("input", {
+          staticClass: "tag__checkbox",
+          attrs: { type: "checkbox", id: "tag__checkbox_2" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "tag__checkbox-label",
+            attrs: { for: "tag__checkbox_2" }
+          },
+          [
+            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+              _vm._v("maurisPellentesque")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag editor__tag" }, [
+        _c("input", {
+          staticClass: "tag__checkbox",
+          attrs: { type: "checkbox", id: "tag__checkbox_3" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "tag__checkbox-label",
+            attrs: { for: "tag__checkbox_3" }
+          },
+          [
+            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+              _vm._v("tortorCondimentum")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag editor__tag" }, [
+        _c("input", {
+          staticClass: "tag__checkbox",
+          attrs: { type: "checkbox", id: "tag__checkbox_4" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "tag__checkbox-label",
+            attrs: { for: "tag__checkbox_4" }
+          },
+          [
+            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+              _vm._v("justoLaoreet")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "tag editor__tag" }, [
+        _c("input", {
+          staticClass: "tag__checkbox",
+          attrs: { type: "checkbox", id: "tag__checkbox_5" }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "tag__checkbox-label",
+            attrs: { for: "tag__checkbox_5" }
+          },
+          [
+            _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
+              _vm._v("nequeLaoreet")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "space" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/VideoEditor.vue?vue&type=template&id=519d1ea6&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/VideoEditor.vue?vue&type=template&id=519d1ea6& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "editor" }, [
+    _c("form", { staticClass: "editor__form" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "editor__body", attrs: { action: "" } },
+        [
           _c(
             "label",
             { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-            [_vm._v("YouTube link")]
+            [_vm._v("\n                " + _vm._s(_vm.link) + "\n            ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -681,7 +860,7 @@ var staticRenderFns = [
             "label",
             { staticClass: "editor__label text-fourth", attrs: { for: "" } },
             [
-              _vm._v("Custom description"),
+              _vm._v("\n                " + _vm._s(_vm.description)),
               _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
             ]
           ),
@@ -691,147 +870,33 @@ var staticRenderFns = [
             attrs: { placeholder: "place for your description" }
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "editor__tags" }, [
-            _c("h4", { staticClass: "editor__label text-fourth" }, [
-              _vm._v("Add tags"),
-              _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag tag--new editor__tag" }, [
-              _c("label", {
-                staticClass: "tag__icon",
-                attrs: { for: "tag_new" }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "tag__input",
-                attrs: {
-                  type: "text",
-                  placeholder: "add new tag",
-                  id: "tag_new"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag tag--main editor__tag" }, [
-              _c("input", {
-                staticClass: "tag__checkbox",
-                attrs: { type: "checkbox", id: "tag__checkbox_1" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "tag__checkbox-label",
-                  attrs: { for: "tag__checkbox_1" }
-                },
-                [
-                  _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                    _vm._v("nisiQuisEleifend")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag editor__tag" }, [
-              _c("input", {
-                staticClass: "tag__checkbox",
-                attrs: { type: "checkbox", id: "tag__checkbox_2" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "tag__checkbox-label",
-                  attrs: { for: "tag__checkbox_2" }
-                },
-                [
-                  _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                    _vm._v("maurisPellentesque")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag editor__tag" }, [
-              _c("input", {
-                staticClass: "tag__checkbox",
-                attrs: { type: "checkbox", id: "tag__checkbox_3" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "tag__checkbox-label",
-                  attrs: { for: "tag__checkbox_3" }
-                },
-                [
-                  _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                    _vm._v("tortorCondimentum")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag editor__tag" }, [
-              _c("input", {
-                staticClass: "tag__checkbox",
-                attrs: { type: "checkbox", id: "tag__checkbox_4" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "tag__checkbox-label",
-                  attrs: { for: "tag__checkbox_4" }
-                },
-                [
-                  _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                    _vm._v("justoLaoreet")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag editor__tag" }, [
-              _c("input", {
-                staticClass: "tag__checkbox",
-                attrs: { type: "checkbox", id: "tag__checkbox_5" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "tag__checkbox-label",
-                  attrs: { for: "tag__checkbox_5" }
-                },
-                [
-                  _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                    _vm._v("nequeLaoreet")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "space" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "editor__footer" }, [
-          _c("button", { staticClass: "editor__button button-second" }, [
-            _vm._v("confirm")
-          ])
-        ])
+          _c("tag-list")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "editor__header" }, [
+      _c("h5", { staticClass: "editor__title text-third" }, [
+        _vm._v("New video")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "editor__footer" }, [
+      _c("button", { staticClass: "editor__button button-second" }, [
+        _vm._v("confirm")
       ])
     ])
   }
@@ -12967,6 +13032,75 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+
+/***/ "./resources/js/components/TagList.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/TagList.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TagList.vue?vue&type=template&id=4aeb7686& */ "./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686&");
+/* harmony import */ var _TagList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TagList.vue?vue&type=script&lang=js& */ "./resources/js/components/TagList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TagList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TagList.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TagList.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/TagList.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TagList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TagList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TagList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TagList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TagList.vue?vue&type=template&id=4aeb7686& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TagList.vue?vue&type=template&id=4aeb7686&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TagList_vue_vue_type_template_id_4aeb7686___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
 
 
 /***/ }),
