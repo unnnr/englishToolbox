@@ -11,25 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.sass('resources/scss/*', 'public/css');
 
-const fstream  = require('fs');
 
-// get all 'files' in this directory
-let getFiles = function (dir) {
-    // filter directories
-    return fstream.readdirSync(dir).filter(file => {
-        return fstream.statSync(`${dir}/${file}`).isFile();
-    });
-};
-
-// getFiles('resources/scss').forEach(function (SASSpath) {
-//     if(SASSpath.charAt(0) !== '_'){  // Do not mix which files start with '_' (underscore) 
-//         mix.sass('resources/scss/' + SASSpath, 'public/css');
-//     }
+ mix
+ .js('resources/js/videos.js', 'public/js');
+//  .browserSync({
+//      proxy: 'englishToolbox:80',
+//      files: ['public/**/*.css', 'resources/**/*']
 // });
-
-mix.browserSync({
-    proxy: 'englishToolbox:80',
-    files: ['public/**/*.css', 'resources/**/*']
-});
