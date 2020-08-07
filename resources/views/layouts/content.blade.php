@@ -3,9 +3,13 @@
 @section('content')
     
   @include('sections.filter')
-  
-  @include('sections.selected')
-  
-  @yield('pool')
+
+  <section class="selected container">
+    @yield('selected')
+  </section>
+
+  <section class="pool container">
+    @yield('pool')
+  </section>
 
 @endsection
