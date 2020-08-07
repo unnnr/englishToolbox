@@ -63,15 +63,15 @@
   }
   // less than 1000px
   @include md-devices(){
-    padding: 0 vw(75,1000);
+    padding: 0 25px;
   }
   // less than 770px
   @include sm-devices(){
-    padding: 0 vw(50,770);
+    padding: 0 15px;
   }
   // less than 576px 
   @include xs-devices(){   
-    padding: 0 vw(25,576);
+    padding: 0 15px;
   }
 }
 // css bg images

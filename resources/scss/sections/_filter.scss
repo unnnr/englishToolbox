@@ -10,6 +10,11 @@
   display: flex;
   justify-content: space-between;
   padding: 0 30px 0 15px;
+
+  @include lg-devices {
+    border-radius: 10px;
+    height: 50px;
+  }
 }
 
 .filter__sort-button {

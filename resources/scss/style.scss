@@ -30,10 +30,6 @@ button {
   @include lg-devices {
     font-size: 7px;
   }
-
-  @include sm-devices {
-    font-size: 6px;
-  }
 }
 
 // ===================

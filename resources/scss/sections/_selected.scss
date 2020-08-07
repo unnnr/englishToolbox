@@ -12,6 +12,10 @@
   margin-bottom: 50px;
   display: flex;
   flex-flow: row wrap;
+
+  @include lg-devices {
+    margin: 0;
+  }
 }
 
 // ========
@@ -25,6 +29,7 @@
 
   @include lg-devices {
     flex-basis: 100%;
+    padding: 0;
   }
 }
 

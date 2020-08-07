@@ -50,7 +50,6 @@
             <span class="tag__name tag__name--checkbox">nequeLaoreet</span>
           </label>
         </div>
-        <div class="space"></div>
       </div>
     </div>
     <div class="editor__footer">

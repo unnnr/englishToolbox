@@ -9,7 +9,6 @@
       dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
       congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.
     </p>
-    <div class="space"></div>
   </div>
   <div class="description__footer">
     <time class="description__date">April 17 2020</time>

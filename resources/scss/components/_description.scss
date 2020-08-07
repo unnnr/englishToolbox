@@ -20,6 +20,10 @@
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
+
+  @include lg-devices {
+    margin-top: 0;
+  }
 }
 
 // =================
@@ -93,4 +97,17 @@
 .description__views-count {
   font-size: 1.6em;
   font-weight: $semibold;
+}
+
+// ==================
+// description mobile 
+// ==================
+
+
+.description__mobile-button {
+
+  span {
+    font-size: 30px;
+    margin-right: -10px;
+  }
 }

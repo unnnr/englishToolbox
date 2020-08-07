@@ -493,6 +493,7 @@ main {
   .player {
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
+    padding: 0;
   }
 }
 
@@ -590,6 +591,12 @@ main {
   margin: 15px 0;
 }
 
+@media (max-width: 1200px) {
+  .description__header {
+    margin-top: 0;
+  }
+}
+
 .description__body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -667,6 +674,11 @@ main {
 .description__views-count {
   font-size: 1.6em;
   font-weight: 600;
+}
+
+.description__mobile-button span {
+  font-size: 30px;
+  margin-right: -10px;
 }
 
 .comments {
@@ -853,6 +865,11 @@ main {
   color: #fff;
 }
 
+.comments__mobile-button span {
+  font-size: 30px;
+  margin-right: -10px;
+}
+
 .editor {
   position: absolute;
   width: 100%;
@@ -973,6 +990,12 @@ main {
           flex-flow: row wrap;
 }
 
+@media (max-width: 1200px) {
+  .selected {
+    margin: 0;
+  }
+}
+
 .addition {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -986,6 +1009,7 @@ main {
   .addition {
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
+    padding: 0;
   }
 }
 
@@ -1101,6 +1125,13 @@ main {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 30px 0 15px;
+}
+
+@media (max-width: 1200px) {
+  .filter__body {
+    border-radius: 10px;
+    height: 50px;
+  }
 }
 
 .filter__sort-button {
