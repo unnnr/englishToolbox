@@ -32,6 +32,7 @@
         <div class="addition__tabs">
 
           <div class="addition__tab addition__tab--description">
+            {{-- <video-info></video-info> --}}
             @include('components.description')
           </div>
           

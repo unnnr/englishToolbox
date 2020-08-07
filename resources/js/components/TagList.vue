@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'tag-list'
-    }
+export default {
+    name: 'tag-list'
+}
 </script>

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'comments'
-    }
+export default {
+    name: 'comments'
+}
 </script>

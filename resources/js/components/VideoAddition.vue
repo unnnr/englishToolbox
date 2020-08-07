@@ -9,7 +9,17 @@
 </template>
 
 <script>
-    export default {
-        name: 'video-addition',
+
+import VideoInfo from './VideoInfo';
+import VideoEditor from './VideoEditor';
+
+
+export default {
+    name: 'video-addition',
+
+    components: {
+        VideoInfo,
+        VideoEditor
     }
+}
 </script>
