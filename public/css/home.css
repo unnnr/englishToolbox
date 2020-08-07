@@ -451,7 +451,7 @@ main {
 
 .tag__icon {
   height: 25px;
-  width: 25px;
+  min-width: 25px;
   border-radius: 100%;
   background: #a1a1b1;
   -webkit-transition: height .1s ease-in-out, width .1s ease-in-out;
@@ -558,6 +558,102 @@ main {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
   visibility: hidden;
+}
+
+.tag--main .tag__icon--checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tag--main .tag__icon--checkbox:before {
+  font-family: 'Material Icons Round';
+  content: "star";
+  font-size: 19px !important;
+  position: absolute;
+  color: #fff;
+}
+
+.tag--new:hover {
+  cursor: pointer;
+}
+
+.tag--new .tag__icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tag--new .tag__icon:before {
+  font-family: 'Material Icons Round';
+  content: "add";
+  font-size: 20px;
+  position: absolute;
+  color: #fff;
+}
+
+.tag--new .tag__icon:hover {
+  cursor: pointer;
+}
+
+.tag__input {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1b1;
+  border: none;
+  padding: 2px 0;
+  border-bottom: 1px solid;
+  border-color: #fff;
+  margin-left: 10px;
+  -webkit-transition: border-color .3s;
+  transition: border-color .3s;
+  width: 100%;
+}
+
+.tag__input::-webkit-input-placeholder {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1b1;
+}
+
+.tag__input:-ms-input-placeholder {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1b1;
+}
+
+.tag__input::-ms-input-placeholder {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1b1;
+}
+
+.tag__input::placeholder {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1b1;
+}
+
+.tag__input:hover {
+  cursor: pointer;
+}
+
+.tag__input:focus {
+  border-color: #DADAEA;
 }
 
 .tooltip,

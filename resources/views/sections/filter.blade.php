@@ -10,7 +10,8 @@
     <button class="filter__sort-button">
       <span class="material-icons-round">sort</span>
     </button>
-    {{-- <aside class="sidebar">
+{{-- 
+    <aside class="sidebar">
       <div class="sidebar__body sidebar__body--active">
         <div class="sidebar__header">
           <button class="sidebar__close-button">

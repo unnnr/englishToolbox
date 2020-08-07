@@ -15,7 +15,8 @@ button {
 // font size 
 // =========
 
-body {
+body,
+button {
   font-size: 10px;
 
   @include custom-devices(1500px) {
@@ -120,6 +121,7 @@ main {
   font-weight: $semibold;
   font-size: 2em;
 }
+
 // ====
 // text
 // ====
@@ -160,6 +162,7 @@ main {
   font-weight: $medium;
   font-size: 1.4em;
 }
+
 // ======
 // inputs 
 // ======
@@ -189,11 +192,12 @@ main {
 }
 
 .input-second {
-  height: 40px;
+  min-height: 40px;
   border-radius: 10px;
   border: 1px solid $text-fifth;
   font-size: 14px;
-  color: $text-main;
+  color: $text-second;
+  font-weight: $medium;
   padding: 5px 15px;
 
   &::placeholder {
@@ -201,6 +205,26 @@ main {
     color: $text-third;
   }
 }
+
+// ========
+// textarea
+// ========
+
+.textarea-second {
+  min-height: 80px;
+  border-radius: 10px;
+  border: 1px solid $text-fifth;
+  font-size: 14px;
+  color: $text-second;
+  font-weight: $medium;
+  padding: 10px 15px;
+
+  &::placeholder {
+    font-weight: $medium;
+    color: $text-third;
+  }
+}
+
 
 // =======
 // buttons 
@@ -269,8 +293,8 @@ button {
 // sections for all pages
 // ======================
 
-@import "components/navbar";
-@import "components/footer";
+@import "sections/navbar";
+@import "sections/footer";
 
 // ===============
 // temporary style

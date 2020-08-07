@@ -9,9 +9,9 @@
         <span class="card__views-count">1337</span>
       </div>
     </div>
-    <div class="card__title heading-fifth">{{{ $video->title }}}</div>
+    <h5 class="card__title heading-fifth">{{{ $video->title }}}</h5>
   </div>
-  <div class="card__text text-third">{{{ $video->description }}}</div>
+  <p class="card__text text-third">{{{ $video->description }}}</p>
   <div class="card__footer">
     <div class="tag">
       <div class="tag__icon">

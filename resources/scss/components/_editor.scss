@@ -1,0 +1,108 @@
+// ======
+// editor
+// ======
+
+.editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: $bg-fifth;
+  z-index: $z-first +2;
+
+  @include lg-devices {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    position: static;
+    max-height: 600px;
+  }
+}
+
+.editor__form {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include lg-devices {
+    position: static;
+  }
+}
+
+// =============
+// editor header 
+// =============
+
+
+.editor__header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid $text-fifth;
+}
+
+.editor__title {
+  font-weight: $semibold;
+  color: $text-main;
+}
+
+// ===========
+// editor body
+// ===========
+
+.editor__body {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding-right: 5px;
+  padding-top: 15px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-main;
+    border-radius: 20px;
+    margin-top: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $text-fifth;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-third;
+  }
+}
+
+.editor__label {
+  color: $text-main;
+  margin-bottom: 15px;
+}
+
+.editor__counter {
+  font-size: 14px;
+  font-weight: $semibold;
+  color: $text-fifth;
+  margin-left: 10px;
+  align-self: center;
+}
+
+.editor__input,
+.editor__textarea {
+  margin-bottom: 25px;
+}
+
+.editor__tag {
+  margin-bottom: 15px;
+}
+
+// =============
+// editor footer
+// =============
+
+.editor__button {
+  width: 100%;
+  margin-top: 10px;
+}

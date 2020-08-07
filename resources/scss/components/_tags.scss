@@ -6,7 +6,7 @@
 
 .tag__icon {
   height: 25px;
-  width: 25px;
+  min-width: 25px;
   border-radius: 100%;
   background: $text-third;
   transition: height .1s ease-in-out, width .1s ease-in-out;
@@ -32,7 +32,7 @@
     left: -5px;
   }
 
-  
+
   &:nth-child(2):hover .tag__tooltip {
     left: 5px;
   }
@@ -83,7 +83,7 @@
 .tag__icon--checkbox {
   background: $bg-fifth;
   box-shadow: inset 0px 0px 0px 3px $text-third;
-  transition: box-shadow .3s ease-in-out; 
+  transition: box-shadow .3s ease-in-out;
 }
 
 .tag__name--checkbox {
@@ -99,4 +99,73 @@
   left: 0;
   transform: translateY(100%);
   visibility: hidden;
+}
+
+.tag--main {
+  .tag__icon--checkbox {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+      font-family: 'Material Icons Round';
+      content: "star";
+      font-size: 19px !important;
+      position: absolute;
+      color: $bg-fifth;
+    }
+  }
+}
+
+.tag--new {
+  &:hover {
+    cursor: pointer;
+  }
+
+  .tag__icon {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+      font-family: 'Material Icons Round';
+      content: "add";
+      font-size: 20px;
+      position: absolute;
+      color: $bg-fifth;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.tag__input {
+  font-size: 18px;
+  font-weight: $semibold;
+  color: $text-third;
+  border: none;
+  padding: 2px 0;
+  border-bottom: 1px solid;
+  border-color: $bg-fifth;
+  margin-left: 10px;
+  transition: border-color .3s;
+  width: 100%;
+
+  &::placeholder {
+    font-size: 18px;
+    font-weight: $semibold;
+    color: $text-third;
+  }
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    border-color: $text-fifth;
+  }
 }
