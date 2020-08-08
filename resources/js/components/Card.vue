@@ -1,6 +1,8 @@
 <template>
-    <div class="card card--rectangle card--margin">
-        <div class="card__image">
+    <div class="card card--rectangle card--margin"
+        :class="{'card--selected': selected}"
+        :index="typeof index == 'number' ? index : false">
+        <div class="card__image" @click="select">
             <div class="card__header">
                 <button class="card__favorite-button">
                     <span class="card__favorite-icon material-icons-round">favorite</span>
@@ -42,17 +44,34 @@
 </template>
 
 <script>
+import bus from '../eventbus';
+
 export default {
     name: 'card',
 
     props: {
-        post: Object
+        post: Object,
+        index: Number
     },
 
     data: function () {
         return {
+            selected: false,
             title: 'Viode Title',
             description: 'video description'
+        }
+    },
+
+    methods: {
+        select() {
+            let options = {
+                card: this
+            }
+
+            if (typeof this.$props.index === 'number')
+                options.index = this.$props.index;
+
+            bus.dispatch('card-selected', options);
         }
     }
 }
