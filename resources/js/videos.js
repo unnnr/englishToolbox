@@ -27,15 +27,14 @@ import Vue from 'vue';
  */
 
 
-import VideoEditor from  './components/VideoEditor.vue';
+import VideoAddition from  './components/video/VideoAddition.vue';
 
 Vue.config.devtools = true;
 
-const app = new Vue({
+const ass = new Vue({
       el: document.querySelector('main'),
 
-      components: 
-      {
-         VideoEditor
+      components: {
+         VideoAddition
       }
 });

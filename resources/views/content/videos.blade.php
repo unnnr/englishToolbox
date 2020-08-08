@@ -14,14 +14,14 @@
 
  @include('components.videoPlayer')
 
-  <div class="addition">
-    <div class="addition__body">
+  {{-- <div class="addition">
+   <div class="addition__body">
 
       <div class="addition__wrapper">
 
-        <video-editor></video-editor>
-        {{-- @include('components.videoEditor') --}}
+        @include('components.videoEditor')
 
+        
         <div class="addition__info">
 
           <div class="addition__header">
@@ -32,7 +32,6 @@
           <div class="addition__tabs">
   
             <div class="addition__tab addition__tab--description">
-              {{-- <video-info></video-info> --}}
               @include('components.description')
             </div>
             
@@ -46,7 +45,9 @@
       </div>
 
     </div>
-  </div>
+  </div> --}}
+
+  <video-addition></video-addition>
 
 @endsection
 

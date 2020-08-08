@@ -24,7 +24,7 @@
 
 <script>
 
-import TagList from './TagList.vue';
+import TagList from '../TagList.vue';
 
 export default {
     name: 'video-editor',
