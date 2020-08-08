@@ -5,8 +5,6 @@
  */
 
  
-// window.Vue = require('vue');
-
 import Vue from 'vue';
 
 /**
@@ -28,22 +26,16 @@ import Vue from 'vue';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import VideoEditor from  './components/VideoEditor.vue';
+
 Vue.config.devtools = true;
 
-let componentA = {
-   el: '#app-2',
-   data: {
-      mess: 'asdddd'
-   }
-};
-
 const app = new Vue({
-      el: '#app',
-      data: {
-         message: 'as'
-      },
+      el: document.querySelector('main'),
+
       components: 
       {
-         componentA
-     }
+         VideoEditor
+      }
 });
