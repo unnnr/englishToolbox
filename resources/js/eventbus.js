@@ -13,7 +13,7 @@ class Bus
         return true;
     }
 
-    dispose(event, options)
+    dispatch(event, options = {})
     {
         if (typeof event !== 'string')
             return false;

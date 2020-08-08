@@ -27,14 +27,20 @@ import Vue from 'vue';
  */
 
 
-import VideoAddition from  './components/video/VideoAddition.vue';
+import VideoAddition from  './components/video/VideoAddition';
+import Pool from  './components/Pool';
+import bus from './eventbus';
 
 Vue.config.devtools = true;
 
-const ass = new Vue({
-      el: document.querySelector('main'),
 
-      components: {
-         VideoAddition
-      }
+bus.listen('post-created', function () {console.log(12); });
+
+const ass = new Vue({
+    el: document.querySelector('main'),
+
+    components: {
+		VideoAddition,
+		Pool
+    }
 });

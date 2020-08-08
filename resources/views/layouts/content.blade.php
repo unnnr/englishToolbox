@@ -8,8 +8,10 @@
     @yield('selected')
   </section>
 
-  <section class="pool container">
+
+  <pool></pool>
+  {{-- <section class="pool container">
     @yield('pool')
-  </section>
+  </section> --}}
 
 @endsection
