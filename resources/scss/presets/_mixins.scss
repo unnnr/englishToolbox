@@ -76,7 +76,7 @@
 }
 // css bg images
 @mixin background-image($url) {
-  background-image: url("/" + $url);
+  background-image: url($url);
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;

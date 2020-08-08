@@ -91,7 +91,7 @@ main {
 .abot-me__photo {
   position: relative;
   border-radius: 15px;
-  background-image: url("/public/img/photo.jpg");
+  background-image: url("public/img/photo.jpg");
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -263,21 +263,21 @@ main {
 }
 
 .about-me__picture--first {
-  background-image: url("/public/img/1.jpg");
+  background-image: url("public/img/1.jpg");
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .about-me__picture--second {
-  background-image: url("/public/img/2.jpg");
+  background-image: url("public/img/2.jpg");
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .about-me__picture--third {
-  background-image: url("/public/img/3.jpg");
+  background-image: url("public/img/3.jpg");
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -365,7 +365,7 @@ main {
   width: 75px;
   border-radius: 100%;
   margin-right: 15px;
-  background-image: url("/public/img/person_ph.jpg");
+  background-image: url("public/img/person_ph.jpg");
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -486,7 +486,7 @@ main {
 
 .tag__name {
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 1.4em;
   margin-left: 10px;
   font-weight: 600;
   color: #a1a1b1;
@@ -611,7 +611,7 @@ main {
 }
 
 .tag__input {
-  font-size: 18px;
+  font-size: 1.8em;
   font-weight: 600;
   color: #a1a1b1;
   border: none;
@@ -723,6 +723,12 @@ main {
 
 .card--margin {
   margin-bottom: 75px;
+}
+
+@media (max-width: 1200px) {
+  .card--margin {
+    margin-bottom: 50px;
+  }
 }
 
 .card__add-icon {
@@ -854,6 +860,12 @@ main {
   width: 90%;
   -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
           box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+}
+
+@media (max-width: 1200px) {
+  .card__title {
+    height: 50px;
+  }
 }
 
 .card__text {

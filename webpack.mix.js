@@ -14,8 +14,8 @@ const mix = require('laravel-mix');
 
 
  mix
- .js('resources/js/videos.js', 'public/js');
-//  .browserSync({
-//      proxy: 'englishToolbox:80',
-//      files: ['public/**/*.css', 'resources/**/*']
-// });
+//  .js('resources/js/videos.js', 'public/js')
+ .browserSync({
+     proxy: 'englishToolbox:80',
+     files: ['public/**/*.css', 'resources/**/*']
+});

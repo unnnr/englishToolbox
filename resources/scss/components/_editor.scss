@@ -14,7 +14,7 @@
     border-radius: 10px;
     margin-top: 15px;
     position: static;
-    max-height: 600px;
+    max-height: 450px;
   }
 }
 
@@ -83,7 +83,7 @@
 
 .editor__counter {
   font-size: 14px;
-  font-weight: $semibold;
+  font-weight: $medium;
   color: $text-fifth;
   margin-left: 10px;
   align-self: center;
@@ -98,11 +98,42 @@
   margin-bottom: 15px;
 }
 
+// ==============
+// editor buttons
+// ==============
+
+.editor__button-group {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.editor__button {
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid $text-fifth;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: $color-main;
+  font-weight: $medium;
+
+  &:not(:last-child) {
+    margin-right: 7.5px;
+  }
+
+  span {
+    margin-right: 5px;
+  }
+}
+
+
 // =============
 // editor footer
 // =============
 
-.editor__button {
+.editor__footer-button {
   width: 100%;
   margin-top: 10px;
 }

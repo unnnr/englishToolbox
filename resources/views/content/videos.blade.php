@@ -37,7 +37,7 @@
 
         </div>
   
-        @include('components.videoEditor')
+        {{-- @include('components.videoEditor') --}}
 
       </div>
 

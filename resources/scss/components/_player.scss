@@ -1,6 +1,6 @@
 
 // ========
-// addition 
+// player
 // ========
 
 .player {
@@ -21,6 +21,9 @@
   width: 100%;
   position: relative;
   box-shadow: $shadow-second;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 
   @include lg-devices {
     border-radius: 10px;
@@ -59,4 +62,214 @@
 
 .player__overlay-image {
   width: vw(650,1920) !important;
+}
+
+.player__image {
+  background: $text-third;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  @include background-image("https://cdn.discordapp.com/attachments/734081011180240967/734082310634209330/invisible_2.jpg");
+}
+
+.player__image--blurred {
+  filter: blur(15px);
+}
+
+// =====
+// audio
+// =====
+
+.audio {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 vw(25,1920) vw(25,1920);
+
+  @include sm-devices {
+    padding: 0px 5px 5px;
+  }
+}
+
+.audio__player {
+  display: flex;
+  width: 100%;
+  background: hsla(0, 0%, 7%, 0.9);
+  padding: 10px 0;
+  border-radius: 15px;
+  height: 60px;
+
+  @include lg-devices {
+    border-radius: 10px;
+  }
+
+  @include sm-devices {
+    height: 40px;
+    padding: 5px 0;
+  }
+}
+
+.audio__button-toggle {
+  width: max-content;
+  color: $bg-fifth;
+  font-weight: $semibold;
+  font-size: 18px;
+  background: $color-main;
+  border-radius: 10px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  
+  i {
+    margin-right: 5px;
+  }
+
+  @include sm-devices {
+    
+    height: 30px;
+    min-width: 30px;
+    border-radius: 100%;
+    padding: 0;
+    justify-content: center;
+
+    i {
+      font-size: 17px;
+      margin: 0;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
+
+
+.audio__progress-control {
+  display: flex;
+  align-items: center;
+  margin: 0 vw(50,1920);
+  width: 100%;
+
+  @include sm-devices {
+    margin:0 10px;
+  }
+}
+
+.audio__button-state {
+  font-size: 25px;
+  color: $bg-fifth;
+  margin-right: vw(25,1920);
+
+  @include sm-devices {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+}
+
+.audio__progress-bar {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  margin-right: 25px;
+  width: 100%;
+
+  @include sm-devices {
+    margin-right: 10px;
+  }
+}
+
+.audio__progress-maximum,
+.audio__volume-maximum {
+  height: 5px;
+  border-radius: 10px;
+  background: $text-second;
+}
+
+.audio__progress-maximum {
+  width: 100%;
+}
+
+.audio__progress-current,
+.audio__volume-current {
+  height: 5px;
+  border-radius: 2px;
+  background: $bg-fifth;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.audio__progress-current {
+  width: 50%;
+}
+
+.audio__progress-cursor,
+.audio__volume-cursor {
+  height: 13px;
+  min-width: 13px;
+  border-radius: 50px;
+  background: $bg-fifth;
+
+  &:hover {
+    cursor: grab !important;
+  }
+  &:active {
+    cursor: grabbing !important;
+  }
+}
+
+.audio__timer {
+  white-space: nowrap;
+}
+
+.audio__timer-current,
+.audio__timer-separator,
+.audio__timer-maximum {
+  font-size: 14px;
+  color: $text-second;
+  font-weight: $semibold;
+
+  @include sm-devices {
+    font-size: 10px;
+  }
+}
+
+.audio__volume-button {
+  display: flex;
+  align-items: center;
+  margin-right: vw(25,1920);
+
+  span {
+    font-size: 30px;
+    color: $bg-fifth;
+  }
+}
+
+.audio__volume-control {
+  display: flex;
+  align-items: center;
+  margin-right: vw(50,1920);
+  width: max-content;
+
+  @include sm-devices {
+    display: none;
+  }
+}
+
+.audio__volume-bar {
+  position: relative;
+}
+
+.audio__volume-current {
+  width: 50%;
+}
+
+.audio__volume-maximum {
+  width: 100px;
+  
+  @include xl-devices {
+    width: 75px;
+  }
 }

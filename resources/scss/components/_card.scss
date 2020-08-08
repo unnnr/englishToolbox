@@ -24,6 +24,10 @@
 
 .card--margin {
   margin-bottom: 75px;
+
+  @include lg-devices {
+    margin-bottom: 50px;
+  }
 }
 
 .card__add-icon {
@@ -122,6 +126,10 @@
   height: 60px;
   width: 90%;
   box-shadow: $shadow-second;
+
+  @include lg-devices {
+    height: 50px;
+  }
 }
 
 .card__text {
