@@ -801,7 +801,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "editor__footer" }, [
-      _c("button", { staticClass: "editor__button button-second" }, [
+      _c("button", { staticClass: "editor__footer-button button-second" }, [
         _vm._v("confirm")
       ])
     ])
@@ -13133,7 +13133,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })

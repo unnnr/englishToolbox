@@ -1,27 +1,25 @@
 @extends('layouts.content')
 
-@section('title', 'videos')
+@section('title', 'schemas')
 
 @section('css')
-  <link rel="stylesheet" href="{{ asset("css/videos.css") }}">
+  <link rel="stylesheet" href="{{ asset("css/schemas.css") }}">
 @endsection
 
 @section('js')
-  <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
 @endsection
 
 @section('selected')
 
- @include('components.videoPlayer')
+ @include('components.schemasPlayer')
 
   <div class="addition">
     <div class="addition__body">
 
       <div class="addition__wrapper">
 
-        <video-editor></video-editor>
-        {{-- @include('components.videoEditor') --}}
-
+        @include('components.schemasEditor')
+        
         <div class="addition__info">
 
           <div class="addition__header">
@@ -30,16 +28,12 @@
           </div>
     
           <div class="addition__tabs">
-  
             <div class="addition__tab addition__tab--description">
-              {{-- <video-info></video-info> --}}
-              @include('components.description')
+                @include('components.description')
             </div>
-            
             <div class="addition__tab addition__tab--comments">
               @include('components.comments')
             </div>
-  
           </div>
         </div>
 
@@ -51,11 +45,5 @@
 @endsection
 
 @section('pool')
-
-  @include('components.newCard', ['cardMargin' => 'card--margin', 'contentType' => 'video'])
-
-  @foreach ($videos as $video)
-    @include('components.card', ['cardRatio' => 'card--rectangle', 'cardMargin' => 'card--margin','card' => $video])
-  @endforeach
 
 @endsection

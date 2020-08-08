@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea,
+input,
+select {
+  border: 1px solid black;
+}
+
+button {
+  background: none;
+}
+
+html,
+body,
+main {
+  height: 100vh;
+}
+
+.recomend {
+  padding: 0 18.22917vw;
+}
+
+.recomend__header {
+  margin: 75px 0 30px;
+}
+
+.recomend__card {
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  border-radius: 15px;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.recomend__card-image {
+  height: 250px;
+  min-width: 250px;
+  border-radius: 10px;
+  background: #a1a1b1;
+}
+
+.recomend__card-content {
+  margin: 0 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.recomend__card-title {
+  margin-bottom: 20px;
+}
+
+.recomend__card-text {
+  margin-bottom: 10px;
+}

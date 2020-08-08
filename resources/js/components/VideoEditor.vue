@@ -16,7 +16,7 @@
                 <tag-list></tag-list>
             </div>
             <div class="editor__footer">
-                <button class="editor__button button-second">confirm</button>
+                <button class="editor__footer-button button-second">confirm</button>
             </div>
         </form>
     </div>

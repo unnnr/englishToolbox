@@ -32,7 +32,7 @@
   }
 }
 
-.addition__wrapper {
+.addition__body {
   border-radius: 15px;
   background: $bg-fifth;
   box-shadow: $shadow-second;
@@ -47,6 +47,13 @@
     border-radius: unset;
     background: unset;
   }
+}
+
+.addition__info {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 
 // ===============
@@ -79,7 +86,7 @@
 // =============
 
 .addition__tabs,
-.addition__body {
+.addition__wrapper {
   position: relative;
   display: flex;
   flex-direction: column;

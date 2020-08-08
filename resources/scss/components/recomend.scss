@@ -1,0 +1,40 @@
+@import "../presets/import";
+
+.recomend {
+  padding: 0 vw(350,1920);
+
+}
+
+.recomend__header {
+  margin: 75px 0 30px;
+}
+
+.recomend__card {
+  background: $bg-fifth;
+  box-shadow: $shadow-second;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  margin-bottom: 30px;
+}
+.recomend__card-image {
+  height: 250px;
+  min-width: 250px;
+  border-radius: 10px;
+  background: $text-third;
+}
+
+.recomend__card-content {
+  margin: 0 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.recomend__card-title {
+  margin-bottom: 20px;
+}
+
+.recomend__card-text {
+  margin-bottom: 10px;
+} 

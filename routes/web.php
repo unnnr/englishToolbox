@@ -29,3 +29,6 @@ Route::get('videos', 'VideoController@index')->name('videos');
 
 Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('recomend', function(){ return view("recomend");})->name('recomend');
+

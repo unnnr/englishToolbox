@@ -25,9 +25,9 @@
         ['about me' => 'home'],
         'videos',
         'audio', 
-        'games',
-        'schemas', 
-        'i recommend'
+        'schemas',
+        'games', 
+        ['i recomend' => 'recomend']
       ]);
     @endphp
 

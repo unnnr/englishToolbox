@@ -13,7 +13,7 @@
   "files.exclude": {
     "node_modules/": true,
     "vendor/": true,
-    "app/": true,
+    // "app/": true,
     "bootstrap/": true,
     "config/": true,
     "database/": true,

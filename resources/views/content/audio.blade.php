@@ -26,10 +26,10 @@
         </div>
 
         <div class="addition__tabs">
-{{-- 
+
           <div class="addition__tab addition__tab--description">
-            @include('components.description')
-          </div> --}}
+            {{-- @include('components.description') --}}
+          </div>
 
           <div class="addition__tab addition__tab--comments">
             @include('components.comments')
