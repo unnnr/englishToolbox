@@ -24,15 +24,37 @@
 </template>
 
 <script>
-
 export default {
     name: 'video-info',
+
+    /* props:{
+        title: {
+            type: String,
+            default: 'Title'
+        },
+
+        date: {
+            type: String,
+            default: 'April 17 2020'
+        },
+
+        views: {
+            type: Number,
+            default: 1289
+        },
+
+        description: {
+            type: String,
+            default: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
+                        congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`
+        }
+    }, */
 
     data: function () {
         return {
             title: 'Lorem ipsum dolor',
             date: 'April 17 2020',
-            link: 'YouTube link',
             views: 1289,
             description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                            dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas

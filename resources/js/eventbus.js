@@ -13,9 +13,12 @@ class Bus
         return true;
     }
 
-    dispose(event, options)
+    dispatch(event, options = {})
     {
         if (typeof event !== 'string')
+            return false;
+
+        if (!!!listeners[event])
             return false;
 
         for (const callback of listeners[event])

@@ -27,14 +27,16 @@ import Vue from 'vue';
  */
 
 
-import VideoAddition from  './components/video/VideoAddition.vue';
+import VideoAddition from  './components/video/VideoAddition';
+import Pool from  './components/Pool';
 
 Vue.config.devtools = true;
 
 const ass = new Vue({
-      el: document.querySelector('main'),
+    el: document.querySelector('main'),
 
-      components: {
-         VideoAddition
-      }
+    components: {
+		VideoAddition,
+		Pool
+    }
 });
