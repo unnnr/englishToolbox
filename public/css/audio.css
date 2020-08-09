@@ -310,12 +310,12 @@ main {
   background: #fff;
 }
 
-.card--margin {
+.card--margined {
   margin-bottom: 75px;
 }
 
 @media (max-width: 1200px) {
-  .card--margin {
+  .card--margined {
     margin-bottom: 50px;
   }
 }

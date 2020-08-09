@@ -56,7 +56,7 @@
   @include('components.newCard', ['cardMargin' => 'card--margin', 'contentType' => 'video'])
 
   @foreach ($videos as $video)
-    @include('components.card', ['cardRatio' => 'card--rectangle', 'cardMargin' => 'card--margin','card' => $video])
+    @include('components.card', ['cardRatio' => 'card--rectangle', 'cardMargin' => 'card--margined','card' => $video])
   @endforeach
 
 @endsection
