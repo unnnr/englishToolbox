@@ -5,14 +5,13 @@
 .filter__body {
   height: 60px;
   background: $bg-fifth;
-  border-radius: 15px;
+  @include border-radius;
   box-shadow: $shadow-second;
   display: flex;
   justify-content: space-between;
   padding: 0 30px 0 15px;
 
   @include lg-devices {
-    border-radius: 10px;
     height: 50px;
     padding-right: 15px;
   }

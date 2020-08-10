@@ -2,14 +2,20 @@
   display: flex;
   flex-direction: column;
   padding: 0 15px;
-}
-
-.card--square {
   flex-basis: 25%;
 }
 
-.card--big-square {
+.card--big {
   flex-basis: 33.3%;
+}
+
+.card--rectangle {
+  flex-basis: 33.3%;
+
+  .card__image {
+    padding-bottom: 56.25%;
+    border: 5px solid $bg-fifth;
+  }
 }
 
 .card--add {
@@ -18,15 +24,6 @@
   .card__image {
     padding-bottom: 56.25%;
     background: $bg-fifth;
-
-  }
-}
-
-.card--margin {
-  margin-bottom: 75px;
-
-  @include lg-devices {
-    margin-bottom: 50px;
   }
 }
 
@@ -39,25 +36,21 @@
   transform: translateY(-50%);
 }
 
-.card--rectangle {
-  flex-basis: 33.3%;
-
-  .card__image {
-    padding-bottom: 56.25%;
-    border: 5px solid $bg-fifth;
-  }
-}
-
 .card__image {
   position: relative;
   background: $text-third;
   padding-bottom: 100%;
   width: 100%;
-  border-radius: 15px;
   justify-content: center;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   box-shadow: $shadow-second;
+  @include border-radius;
+
+  
+  @include lg-devices {
+    margin-bottom: 20px;
+  }
 }
 
 .card__header {
@@ -126,6 +119,7 @@
   height: 60px;
   width: 90%;
   box-shadow: $shadow-second;
+  padding: 0 15px;
 
   @include lg-devices {
     height: 50px;
@@ -133,7 +127,11 @@
 }
 
 .card__text {
-  margin-top: 20px;
+  margin-top: 15px;
+
+  @include lg-devices {
+    margin-top: 10px;
+  }
 }
 
 .card__date {
@@ -153,5 +151,9 @@
 .card__footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 15px;
+
+  @include lg-devices {
+    margin-top: 10px;
+  }
 }

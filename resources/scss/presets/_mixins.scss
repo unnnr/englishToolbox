@@ -85,3 +85,11 @@
 @function vw($p,$w) {
   @return $p / $w * 100 + vw;
 }
+
+@mixin border-radius {
+  border-radius: 15px;
+
+  @include lg-devices {
+    border-radius: 10px;
+  }
+}

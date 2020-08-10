@@ -1,5 +1,5 @@
 <template>
-    <div class="card card--rectangle card--margin"
+    <div class="card card--rectangle card--margined"
         :class="{'card--selected': selected}"
        >
         <div class="card__image" @click="select">

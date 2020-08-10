@@ -6,6 +6,27 @@
 @import "components/tooltips";
 @import "components/card";
 
+
+.feed {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.feed__title {
+  flex-basis: 100%;
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+
+.updates {
+  margin-bottom: 75px;
+}
+
+.popular {
+  margin-bottom: 150px;
+}
+
 .footer {
   background: $bg-third;
 }

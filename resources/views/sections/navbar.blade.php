@@ -24,7 +24,7 @@
         <button class="navbar-mobile__button navbar-mobile__button--hide"><span class="material-icons-round">clear</span></button>
       </div>
       
-      <a href="{{ route('home') }}" class="navbar-mobile__link navbar-mobile__link--first">Name</a>
+      <a href="{{ route('home') }}" class="navbar-mobile__link">Name</a>
 
       @foreach ($links as $link)
         <a href="{{ $link['url'] }}" class="navbar-mobile__link">{{ $link['label'] }}</a>

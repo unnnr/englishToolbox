@@ -7,7 +7,14 @@
 
         <div class="description__body">
             <p class="description__text text-fourth">{{ description }}</p>
-            <div class="space"></div>
+            <div class="description__tags">
+                <h3 class="description__tags-title heading-fifth">Tag list</h3>
+                <span class="description__tag description__tag--main">nisiQuisEleifend</span>
+                <span class="description__tag description__tag">tortorCondimentum</span>
+                <span class="description__tag description__tag">nequeLaoreet</span>
+                <span class="description__tag description__tag">maurisPellentesque</span>
+                <span class="description__tag description__tag">justoLaoreet</span>
+            </div>
         </div>
 
         <div class="description__footer">
