@@ -28,6 +28,7 @@ import Vue from 'vue';
 
 
 import VideoAddition from  './components/video/VideoAddition';
+import VideoPlayer from  './components/video/VideoPlayer';
 import Pool from  './components/Pool';
 
 Vue.config.devtools = true;
@@ -41,6 +42,7 @@ const ass = new Vue({
 
     components: {
 		VideoAddition,
+		VideoPlayer,
 		Pool
     }
 });

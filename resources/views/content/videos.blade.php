@@ -13,8 +13,8 @@
 
 @section('selected')
 
- @include('components.videoPlayer')
-
+ {{-- @include('components.videoPlayer') --}}
+  <video-player></video-player>
   <video-addition></video-addition>
 
 @endsection

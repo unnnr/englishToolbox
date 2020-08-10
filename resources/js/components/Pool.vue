@@ -2,10 +2,11 @@
     <section class="pool container">
         <new-card postType="video" />
         <card
-            v-for="(card, index) of cards" :key="index"
-            :title="card.title"
-            :description="card.description"
-            :id="card.id"
+            v-for="({title, description, thumbnail, id}, index) of cards" :key="index"
+            :title="title"
+            :imageUrl='thumbnail'
+            :description="description"
+            :id="id"
         />
     </section>
 </template>
@@ -36,8 +37,6 @@ export default {
     beforeMount()
     {
         this.cards = PostService.allCards();
-
-        console.log(this.cards[0].id);
     },
 
     mounted()
@@ -48,13 +47,16 @@ export default {
         
         bus.listen('card-touched', event => {
               
-            let post = PostService.getPostInfo(event.card.id)
+            if (event.card === selectedCard)
+                return;
 
             if (selectedCard)
                 selectedCard.selected = false;
 
             selectedCard = event.card;
             selectedCard.selected = true;
+
+            let post = PostService.getPostInfo(event.card.id)
 
             bus.dispatch('post-selected', { post });
         });

@@ -1,8 +1,7 @@
 <template>
     <div class="card card--rectangle card--margined"
-        :class="{'card--selected': selected}"
-       >
-        <div class="card__image" @click="select">
+        :class="{'card--selected': selected}">
+        <div class="card__image" @click="select" :style="{ backgroundImage: 'url(\'' + imageUrl + '\')' }">
             <div class="card__header">
                 <button class="card__favorite-button">
                     <span class="card__favorite-icon material-icons-round">favorite</span>
@@ -56,6 +55,7 @@ export default {
     props: {
         title: String,
         description: String,
+        imageUrl: String,
         id: null
     },
 
@@ -70,14 +70,17 @@ export default {
             let options = {
                 card: this
             }
-            
-            console.log(this.$props.id);
 
             if (this.$props.id !==  undefined)
                 options.id = this.$props.id;
 
             bus.dispatch('card-touched', options);
         }
+    },
+
+    mounted()
+    {
+
     }
 }
 </script>
