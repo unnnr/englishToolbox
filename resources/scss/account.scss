@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: $shadow-second;
+  flex-grow: 1;
 }
 
 .management__account-header {
@@ -118,5 +119,56 @@
   span {
     margin-right: 5px;
     font-size: 20px;
+  }
+}
+
+
+
+
+.management__comments-delete-all-button  {
+  display: flex;
+  align-items: center;
+  color: $text-fifth;
+  margin-bottom: 25px;
+
+  span {
+    margin-right: 5px;
+  }
+}
+
+.managment__comment {
+  display: flex;
+}
+
+.managment__comment-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 15px;
+}
+
+.managment__comment-image {
+  height: 100px;
+  min-width: 100px;
+  @include border-radius;
+  background: $text-third;
+}
+
+.managment__comment-title {
+  margin-bottom: 10px;
+}
+
+.managment__comment-date {
+  font-size: 12px;
+  color: $text-third;
+  font-weight: $medium;
+  margin-top: 5px;
+}
+
+.managment__comment-delete-button {
+
+  span {
+    font-size: 30px !important;
+    color: $text-fifth;
   }
 }

@@ -53,7 +53,16 @@
   <div class="management__tab--comments">
     <h3 class="management__title heading-third">My comments</h3>
     <div class="management__body">
-
+      <button class="management__comments-delete-all-button text-fourth"><span class="material-icons">delete_forever</span>delete all</button>
+      <div class="managment__comment">
+        <div class="managment__comment-image"></div>
+        <div class="managment__comment-body">
+          <h6 class="managment__comment-title heading-sixth">Lorem ipsum dolor</h6>
+          <p class="managment__comment-text text-sixth">Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.</p>
+          <time class="managment__comment-date">19 may 2020</time>
+        </div>      
+        <button class="managment__comment-delete-button"><span class="material-icons">delete_forever</span></button>  
+      </div>
     </div>
   </div>
 </section>
