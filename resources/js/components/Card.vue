@@ -1,7 +1,7 @@
 <template>
     <div class="card card--rectangle card--margined"
         :class="{'card--selected': selected}"
-        :index="typeof index == 'number' ? index : false">
+       >
         <div class="card__image" @click="select">
             <div class="card__header">
                 <button class="card__favorite-button">
@@ -12,9 +12,9 @@
                     <span class="card__views-count">1337</span>
                 </div>
             </div>
-            <h5 class="card__title heading-fifth">{{ post.title }}</h5>
+            <h5 class="card__title heading-fifth">{{ title }}</h5>
         </div>
-        <p class="card__text text-third">{{ post.description }}</p>
+        <p class="card__text text-third">{{ description }}</p>
         <div class="card__footer">
             <div class="tag">
                 <div class="tag__icon">
@@ -46,19 +46,22 @@
 <script>
 import bus from '../eventbus';
 
+
+//  :id="typeof id == 'number' ? id : false"
+
+
 export default {
     name: 'card',
 
     props: {
-        post: Object,
-        index: Number
+        title: String,
+        description: String,
+        id: null
     },
 
     data: function () {
         return {
-            selected: false,
-            title: 'Viode Title',
-            description: 'video description'
+            selected: false
         }
     },
 
@@ -67,11 +70,13 @@ export default {
             let options = {
                 card: this
             }
+            
+            console.log(this.$props.id);
 
-            if (typeof this.$props.index === 'number')
-                options.index = this.$props.index;
+            if (this.$props.id !==  undefined)
+                options.id = this.$props.id;
 
-            bus.dispatch('card-selected', options);
+            bus.dispatch('card-touched', options);
         }
     }
 }

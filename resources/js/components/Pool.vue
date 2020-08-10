@@ -2,9 +2,10 @@
     <section class="pool container">
         <new-card postType="video" />
         <card
-            v-for="(post, index) of posts" :key="index"
-            :post="post"
-            :index="index"
+            v-for="(card, index) of cards" :key="index"
+            :title="card.title"
+            :description="card.description"
+            :id="card.id"
         />
     </section>
 </template>
@@ -13,6 +14,8 @@
 import Card from './Card.vue';
 import NewCard from './NewCard.vue';
 import bus from '../eventbus';
+import PostService from '../services/PostService';
+
 
 let selectedCard = null;
 
@@ -21,14 +24,7 @@ export default {
 
     data: function () {
         return {
-       
-            posts: [
-                {title: 'title 1', description: 'description 1', url: 'link'},
-                {title: 'title 2', description: 'description 2', url: 'link'},
-                {title: 'title 3', description: 'description 3', url: 'link'},
-                {title: 'title 5', description: 'description 4', url: 'link'},
-                {title: 'title 7', description: 'description 6', url: 'link'}
-            ]
+            cards : []
         };
     },
 
@@ -37,10 +33,22 @@ export default {
         NewCard
     },
 
+    beforeMount()
+    {
+        this.cards = PostService.allCards();
+
+        console.log(this.cards[0].id);
+    },
+
     mounted()
     {
-        bus.listen('card-selected', event => {
-            let post = this.posts[event.index]; 
+        bus.listen('new-card-touched', event => {
+            bus.dispatch('post-creating');
+        });
+        
+        bus.listen('card-touched', event => {
+              
+            let post = PostService.getPostInfo(event.card.id)
 
             if (selectedCard)
                 selectedCard.selected = false;
@@ -48,7 +56,7 @@ export default {
             selectedCard = event.card;
             selectedCard.selected = true;
 
-            bus.dispatch('post-selecting', {post: post});
+            bus.dispatch('post-selected', { post });
         });
     }
 }

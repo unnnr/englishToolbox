@@ -22,7 +22,7 @@ export default {
 
     methods: {
         onClick () {
-            bus.dispatch('post-selecting');
+            bus.dispatch('post-creating');
         }
     }
 }

@@ -5,7 +5,6 @@
 				<transition name="fade">
  					<video-editor 
 						v-if="editing" 
-
 						ref="editor"
 					/>
 				</transition>
@@ -35,18 +34,16 @@ export default {
 	},
 
 	mounted() {
-		bus.listen('post-creating', function () {
-			console.log('editing');
+		bus.listen('post-creating', event => {
+			this.editing = true;
 		});
 
-		bus.listen('post-selecting', event => {
+		bus.listen('post-selected', event => {
 
 			let presentor = this.$refs.presentor;
 			let post = event.post;
 
 			this.editing = false;
-
-			console.log(post.description);
 
 			presentor.updateInfo({
 				title: post.title,
