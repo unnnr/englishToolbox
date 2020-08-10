@@ -1727,7 +1727,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "card card--rectangle card--margin",
+      staticClass: "card card--rectangle card--margined",
       class: { "card--selected": _vm.selected },
       attrs: { index: typeof _vm.index == "number" ? _vm.index : false }
     },

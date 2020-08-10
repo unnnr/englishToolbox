@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,8 +11,9 @@ const mix = require('laravel-mix');
  */
 
  mix
- .js('resources/js/videos.js', 'public/js');
-// .browserSync({
-//    proxy: 'englishToolbox:80',
-//    files: ['public/**/*.css', 'resources/**/*']
-// }); 
+ .disableSuccessNotifications()
+ .js('resources/js/videos.js', 'public/js')
+.browserSync({
+   proxy: 'englishToolbox:80',
+   files: ['public/**/*.css', 'resources/**/*']
+}); 
