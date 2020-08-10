@@ -141,18 +141,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+ //  :id="typeof id == 'number' ? id : false"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'card',
   props: {
-    post: Object,
-    index: Number
+    title: String,
+    description: String,
+    id: null
   },
   data: function data() {
     return {
-      selected: false,
-      title: 'Viode Title',
-      description: 'video description'
+      selected: false
     };
   },
   methods: {
@@ -160,8 +160,9 @@ __webpack_require__.r(__webpack_exports__);
       var options = {
         card: this
       };
-      if (typeof this.$props.index === 'number') options.index = this.$props.index;
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selected', options);
+      console.log(this.$props.id);
+      if (this.$props.id !== undefined) options.id = this.$props.id;
+      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', options);
     }
   }
 });
@@ -243,7 +244,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onClick: function onClick() {
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting');
+      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-creating');
     }
   }
 });
@@ -262,6 +263,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Card_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Card.vue */ "./resources/js/components/Card.vue");
 /* harmony import */ var _NewCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewCard.vue */ "./resources/js/components/NewCard.vue");
 /* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/PostService */ "./resources/js/services/PostService.js");
 //
 //
 //
@@ -273,6 +275,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -281,42 +285,27 @@ var selectedCard = null;
   name: 'pool',
   data: function data() {
     return {
-      posts: [{
-        title: 'title 1',
-        description: 'description 1',
-        url: 'link'
-      }, {
-        title: 'title 2',
-        description: 'description 2',
-        url: 'link'
-      }, {
-        title: 'title 3',
-        description: 'description 3',
-        url: 'link'
-      }, {
-        title: 'title 5',
-        description: 'description 4',
-        url: 'link'
-      }, {
-        title: 'title 7',
-        description: 'description 6',
-        url: 'link'
-      }]
+      cards: []
     };
   },
   components: {
     Card: _Card_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     NewCard: _NewCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  beforeMount: function beforeMount() {
+    this.cards = _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].allCards();
+    console.log(this.cards[0].id);
+  },
   mounted: function mounted() {
-    var _this = this;
-
-    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('card-selected', function (event) {
-      var post = _this.posts[event.index];
+    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('new-card-touched', function (event) {
+      _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-creating');
+    });
+    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('card-touched', function (event) {
+      var post = _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].getPostInfo(event.card.id);
       if (selectedCard) selectedCard.selected = false;
       selectedCard = event.card;
       selectedCard.selected = true;
-      _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
+      _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
         post: post
       });
     });
@@ -391,7 +380,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -409,14 +397,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-creating', function () {
-      console.log('editing');
+    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-creating', function (event) {
+      _this.editing = true;
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
+    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selected', function (event) {
       var presentor = _this.$refs.presentor;
       var post = event.post;
       _this.editing = false;
-      console.log(post.description);
       presentor.updateInfo({
         title: post.title,
         description: post.description
@@ -1728,20 +1715,19 @@ var render = function() {
     "div",
     {
       staticClass: "card card--rectangle card--margin",
-      class: { "card--selected": _vm.selected },
-      attrs: { index: typeof _vm.index == "number" ? _vm.index : false }
+      class: { "card--selected": _vm.selected }
     },
     [
       _c("div", { staticClass: "card__image", on: { click: _vm.select } }, [
         _vm._m(0),
         _vm._v(" "),
         _c("h5", { staticClass: "card__title heading-fifth" }, [
-          _vm._v(_vm._s(_vm.post.title))
+          _vm._v(_vm._s(_vm.title))
         ])
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "card__text text-third" }, [
-        _vm._v(_vm._s(_vm.post.description))
+        _vm._v(_vm._s(_vm.description))
       ]),
       _vm._v(" "),
       _vm._m(1)
@@ -1966,8 +1952,15 @@ var render = function() {
     [
       _c("new-card", { attrs: { postType: "video" } }),
       _vm._v(" "),
-      _vm._l(_vm.posts, function(post, index) {
-        return _c("card", { key: index, attrs: { post: post, index: index } })
+      _vm._l(_vm.cards, function(card, index) {
+        return _c("card", {
+          key: index,
+          attrs: {
+            title: card.title,
+            description: card.description,
+            id: card.id
+          }
+        })
       })
     ],
     2
@@ -15107,64 +15100,113 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Bus = new function () {
+  this.listen = function (event, callback) {
+    if (typeof event !== 'string') return false;
+    if (!!!listeners[event]) listeners[event] = [];
+    listeners[event].push(callback);
+    return true;
+  };
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+  this.dispatch = function (event) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    if (typeof event !== 'string') return false;
+    if (!!!listeners[event]) return false;
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+    var _iterator = _createForOfIteratorHelper(listeners[event]),
+        _step;
 
-var Bus = /*#__PURE__*/function () {
-  function Bus() {
-    _classCallCheck(this, Bus);
-  }
-
-  _createClass(Bus, [{
-    key: "listen",
-    value: function listen(event, callback) {
-      if (typeof event !== 'string') return false;
-      if (!!!listeners[event]) listeners[event] = [];
-      listeners[event].push(callback);
-      return true;
-    }
-  }, {
-    key: "dispatch",
-    value: function dispatch(event) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      if (typeof event !== 'string') return false;
-      if (!!!listeners[event]) return false;
-
-      var _iterator = _createForOfIteratorHelper(listeners[event]),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var callback = _step.value;
-          callback(options);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var callback = _step.value;
+        callback(options);
       }
-
-      return true;
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
-  }, {
-    key: "remove",
-    value: function remove(event, callback) {
-      if (typeof event !== 'string') return false;
-      var index = listeners[event].indexOf(callback);
-      if (index === -1) return false;
-      listeners[event].splice(index, 1);
-      return true;
-    }
-  }]);
 
-  return Bus;
+    return true;
+  };
+
+  this.remove = function (event, callback) {
+    if (typeof event !== 'string') return false;
+    var index = listeners[event].indexOf(callback);
+    if (index === -1) return false;
+    listeners[event].splice(index, 1);
+    return true;
+  };
 }();
-
 var listeners = [];
-/* harmony default export */ __webpack_exports__["default"] = (new Bus());
+/* harmony default export */ __webpack_exports__["default"] = (Bus);
+
+/***/ }),
+
+/***/ "./resources/js/services/PostService.js":
+/*!**********************************************!*\
+  !*** ./resources/js/services/PostService.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var PostService = new function () {
+  var _this = this;
+
+  this.getPostInfo = function (index) {
+    return posts[index];
+  };
+
+  this.getCard = function (index) {
+    var thumbnail;
+    var title;
+    var description;
+    title = posts[index].title;
+    description = posts[index.description];
+    thumbnail = 'https://img.youtube.com/vi/x9iDXnO_d4s/0.jpg';
+    return {
+      title: title,
+      thumbnail: thumbnail,
+      description: description
+    };
+  };
+
+  this.allCards = function () {
+    var cards = [];
+
+    for (var index in posts) {
+      cards.push(_objectSpread(_objectSpread({}, _this.getCard(index)), {}, {
+        id: Number(index)
+      }));
+    }
+
+    console.log(cards, '12');
+    return cards;
+  };
+
+  var posts = [{
+    title: 'title 1',
+    description: 'description for this video'
+  }, {
+    title: 'title 12',
+    description: 'description for this video'
+  }, {
+    title: 'title 123',
+    description: 'description for this video'
+  }, {
+    title: 'title 3',
+    description: 'description for this video'
+  }];
+}();
+/* harmony default export */ __webpack_exports__["default"] = (PostService);
 
 /***/ }),
 
@@ -15207,6 +15249,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
+window.Posts = [{
+  title: 'Title',
+  thumbnail: 'asd'
+}];
 var ass = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: document.querySelector('main'),
   components: {

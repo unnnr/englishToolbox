@@ -1,6 +1,6 @@
-class Bus
+const Bus = new function ()
 {
-    listen(event, callback)
+    this.listen = (event, callback) =>
     {
         if (typeof event !== 'string')
             return false;
@@ -13,7 +13,7 @@ class Bus
         return true;
     }
 
-    dispatch(event, options = {})
+    this.dispatch  = (event, options = {}) =>
     {
         if (typeof event !== 'string')
             return false;
@@ -27,7 +27,7 @@ class Bus
         return true;
     }
 
-    remove(event, callback)
+    this.remove = (event, callback) =>
     {
         if (typeof event !== 'string')
             return false;
@@ -41,8 +41,8 @@ class Bus
 
         return true;
     }
-}
+}();
 
 let listeners = []
 
-export default new Bus();
+export default Bus;
