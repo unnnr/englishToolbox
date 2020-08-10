@@ -48,7 +48,7 @@ main {
   padding-top: 50px;
 
   .card {
-    flex-basis: 33.3%;
+    margin-bottom: 75px;
 
     @include xl-devices {
       flex-basis: 50%;
@@ -58,6 +58,7 @@ main {
     @include md-devices {
       flex-basis: 100%;
       padding: 0;
+      margin-bottom: 50px;
     }
   }
 
@@ -190,15 +191,22 @@ main {
 .input-second {
   min-height: 40px;
   border-radius: 10px;
-  border: 1px solid $text-fifth;
+  border: 2px solid $bg-main;
   font-size: 14px;
   color: $text-second;
+  background: transparent;
   font-weight: $medium;
   padding: 5px 15px;
+  transition: border .3s ease-in-out;
 
   &::placeholder {
     font-weight: $medium;
     color: $text-third;
+  }
+
+  &:focus {
+    background: lighten($color: $bg-main, $amount: 1.5);
+    border-color: $bg-second;
   }
 }
 
@@ -209,15 +217,24 @@ main {
 .textarea-second {
   min-height: 80px;
   border-radius: 10px;
-  border: 1px solid $text-fifth;
+  border: 2px solid $bg-main;
   font-size: 14px;
   color: $text-second;
+  background: transparent;
   font-weight: $medium;
   padding: 10px 15px;
+  transition: border .3s ease-in-out, background .3s ease-in-out;
+  position: relative;
+  z-index: $z-first;
 
   &::placeholder {
     font-weight: $medium;
     color: $text-third;
+  }
+
+  &:focus {
+    background: lighten($color: $bg-main, $amount: 1.5);
+    border-color: $bg-second;
   }
 }
 
@@ -285,6 +302,29 @@ button {
   }
 }
 
+.button-third {
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid $bg-main;
+  background: transparent;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: $color-main;
+  font-weight: $medium;
+  transition: border .3s ease-in-out, background .3s ease-in-out;
+
+  span {
+    margin-right: 5px;
+  }
+
+  &:focus {
+    background: lighten($color: $bg-main, $amount: 1.5);
+    border-color: $bg-second;
+  }
+}
 // ======================
 // sections for all pages
 // ======================

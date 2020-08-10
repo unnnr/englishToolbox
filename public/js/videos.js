@@ -511,6 +511,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-info',
 
@@ -2222,7 +2229,7 @@ var render = function() {
         _vm._v(_vm._s(_vm.description))
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "space" })
+      _vm._m(1)
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "description__footer" }, [
@@ -2252,6 +2259,36 @@ var staticRenderFns = [
     return _c("button", { staticClass: "description__mobile-button" }, [
       _c("span", { staticClass: "material-icons-round" }, [
         _vm._v("arrow_drop_down")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "description__tags" }, [
+      _c("h3", { staticClass: "description__tags-title heading-fifth" }, [
+        _vm._v("Tag list")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "description__tag description__tag--main" }, [
+        _vm._v("nisiQuisEleifend")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "description__tag description__tag" }, [
+        _vm._v("tortorCondimentum")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "description__tag description__tag" }, [
+        _vm._v("nequeLaoreet")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "description__tag description__tag" }, [
+        _vm._v("maurisPellentesque")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "description__tag description__tag" }, [
+        _vm._v("justoLaoreet")
       ])
     ])
   }

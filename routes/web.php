@@ -31,4 +31,5 @@ Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('recomend', function(){ return view("recomend");})->name('recomend');
+Route::get('account', function(){ return view("account");})->name('account');
 

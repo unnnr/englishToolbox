@@ -28,9 +28,9 @@
   <div class="feed">
     <h3 class="feed__title heading-third">The most popular</h3>
 
-    @include('components.card')
-    @include('components.card')
-    @include('components.card')
+    @include('components.card', ['cardType' => 'card--big'])
+    @include('components.card', ['cardType' => 'card--big'])
+    @include('components.card', ['cardType' => 'card--big'])
 
   </div>
 </section>

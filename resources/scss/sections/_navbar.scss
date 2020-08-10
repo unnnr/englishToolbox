@@ -158,7 +158,8 @@
   overflow: hidden;
   transition: max-width .3s ease-in-out, box-shadow .3s ease-in-out;
   white-space: nowrap;
-  padding-top: 25px;
+  padding: 25px 0 50px;
+  overflow-y: auto;
 }
 
 .navbar-mobile__links--slide {
@@ -168,7 +169,7 @@
 
 .navbar-mobile__header {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   padding: 0 35px;
 }
 
@@ -195,10 +196,6 @@
   &:hover {
     color: darken($color: $text-second, $amount: 15);
   }
-}
-
-.navbar-mobile__link--first {
-  margin-top: 0;
 }
 
 .navbar-mobile__link--active {

@@ -1,4 +1,4 @@
-<div class="card {{{ $cardRatio ?? 'card--square'}}} {{{ $cardMargin ?? '' }}}">
+<div class="card {{{ $cardType ?? ''}}} {{{ $cardMargin ?? '' }}}">
   <div class="card__image">
     <div class="card__header">
       <button class="card__favorite-button">
@@ -9,7 +9,7 @@
         <span class="card__views-count">1337</span>
       </div>
     </div>
-    <h5 class="card__title heading-fifth">{{{ isset($video) && $video->title }}}</h5>
+    <h5 class="card__title heading-fifth">Lorem ipsum dolor</h5>
   </div>
   <p class="card__text text-third">{{{ isset($video) && $video->description }}}</p>
   <div class="card__footer">

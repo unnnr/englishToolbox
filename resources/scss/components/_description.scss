@@ -59,6 +59,50 @@
 .description__title {
   background: $bg-fifth;
 }
+// =================
+// description__tags
+// =================
+
+.description__tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.description__tags-title {
+  flex-basis: 100%;
+  margin-bottom: 15px;
+}
+
+.description__tag {
+  background: $text-third;
+  padding: 6px 10px;
+  border-radius: 25px;
+  color: $bg-fifth;
+  font-size: 12px;
+  font-weight: $semibold;
+  display: flex;
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  @include sm-devices {
+    font-size: 10px;
+  }
+}
+
+.description__tag--main {
+  &:before {
+    content: "star";
+    font-family: 'Material Icons Round';
+    font-size: 15px;
+    margin-right: 5px;
+    align-self: center;
+
+    @include sm-devices {
+      font-size: 12px;
+    }
+  }
+}
 
 // ===================
 // description__footer 

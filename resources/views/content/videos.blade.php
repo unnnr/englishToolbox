@@ -8,6 +8,7 @@
 
 @section('js')
   <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
+  <script type="text/javascript" src=" {{ asset('js/main.js') }}"></script>
 @endsection
 
 @section('selected')
@@ -20,12 +21,12 @@
 
 {{-- @section('pool')
 
-  @include('components.newCard', [
+  {{-- @include('components.newCard', [
     'cardMargin' => 'card--margin',
     'contentType' => 'video'
-  ])
+  ]) --}}
 
-  @foreach ($videos as $video)
+  {{-- @foreach ($videos as $video)
     @include('components.card', [
       'cardRatio' => 'card--rectangle',
       'cardMargin' => 'card--margin',

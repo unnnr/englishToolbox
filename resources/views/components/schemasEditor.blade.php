@@ -8,7 +8,7 @@
       <input class="editor__input input-second" type="text" placeholder="place for your title">
       <label class="editor__label text-fourth">Upload image</label>
       <div class="editor__button-group">
-        <button class="editor__button" type="button"><span class="material-icons-round">insert_photo</span>image</button>
+        <button class="button-third" type="button"><span class="material-icons-round">insert_photo</span>image</button>
       </div>
       <div class="editor__tags">
         <h4 class="editor__label text-fourth">Add tags<small class="editor__counter">0/5</small></h4>

@@ -1,0 +1,25 @@
+@import "presets/import";
+
+.management {
+  display: flex;
+  margin-top: 75px;
+  margin-bottom: 75px;
+}
+
+.management__tab--account {
+  flex-basis: 40%;
+  margin-right: 30px;
+}
+
+.management__tab--comments {
+  flex-basis: 60%;
+}
+
+.management__title {
+  margin-bottom: 30px;
+}
+
+.management__body {
+  background: $bg-fifth;
+  @include border-radius;
+}
