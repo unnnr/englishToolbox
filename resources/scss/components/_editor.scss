@@ -56,24 +56,7 @@
   padding-right: 5px;
   padding-top: 15px;
 
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: $bg-main;
-    border-radius: 20px;
-    margin-top: 15px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $text-fifth;
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: $text-third;
-  }
+  @include scroll-second;
 }
 
 .editor__label {

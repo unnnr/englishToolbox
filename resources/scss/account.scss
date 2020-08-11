@@ -6,6 +6,17 @@
   margin-bottom: 75px;
 }
 
+.management__tab {
+  display: flex;
+  flex-direction: column;
+}
+
+.management__tab-content {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
 .management__tab--account {
   flex-basis: 40%;
   margin-right: 30px;
@@ -13,6 +24,14 @@
 
 .management__tab--comments {
   flex-basis: 60%;
+
+  .management__body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    @include scroll-second;
+  }
 }
 
 .management__title {
@@ -26,7 +45,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: $shadow-second;
-  flex-grow: 1;
+  height: 100%;
 }
 
 .management__account-header {
@@ -138,6 +157,10 @@
 
 .managment__comment {
   display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 25px;
+  }
 }
 
 .managment__comment-body {
