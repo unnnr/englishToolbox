@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Services;
+
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\UploadVideo;
+use App\Services\YoutubeService;
 use App\Models\Video;
 
 
@@ -9,10 +12,13 @@ class VideoService
 {
     public function create(UploadVideo $request)
     {
+        $youtube = new YoutubeService();
+        $info = $youtube->videoInfo($request->input('videoID'));
+
         return Video::create([
-            'title' => 'video №' . Video::count(),
-            'description' => $request->input('description'),
-            'url' => $request->input('url')
+            'videoID' => $request->input('videoID'),
+            'title' => $info['title'],
+            'description' => $request->input('description')
         ]);
     }
 

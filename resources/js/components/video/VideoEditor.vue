@@ -68,7 +68,7 @@ export default {
             bus.dispatch('editor-link-changed', { url: this.url, id: videoID});
         },
 
-        submit (event) {
+        async submit (event) {
             event.preventDefault();
 
             let videoID = getYouTubeID(this.url)
@@ -79,11 +79,12 @@ export default {
 			}
 
             let data = new FormData(this.$refs.form);
+            data.set('videoID',  videoID);
 
-            data.set('id',  videoID);
-
-            let post = PostService.createPost(data);
-
+            let post = await PostService.createPost(data);
+            if (!!!post)
+                return;
+                
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }

@@ -2,6 +2,37 @@ import { post } from "jquery";
 
 const PostService = new function ()
 {
+    this.createPost = async (data) =>
+    {
+        let token = document.querySelector('meta[name="csrf-token"]').content;
+        data.set('_token', token);
+
+        let responce = await fetch(window.location.origin + '/videos', {
+            method: 'POST', 
+            body: data,
+            headers: {
+                'X-CSRF-TOKEN': token,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+
+        if (!!!responce.ok)
+            return null;
+        
+        responce = await responce.json();
+    
+        posts.push({
+            title: responce.title,
+            description: responce.description,
+            id: responce.videoID
+        });
+
+        console.log(posts);
+        
+        return this.getPostInfo(posts.length-1);
+    }
+    
+
     this.getPostInfo = (index) =>
     {
         let post = posts[index];
@@ -15,22 +46,6 @@ const PostService = new function ()
         };
     }
 
-    this.createPost = (data) =>
-    {
-        let post = {};
-        for (const [key, value] of data)
-            post[key] = value;
-
-        posts.push({
-            ...post,
-            title: 'Lorem ipsum dolor sit amet'
-        });
-
-        console.log(posts[posts.length-1]);
-
-        return this.getPostInfo(posts.length-1);
-    }
-    
     this.getCard = (index) => 
     {
         let post = posts[index];

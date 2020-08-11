@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public $singletons = [
         SchemaService::class => SchemaService::class,
         AudioService::class => AudioService::class,
-        VideoService::class => VideoService::class
+        VideoService::class => VideoService::class,
+        YoutubeService::class => YoutubeService::class
     ];
 }
