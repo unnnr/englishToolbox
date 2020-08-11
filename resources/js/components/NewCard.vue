@@ -22,7 +22,7 @@ export default {
 
     methods: {
         onClick () {
-            bus.dispatch('post-creating');
+            bus.dispatch('new-card-touched');
         }
     }
 }

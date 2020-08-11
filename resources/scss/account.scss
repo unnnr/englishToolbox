@@ -1,9 +1,15 @@
 @import "presets/import";
+@import "components/comment";
+@import "sections/reviews";
 
 .management {
   display: flex;
   margin-top: 75px;
   margin-bottom: 75px;
+  
+  @include lg-devices {
+    flex-direction: column;
+  }
 }
 
 .management__tab {
@@ -11,42 +17,61 @@
   flex-direction: column;
 }
 
+.management__tab-header {
+  margin-bottom: 30px;
+}
+
+.management__tab-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 50px;
+  background: $bg-fifth;
+  box-shadow: $shadow-second;
+  @include border-radius;
+
+  @include lg-devices {
+    padding: 15px;
+  }
+}
+
 .management__tab-content {
   display: flex;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
 .management__tab--account {
   flex-basis: 40%;
   margin-right: 30px;
+
+  @include lg-devices {
+    margin-right: 0px;
+    margin-bottom: 30px;
+  }
 }
 
 .management__tab--comments {
   flex-basis: 60%;
 
-  .management__body {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    @include scroll-second;
+  @include lg-devices {
+    .management__tab-body {
+      height: 500px;
+    }
   }
 }
 
-.management__title {
-  margin-bottom: 30px;
+.management__tab-scrollable {
+  padding: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  @include scroll-second;
 }
 
-.management__body {
-  background: $bg-fifth;
-  @include border-radius;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: $shadow-second;
-  height: 100%;
-}
 
 .management__account-header {
   display: flex;
@@ -60,6 +85,11 @@
   background: $text-third;
   border-radius: 100%;
   margin-right: 25px;
+
+  @include lg-devices {
+    height: 75px;
+    min-width: 75px;
+  }
 }
 
 .management__account-name {
@@ -141,57 +171,129 @@
   }
 }
 
+// ===================
+// managments comments
+// =================== 
 
+.management__account-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  background: $bg-fifth;
+  z-index: $z-first;
+  @include border-radius;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.management__account-overlay-image {
+  width: vw(650,1920) !important;
+}
 
-.management__comments-delete-all-button  {
+.management__comments-delete-button  {
   display: flex;
   align-items: center;
   color: $text-fifth;
-  margin-bottom: 25px;
+  width: max-content;
+  margin-bottom: 30px;
 
   span {
     margin-right: 5px;
   }
 }
 
-.managment__comment {
+.management__comment {
   display: flex;
+  margin-right: 15px;
+  margin-bottom: 30px;
+}
 
-  &:not(:last-child) {
-    margin-bottom: 25px;
+.management__comment-image {
+  height: 100px;
+  min-width: 100px;
+  background: $text-third;
+  @include border-radius;
+  margin-right: 15px;
+
+  @include lg-devices {
+    height: 50px;
+    min-width: 50px;
   }
 }
 
-.managment__comment-body {
+.managment__comment-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 15px;
+
+  .comment {
+    margin: 0;
+  }
 }
 
-.managment__comment-image {
-  height: 100px;
-  min-width: 100px;
-  @include border-radius;
-  background: $text-third;
-}
-
-.managment__comment-title {
+.managment__comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.managment__comment-date {
-  font-size: 12px;
-  color: $text-third;
-  font-weight: $medium;
-  margin-top: 5px;
+.management__comment-delete-button {
+  display: flex;
+  align-self: center;
+  height: max-content;
+  span {
+    color: $text-fifth;
+    font-size: 25px;
+  }
 }
 
-.managment__comment-delete-button {
+// =================
+// reviews-managment
+// =================
 
-  span {
-    font-size: 30px !important;
-    color: $text-fifth;
+.reviews-management {
+
+}
+
+.reviews-management__body {
+  display: flex;
+  background: $bg-fifth;
+  box-shadow: $shadow-second;
+  @include border-radius;
+  margin: 30px 0;
+
+  .reviews__card {
+    background: unset;
+    box-shadow: unset;
+  }
+}
+
+.reviews__card-button-group {
+  display: flex;
+  margin-top: 25px;
+}
+
+.reviews__card-button {
+  width: 100%;
+}
+
+.reviews__card-button--delete {
+  background: $color-second;
+  margin-right: 7.5px;
+
+  &:hover {
+    background: darken($color: $color-second, $amount: 3);
+  }
+}
+
+.reviews__card-button--apply {
+  background: $color-third;
+  
+  &:hover {
+    background: darken($color: $color-third, $amount: 3);
   }
 }

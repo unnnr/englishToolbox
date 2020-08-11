@@ -75,7 +75,13 @@
   }
 }
 // css bg images
-@mixin background-image($url) {
+@mixin background-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin background-image-url($url) {
   background-image: url($url);
   background-position-x: center;
   background-repeat: no-repeat;
@@ -102,7 +108,6 @@
   &::-webkit-scrollbar-track {
     background: $bg-main;
     border-radius: 20px;
-    margin-top: 15px;
   }
 
   &::-webkit-scrollbar-thumb {

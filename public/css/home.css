@@ -98,8 +98,7 @@ main {
 .abot-me__photo {
   position: relative;
   border-radius: 15px;
-  background-image: url("public/img/photo.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 125%;
@@ -282,22 +281,19 @@ main {
 }
 
 .about-me__picture--first {
-  background-image: url("public/img/1.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .about-me__picture--second {
-  background-image: url("public/img/2.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .about-me__picture--third {
-  background-image: url("public/img/3.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -390,8 +386,7 @@ main {
   width: 75px;
   border-radius: 100%;
   margin-right: 15px;
-  background-image: url("public/img/person_ph.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
@@ -739,7 +734,7 @@ main {
 }
 
 .card--rectangle .card__image {
-  padding-bottom: 56.25%;
+  padding-bottom: 55%;
   border: 5px solid #fff;
 }
 
@@ -780,6 +775,9 @@ main {
   -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
           box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   border-radius: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 1200px) {

@@ -1,18 +1,25 @@
 <template>
     <div class="editor">
-        <form class="editor__form">
+        <form @submit='submit' class="editor__form" ref="form">
             <div class="editor__header">
                 <h5 class="editor__title text-third">New video</h5>
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
-                    {{ link }}
+                    YouTube link
                 </label>
-                <input class="editor__input input-second" type="text" placeholder="https://...">
+                <input class="editor__input input-second"
+                       type="text"
+                       placeholder="https://..."
+                       v-model="url"
+                       name="url"
+                       required
+                       @keyup.enter="updateLink"
+                       @blur='updateLink'>
                 <label class="editor__label text-fourth" for="">
-                    {{ description }}<small class="editor__counter">0/180</small>
+                    Custom description<small class="editor__counter">0/180</small>
                 </label>
-                <textarea class="editor__textarea textarea-second" placeholder="place for your description"></textarea>
+                <textarea class="editor__textarea textarea-second" placeholder="place for your description" name="description"></textarea>
                 <tag-list></tag-list>
             </div>
             <div class="editor__footer">
@@ -23,20 +30,64 @@
 </template>
 
 <script>
+import getYouTubeID from 'get-youtube-id';
+import bus from '../../eventbus';
+import PostService from '../../services/PostService'
 import TagList from '../TagList.vue';
 
 export default {
     name: 'video-editor',
 
-    data: function () {
+    data: function () { 
         return {
-            description: 'Custom description',
-            link: 'YouTube link'
+            url: '',
+            description: ''
         }
     },
 
     components: {
         TagList
+    },
+
+    methods: {
+        updateLink () {
+            if (this.$options.previousUrl === this.url)
+                return;
+            this.$options.previousUrl = this.url;
+            
+
+            let videoID = getYouTubeID(this.url);
+            if (!!!videoID)
+            {
+                console.error('Icorrect url');
+                return;
+            }
+            
+            console.log('suc');
+
+            bus.dispatch('editor-link-changed', { url: this.url, id: videoID});
+        },
+
+        async submit (event) {
+            event.preventDefault();
+
+            let videoID = getYouTubeID(this.url)
+            if (!!!videoID)
+            {
+                console.error('Icorrect url');
+                return;
+			}
+
+            let data = new FormData(this.$refs.form);
+            data.set('videoID',  videoID);
+
+            let post = await PostService.createPost(data);
+            if (!!!post)
+                return;
+                
+            bus.dispatch('post-created', { post });
+            bus.dispatch('post-selected', { post  });
+        }
     }
 }
 </script>

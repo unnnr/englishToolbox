@@ -20,7 +20,7 @@ class VideoController extends Controller
         $video = $videoService->create($request);
 
         return [
-            'url' => $video->url,
+            'videoID' => $video->videoID,
             'title' => $video->title,
             'description' => $video->description
         ];

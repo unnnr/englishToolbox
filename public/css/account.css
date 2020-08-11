@@ -28,12 +28,177 @@ main {
   height: 100vh;
 }
 
+.comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 15px 0;
+}
+
+.comment__image {
+  background: #a1a1b1;
+  height: 35px;
+  min-width: 35px;
+  border-radius: 100%;
+  margin-right: 15px;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+}
+
+.comment__name {
+  font-weight: 600;
+  color: #2f2e44;
+}
+
+.comment__mention {
+  font-weight: 600;
+  color: #6666ff;
+}
+
+.comment__date {
+  margin-top: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+.reviews {
+  padding-bottom: 150px;
+  background: #f5f5f5;
+}
+
+.reviews__title {
+  text-align: center;
+  margin-bottom: 75px;
+}
+
+.reviews__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.reviews__card {
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  padding: 75px 30px;
+  border-radius: 15px;
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+  .reviews__card {
+    border-radius: 10px;
+  }
+}
+
+.reviews__card--first,
+.reviews__card--second,
+.reviews__card--third {
+  margin-right: 30px;
+}
+
+.reviews__card-photo {
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+  margin-right: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+}
+
+.reviews__card-person {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 35px;
+}
+
+.reviews__card-title {
+  margin-bottom: 15px;
+}
+
+.reviews__card-text {
+  margin-bottom: 30px;
+}
+
+.reviews__card-grade {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.reviews__card-stars {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.reviews__card-star {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  margin-right: 15px;
+}
+
+.reviews__card-star-half {
+  height: 30px;
+  width: 15px;
+  opacity: 1;
+}
+
+.reviews__card-star-half--unselected {
+  opacity: 0.25;
+}
+
+.reviews__card-rating {
+  padding: 0px 15px;
+  font-size: 25px;
+  background: #ffdd6e;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+  height: 30px;
+}
+
 .management {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-top: 75px;
   margin-bottom: 75px;
+}
+
+@media (max-width: 1200px) {
+  .management {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 
 .management__tab {
@@ -46,11 +211,47 @@ main {
           flex-direction: column;
 }
 
+.management__tab-header {
+  margin-bottom: 30px;
+}
+
+.management__tab-body {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 50px;
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+  border-radius: 15px;
+}
+
+@media (max-width: 1200px) {
+  .management__tab-body {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .management__tab-body {
+    padding: 15px;
+  }
+}
+
 .management__tab-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -60,61 +261,48 @@ main {
   margin-right: 30px;
 }
 
+@media (max-width: 1200px) {
+  .management__tab--account {
+    margin-right: 0px;
+    margin-bottom: 30px;
+  }
+}
+
 .management__tab--comments {
   -ms-flex-preferred-size: 60%;
       flex-basis: 60%;
 }
 
-.management__tab--comments .management__body {
+@media (max-width: 1200px) {
+  .management__tab--comments .management__tab-body {
+    height: 500px;
+  }
+}
+
+.management__tab-scrollable {
+  padding: 0;
   position: absolute;
-  width: 100%;
   height: 100%;
+  width: 100%;
   overflow-y: auto;
 }
 
-.management__tab--comments .management__body::-webkit-scrollbar {
+.management__tab-scrollable::-webkit-scrollbar {
   width: 6px;
 }
 
-.management__tab--comments .management__body::-webkit-scrollbar-track {
+.management__tab-scrollable::-webkit-scrollbar-track {
   background: #fafafa;
   border-radius: 20px;
-  margin-top: 15px;
 }
 
-.management__tab--comments .management__body::-webkit-scrollbar-thumb {
+.management__tab-scrollable::-webkit-scrollbar-thumb {
   background: #DADAEA;
   border-radius: 20px;
 }
 
-.management__tab--comments .management__body::-webkit-scrollbar-thumb:hover {
+.management__tab-scrollable::-webkit-scrollbar-thumb:hover {
   background: #a1a1b1;
-}
-
-.management__title {
-  margin-bottom: 30px;
-}
-
-.management__body {
-  background: #fff;
-  border-radius: 15px;
-  padding: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-  height: 100%;
-}
-
-@media (max-width: 1200px) {
-  .management__body {
-    border-radius: 10px;
-  }
 }
 
 .management__account-header {
@@ -133,6 +321,13 @@ main {
   background: #a1a1b1;
   border-radius: 100%;
   margin-right: 25px;
+}
+
+@media (max-width: 1200px) {
+  .management__account-photo {
+    height: 75px;
+    min-width: 75px;
+  }
 }
 
 .management__account-name {
@@ -235,7 +430,37 @@ main {
   font-size: 20px;
 }
 
-.management__comments-delete-all-button {
+.management__account-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  background: #fff;
+  z-index: 10;
+  border-radius: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media (max-width: 1200px) {
+  .management__account-overlay {
+    border-radius: 10px;
+  }
+}
+
+.management__account-overlay-image {
+  width: 33.85417vw !important;
+}
+
+.management__comments-delete-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -243,24 +468,46 @@ main {
       -ms-flex-align: center;
           align-items: center;
   color: #DADAEA;
-  margin-bottom: 25px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin-bottom: 30px;
 }
 
-.management__comments-delete-all-button span {
+.management__comments-delete-button span {
   margin-right: 5px;
 }
 
-.managment__comment {
+.management__comment {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 15px;
+  margin-bottom: 30px;
 }
 
-.managment__comment:not(:last-child) {
-  margin-bottom: 25px;
+.management__comment-image {
+  height: 100px;
+  min-width: 100px;
+  background: #a1a1b1;
+  border-radius: 15px;
+  margin-right: 15px;
 }
 
-.managment__comment-body {
+@media (max-width: 1200px) {
+  .management__comment-image {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .management__comment-image {
+    height: 50px;
+    min-width: 50px;
+  }
+}
+
+.managment__comment-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -271,34 +518,88 @@ main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 0 15px;
 }
 
-.managment__comment-image {
-  height: 100px;
-  min-width: 100px;
+.managment__comment-wrapper .comment {
+  margin: 0;
+}
+
+.managment__comment-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.management__comment-delete-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.management__comment-delete-button span {
+  color: #DADAEA;
+  font-size: 25px;
+}
+
+.reviews-management__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   border-radius: 15px;
-  background: #a1a1b1;
+  margin: 30px 0;
 }
 
 @media (max-width: 1200px) {
-  .managment__comment-image {
+  .reviews-management__body {
     border-radius: 10px;
   }
 }
 
-.managment__comment-title {
-  margin-bottom: 10px;
+.reviews-management__body .reviews__card {
+  background: unset;
+  -webkit-box-shadow: unset;
+          box-shadow: unset;
 }
 
-.managment__comment-date {
-  font-size: 12px;
-  color: #a1a1b1;
-  font-weight: 500;
-  margin-top: 5px;
+.reviews__card-button-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 25px;
 }
 
-.managment__comment-delete-button span {
-  font-size: 30px !important;
-  color: #DADAEA;
+.reviews__card-button {
+  width: 100%;
+}
+
+.reviews__card-button--delete {
+  background: #ff6688;
+  margin-right: 7.5px;
+}
+
+.reviews__card-button--delete:hover {
+  background: #ff577c;
+}
+
+.reviews__card-button--apply {
+  background: #1dd1bb;
+}
+
+.reviews__card-button--apply:hover {
+  background: #1bc4af;
 }

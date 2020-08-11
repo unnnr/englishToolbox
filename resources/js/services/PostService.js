@@ -1,22 +1,60 @@
+import { post } from "jquery";
+
 const PostService = new function ()
 {
-    this.getPostInfo = (index) =>
+    this.createPost = async (data) =>
     {
-        return posts[index];
+        let token = document.querySelector('meta[name="csrf-token"]').content;
+        data.set('_token', token);
+
+        let responce = await fetch(window.location.origin + '/videos', {
+            method: 'POST', 
+            body: data,
+            headers: {
+                'X-CSRF-TOKEN': token,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+
+        if (!!!responce.ok)
+            return null;
+        
+        responce = await responce.json();
+    
+        posts.push({
+            title: responce.title,
+            description: responce.description,
+            id: responce.videoID
+        });
+
+        console.log(posts);
+        
+        return this.getPostInfo(posts.length-1);
     }
     
-    this.getCard = (index) => 
-    {
-        let thumbnail;
-        let title;
-        let description;
 
-        title = posts[index].title;
-        description = posts[index.description];
-        thumbnail = 'https://img.youtube.com/vi/x9iDXnO_d4s/0.jpg';
+    this.getPostInfo = (index) =>
+    {
+        let post = posts[index];
 
         return {
-            title, thumbnail, description
+            title: post.title,
+            description: post.description,
+            contentID: post.id,
+            index: index,
+            date: '22',
+        };
+    }
+
+    this.getCard = (index) => 
+    {
+        let post = posts[index];
+
+        return {
+            index: index,
+            title: post.title,
+            description: post.description,
+            thumbnail: `https://i.ytimg.com/vi/${post.id}/sddefault.jpg`
         }
     }
 
@@ -30,15 +68,12 @@ const PostService = new function ()
                 id: Number(index)
             })
 
-        console.log(cards, '12');
         return cards;
     }
 
     const posts = [
-        { title: 'title 1', description: 'description for this video'},
-        { title: 'title 12', description: 'description for this video'},
-        { title: 'title 123', description: 'description for this video'},
-        { title: 'title 3', description: 'description for this video'},
+        { title: 'Lorem ipsum dolor sit amet', id: 'dQw4w9WgXcQ', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
+        { title: 'Lorem ipsum dolor sit amet', id: 'G1IbRujko-A', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
     ]
 }();
 

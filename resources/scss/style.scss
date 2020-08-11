@@ -1,5 +1,9 @@
 @import "presets/import";
 
+@import "components/card";
+@import "components/tags";
+@import "components/tooltips";
+
 // ==========
 // font style 
 // ==========
@@ -68,6 +72,36 @@ main {
 
   @include md-devices {
     margin: 0;
+  }
+}
+
+.pool--three-columns {
+
+  .card {
+    @include xl-devices {
+      flex-basis: 50%;
+    }
+  
+    @include md-devices {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.pool--four-columns {
+
+  .card {
+    @include xl-devices {
+      flex-basis: 33.3%;
+    }
+  
+    @include lg-devices {
+      flex-basis: 50%;
+    }
+
+    @include md-devices {
+      flex-basis: 100%;
+    }
   }
 }
 

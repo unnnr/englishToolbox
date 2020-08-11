@@ -13,7 +13,7 @@
   flex-basis: 33.3%;
 
   .card__image {
-    padding-bottom: 56.25%;
+    padding-bottom: 55%;
     border: 5px solid $bg-fifth;
   }
 }
@@ -46,7 +46,7 @@
   margin-bottom: 25px;
   box-shadow: $shadow-second;
   @include border-radius;
-
+  @include background-image;
   
   @include lg-devices {
     margin-bottom: 20px;

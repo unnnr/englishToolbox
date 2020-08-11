@@ -33,7 +33,7 @@
   width: 75px;
   border-radius: 100%;
   margin-right: 15px;
-  @include background-image("public/img/person_ph.jpg");
+  @include background-image;
   box-shadow: $shadow-second;
 }
 

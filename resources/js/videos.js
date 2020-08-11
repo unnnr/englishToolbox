@@ -28,12 +28,13 @@ import Vue from 'vue';
 
 
 import VideoAddition from  './components/video/VideoAddition';
+import VideoPlayer from  './components/video/VideoPlayer';
 import Pool from  './components/Pool';
 
 Vue.config.devtools = true;
 
 window.Posts = [
-  {title: 'Title', thumbnail: 'asd'}
+	{title: 'Title', thumbnail: 'asd'}
 ];
 
 const ass = new Vue({
@@ -41,6 +42,7 @@ const ass = new Vue({
 
     components: {
 		VideoAddition,
+		VideoPlayer,
 		Pool
     }
 });

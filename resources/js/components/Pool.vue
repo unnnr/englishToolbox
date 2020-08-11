@@ -2,10 +2,12 @@
     <section class="pool container">
         <new-card postType="video" />
         <card
-            v-for="(card, index) of cards" :key="index"
-            :title="card.title"
-            :description="card.description"
-            :id="card.id"
+            v-for="({title, description, thumbnail}, index) of cards"
+            :key="index"
+            :title="title"
+            :imageUrl='thumbnail'
+            :description="description"
+            :id="index"
         />
     </section>
 </template>
@@ -36,28 +38,43 @@ export default {
     beforeMount()
     {
         this.cards = PostService.allCards();
-
-        console.log(this.cards[0].id);
     },
 
     mounted()
     {
+
         bus.listen('new-card-touched', event => {
-            bus.dispatch('post-creating');
+            if (selectedCard)
+                selectedCard.selected = false;
+            selectedCard = null;
+
+            bus.dispatch('post-editing');
         });
         
         bus.listen('card-touched', event => {
-              
+             if (event.card === selectedCard)
+                return;
+
             let post = PostService.getPostInfo(event.card.id)
+            bus.dispatch('post-selected', { post });
+        });
+        
+
+        bus.listen('post-created', event => {
+            let newCard = PostService.getCard(event.post.index);
+
+            this.cards.push(newCard);
+        })
+
+        bus.listen('post-selected', event => {
+            let card = PostService.getCard(event.post.index);
 
             if (selectedCard)
                 selectedCard.selected = false;
 
-            selectedCard = event.card;
+            selectedCard = card;
             selectedCard.selected = true;
-
-            bus.dispatch('post-selected', { post });
-        });
+        })
     }
 }
 </script>
