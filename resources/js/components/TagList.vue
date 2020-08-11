@@ -6,7 +6,7 @@
                 <input class="tag__input" type="text" placeholder="add new tag" id="tag_new">
             </div>
             <div v-for="(tag, index) of tags" :key="index"  class="tag tag--main editor__tag">
-                <input class="tag__checkbox" type="checkbox" id="tag__checkbox_1">
+                <input class="tag__checkbox" type="checkbox" :id="'tag__checkbox_' + index">
                 <label class="tag__checkbox-label" for="tag__checkbox_1">
                     <div class="tag__icon tag__icon--checkbox"></div>
                     <span class="tag__name tag__name--checkbox">{{ tag }}</span>

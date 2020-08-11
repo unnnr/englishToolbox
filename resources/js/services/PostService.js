@@ -1,16 +1,34 @@
+import { post } from "jquery";
+
 const PostService = new function ()
 {
     this.getPostInfo = (index) =>
     {
         let post = posts[index];
 
-        console.log(post.id);
         return {
             title: post.title,
             description: post.description,
-            contentUrl: `https://www.youtube.com/embed/${post.id}`,
-            date: '22'
+            contentID: post.id,
+            index: index,
+            date: '22',
         };
+    }
+
+    this.createPost = (data) =>
+    {
+        let post = {};
+        for (const [key, value] of data)
+            post[key] = value;
+
+        posts.push({
+            ...post,
+            title: 'Lorem ipsum dolor sit amet'
+        });
+
+        console.log(posts[posts.length-1]);
+
+        return this.getPostInfo(posts.length-1);
     }
     
     this.getCard = (index) => 
@@ -18,9 +36,10 @@ const PostService = new function ()
         let post = posts[index];
 
         return {
+            index: index,
             title: post.title,
             description: post.description,
-            thumbnail: `https://i.ytimg.com/vi/${post.id}/hqdefault.jpg`
+            thumbnail: `https://i.ytimg.com/vi/${post.id}/sddefault.jpg`
         }
     }
 

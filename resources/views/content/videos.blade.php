@@ -7,6 +7,7 @@
 @endsection
 
 @section('js')
+  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
   <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
   <script type="text/javascript" src=" {{ asset('js/main.js') }}"></script>
 @endsection
@@ -16,6 +17,7 @@
  {{-- @include('components.videoPlayer') --}}
   <video-player></video-player>
   <video-addition></video-addition>
+
 
 @endsection
 
