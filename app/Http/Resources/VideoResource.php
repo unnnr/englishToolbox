@@ -19,7 +19,12 @@ class VideoResource extends JsonResource
         return [
             'title' => $this->title,
             'videoID' => $this->videoID,
-            'description' => $this->description
+            'description' => $this->description,
+            'tags' => [
+                [ 'label' => 'supa', 'color' => 'green'],
+                [ 'label' => 'content', 'color' => 'green'],
+                [ 'label' => 'ZULUL', 'color' => 'green']
+            ]
         ];
     }
 }

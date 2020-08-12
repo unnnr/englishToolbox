@@ -47,7 +47,8 @@ export default {
 
 			presentor.updateInfo({
 				title: post.title,
-				description: post.description
+				description: post.description,
+				tags: post.tags
 			});
 
 		});	
