@@ -15,7 +15,8 @@ textarea {
 textarea,
 input,
 select {
-  border: 1px solid black;
+  border: none;
+  background: transparent;
 }
 
 button {

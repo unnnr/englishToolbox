@@ -381,8 +381,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-list',
   data: function data() {
@@ -646,15 +644,15 @@ __webpack_require__.r(__webpack_exports__);
           type: String,
           default: 'Title'
       },
-       date: {
+        date: {
           type: String,
           default: 'April 17 2020'
       },
-       views: {
+        views: {
           type: Number,
           default: 1289
       },
-       description: {
+        description: {
           type: String,
           default: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                       dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
@@ -3082,18 +3080,27 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "tag tag--checkbox tag--main",
+          staticClass: "tag tag--new tag--new-active",
           attrs: { type: "button" }
         },
         [
-          _c("input", {
-            staticClass: "tag__checkbox",
-            attrs: { id: "cb1", type: "checkbox" }
-          }),
+          _c(
+            "label",
+            {
+              staticClass: "tag__label tag__label--new",
+              attrs: { for: "tn1" }
+            },
+            [
+              _c("span", { staticClass: "material-icons-round" }, [
+                _vm._v("add")
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("label", { staticClass: "tag__label", attrs: { for: "cb1" } }, [
-            _vm._v("isiQuisEleifend")
-          ])
+          _c("input", {
+            staticClass: "tag__input",
+            attrs: { id: "tn1", type: "text", placeholder: "newTag" }
+          })
         ]
       ),
       _vm._v(" "),
@@ -3104,14 +3111,29 @@ var staticRenderFns = [
           attrs: { type: "button" }
         },
         [
+          _c("label", { staticClass: "tag__label", attrs: { for: "cb1" } }, [
+            _vm._v("isiQuisEleifend")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "tag__checkbox",
+            attrs: { id: "cb1", type: "checkbox" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "tag tag--checkbox", attrs: { type: "button" } },
+        [
+          _c("label", { staticClass: "tag__label", attrs: { for: "cb2" } }, [
+            _vm._v("isiQuisEleifend")
+          ]),
+          _vm._v(" "),
           _c("input", {
             staticClass: "tag__checkbox",
             attrs: { id: "cb2", type: "checkbox" }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "tag__label", attrs: { for: "cb2" } }, [
-            _vm._v("isiQuisEleifend")
-          ])
+          })
         ]
       ),
       _vm._v(" "),
@@ -16734,7 +16756,7 @@ var ass = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })

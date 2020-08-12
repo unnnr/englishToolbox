@@ -12,4 +12,8 @@ const mix = require('laravel-mix');
 
  mix
  .disableSuccessNotifications()
- .js('resources/js/videos.js', 'public/js');
+ .js('resources/js/videos.js', 'public/js')
+// .browserSync({
+// proxy: 'englishToolbox:80',
+// files: ['public/**/*.css', 'resources/**/*']
+// }); 
