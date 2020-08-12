@@ -1,171 +1,237 @@
+// .tag {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+// }
+
+// .tag__icon {
+//   height: 25px;
+//   min-width: 25px;
+//   border-radius: 100%;
+//   background: $text-third;
+//   transition: height .1s ease-in-out, width .1s ease-in-out;
+
+//   &:not(:first-child) {
+//     margin-left: -8px;
+//     box-shadow: 0px 0px 0px 3px $bg-main;
+//   }
+
+//   &:not(:nth-last-child(2)):hover {
+//     cursor: pointer;
+//     height: 30px;
+//     width: 30px;
+//   }
+
+//   &:not(:nth-last-child(2)):hover .tag__tooltip {
+//     opacity: 1;
+//     bottom: -5px;
+//     visibility: visible;
+//   }
+
+//   &:nth-child(1):hover .tag__tooltip {
+//     left: -5px;
+//   }
+
+
+//   &:nth-child(2):hover .tag__tooltip {
+//     left: 5px;
+//   }
+// }
+
+// .tag__name {
+//   margin-left: 10px;
+//   font-size: 1.4em;
+//   margin-left: 10px;
+//   font-weight: $semibold;
+//   color: $text-third;
+// }
+
+// .tag__checkbox {
+//   visibility: hidden;
+//   position: absolute;
+
+//   &:checked+.tag__checkbox-label .tag__icon--checkbox {
+//     box-shadow: inset 0px 0px 0px 17.5px $color-main;
+//   }
+
+//   &:checked+.tag__checkbox-label .tag__name--checkbox {
+//     color: $color-main;
+//   }
+// }
+
+// .tag__checkbox-label {
+//   display: flex;
+//   align-items: center;
+
+//   &:hover {
+//     cursor: pointer;
+//   }
+
+//   &:hover .tag__icon--checkbox {
+//     box-shadow: inset 0px 0px 0px 4px $text-second;
+//   }
+
+//   &:hover .tag__name--checkbox {
+//     color: $text-second;
+//   }
+
+//   &:active {
+//     transform: scale(0.98);
+//   }
+// }
+
+// .tag__icon--checkbox {
+//   background: $bg-fifth;
+//   box-shadow: inset 0px 0px 0px 3px $text-third;
+//   transition: box-shadow .3s ease-in-out;
+// }
+
+// .tag__name--checkbox {
+//   transition: color .3s ease-in-out;
+//   font-size: 18px;
+//   font-weight: $semibold;
+// }
+
+// .tag__tooltip {
+//   opacity: 0;
+//   position: absolute !important;
+//   bottom: 0;
+//   left: 0;
+//   transform: translateY(100%);
+//   visibility: hidden;
+// }
+
+// .tag--main {
+//   .tag__icon--checkbox {
+//     display: flex;
+//     position: relative;
+//     justify-content: center;
+//     align-items: center;
+
+//     &:before {
+//       font-family: 'Material Icons Round';
+//       content: "star";
+//       font-size: 19px !important;
+//       position: absolute;
+//       color: $bg-fifth;
+//     }
+//   }
+// }
+
+// .tag--new {
+//   &:hover {
+//     cursor: pointer;
+//   }
+
+//   .tag__icon {
+//     display: flex;
+//     position: relative;
+//     justify-content: center;
+//     align-items: center;
+
+//     &:before {
+//       font-family: 'Material Icons Round';
+//       content: "add";
+//       font-size: 20px;
+//       position: absolute;
+//       color: $bg-fifth;
+//     }
+
+//     &:hover {
+//       cursor: pointer;
+//     }
+//   }
+// }
+
+// .tag__input {
+//   font-size: 1.8em;
+//   font-weight: $semibold;
+//   color: $text-third;
+//   border: none;
+//   padding: 2px 0;
+//   border-bottom: 1px solid;
+//   border-color: $bg-fifth;
+//   margin-left: 10px;
+//   transition: border-color .3s;
+//   width: 100%;
+
+//   &::placeholder {
+//     font-size: 18px;
+//     font-weight: $semibold;
+//     color: $text-third;
+//   }
+  
+//   &:hover {
+//     cursor: pointer;
+//   }
+
+//   &:focus {
+//     border-color: $text-fifth;
+//   }
+// }
+
+
+// ==============
+// tag redesigned
+// ==============
+
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  .tag {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.tags__title {
+  flex-basis: 100%;
+  margin-bottom: 15px;
+  color: $text-main;
+}
+
 .tag {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.tag__icon {
-  height: 25px;
-  min-width: 25px;
-  border-radius: 100%;
   background: $text-third;
-  transition: height .1s ease-in-out, width .1s ease-in-out;
-
-  &:not(:first-child) {
-    margin-left: -8px;
-    box-shadow: 0px 0px 0px 3px $bg-main;
-  }
-
-  &:not(:nth-last-child(2)):hover {
-    cursor: pointer;
-    height: 30px;
-    width: 30px;
-  }
-
-  &:not(:nth-last-child(2)):hover .tag__tooltip {
-    opacity: 1;
-    bottom: -5px;
-    visibility: visible;
-  }
-
-  &:nth-child(1):hover .tag__tooltip {
-    left: -5px;
-  }
-
-
-  &:nth-child(2):hover .tag__tooltip {
-    left: 5px;
-  }
-}
-
-.tag__name {
-  margin-left: 10px;
-  font-size: 1.4em;
-  margin-left: 10px;
+  color: $text-fourth;
   font-weight: $semibold;
-  color: $text-third;
-}
-
-.tag__checkbox {
-  visibility: hidden;
-  position: absolute;
-
-  &:checked+.tag__checkbox-label .tag__icon--checkbox {
-    box-shadow: inset 0px 0px 0px 17.5px $color-main;
-  }
-
-  &:checked+.tag__checkbox-label .tag__name--checkbox {
-    color: $color-main;
-  }
-}
-
-.tag__checkbox-label {
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 50px;
+  width: max-content;
+  height: max-content;
   display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:hover .tag__icon--checkbox {
-    box-shadow: inset 0px 0px 0px 4px $text-second;
-  }
-
-  &:hover .tag__name--checkbox {
-    color: $text-second;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
 }
 
-.tag__icon--checkbox {
-  background: $bg-fifth;
-  box-shadow: inset 0px 0px 0px 3px $text-third;
-  transition: box-shadow .3s ease-in-out;
-}
-
-.tag__name--checkbox {
-  transition: color .3s ease-in-out;
-  font-size: 18px;
-  font-weight: $semibold;
-}
-
-.tag__tooltip {
-  opacity: 0;
-  position: absolute !important;
-  bottom: 0;
-  left: 0;
-  transform: translateY(100%);
-  visibility: hidden;
+.tag--checkbox {
+  &:before {
+    font-family: "Material Icons Round";
+    content: "star";
+    font-size: 15px;
+    transition: max-width .1s;
+    overflow: hidden;
+    max-width: 0;
+  }
 }
 
 .tag--main {
-  .tag__icon--checkbox {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-
-    &:before {
-      font-family: 'Material Icons Round';
-      content: "star";
-      font-size: 19px !important;
-      position: absolute;
-      color: $bg-fifth;
-    }
+  &:before {
+    font-family: "Material Icons Round";
+    content: "star";
+    font-size: 15px;
+    align-self: center;
+    margin-right: 5px;
+    max-width: 15px;
   }
 }
 
-.tag--new {
-  &:hover {
-    cursor: pointer;
-  }
-
-  .tag__icon {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-
-    &:before {
-      font-family: 'Material Icons Round';
-      content: "add";
-      font-size: 20px;
-      position: absolute;
-      color: $bg-fifth;
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
+.tag__checkbox {
+  display: none;
 }
 
-.tag__input {
-  font-size: 1.8em;
-  font-weight: $semibold;
-  color: $text-third;
-  border: none;
-  padding: 2px 0;
-  border-bottom: 1px solid;
-  border-color: $bg-fifth;
-  margin-left: 10px;
-  transition: border-color .3s;
-  width: 100%;
-
-  &::placeholder {
-    font-size: 18px;
-    font-weight: $semibold;
-    color: $text-third;
-  }
-  
+.tag__label {
   &:hover {
     cursor: pointer;
-  }
-
-  &:focus {
-    border-color: $text-fifth;
   }
 }

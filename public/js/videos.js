@@ -372,6 +372,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-list',
   data: function data() {
@@ -3055,68 +3066,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "editor__tags" },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._l(_vm.tags, function(tag, index) {
-        return _c(
-          "div",
-          { key: index, staticClass: "tag tag--main editor__tag" },
-          [
-            _c("input", {
-              staticClass: "tag__checkbox",
-              attrs: { type: "checkbox", id: "tag__checkbox_" + index }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "tag__checkbox-label",
-                attrs: { for: "tag__checkbox_1" }
-              },
-              [
-                _c("div", { staticClass: "tag__icon tag__icon--checkbox" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "tag__name tag__name--checkbox" }, [
-                  _vm._v(_vm._s(tag))
-                ])
-              ]
-            )
-          ]
-        )
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "space" })
-    ],
-    2
-  )
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "editor__label text-fourth" }, [
-      _vm._v("Add tags"),
-      _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "tag tag--new editor__tag" }, [
-      _c("label", { staticClass: "tag__icon", attrs: { for: "tag_new" } }),
+    return _c("div", { staticClass: "tags" }, [
+      _c("h4", { staticClass: "tags__title text-fourth" }, [
+        _vm._v("Add tags"),
+        _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
+      ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "tag__input",
-        attrs: { type: "text", placeholder: "add new tag", id: "tag_new" }
-      })
+      _c(
+        "button",
+        {
+          staticClass: "tag tag--checkbox tag--main",
+          attrs: { type: "button" }
+        },
+        [
+          _c("input", {
+            staticClass: "tag__checkbox",
+            attrs: { id: "cb1", type: "checkbox" }
+          }),
+          _vm._v(" "),
+          _c("label", { staticClass: "tag__label", attrs: { for: "cb1" } }, [
+            _vm._v("isiQuisEleifend")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "tag tag--checkbox tag--main",
+          attrs: { type: "button" }
+        },
+        [
+          _c("input", {
+            staticClass: "tag__checkbox",
+            attrs: { id: "cb2", type: "checkbox" }
+          }),
+          _vm._v(" "),
+          _c("label", { staticClass: "tag__label", attrs: { for: "cb2" } }, [
+            _vm._v("isiQuisEleifend")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "space" })
     ])
   }
 ]
