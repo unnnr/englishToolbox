@@ -303,7 +303,7 @@ main {
 }
 
 .card--rectangle .card__image {
-  padding-bottom: 56.25%;
+  padding-bottom: 55%;
   border: 5px solid #fff;
 }
 
@@ -344,6 +344,9 @@ main {
   -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
           box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   border-radius: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 1200px) {
@@ -594,8 +597,7 @@ main {
   height: 100%;
   width: 100%;
   position: absolute;
-  background-image: url("https://cdn.discordapp.com/attachments/734081011180240967/734082310634209330/invisible_2.jpg");
-  background-position-x: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1042,6 +1044,39 @@ main {
   }
 }
 
+.comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 15px 0;
+}
+
+.comment__image {
+  background: #a1a1b1;
+  height: 35px;
+  min-width: 35px;
+  border-radius: 100%;
+  margin-right: 15px;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+}
+
+.comment__name {
+  font-weight: 600;
+  color: #2f2e44;
+}
+
+.comment__mention {
+  font-weight: 600;
+  color: #6666ff;
+}
+
+.comment__date {
+  margin-top: 5px;
+  display: block;
+  font-weight: 600;
+}
+
 .comments {
   position: absolute;
   width: 100%;
@@ -1122,39 +1157,6 @@ main {
   .comments__count {
     display: none;
   }
-}
-
-.comment {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 15px 0;
-}
-
-.comment__image {
-  background: #a1a1b1;
-  height: 35px;
-  min-width: 35px;
-  border-radius: 100%;
-  margin-right: 15px;
-  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
-}
-
-.comment__name {
-  font-weight: 600;
-  color: #2f2e44;
-}
-
-.comment__mention {
-  font-weight: 600;
-  color: #6666ff;
-}
-
-.comment__date {
-  margin-top: 5px;
-  display: block;
-  font-weight: 600;
 }
 
 .comments__footer {
@@ -1310,7 +1312,6 @@ main {
 .editor__body::-webkit-scrollbar-track {
   background: #fafafa;
   border-radius: 20px;
-  margin-top: 15px;
 }
 
 .editor__body::-webkit-scrollbar-thumb {

@@ -57,7 +57,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  @include background-image("https://cdn.discordapp.com/attachments/734081011180240967/734082310634209330/invisible_2.jpg");
+  @include background-image;
 }
 
 .player__image--blurred {

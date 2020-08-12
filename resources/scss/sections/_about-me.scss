@@ -32,7 +32,7 @@
 .abot-me__photo {
   position: relative;
   @include border-radius;
-  @include background-image("public/img/photo.jpg");
+  @include background-image;
   padding-bottom: 125%;
   box-shadow: $shadow-second;
   display: flex;
@@ -150,15 +150,15 @@
 }
 
 .about-me__picture--first {
-  @include background-image("public/img/1.jpg");
+  @include background-image;
 }
 
 .about-me__picture--second {
-  @include background-image("public/img/2.jpg");
+  @include background-image;
 }
 
 .about-me__picture--third {
-  @include background-image("public/img/3.jpg");
+  @include background-image;
 }
 
 .about-me__merit {
