@@ -37,12 +37,14 @@ export default {
 
     beforeMount()
     {
-        this.cards = PostService.allCards();
+        PostService.onload = () => {
+            this.cards = PostService.allCards()
+        };
     },
 
     mounted()
     {
-
+        // Init listeners
         bus.listen('new-card-touched', event => {
             if (selectedCard)
                 selectedCard.selected = false;
@@ -58,13 +60,12 @@ export default {
             let post = PostService.getPostInfo(event.card.id)
             bus.dispatch('post-selected', { post });
         });
-        
 
         bus.listen('post-created', event => {
             let newCard = PostService.getCard(event.post.index);
 
             this.cards.push(newCard);
-        })
+        });
 
         bus.listen('post-selected', event => {
             let card = PostService.getCard(event.post.index);
@@ -74,7 +75,7 @@ export default {
 
             selectedCard = card;
             selectedCard.selected = true;
-        })
+        });
     }
 }
 </script>

@@ -33,6 +33,7 @@ class YoutubeService
 
         $response = Http::get($url);
 
+        dd($response);
         if ($response->failed())
             return false;
         

@@ -1,46 +1,52 @@
-import { post } from "jquery";
+
+import Http from './HttpService';
 
 const PostService = new function ()
 {
+    function validateIndex(index)
+    {
+        if (index >= posts.length || index < 0)
+            return false;
+        return true;
+    }
+
+    async function init()
+    {
+        posts = await Http.get('videos')
+
+        if (!!!Array.isArray(posts))
+            console.error('500 error');
+
+        if (PostService.onload)
+            PostService.onload();
+    }
+
     this.createPost = async (data) =>
     {
-        let token = document.querySelector('meta[name="csrf-token"]').content;
-        data.set('_token', token);
-
-        let responce = await fetch(window.location.origin + '/videos', {
-            method: 'POST', 
-            body: data,
-            headers: {
-                'X-CSRF-TOKEN': token,
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-
-        if (!!!responce.ok)
+        let post = await Http.post('videos', data);
+        if (!!!post)
             return null;
-        
-        responce = await responce.json();
-    
+
         posts.push({
-            title: responce.title,
-            description: responce.description,
-            id: responce.videoID
+            title: post.title,
+            description: post.description,
+            videoID: post.videoID
         });
 
-        console.log(posts);
-        
         return this.getPostInfo(posts.length-1);
     }
-    
 
     this.getPostInfo = (index) =>
     {
+        if (!!!validateIndex(index))
+            return;
+
         let post = posts[index];
 
         return {
             title: post.title,
             description: post.description,
-            contentID: post.id,
+            contentID: post.videoID,
             index: index,
             date: '22',
         };
@@ -48,13 +54,16 @@ const PostService = new function ()
 
     this.getCard = (index) => 
     {
+        if (!!!validateIndex(index))
+            return;
+
         let post = posts[index];
 
         return {
             index: index,
             title: post.title,
             description: post.description,
-            thumbnail: `https://i.ytimg.com/vi/${post.id}/sddefault.jpg`
+            thumbnail: `https://i.ytimg.com/vi/${post.videoID}/sddefault.jpg`
         }
     }
 
@@ -71,10 +80,13 @@ const PostService = new function ()
         return cards;
     }
 
-    const posts = [
-        { title: 'Lorem ipsum dolor sit amet', id: 'dQw4w9WgXcQ', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
-        { title: 'Lorem ipsum dolor sit amet', id: 'G1IbRujko-A', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
-    ]
+
+    let posts = [];
+
+    //  { title: 'Lorem ipsum dolor sit amet', id: 'dQw4w9WgXcQ', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
+    // { title: 'Lorem ipsum dolor sit amet', id: 'G1IbRujko-A', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
+ 
+    init();
 }();
 
 export default PostService;

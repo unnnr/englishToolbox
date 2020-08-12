@@ -63,9 +63,8 @@ export default {
                 return;
             }
             
-            console.log('suc');
 
-            bus.dispatch('editor-link-changed', { url: this.url, id: videoID});
+            bus.dispatch('editor-link-changed', { url: this.url, videoID: videoID});
         },
 
         async submit (event) {

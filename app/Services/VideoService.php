@@ -15,6 +15,7 @@ class VideoService
         $youtube = new YoutubeService();
         $info = $youtube->videoInfo($request->input('videoID'));
 
+        dd($info);
         return Video::create([
             'videoID' => $request->input('videoID'),
             'title' => $info['title'],
@@ -37,7 +38,7 @@ class VideoService
 
     }
 
-    public function delete()
+    public function destroy()
     {
 
     }

@@ -33,10 +33,6 @@ import Pool from  './components/Pool';
 
 Vue.config.devtools = true;
 
-window.Posts = [
-	{title: 'Title', thumbnail: 'asd'}
-];
-
 const ass = new Vue({
     el: document.querySelector('main'),
 

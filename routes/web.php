@@ -24,7 +24,6 @@ Route::get('audio', 'AudioController@index')->name('audio');
 Route::post('schemas', 'SchemaController@store');
 Route::get('schemas', 'SchemaController@index')->name('schemas');
 
-Route::post('videos', 'VideoController@create');
 Route::get('videos', 'VideoController@index')->name('videos');
 
 Route::get('/',  'HomeController@index');

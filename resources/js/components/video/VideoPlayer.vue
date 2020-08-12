@@ -18,8 +18,6 @@
 
 <script>
 import bus from '../../eventbus';
-import Player from '../../services/Player';
-
 
 export default {
 	name: "video-player",
@@ -42,8 +40,12 @@ export default {
 			this.videoID = event.post.contentID;
 		});
 
+		bus.listen('post-editing', event => {
+			this.videoID = 'null';
+		});
+
 		bus.listen('editor-link-changed', event => {		
-			this.videoID = event.id;
+			this.videoID = event.videoID;
 			this.showOverlay = false;
 		})
 	}
