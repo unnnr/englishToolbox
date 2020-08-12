@@ -38,6 +38,6 @@ class YoutubeID implements Rule
      */
     public function message()
     {
-        return 'The url has incorrect videoID';
+        return 'video url is incorrect or you have used all your yotube quota ';
     }
 }

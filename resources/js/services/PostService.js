@@ -12,7 +12,9 @@ const PostService = new function ()
 
     async function init()
     {
-        posts = await Http.get('videos')
+        let response = await Http.get('video')
+        
+        posts = response.data;
 
         if (!!!Array.isArray(posts))
             console.error('500 error');
@@ -23,7 +25,7 @@ const PostService = new function ()
 
     this.createPost = async (data) =>
     {
-        let post = await Http.post('videos', data);
+        let post = await Http.post('video', data);
         if (!!!post)
             return null;
 

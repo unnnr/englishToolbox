@@ -33,8 +33,7 @@ class YoutubeService
 
         $response = Http::get($url);
 
-        dd($response);
-        if ($response->failed())
+        if (!!!$response->successful())
             return false;
         
         $response = $response->json();

@@ -28,11 +28,7 @@ class VideoApiController extends Controller
     {
         $video = $videoService->create($request);
 
-        return [
-            'videoID' => $video->videoID,
-            'title' => $video->title,
-            'description' => $video->description
-        ];
+        return $video;
     }
 
     /**
@@ -41,7 +37,7 @@ class VideoApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(integer $id ,VideoService $videoService)
+    public function show(int $id ,VideoService $videoService)
     {
         return $videoService->get($id);
     }
@@ -53,7 +49,7 @@ class VideoApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(integer $id, VideoService $videoService)
+    public function update(int $id, VideoService $videoService)
     {
         // NOT IN USAGE FOR NOW
         return $videoService->update($id, []);
@@ -65,7 +61,7 @@ class VideoApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(integer $id, VideoService $videoService)
+    public function destroy(int $id, VideoService $videoService)
     {
         // NOT IN USAGE FOR NOW
 

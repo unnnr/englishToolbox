@@ -456,8 +456,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
 /* harmony import */ var _services_PostService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/PostService */ "./resources/js/services/PostService.js");
 /* harmony import */ var _TagList_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../TagList.vue */ "./resources/js/components/TagList.vue");
@@ -517,7 +517,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateLink: function updateLink() {
       if (this.$options.previousUrl === this.url) return;
       this.$options.previousUrl = this.url;
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_5___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
 
       if (!!!videoID) {
         console.error('Icorrect url');
@@ -539,7 +539,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 event.preventDefault();
-                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_5___default()(_this.url);
+                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(_this.url);
 
                 if (!!videoID) {
                   _context.next = 5;
@@ -635,15 +635,15 @@ __webpack_require__.r(__webpack_exports__);
           type: String,
           default: 'Title'
       },
-        date: {
+       date: {
           type: String,
           default: 'April 17 2020'
       },
-        views: {
+       views: {
           type: Number,
           default: 1289
       },
-        description: {
+       description: {
           type: String,
           default: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                       dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
@@ -16563,19 +16563,21 @@ var PostService = new function () {
 
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('videos');
+              return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
 
             case 2:
-              posts = _context2.sent;
+              response = _context2.sent;
+              posts = response.data;
               if (!!!Array.isArray(posts)) console.error('500 error');
               if (PostService.onload) PostService.onload();
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -16593,7 +16595,7 @@ var PostService = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].post('videos', data);
+              return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].post('video', data);
 
             case 2:
               post = _context.sent;
@@ -16729,7 +16731,7 @@ var ass = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
 
 
 /***/ })

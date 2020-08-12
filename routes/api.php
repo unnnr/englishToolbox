@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('videos', 'VideoApiController')->except([
+Route::apiResource('video', 'VideoApiController')->except([
     'destroy', 'update'
 ]);
