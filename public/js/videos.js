@@ -380,7 +380,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-list',
   data: function data() {
@@ -604,6 +603,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3385,29 +3395,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "description__tags" }, [
-      _c("h3", { staticClass: "description__tags-title heading-fifth" }, [
+    return _c("div", { staticClass: "description__tags tags" }, [
+      _c("h4", { staticClass: "tags__title heading-fifth" }, [
         _vm._v("Tag list")
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "description__tag description__tag--main" }, [
-        _vm._v("nisiQuisEleifend")
+      _c(
+        "button",
+        { staticClass: "tag tag--main", attrs: { type: "button" } },
+        [
+          _c("span", { staticClass: "tag__name", attrs: { for: "cb1" } }, [
+            _vm._v("isiQuisEleifend")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "tag", attrs: { type: "button" } }, [
+        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+          _vm._v("maurisPellentesque")
+        ])
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "description__tag description__tag" }, [
-        _vm._v("tortorCondimentum")
+      _c("button", { staticClass: "tag", attrs: { type: "button" } }, [
+        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+          _vm._v("tortorCondimentum")
+        ])
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "description__tag description__tag" }, [
-        _vm._v("nequeLaoreet")
+      _c("button", { staticClass: "tag", attrs: { type: "button" } }, [
+        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+          _vm._v("justoLaoreet")
+        ])
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "description__tag description__tag" }, [
-        _vm._v("maurisPellentesque")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "description__tag description__tag" }, [
-        _vm._v("justoLaoreet")
+      _c("button", { staticClass: "tag", attrs: { type: "button" } }, [
+        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+          _vm._v("nequeLaoreet")
+        ])
       ])
     ])
   }

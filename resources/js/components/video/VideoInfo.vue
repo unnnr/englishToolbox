@@ -7,13 +7,24 @@
 
         <div class="description__body">
             <p class="description__text text-fourth">{{ description }}</p>
-            <div class="description__tags">
-                <h3 class="description__tags-title heading-fifth">Tag list</h3>
-                <span class="description__tag description__tag--main">nisiQuisEleifend</span>
-                <span class="description__tag description__tag">tortorCondimentum</span>
-                <span class="description__tag description__tag">nequeLaoreet</span>
-                <span class="description__tag description__tag">maurisPellentesque</span>
-                <span class="description__tag description__tag">justoLaoreet</span>
+
+            <div class="description__tags tags">
+                <h4 class="tags__title heading-fifth">Tag list</h4>
+                <button class="tag tag--main" type="button">
+                    <span class="tag__name" for="cb1">isiQuisEleifend</span>
+                </button>
+                <button class="tag" type="button">
+                    <span class="tag__name" for="cb2">maurisPellentesque</span>
+                </button>
+                <button class="tag" type="button">
+                    <span class="tag__name" for="cb2">tortorCondimentum</span>
+                </button>
+                <button class="tag" type="button">
+                    <span class="tag__name" for="cb2">justoLaoreet</span>
+                </button>
+                <button class="tag" type="button">
+                    <span class="tag__name" for="cb2">nequeLaoreet</span>
+                </button>
             </div>
         </div>
 

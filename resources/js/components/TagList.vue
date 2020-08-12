@@ -2,7 +2,6 @@
     <div class="tags">
         <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">0/5</small></h4>
             
-            
             <button class="tag tag--new tag--new-active" type="button">
                 <label class="tag__label tag__label--new" for="tn1">
                     <span class="material-icons-round">add</span>
