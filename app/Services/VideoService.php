@@ -18,7 +18,7 @@ class VideoService
         $info = $youtube->videoInfo($request->input('videoID'));
 
         $video = Video::create([
-            'videoID' => $request->input('videoId'),
+            'videoID' => $request->input('videoID'),
             'title' => $info['title'],
             'description' => $request->input('description')
         ]);

@@ -20,7 +20,11 @@ const HttpService = new function()
         
         let contentType  = response.headers.get("Content-Type") 
         if (contentType === 'application/json')
-            return response.json();
+        {   
+            response = await response.json();
+
+            return response.data;
+        }
 
         return response.text();
     }

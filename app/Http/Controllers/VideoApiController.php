@@ -51,7 +51,7 @@ class VideoApiController extends Controller
      */
     public function update(int $id, VideoService $videoService)
     {
-        // NOT IN USAGE FOR NOW
+        // NOT IN USAGE FOR NOWe
         return $videoService->update($id, []);
     }
 

@@ -16480,16 +16480,21 @@ var HttpService = new function () {
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 9;
+                _context.next = 12;
                 break;
               }
 
-              return _context.abrupt("return", response.json());
-
-            case 9:
-              return _context.abrupt("return", response.text());
+              _context.next = 10;
+              return response.json();
 
             case 10:
+              response = _context.sent;
+              return _context.abrupt("return", response.data);
+
+            case 12:
+              return _context.abrupt("return", response.text());
+
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -16563,7 +16568,6 @@ var PostService = new function () {
 
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -16572,12 +16576,11 @@ var PostService = new function () {
               return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
 
             case 2:
-              response = _context2.sent;
-              posts = response.data;
+              posts = _context2.sent;
               if (!!!Array.isArray(posts)) console.error('500 error');
               if (PostService.onload) PostService.onload();
 
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -16608,6 +16611,7 @@ var PostService = new function () {
               return _context.abrupt("return", null);
 
             case 5:
+              console.log(post, 12, 123213);
               posts.push({
                 title: post.title,
                 description: post.description,
@@ -16615,7 +16619,7 @@ var PostService = new function () {
               });
               return _context.abrupt("return", _this.getPostInfo(posts.length - 1));
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
