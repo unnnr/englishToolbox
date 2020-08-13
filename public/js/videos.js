@@ -152,6 +152,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
  //  :id="typeof id == 'number' ? id : false"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -159,8 +161,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     title: String,
     description: String,
-    imageUrl: String,
-    id: null
+    imageUrl: String
   },
   data: function data() {
     return {
@@ -169,11 +170,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     select: function select() {
-      var options = {
+      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', {
         card: this
-      };
-      if (this.$props.id !== undefined) options.id = this.$props.id;
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', options);
+      });
     }
   },
   mounted: function mounted() {}
@@ -289,7 +288,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -324,7 +322,8 @@ var selectedCard = null;
     });
     _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('card-touched', function (event) {
       if (event.card === selectedCard) return;
-      var post = _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].getPostInfo(event.card.id);
+      console.log();
+      var post = _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].getPostInfo(event.card.$vnode.key);
       _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
         post: post
       });
@@ -629,22 +628,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 5:
-                data = new FormData(_this.$refs.form);
-                data.set('videoID', videoID);
-                _context.next = 9;
+                data = new FormData(_this.$refs.form); // data.set('videoID',  videoID);
+
+                _context.next = 8;
                 return _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].createPost(data);
 
-              case 9:
+              case 8:
                 post = _context.sent;
 
                 if (!!post) {
-                  _context.next = 12;
+                  _context.next = 11;
                   break;
                 }
 
                 return _context.abrupt("return");
 
-              case 12:
+              case 11:
                 _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
                   post: post
                 });
@@ -652,7 +651,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   post: post
                 });
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -3079,12 +3078,7 @@ var render = function() {
         var thumbnail = ref.thumbnail
         return _c("card", {
           key: index,
-          attrs: {
-            title: title,
-            imageUrl: thumbnail,
-            description: description,
-            id: index
-          }
+          attrs: { title: title, imageUrl: thumbnail, description: description }
         })
       })
     ],
@@ -3342,7 +3336,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 placeholder: "https://...",
-                name: "url",
+                name: "video_url",
                 required: ""
               },
               domProps: { value: _vm.url },
@@ -16784,15 +16778,15 @@ var PostService = new function () {
               return _context.abrupt("return", null);
 
             case 5:
-              console.log(post, 12, 123213);
               posts.push({
+                id: post.id,
                 title: post.title,
-                description: post.description,
-                videoID: post.videoID
+                videoID: post.videoID,
+                description: post.description
               });
               return _context.abrupt("return", _this.getPostInfo(posts.length - 1));
 
-            case 8:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -16841,9 +16835,7 @@ var PostService = new function () {
     return cards;
   };
 
-  var posts = []; //  { title: 'Lorem ipsum dolor sit amet', id: 'dQw4w9WgXcQ', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
-  // { title: 'Lorem ipsum dolor sit amet', id: 'G1IbRujko-A', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
-
+  var posts = [];
   init();
 }();
 /* harmony default export */ __webpack_exports__["default"] = (PostService);

@@ -3,24 +3,29 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Alaouy\Youtube\Facades\Youtube;
 use App\Http\Requests\UploadVideo;
 use App\Services\YoutubeService;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
 
 
+
 class VideoService
 {
     public function create(UploadVideo $request)
     {
-        $youtube = new YoutubeService();
+        //$youtube = new YoutubeService();
 
-        $info = $youtube->videoInfo($request->input('videoID'));
+        //$info = $youtube->videoInfo($request->input('videoID'));
+
+        $videoId = Youtube::parseVidFromURL($request->input('video_url'));
+        $info = Youtube::getVideoInfo($videoId);
 
         $video = Video::create([
-            'videoID' => $request->input('videoID'),
+            'videoID' => $videoId,
 
-            'title' => $info['title'],
+            'title' => $info->snippet->title,
             
             'description' => $request->input('description')
         ]);

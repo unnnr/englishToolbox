@@ -27,11 +27,11 @@ const PostService = new function ()
         if (!!!post)
             return null;
 
-        console.log(post, 12, 123213);
         posts.push({
+            id: post.id,
             title: post.title,
-            description: post.description,
-            videoID: post.videoID
+            videoID: post.videoID,
+            description: post.description
         });
 
         return this.getPostInfo(posts.length-1);
@@ -82,12 +82,8 @@ const PostService = new function ()
         return cards;
     }
 
-
     let posts = [];
 
-    //  { title: 'Lorem ipsum dolor sit amet', id: 'dQw4w9WgXcQ', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
-    // { title: 'Lorem ipsum dolor sit amet', id: 'G1IbRujko-A', description: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
- 
     init();
 }();
 
