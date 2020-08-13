@@ -193,6 +193,7 @@
 }
 
 .tag {
+  transition: background .2s ease-in-out !important;
   background: $text-third;
   color: $text-fourth;
   font-weight: $semibold;

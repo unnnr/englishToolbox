@@ -481,6 +481,8 @@ main {
 }
 
 .tag {
+  -webkit-transition: background .2s ease-in-out !important;
+  transition: background .2s ease-in-out !important;
   background: #a1a1b1;
   color: #fff;
   font-weight: 600;
@@ -906,7 +908,6 @@ main {
 
 .card__tag-secondary:hover {
   cursor: pointer;
-  margin-right: 3px;
 }
 
 .card__tag-secondary:hover .card__tag-tooltip {

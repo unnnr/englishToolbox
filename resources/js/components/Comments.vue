@@ -18,7 +18,6 @@
               <time class="comment__date text-sixth">19 may 2020</time>
             </div>
           </div>
-          <div class="space"></div>
         </div>
         <form class="comments__footer">
           <a class="comments__account-link" href="#"><span class="material-icons-round">account_circle</span></a>
