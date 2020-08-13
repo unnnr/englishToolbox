@@ -6,22 +6,24 @@
         <button class="filter__search-button filter__search-button--active">
           <span class="material-icons-round">search</span>
         </button>
-        <input class="filter__search-input filter__search-input--active" type="text" placeholder="search">
+        <input class="filter__search-input" type="text" placeholder="search">
       </div>
-      <button class="filter__button">tags
-        <span class="material-icons-round">filter_list</span>
-      </button>
-      <button class="filter__button">sort by
-        <span class="material-icons-round">sort</span>
-      </button>
-      <!-- <div class="dropdown filter__dropdown filter__dropdown--filter">
+      <div class="filter__button-group">
+        <button class="filter__button">tags
+          <span class="material-icons-round">filter_list</span>
+        </button>
+        <button class="filter__button">sort by
+          <span class="material-icons-round">sort</span>
+        </button>
+      </div>
+      <div class="dropdown filter__dropdown filter__dropdown--filter">
         <div class="dropdown__arrow"></div>
         <div class="dropdown__body">
           <button class="dropdown__button dropdown__button--active">Newest first</button>
           <button class="dropdown__button">Popular first</button>
           <button class="dropdown__button">Oldest first</button>
         </div>
-      </div> -->
+      </div>
     </div>
 
     <div class="filter__tags filter__tags--active">

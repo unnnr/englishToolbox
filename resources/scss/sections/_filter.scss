@@ -3,7 +3,6 @@
 }
 
 .filter__body {
-  // height: 60px;
   max-height: max-content;
   background: $bg-fifth;
   @include border-radius;
@@ -15,13 +14,26 @@
   position: relative;
 
   @include lg-devices {
-    // height: 50px;
     padding-right: 15px;
   }
 }
 
 .filter__panel {
   display: flex;
+  justify-content: space-between;
+
+  @include sm-devices {
+    flex-direction: column;
+  }
+}
+
+.filter__button-group {
+  display: flex;
+
+  @include sm-devices {
+    margin-top: 10px;
+    justify-content: space-between;
+  }
 }
 
 .filter__button {
@@ -36,8 +48,11 @@
   font-size: 14px;
   font-weight: $medium;
   color: $text-third;
-  margin-left: 15px;
   position: relative;
+
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
 
   .material-icons-round {
     margin-left: 5px;
@@ -50,7 +65,6 @@
   display: flex;
   align-items: center;
   position: relative;
-  width: 100%;
 }
 
 .filter__search-button {
@@ -78,22 +92,26 @@
   border: none;
   font-size: 14px;
   color: $text-main;
-  max-width: 0;
+  width: 425px;
   overflow: hidden;
-  padding: 5px 0;
+  padding: 5px 15px 5px 45px;
   transition: max-width .3s ease-in-out, padding .3s ease-in-out;
-  margin-right: 25px;
+  margin-right: 15px;
 
   &::placeholder {
     font-weight: $medium;
     color: $text-third;
+  }
+
+  @include sm-devices {
+    width: 100%;
+    margin-right: 0;
   }
 }
 
 .filter__search-input--active {
   max-width: 400px;
   width: 100%;
-  padding: 5px 15px 5px 45px;
 }
 
 .filter__dropdown {
@@ -129,6 +147,10 @@
 .filter__dropdown--filter {
   right: 20px;
   top: 55px;
+
+  @include sm-devices {
+    top: 100px;
+  }
 }
 
 .filter__tags {
