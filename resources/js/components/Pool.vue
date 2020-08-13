@@ -44,7 +44,6 @@ export default {
 
     mounted()
     {
-        console.log([111111111111111111111111111111]);
         // Init listeners
         bus.listen('new-card-touched', event => {
 

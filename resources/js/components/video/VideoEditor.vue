@@ -64,7 +64,10 @@ export default {
             }
             
 
-            bus.dispatch('editor-link-changed', { url: this.url, videoID: videoID});
+            bus.dispatch('editor-link-changed', { 
+                url: this.url,
+                videoID: videoID
+            });
         },
 
         async submit (event) {
@@ -78,13 +81,32 @@ export default {
 			}
 
             let data = new FormData(this.$refs.form);
+            
+            let createdTagsData = [];
+            for (const tag of this.$refs.tags.createdTags)
+                createdTagsData.push({
+                    label: tag.label,
+                    color: tag.color,
+                    selected: tag.selected
+                });
+
+            let loadedTagsData = [];
+            for (const tag of this.$refs.tags.selectedOfloaded)
+                loadedTagsData.push({
+                    id: tag.id
+                });
+
+            let tags = [...createdTagsData, ...loadedTagsData];
+        
+            console.table(tags);;
+
+            return;
 
             let post = await Posts.create(data);
             if (!!!post)
                 return;
-                
-            // console.log(this.$refs.tags.selected);
-            
+
+            console.log('dispatch');
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }

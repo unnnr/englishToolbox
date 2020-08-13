@@ -29,7 +29,7 @@
             <button
                 class="tag"
                 type="button"
-                v-for="(tag, index) of newTags"
+                v-for="(tag, index) of createdTags"
                 :key="'newtag_' + index"
                 :style="{ 'background-color': tag.selected ? tag.color : ''}"
                 @click="toggle(tag)">
@@ -39,7 +39,7 @@
             <button
                 class="tag"
                 type="button"
-                v-for="(tag, tagIndex) of tags"
+                v-for="(tag, tagIndex) of loadedTags"
                 :key="tagIndex"
                 :style="{ 'background-color': tag.selected ? tag.color : ''}"
                 @click="toggle(tag)">
@@ -55,6 +55,7 @@
 import Tags from '../../services/Tags'
 
 const MAX_TAGS_COUNT = 5;
+const MAX_CREATED_TAGS_COUNT = 30;
 const BLUR_DELAY = 200;
 
 export default {
@@ -63,25 +64,25 @@ export default {
     data: function () {
         return {
             newLabel: '',
-            tags: [],
-            newTags: [],
+            loadedTags: [],
+            createdTags: [],
             selectedCount: 0,
             inputIsActive: false
         }
     },
 
     computed: {
-        selected() {
+        selectedOfloaded() {
 
             let selected = [];
 
-            for (const tag of this.tags)
+            for (const tag of this.loadedTags   )
             {
                 if (tag.selected)
                     selected.push(tag);
             }
-
-            return [...selected, ...this.newTags];
+            
+            return [...selected];
         },
 
         inputIsDisabled(){
@@ -101,7 +102,7 @@ export default {
 
     methods: {
         async load() {
-            this.tags = await Tags.all();
+            this.loadedTags = await Tags.all();
         },
 
         toggle(tag) {
@@ -117,9 +118,9 @@ export default {
 
         remove(tag) {
             
-            let tagIndex = this.newTags.indexOf(tag);
+            let tagIndex = this.createdTags.indexOf(tag);
 
-            this.newTags.splice(tagIndex, 1);
+            this.createdTags.splice(tagIndex, 1);
         },
         
         checkInput() {
@@ -166,11 +167,11 @@ export default {
             event.preventDefault();
 
             let label = this.newLabel.trim();
-            if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT)
+            if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
 
             this.newLabel = '';
-            this.newTags.push({
+            this.createdTags.push({
                 label: label, 
                 color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
                 selected: false,
