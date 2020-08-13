@@ -3,10 +3,8 @@
         <div class="addition__body">
             <div class="addition__wrapper" ref="wrapper">
 				<transition name="fade">
- 					<video-editor 
-						v-if="editing" 
-						ref="editor"
-					/>
+ 					<video-editor v-if="editing" 
+								  ref="editor"/>
 				</transition>
                 <video-presentor ref="presentor"/>
             </div>

@@ -362,6 +362,30 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -386,12 +410,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
+var MAX_TAGS_COUNT = 5;
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'tag-list',
+  name: 'tag-editor',
   data: function data() {
     return {
-      tags: []
+      newLabel: '',
+      tags: [],
+      newTags: [],
+      selectedCount: 0
     };
+  },
+  computed: {
+    selected: function selected() {
+      var selected = [];
+
+      var _iterator = _createForOfIteratorHelper(this.tags),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var tag = _step.value;
+          if (tag.selected) selected.push(tag);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return selected;
+    }
   },
   mounted: function mounted() {
     this.load();
@@ -405,21 +454,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.tags = [{
-                  label: 'asddasd',
-                  color: 'red'
-                }, {
-                  label: 'asddasd',
-                  color: 'green'
-                }];
+                _context.next = 2;
+                return _services_PostService__WEBPACK_IMPORTED_MODULE_1__["default"].getAllTags();
 
-              case 1:
+              case 2:
+                _this.tags = _context.sent;
+
+              case 3:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    toggle: function toggle(tag) {
+      var currentState = tag.selected;
+      if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
+      this.$set(tag, 'selected', !!!currentState);
+      this.selectedCount += currentState ? 1 : -1;
+    },
+    remove: function remove(tag) {
+      var tagIndex = this.newTags.indexOf(tag);
+      this.newTags.splice(tagIndex, 1);
+    },
+    submit: function submit(event) {
+      if (event.keyCode !== 13) return;
+      event.preventDefault();
+      var label = this.newLabel.trim();
+      if (label === '') return;
+      this.newLabel = '';
+      this.newTags.push({
+        label: label,
+        color: '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'),
+        selected: true,
+        isnew: true
+      });
     }
   }
 });
@@ -472,8 +542,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _VideoPresentor_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VideoPresentor.vue */ "./resources/js/components/video/VideoPresentor.vue");
 /* harmony import */ var _VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VideoEditor.vue */ "./resources/js/components/video/VideoEditor.vue");
 /* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
-//
-//
 //
 //
 //
@@ -628,8 +696,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 5:
-                data = new FormData(_this.$refs.form); // data.set('videoID',  videoID);
-
+                data = new FormData(_this.$refs.form);
                 _context.next = 8;
                 return _services_PostService__WEBPACK_IMPORTED_MODULE_3__["default"].createPost(data);
 
@@ -3111,24 +3178,89 @@ var render = function() {
     "div",
     { staticClass: "tags" },
     [
-      _vm._m(0),
+      _c("h4", { staticClass: "tags__title text-fourth" }, [
+        _vm._v("Add tags"),
+        _c("small", { staticClass: "editor__counter" }, [
+          _vm._v(_vm._s(_vm.selectedCount) + "/5")
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "button",
+        {
+          staticClass: "tag tag--new tag--new-active",
+          attrs: { type: "button" }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newLabel,
+                expression: "newLabel"
+              }
+            ],
+            staticClass: "tag__input",
+            attrs: { id: "tn1", type: "text", placeholder: "newTag" },
+            domProps: { value: _vm.newLabel },
+            on: {
+              keydown: function($event) {
+                $event.stopPropagation()
+                return _vm.submit($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newLabel = $event.target.value
+              }
+            }
+          })
+        ]
+      ),
       _vm._v(" "),
-      _vm._l(_vm.tags, function(ref, index) {
-        var label = ref.label
-        var color = ref.color
+      _vm._l(_vm.newTags, function(tag, index) {
         return _c(
           "button",
           {
-            key: index,
+            key: "newtag_" + index,
             staticClass: "tag",
-            style: { "background-color": color },
-            attrs: { type: "button" }
+            style: { "background-color": tag.selected ? tag.color : "" },
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.remove(tag)
+              }
+            }
           },
           [
             _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v(_vm._s(label))
+              _vm._v(_vm._s(tag.label))
+            ])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.tags, function(tag, tagIndex) {
+        return _c(
+          "button",
+          {
+            key: tagIndex,
+            staticClass: "tag",
+            style: { "background-color": tag.selected ? tag.color : "" },
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.toggle(tag)
+              }
+            }
+          },
+          [
+            _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+              _vm._v(_vm._s(tag.label))
             ])
           ]
         )
@@ -3144,33 +3276,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "tags__title text-fourth" }, [
-      _vm._v("Add tags"),
-      _c("small", { staticClass: "editor__counter" }, [_vm._v("0/5")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
-      "button",
-      {
-        staticClass: "tag tag--new tag--new-active",
-        attrs: { type: "button" }
-      },
-      [
-        _c(
-          "label",
-          { staticClass: "tag__label tag__label--new", attrs: { for: "tn1" } },
-          [_c("span", { staticClass: "material-icons-round" }, [_vm._v("add")])]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "tag__input",
-          attrs: { id: "tn1", type: "text", placeholder: "newTag" }
-        })
-      ]
+      "label",
+      { staticClass: "tag__label tag__label--new", attrs: { for: "tn1" } },
+      [_c("span", { staticClass: "material-icons-round" }, [_vm._v("add")])]
     )
   }
 ]
@@ -16734,25 +16843,25 @@ var PostService = new function () {
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.next = 2;
+              _context3.next = 2;
               return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
 
             case 2:
-              posts = _context2.sent;
+              posts = _context3.sent;
               if (!!!Array.isArray(posts)) console.error('500 error');
               if (PostService.onload) PostService.onload();
 
             case 5:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
     return _init.apply(this, arguments);
   }
@@ -16781,6 +16890,7 @@ var PostService = new function () {
               posts.push({
                 id: post.id,
                 title: post.title,
+                tags: post.tags,
                 videoID: post.videoID,
                 description: post.description
               });
@@ -16799,6 +16909,27 @@ var PostService = new function () {
     };
   }();
 
+  this.getAllTags = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var tags;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _HttpService__WEBPACK_IMPORTED_MODULE_1__["default"].get('tags');
+
+          case 2:
+            tags = _context2.sent;
+            return _context2.abrupt("return", tags);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
   this.getPostInfo = function (index) {
     if (!!!validateIndex(index)) return;
     var post = posts[index];
@@ -16806,9 +16937,9 @@ var PostService = new function () {
       title: post.title,
       description: post.description,
       contentID: post.videoID,
+      tags: post.tags,
       index: index,
-      date: '22',
-      tags: post.tags
+      date: '22'
     };
   };
 

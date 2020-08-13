@@ -30,11 +30,19 @@ const PostService = new function ()
         posts.push({
             id: post.id,
             title: post.title,
+            tags: post.tags,
             videoID: post.videoID,
             description: post.description
         });
 
         return this.getPostInfo(posts.length-1);
+    }
+
+    this.getAllTags = async () =>
+    {
+        let tags = await Http.get('tags');
+
+        return tags;
     }
 
     this.getPostInfo = (index) =>
@@ -48,9 +56,9 @@ const PostService = new function ()
             title: post.title,
             description: post.description,
             contentID: post.videoID,
+            tags: post.tags,
             index: index,
-            date: '22',
-            tags: post.tags
+            date: '22'
         };
     }
 

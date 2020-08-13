@@ -13,16 +13,39 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        $tag = Tag::create([
-            'lable' => 'asddsa',
+        Tag::create([
+            'label' => 'pink',
             'color' => 'pink' 
         ]);
             
-        $video = Video::create([
-            'videoID' => 'temp',
-            'title' => 'temp',
+        Tag::create([
+            'label' => 'paleturquoise',
+            'color' => 'paleturquoise' 
         ]);
 
-        $video->tags()->save($tag);
+        Tag::create([
+            'label' => 'powderblue',
+            'color' => 'powderblue' 
+        ]);
+
+        Tag::create([
+            'label' => 'plum',
+            'color' => 'plum' 
+        ]);
+
+        Tag::create([
+            'label' => 'bisque',
+            'color' => 'bisque' 
+        ]);
+
+        Tag::create([
+            'label' => 'lightgreen',
+            'color' => 'lightgreen' 
+        ]);
+
+        Tag::create([
+            'label' => 'lightblue',
+            'color' => 'lightblue' 
+        ]);
     }
 }

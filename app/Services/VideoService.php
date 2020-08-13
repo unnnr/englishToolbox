@@ -10,6 +10,8 @@ use App\Http\Resources\VideoResource;
 use App\Models\Video;
 
 
+use App\Models\Tag;
+
 
 class VideoService
 {
@@ -29,6 +31,8 @@ class VideoService
             
             'description' => $request->input('description')
         ]);
+
+        $video->tags()->saveMany(\App\Models\Tag::all());
 
         return new VideoResource($video);
     }

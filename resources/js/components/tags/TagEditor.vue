@@ -1,21 +1,39 @@
 <template>
     <div class="tags">
-        <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">0/5</small></h4>
+        <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">{{ selectedCount }}/5</small></h4>
             
             <button class="tag tag--new tag--new-active" type="button">
                 <label class="tag__label tag__label--new" for="tn1">
                     <span class="material-icons-round">add</span>
                 </label>
-                <input class="tag__input" id="tn1" type="text" placeholder="newTag">
+                <input 
+                    id="tn1"
+                    class="tag__input"
+                    type="text"
+                    placeholder="newTag"
+                    v-model="newLabel"
+                    @keydown.stop="submit">
             </button>
 
+            <button
+                class="tag"
+                type="button"
+                v-for="(tag, index) of newTags"
+                :key="'newtag_' + index"
+                :style="{ 'background-color': tag.selected ? tag.color : ''}"
+                @click="remove(tag)">
+                <span class="tag__name" for="cb2">{{ tag.label }}</span>
+            </button>
 
-            <button class="tag" type="button"
-                v-for="({ label, color }, index) in tags"
-                :key="index"
-                :style="{ 'background-color': color }">
-            <span class="tag__name" for="cb2">{{ label}}</span>
-        </button>
+            <button
+                class="tag"
+                type="button"
+                v-for="(tag, tagIndex) of tags"
+                :key="tagIndex"
+                :style="{ 'background-color': tag.selected ? tag.color : ''}"
+                @click="toggle(tag)">
+                <span class="tag__name" for="cb2">{{ tag.label }}</span>
+            </button>
 
             <div class="space"></div>
         </div>
@@ -24,14 +42,35 @@
 <script>
 import PostService from '../../services/PostService'
 
+const MAX_TAGS_COUNT = 5;
+
 export default {
-    name: 'tag-list',
+    name: 'tag-editor',
 
     data: function () {
         return {
-            tags: []
+            newLabel: '',
+            tags: [],
+            newTags: [],
+            selectedCount: 0
         }
     },
+
+    computed: {
+        selected() {
+
+            let selected = [];
+
+            for (const tag of this.tags)
+            {
+                if (tag.selected)
+                    selected.push(tag);
+            }
+
+            return selected;
+        }
+    },
+
 
     mounted() {
         this.load();
@@ -39,11 +78,49 @@ export default {
 
     methods: {
         async load() {
-            this.tags =  [
-                {label: 'asddasd', color:'red'},
-                {label: 'asddasd', color:'green'}
-            ];
+            this.tags = await PostService.getAllTags();
+        },
+
+        toggle(tag) {
+
+            let currentState = tag.selected;
+
+            if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT)
+                return;
+
+            this.$set(tag, 'selected', !!!currentState);
+            this.selectedCount += currentState ? 1 : -1; 
+        },
+
+        remove(tag) {
+            
+            let tagIndex = this.newTags.indexOf(tag);
+
+            this.newTags.splice(tagIndex, 1);
+        },
+
+        submit(event) {
+
+            if (event.keyCode !== 13)
+                return;
+
+            event.preventDefault();
+
+            let label = this.newLabel.trim();
+
+            if (label === '')
+                return;
+
+            this.newLabel = '';
+            this.newTags.push({
+                label: label, 
+                color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
+                selected: true,
+                isnew: true
+            });
+
         }
     }
+
 }
 </script>

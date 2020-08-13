@@ -78,7 +78,6 @@ export default {
 			}
 
             let data = new FormData(this.$refs.form);
-            // data.set('videoID',  videoID);
 
             let post = await PostService.createPost(data);
             if (!!!post)
