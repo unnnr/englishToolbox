@@ -426,6 +426,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 
 var MAX_TAGS_COUNT = 5;
+var BLUR_DELAY = 200;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-editor',
   data: function data() {
@@ -501,7 +502,6 @@ var MAX_TAGS_COUNT = 5;
     remove: function remove(tag) {
       var tagIndex = this.newTags.indexOf(tag);
       this.newTags.splice(tagIndex, 1);
-      this.selectedCount--;
     },
     checkInput: function checkInput() {
       if (this.newLabel.length === 0 && !!!this.$options.inputIsFocused) {
@@ -519,20 +519,15 @@ var MAX_TAGS_COUNT = 5;
         _this2.$options.inputIsFocused = false;
 
         _this2.checkInput();
-      }, 200);
+      }, BLUR_DELAY);
     },
     inputFocused: function inputFocused() {
       clearTimeout(this.$options.delayTimer);
       this.$options.inputIsFocused = true;
     },
     inputClick: function inputClick(event) {
-      // event.preventDefault();
       if (!!!this.inputIsActive) {
         var input = this.$refs.input;
-        /*                 this.$options.delayedTimer = 
-                            setTimeout( () => input.focus(), 50);
-         */
-
         this.inputIsActive = true;
         return;
       }
@@ -543,12 +538,11 @@ var MAX_TAGS_COUNT = 5;
       event.preventDefault();
       var label = this.newLabel.trim();
       if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT) return;
-      this.selectedCount++;
       this.newLabel = '';
       this.newTags.push({
         label: label,
         color: '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-        selected: true,
+        selected: false,
         isnew: true
       });
     }
@@ -14219,7 +14213,7 @@ var render = function() {
             attrs: { type: "button" },
             on: {
               click: function($event) {
-                return _vm.remove(tag)
+                return _vm.toggle(tag)
               }
             }
           },

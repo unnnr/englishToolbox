@@ -32,7 +32,7 @@
                 v-for="(tag, index) of newTags"
                 :key="'newtag_' + index"
                 :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="remove(tag)">
+                @click="toggle(tag)">
                 <span class="tag__name" for="cb2">{{ tag.label }}</span>
             </button>
 
@@ -55,6 +55,7 @@
 import Tags from '../../services/Tags'
 
 const MAX_TAGS_COUNT = 5;
+const BLUR_DELAY = 200;
 
 export default {
     name: 'tag-editor',
@@ -115,14 +116,14 @@ export default {
         },
 
         remove(tag) {
+            
             let tagIndex = this.newTags.indexOf(tag);
 
             this.newTags.splice(tagIndex, 1);
-            this.selectedCount--;
         },
         
-        checkInput()
-        {
+        checkInput() {
+            
             if (this.newLabel.length === 0 && !!!this.$options.inputIsFocused)
             {
                 clearTimeout(this.$options.delayedTimer)
@@ -130,8 +131,7 @@ export default {
             }
         },
 
-        inputFocus()
-        {
+        inputFocus() {
             this.$refs.input.focus();
         },
 
@@ -139,7 +139,7 @@ export default {
             this.$options.delayTimer = setTimeout(() => {
                 this.$options.inputIsFocused = false;
                 this.checkInput();
-            }, 200)
+            }, BLUR_DELAY)
         },
 
         inputFocused() {
@@ -148,16 +148,12 @@ export default {
             this.$options.inputIsFocused = true;
         },
 
-        inputClick(event)
-        {
-            // event.preventDefault();
-            
+        inputClick(event) {
+       
             if (!!!this.inputIsActive)
             {
                 let input =this.$refs.input;
-/*                 this.$options.delayedTimer = 
-                    setTimeout( () => input.focus(), 50);
- */
+
                 this.inputIsActive = true;
                 return;
             }
@@ -173,18 +169,14 @@ export default {
             if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT)
                 return;
 
-            this.selectedCount++;
             this.newLabel = '';
             this.newTags.push({
                 label: label, 
                 color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-                selected: true,
+                selected: false,
                 isnew: true
             });
-
         }
     }
-    
-
 }
 </script>
