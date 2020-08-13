@@ -37,7 +37,7 @@ class VideoApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id ,VideoService $videoService)
+    public function show(int $id ,VideoService $videoService, Request $request)
     {
         return $videoService->get($id);
     }

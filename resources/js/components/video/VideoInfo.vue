@@ -31,10 +31,6 @@ import TagList from '../tags/TagList';
 export default {
     name: 'video-info',
 
-    components: {
-        TagList
-    },
-
     data: function () {
         return {
             title: 'Lorem ipsum dolor',
@@ -47,5 +43,8 @@ export default {
         }
     },
 
+    components: {
+        TagList
+    }
 }
 </script>

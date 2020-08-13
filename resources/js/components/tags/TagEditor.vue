@@ -10,33 +10,39 @@
             </button>
 
 
-            <button class="tag tag--checkbox tag--main" type="button">
-                <label class="tag__label" for="cb1">isiQuisEleifend</label>
-                <input class="tag__checkbox" id="cb1" type="checkbox">
-            </button>
-
-            <button class="tag tag--checkbox" type="button">
-                <label class="tag__label" for="cb2">isiQuisEleifend</label>
-                <input class="tag__checkbox" id="cb2" type="checkbox">
-            </button>
+            <button class="tag" type="button"
+                v-for="({ label, color }, index) in tags"
+                :key="index"
+                :style="{ 'background-color': color }">
+            <span class="tag__name" for="cb2">{{ label}}</span>
+        </button>
 
             <div class="space"></div>
         </div>
 </template>
 
 <script>
+import PostService from '../../services/PostService'
+
 export default {
     name: 'tag-list',
 
     data: function () {
         return {
-            tags: [
-                'nisiQuisEleifend',
-                'maurisPellentesque',
-                'tortorCondimentum',
-                'justoLaoreet',
-                'nequeLaoreet'
-            ]
+            tags: []
+        }
+    },
+
+    mounted() {
+        this.load();
+    },
+
+    methods: {
+        async load() {
+            this.tags =  [
+                {label: 'asddasd', color:'red'},
+                {label: 'asddasd', color:'green'}
+            ];
         }
     }
 }

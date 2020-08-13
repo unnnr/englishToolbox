@@ -20,7 +20,7 @@
                     Custom description<small class="editor__counter">0/180</small>
                 </label>
                 <textarea class="editor__textarea textarea-second" placeholder="place for your description" name="description"></textarea>
-                <!-- <tag-list></tag-list> -->
+                <tag-editor/>
             </div>
             <div class="editor__footer">
                 <button class="editor__footer-button button-second">confirm</button>
@@ -30,9 +30,10 @@
 </template>
 
 <script>
-import getYouTubeID from 'get-youtube-id';
 import bus from '../../eventbus';
+import getYouTubeID from 'get-youtube-id';
 import PostService from '../../services/PostService'
+import TagEditor from '../tags/TagEditor';
 
 export default {
     name: 'video-editor',
@@ -45,6 +46,7 @@ export default {
     },
 
     components: {
+        TagEditor
     },
 
     methods: {
