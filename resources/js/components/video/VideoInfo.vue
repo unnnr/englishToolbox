@@ -8,24 +8,7 @@
         <div class="description__body">
             <p class="description__text text-fourth">{{ description }}</p>
 
-            <div class="description__tags tags">
-                <h4 class="tags__title heading-fifth">Tag list</h4>
-                <button class="tag tag--main" type="button">
-                    <span class="tag__name" for="cb1">isiQuisEleifend</span>
-                </button>
-                <button class="tag" type="button">
-                    <span class="tag__name" for="cb2">maurisPellentesque</span>
-                </button>
-                <button class="tag" type="button">
-                    <span class="tag__name" for="cb2">tortorCondimentum</span>
-                </button>
-                <button class="tag" type="button">
-                    <span class="tag__name" for="cb2">justoLaoreet</span>
-                </button>
-                <button class="tag" type="button">
-                    <span class="tag__name" for="cb2">nequeLaoreet</span>
-                </button>
-            </div>
+            <tag-list :tags="tags"/>
         </div>
 
         <div class="description__footer">
@@ -42,32 +25,11 @@
 </template>
 
 <script>
+
+import TagList from '../tags/TagList';
+
 export default {
     name: 'video-info',
-
-    /* props:{
-        title: {
-            type: String,
-            default: 'Title'
-        },
-
-        date: {
-            type: String,
-            default: 'April 17 2020'
-        },
-
-        views: {
-            type: Number,
-            default: 1289
-        },
-
-        description: {
-            type: String,
-            default: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
-                        congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`
-        }
-    }, */
 
     data: function () {
         return {
@@ -76,8 +38,13 @@ export default {
             views: 1289,
             description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                            dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
-                           congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`
+                           congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`,
+            tags: []
         }
+    },
+
+    components: {
+        TagList
     }
 }
 </script>

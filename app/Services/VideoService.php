@@ -19,7 +19,9 @@ class VideoService
 
         $video = Video::create([
             'videoID' => $request->input('videoID'),
+
             'title' => $info['title'],
+            
             'description' => $request->input('description')
         ]);
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TagsResource; 
 
-class VideoResource extends JsonResource
+
+class TagResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,14 +16,11 @@ class VideoResource extends JsonResource
      */
     public function toArray($request)
     {
+        // parent::toArray($request);
         return [
-            'title' => $this->title,
+            'lable' => $this->lable,
 
-            'videoID' => $this->videoID,
-
-            'description' => $this->description,
-
-            'tags' => TagResource::collection($this->tags)
+            'color' => $this->color
         ];
     }
 }

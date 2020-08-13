@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('video', 'VideoApiController')->except([
     'destroy', 'update'
 ]);
+
+Route::match(['get', 'head'], 'tags', 'TagController@all');
+Route::apiResource('video.tags', 'TagController')->except([
+    'destroy', 'update'
+])->shallow();

@@ -50,6 +50,7 @@ const PostService = new function ()
             contentID: post.videoID,
             index: index,
             date: '22',
+            tags: post.tags
         };
     }
 

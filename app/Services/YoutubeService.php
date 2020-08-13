@@ -13,7 +13,10 @@ class YoutubeService
                '&key=' . $this->apiKey .
                '&id=' . $videoID;
 
+
         $response = Http::get($url);
+
+        Log::alert($url, $response);
       
         if ($response->failed())
             return null;
@@ -32,6 +35,8 @@ class YoutubeService
               '&id=' . $videoID;
 
         $response = Http::get($url);
+
+        Log::alert($url, $response);
 
         if (!!!$response->successful())
             return false;

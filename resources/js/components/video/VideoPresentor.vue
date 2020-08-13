@@ -21,16 +21,17 @@
 
 <script>
 import VideoInfo from './VideoInfo.vue';
-import Comments from '../Comments.vue';
+import Comments from '../Comments';
+
 
 export default {
     name: 'video-presentor',
 
   	methods: {
 		updateInfo(newData) {
-			let presentor = this.$refs.videoInfo;
+			let info = this.$refs.videoInfo;
 
-			Object.assign(presentor.$data, newData)
+			Object.assign(info.$data, newData)
 		}
 	},
 
