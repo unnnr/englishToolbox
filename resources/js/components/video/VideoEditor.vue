@@ -32,7 +32,7 @@
 <script>
 import bus from '../../eventbus';
 import getYouTubeID from 'get-youtube-id';
-import PostService from '../../services/PostService'
+import Posts from '../../services/Posts'
 import TagEditor from '../tags/TagEditor';
 
 export default {
@@ -79,12 +79,12 @@ export default {
 
             let data = new FormData(this.$refs.form);
 
-            let post = await PostService.createPost(data);
+            let post = await Posts.create(data);
             if (!!!post)
                 return;
                 
-            console.log(this.$refs.tags.selected);
-            return;
+            // console.log(this.$refs.tags.selected);
+            
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }

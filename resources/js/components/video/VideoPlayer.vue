@@ -37,7 +37,7 @@ export default {
 
 		bus.listen('post-selected', event => {
 			this.showOverlay = false;
-			this.videoID = event.post.contentID;
+			this.videoID = event.post.videoID;
 		});
 
 		bus.listen('post-editing', event => {

@@ -6,16 +6,23 @@
                 type="button"
                 class="tag tag--new "
                 :class="{'tag--new-active': inputIsActive }"
-                @click="inputClick">
-                <label class="tag__label tag__label--new" for="tn1">
+                @click="inputFocus">
+                <label
+                    class="tag__label tag__label--new"
+                    for="tn1"
+                    @click="inputClick">
                     <span class="material-icons-round">add</span>
                 </label>
                 <input 
                     id="tn1"
+                    ref="input"
                     class="tag__input"
                     type="text"
                     placeholder="newTag"
                     v-model="newLabel"
+                    :disabled="inputIsDisabled"
+                    @blur="inputBlured"
+                    @focus="inputFocused"
                     @keydown.enter.stop="submit">
             </button>
 
@@ -44,7 +51,8 @@
 </template>
 
 <script>
-import PostService from '../../services/PostService'
+
+import Tags from '../../services/Tags'
 
 const MAX_TAGS_COUNT = 5;
 
@@ -73,13 +81,16 @@ export default {
             }
 
             return [...selected, ...this.newTags];
+        },
+
+        inputIsDisabled(){
+            return !!!this.inputIsActive;
         }
     },
 
     watch: {
-        newLabel(value) {
-            if (value.length === 0)
-                this.inputIsActive = false;
+        newLabel() {
+            this.checkInput();
         }
     },
 
@@ -89,9 +100,9 @@ export default {
 
     methods: {
         async load() {
-            this.tags = await PostService.getAllTags();
+            this.tags = await Tags.all();
         },
-        
+
         toggle(tag) {
 
             let currentState = tag.selected;
@@ -109,12 +120,44 @@ export default {
             this.newTags.splice(tagIndex, 1);
             this.selectedCount--;
         },
+        
+        checkInput()
+        {
+            if (this.newLabel.length === 0 && !!!this.$options.inputIsFocused)
+            {
+                clearTimeout(this.$options.delayedTimer)
+                this.inputIsActive = false;
+            }
+        },
 
+        inputFocus()
+        {
+            this.$refs.input.focus();
+        },
+
+        inputBlured() {
+            this.$options.delayTimer = setTimeout(() => {
+                this.$options.inputIsFocused = false;
+                this.checkInput();
+            }, 200)
+        },
+
+        inputFocused() {
+
+            clearTimeout(this.$options.delayTimer)
+            this.$options.inputIsFocused = true;
+        },
 
         inputClick(event)
         {
+            // event.preventDefault();
+            
             if (!!!this.inputIsActive)
             {
+                let input =this.$refs.input;
+/*                 this.$options.delayedTimer = 
+                    setTimeout( () => input.focus(), 50);
+ */
                 this.inputIsActive = true;
                 return;
             }

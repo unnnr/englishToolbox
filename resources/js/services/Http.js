@@ -1,4 +1,4 @@
-const HttpService = new function()
+const Http = new function()
 {   
     this.make = async function (method, path, formData)
     {
@@ -52,4 +52,4 @@ const HttpService = new function()
     let self = this;
 }();
 
-export default HttpService;
+export default Http;
