@@ -22,3 +22,11 @@ Route::match(['get', 'head'], 'tags', 'TagController@all');
 Route::apiResource('video.tags', 'TagController')->except([
     'destroy', 'update'
 ])->shallow();
+
+Route::get('dump', function() {
+    $video = \App\Models\Video::first();
+
+    $video->tags()->saveMany(\App\Models\Tag::all());
+
+    dd($video->tags);
+});
