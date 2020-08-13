@@ -2,7 +2,11 @@
     <div class="tags">
         <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">{{ selectedCount }}/5</small></h4>
             
-            <button class="tag tag--new tag--new-active" type="button">
+            <button 
+                type="button"
+                class="tag tag--new "
+                :class="{'tag--new-active': inputIsActive }"
+                @click="inputClick">
                 <label class="tag__label tag__label--new" for="tn1">
                     <span class="material-icons-round">add</span>
                 </label>
@@ -12,7 +16,7 @@
                     type="text"
                     placeholder="newTag"
                     v-model="newLabel"
-                    @keydown.stop="submit">
+                    @keydown.enter.stop="submit">
             </button>
 
             <button
@@ -50,7 +54,8 @@ export default {
             newLabel: '',
             tags: [],
             newTags: [],
-            selectedCount: 0
+            selectedCount: 0,
+            inputIsActive: false
         }
     },
 
@@ -65,10 +70,16 @@ export default {
                     selected.push(tag);
             }
 
-            return selected;
+            return [...selected, ...this.newTags];
         }
     },
 
+    watch: {
+        newLabel(value) {
+            if (value.length === 0)
+                this.inputIsActive = false;
+        }
+    },
 
     mounted() {
         this.load();
@@ -78,7 +89,7 @@ export default {
         async load() {
             this.tags = await PostService.getAllTags();
         },
-
+        
         toggle(tag) {
 
             let currentState = tag.selected;
@@ -87,28 +98,37 @@ export default {
                 return;
 
             this.$set(tag, 'selected', !!!currentState);
-            this.selectedCount += currentState ? 1 : -1; 
+            this.selectedCount += currentState ? -1 : 1; 
         },
 
         remove(tag) {
-            
             let tagIndex = this.newTags.indexOf(tag);
 
             this.newTags.splice(tagIndex, 1);
+            this.selectedCount--;
+        },
+
+
+        inputClick(event)
+        {
+            if (!!!this.inputIsActive)
+            {
+                this.inputIsActive = true;
+                return;
+            }
+
+            this.submit(event);
         },
 
         submit(event) {
 
-            if (event.keyCode !== 13)
-                return;
-
             event.preventDefault();
 
             let label = this.newLabel.trim();
-
-            if (label === '')
+            if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT)
                 return;
 
+            this.selectedCount++;
             this.newLabel = '';
             this.newTags.push({
                 label: label, 
@@ -119,6 +139,7 @@ export default {
 
         }
     }
+    
 
 }
 </script>

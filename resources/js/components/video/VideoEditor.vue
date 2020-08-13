@@ -11,16 +11,16 @@
                 <input class="editor__input input-second"
                        type="text"
                        placeholder="https://..."
-                       v-model="url"
                        name="video_url"
                        required
+                       v-model="url"
                        @keyup.enter="updateLink"
                        @blur='updateLink'>
                 <label class="editor__label text-fourth" for="">
                     Custom description<small class="editor__counter">0/180</small>
                 </label>
                 <textarea class="editor__textarea textarea-second" placeholder="place for your description" name="description"></textarea>
-                <tag-editor/>
+                <tag-editor ref="tags"/>
             </div>
             <div class="editor__footer">
                 <button class="editor__footer-button button-second">confirm</button>
@@ -83,6 +83,8 @@ export default {
             if (!!!post)
                 return;
                 
+            console.log(this.$refs.tags.selected);
+            return;
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }
