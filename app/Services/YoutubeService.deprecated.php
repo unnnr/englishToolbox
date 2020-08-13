@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class YoutubeService
 {
@@ -16,7 +17,8 @@ class YoutubeService
 
         $response = Http::get($url);
 
-        Log::alert($url, $response);
+        Log::alert($url);
+        Log::alert($response);
       
         if ($response->failed())
             return null;
@@ -36,8 +38,9 @@ class YoutubeService
 
         $response = Http::get($url);
 
-        Log::alert($url, $response);
-
+        Log::alert($url);
+        Log::alert($response);
+        
         if (!!!$response->successful())
             return false;
         

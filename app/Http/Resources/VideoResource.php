@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TagsResource; 
+use App\Http\Resources\TagResource; 
 
 class VideoResource extends JsonResource
 {
@@ -16,6 +16,8 @@ class VideoResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
+
             'title' => $this->title,
 
             'videoID' => $this->videoID,

@@ -8,15 +8,12 @@
         </button>
         <input class="filter__search-input filter__search-input--active" type="text" placeholder="search">
       </div>
-
       <button class="filter__button">tags
         <span class="material-icons-round">filter_list</span>
       </button>
-
       <button class="filter__button">sort by
         <span class="material-icons-round">sort</span>
       </button>
-
       <!-- <div class="dropdown filter__dropdown filter__dropdown--filter">
         <div class="dropdown__arrow"></div>
         <div class="dropdown__body">
@@ -25,10 +22,9 @@
           <button class="dropdown__button">Oldest first</button>
         </div>
       </div> -->
-
     </div>
 
-    <div class="filter__tags">
+    <div class="filter__tags filter__tags--active">
       <button class="tag" type="button">
         <span class="tag__name" for="cb2">nequeLaoreet</span>
       </button>
@@ -66,8 +62,6 @@
         <span class="tag__name" for="cb2">dignissim</span>
       </button>
     </div>
-
-
 
   </div>
 </section>

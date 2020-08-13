@@ -132,12 +132,16 @@
 }
 
 .filter__tags {
-  padding: 10px 10px 0;
-  background: $bg-main;
-  border-radius: 10px;
-  margin-top: 12.5px;
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
+  padding-top:0;
+  padding-left: 10px;
+  margin-top: 0;
+  max-height: 0;
+  background: $bg-main;
+  border-radius: 10px;
+  transition: all .3s ease-in-out;
 
   .tag {
     margin-right: 10px;
@@ -145,6 +149,11 @@
   }
 }
 
+.filter__tags--active {
+  margin-top: 12.5px;
+  padding-top: 10px;
+  max-height: max-content;
+}
 
 
 

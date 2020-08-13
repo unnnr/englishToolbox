@@ -7,7 +7,6 @@
             :title="title"
             :imageUrl='thumbnail'
             :description="description"
-            :id="index"
         />
     </section>
 </template>
@@ -57,7 +56,8 @@ export default {
              if (event.card === selectedCard)
                 return;
 
-            let post = PostService.getPostInfo(event.card.id)
+            console.log()
+            let post = PostService.getPostInfo(event.card.$vnode.key)
             bus.dispatch('post-selected', { post });
         });
 

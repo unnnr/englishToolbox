@@ -42,7 +42,8 @@ class TagService
     public function videos(int $tagId)
     {
         $tag = Tag::find($tagId);
-
+        $videos = [];
+        
         if ($tag)
             $videos = $tag->videos;
         else 
@@ -54,6 +55,7 @@ class TagService
     public function videoTags(int $videoId)
     {
         $video = Video::find($videoId);
+        $tags = [];
 
         if ($video)
             $tags = $video->tags;

@@ -12,7 +12,7 @@
                        type="text"
                        placeholder="https://..."
                        v-model="url"
-                       name="url"
+                       name="video_url"
                        required
                        @keyup.enter="updateLink"
                        @blur='updateLink'>
@@ -78,7 +78,7 @@ export default {
 			}
 
             let data = new FormData(this.$refs.form);
-            data.set('videoID',  videoID);
+            // data.set('videoID',  videoID);
 
             let post = await PostService.createPost(data);
             if (!!!post)

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Alaouy\Youtube\Rules\ValidYoutubeVideo;
+
 use App\Rules\YoutubeID;
 
 class UploadVideo extends FormRequest
@@ -24,8 +26,10 @@ class UploadVideo extends FormRequest
      */
     public function rules()
     {
+        //  'unique:videos,videoID'
+
         return [
-            'videoID' => ['required', 'max:20', 'unique:videos,videoID', new YoutubeID],
+            'video_url' => ['required', 'max:300',  new ValidYoutubeVideo],
             'description' => ['max:300']
         ];
     }
