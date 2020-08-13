@@ -149,11 +149,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
  //  :id="typeof id == 'number' ? id : false"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -362,12 +357,24 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -418,7 +425,8 @@ var MAX_TAGS_COUNT = 5;
       newLabel: '',
       tags: [],
       newTags: [],
-      selectedCount: 0
+      selectedCount: 0,
+      inputIsActive: false
     };
   },
   computed: {
@@ -439,7 +447,12 @@ var MAX_TAGS_COUNT = 5;
         _iterator.f();
       }
 
-      return selected;
+      return [].concat(selected, _toConsumableArray(this.newTags));
+    }
+  },
+  watch: {
+    newLabel: function newLabel(value) {
+      if (value.length === 0) this.inputIsActive = false;
     }
   },
   mounted: function mounted() {
@@ -472,17 +485,26 @@ var MAX_TAGS_COUNT = 5;
       var currentState = tag.selected;
       if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
       this.$set(tag, 'selected', !!!currentState);
-      this.selectedCount += currentState ? 1 : -1;
+      this.selectedCount += currentState ? -1 : 1;
     },
     remove: function remove(tag) {
       var tagIndex = this.newTags.indexOf(tag);
       this.newTags.splice(tagIndex, 1);
+      this.selectedCount--;
+    },
+    inputClick: function inputClick(event) {
+      if (!!!this.inputIsActive) {
+        this.inputIsActive = true;
+        return;
+      }
+
+      this.submit(event);
     },
     submit: function submit(event) {
-      if (event.keyCode !== 13) return;
       event.preventDefault();
       var label = this.newLabel.trim();
-      if (label === '') return;
+      if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT) return;
+      this.selectedCount++;
       this.newLabel = '';
       this.newTags.push({
         label: label,
@@ -711,14 +733,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 11:
-                _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
-                  post: post
-                });
-                _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selected', {
-                  post: post
-                });
+                console.log(_this.$refs.tags.selected);
+                return _context.abrupt("return");
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -3201,8 +3219,10 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "tag tag--new tag--new-active",
-          attrs: { type: "button" }
+          staticClass: "tag tag--new ",
+          class: { "tag--new-active": _vm.inputIsActive },
+          attrs: { type: "button" },
+          on: { click: _vm.inputClick }
         },
         [
           _vm._m(0),
@@ -3221,6 +3241,12 @@ var render = function() {
             domProps: { value: _vm.newLabel },
             on: {
               keydown: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
                 $event.stopPropagation()
                 return _vm.submit($event)
               },
@@ -3492,7 +3518,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("tag-editor")
+            _c("tag-editor", { ref: "tags" })
           ],
           1
         ),
