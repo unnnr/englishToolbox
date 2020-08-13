@@ -147,11 +147,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
  //  :id="typeof id == 'number' ? id : false"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2844,34 +2839,47 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card__footer" }, [
-      _c("div", { staticClass: "tag" }, [
-        _c("div", { staticClass: "tag__icon" }, [
-          _c("div", { staticClass: "tooltip tag__tooltip" }, [
-            _c("div", { staticClass: "tooltip__arrow" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag" }, [
-              _c("div", { staticClass: "tag__icon" }),
+      _c("div", { staticClass: "card__tags" }, [
+        _c(
+          "div",
+          { staticClass: "card__tag-secondary card__tag tag tag--circle" },
+          [
+            _c("div", { staticClass: "card__tag-tooltip tooltip" }, [
+              _c("div", { staticClass: "tooltip__arrow" }),
               _vm._v(" "),
-              _c("span", { staticClass: "tag__name" }, [_vm._v("tag name")])
+              _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+                _vm._v("nequeLaoreet")
+              ])
             ])
-          ])
-        ]),
+          ]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "tag__icon" }, [
-          _c("div", { staticClass: "tooltip tag__tooltip" }, [
-            _c("div", { staticClass: "tooltip__arrow" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "tag" }, [
-              _c("div", { staticClass: "tag__icon" }),
+        _c(
+          "div",
+          { staticClass: "card__tag-secondary card__tag tag tag--circle" },
+          [
+            _c("div", { staticClass: "card__tag-tooltip tooltip" }, [
+              _c("div", { staticClass: "tooltip__arrow" }),
               _vm._v(" "),
-              _c("span", { staticClass: "tag__name" }, [_vm._v("tag name")])
+              _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+                _vm._v("nequeLaoreet")
+              ])
             ])
-          ])
-        ]),
+          ]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "tag__icon" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "tag__name" }, [_vm._v("tag name")])
+        _c(
+          "button",
+          {
+            staticClass: "card__tag-main tag tag--main",
+            attrs: { type: "button" }
+          },
+          [
+            _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+              _vm._v("nequeLaoreet")
+            ])
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("time", { staticClass: "card__date" }, [_vm._v("July 19 2020")])
