@@ -259,6 +259,50 @@ main {
   }
 }
 
+.card__tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.card__tags .tag {
+  -webkit-box-shadow: 0px 0px 0px 3px #fafafa;
+          box-shadow: 0px 0px 0px 3px #fafafa;
+}
+
+.card__tag {
+  position: relative;
+}
+
+.card__tag-tooltip {
+  display: none;
+  position: absolute;
+  -webkit-transform: translateY(120%);
+          transform: translateY(120%);
+  left: -8px;
+}
+
+.card__tag-secondary {
+  z-index: 1;
+  -webkit-transition: margin .2s ease-in-out;
+  transition: margin .2s ease-in-out;
+}
+
+.card__tag-secondary:hover {
+  cursor: pointer;
+  margin-right: 3px;
+}
+
+.card__tag-secondary:hover .card__tag-tooltip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.card__tag-main {
+  z-index: 2;
+}
+
 .tags {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -286,6 +330,10 @@ main {
   font-size: 12px;
   padding: 7px 10px;
   border-radius: 50px;
+  min-height: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -294,6 +342,15 @@ main {
   display: flex;
   -webkit-transition: color .3s;
   transition: color .3s;
+}
+
+.tag--circle {
+  height: 30px;
+  min-width: 30px;
+  border-radius: 100%;
+  margin-right: -10px;
+  position: relative;
+  z-index: 10;
 }
 
 .tag--new {
@@ -405,7 +462,7 @@ main {
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(18, 18, 18, 0.9);
 }
 
 .tooltip__arrow,
@@ -415,13 +472,13 @@ main {
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid rgba(0, 0, 0, 0.85);
+  border-bottom: 7px solid rgba(18, 18, 18, 0.9);
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
   position: absolute;
 }
 
-.filter__dropdown-content {
+.dropdown__body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -13,28 +13,23 @@
   </div>
   <p class="card__text text-third">{{{ isset($video) && $video->description }}}</p>
   <div class="card__footer">
-    <div class="tag">
-      <div class="tag__icon">
-        <div class="tooltip tag__tooltip">
-          <div class="tooltip__arrow"></div>
-          <div class="tag">
-            <div class="tag__icon"></div>
-            <span class="tag__name">tag name</span>
+    <div class="card__tags">
+      <div class="card__tag-secondary card__tag tag tag--circle">
+          <div class="card__tag-tooltip tooltip">
+              <div class="tooltip__arrow"></div>
+              <span class="tag__name">nequeLaoreet</span>
           </div>
-        </div>
       </div>
-      <div class="tag__icon">
-        <div class="tooltip tag__tooltip">
-          <div class="tooltip__arrow"></div>
-          <div class="tag">
-            <div class="tag__icon"></div>
-            <span class="tag__name">tag name</span>
+      <div class="card__tag-secondary card__tag tag tag--circle">
+          <div class="card__tag-tooltip tooltip">
+              <div class="tooltip__arrow"></div>
+              <span class="tag__name">nequeLaoreet</span>
           </div>
-        </div>
       </div>
-      <div class="tag__icon"></div>
-      <span class="tag__name">tag name</span>
-    </div>
+      <button class="card__tag-main tag tag--main" type="button">
+          <span class="tag__name" for="cb2">nequeLaoreet</span>
+      </button>
+  </div>
     <time class="card__date">July 19 2020</time>
   </div>
 </div>

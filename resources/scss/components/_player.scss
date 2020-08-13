@@ -82,7 +82,7 @@
 .audio__player {
   display: flex;
   width: 100%;
-  background: hsla(0, 0%, 7%, 0.9);
+  background: rgba(18, 18, 18, 0.9);
   padding: 10px 0;
   @include border-radius;
   height: 60px;

@@ -157,3 +157,40 @@
     margin-top: 10px;
   }
 }
+
+.card__tags {
+  display: flex;
+
+  .tag {
+    box-shadow: 0px 0px 0px 3px $bg-main;
+  }
+}
+
+.card__tag {
+  position: relative;
+}
+
+.card__tag-tooltip {
+  display: none;
+  position: absolute;
+  transform: translateY(120%);
+  left: -8px;
+}
+
+.card__tag-secondary {
+  z-index: $z-main +1;
+  transition: margin .2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    margin-right: 3px;
+  }
+
+  &:hover .card__tag-tooltip {
+    display: flex;
+  }
+}
+
+.card__tag-main {
+  z-index: $z-main +2;
+}

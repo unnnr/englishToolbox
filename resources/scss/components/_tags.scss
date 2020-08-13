@@ -199,9 +199,20 @@
   font-size: 12px;
   padding: 7px 10px;
   border-radius: 50px;
+  min-height: 30px;
+  align-items: center;
   height: max-content;
   display: flex;
   transition: color .3s;
+}
+
+.tag--circle {
+  height: 30px;
+  min-width: 30px;
+  border-radius: 100%;
+  margin-right: -10px;
+  position: relative;
+  z-index: $z-first;
 }
 
 .tag--new {
