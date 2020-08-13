@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\Video;
-
+use App\Services\TagService;
 
 class TagController extends Controller
 {
@@ -14,31 +14,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(int $id, TagService $tagService)
     {
-        $tag = Tag::create([
-            'lable' => 'asddsa',
-            'color' => 'pink' 
-        ]);
-            
-        $video = Video::create([
-            'videoID' => 'temp',
-            'title' => 'temp',
-        ]);
-
-        $video->tags()->save($tag);
-
-        dd($tag->videos, $video->tags);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $tagService->videoTags($id);
     }
 
     /**
@@ -53,25 +31,14 @@ class TagController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return the specified tag.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id, TagService $tagService)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+ 
     }
 
     /**
@@ -95,5 +62,15 @@ class TagController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Return all tags
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all(TagService $tagService)
+    {
+        return $tagService->all();
     }
 }

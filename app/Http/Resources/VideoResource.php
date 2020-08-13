@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
-
 use App\Http\Resources\TagsResource; 
 
 class VideoResource extends JsonResource
@@ -24,7 +22,7 @@ class VideoResource extends JsonResource
 
             'description' => $this->description,
 
-            'tags' => TagsResource::collection($this->tags)
+            'tags' => TagResource::collection($this->tags)
         ];
     }
 }

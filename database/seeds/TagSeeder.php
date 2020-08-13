@@ -13,6 +13,16 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        
+        $tag = Tag::create([
+            'lable' => 'asddsa',
+            'color' => 'pink' 
+        ]);
+            
+        $video = Video::create([
+            'videoID' => 'temp',
+            'title' => 'temp',
+        ]);
+
+        $video->tags()->save($tag);
     }
 }
