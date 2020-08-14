@@ -83,8 +83,8 @@ main {
 }
 
 .tag {
-  -webkit-transition: background .2s ease-in-out !important;
-  transition: background .2s ease-in-out !important;
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
   background: #a1a1b1;
   color: #fff;
   font-weight: 600;
@@ -509,8 +509,8 @@ main {
 }
 
 .tag {
-  -webkit-transition: background .2s ease-in-out !important;
-  transition: background .2s ease-in-out !important;
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
   background: #a1a1b1;
   color: #fff;
   font-weight: 600;
