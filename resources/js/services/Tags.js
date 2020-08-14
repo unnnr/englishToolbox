@@ -20,7 +20,7 @@ const Tags = new function ()
                 returned: tag.selected
             });
         
-        let json = JSON.stringify(data);
+        let json = JSON.stringify({ data });
 
         let reponse = await Http.post('tags', json, true);
 

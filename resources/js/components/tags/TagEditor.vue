@@ -5,12 +5,15 @@
             <button 
                 type="button"
                 class="tag tag--new "
-                :class="{'tag--new-active': inputIsActive }"
-                @click="inputFocus">
+                :class="{
+                    'tag--new-active': inputIsActive,
+                    'tag--new-focused': inputIsFocused
+                }"
+                @click="onWrapperClick">
                 <label
                     class="tag__label tag__label--new"
                     for="tn1"
-                    @click="inputClick">
+                    @click="onLabelClick">
                     <span class="material-icons-round">add</span>
                 </label>
                 <input 
@@ -21,13 +24,14 @@
                     placeholder="newTag"
                     v-model="newLabel"
                     :disabled="inputIsDisabled"
-                    @blur="inputBlured"
-                    @focus="inputFocused"
-                    @keydown.enter.stop="submit">
+                    @blur="onInputBlur"
+                    @focus="onInputFocus"
+                    @keydown.enter.prevent.stop="submit">
+                <div class="tag__buffer" ref="buffer"></div>
             </button>
 
             <button
-                class="tag"
+                class="tag tag--created"
                 type="button"
                 v-for="(tag, index) of createdTags"
                 :key="'newtag_' + index"
@@ -67,7 +71,8 @@ export default {
             loadedTags: [],
             createdTags: [],
             selectedCount: 0,
-            inputIsActive: false
+            inputIsActive: false,
+            inputIsFocused: false
         }
     },
 
@@ -98,11 +103,23 @@ export default {
 
     mounted() {
         this.load();
+
+        this.setUpInputAutoGrow();
     },
 
     methods: {
         async load() {
             this.loadedTags = await Tags.all();
+        },
+
+        setUpInputAutoGrow() {
+             
+            let buffer = this.$refs.buffer;
+
+            this.$refs.input.addEventListener('input', function() {
+                this.nextElementSibling.innerHTML = this.value;
+                this.style.width = this.nextElementSibling.clientWidth + 'px';
+            });
         },
 
         toggle(tag) {
@@ -116,40 +133,42 @@ export default {
             this.selectedCount += currentState ? -1 : 1; 
         },
 
-        remove(tag) {
-            
-            let tagIndex = this.createdTags.indexOf(tag);
+        // New button methods
 
-            this.createdTags.splice(tagIndex, 1);
-        },
-        
-        checkInput() {
-            
-            if (this.newLabel.length === 0 && !!!this.$options.inputIsFocused)
-            {
-                clearTimeout(this.$options.delayedTimer)
-                this.inputIsActive = false;
-            }
+        onWrapperClick()
+        {
+            this.inputFocus();
+
+            if (!!!this.inputIsActive)
+                this.inputIsActive  = true;
         },
 
-        inputFocus() {
-            this.$refs.input.focus();
+        onLabelClick()
+        {
+            this.inputFocus();
+
+            if (!!!this.inputIsActive)
+                return;
+
+            this.inputIsActive  = false;
+            this.submit();
         },
 
-        inputBlured() {
+        onInputBlur() {
             this.$options.delayTimer = setTimeout(() => {
-                this.$options.inputIsFocused = false;
+                this.inputIsFocused = false;
                 this.checkInput();
             }, BLUR_DELAY)
         },
 
-        inputFocused() {
+        onInputFocus() {
 
             clearTimeout(this.$options.delayTimer)
-            this.$options.inputIsFocused = true;
+            this.inputIsFocused = true;
         },
 
-        inputClick(event) {
+        ///////////////////////////////////////////////
+        onInputClick(event) {
        
             if (!!!this.inputIsActive)
             {
@@ -161,10 +180,31 @@ export default {
 
             this.submit(event);
         },
+        /////////////////////////////////////////////
+
+        inputFocus() {
+            this.$refs.input.focus();
+        },
+    
+        remove(tag) {
+            
+            let tagIndex = this.createdTags.indexOf(tag);
+
+            this.createdTags.splice(tagIndex, 1);
+        },
+        
+        checkInput() {
+            
+            if (this.newLabel.length === 0 && !!!this.inputIsFocused)
+            {
+                clearTimeout(this.$options.delayedTimer)
+                this.inputIsActive = false;
+            }
+        },
 
         submit(event) {
 
-            event.preventDefault();
+            // event.preventDefault();
 
             let label = this.newLabel.trim();
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
@@ -181,3 +221,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .tag__buffer {
+        position: absolute;
+        top: -1000px;
+        left: -1000px;
+        visibility: hidden;
+        white-space: pre;
+    }
+
+</style>

@@ -24,10 +24,10 @@ const Posts = new function ()
 
     this.create = async (data, tags) =>
     {
-        if (tags)
+        if (Array.isArray(tags) && tags.length)
         {
             for (const [index, tag] of tags.entries())
-                data.append(`tags[${index}]`, tag.id);
+                data.append(`tags[${index}]`, tag.id) || console.log(index, tag);
         }
 
         let response = await Http.post('video', data);
