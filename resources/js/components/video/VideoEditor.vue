@@ -82,38 +82,21 @@ export default {
                 return;
 			}
 
-            
-            
-
-            let loadedTagsData = [];
-            for (const tag of this.$refs.tags.selectedOfloaded)
-            {
-                loadedTagsData.push({
-                    id: tag.id
-                });
-            }
-
-            let createdTagsData = this.$refs.tags.createdTags;
-
             /*createdTagsData = [
                 {label: 'asds', color: 'blacl', selected: 'true'}
             ] */
-            let tags = [];
+            let newTags = [];
+            let createdTagsData = this.$refs.tags.createdTags;
+            let loadedTagsData = this.$refs.tags.selectedOfloaded;
             
-            if (createdTagsData)
-                tags = await Tags.create(createdTagsData);
+            if (createdTagsData.length)
+                newTags = await Tags.create(createdTagsData);
 
-            if (tags)
-                bus.dispatch('createdTags', { tags });
-            
-            return;
+            if (newTags.length)
+                bus.dispatch('createdTags', { newTags });
 
             let data = new FormData(this.$refs.form);
-
-            // let tags = [...createdTagsData, ...loadedTagsData];
-            //    data.set('tags', tags);
-
-            let post = await Posts.create(data);
+            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
             if (!!!post)
                 return;
 

@@ -22,8 +22,14 @@ const Posts = new function ()
             Posts.onload();
     }
 
-    this.create = async (data) =>
+    this.create = async (data, tags) =>
     {
+        if (tags)
+        {
+            for (const [index, tag] of tags.entries())
+                data.append(`tags[${index}]`, tag.id);
+        }
+
         let response = await Http.post('video', data);
         if (!!!response)
             return null;

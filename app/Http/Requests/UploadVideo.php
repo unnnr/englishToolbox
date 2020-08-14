@@ -32,12 +32,8 @@ class UploadVideo extends FormRequest
             'video_url' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
             'description' => ['max:300'],
                             // required
-
-            'tags' => ['bail', 'array', 'max:25', ],  
-            'tags.*.selected' => ['boolean'],
-            'tags.*.color' => ['string', 'max:20'],
-            'tags.*.label' => ['string', 'max:50'],
-            'tags.*.id' => ['numeric']
+            'tags' => ['array', 'max:5'],  
+            'tags.*' => ['numeric', 'distinct']
         ];
     }
 }

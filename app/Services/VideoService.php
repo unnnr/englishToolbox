@@ -31,8 +31,16 @@ class VideoService
             
             'description' => $request->input('description')
         ]);
+        
+        $tags = [];
+        $tagsId = $request->input('tags');
+        
+        foreach ($tagsId as $id)
+            $tags[] = Tag::find($id);
 
-        $video->tags()->saveMany(\App\Models\Tag::all());
+
+        $video->tags()->saveMany($tags);
+        // $video->tags()->saveMany(Tag::all());
 
         return new VideoResource($video);
     }
