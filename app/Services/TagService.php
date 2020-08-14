@@ -13,8 +13,9 @@ class TagService
 
     public function create(CreateTags $request)
     {
-        $tags = $request->json()->all();
-        $returned = [];
+        $data = $request->json()->all();
+        $tags = $data['data'];
+        $return = [];
 
         foreach ($tags as $tag)
         {
@@ -23,11 +24,11 @@ class TagService
                 'color' => $tag['color']
             ]);
 
-            if ( array_key_exists('returned', $tag) && $tag['returned'])
-                $returned[] = $newTag;
+            if ( array_key_exists('return', $tag) && $tag['return'])
+                $return[] = $newTag;
         }
         
-        return TagResource::collection($returned);
+        return TagResource::collection($return);
     }
 
     public function get($id)

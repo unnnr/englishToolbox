@@ -17,7 +17,7 @@ const Tags = new function ()
             data.push({
                 label: tag.label,
                 color: tag.color,
-                returned: tag.selected
+                return: tag.selected
             });
         
         let json = JSON.stringify({ data });

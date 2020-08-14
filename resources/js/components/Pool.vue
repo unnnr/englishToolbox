@@ -2,8 +2,9 @@
     <section class="pool container">
         <new-card postType="video" />
         <card
-            v-for="({title, description, thumbnail}, index) of cards"
+            v-for="({title, description, thumbnail, tags}, index) of cards"
             :key="index"
+            :tags="tags"
             :title="title"
             :imageUrl='thumbnail'
             :description="description"/>

@@ -27,7 +27,7 @@ const Posts = new function ()
         if (Array.isArray(tags) && tags.length)
         {
             for (const [index, tag] of tags.entries())
-                data.append(`tags[${index}]`, tag.id) || console.log(index, tag);
+                data.append(`tags[${index}]`, tag.id);
         }
 
         let response = await Http.post('video', data);

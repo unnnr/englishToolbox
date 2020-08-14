@@ -147,8 +147,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
  //  :id="typeof id == 'number' ? id : false"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -156,7 +154,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     title: String,
     description: String,
-    imageUrl: String
+    imageUrl: String,
+    tags: Array
   },
   data: function data() {
     return {
@@ -271,6 +270,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/Cards */ "./resources/js/services/Cards.js");
 /* harmony import */ var _Card_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Card.vue */ "./resources/js/components/Card.vue");
 /* harmony import */ var _NewCard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NewCard.vue */ "./resources/js/components/NewCard.vue");
+//
 //
 //
 //
@@ -791,7 +791,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 loadedTagsData = _this.$refs.tags.selectedOfloaded;
 
                 if (!createdTagsData.length) {
-                  _context.next = 12;
+                  _context.next = 15;
                   break;
                 }
 
@@ -801,25 +801,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 11:
                 newTags = _context.sent;
 
-              case 12:
+                if (!!newTags) {
+                  _context.next = 15;
+                  break;
+                }
+
+                console.error('Error');
+                return _context.abrupt("return");
+
+              case 15:
                 if (newTags.length) _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
                   newTags: newTags
                 });
                 data = new FormData(_this.$refs.form);
-                _context.next = 16;
+                _context.next = 19;
                 return _services_Posts__WEBPACK_IMPORTED_MODULE_4__["default"].create(data, [].concat(_toConsumableArray(loadedTagsData), _toConsumableArray(newTags)));
 
-              case 16:
+              case 19:
                 post = _context.sent;
 
                 if (!!post) {
-                  _context.next = 19;
+                  _context.next = 22;
                   break;
                 }
 
                 return _context.abrupt("return");
 
-              case 19:
+              case 22:
                 _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
                 });
@@ -827,7 +835,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   post: post
                 });
 
-              case 21:
+              case 24:
               case "end":
                 return _context.stop();
             }
@@ -13959,7 +13967,42 @@ var render = function() {
         _vm._v(_vm._s(_vm.description))
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "card__footer" }, [
+        _c(
+          "div",
+          { staticClass: "card__tags" },
+          [
+            _vm._l(_vm.tags, function(ref, index) {
+              var label = ref.label
+              var color = ref.color
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "card__tag-secondary card__tag tag tag--circle",
+                  style: { "background-color": color }
+                },
+                [
+                  _c("div", { staticClass: "card__tag-tooltip tooltip" }, [
+                    _c("div", { staticClass: "tooltip__arrow" }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "tag__name", attrs: { for: "cb2" } },
+                      [_vm._v(_vm._s(label))]
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("time", { staticClass: "card__date" }, [_vm._v("July 19 2020")])
+      ])
     ]
   )
 }
@@ -13990,52 +14033,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__footer" }, [
-      _c("div", { staticClass: "card__tags" }, [
-        _c(
-          "div",
-          { staticClass: "card__tag-secondary card__tag tag tag--circle" },
-          [
-            _c("div", { staticClass: "card__tag-tooltip tooltip" }, [
-              _c("div", { staticClass: "tooltip__arrow" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-                _vm._v("nequeLaoreet")
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card__tag-secondary card__tag tag tag--circle" },
-          [
-            _c("div", { staticClass: "card__tag-tooltip tooltip" }, [
-              _c("div", { staticClass: "tooltip__arrow" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-                _vm._v("nequeLaoreet")
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "card__tag-main tag tag--main",
-            attrs: { type: "button" }
-          },
-          [
-            _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v("nequeLaoreet")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("time", { staticClass: "card__date" }, [_vm._v("July 19 2020")])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "card__tag-main tag tag--main",
+        attrs: { type: "button" }
+      },
+      [
+        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
+          _vm._v("nequeLaoreet")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -14198,9 +14207,15 @@ var render = function() {
         var title = ref.title
         var description = ref.description
         var thumbnail = ref.thumbnail
+        var tags = ref.tags
         return _c("card", {
           key: index,
-          attrs: { title: title, imageUrl: thumbnail, description: description }
+          attrs: {
+            tags: tags,
+            title: title,
+            imageUrl: thumbnail,
+            description: description
+          }
         })
       })
     ],
@@ -28060,7 +28075,7 @@ var Posts = new function () {
                 try {
                   for (_iterator.s(); !(_step = _iterator.n()).done;) {
                     _step$value = _slicedToArray(_step.value, 2), index = _step$value[0], tag = _step$value[1];
-                    data.append("tags[".concat(index, "]"), tag.id) || console.log(index, tag);
+                    data.append("tags[".concat(index, "]"), tag.id);
                   }
                 } catch (err) {
                   _iterator.e(err);
@@ -28213,7 +28228,7 @@ var Tags = new function () {
                   data.push({
                     label: tag.label,
                     color: tag.color,
-                    returned: tag.selected
+                    "return": tag.selected
                   });
                 }
               } catch (err) {

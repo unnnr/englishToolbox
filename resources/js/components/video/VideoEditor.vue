@@ -90,7 +90,15 @@ export default {
             let loadedTagsData = this.$refs.tags.selectedOfloaded;
             
             if (createdTagsData.length)
+            {
                 newTags = await Tags.create(createdTagsData);
+
+                if (!!!newTags)
+                {
+                    console.error('Error');
+                    return;
+                }
+            }
 
             if (newTags.length)
                 bus.dispatch('createdTags', { newTags });

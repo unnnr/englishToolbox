@@ -25,9 +25,9 @@ class CreateTags extends JsonRequest
     {
         return [
             'data' => 'required|array|between:1,20',
-            'data.label' => 'required|string|unique:tags|max:40',
-            'data.color' => 'required|string|max:40',
-            'data.returne' => 'required|string|boolean',
+            'data.*.label' => 'required|string|unique:tags|max:40',
+            'data.*.color' => 'required|string|max:40',
+            'data.*.return' => 'boolean',
         ];
     }
 }
