@@ -649,11 +649,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/Posts */ "./resources/js/services/Posts.js");
-/* harmony import */ var _tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/Posts */ "./resources/js/services/Posts.js");
+/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/Tags */ "./resources/js/services/Tags.js");
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -701,6 +702,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
   data: function data() {
@@ -710,20 +712,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   components: {
-    TagEditor: _tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__["default"]
+    TagEditor: _tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
     updateLink: function updateLink() {
       if (this.$options.previousUrl === this.url) return;
       this.$options.previousUrl = this.url;
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
 
       if (!!!videoID) {
         console.error('Icorrect url');
         return;
       }
 
-      _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-link-changed', {
+      _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
         url: this.url,
         videoID: videoID
       });
@@ -732,14 +734,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var videoID, data, createdTagsData, _iterator, _step, tag, loadedTagsData, _iterator2, _step2, _tag, tags, post;
+        var videoID, loadedTagsData, _iterator, _step, tag, createdTagsData, tags, data, post;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 event.preventDefault();
-                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default()(_this.url);
+                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(_this.url);
 
                 if (!!videoID) {
                   _context.next = 5;
@@ -750,17 +752,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 5:
-                data = new FormData(_this.$refs.form);
-                createdTagsData = [];
-                _iterator = _createForOfIteratorHelper(_this.$refs.tags.createdTags);
+                loadedTagsData = [];
+                _iterator = _createForOfIteratorHelper(_this.$refs.tags.selectedOfloaded);
 
                 try {
                   for (_iterator.s(); !(_step = _iterator.n()).done;) {
                     tag = _step.value;
-                    createdTagsData.push({
-                      label: tag.label,
-                      color: tag.color,
-                      selected: tag.selected
+                    loadedTagsData.push({
+                      id: tag.id
                     });
                   }
                 } catch (err) {
@@ -769,43 +768,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _iterator.f();
                 }
 
-                loadedTagsData = [];
-                _iterator2 = _createForOfIteratorHelper(_this.$refs.tags.selectedOfloaded);
+                createdTagsData = _this.$refs.tags.createdTags;
+                /*createdTagsData = [
+                    {label: 'asds', color: 'blacl', selected: 'true'}
+                ] */
 
-                try {
-                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                    _tag = _step2.value;
-                    loadedTagsData.push({
-                      id: _tag.id
-                    });
-                  }
-                } catch (err) {
-                  _iterator2.e(err);
-                } finally {
-                  _iterator2.f();
+                tags = [];
+
+                if (!createdTagsData) {
+                  _context.next = 14;
+                  break;
                 }
 
-                tags = [].concat(createdTagsData, loadedTagsData);
-                console.table(tags);
-                ;
+                _context.next = 13;
+                return _services_Tags__WEBPACK_IMPORTED_MODULE_5__["default"].create(createdTagsData);
+
+              case 13:
+                tags = _context.sent;
+
+              case 14:
+                if (tags) _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
+                  tags: tags
+                });
                 return _context.abrupt("return");
 
-              case 18:
+              case 19:
                 post = _context.sent;
 
                 if (!!post) {
-                  _context.next = 21;
+                  _context.next = 22;
                   break;
                 }
 
                 return _context.abrupt("return");
 
-              case 21:
-                console.log('dispatch');
-                _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
+              case 22:
+                _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
                 });
-                _eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selected', {
+                _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
                   post: post
                 });
 
@@ -27789,54 +27790,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var Http = new function () {
   this.make = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(method, path, formData) {
-      var token, response, contentType;
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(method, path, data) {
+      var json,
+          token,
+          options,
+          response,
+          contentType,
+          _args = arguments;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              json = _args.length > 3 && _args[3] !== undefined ? _args[3] : false;
               token = document.querySelector('meta[name="csrf-token"]').content; // data.set('_token', token);
 
-              _context.next = 3;
-              return fetch(window.location.origin + path ? '/api/' + path : '', {
+              options = {
                 method: method,
-                body: formData,
+                body: data,
                 headers: {
                   'X-CSRF-TOKEN': token,
                   'X-Requested-With': 'XMLHttpRequest',
                   'Accept': 'application/json'
                 }
-              });
+              };
+              if (json) options.headers['Content-Type'] = 'application/json';
+              _context.next = 6;
+              return fetch(window.location.origin + path ? '/api/' + path : '', options);
 
-            case 3:
+            case 6:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 6;
+                _context.next = 9;
                 break;
               }
 
               return _context.abrupt("return", null);
 
-            case 6:
+            case 9:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 12;
+                _context.next = 15;
                 break;
               }
 
-              _context.next = 10;
+              _context.next = 13;
               return response.json();
 
-            case 10:
+            case 13:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 12:
+            case 15:
               return _context.abrupt("return", response.text());
 
-            case 13:
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -28034,6 +28043,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Http */ "./resources/js/services/Http.js");
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -28060,17 +28075,54 @@ var Tags = new function () {
       }
     }, _callee);
   }));
-  this.createTag = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-          case "end":
-            return _context2.stop();
+
+  this.create = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(tags) {
+      var data, _iterator, _step, tag, json, reponse;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              data = [];
+              _iterator = _createForOfIteratorHelper(tags);
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  tag = _step.value;
+                  data.push({
+                    label: tag.label,
+                    color: tag.color,
+                    returned: tag.selected
+                  });
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
+              json = JSON.stringify(data);
+              _context2.next = 6;
+              return _Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', json, true);
+
+            case 6:
+              reponse = _context2.sent;
+              return _context2.abrupt("return", reponse);
+
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
         }
-      }
-    }, _callee2);
-  }));
+      }, _callee2);
+    }));
+
+    return function (_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
   this.remove = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {

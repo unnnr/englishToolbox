@@ -1,20 +1,24 @@
 const Http = new function()
 {   
-    this.make = async function (method, path, formData)
+    this.make = async function (method, path, data, json = false)
     {
         let token = document.querySelector('meta[name="csrf-token"]').content;
         // data.set('_token', token);
-    
-        let response = await fetch(window.location.origin + path ? '/api/' + path : '' , {
+        
+        let options = {
             method: method, 
-            body: formData,
+            body: data,
             headers: {
                 'X-CSRF-TOKEN': token,
                 'X-Requested-With': 'XMLHttpRequest',
                 'Accept':'application/json'
             }
-        })
+        };
 
+        if (json)
+            options.headers['Content-Type'] = 'application/json';
+
+        let response = await fetch(window.location.origin + path ? '/api/' + path : '' , options)
         if (!!!response.ok)
             return null;
         

@@ -18,10 +18,14 @@ Route::apiResource('video', 'VideoApiController')->except([
     'destroy', 'update'
 ]);
 
-Route::match(['get', 'head'], 'tags', 'TagController@all');
-Route::apiResource('video.tags', 'TagController')->except([
+/* Route::apiResource('video.tags', 'TagController')->except([
     'destroy', 'update'
-])->shallow();
+])->shallow(); */
+
+Route::match(['get', 'head'], 'tags', 'TagController@all');
+//Route::get('video/{video}/tags', 'TagController@index');
+Route::post('/tags', 'TagController@store');
+
 
 Route::get('dump', function() {
     $video = \App\Models\Video::first();

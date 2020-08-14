@@ -30,10 +30,11 @@
 </template>
 
 <script>
-import bus from '../../eventbus';
 import getYouTubeID from 'get-youtube-id';
-import Posts from '../../services/Posts'
+import bus from '../../eventbus';
 import TagEditor from '../tags/TagEditor';
+import Posts from '../../services/Posts'
+import Tags from '../../services/Tags'
 
 export default {
     name: 'video-editor',
@@ -71,6 +72,7 @@ export default {
         },
 
         async submit (event) {
+
             event.preventDefault();
 
             let videoID = getYouTubeID(this.url)
@@ -80,33 +82,41 @@ export default {
                 return;
 			}
 
-            let data = new FormData(this.$refs.form);
             
-            let createdTagsData = [];
-            for (const tag of this.$refs.tags.createdTags)
-                createdTagsData.push({
-                    label: tag.label,
-                    color: tag.color,
-                    selected: tag.selected
-                });
+            
 
             let loadedTagsData = [];
             for (const tag of this.$refs.tags.selectedOfloaded)
+            {
                 loadedTagsData.push({
                     id: tag.id
                 });
+            }
 
-            let tags = [...createdTagsData, ...loadedTagsData];
-        
-            console.table(tags);;
+            let createdTagsData = this.$refs.tags.createdTags;
 
+            /*createdTagsData = [
+                {label: 'asds', color: 'blacl', selected: 'true'}
+            ] */
+            let tags = [];
+            
+            if (createdTagsData)
+                tags = await Tags.create(createdTagsData);
+
+            if (tags)
+                bus.dispatch('createdTags', { tags });
+            
             return;
+
+            let data = new FormData(this.$refs.form);
+
+            // let tags = [...createdTagsData, ...loadedTagsData];
+            //    data.set('tags', tags);
 
             let post = await Posts.create(data);
             if (!!!post)
                 return;
 
-            console.log('dispatch');
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }
