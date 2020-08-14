@@ -22,7 +22,7 @@ class VideoService
         //$info = $youtube->videoInfo($request->input('videoID'));
 
         $videoId = Youtube::parseVidFromURL($request->input('video_url'));
-        $info = Youtube::getVideoInfo($videoId);
+        $info = Youtube::getVideoInfo($videoId, ['snippet']);
 
         $video = Video::create([
             'videoID' => $videoId,
@@ -31,8 +31,16 @@ class VideoService
             
             'description' => $request->input('description')
         ]);
+        
+        $tags = [];
+        $tagsId = $request->input('tags');
+        
+        foreach ($tagsId as $id)
+            $tags[] = Tag::find($id);
 
-        $video->tags()->saveMany(\App\Models\Tag::all());
+
+        $video->tags()->saveMany($tags);
+        // $video->tags()->saveMany(Tag::all());
 
         return new VideoResource($video);
     }

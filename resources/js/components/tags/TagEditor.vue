@@ -6,33 +6,40 @@
                 type="button"
                 class="tag tag--new "
                 :class="{'tag--new-active': inputIsActive }"
-                @click="inputClick">
-                <label class="tag__label tag__label--new" for="tn1">
+                @click="inputFocus">
+                <label
+                    class="tag__label tag__label--new"
+                    for="tn1"
+                    @click="inputClick">
                     <span class="material-icons-round">add</span>
                 </label>
                 <input 
                     id="tn1"
+                    ref="input"
                     class="tag__input"
                     type="text"
                     placeholder="newTag"
                     v-model="newLabel"
+                    :disabled="inputIsDisabled"
+                    @blur="inputBlured"
+                    @focus="inputFocused"
                     @keydown.enter.stop="submit">
             </button>
 
             <button
                 class="tag"
                 type="button"
-                v-for="(tag, index) of newTags"
+                v-for="(tag, index) of createdTags"
                 :key="'newtag_' + index"
                 :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="remove(tag)">
+                @click="toggle(tag)">
                 <span class="tag__name" for="cb2">{{ tag.label }}</span>
             </button>
 
             <button
                 class="tag"
                 type="button"
-                v-for="(tag, tagIndex) of tags"
+                v-for="(tag, tagIndex) of loadedTags"
                 :key="tagIndex"
                 :style="{ 'background-color': tag.selected ? tag.color : ''}"
                 @click="toggle(tag)">
@@ -42,9 +49,12 @@
 </template>
 
 <script>
-import PostService from '../../services/PostService'
+
+import Tags from '../../services/Tags'
 
 const MAX_TAGS_COUNT = 5;
+const MAX_CREATED_TAGS_COUNT = 30;
+const BLUR_DELAY = 200;
 
 export default {
     name: 'tag-editor',
@@ -52,32 +62,35 @@ export default {
     data: function () {
         return {
             newLabel: '',
-            tags: [],
-            newTags: [],
+            loadedTags: [],
+            createdTags: [],
             selectedCount: 0,
             inputIsActive: false
         }
     },
 
     computed: {
-        selected() {
+        selectedOfloaded() {
 
             let selected = [];
 
-            for (const tag of this.tags)
+            for (const tag of this.loadedTags   )
             {
                 if (tag.selected)
                     selected.push(tag);
             }
+            
+            return [...selected];
+        },
 
-            return [...selected, ...this.newTags];
+        inputIsDisabled(){
+            return !!!this.inputIsActive;
         }
     },
 
     watch: {
-        newLabel(value) {
-            if (value.length === 0)
-                this.inputIsActive = false;
+        newLabel() {
+            this.checkInput();
         }
     },
 
@@ -87,9 +100,9 @@ export default {
 
     methods: {
         async load() {
-            this.tags = await PostService.getAllTags();
+            this.loadedTags = await Tags.all();
         },
-        
+
         toggle(tag) {
 
             let currentState = tag.selected;
@@ -102,17 +115,44 @@ export default {
         },
 
         remove(tag) {
-            let tagIndex = this.newTags.indexOf(tag);
+            
+            let tagIndex = this.createdTags.indexOf(tag);
 
-            this.newTags.splice(tagIndex, 1);
-            this.selectedCount--;
+            this.createdTags.splice(tagIndex, 1);
+        },
+        
+        checkInput() {
+            
+            if (this.newLabel.length === 0 && !!!this.$options.inputIsFocused)
+            {
+                clearTimeout(this.$options.delayedTimer)
+                this.inputIsActive = false;
+            }
         },
 
+        inputFocus() {
+            this.$refs.input.focus();
+        },
 
-        inputClick(event)
-        {
+        inputBlured() {
+            this.$options.delayTimer = setTimeout(() => {
+                this.$options.inputIsFocused = false;
+                this.checkInput();
+            }, BLUR_DELAY)
+        },
+
+        inputFocused() {
+
+            clearTimeout(this.$options.delayTimer)
+            this.$options.inputIsFocused = true;
+        },
+
+        inputClick(event) {
+       
             if (!!!this.inputIsActive)
             {
+                let input =this.$refs.input;
+
                 this.inputIsActive = true;
                 return;
             }
@@ -125,21 +165,17 @@ export default {
             event.preventDefault();
 
             let label = this.newLabel.trim();
-            if (label.length === 0 || this.selectedCount >= MAX_TAGS_COUNT)
+            if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
 
-            this.selectedCount++;
             this.newLabel = '';
-            this.newTags.push({
+            this.createdTags.push({
                 label: label, 
                 color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-                selected: true,
+                selected: false,
                 isnew: true
             });
-
         }
     }
-    
-
 }
 </script>

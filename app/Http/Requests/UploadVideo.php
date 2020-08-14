@@ -26,11 +26,14 @@ class UploadVideo extends FormRequest
      */
     public function rules()
     {
-        //  'unique:videos,videoID'
 
         return [
-            'video_url' => ['required', 'max:300',  new ValidYoutubeVideo],
-            'description' => ['max:300']
+                            //  'unique:videos,videoID'
+            'video_url' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
+            'description' => ['max:300'],
+                            // required
+            'tags' => ['array', 'max:5'],  
+            'tags.*' => ['numeric', 'distinct']
         ];
     }
 }

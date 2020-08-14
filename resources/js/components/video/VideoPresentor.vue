@@ -23,7 +23,6 @@
 import VideoInfo from './VideoInfo.vue';
 import Comments from '../Comments';
 
-
 export default {
     name: 'video-presentor',
 

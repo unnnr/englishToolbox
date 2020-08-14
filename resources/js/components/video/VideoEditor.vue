@@ -30,10 +30,11 @@
 </template>
 
 <script>
-import bus from '../../eventbus';
 import getYouTubeID from 'get-youtube-id';
-import PostService from '../../services/PostService'
+import bus from '../../eventbus';
 import TagEditor from '../tags/TagEditor';
+import Posts from '../../services/Posts'
+import Tags from '../../services/Tags'
 
 export default {
     name: 'video-editor',
@@ -64,10 +65,14 @@ export default {
             }
             
 
-            bus.dispatch('editor-link-changed', { url: this.url, videoID: videoID});
+            bus.dispatch('editor-link-changed', { 
+                url: this.url,
+                videoID: videoID
+            });
         },
 
         async submit (event) {
+
             event.preventDefault();
 
             let videoID = getYouTubeID(this.url)
@@ -77,14 +82,24 @@ export default {
                 return;
 			}
 
-            let data = new FormData(this.$refs.form);
+            /*createdTagsData = [
+                {label: 'asds', color: 'blacl', selected: 'true'}
+            ] */
+            let newTags = [];
+            let createdTagsData = this.$refs.tags.createdTags;
+            let loadedTagsData = this.$refs.tags.selectedOfloaded;
+            
+            if (createdTagsData.length)
+                newTags = await Tags.create(createdTagsData);
 
-            let post = await PostService.createPost(data);
+            if (newTags.length)
+                bus.dispatch('createdTags', { newTags });
+
+            let data = new FormData(this.$refs.form);
+            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
             if (!!!post)
                 return;
-                
-            console.log(this.$refs.tags.selected);
-            return;
+
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
         }

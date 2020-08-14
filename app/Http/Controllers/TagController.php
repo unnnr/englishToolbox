@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateTags;
+use App\Http\Requests;
 use App\Models\Tag;
 use App\Models\Video;
 use App\Services\TagService;
@@ -25,9 +26,9 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTags $request, TagService $tagService)
     {
-        //
+        return $tagService->create($request);
     }
 
     /**
