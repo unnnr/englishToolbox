@@ -9,7 +9,6 @@ const Cards = new function()
         
         let card = { ...post };
 
-        console.log(post, card);
         card.thumbnail =`https://i.ytimg.com/vi/${post.videoID}/sddefault.jpg`
         
         return card;

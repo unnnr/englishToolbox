@@ -1046,7 +1046,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter[data-v-6d0abdf2]\n{\n    opacity: 0;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -27933,7 +27933,6 @@ var Cards = new function () {
 
     var card = _objectSpread({}, post);
 
-    console.log(post, card);
     card.thumbnail = "https://i.ytimg.com/vi/".concat(post.videoID, "/sddefault.jpg");
     return card;
   };
