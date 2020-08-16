@@ -1,4 +1,5 @@
 import Http from './Http';
+import { post } from 'jquery';
 
 const Posts = new function ()
 {
@@ -29,14 +30,6 @@ const Posts = new function ()
         }
 
         let responce = await Http.post('video', data);
-        /* let responce = {
-            id: data.get('index'),
-            tags: [],
-            title: 'titl',
-            videoID: 'dads',
-            description: 'asddsdsds',
-        }; */
-
         if (!!!responce)
             return null;
 
@@ -48,6 +41,8 @@ const Posts = new function ()
             description: responce.description
         };
 
+        posts.push(newPost);
+        
         return newPost;
     }
 
