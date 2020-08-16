@@ -27,18 +27,21 @@ import Vue from 'vue';
  */
 
 
-import VideoAddition from  './components/video/VideoAddition';
-import VideoPlayer from  './components/video/VideoPlayer';
-import Pool from  './components/Pool';
+import VideoAddition from  '@components/video/VideoAddition';
+import VideoPlayer from  '@components/video/VideoPlayer';
+import FilterBar from '@components/video/FilterBar'
+import Pool from  '@components/Pool';
+
 
 Vue.config.devtools = true;
 
-const ass = new Vue({
+const app = new Vue({
     el: document.querySelector('main'),
 
     components: {
 		VideoAddition,
-		VideoPlayer,
+    	VideoPlayer,
+      	FilterBar,
 		Pool
     }
 });

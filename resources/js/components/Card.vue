@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import bus from '../eventbus';
+import bus from '@services/eventbus';
 
 
 //  :id="typeof id == 'number' ? id : false"
@@ -51,13 +51,8 @@ export default {
         title: String,
         description: String,
         imageUrl: String,
-        tags: Array
-    },
-
-    data: function () {
-        return {
-            selected: false
-        }
+        tags: Array,
+        selected: Boolean
     },
 
     methods: {

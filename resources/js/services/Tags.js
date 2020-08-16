@@ -1,5 +1,5 @@
 
-import Http from './Http';
+import Http from '@services/Http';
 
 const Tags = new function ()
 {
