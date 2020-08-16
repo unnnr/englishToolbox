@@ -254,6 +254,10 @@ main {
   background: #fff;
 }
 
+.card--selected .card__image {
+  border: 5px solid #6666ff;
+}
+
 .card__add-icon {
   color: #6666ff !important;
   font-size: 100px !important;

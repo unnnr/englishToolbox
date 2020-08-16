@@ -27,6 +27,12 @@
   }
 }
 
+.card--selected {
+  .card__image {
+    border: 5px solid $color-main;
+  }
+}
+
 .card__add-icon {
   color: $color-main !important;
   font-size: 100px !important;
