@@ -16,12 +16,12 @@
 
 <script>
 
-import bus from '../eventbus';
-import Posts from '../services/Posts';
-import Cards from '../services/Cards';
-import Card from './Card.vue';
-import NewCard from './NewCard.vue';
-import Tags from '../services/Tags';
+import bus from '@services/eventbus';
+import Posts from '@services/Posts';
+import Cards from '@services/Cards';
+import Tags from '@services/Tags';
+import Card from '@components/Card.vue';
+import NewCard from '@components/NewCard.vue';
 
 
 export default {

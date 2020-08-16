@@ -31,10 +31,10 @@
 
 <script>
 import getYouTubeID from 'get-youtube-id';
-import bus from '../../eventbus';
-import TagEditor from '../tags/TagEditor';
-import Posts from '../../services/Posts'
-import Tags from '../../services/Tags'
+import bus from '@services/eventbus';
+import TagEditor from '@components/tags/TagEditor';
+import Posts from '@services/Posts'
+import Tags from '@services/Tags'
 
 export default {
     name: 'video-editor',

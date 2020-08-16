@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import VideoInfo from './VideoInfo.vue';
-import Comments from '../Comments';
+import VideoInfo from '@components/video/VideoInfo.vue';
+import Comments from '@components/Comments';
 
 export default {
     name: 'video-presentor',

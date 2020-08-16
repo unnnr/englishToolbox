@@ -54,7 +54,7 @@
 
 <script>
 
-import Tags from '../../services/Tags'
+import Tags from '@services/Tags'
 
 const MAX_TAGS_COUNT = 5;
 const MAX_CREATED_TAGS_COUNT = 30;

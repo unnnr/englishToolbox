@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import bus from '../eventbus';
+import bus from '@services/eventbus';
 
 export default {
     name: 'new-card',

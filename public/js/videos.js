@@ -107,7 +107,7 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -160,7 +160,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     select: function select() {
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', {
         card: this
       });
     }
@@ -223,7 +223,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -244,7 +244,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onClick: function onClick() {
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('new-card-touched');
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('new-card-touched');
     }
   }
 });
@@ -260,12 +260,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../eventbus */ "./resources/js/eventbus.js");
-/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/Posts */ "./resources/js/services/Posts.js");
-/* harmony import */ var _services_Cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/Cards */ "./resources/js/services/Cards.js");
-/* harmony import */ var _Card_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Card.vue */ "./resources/js/components/Card.vue");
-/* harmony import */ var _NewCard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NewCard.vue */ "./resources/js/components/NewCard.vue");
-/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/Tags */ "./resources/js/services/Tags.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Posts */ "./resources/js/services/Posts.js");
+/* harmony import */ var _services_Cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/Cards */ "./resources/js/services/Cards.js");
+/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/Tags */ "./resources/js/services/Tags.js");
+/* harmony import */ var _components_Card_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/Card.vue */ "./resources/js/components/Card.vue");
+/* harmony import */ var _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/NewCard.vue */ "./resources/js/components/NewCard.vue");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -315,8 +315,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   components: {
-    Card: _Card_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    NewCard: _NewCard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    Card: _components_Card_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    NewCard: _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   beforeMount: function beforeMount() {
     var _this = this;
@@ -329,24 +329,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var _this2 = this;
 
     // Init listeners
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('new-card-touched', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('new-card-touched', function (event) {
       if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
       _this2.selectedCard = null;
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing');
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing');
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-touched', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-touched', function (event) {
       if (event.card === _this2.selectedCard) return;
       var post = _services_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
-      _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', {
         post: post
       });
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-created', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-created', function (event) {
       var newCard = _services_Cards__WEBPACK_IMPORTED_MODULE_2__["default"].get(event.post.index);
 
       _this2.cards.push(newCard);
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       /* let card = Cards.get(event.post.index);
       if (selectedCard)
           selectedCard.selected = false;
@@ -392,7 +392,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/Tags */ "./resources/js/services/Tags.js");
+/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Tags */ "./resources/js/services/Tags.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -654,7 +654,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/Tags */ "./resources/js/services/Tags.js");
+/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Tags */ "./resources/js/services/Tags.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -777,9 +777,9 @@ var SHOWING_TIME = 500;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _VideoPresentor_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VideoPresentor.vue */ "./resources/js/components/video/VideoPresentor.vue");
-/* harmony import */ var _VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VideoEditor.vue */ "./resources/js/components/video/VideoEditor.vue");
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _components_video_VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/video/VideoEditor.vue */ "./resources/js/components/video/VideoEditor.vue");
+/* harmony import */ var _components_video_VideoPresentor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/video/VideoPresentor.vue */ "./resources/js/components/video/VideoPresentor.vue");
 //
 //
 //
@@ -805,16 +805,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    VideoPresentor: _VideoPresentor_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    VideoEditor: _VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    VideoPresentor: _components_video_VideoPresentor_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    VideoEditor: _components_video_VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     var _this = this;
 
-    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-editing', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       _this.editing = true;
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       var presentor = _this.$refs.presentor;
       var post = event.post;
       _this.editing = false;
@@ -842,10 +842,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
-/* harmony import */ var _tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
-/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/Posts */ "./resources/js/services/Posts.js");
-/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/Tags */ "./resources/js/services/Tags.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @services/Posts */ "./resources/js/services/Posts.js");
+/* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @services/Tags */ "./resources/js/services/Tags.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -909,7 +909,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   components: {
-    TagEditor: _tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__["default"]
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
     updateLink: function updateLink() {
@@ -922,7 +922,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return;
       }
 
-      _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
         url: this.url,
         videoID: videoID
       });
@@ -975,7 +975,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 15:
-                if (newTags.length) _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
+                if (newTags.length) _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
                   newTags: newTags
                 });
                 data = new FormData(_this.$refs.form);
@@ -993,10 +993,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 22:
-                _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
                 });
-                _eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
                   post: post
                 });
 
@@ -1022,7 +1022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tags_TagList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tags/TagList */ "./resources/js/components/tags/TagList.vue");
+/* harmony import */ var _components_tags_TagList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/tags/TagList */ "./resources/js/components/tags/TagList.vue");
 //
 //
 //
@@ -1062,7 +1062,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    TagList: _tags_TagList__WEBPACK_IMPORTED_MODULE_0__["default"]
+    TagList: _components_tags_TagList__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -1077,7 +1077,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../eventbus */ "./resources/js/eventbus.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -1109,17 +1109,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       _this.showOverlay = true;
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       _this.showOverlay = false;
       _this.videoID = event.post.videoID;
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       _this.videoID = 'null';
     });
-    _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-link-changed', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-link-changed', function (event) {
       _this.videoID = event.videoID;
       _this.showOverlay = false;
     });
@@ -1137,8 +1137,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VideoInfo.vue */ "./resources/js/components/video/VideoInfo.vue");
-/* harmony import */ var _Comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Comments */ "./resources/js/components/Comments.vue");
+/* harmony import */ var _components_video_VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/video/VideoInfo.vue */ "./resources/js/components/video/VideoInfo.vue");
+/* harmony import */ var _components_Comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/Comments */ "./resources/js/components/Comments.vue");
 //
 //
 //
@@ -1171,8 +1171,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    VideoInfo: _VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Comments: _Comments__WEBPACK_IMPORTED_MODULE_1__["default"]
+    VideoInfo: _components_video_VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Comments: _components_Comments__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -28221,64 +28221,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/eventbus.js":
-/*!**********************************!*\
-  !*** ./resources/js/eventbus.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var Bus = new function () {
-  this.listen = function (event, callback) {
-    if (typeof event !== 'string') return false;
-    if (!!!listeners[event]) listeners[event] = [];
-    listeners[event].push(callback);
-    return true;
-  };
-
-  this.dispatch = function (event) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    if (typeof event !== 'string') return false;
-    if (!!!listeners[event]) return false;
-
-    var _iterator = _createForOfIteratorHelper(listeners[event]),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var callback = _step.value;
-        callback(options);
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    return true;
-  };
-
-  this.remove = function (event, callback) {
-    if (typeof event !== 'string') return false;
-    var index = listeners[event].indexOf(callback);
-    if (index === -1) return false;
-    listeners[event].splice(index, 1);
-    return true;
-  };
-}();
-var listeners = [];
-/* harmony default export */ __webpack_exports__["default"] = (Bus);
-
-/***/ }),
-
 /***/ "./resources/js/services/Cards.js":
 /*!****************************************!*\
   !*** ./resources/js/services/Cards.js ***!
@@ -28288,7 +28230,7 @@ var listeners = [];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Posts */ "./resources/js/services/Posts.js");
+/* harmony import */ var _services_Posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/Posts */ "./resources/js/services/Posts.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -28304,7 +28246,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Cards = new function () {
   this.get = function (index) {
-    var post = _Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(index);
+    var post = _services_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(index);
 
     var card = _objectSpread({}, post);
 
@@ -28315,7 +28257,7 @@ var Cards = new function () {
   this.all = function () {
     var cards = [];
 
-    var _iterator = _createForOfIteratorHelper(_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].all()),
+    var _iterator = _createForOfIteratorHelper(_services_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].all()),
         _step;
 
     try {
@@ -28617,7 +28559,7 @@ var Posts = new function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Http */ "./resources/js/services/Http.js");
+/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -28639,7 +28581,7 @@ var Tags = new function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('tags');
+            return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('tags');
 
           case 2:
             tags = _context.sent;
@@ -28683,7 +28625,7 @@ var Tags = new function () {
                 data: data
               });
               _context2.next = 6;
-              return _Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', json, true);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', json, true);
 
             case 6:
               reponse = _context2.sent;
@@ -28718,6 +28660,64 @@ var Tags = new function () {
 
 /***/ }),
 
+/***/ "./resources/js/services/eventbus.js":
+/*!*******************************************!*\
+  !*** ./resources/js/services/eventbus.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var Bus = new function () {
+  this.listen = function (event, callback) {
+    if (typeof event !== 'string') return false;
+    if (!!!listeners[event]) listeners[event] = [];
+    listeners[event].push(callback);
+    return true;
+  };
+
+  this.dispatch = function (event) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    if (typeof event !== 'string') return false;
+    if (!!!listeners[event]) return false;
+
+    var _iterator = _createForOfIteratorHelper(listeners[event]),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var callback = _step.value;
+        callback(options);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return true;
+  };
+
+  this.remove = function (event, callback) {
+    if (typeof event !== 'string') return false;
+    var index = listeners[event].indexOf(callback);
+    if (index === -1) return false;
+    listeners[event].splice(index, 1);
+    return true;
+  };
+}();
+var listeners = [];
+/* harmony default export */ __webpack_exports__["default"] = (Bus);
+
+/***/ }),
+
 /***/ "./resources/js/videos.js":
 /*!********************************!*\
   !*** ./resources/js/videos.js ***!
@@ -28729,10 +28729,10 @@ var Tags = new function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_video_VideoAddition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/video/VideoAddition */ "./resources/js/components/video/VideoAddition.vue");
-/* harmony import */ var _components_video_VideoPlayer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/video/VideoPlayer */ "./resources/js/components/video/VideoPlayer.vue");
-/* harmony import */ var _components_video_FilterBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/video/FilterBar */ "./resources/js/components/video/FilterBar.vue");
-/* harmony import */ var _components_Pool__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Pool */ "./resources/js/components/Pool.vue");
+/* harmony import */ var _components_video_VideoAddition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/video/VideoAddition */ "./resources/js/components/video/VideoAddition.vue");
+/* harmony import */ var _components_video_VideoPlayer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/video/VideoPlayer */ "./resources/js/components/video/VideoPlayer.vue");
+/* harmony import */ var _components_video_FilterBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/video/FilterBar */ "./resources/js/components/video/FilterBar.vue");
+/* harmony import */ var _components_Pool__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/Pool */ "./resources/js/components/Pool.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -28761,7 +28761,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
-var ass = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: document.querySelector('main'),
   components: {
     VideoAddition: _components_video_VideoAddition__WEBPACK_IMPORTED_MODULE_1__["default"],

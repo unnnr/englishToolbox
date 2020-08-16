@@ -26,7 +26,7 @@
 
 <script>
 
-import TagList from '../tags/TagList';
+import TagList from '@components/tags/TagList';
 
 export default {
     name: 'video-info',

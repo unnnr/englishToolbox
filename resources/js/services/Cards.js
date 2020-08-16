@@ -1,5 +1,5 @@
 
-import Posts from './Posts'
+import Posts from '@services/Posts'
 
 const Cards = new function()
 {

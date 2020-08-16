@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import VideoPresentor from "./VideoPresentor.vue";
-import VideoEditor from "./VideoEditor.vue";
-import bus from '../../eventbus';
+import bus from '@services/eventbus';
+import VideoEditor from "@components/video/VideoEditor.vue";
+import VideoPresentor from "@components/video/VideoPresentor.vue";
 
 export default {
 	name: "video-addition",

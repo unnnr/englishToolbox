@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import bus from '../eventbus';
+import bus from '@services/eventbus';
 
 
 //  :id="typeof id == 'number' ? id : false"

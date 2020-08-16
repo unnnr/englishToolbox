@@ -10,10 +10,14 @@ const mix = require('laravel-mix');
  |
  */
 
- mix
- .disableSuccessNotifications()
- .js('resources/js/videos.js', 'public/js')
-.browserSync({
-proxy: 'englishToolbox:80',
-files: ['public/**/*.css', 'resources/**/*']
-}); 
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            '@models': path.resolve(__dirname, 'resources/js/models/'),
+            '@services': path.resolve(__dirname, 'resources/js/services/'),
+            '@components': path.resolve(__dirname, 'resources/js/components/')
+        }
+    }
+})
+.disableSuccessNotifications()
+.js('resources/js/videos.js', 'public/js')
