@@ -90,12 +90,21 @@ export default {
             let loadedTagsData = this.$refs.tags.selectedOfloaded;
             
             if (createdTagsData.length)
+            {
                 newTags = await Tags.create(createdTagsData);
+
+                if (!!!newTags)
+                {
+                    console.error('Error');
+                    return;
+                }
+            }
 
             if (newTags.length)
                 bus.dispatch('createdTags', { newTags });
 
             let data = new FormData(this.$refs.form);
+
             let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
             if (!!!post)
                 return;

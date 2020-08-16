@@ -1,12 +1,10 @@
-
 import Http from './Http';
-import { post } from 'jquery';
 
 const Posts = new function ()
 {
     function validateIndex(index)
     {
-        if (index >= posts.length || index < 0)
+        if (!!!Number.isInteger(index) || index >= posts.length || index < 0)
             return false;
         return true;
     }
@@ -24,25 +22,31 @@ const Posts = new function ()
 
     this.create = async (data, tags) =>
     {
-        if (tags)
+        if (Array.isArray(tags) && tags.length)
         {
             for (const [index, tag] of tags.entries())
                 data.append(`tags[${index}]`, tag.id);
         }
 
-        let response = await Http.post('video', data);
-        if (!!!response)
+        let responce = await Http.post('video', data);
+        /* let responce = {
+            id: data.get('index'),
+            tags: [],
+            title: 'titl',
+            videoID: 'dads',
+            description: 'asddsdsds',
+        }; */
+
+        if (!!!responce)
             return null;
 
-        let newPost ={
-            index: response.id - 1,
-            tags: response.tags,
-            title: response.title,
-            videoID: response.videoID,
-            description: response.description
+        let newPost = {
+            index: responce.id - 1,
+            tags: responce.tags,
+            title: responce.title,
+            videoID: responce.videoID,
+            description: responce.description
         };
-        
-        posts.push(newPost);
 
         return newPost;
     }
@@ -58,36 +62,11 @@ const Posts = new function ()
 
     this.all = () =>
     {
+        for (let index in posts)
+            posts[index].index = Number(index);
+
         return posts;
     }
-
-   /*  this.convertToCard = (index) => 
-    {
-        if (!!!validateIndex(index))
-            return;
-
-        let post = posts[index];
-
-        return {
-            index: index,
-            title: post.title,
-            description: post.description,
-            videoID: post.videoID
-        }
-    } */
-
-/*     this.allCards = () =>
-    {
-        let cards = [];
-
-        for (let index in posts)
-            cards.push({
-                ...this.getCard(index),
-                id: Number(index)
-            })
-
-        return cards;
-    } */
 
     let posts = [];
 

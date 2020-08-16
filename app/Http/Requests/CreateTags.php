@@ -24,9 +24,10 @@ class CreateTags extends JsonRequest
     public function rules()
     {
         return [
-            '*.label' => 'required|string|unique:tags|max:40',
-            '*.color' => 'required|string|max:40',
-            '*.returne' => 'string|boolean',
+            'data' => 'required|array|between:1,20',
+            'data.*.label' => 'required|string|unique:tags|max:40',
+            'data.*.color' => 'required|string|max:40',
+            'data.*.return' => 'boolean',
         ];
     }
 }

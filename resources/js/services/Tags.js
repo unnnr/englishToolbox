@@ -17,10 +17,10 @@ const Tags = new function ()
             data.push({
                 label: tag.label,
                 color: tag.color,
-                returned: tag.selected
+                return: tag.selected
             });
         
-        let json = JSON.stringify(data);
+        let json = JSON.stringify({ data });
 
         let reponse = await Http.post('tags', json, true);
 

@@ -18,16 +18,14 @@
         <p class="card__text text-third">{{ description }}</p>
         <div class="card__footer">
             <div class="card__tags">
-                <div class="card__tag-secondary card__tag tag tag--circle">
+                <div 
+                    class="card__tag-secondary card__tag tag tag--circle"
+                    v-for="({label, color}, index) in tags"
+                    :key="index"
+                    :style="{'background-color': color}">
                     <div class="card__tag-tooltip tooltip">
                         <div class="tooltip__arrow"></div>
-                        <span class="tag__name" for="cb2">nequeLaoreet</span>
-                    </div>
-                </div>
-                <div class="card__tag-secondary card__tag tag tag--circle">
-                    <div class="card__tag-tooltip tooltip">
-                        <div class="tooltip__arrow"></div>
-                        <span class="tag__name" for="cb2">nequeLaoreet</span>
+                        <span class="tag__name" for="cb2">{{ label }}</span>
                     </div>
                 </div>
                 <button class="card__tag-main tag tag--main" type="button">
@@ -52,7 +50,8 @@ export default {
     props: {
         title: String,
         description: String,
-        imageUrl: String
+        imageUrl: String,
+        tags: Array
     },
 
     data: function () {
@@ -68,8 +67,7 @@ export default {
         }
     },
 
-    mounted()
-    {
+    mounted() {
 
     }
 }

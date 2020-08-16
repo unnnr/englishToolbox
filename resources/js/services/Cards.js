@@ -6,6 +6,7 @@ const Cards = new function()
     this.get = (index) =>
     {
         let post = Posts.get(index);
+        
         let card = { ...post };
 
         card.thumbnail =`https://i.ytimg.com/vi/${post.videoID}/sddefault.jpg`

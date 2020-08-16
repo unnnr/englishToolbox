@@ -17,27 +17,20 @@ class VideoService
 {
     public function create(UploadVideo $request)
     {
-        //$youtube = new YoutubeService();
-
-        //$info = $youtube->videoInfo($request->input('videoID'));
-
-        $videoId = Youtube::parseVidFromURL($request->input('video_url'));
-        $info = Youtube::getVideoInfo($videoId, ['snippet']);
-
-        $video = Video::create([
-            'videoID' => $videoId,
-
-            'title' => $info->snippet->title,
-            
-            'description' => $request->input('description')
-        ]);
-        
         $tags = [];
-        $tagsId = $request->input('tags');
+        $tagsId = $request->input('tags', []);
         
         foreach ($tagsId as $id)
             $tags[] = Tag::find($id);
 
+        $videoId = Youtube::parseVidFromURL($request->input('video_url'));
+        $info = Youtube::getVideoInfo($videoId, ['snippet']);
+       
+        $video = Video::create([
+            'videoID' => $videoId,
+            'title' => $info->snippet->title,
+            'description' => $request->input('description')
+        ]);
 
         $video->tags()->saveMany($tags);
         // $video->tags()->saveMany(Tag::all());

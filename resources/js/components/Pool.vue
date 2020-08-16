@@ -1,13 +1,16 @@
 <template>
-    <section class="pool container">
-        <new-card postType="video" />
+    <transition-group name="list" tag="section" class="pool container">
+        <new-card
+            postType="video"
+            :key='-1'/>
         <card
-            v-for="({title, description, thumbnail}, index) of cards"
+            v-for="({title, description, thumbnail, tags, index}) of reversed"
             :key="index"
+            :tags="tags"
             :title="title"
             :imageUrl='thumbnail'
             :description="description"/>
-    </section>
+    </transition-group>
 </template>
 
 <script>
@@ -17,6 +20,7 @@ import Posts from '../services/Posts';
 import Cards from '../services/Cards';
 import Card from './Card.vue';
 import NewCard from './NewCard.vue';
+import Tags from '../services/Tags';
 
 
 let selectedCard = null;
@@ -28,6 +32,12 @@ export default {
         return {
             cards : []
         };
+    },
+
+    computed: {
+          reversed() {
+            return [...this.cards].reverse();
+        }
     },
 
     components: {
@@ -59,13 +69,13 @@ export default {
             if (event.card === selectedCard)
                 return;
 
-            let post = Posts.get(event.card.$vnode.key)
-
+            let post = Posts.get(Number(event.card.$vnode.key));
             bus.dispatch('post-selected', { post });
         });
 
         bus.listen('post-created', event => {
 
+            console.log(event);
             let newCard = Cards.get(event.post.index);
 
             this.cards.push(newCard);
@@ -74,7 +84,6 @@ export default {
         bus.listen('post-selected', event => {
 
             let card = Cards.get(event.post.index);
-
             if (selectedCard)
                 selectedCard.selected = false;
 
@@ -84,3 +93,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.list-move {
+  transition: transform 1s;
+}
+</style>
