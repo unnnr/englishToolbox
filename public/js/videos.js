@@ -271,6 +271,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Card_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Card.vue */ "./resources/js/components/Card.vue");
 /* harmony import */ var _NewCard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NewCard.vue */ "./resources/js/components/NewCard.vue");
 /* harmony import */ var _services_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/Tags */ "./resources/js/services/Tags.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
 //
 //
 //
@@ -300,7 +314,7 @@ var selectedCard = null;
   },
   computed: {
     reversed: function reversed() {
-      return this.cards.reverse();
+      return _toConsumableArray(this.cards).reverse();
     }
   },
   components: {
@@ -325,7 +339,7 @@ var selectedCard = null;
     });
     _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-touched', function (event) {
       if (event.card === selectedCard) return;
-      var post = _services_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(event.card.$vnode.key);
+      var post = _services_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
       _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', {
         post: post
       });
@@ -1033,7 +1047,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n", ""]);
 
 // exports
 
@@ -3372,27 +3386,28 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "transition-group",
-    {
-      staticClass: "pool container",
-      attrs: { name: "flip-list", tag: "section" }
-    },
-    _vm._l(_vm.reversed, function(ref) {
-      var title = ref.title
-      var description = ref.description
-      var thumbnail = ref.thumbnail
-      var tags = ref.tags
-      var index = ref.index
-      return _c("card", {
-        key: index,
-        attrs: {
-          tags: tags,
-          title: title,
-          imageUrl: thumbnail,
-          description: description
-        }
+    { staticClass: "pool container", attrs: { name: "list", tag: "section" } },
+    [
+      _c("new-card", { key: -1, attrs: { postType: "video" } }),
+      _vm._v(" "),
+      _vm._l(_vm.reversed, function(ref) {
+        var title = ref.title
+        var description = ref.description
+        var thumbnail = ref.thumbnail
+        var tags = ref.tags
+        var index = ref.index
+        return _c("card", {
+          key: index,
+          attrs: {
+            tags: tags,
+            title: title,
+            imageUrl: thumbnail,
+            description: description
+          }
+        })
       })
-    }),
-    1
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -17293,11 +17308,9 @@ var Posts = new function () {
                 videoID: responce.videoID,
                 description: responce.description
               };
-              posts.push(newPost);
-              console.log(newPost);
               return _context.abrupt("return", newPost);
 
-            case 10:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -17312,44 +17325,17 @@ var Posts = new function () {
 
   this.get = function (index) {
     if (!!!validateIndex(index)) return null;
-    console.log(posts, index);
     var post = posts[index];
     return _objectSpread({}, post);
   };
 
   this.all = function () {
     for (var index in posts) {
-      posts[index].index = index;
+      posts[index].index = Number(index);
     }
 
     return posts;
   };
-  /*  this.convertToCard = (index) => 
-   {
-       if (!!!validateIndex(index))
-           return;
-        let post = posts[index];
-        return {
-           index: index,
-           title: post.title,
-           description: post.description,
-           videoID: post.videoID
-       }
-   } */
-
-  /*     this.allCards = () =>
-      {
-          let cards = [];
-  
-          for (let index in posts)
-              cards.push({
-                  ...this.getCard(index),
-                  id: Number(index)
-              })
-  
-          return cards;
-      } */
-
 
   var posts = [];
   init();

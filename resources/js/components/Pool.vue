@@ -1,6 +1,8 @@
 <template>
-    <transition-group name="flip-list" tag="section" class="pool container">
-       <!--  <new-card postType="video" /> -->
+    <transition-group name="list" tag="section" class="pool container">
+        <new-card
+            postType="video"
+            :key='-1'/>
         <card
             v-for="({title, description, thumbnail, tags, index}) of reversed"
             :key="index"
@@ -34,7 +36,7 @@ export default {
 
     computed: {
           reversed() {
-            return this.cards.reverse();
+            return [...this.cards].reverse();
         }
     },
 
@@ -67,8 +69,7 @@ export default {
             if (event.card === selectedCard)
                 return;
 
-            let post = Posts.get(event.card.$vnode.key)
-
+            let post = Posts.get(Number(event.card.$vnode.key));
             bus.dispatch('post-selected', { post });
         });
 
@@ -83,7 +84,6 @@ export default {
         bus.listen('post-selected', event => {
 
             let card = Cards.get(event.post.index);
-
             if (selectedCard)
                 selectedCard.selected = false;
 
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style scoped>
-.flip-list-move {
+.list-move {
   transition: transform 1s;
 }
 </style>

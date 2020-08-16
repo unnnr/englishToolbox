@@ -47,10 +47,7 @@ const Posts = new function ()
             videoID: responce.videoID,
             description: responce.description
         };
-        
-        posts.push(newPost);
 
-        console.log(newPost);
         return newPost;
     }
 
@@ -59,7 +56,6 @@ const Posts = new function ()
         if (!!!validateIndex(index))
             return null;
 
-        console.log(posts, index);
         let post = posts[index];
         return { ...post };
     }
@@ -67,38 +63,10 @@ const Posts = new function ()
     this.all = () =>
     {
         for (let index in posts)
-            posts[index].index = index;
+            posts[index].index = Number(index);
 
         return posts;
     }
-
-   /*  this.convertToCard = (index) => 
-    {
-        if (!!!validateIndex(index))
-            return;
-
-        let post = posts[index];
-
-        return {
-            index: index,
-            title: post.title,
-            description: post.description,
-            videoID: post.videoID
-        }
-    } */
-
-/*     this.allCards = () =>
-    {
-        let cards = [];
-
-        for (let index in posts)
-            cards.push({
-                ...this.getCard(index),
-                id: Number(index)
-            })
-
-        return cards;
-    } */
 
     let posts = [];
 
