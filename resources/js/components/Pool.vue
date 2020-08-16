@@ -75,7 +75,6 @@ export default {
 
         bus.listen('post-created', event => {
 
-            console.log(event);
             let newCard = Cards.get(event.post.index);
 
             this.cards.push(newCard);
@@ -97,5 +96,15 @@ export default {
 <style scoped>
 .list-move {
   transition: transform 1s;
+}
+
+.list-enter
+{
+    opacity: 0;
+}
+
+.list-enter-active
+{
+    opacity: 0;
 }
 </style>
