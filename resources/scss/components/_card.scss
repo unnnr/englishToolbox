@@ -27,6 +27,12 @@
   }
 }
 
+.card--selected {
+  .card__image {
+    border: 5px solid $color-main;
+  }
+}
+
 .card__add-icon {
   color: $color-main !important;
   font-size: 100px !important;
@@ -183,7 +189,6 @@
 
   &:hover {
     cursor: pointer;
-    margin-right: 3px;
   }
 
   &:hover .card__tag-tooltip {
@@ -192,5 +197,5 @@
 }
 
 .card__tag-main {
-  z-index: $z-main +2;
+  z-index: $z-first +2;
 }

@@ -212,7 +212,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'comments'
 });
@@ -384,8 +383,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
 //
 //
 //
@@ -14184,9 +14181,7 @@ var staticRenderFns = [
               _vm._v("19 may 2020")
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "space" })
+        ])
       ]),
       _vm._v(" "),
       _c("form", { staticClass: "comments__footer" }, [
@@ -14439,9 +14434,7 @@ var render = function() {
             ])
           ]
         )
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "space" })
+      })
     ],
     2
   )

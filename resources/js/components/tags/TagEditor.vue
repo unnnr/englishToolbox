@@ -49,8 +49,6 @@
                 @click="toggle(tag)">
                 <span class="tag__name" for="cb2">{{ tag.label }}</span>
             </button>
-
-            <div class="space"></div>
         </div>
 </template>
 

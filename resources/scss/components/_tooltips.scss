@@ -4,7 +4,7 @@
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(18, 18, 18, 0.9);
+  background: rgba(18, 18, 18, 0.95);
 }
 
 .tooltip__arrow,
@@ -14,7 +14,7 @@
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid rgba(18, 18, 18, 0.9);
+  border-bottom: 7px solid rgba(18, 18, 18, 0.95);
   transform: translateY(-100%);
   position: absolute;
 }

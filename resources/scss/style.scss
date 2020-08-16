@@ -1,7 +1,4 @@
 @import "presets/import";
-@import "components/card";
-@import "components/tags";
-@import "components/tooltips";
 
 // ==========
 // font style 
@@ -38,6 +35,7 @@ button {
 // ===================
 // style for all pages 
 // ===================
+@import "components/context";
 
 main {
   background: #fafafa;
@@ -102,6 +100,11 @@ main {
       flex-basis: 100%;
     }
   }
+}
+
+.order-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 // ==========

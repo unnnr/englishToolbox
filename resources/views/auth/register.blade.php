@@ -54,4 +54,8 @@
       <object class="form__img" data="/public/img/svg/signup.svg" type="image/svg+xml"></object>
     </div>
   </section>
+
+  <section class="register-overlay">
+    <object class="register-overlay__image" data="{{ asset("img/svg/register-overlay.svg") }}" type="image/svg+xml"></object>
+  </section>
 @endsection

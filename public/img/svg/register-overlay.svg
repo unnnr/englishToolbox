@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="694" height="476.76" viewBox="0 0 694 476.76">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.508" y1="0.468" x2="0.508" y2="-0.532" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="gray" stop-opacity="0.251"/>
+      <stop offset="0.54" stop-color="gray" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="gray" stop-opacity="0.102"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-6.39" y1="0.315" x2="-6.39" y2="-0.3" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="-7.004" y1="0.126" x2="-7.004" y2="-0.489" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-4" x1="-0.757" y1="0.537" x2="-0.757" y2="-0.463" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-5" x1="0.5" y1="1" x2="0.5" y2="0" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="undraw_opened" transform="translate(46.106 -0.004)">
+    <rect id="Прямоугольник_173" data-name="Прямоугольник 173" width="173.583" height="106.677" transform="translate(-0.031 291.872) rotate(-16.6)" fill="url(#linear-gradient)"/>
+    <rect id="Прямоугольник_174" data-name="Прямоугольник 174" width="167.699" height="99.559" transform="translate(2.765 293.8) rotate(-16.6)" fill="#fff"/>
+    <g id="Сгруппировать_85" data-name="Сгруппировать 85" transform="translate(11.937 292.867)" opacity="0.6">
+      <rect id="Прямоугольник_175" data-name="Прямоугольник 175" width="21.334" height="15.788" transform="translate(24.955 15.13) rotate(163.4)" fill="#f55f44"/>
+      <rect id="Прямоугольник_176" data-name="Прямоугольник 176" width="81.929" height="5.118" transform="translate(108.57 22.257) rotate(163.4)" fill="#f55f44"/>
+      <rect id="Прямоугольник_177" data-name="Прямоугольник 177" width="59.739" height="3.414" transform="translate(111.741 32.883) rotate(163.4)" fill="#f55f44"/>
+    </g>
+    <rect id="Прямоугольник_178" data-name="Прямоугольник 178" width="106.677" height="173.583" transform="translate(405.147 104.714) rotate(-78.98)" fill="url(#linear-gradient-2)"/>
+    <rect id="Прямоугольник_179" data-name="Прямоугольник 179" width="99.559" height="167.699" transform="translate(408.088 100.744) rotate(-78.98)" fill="#fff"/>
+    <g id="Сгруппировать_86" data-name="Сгруппировать 86" transform="translate(429.772 11.845)" opacity="0.6">
+      <rect id="Прямоугольник_180" data-name="Прямоугольник 180" width="21.334" height="15.788" transform="translate(20.941 19.575) rotate(-168.98)" fill="#f55f44"/>
+      <rect id="Прямоугольник_181" data-name="Прямоугольник 181" width="81.929" height="5.118" transform="translate(91.722 64.664) rotate(-168.98)" fill="#f55f44"/>
+      <rect id="Прямоугольник_182" data-name="Прямоугольник 182" width="59.739" height="3.414" transform="translate(89.604 75.558) rotate(-168.98)" fill="#f55f44"/>
+    </g>
+    <rect id="Прямоугольник_183" data-name="Прямоугольник 183" width="106.677" height="173.583" transform="translate(433.631 249.201) rotate(-23.45)" fill="url(#linear-gradient-3)"/>
+    <rect id="Прямоугольник_184" data-name="Прямоугольник 184" width="99.559" height="167.699" transform="translate(438.565 249.378) rotate(-23.45)" fill="#fff"/>
+    <g id="Сгруппировать_87" data-name="Сгруппировать 87" transform="translate(488.758 219.452)" opacity="0.6">
+      <rect id="Прямоугольник_185" data-name="Прямоугольник 185" width="21.334" height="15.788" transform="translate(31.062 25.855) rotate(-113.45)" fill="#47e6b1"/>
+      <rect id="Прямоугольник_186" data-name="Прямоугольник 186" width="81.929" height="5.118" transform="translate(33.949 109.72) rotate(-113.45)" fill="#47e6b1"/>
+      <rect id="Прямоугольник_187" data-name="Прямоугольник 187" width="59.739" height="3.414" transform="translate(23.773 114.131) rotate(-113.45)" fill="#47e6b1"/>
+    </g>
+    <rect id="Прямоугольник_188" data-name="Прямоугольник 188" width="173.583" height="106.677" transform="translate(46.309 58.779) rotate(-19.53)" fill="url(#linear-gradient-4)"/>
+    <rect id="Прямоугольник_189" data-name="Прямоугольник 189" width="167.699" height="99.559" transform="translate(49.204 60.574) rotate(-19.53)" fill="#fff"/>
+    <g id="Сгруппировать_88" data-name="Сгруппировать 88" transform="translate(58.576 58.162)" opacity="0.6">
+      <rect id="Прямоугольник_190" data-name="Прямоугольник 190" width="21.334" height="15.788" transform="translate(25.385 14.88) rotate(160.47)" fill="#6c63ff"/>
+      <rect id="Прямоугольник_191" data-name="Прямоугольник 191" width="81.929" height="5.118" transform="translate(109.254 17.734) rotate(160.47)" fill="#6c63ff"/>
+      <rect id="Прямоугольник_192" data-name="Прямоугольник 192" width="59.739" height="3.414" transform="translate(112.961 28.184) rotate(160.47)" fill="#6c63ff"/>
+    </g>
+    <path id="Контур_376" data-name="Контур 376" d="M344.757,9.21,142.66,199.464V479.621H546.848V199.464Z" transform="translate(-44.27 -2.856)" fill="url(#linear-gradient-5)"/>
+    <path id="Контур_377" data-name="Контур 377" d="M545.721,475.011H145.63V200.545L345.679,14.16,545.721,200.545Z" transform="translate(-45.191 -4.392)" fill="#fff"/>
+    <rect id="Прямоугольник_193" data-name="Прямоугольник 193" width="278.556" height="327.715" transform="translate(161.206 48.001)" fill="url(#linear-gradient-5)"/>
+    <rect id="Прямоугольник_194" data-name="Прямоугольник 194" width="271.521" height="324.984" transform="translate(164.724 50.733)" fill="#fff"/>
+    <path id="Контур_378" data-name="Контур 378" d="M145.63,284.38,345.679,421.613,145.63,558.846Z" transform="translate(-45.191 -88.227)" fill="#f5f5f5"/>
+    <path id="Контур_379" data-name="Контур 379" d="M635.7,284.38,435.66,421.613,635.7,558.846Z" transform="translate(-135.172 -88.227)" fill="#f5f5f5"/>
+    <path id="Контур_380" data-name="Контур 380" d="M310.28,718.209,502.473,568.678a12.685,12.685,0,0,1,15.692,0L710.371,718.209Z" transform="translate(-209.841 -247.597)" fill="url(#linear-gradient-5)"/>
+    <path id="Контур_381" data-name="Контур 381" d="M310.28,721.2l192.193-143a13.147,13.147,0,0,1,15.692,0l192.206,143Z" transform="translate(-209.841 -250.589)" fill="#fff"/>
+    <rect id="Прямоугольник_195" data-name="Прямоугольник 195" width="56.67" height="9.56" transform="translate(205.923 113.541)" fill="#47e6b1"/>
+    <rect id="Прямоугольник_196" data-name="Прямоугольник 196" width="189.123" height="9.56" transform="translate(205.923 138.807)" fill="#f5f5f5"/>
+    <rect id="Прямоугольник_197" data-name="Прямоугольник 197" width="189.123" height="9.56" transform="translate(205.923 155.189)" fill="#f5f5f5"/>
+    <rect id="Прямоугольник_198" data-name="Прямоугольник 198" width="189.123" height="9.56" transform="translate(205.923 171.577)" fill="#f5f5f5"/>
+    <rect id="Прямоугольник_199" data-name="Прямоугольник 199" width="189.123" height="9.56" transform="translate(205.923 187.959)" fill="#f5f5f5"/>
+    <rect id="Прямоугольник_200" data-name="Прямоугольник 200" width="86.026" height="9.56" transform="translate(205.923 204.347)" fill="#f5f5f5"/>
+    <rect id="Прямоугольник_201" data-name="Прямоугольник 201" width="86.026" height="9.56" transform="translate(309.02 204.347)" fill="#6c63ff"/>
+    <text id="Сonfirm_email_to_access_your_account" data-name="Сonfirm email to 
+access your account" transform="translate(-46.106 259.782)" fill="#2f2e41" font-size="65" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="0" y="0">Сonfirm email to </tspan><tspan x="0" y="70">access your account</tspan></text>
+  </g>
+</svg>

@@ -481,6 +481,8 @@ main {
 }
 
 .tag {
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
   background: #a1a1b1;
   color: #fff;
   font-weight: 600;
@@ -619,7 +621,7 @@ main {
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(18, 18, 18, 0.9);
+  background: rgba(18, 18, 18, 0.95);
 }
 
 .tooltip__arrow,
@@ -629,7 +631,7 @@ main {
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid rgba(18, 18, 18, 0.9);
+  border-bottom: 7px solid rgba(18, 18, 18, 0.95);
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
   position: absolute;
@@ -681,6 +683,10 @@ main {
 .card--add .card__image {
   padding-bottom: 56.25%;
   background: #fff;
+}
+
+.card--selected .card__image {
+  border: 5px solid #6666ff;
 }
 
 .card__add-icon {
@@ -906,7 +912,6 @@ main {
 
 .card__tag-secondary:hover {
   cursor: pointer;
-  margin-right: 3px;
 }
 
 .card__tag-secondary:hover .card__tag-tooltip {
@@ -916,7 +921,7 @@ main {
 }
 
 .card__tag-main {
-  z-index: 2;
+  z-index: 12;
 }
 
 .feed {

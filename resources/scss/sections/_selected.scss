@@ -11,9 +11,16 @@
   margin: 0 -7.5px 50px;
   display: flex;
   flex-flow: row wrap;
+  order: 2;
 
   @include lg-devices {
     margin: 0 0 30px;
+  }
+
+  @include md-devices {
+    order: 1;
+    margin-top: 30px;
+    margin-bottom: 0;
   }
 }
 
