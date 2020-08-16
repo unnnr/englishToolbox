@@ -24,8 +24,6 @@ import NewCard from './NewCard.vue';
 import Tags from '../services/Tags';
 
 
-let selectedCard = null;
-
 export default {
     name: 'pool',
 
@@ -58,16 +56,16 @@ export default {
         // Init listeners
         bus.listen('new-card-touched', event => {
 
-            if (selectedCard)
-                this.$set(selectedCard, 'selected', false);
-            selectedCard = null;
+            if (this.selectedCard)
+                this.$set(this.selectedCard, 'selected', false);
+            this.selectedCard = null;
 
             bus.dispatch('post-editing');
         });
         
         bus.listen('card-touched', event => {
 
-            if (event.card === selectedCard)
+            if (event.card === this.selectedCard)
                 return;
 
             let post = Posts.get(Number(event.card.$vnode.key));
@@ -98,11 +96,11 @@ export default {
                 {
                     console.log('found');
 
-                    if (selectedCard)
-                        this.$set(selectedCard, 'selected', false);
+                    if (this.selectedCard)
+                        this.$set(this.selectedCard, 'selected', false);
 
-                    selectedCard = card;
-                    this.$set(selectedCard, 'selected', true);
+                    this.selectedCard = card;
+                    this.$set(this.selectedCard, 'selected', true);
 
                     break;
                 }

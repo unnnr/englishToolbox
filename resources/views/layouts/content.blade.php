@@ -3,7 +3,8 @@
 @section('content')
     
   <div class="order-wrapper">
-    @include('sections.filter')
+    {{-- @include('sections.filter') --}}
+    <filter-bar></filter-bar>
 
     <section class="selected container">
       @yield('selected')
