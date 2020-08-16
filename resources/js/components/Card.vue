@@ -51,13 +51,8 @@ export default {
         title: String,
         description: String,
         imageUrl: String,
-        tags: Array
-    },
-
-    data: function () {
-        return {
-            selected: false
-        }
+        tags: Array,
+        selected: Boolean
     },
 
     methods: {

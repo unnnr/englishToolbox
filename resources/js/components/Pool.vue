@@ -4,10 +4,11 @@
             postType="video"
             :key='-1'/>
         <card
-            v-for="({title, description, thumbnail, tags, index}) of reversed"
+            v-for="({index, tags, title, selected, thumbnail, description}) of reversed"
             :key="index"
             :tags="tags"
             :title="title"
+            :selected="selected"
             :imageUrl='thumbnail'
             :description="description"/>
     </transition-group>
@@ -58,7 +59,7 @@ export default {
         bus.listen('new-card-touched', event => {
 
             if (selectedCard)
-                selectedCard.selected = false;
+                this.$set(selectedCard, 'selected', false);
             selectedCard = null;
 
             bus.dispatch('post-editing');
@@ -82,12 +83,30 @@ export default {
 
         bus.listen('post-selected', event => {
 
-            let card = Cards.get(event.post.index);
+            /* let card = Cards.get(event.post.index);
             if (selectedCard)
                 selectedCard.selected = false;
 
             selectedCard = card;
-            selectedCard.selected = true;
+            selectedCard.selected = true; */
+
+            for (const card of this.cards)
+            {
+                console.log(card.id, event.post.id);
+
+                if (card.id === event.post.id)
+                {
+                    console.log('found');
+
+                    if (selectedCard)
+                        this.$set(selectedCard, 'selected', false);
+
+                    selectedCard = card;
+                    this.$set(selectedCard, 'selected', true);
+
+                    break;
+                }
+            }
         });
     }
 }
