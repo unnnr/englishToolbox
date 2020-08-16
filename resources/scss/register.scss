@@ -10,3 +10,19 @@
     padding: 100px 0;
   }
 }
+
+.register-overlay {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparentize($color: $bg-main, $amount: 0.05);
+  justify-content: center;
+  align-items: center;
+}
+
+.register-overlay__image {
+  width: vw(600,1920);
+}

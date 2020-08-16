@@ -1,5 +1,11 @@
 .filter {
   margin: 30px 0 15px;
+  order: 1;
+
+  @include md-devices {
+    order: 2;
+    margin: 15px 0 50px;
+  }
 }
 
 .filter__body {
@@ -21,19 +27,10 @@
 .filter__panel {
   display: flex;
   justify-content: space-between;
-
-  @include sm-devices {
-    flex-direction: column;
-  }
 }
 
 .filter__button-group {
   display: flex;
-
-  @include sm-devices {
-    margin-top: 10px;
-    justify-content: space-between;
-  }
 }
 
 .filter__button {
@@ -49,11 +46,8 @@
   font-weight: $medium;
   color: $text-third;
   position: relative;
-
-  &:not(:last-child) {
-    margin-right: 15px;
-  }
-
+  margin-left: 15px;
+  
   .material-icons-round {
     margin-left: 5px;
     font-size: 25px;
@@ -65,6 +59,10 @@
   display: flex;
   align-items: center;
   position: relative;
+
+  @include sm-devices {
+    width: 100%;
+  }
 }
 
 .filter__search-button {
@@ -149,7 +147,7 @@
   top: 55px;
 
   @include sm-devices {
-    top: 15px;
+    top: 100px;
   }
 }
 

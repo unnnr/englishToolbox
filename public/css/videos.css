@@ -190,7 +190,7 @@ main {
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(18, 18, 18, 0.9);
+  background: rgba(18, 18, 18, 0.95);
 }
 
 .tooltip__arrow,
@@ -200,7 +200,7 @@ main {
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid rgba(18, 18, 18, 0.9);
+  border-bottom: 7px solid rgba(18, 18, 18, 0.95);
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
   position: absolute;
@@ -486,7 +486,7 @@ main {
 }
 
 .card__tag-main {
-  z-index: 2;
+  z-index: 12;
 }
 
 .player {
@@ -1351,11 +1351,24 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
 }
 
 @media (max-width: 1200px) {
   .selected {
     margin: 0 0 30px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .selected {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    margin-top: 30px;
+    margin-bottom: 0;
   }
 }
 
@@ -1487,6 +1500,18 @@ main {
 
 .filter {
   margin: 30px 0 15px;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+@media (max-width: 1000px) {
+  .filter {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    margin: 15px 0 50px;
+  }
 }
 
 .filter__body {
@@ -1532,28 +1557,10 @@ main {
           justify-content: space-between;
 }
 
-@media (max-width: 770px) {
-  .filter__panel {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-}
-
 .filter__button-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-@media (max-width: 770px) {
-  .filter__button-group {
-    margin-top: 10px;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-  }
 }
 
 .filter__button {
@@ -1574,10 +1581,7 @@ main {
   font-weight: 500;
   color: #a1a1b1;
   position: relative;
-}
-
-.filter__button:not(:last-child) {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .filter__button .material-icons-round {
@@ -1594,6 +1598,12 @@ main {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
+}
+
+@media (max-width: 770px) {
+  .filter__search {
+    width: 100%;
+  }
 }
 
 .filter__search-button {
@@ -1711,7 +1721,7 @@ main {
 
 @media (max-width: 770px) {
   .filter__dropdown--filter {
-    top: 15px;
+    top: 100px;
   }
 }
 

@@ -15,21 +15,21 @@
   <div class="card__footer">
     <div class="card__tags">
       <div class="card__tag-secondary card__tag tag tag--circle">
-          <div class="card__tag-tooltip tooltip">
-              <div class="tooltip__arrow"></div>
-              <span class="tag__name">nequeLaoreet</span>
-          </div>
+        <div class="card__tag-tooltip tooltip">
+          <div class="tooltip__arrow"></div>
+          <span class="tag__name" for="cb2">nequeLaoreet</span>
+        </div>
       </div>
       <div class="card__tag-secondary card__tag tag tag--circle">
-          <div class="card__tag-tooltip tooltip">
-              <div class="tooltip__arrow"></div>
-              <span class="tag__name">nequeLaoreet</span>
-          </div>
+        <div class="card__tag-tooltip tooltip">
+          <div class="tooltip__arrow"></div>
+          <span class="tag__name" for="cb2">nequeLaoreet</span>
+        </div>
       </div>
       <button class="card__tag-main tag tag--main" type="button">
-          <span class="tag__name" for="cb2">nequeLaoreet</span>
+        <span class="tag__name" for="cb2">nequeLaoreet</span>
       </button>
-  </div>
+    </div>
     <time class="card__date">July 19 2020</time>
   </div>
 </div>

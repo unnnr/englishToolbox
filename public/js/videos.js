@@ -412,8 +412,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
 
 var MAX_TAGS_COUNT = 5;
 var MAX_CREATED_TAGS_COUNT = 30;
@@ -28015,8 +28013,8 @@ var Posts = new function () {
    {
        if (!!!validateIndex(index))
            return;
-        let post = posts[index];
-        return {
+         let post = posts[index];
+         return {
            index: index,
            title: post.title,
            description: post.description,

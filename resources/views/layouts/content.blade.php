@@ -2,16 +2,15 @@
 
 @section('content')
     
-  @include('sections.filter')
+  <div class="order-wrapper">
+    @include('sections.filter')
 
-  <section class="selected container">
-    @yield('selected')
-  </section>
+    <section class="selected container">
+      @yield('selected')
+    </section>
 
+  </div>
 
   <pool></pool>
-  {{-- <section class="pool container">
-    @yield('pool')
-  </section> --}}
 
 @endsection
