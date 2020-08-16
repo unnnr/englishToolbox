@@ -1,12 +1,18 @@
 <template>
     <div class="editor">
+        <!-- <div class="editor__alert">
+            <p class="editor__alert-text text-fifth">Error:<span>your error here</span></p>
+        </div> -->
         <form @submit='submit' class="editor__form" ref="form">
             <div class="editor__header">
                 <h5 class="editor__title text-third">New video</h5>
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
-                    YouTube link
+                    <span>
+                        YouTube link
+                    </span> 
+                    <small class="editor__error">Your error here</small>
                 </label>
                 <input class="editor__input input-second"
                        type="text"
@@ -17,7 +23,11 @@
                        @keyup.enter="updateLink"
                        @blur='updateLink'>
                 <label class="editor__label text-fourth" for="">
-                    Custom description<small class="editor__counter">0/180</small>
+                    <span>
+                        Custom description
+                        <small class="editor__counter">0/180</small>
+                    </span> 
+                    <small class="editor__error">Your error here</small>
                 </label>
                 <textarea class="editor__textarea textarea-second" placeholder="place for your description" name="description"></textarea>
                 <tag-editor ref="tags"/>

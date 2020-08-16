@@ -1247,6 +1247,58 @@ main {
   }
 }
 
+.editor__alert {
+  background: #1e1e1e;
+  color: #ff6688;
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px 15px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.editor__alert-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 600;
+  color: inherit;
+}
+
+.editor__alert-text:before {
+  font-family: "Material Icons Round";
+  content: "highlight_off";
+  font-size: 25px;
+  font-weight: 500;
+  margin-right: 5px;
+  color: inherit;
+}
+
+.editor__alert-text span {
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.editor__alert--icon {
+  font-size: 25px !important;
+  margin-right: 5px;
+}
+
+.editor__alert--text {
+  color: inherit;
+}
+
 .editor__form {
   position: absolute;
   width: 100%;
@@ -1312,7 +1364,14 @@ main {
 
 .editor__label {
   color: #2f2e44;
-  margin-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 5px;
 }
 
 .editor__counter {
@@ -1323,6 +1382,12 @@ main {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+}
+
+.editor__error {
+  font-size: 12px;
+  margin-top: 2px;
+  color: #ff6688;
 }
 
 .editor__input,

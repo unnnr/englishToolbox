@@ -748,6 +748,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14583,11 +14593,7 @@ var render = function() {
           "div",
           { staticClass: "editor__body", attrs: { action: "" } },
           [
-            _c(
-              "label",
-              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-              [_vm._v("\n                YouTube link\n            ")]
-            ),
+            _vm._m(1),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -14626,7 +14632,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("textarea", {
               staticClass: "editor__textarea textarea-second",
@@ -14641,7 +14647,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(3)
       ]
     )
   ])
@@ -14665,8 +14671,34 @@ var staticRenderFns = [
       "label",
       { staticClass: "editor__label text-fourth", attrs: { for: "" } },
       [
-        _vm._v("\n                Custom description"),
-        _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
+        _c("span", [
+          _vm._v("\n                    YouTube link\n                ")
+        ]),
+        _vm._v(" "),
+        _c("small", { staticClass: "editor__error" }, [
+          _vm._v("Your error here")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+      [
+        _c("span", [
+          _vm._v(
+            "\n                    Custom description\n                    "
+          ),
+          _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
+        ]),
+        _vm._v(" "),
+        _c("small", { staticClass: "editor__error" }, [
+          _vm._v("Your error here")
+        ])
       ]
     )
   },
