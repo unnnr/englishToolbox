@@ -1,14 +1,14 @@
 <template>
-    <section class="pool container">
-        <new-card postType="video" />
+    <transition-group name="flip-list" tag="section" class="pool container">
+       <!--  <new-card postType="video" /> -->
         <card
-            v-for="({title, description, thumbnail, tags}, index) of cards"
+            v-for="({title, description, thumbnail, tags, index}) of reversed"
             :key="index"
             :tags="tags"
             :title="title"
             :imageUrl='thumbnail'
             :description="description"/>
-    </section>
+    </transition-group>
 </template>
 
 <script>
@@ -18,6 +18,7 @@ import Posts from '../services/Posts';
 import Cards from '../services/Cards';
 import Card from './Card.vue';
 import NewCard from './NewCard.vue';
+import Tags from '../services/Tags';
 
 
 let selectedCard = null;
@@ -29,6 +30,12 @@ export default {
         return {
             cards : []
         };
+    },
+
+    computed: {
+          reversed() {
+            return this.cards.reverse();
+        }
     },
 
     components: {
@@ -67,6 +74,7 @@ export default {
 
         bus.listen('post-created', event => {
 
+            console.log(event);
             let newCard = Cards.get(event.post.index);
 
             this.cards.push(newCard);
@@ -85,3 +93,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.flip-list-move {
+  transition: transform 1s;
+}
+</style>

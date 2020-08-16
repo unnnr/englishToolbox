@@ -104,6 +104,7 @@ export default {
                 bus.dispatch('createdTags', { newTags });
 
             let data = new FormData(this.$refs.form);
+
             let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
             if (!!!post)
                 return;

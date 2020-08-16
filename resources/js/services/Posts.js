@@ -1,12 +1,10 @@
-
 import Http from './Http';
-import { post } from 'jquery';
 
 const Posts = new function ()
 {
     function validateIndex(index)
     {
-        if (index >= posts.length || index < 0)
+        if (!!!Number.isInteger(index) || index >= posts.length || index < 0)
             return false;
         return true;
     }
@@ -30,20 +28,29 @@ const Posts = new function ()
                 data.append(`tags[${index}]`, tag.id);
         }
 
-        let response = await Http.post('video', data);
-        if (!!!response)
+        let responce = await Http.post('video', data);
+        /* let responce = {
+            id: data.get('index'),
+            tags: [],
+            title: 'titl',
+            videoID: 'dads',
+            description: 'asddsdsds',
+        }; */
+
+        if (!!!responce)
             return null;
 
-        let newPost ={
-            index: response.id - 1,
-            tags: response.tags,
-            title: response.title,
-            videoID: response.videoID,
-            description: response.description
+        let newPost = {
+            index: responce.id - 1,
+            tags: responce.tags,
+            title: responce.title,
+            videoID: responce.videoID,
+            description: responce.description
         };
         
         posts.push(newPost);
 
+        console.log(newPost);
         return newPost;
     }
 
@@ -52,12 +59,16 @@ const Posts = new function ()
         if (!!!validateIndex(index))
             return null;
 
+        console.log(posts, index);
         let post = posts[index];
         return { ...post };
     }
 
     this.all = () =>
     {
+        for (let index in posts)
+            posts[index].index = index;
+
         return posts;
     }
 
