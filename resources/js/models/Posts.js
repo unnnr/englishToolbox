@@ -1,5 +1,4 @@
-import Http from './Http';
-import { post } from 'jquery';
+import Http from '@services/Http';
 
 const Posts = new function ()
 {

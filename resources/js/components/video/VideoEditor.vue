@@ -32,9 +32,9 @@
 <script>
 import getYouTubeID from 'get-youtube-id';
 import bus from '@services/eventbus';
+import Posts from '@models/Posts'
+import Tags from '@models/Tags'
 import TagEditor from '@components/tags/TagEditor';
-import Posts from '@services/Posts'
-import Tags from '@services/Tags'
 
 export default {
     name: 'video-editor',
@@ -82,9 +82,6 @@ export default {
                 return;
 			}
 
-            /*createdTagsData = [
-                {label: 'asds', color: 'blacl', selected: 'true'}
-            ] */
             let newTags = [];
             let createdTagsData = this.$refs.tags.createdTags;
             let loadedTagsData = this.$refs.tags.selectedOfloaded;

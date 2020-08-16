@@ -17,9 +17,9 @@
 <script>
 
 import bus from '@services/eventbus';
-import Posts from '@services/Posts';
-import Cards from '@services/Cards';
-import Tags from '@services/Tags';
+import Posts from '@models/Posts';
+import Cards from '@models/Cards';
+import Tags from '@models/Tags';
 import Card from '@components/Card.vue';
 import NewCard from '@components/NewCard.vue';
 
@@ -81,21 +81,10 @@ export default {
 
         bus.listen('post-selected', event => {
 
-            /* let card = Cards.get(event.post.index);
-            if (selectedCard)
-                selectedCard.selected = false;
-
-            selectedCard = card;
-            selectedCard.selected = true; */
-
             for (const card of this.cards)
             {
-                console.log(card.id, event.post.id);
-
                 if (card.id === event.post.id)
                 {
-                    console.log('found');
-
                     if (this.selectedCard)
                         this.$set(this.selectedCard, 'selected', false);
 
