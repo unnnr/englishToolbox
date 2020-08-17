@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\JsonRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTags extends JsonRequest
+class CreateTags extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class CreateTags extends JsonRequest
     public function rules()
     {
         return [
-            'data' => 'required|array|between:1,20',
-            'data.*.label' => 'required|string|unique:tags|max:40',
-            'data.*.color' => 'required|string|max:40',
-            'data.*.return' => 'boolean',
+            'label' => 'required|string|unique:tags|max:40',
+            'color' => 'required|string|max:40',
         ];
     }
 }

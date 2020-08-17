@@ -392,9 +392,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -460,30 +466,21 @@ var BLUR_DELAY = 200;
   name: 'tag-editor',
   data: function data() {
     return {
-      newLabel: '',
-      loadedTags: [],
-      createdTags: [],
-      selectedCount: 0,
       inputIsActive: false,
-      inputIsFocused: false
+      inputIsFocused: false,
+      newLabel: '',
+      selectedCount: 0,
+      loadedTags: [],
+      createdTags: []
     };
   },
   computed: {
-    selectedOfloaded: function selectedOfloaded() {
+    selected: function selected() {
       var selected = [];
 
-      var _iterator = _createForOfIteratorHelper(this.loadedTags),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var tag = _step.value;
-          if (tag.selected) selected.push(tag);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
+      for (var _i = 0, _arr = [].concat(_toConsumableArray(this.loadedTags), _toConsumableArray(this.createdTags)); _i < _arr.length; _i++) {
+        var tag = _arr[_i];
+        if (tag.selected) selected.push(tag);
       }
 
       return [].concat(selected);
@@ -561,17 +558,6 @@ var BLUR_DELAY = 200;
       clearTimeout(this.$options.delayTimer);
       this.inputIsFocused = true;
     },
-    ///////////////////////////////////////////////
-    onInputClick: function onInputClick(event) {
-      if (!!!this.inputIsActive) {
-        var input = this.$refs.input;
-        this.inputIsActive = true;
-        return;
-      }
-
-      this.submit(event);
-    },
-    /////////////////////////////////////////////
     inputFocus: function inputFocus() {
       this.$refs.input.focus();
     },
@@ -586,16 +572,49 @@ var BLUR_DELAY = 200;
       }
     },
     submit: function submit(event) {
-      // event.preventDefault();
-      var label = this.newLabel.trim();
-      if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT) return;
-      this.newLabel = '';
-      this.createdTags.push({
-        label: label,
-        color: '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-        selected: false,
-        isnew: true
-      });
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var label, data, newTag;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                label = _this3.newLabel.trim();
+
+                if (!(label.length === 0 || _this3.selectedCount >= MAX_CREATED_TAGS_COUNT)) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 3:
+                data = new FormData();
+                data.append('label', label);
+                data.append('color', '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'));
+                _this3.inputIsActive = false;
+                _context2.next = 9;
+                return _models_Tags__WEBPACK_IMPORTED_MODULE_1__["default"].create(data);
+
+              case 9:
+                newTag = _context2.sent;
+                _this3.inputIsActive = true;
+                console.log(newTag, 'here');
+
+                if (newTag) {
+                  _this3.newLabel = '';
+
+                  _this3.loadedTags.push(newTag);
+                }
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -920,69 +939,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         videoID: videoID
       });
     },
-    submit: function submit(event) {
+    createTags: function createTags() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var videoID, newTags, createdTagsData, loadedTagsData, data, post;
+        var newTags, createdTagsData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                newTags = [];
+                createdTagsData = _this.$refs.tags.createdTags;
+
+                if (!createdTagsData.length) {
+                  _context.next = 10;
+                  break;
+                }
+
+                _context.next = 5;
+                return _models_Tags__WEBPACK_IMPORTED_MODULE_4__["default"].create(createdTagsData);
+
+              case 5:
+                newTags = _context.sent;
+                _this.$refs.tags.disable = true;
+
+                if (!!newTags) {
+                  _context.next = 10;
+                  break;
+                }
+
+                throw Error('Cannot create tags');
+
+              case 10:
+                return _context.abrupt("return", newTags);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    createVideo: function createVideo() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, post;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = new FormData(_this2.$refs.form);
+                _context2.next = 3;
+                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data, [].concat(_toConsumableArray(loadedTagsData), _toConsumableArray(newTags)));
+
+              case 3:
+                post = _context2.sent;
+
+                if (!!post) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    submit: function submit(event) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var videoID, newTags, newVideo;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
                 event.preventDefault();
-                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(_this.url);
+                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(_this3.url);
 
                 if (!!videoID) {
-                  _context.next = 5;
+                  _context3.next = 5;
                   break;
                 }
 
                 console.error('Icorrect url');
-                return _context.abrupt("return");
+                return _context3.abrupt("return");
 
               case 5:
-                newTags = [];
-                createdTagsData = _this.$refs.tags.createdTags;
-                loadedTagsData = _this.$refs.tags.selectedOfloaded;
+                _context3.next = 7;
+                return _this3.createTags();
 
-                if (!createdTagsData.length) {
-                  _context.next = 15;
-                  break;
-                }
-
-                _context.next = 11;
-                return _models_Tags__WEBPACK_IMPORTED_MODULE_4__["default"].create(createdTagsData);
-
-              case 11:
-                newTags = _context.sent;
-
-                if (!!newTags) {
-                  _context.next = 15;
-                  break;
-                }
-
-                console.error('Error');
-                return _context.abrupt("return");
-
-              case 15:
+              case 7:
+                newTags = _context3.sent;
                 if (newTags.length) _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
                   newTags: newTags
                 });
-                data = new FormData(_this.$refs.form);
-                _context.next = 19;
-                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data, [].concat(_toConsumableArray(loadedTagsData), _toConsumableArray(newTags)));
-
-              case 19:
-                post = _context.sent;
-
-                if (!!post) {
-                  _context.next = 22;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 22:
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
                 });
@@ -990,12 +1048,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   post: post
                 });
 
-              case 24:
+              case 11:
               case "end":
-                return _context.stop();
+                return _context3.stop();
             }
           }
-        }, _callee);
+        }, _callee3);
       }))();
     }
   }
@@ -17556,12 +17614,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -17590,42 +17642,33 @@ var Tags = new function () {
   }));
 
   this.create = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(tags) {
-      var data, _iterator, _step, tag, json, reponse;
-
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+      var resonse;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              data = [];
-              _iterator = _createForOfIteratorHelper(tags);
+              _context2.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', data);
 
-              try {
-                for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                  tag = _step.value;
-                  data.push({
-                    label: tag.label,
-                    color: tag.color,
-                    "return": tag.selected
-                  });
-                }
-              } catch (err) {
-                _iterator.e(err);
-              } finally {
-                _iterator.f();
+            case 2:
+              resonse = _context2.sent;
+
+              if (!!resonse) {
+                _context2.next = 5;
+                break;
               }
 
-              json = JSON.stringify({
-                data: data
+              return _context2.abrupt("return", null);
+
+            case 5:
+              return _context2.abrupt("return", {
+                color: resonse.color,
+                label: resonse.label,
+                id: resonse.id
               });
-              _context2.next = 6;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', json, true);
 
             case 6:
-              reponse = _context2.sent;
-              return _context2.abrupt("return", reponse);
-
-            case 8:
             case "end":
               return _context2.stop();
           }

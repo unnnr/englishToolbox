@@ -56,7 +56,7 @@ export default {
                 return;
             this.$options.previousUrl = this.url;
             
-
+            
             let videoID = getYouTubeID(this.url);
             if (!!!videoID)
             {
@@ -71,6 +71,36 @@ export default {
             });
         },
 
+        async createTags() {
+
+            let newTags = [];
+            let createdTagsData = this.$refs.tags.createdTags;
+            
+            if (createdTagsData.length)
+            {
+                newTags = await Tags.create(createdTagsData);
+
+                this.$refs.tags.disable = true;
+
+                if (!!!newTags)
+                {
+                    throw Error('Cannot create tags');
+                    return;
+                }
+            }
+
+            return newTags;
+        },
+
+        async createVideo() {
+
+            let data = new FormData(this.$refs.form);
+
+            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
+            if (!!!post)
+                return;
+        },
+
         async submit (event) {
 
             event.preventDefault();
@@ -82,29 +112,12 @@ export default {
                 return;
 			}
 
-            let newTags = [];
-            let createdTagsData = this.$refs.tags.createdTags;
-            let loadedTagsData = this.$refs.tags.selectedOfloaded;
+            let newTags = await this.createTags();
             
-            if (createdTagsData.length)
-            {
-                newTags = await Tags.create(createdTagsData);
-
-                if (!!!newTags)
-                {
-                    console.error('Error');
-                    return;
-                }
-            }
-
             if (newTags.length)
                 bus.dispatch('createdTags', { newTags });
 
-            let data = new FormData(this.$refs.form);
-
-            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
-            if (!!!post)
-                return;
+            let newVideo 
 
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });

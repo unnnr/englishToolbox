@@ -9,22 +9,18 @@ const Tags = new function ()
 
         return tags;
     }
-
-    this.create = async (tags) =>
+    
+    this.create = async (data) =>
     {
-        let data = [];
-        for (const tag of tags)
-            data.push({
-                label: tag.label,
-                color: tag.color,
-                return: tag.selected
-            });
-        
-        let json = JSON.stringify({ data });
+        let resonse = await Http.post('tags', data);
+        if (!!!resonse)
+            return null;
 
-        let reponse = await Http.post('tags', json, true);
-
-        return reponse;
+        return {
+            color: resonse.color, 
+            label: resonse.label,
+            id: resonse.id
+        }
     }
 
     this.remove = async () =>

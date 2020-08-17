@@ -65,21 +65,23 @@ export default {
 
     data: function () {
         return {
-            newLabel: '',
-            loadedTags: [],
-            createdTags: [],
-            selectedCount: 0,
             inputIsActive: false,
-            inputIsFocused: false
+            inputIsFocused: false,
+
+            newLabel: '',
+            selectedCount: 0,
+
+            loadedTags: [],
+            createdTags: []
         }
     },
 
     computed: {
-        selectedOfloaded() {
+        selected() {
 
             let selected = [];
 
-            for (const tag of this.loadedTags   )
+            for (const tag of [...this.loadedTags, ...this.createdTags])
             {
                 if (tag.selected)
                     selected.push(tag);
@@ -165,21 +167,6 @@ export default {
             this.inputIsFocused = true;
         },
 
-        ///////////////////////////////////////////////
-        onInputClick(event) {
-       
-            if (!!!this.inputIsActive)
-            {
-                let input =this.$refs.input;
-
-                this.inputIsActive = true;
-                return;
-            }
-
-            this.submit(event);
-        },
-        /////////////////////////////////////////////
-
         inputFocus() {
             this.$refs.input.focus();
         },
@@ -200,21 +187,29 @@ export default {
             }
         },
 
-        submit(event) {
-
-            // event.preventDefault();
+        async submit(event) {
 
             let label = this.newLabel.trim();
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
+            
+            let data = new FormData();
+            data.append('label', label);
+            data.append('color',  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'));
 
-            this.newLabel = '';
-            this.createdTags.push({
-                label: label, 
-                color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-                selected: false,
-                isnew: true
-            });
+            this.inputIsActive = false;
+
+            let newTag = await Tags.create(data);
+
+            this.inputIsActive = true;
+
+            console.log(newTag, 'here');
+
+            if (newTag)
+            {
+                this.newLabel = '';
+                this.loadedTags.push(newTag);
+            }
         }
     }
 }
