@@ -9,7 +9,7 @@
                 v-for="({label, action}, index) of items"
                 v-click-outside="hide"
                 :key="index"
-                @click="action">
+                @click="callAction(action)">
 
                 {{ label }}
             </button>
@@ -20,6 +20,7 @@
 <script>
 
 import Vue from 'vue';
+import { throttle } from 'throttle-debounce';
 
 export default {
     name: 'context-menu', 
@@ -36,6 +37,8 @@ export default {
 
     mounted() {
         VueInstance = this;
+
+        window.addEventListener('scroll', throttle(100, this.hide), true);
     },
 
     methods: {
@@ -47,13 +50,18 @@ export default {
 
         show() {
             this.shown = true;
+        },
+
+        callAction(method) {
+
+            method();
+            this.shown = false;
         }
     }
 };
 
 const Context = new function()
 {
-
     function onRightClick(event, items) {
 
         VueInstance.marginTop = event.pageY;
@@ -95,8 +103,7 @@ const Context = new function()
                     listenrs.push(listener);
                 }
             }
-        })
-
+        });
 
     }
 
@@ -110,17 +117,16 @@ let VueInstance;
 </script>
 
 <style>
-    body, main
+    html, main, body
     {
         min-height: 100vh;
         height: auto;
     }
 
-    .context {
+    .context 
+    {
         position: absolute;
         z-index: 122;
-
-        animation: fadeIn .5s ease-in;
     }
 
     .fade-leave-active, .fade-enter-active
@@ -128,7 +134,8 @@ let VueInstance;
         transition: opacity .3s;    
     }
 
-    .fade-enter, .fade-leave-to  {
+    .fade-enter, .fade-leave-to  
+    {
         opacity: 0;
     }
 

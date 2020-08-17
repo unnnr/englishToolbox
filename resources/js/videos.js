@@ -35,7 +35,6 @@ import FilterBar from '@components/video/FilterBar'
 import Pool from  '@components/Pool';
 
 Vue.use(vClickOutside)
-
 Vue.config.devtools = true;
 
 const app = new Vue({

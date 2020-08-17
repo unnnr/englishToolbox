@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "get-youtube-id": "^1.0.1",
+        "throttle-debounce": "^2.3.0",
         "v-click-outside": "^3.0.1"
     }
 }

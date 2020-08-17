@@ -42,6 +42,7 @@
             class="tag tag--created"
             type="button"
             v-for="(tag) of reversedCreatedTags"
+            v-context:items="contextItems"
             :key="tag.id"
             :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)">
@@ -53,6 +54,7 @@
             class="tag"
             type="button"
             v-for="(tag) of loadedTags"
+            v-context:items="contextItems"
             :key="tag.id"
             :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)">
@@ -83,7 +85,11 @@ export default {
             selectedCount: 0,
 
             loadedTags: [],
-            createdTags: []
+            createdTags: [],
+
+            contextItems: [
+                { label: 'I am', action: () => console.log('anm') }
+            ]
         }
     },
 
