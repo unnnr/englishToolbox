@@ -16,11 +16,12 @@
                 'tag--new-focused': inputIsFocused
             }"
             @click="onWrapperClick">
-            
+
             <label
                 class="tag__label tag__label--new"
                 for="tn1"
                 @click="onLabelClick">
+                
                 <span class="material-icons-round">add</span>
             </label>
             <input 
@@ -40,23 +41,23 @@
         <button
             class="tag tag--created"
             type="button"
-            v-for="({label, color, id, selected}) of createdTags"
-            :key="id"
-            :style="{ 'background-color': selected ? color : ''}"
-            @click="toggle">
+            v-for="(tag) of reversedCreatedTags"
+            :key="tag.id"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            @click="toggle(tag)">
 
-            <span class="tag__name" for="cb2">{{ label }}</span>
+            <span class="tag__name" for="cb2">{{ tag.label }}</span>
         </button>
 
         <button
             class="tag"
             type="button"
-            v-for="({label, color, id, selected}) of loadedTags"
-            :key="id"
-            :style="{ 'background-color': selected ? color : ''}"
-            @click="toggle">
+            v-for="(tag) of loadedTags"
+            :key="tag.id"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            @click="toggle(tag)">
             
-            <span class="tag__name" for="cb2">{{ label }}</span>
+            <span class="tag__name" for="cb2">{{ tag.label }}</span>
         </button>
     </transition-group>
 </template>
@@ -102,6 +103,10 @@ export default {
 
         inputIsDisabled(){
             return !!!this.inputIsActive;
+        },
+        
+        reversedCreatedTags() {
+            return [...this.createdTags].reverse();
         }
     },
 
@@ -132,14 +137,14 @@ export default {
             });
         },
 
-        toggle(event) {
+        toggle(tag) {
 
-            let currentState = event.target.selected;
+            let currentState = tag.selected;
 
             if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT)
                 return;
 
-            this.$set(event.target, 'selected', !!!currentState);
+            this.$set(tag, 'selected', !!!currentState);
             this.selectedCount += currentState ? -1 : 1; 
         },
 
@@ -241,7 +246,7 @@ export default {
 
 .tags-enter-active
 {
-    transition: all .3s !important;
+    transition: all .4s;
 }
 
 </style>

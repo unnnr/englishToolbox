@@ -468,6 +468,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 
 
 var MAX_TAGS_COUNT = 5;
@@ -498,6 +499,9 @@ var BLUR_DELAY = 200;
     },
     inputIsDisabled: function inputIsDisabled() {
       return !!!this.inputIsActive;
+    },
+    reversedCreatedTags: function reversedCreatedTags() {
+      return _toConsumableArray(this.createdTags).reverse();
     }
   },
   watch: {
@@ -539,10 +543,10 @@ var BLUR_DELAY = 200;
         this.style.width = this.nextElementSibling.clientWidth + 'px';
       });
     },
-    toggle: function toggle(event) {
-      var currentState = event.target.selected;
+    toggle: function toggle(tag) {
+      var currentState = tag.selected;
       if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
-      this.$set(event.target, 'selected', !!!currentState);
+      this.$set(tag, 'selected', !!!currentState);
       this.selectedCount += currentState ? -1 : 1;
     },
     // New button methods
@@ -1224,7 +1228,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .3s !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .4s;\n}\n\n", ""]);
 
 // exports
 
@@ -3722,45 +3726,45 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._l(_vm.createdTags, function(ref) {
-        var label = ref.label
-        var color = ref.color
-        var id = ref.id
-        var selected = ref.selected
+      _vm._l(_vm.reversedCreatedTags, function(tag) {
         return _c(
           "button",
           {
-            key: id,
+            key: tag.id,
             staticClass: "tag tag--created",
-            style: { "background-color": selected ? color : "" },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
-            on: { click: _vm.toggle }
+            on: {
+              click: function($event) {
+                return _vm.toggle(tag)
+              }
+            }
           },
           [
             _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v(_vm._s(label))
+              _vm._v(_vm._s(tag.label))
             ])
           ]
         )
       }),
       _vm._v(" "),
-      _vm._l(_vm.loadedTags, function(ref) {
-        var label = ref.label
-        var color = ref.color
-        var id = ref.id
-        var selected = ref.selected
+      _vm._l(_vm.loadedTags, function(tag) {
         return _c(
           "button",
           {
-            key: id,
+            key: tag.id,
             staticClass: "tag",
-            style: { "background-color": selected ? color : "" },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
-            on: { click: _vm.toggle }
+            on: {
+              click: function($event) {
+                return _vm.toggle(tag)
+              }
+            }
           },
           [
             _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v(_vm._s(label))
+              _vm._v(_vm._s(tag.label))
             ])
           ]
         )
