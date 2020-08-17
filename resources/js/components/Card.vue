@@ -1,6 +1,8 @@
 <template>
     <div class="card card--rectangle card--margined"
-        :class="{'card--selected': selected}">
+        :class="{'card--selected': selected}"
+        v-context:items="contextItems">
+
         <div class="card__image" 
              @click="select" 
              :style="{ backgroundImage: 'url(\'' + imageUrl + '\')' }">
@@ -38,15 +40,17 @@
 </template>
 
 <script>
+
 import bus from '@services/eventbus';
-
-
-//  :id="typeof id == 'number' ? id : false"
-
+import ContextMenu from '@components/ContextMenu';
 
 export default {
     name: 'card',
 
+    components: {
+        ContextMenu
+    },
+    
     props: {
         title: String,
         description: String,
@@ -55,12 +59,21 @@ export default {
         selected: Boolean
     },
 
+    data: function() {
+        return {
+            contextItems: [
+                { label: 'I am', action: () => console.log('anm') }
+            ]
+        }   
+    },
+
     methods: {
         select() {
 
             bus.dispatch('card-touched', { card: this });
         }
     },
+
 
     mounted() {
 

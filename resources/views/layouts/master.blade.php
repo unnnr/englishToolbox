@@ -36,6 +36,8 @@
     @yield('content')
 
     @include('sections.basement',  ['links' =>  $links])
+
+    <context-menu></context-menu>
   </main>
 
   <script src="{{ asset("js/main.js") }}"></script>

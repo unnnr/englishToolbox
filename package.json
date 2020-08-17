@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "get-youtube-id": "^1.0.1"
+        "get-youtube-id": "^1.0.1",
+        "v-click-outside": "^3.0.1"
     }
 }

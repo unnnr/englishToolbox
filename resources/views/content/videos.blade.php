@@ -17,10 +17,4 @@
   <video-player></video-player>
   <video-addition></video-addition>  
 
-  {{-- <div class="context">
-    <button class="context__item">Edit</button>
-    <button class="context__item">refresh</button>
-    <button class="context__item">Delete</button>
-  </div> --}}
-
 @endsection

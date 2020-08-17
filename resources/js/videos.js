@@ -27,11 +27,14 @@ import Vue from 'vue';
  */
 
 
+import vClickOutside from 'v-click-outside'
 import VideoAddition from  '@components/video/VideoAddition';
 import VideoPlayer from  '@components/video/VideoPlayer';
+import ContextMenu from '@components/ContextMenu'
 import FilterBar from '@components/video/FilterBar'
 import Pool from  '@components/Pool';
 
+Vue.use(vClickOutside)
 
 Vue.config.devtools = true;
 
@@ -41,7 +44,9 @@ const app = new Vue({
     components: {
 		VideoAddition,
     	VideoPlayer,
-      	FilterBar,
-		Pool
+		FilterBar,
+		Pool,
+
+		ContextMenu
     }
 });
