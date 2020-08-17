@@ -1035,6 +1035,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1336,7 +1346,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\r\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -4127,10 +4137,7 @@ var render = function() {
         [
           _c(
             "div",
-            {
-              ref: "tagsBody",
-              staticClass: "filter__tags filter__tags--active"
-            },
+            { ref: "tagsBody", staticClass: "filter__tags" },
             _vm._l(_vm.tags, function(ref, index) {
               var label = ref.label
               return _c(
@@ -4158,15 +4165,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "filter__search" }, [
-      _c(
-        "button",
-        { staticClass: "filter__search-button filter__search-button--active" },
-        [
-          _c("span", { staticClass: "material-icons-round" }, [
-            _vm._v("search")
-          ])
-        ]
-      ),
+      _c("button", { staticClass: "filter__search-button" }, [
+        _c("span", { staticClass: "material-icons-round" }, [_vm._v("search")])
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "filter__search-input",
@@ -4249,11 +4250,7 @@ var render = function() {
           "div",
           { staticClass: "editor__body", attrs: { action: "" } },
           [
-            _c(
-              "label",
-              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-              [_vm._v("\n                YouTube link\n            ")]
-            ),
+            _vm._m(1),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -4292,7 +4289,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("textarea", {
               staticClass: "editor__textarea textarea-second",
@@ -4307,7 +4304,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(3)
       ]
     )
   ])
@@ -4331,8 +4328,34 @@ var staticRenderFns = [
       "label",
       { staticClass: "editor__label text-fourth", attrs: { for: "" } },
       [
-        _vm._v("\n                Custom description"),
-        _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
+        _c("span", [
+          _vm._v("\n                    YouTube link\n                ")
+        ]),
+        _vm._v(" "),
+        _c("small", { staticClass: "editor__error" }, [
+          _vm._v("Your error here")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+      [
+        _c("span", [
+          _vm._v(
+            "\n                    Custom description\n                    "
+          ),
+          _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
+        ]),
+        _vm._v(" "),
+        _c("small", { staticClass: "editor__error" }, [
+          _vm._v("Your error here")
+        ])
       ]
     )
   },
@@ -18197,7 +18220,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })

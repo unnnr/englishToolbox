@@ -4,7 +4,7 @@
 
             <div class="filter__panel">
                 <div class="filter__search">
-                    <button class="filter__search-button filter__search-button--active">
+                    <button class="filter__search-button">
                         <span class="material-icons-round">search</span>
                     </button>
                     <input class="filter__search-input" type="text" placeholder="search">
@@ -25,7 +25,7 @@
                 :class="{'filter__tags-wrapper--active': tagsShown}">
 
                 <div 
-                    class="filter__tags filter__tags--active"
+                    class="filter__tags"
                     ref="tagsBody">
                     <!-- :class="{'filter__tags--active': true}" -->
 

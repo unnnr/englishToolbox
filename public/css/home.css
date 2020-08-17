@@ -521,10 +521,10 @@ main {
       flex-basis: 100%;
   max-width: 29px;
   padding: 7px 5px;
-  -webkit-transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  -webkit-transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
 }
 
 .tag--new .tag__label {
@@ -545,7 +545,9 @@ main {
 }
 
 .tag--new-active {
-  max-width: 95px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
   padding: 7px 10px;
   -webkit-box-shadow: 0px 0px 0px 2px transparent;
           box-shadow: 0px 0px 0px 2px transparent;
@@ -557,7 +559,12 @@ main {
   font-size: 12px;
   font-weight: 600;
   color: inherit;
-  width: 100%;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .tag__input::-webkit-input-placeholder {

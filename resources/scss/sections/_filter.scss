@@ -68,6 +68,7 @@
 .filter__search-button {
   position: absolute;
   border-radius: 100%;
+  margin-left: 10px; 
   display: flex;
   align-items: center;
   justify-content: center; 
@@ -77,10 +78,6 @@
     font-size: 25px;
     color: $color-main;
   }
-}
-
-.filter__search-button--active {
-  margin-left: 10px; 
 }
 
 .filter__search-input {
@@ -107,58 +104,19 @@
   }
 }
 
-.filter__search-input--active {
-  max-width: 400px;
-  width: 100%;
-}
-
 .filter__dropdown {
   position: absolute;
   height: max-content;
   z-index: $z-second;
 }
 
-.filter__dropdown {
-  padding: 12px 30px;
-  
-  .dropdown__arrow {
-    right: 30px;
-  }
-
-  .dropdown__button {
-    display: flex;
-    justify-content: start;
-    font-size: 16px;
-    color: $text-third;
-    font-weight: $medium;
-
-    &:not(:last-child) {
-      margin-bottom: 8px;
-    }
-  }
-
-  .dropdown__button--active {
-    color: $bg-main;
-  }
-}
-
-.filter__dropdown--filter {
-  right: 20px;
-  top: 55px;
-
-  @include sm-devices {
-    top: 100px;
-  }
-}
-
 .filter__tags {
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
-  padding-top:0;
   padding-left: 10px;
-  margin-top: 0;
-  max-height: 0;
+  padding-top: 10px;
+  max-height: max-content;
   background: $bg-main;
   border-radius: 10px;
   transition: all .3s ease-in-out;
@@ -168,14 +126,6 @@
     margin-bottom: 10px;
   }
 }
-
-.filter__tags--active {
-  margin-top: 12.5px;
-  padding-top: 10px;
-  max-height: max-content;
-}
-
-
 
 
 
