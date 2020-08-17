@@ -459,6 +459,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var MAX_TAGS_COUNT = 5;
@@ -530,10 +539,10 @@ var BLUR_DELAY = 200;
         this.style.width = this.nextElementSibling.clientWidth + 'px';
       });
     },
-    toggle: function toggle(tag) {
-      var currentState = tag.selected;
+    toggle: function toggle(event) {
+      var currentState = event.target.selected;
       if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
-      this.$set(tag, 'selected', !!!currentState);
+      this.$set(event.target, 'selected', !!!currentState);
       this.selectedCount += currentState ? -1 : 1;
     },
     // New button methods
@@ -1215,7 +1224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .3s !important;\n}\n\n", ""]);
 
 // exports
 
@@ -3631,11 +3640,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "tags" },
+    "transition-group",
+    { staticClass: "tags", attrs: { name: "tags" } },
     [
-      _c("h4", { staticClass: "tags__title text-fourth" }, [
-        _vm._v("Add tags"),
+      _c("h4", { key: -2, staticClass: "tags__title text-fourth" }, [
+        _vm._v("\n\n        Add tags"),
         _c("small", { staticClass: "editor__counter" }, [
           _vm._v(_vm._s(_vm.selectedCount) + "/5")
         ])
@@ -3644,6 +3653,7 @@ var render = function() {
       _c(
         "button",
         {
+          key: -1,
           staticClass: "tag tag--new ",
           class: {
             "tag--new-active": _vm.inputIsActive,
@@ -3712,45 +3722,45 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._l(_vm.createdTags, function(tag, index) {
+      _vm._l(_vm.createdTags, function(ref) {
+        var label = ref.label
+        var color = ref.color
+        var id = ref.id
+        var selected = ref.selected
         return _c(
           "button",
           {
-            key: "newtag_" + index,
+            key: id,
             staticClass: "tag tag--created",
-            style: { "background-color": tag.selected ? tag.color : "" },
+            style: { "background-color": selected ? color : "" },
             attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.toggle(tag)
-              }
-            }
+            on: { click: _vm.toggle }
           },
           [
             _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v(_vm._s(tag.label))
+              _vm._v(_vm._s(label))
             ])
           ]
         )
       }),
       _vm._v(" "),
-      _vm._l(_vm.loadedTags, function(tag, tagIndex) {
+      _vm._l(_vm.loadedTags, function(ref) {
+        var label = ref.label
+        var color = ref.color
+        var id = ref.id
+        var selected = ref.selected
         return _c(
           "button",
           {
-            key: tagIndex,
+            key: id,
             staticClass: "tag",
-            style: { "background-color": tag.selected ? tag.color : "" },
+            style: { "background-color": selected ? color : "" },
             attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.toggle(tag)
-              }
-            }
+            on: { click: _vm.toggle }
           },
           [
             _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-              _vm._v(_vm._s(tag.label))
+              _vm._v(_vm._s(label))
             ])
           ]
         )

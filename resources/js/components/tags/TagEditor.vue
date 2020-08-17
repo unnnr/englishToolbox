@@ -1,55 +1,64 @@
 <template>
-    <div class="tags">
-        <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">{{ selectedCount }}/5</small></h4>
+    <transition-group name="tags" class="tags">
+        <h4 
+            class="tags__title text-fourth"
+            :key="-2">
+
+            Add tags<small class="editor__counter">{{ selectedCount }}/5</small>
+        </h4>
             
-            <button 
-                type="button"
-                class="tag tag--new "
-                :class="{
-                    'tag--new-active': inputIsActive,
-                    'tag--new-focused': inputIsFocused
-                }"
-                @click="onWrapperClick">
-                <label
-                    class="tag__label tag__label--new"
-                    for="tn1"
-                    @click="onLabelClick">
-                    <span class="material-icons-round">add</span>
-                </label>
-                <input 
-                    id="tn1"
-                    ref="input"
-                    class="tag__input"
-                    type="text"
-                    placeholder="newTag"
-                    v-model="newLabel"
-                    :disabled="inputIsDisabled"
-                    @blur="onInputBlur"
-                    @focus="onInputFocus"
-                    @keydown.enter.prevent.stop="submit">
-                <div class="tag__buffer" ref="buffer"></div>
-            </button>
+        <button 
+            type="button"
+            class="tag tag--new "
+            :key="-1"
+            :class="{
+                'tag--new-active': inputIsActive,
+                'tag--new-focused': inputIsFocused
+            }"
+            @click="onWrapperClick">
+            
+            <label
+                class="tag__label tag__label--new"
+                for="tn1"
+                @click="onLabelClick">
+                <span class="material-icons-round">add</span>
+            </label>
+            <input 
+                id="tn1"
+                ref="input"
+                class="tag__input"
+                type="text"
+                placeholder="newTag"
+                v-model="newLabel"
+                :disabled="inputIsDisabled"
+                @blur="onInputBlur"
+                @focus="onInputFocus"
+                @keydown.enter.prevent.stop="submit">
+            <div class="tag__buffer" ref="buffer"></div>
+        </button>
 
-            <button
-                class="tag tag--created"
-                type="button"
-                v-for="(tag, index) of createdTags"
-                :key="'newtag_' + index"
-                :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="toggle(tag)">
-                <span class="tag__name" for="cb2">{{ tag.label }}</span>
-            </button>
+        <button
+            class="tag tag--created"
+            type="button"
+            v-for="({label, color, id, selected}) of createdTags"
+            :key="id"
+            :style="{ 'background-color': selected ? color : ''}"
+            @click="toggle">
 
-            <button
-                class="tag"
-                type="button"
-                v-for="(tag, tagIndex) of loadedTags"
-                :key="tagIndex"
-                :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="toggle(tag)">
-                <span class="tag__name" for="cb2">{{ tag.label }}</span>
-            </button>
-        </div>
+            <span class="tag__name" for="cb2">{{ label }}</span>
+        </button>
+
+        <button
+            class="tag"
+            type="button"
+            v-for="({label, color, id, selected}) of loadedTags"
+            :key="id"
+            :style="{ 'background-color': selected ? color : ''}"
+            @click="toggle">
+            
+            <span class="tag__name" for="cb2">{{ label }}</span>
+        </button>
+    </transition-group>
 </template>
 
 <script>
@@ -123,14 +132,14 @@ export default {
             });
         },
 
-        toggle(tag) {
+        toggle(event) {
 
-            let currentState = tag.selected;
+            let currentState = event.target.selected;
 
             if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT)
                 return;
 
-            this.$set(tag, 'selected', !!!currentState);
+            this.$set(event.target, 'selected', !!!currentState);
             this.selectedCount += currentState ? -1 : 1; 
         },
 
@@ -216,12 +225,23 @@ export default {
 </script>
 
 <style scoped>
-    .tag__buffer {
-        position: absolute;
-        top: -1000px;
-        left: -1000px;
-        visibility: hidden;
-        white-space: pre;
-    }
+
+.tag__buffer {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: pre;
+}
+
+.tags-enter
+{
+    transform: scaleX(0);
+}
+
+.tags-enter-active
+{
+    transition: all .3s !important;
+}
 
 </style>
