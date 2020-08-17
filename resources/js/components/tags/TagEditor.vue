@@ -55,6 +55,7 @@
 <script>
 
 import Tags from '@models/Tags'
+import bus from '@services/eventbus';
 
 const MAX_TAGS_COUNT = 5;
 const MAX_CREATED_TAGS_COUNT = 30;
@@ -203,12 +204,11 @@ export default {
 
             this.inputIsActive = true;
 
-            console.log(newTag, 'here');
-
             if (newTag)
             {
                 this.newLabel = '';
-                this.loadedTags.push(newTag);
+                this.createdTags.push(newTag);
+                bus.dispatch('tag-created', { tag: newTag });
             }
         }
     }

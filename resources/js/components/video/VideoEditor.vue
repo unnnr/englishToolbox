@@ -56,7 +56,7 @@ export default {
                 return;
             this.$options.previousUrl = this.url;
             
-            
+
             let videoID = getYouTubeID(this.url);
             if (!!!videoID)
             {
@@ -71,56 +71,40 @@ export default {
             });
         },
 
-        async createTags() {
-
-            let newTags = [];
-            let createdTagsData = this.$refs.tags.createdTags;
-            
-            if (createdTagsData.length)
-            {
-                newTags = await Tags.create(createdTagsData);
-
-                this.$refs.tags.disable = true;
-
-                if (!!!newTags)
-                {
-                    throw Error('Cannot create tags');
-                    return;
-                }
-            }
-
-            return newTags;
-        },
-
-        async createVideo() {
-
-            let data = new FormData(this.$refs.form);
-
-            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
-            if (!!!post)
-                return;
-        },
-
-        async submit (event) {
-
-            event.preventDefault();
+        validateVideo() {
 
             let videoID = getYouTubeID(this.url)
             if (!!!videoID)
             {
                 console.error('Icorrect url');
-                return;
+                return false;
 			}
 
-            let newTags = await this.createTags();
-            
-            if (newTags.length)
-                bus.dispatch('createdTags', { newTags });
+            return true;
+        },
 
-            let newVideo 
+        async createVideo() {
+
+            let data = new FormData(this.$refs.form);
+            let tags = this.$refs.tags.selected;
+
+            for (const [index, tag] of tags.entries())
+                data.append(`tags[${index}]`, tag.id);
+
+            let post = await Posts.create(data);
+            if (!!!post)
+                return;
 
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
+        },
+
+        submit (event) {
+
+            event.preventDefault();
+
+            if (this.validateVideo())
+                this.createVideo();
         }
     }
 }

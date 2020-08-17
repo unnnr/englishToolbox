@@ -386,6 +386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -458,6 +459,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+
 
 var MAX_TAGS_COUNT = 5;
 var MAX_CREATED_TAGS_COUNT = 30;
@@ -600,15 +602,18 @@ var BLUR_DELAY = 200;
               case 9:
                 newTag = _context2.sent;
                 _this3.inputIsActive = true;
-                console.log(newTag, 'here');
 
                 if (newTag) {
                   _this3.newLabel = '';
 
-                  _this3.loadedTags.push(newTag);
+                  _this3.createdTags.push(newTag);
+
+                  _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('tag-created', {
+                    tag: newTag
+                  });
                 }
 
-              case 13:
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -860,15 +865,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
 
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -939,108 +946,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         videoID: videoID
       });
     },
-    createTags: function createTags() {
+    validateVideo: function validateVideo() {
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
+
+      if (!!!videoID) {
+        console.error('Icorrect url');
+        return false;
+      }
+
+      return true;
+    },
+    createVideo: function createVideo() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var newTags, createdTagsData;
+        var data, tags, _iterator, _step, _step$value, index, tag, post;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                newTags = [];
-                createdTagsData = _this.$refs.tags.createdTags;
+                data = new FormData(_this.$refs.form);
+                tags = _this.$refs.tags.selected;
+                _iterator = _createForOfIteratorHelper(tags.entries());
 
-                if (!createdTagsData.length) {
-                  _context.next = 10;
-                  break;
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    _step$value = _slicedToArray(_step.value, 2), index = _step$value[0], tag = _step$value[1];
+                    data.append("tags[".concat(index, "]"), tag.id);
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
                 }
 
-                _context.next = 5;
-                return _models_Tags__WEBPACK_IMPORTED_MODULE_4__["default"].create(createdTagsData);
-
-              case 5:
-                newTags = _context.sent;
-                _this.$refs.tags.disable = true;
-
-                if (!!newTags) {
-                  _context.next = 10;
-                  break;
-                }
-
-                throw Error('Cannot create tags');
-
-              case 10:
-                return _context.abrupt("return", newTags);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    createVideo: function createVideo() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var data, post;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                data = new FormData(_this2.$refs.form);
-                _context2.next = 3;
-                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data, [].concat(_toConsumableArray(loadedTagsData), _toConsumableArray(newTags)));
-
-              case 3:
-                post = _context2.sent;
-
-                if (!!post) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                return _context2.abrupt("return");
+                _context.next = 6;
+                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
 
               case 6:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    submit: function submit(event) {
-      var _this3 = this;
+                post = _context.sent;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var videoID, newTags, newVideo;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                event.preventDefault();
-                videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(_this3.url);
-
-                if (!!videoID) {
-                  _context3.next = 5;
+                if (!!post) {
+                  _context.next = 9;
                   break;
                 }
 
-                console.error('Icorrect url');
-                return _context3.abrupt("return");
+                return _context.abrupt("return");
 
-              case 5:
-                _context3.next = 7;
-                return _this3.createTags();
-
-              case 7:
-                newTags = _context3.sent;
-                if (newTags.length) _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('createdTags', {
-                  newTags: newTags
-                });
+              case 9:
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
                 });
@@ -1050,11 +1004,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 11:
               case "end":
-                return _context3.stop();
+                return _context.stop();
             }
           }
-        }, _callee3);
+        }, _callee);
       }))();
+    },
+    submit: function submit(event) {
+      event.preventDefault();
+      if (this.validateVideo()) this.createVideo();
     }
   }
 });
@@ -17466,20 +17424,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -17520,42 +17464,26 @@ var Posts = new function () {
   }
 
   this.create = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data, tags) {
-      var _iterator, _step, _step$value, index, tag, responce, newPost;
-
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+      var responce, newPost;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (Array.isArray(tags) && tags.length) {
-                _iterator = _createForOfIteratorHelper(tags.entries());
-
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    _step$value = _slicedToArray(_step.value, 2), index = _step$value[0], tag = _step$value[1];
-                    data.append("tags[".concat(index, "]"), tag.id);
-                  }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
-                }
-              }
-
-              _context.next = 3;
+              _context.next = 2;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('video', data);
 
-            case 3:
+            case 2:
               responce = _context.sent;
 
               if (!!responce) {
-                _context.next = 6;
+                _context.next = 5;
                 break;
               }
 
               return _context.abrupt("return", null);
 
-            case 6:
+            case 5:
               newPost = {
                 index: responce.id - 1,
                 tags: responce.tags,
@@ -17566,7 +17494,7 @@ var Posts = new function () {
               posts.push(newPost);
               return _context.abrupt("return", newPost);
 
-            case 9:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -17574,7 +17502,7 @@ var Posts = new function () {
       }, _callee);
     }));
 
-    return function (_x, _x2) {
+    return function (_x) {
       return _ref.apply(this, arguments);
     };
   }();
