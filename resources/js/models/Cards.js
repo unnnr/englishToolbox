@@ -1,5 +1,5 @@
 
-import Posts from '@services/Posts'
+import Posts from '@models/Posts'
 
 const Cards = new function()
 {

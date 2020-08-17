@@ -13,22 +13,12 @@ class TagService
 
     public function create(CreateTags $request)
     {
-        $data = $request->json()->all();
-        $tags = $data['data'];
-        $return = [];
+        $newTag = Tag::create([
+            'label' => $request->input('label'),
+            'color' => $request->input('color')
+        ]);
 
-        foreach ($tags as $tag)
-        {
-            $newTag = Tag::create([
-                'label' => $tag['label'],
-                'color' => $tag['color']
-            ]);
-
-            if ( array_key_exists('return', $tag) && $tag['return'])
-                $return[] = $newTag;
-        }
-        
-        return TagResource::collection($return);
+        return new TagResource($newTag);
     }
 
     public function get($id)

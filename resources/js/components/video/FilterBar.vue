@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Tags from '@services/Tags';
+import Tags from '@models/Tags';
 
 const SHOWING_TIME = 500;
 

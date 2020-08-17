@@ -1,5 +1,4 @@
-import Http from './Http';
-import { post } from 'jquery';
+import Http from '@services/Http';
 
 const Posts = new function ()
 {
@@ -21,14 +20,8 @@ const Posts = new function ()
             Posts.onload();
     }
 
-    this.create = async (data, tags) =>
+    this.create = async (data) =>
     {
-        if (Array.isArray(tags) && tags.length)
-        {
-            for (const [index, tag] of tags.entries())
-                data.append(`tags[${index}]`, tag.id);
-        }
-
         let responce = await Http.post('video', data);
         if (!!!responce)
             return null;

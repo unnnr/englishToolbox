@@ -1,60 +1,71 @@
 <template>
-    <div class="tags">
-        <h4 class="tags__title text-fourth">Add tags<small class="editor__counter">{{ selectedCount }}/5</small></h4>
+    <transition-group name="tags" class="tags">
+        <h4 
+            class="tags__title text-fourth"
+            :key="-2">
+
+            Add tags<small class="editor__counter">{{ selectedCount }}/5</small>
+        </h4>
             
-            <button 
-                type="button"
-                class="tag tag--new "
-                :class="{
-                    'tag--new-active': inputIsActive,
-                    'tag--new-focused': inputIsFocused
-                }"
-                @click="onWrapperClick">
-                <label
-                    class="tag__label tag__label--new"
-                    for="tn1"
-                    @click="onLabelClick">
-                    <span class="material-icons-round">add</span>
-                </label>
-                <input 
-                    id="tn1"
-                    ref="input"
-                    class="tag__input"
-                    type="text"
-                    placeholder="newTag"
-                    v-model="newLabel"
-                    :disabled="inputIsDisabled"
-                    @blur="onInputBlur"
-                    @focus="onInputFocus"
-                    @keydown.enter.prevent.stop="submit">
-                <div class="tag__buffer" ref="buffer"></div>
-            </button>
+        <button 
+            type="button"
+            class="tag tag--new "
+            :key="-1"
+            :class="{
+                'tag--new-active': inputIsActive,
+                'tag--new-focused': inputIsFocused
+            }"
+            @click="onWrapperClick">
 
-            <button
-                class="tag tag--created"
-                type="button"
-                v-for="(tag, index) of createdTags"
-                :key="'newtag_' + index"
-                :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="toggle(tag)">
-                <span class="tag__name" for="cb2">{{ tag.label }}</span>
-            </button>
+            <label
+                class="tag__label tag__label--new"
+                for="tn1"
+                @click="onLabelClick">
+                
+                <span class="material-icons-round">add</span>
+            </label>
+            <input 
+                id="tn1"
+                ref="input"
+                class="tag__input"
+                type="text"
+                placeholder="newTag"
+                v-model="newLabel"
+                :disabled="inputIsDisabled"
+                @blur="onInputBlur"
+                @focus="onInputFocus"
+                @keydown.enter.prevent.stop="submit">
+            <div class="tag__buffer" ref="buffer"></div>
+        </button>
 
-            <button
-                class="tag"
-                type="button"
-                v-for="(tag, tagIndex) of loadedTags"
-                :key="tagIndex"
-                :style="{ 'background-color': tag.selected ? tag.color : ''}"
-                @click="toggle(tag)">
-                <span class="tag__name" for="cb2">{{ tag.label }}</span>
-            </button>
-        </div>
+        <button
+            class="tag tag--created"
+            type="button"
+            v-for="(tag) of reversedCreatedTags"
+            :key="tag.id"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            @click="toggle(tag)">
+
+            <span class="tag__name" for="cb2">{{ tag.label }}</span>
+        </button>
+
+        <button
+            class="tag"
+            type="button"
+            v-for="(tag) of loadedTags"
+            :key="tag.id"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            @click="toggle(tag)">
+            
+            <span class="tag__name" for="cb2">{{ tag.label }}</span>
+        </button>
+    </transition-group>
 </template>
 
 <script>
 
-import Tags from '@services/Tags'
+import Tags from '@models/Tags'
+import bus from '@services/eventbus';
 
 const MAX_TAGS_COUNT = 5;
 const MAX_CREATED_TAGS_COUNT = 30;
@@ -65,21 +76,23 @@ export default {
 
     data: function () {
         return {
-            newLabel: '',
-            loadedTags: [],
-            createdTags: [],
-            selectedCount: 0,
             inputIsActive: false,
-            inputIsFocused: false
+            inputIsFocused: false,
+
+            newLabel: '',
+            selectedCount: 0,
+
+            loadedTags: [],
+            createdTags: []
         }
     },
 
     computed: {
-        selectedOfloaded() {
+        selected() {
 
             let selected = [];
 
-            for (const tag of this.loadedTags   )
+            for (const tag of [...this.loadedTags, ...this.createdTags])
             {
                 if (tag.selected)
                     selected.push(tag);
@@ -90,6 +103,10 @@ export default {
 
         inputIsDisabled(){
             return !!!this.inputIsActive;
+        },
+        
+        reversedCreatedTags() {
+            return [...this.createdTags].reverse();
         }
     },
 
@@ -165,21 +182,6 @@ export default {
             this.inputIsFocused = true;
         },
 
-        ///////////////////////////////////////////////
-        onInputClick(event) {
-       
-            if (!!!this.inputIsActive)
-            {
-                let input =this.$refs.input;
-
-                this.inputIsActive = true;
-                return;
-            }
-
-            this.submit(event);
-        },
-        /////////////////////////////////////////////
-
         inputFocus() {
             this.$refs.input.focus();
         },
@@ -200,33 +202,51 @@ export default {
             }
         },
 
-        submit(event) {
-
-            // event.preventDefault();
+        async submit(event) {
 
             let label = this.newLabel.trim();
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
+            
+            let data = new FormData();
+            data.append('label', label);
+            data.append('color',  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'));
 
-            this.newLabel = '';
-            this.createdTags.push({
-                label: label, 
-                color: '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'),
-                selected: false,
-                isnew: true
-            });
+            this.inputIsActive = false;
+
+            let newTag = await Tags.create(data);
+
+            this.inputIsActive = true;
+
+            if (newTag)
+            {
+                this.newLabel = '';
+                this.createdTags.push(newTag);
+                bus.dispatch('tag-created', { tag: newTag });
+            }
         }
     }
 }
 </script>
 
 <style scoped>
-    .tag__buffer {
-        position: absolute;
-        top: -1000px;
-        left: -1000px;
-        visibility: hidden;
-        white-space: pre;
-    }
+
+.tag__buffer {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: pre;
+}
+
+.tags-enter
+{
+    transform: scaleX(0);
+}
+
+.tags-enter-active
+{
+    transition: all .4s;
+}
 
 </style>

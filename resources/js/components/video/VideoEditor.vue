@@ -42,9 +42,9 @@
 <script>
 import getYouTubeID from 'get-youtube-id';
 import bus from '@services/eventbus';
+import Posts from '@models/Posts'
+import Tags from '@models/Tags'
 import TagEditor from '@components/tags/TagEditor';
-import Posts from '@services/Posts'
-import Tags from '@services/Tags'
 
 export default {
     name: 'video-editor',
@@ -81,46 +81,40 @@ export default {
             });
         },
 
-        async submit (event) {
-
-            event.preventDefault();
+        validateVideo() {
 
             let videoID = getYouTubeID(this.url)
             if (!!!videoID)
             {
                 console.error('Icorrect url');
-                return;
+                return false;
 			}
 
-            /*createdTagsData = [
-                {label: 'asds', color: 'blacl', selected: 'true'}
-            ] */
-            let newTags = [];
-            let createdTagsData = this.$refs.tags.createdTags;
-            let loadedTagsData = this.$refs.tags.selectedOfloaded;
-            
-            if (createdTagsData.length)
-            {
-                newTags = await Tags.create(createdTagsData);
+            return true;
+        },
 
-                if (!!!newTags)
-                {
-                    console.error('Error');
-                    return;
-                }
-            }
-
-            if (newTags.length)
-                bus.dispatch('createdTags', { newTags });
+        async createVideo() {
 
             let data = new FormData(this.$refs.form);
+            let tags = this.$refs.tags.selected;
 
-            let post = await Posts.create(data, [...loadedTagsData, ...newTags]);
+            for (const [index, tag] of tags.entries())
+                data.append(`tags[${index}]`, tag.id);
+
+            let post = await Posts.create(data);
             if (!!!post)
                 return;
 
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selected', { post  });
+        },
+
+        submit (event) {
+
+            event.preventDefault();
+
+            if (this.validateVideo())
+                this.createVideo();
         }
     }
 }
