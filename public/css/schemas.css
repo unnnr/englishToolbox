@@ -90,10 +90,10 @@ main {
       flex-basis: 100%;
   max-width: 29px;
   padding: 7px 5px;
-  -webkit-transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
-  transition: max-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  -webkit-transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
 }
 
 .tag--new .tag__label {
@@ -114,7 +114,9 @@ main {
 }
 
 .tag--new-active {
-  max-width: 95px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
   padding: 7px 10px;
   -webkit-box-shadow: 0px 0px 0px 2px transparent;
           box-shadow: 0px 0px 0px 2px transparent;
@@ -126,7 +128,12 @@ main {
   font-size: 12px;
   font-weight: 600;
   color: inherit;
-  width: 100%;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .tag__input::-webkit-input-placeholder {
@@ -1678,6 +1685,7 @@ main {
 .filter__search-button {
   position: absolute;
   border-radius: 100%;
+  margin-left: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1694,10 +1702,6 @@ main {
 .filter__search-button .material-icons-round {
   font-size: 25px;
   color: #6666ff;
-}
-
-.filter__search-button--active {
-  margin-left: 10px;
 }
 
 .filter__search-input {
@@ -1742,56 +1746,12 @@ main {
   }
 }
 
-.filter__search-input--active {
-  max-width: 400px;
-  width: 100%;
-}
-
 .filter__dropdown {
   position: absolute;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   z-index: 20;
-}
-
-.filter__dropdown {
-  padding: 12px 30px;
-}
-
-.filter__dropdown .dropdown__arrow {
-  right: 30px;
-}
-
-.filter__dropdown .dropdown__button {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  font-size: 16px;
-  color: #a1a1b1;
-  font-weight: 500;
-}
-
-.filter__dropdown .dropdown__button:not(:last-child) {
-  margin-bottom: 8px;
-}
-
-.filter__dropdown .dropdown__button--active {
-  color: #fafafa;
-}
-
-.filter__dropdown--filter {
-  right: 20px;
-  top: 55px;
-}
-
-@media (max-width: 770px) {
-  .filter__dropdown--filter {
-    top: 100px;
-  }
 }
 
 .filter__tags {
@@ -1801,10 +1761,11 @@ main {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   overflow: hidden;
-  padding-top: 0;
   padding-left: 10px;
-  margin-top: 0;
-  max-height: 0;
+  padding-top: 10px;
+  max-height: -webkit-max-content;
+  max-height: -moz-max-content;
+  max-height: max-content;
   background: #fafafa;
   border-radius: 10px;
   -webkit-transition: all .3s ease-in-out;
@@ -1814,12 +1775,4 @@ main {
 .filter__tags .tag {
   margin-right: 10px;
   margin-bottom: 10px;
-}
-
-.filter__tags--active {
-  margin-top: 12.5px;
-  padding-top: 10px;
-  max-height: -webkit-max-content;
-  max-height: -moz-max-content;
-  max-height: max-content;
 }
