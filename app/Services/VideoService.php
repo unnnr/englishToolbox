@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 use Alaouy\Youtube\Facades\Youtube;
 use App\Http\Requests\UploadVideo;
 use App\Services\YoutubeService;
@@ -13,7 +14,7 @@ use App\Models\Tag;
 
 class VideoService
 {
-    private function getMainTag(?int $id) : Tag
+    /* private function getMainTag(?int $id) : Tag
     {
         $mainTag = null;
 
@@ -24,17 +25,7 @@ class VideoService
 
         return $mainTag;
     }
-
-    private function getTags(?array $ids)
-    {
-        if (!!!$ids)
-            return [];
-
-        $tags = Tag::findMany($ids);
-
-        return $tags;
-    }
-
+ */
     private function getVideoTitle(string $youtubeId) : string
     {
         $info = Youtube::getVideoInfo($youtubeId, ['snippet']);
@@ -44,28 +35,43 @@ class VideoService
         return $title;
     }
 
-    public function create(UploadVideo $request)
+    private function attachTags(Video $video, Request $request)
     {
-        // Creating video
+        $tags = $request->input('tags'); 
+        $video->tags()->attach($tags);
+
+        return $tags;
+    }
+
+    private function attachMainTag(Video $video, Request $request)
+    {
+        $mainTag = $request->input('mainTag');
+        
+        if ($mainTag)
+            $video->tags()->attach($mainTag, ['main' => true]);
+    }
+
+    private function createVideo(UploadVideo $request) : Video
+    {
         $videoId = Youtube::parseVidFromURL($request->input('videoUrl'));
         
         $title = $this->getVideoTitle($videoId);
 
         $description = $request->input('description');
        
-        $video = Video::create([
+        return Video::create([
             'title' =>  $title,
             'videoID' => $videoId,
             'description' =>  $description,
         ]);
+    }
 
-        // Attaching tags
-        $tags = $this->getTags( $request->input('tags') ); 
-        $video->tags()->attach($tags);
+    public function create(UploadVideo $request)
+    {
+        $video = $this->createVideo($request);
 
-        // Attachinng main tag
-        $mainTag = $this->getMainTag( $request->input('mainTag') );
-        $video->tags()->attach($mainTag, ['main' => true]);
+        $this->attachTags($video, $request);
+        $this->attachMainTag($video, $request);
 
         return new VideoResource($video);
     }

@@ -22,16 +22,17 @@ const Posts = new function ()
 
     this.create = async (data) =>
     {
-        let responce = await Http.post('video', data);
-        if (!!!responce)
+        let response = await Http.post('video', data);
+        if (!!!response)
             return null;
 
         let newPost = {
-            index: responce.id - 1,
-            tags: responce.tags,
-            title: responce.title,
-            videoID: responce.videoID,
-            description: responce.description
+            index: response.id - 1,
+            tags: response.tags,
+            title: response.title,
+            mainTag: response.mainTag,
+            videoID: response.videoID,
+            description: response.description
         };
 
         posts.push(newPost);

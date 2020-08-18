@@ -18146,7 +18146,7 @@ var Posts = new function () {
 
   this.create = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var responce, newPost;
+      var response, newPost;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -18155,9 +18155,9 @@ var Posts = new function () {
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('video', data);
 
             case 2:
-              responce = _context.sent;
+              response = _context.sent;
 
-              if (!!responce) {
+              if (!!response) {
                 _context.next = 5;
                 break;
               }
@@ -18166,11 +18166,12 @@ var Posts = new function () {
 
             case 5:
               newPost = {
-                index: responce.id - 1,
-                tags: responce.tags,
-                title: responce.title,
-                videoID: responce.videoID,
-                description: responce.description
+                index: response.id - 1,
+                tags: response.tags,
+                title: response.title,
+                mainTag: response.mainTag,
+                videoID: response.videoID,
+                description: response.description
               };
               posts.push(newPost);
               return _context.abrupt("return", newPost);

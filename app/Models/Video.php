@@ -19,7 +19,14 @@ class Video extends Model
 
     public function mainTag()
     {
-        // firstOrFail()  
-        return $this->tags()->where('default', true)->first();
+        $mainTag = $this->tags()
+            ->where('default', true)
+            ->first();
+
+        if (!!!$mainTag)
+            $mainTag = Tag::where(['label' => 'video', 'default' => true])
+                ->firstOrFail();
+        
+        return $mainTag; 
     }
 }
