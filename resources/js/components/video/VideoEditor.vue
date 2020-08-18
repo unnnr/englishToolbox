@@ -120,7 +120,7 @@ export default {
             return true;
         },
 
-        async createVideo() {
+        createVideo() {
 
             let data = new FormData(this.$refs.form);
             let tags = this.$refs.tags.selected;
@@ -128,12 +128,14 @@ export default {
             for (const [index, tag] of tags.entries())
                 data.append(`tags[${index}]`, tag.id);
 
-            let post = await Posts.create(data);
-            if (!!!post)
-                return;
-
-            bus.dispatch('post-created', { post });
-            bus.dispatch('post-selected', { post  });
+            Posts.create(data)
+            .then( post => {
+                bus.dispatch('post-created', { post });
+                bus.dispatch('post-selected', { post  });
+            })
+            .catch( error => {
+                console.log(error);
+            })
         },
 
         submit (event) {

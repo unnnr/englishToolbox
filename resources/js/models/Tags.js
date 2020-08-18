@@ -13,7 +13,7 @@ const Tags = new function ()
     this.create = async (data) =>
     {
         let resonse = await Http.post('tags', data);
-
+        
         return {
             color: resonse.color, 
             label: resonse.label,

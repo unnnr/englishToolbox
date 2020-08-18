@@ -630,7 +630,7 @@ var BLUR_DELAY = 200;
       selectedCount: 0,
       loadedTags: [],
       createdTags: [],
-      errorMessage: 'as',
+      errorMessage: '',
       contextItems: [{
         label: 'I am',
         action: function action() {
@@ -765,30 +765,40 @@ var BLUR_DELAY = 200;
                 data.append('label', label);
                 data.append('color', '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'));
                 _this3.inputIsActive = false;
-                _context2.next = 9;
+                _context2.prev = 7;
+                _context2.next = 10;
                 return _models_Tags__WEBPACK_IMPORTED_MODULE_1__["default"].create(data);
 
-              case 9:
+              case 10:
                 newTag = _context2.sent;
-                console.log(newTag);
+                _this3.errorMessage = '';
+                _this3.newLabel = '';
+
+                _this3.createdTags.push(newTag);
+
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('tag-created', {
+                  tag: newTag
+                });
+                _context2.next = 21;
+                break;
+
+              case 17:
+                _context2.prev = 17;
+                _context2.t0 = _context2["catch"](7);
+                console.log(_context2.t0);
+                if (_context2.t0.status == 422 && _context2.t0.body.errors.label) _this3.errorMessage = _context2.t0.body.errors.label.join('. ');
+
+              case 21:
+                _context2.prev = 21;
                 _this3.inputIsActive = true;
+                return _context2.finish(21);
 
-                if (newTag) {
-                  _this3.newLabel = '';
-
-                  _this3.createdTags.push(newTag);
-
-                  _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('tag-created', {
-                    tag: newTag
-                  });
-                }
-
-              case 13:
+              case 24:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[7, 17, 21, 24]]);
       }))();
     }
   }
@@ -1027,16 +1037,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
-
-
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1050,10 +1056,6 @@ function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symb
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -1116,7 +1118,7 @@ var MAX_URL_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
   components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
@@ -1136,20 +1138,20 @@ var MAX_URL_LENGTH = 180;
     updateLink: function updateLink() {
       if (this.$options.previousUrl === this.url) return;
       this.$options.previousUrl = this.url;
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default()(this.url);
 
       if (!!!videoID) {
         console.error('Icorrect url');
         return;
       }
 
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-link-changed', {
         url: this.url,
         videoID: videoID
       });
     },
     validateVideo: function validateVideo() {
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default()(this.url);
 
       if (!!!videoID) {
         console.error('Icorrect url');
@@ -1159,58 +1161,36 @@ var MAX_URL_LENGTH = 180;
       return true;
     },
     createVideo: function createVideo() {
-      var _this = this;
+      var data = new FormData(this.$refs.form);
+      var tags = this.$refs.tags.selected;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, tags, _iterator, _step, _step$value, index, tag, post;
+      var _iterator = _createForOfIteratorHelper(tags.entries()),
+          _step;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                data = new FormData(_this.$refs.form);
-                tags = _this.$refs.tags.selected;
-                _iterator = _createForOfIteratorHelper(tags.entries());
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var _step$value = _slicedToArray(_step.value, 2),
+              index = _step$value[0],
+              tag = _step$value[1];
 
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    _step$value = _slicedToArray(_step.value, 2), index = _step$value[0], tag = _step$value[1];
-                    data.append("tags[".concat(index, "]"), tag.id);
-                  }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
-                }
+          data.append("tags[".concat(index, "]"), tag.id);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
 
-                _context.next = 6;
-                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
-
-              case 6:
-                post = _context.sent;
-
-                if (!!post) {
-                  _context.next = 9;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 9:
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
-                  post: post
-                });
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
-                  post: post
-                });
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+      _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].create(data).then(function (post) {
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
+          post: post
+        });
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selected', {
+          post: post
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     submit: function submit(event) {
       event.preventDefault();

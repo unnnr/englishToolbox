@@ -88,7 +88,7 @@ export default {
             loadedTags: [],
             createdTags: [],
 
-            errorMessage: 'as',
+            errorMessage: '',
 
             contextItems: [
                 { label: 'I am', action: () => console.log('anm') }
@@ -228,15 +228,25 @@ export default {
 
             this.inputIsActive = false;
 
-            let newTag = await Tags.create(data);
-            console.log(newTag);
-            this.inputIsActive = true;
+            try {
+                let newTag = await Tags.create(data)
 
-            if (newTag)
-            {
+                this.errorMessage = '';
                 this.newLabel = '';
+
                 this.createdTags.push(newTag);
+
                 bus.dispatch('tag-created', { tag: newTag });
+            }
+            catch(error) {
+                
+                console.log(error);
+
+                if (error.status == 422 && error.body.errors.label)
+                    this.errorMessage = error.body.errors.label.join('. ');
+            }
+            finally{
+                this.inputIsActive = true;  
             }
         }
     }
