@@ -1,5 +1,5 @@
 <template>
-    <transition-group name="tags" class="tags">
+    <transition-group name="tags" class="tags" ref="tags">
         <h4 class="editor__label tags__title text-fourth" :key="-2">
             <span>
                 Add tags
@@ -45,8 +45,10 @@
             v-for="(tag) of reversedCreatedTags"
             v-context:items="contextMenu"
             :key="tag.id"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
-            @click="toggle(tag)">
+            :class="{ 'tag--main': tag.main }"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            @click="toggle(tag)"
+            @click.right="createContext(tag)">
 
             <span class="tag__name" for="cb2">{{ tag.label }}</span>
         </button>
@@ -57,8 +59,10 @@
             v-for="(tag) of loadedTags"
             v-context:items="contextMenu"
             :key="tag.id"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
-            @click="toggle(tag)">
+            :class="{ 'tag--main': tag.main }"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            @click="toggle(tag)"
+            @click.right="createContext(tag)">
             
             <span class="tag__name" for="cb2">{{ tag.label }}</span>
         </button>
@@ -70,7 +74,7 @@
 import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
-const MAX_TAGS_COUNT = 5;
+const MAX_TAGS_COUNT = 4;
 const MAX_CREATED_TAGS_COUNT = 30;
 const BLUR_DELAY = 200;
 
@@ -87,41 +91,19 @@ export default {
             newLabel: '',
             selectedCount: 0,
 
+            main: null,
             loadedTags: [],
             createdTags: [],
 
             errorMessage: '',
 
             contextMenu: [
-                {
-                     label: 'Set as main',
-                     action:  (tag) => this.mainTag = tag
-                }
+                { label: 'Set as main', action: () => {} }
             ]
         }
     },
 
     computed: {
-
-        mainTag: {
-            
-            set(domElement) {
-            
-                let oldTag = this.$options.mainTag;
-
-                if (oldTag)
-                    this.$options.mainTag.classList.remove('tag--main');
-                
-                this.$options.mainTag = domElement;
-                
-                domElement.classList.add('tag--main');
-
-            },
-
-            get() {
-                return this.$options.mainTag;
-            }
-        },
 
         tagsCounter() {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
@@ -133,7 +115,7 @@ export default {
 
             for (const tag of [...this.loadedTags, ...this.createdTags])
             {
-                if (tag.selected)
+                if (tag.selected && !!! tag.main)
                     selected.push(tag);
             }
             
@@ -151,6 +133,14 @@ export default {
 
     watch: {
 
+        main(newTag, oldTag)
+        {   
+            if (oldTag)
+                this.$set(oldTag, 'main', false);
+
+            this.$set(newTag, 'main', true);
+        },
+
         newLabel() {
             this.checkInput();
         }
@@ -167,6 +157,15 @@ export default {
             this.loadedTags = await Tags.all();
         },
 
+        createContext(tag) {
+
+            const SET_AS_MAIN = 0;
+            const DELETE = 1;
+
+            this.contextMenu[SET_AS_MAIN].action = () =>
+                this.main = tag;
+        },
+
         setUpInputAutoGrow() {
              
             let buffer = this.$refs.buffer;
@@ -178,6 +177,9 @@ export default {
         },
 
         toggle(tag) {
+
+            if (this.mainTag && this.mainTag.id === tag.id)
+                return;
 
             let currentState = tag.selected;
 

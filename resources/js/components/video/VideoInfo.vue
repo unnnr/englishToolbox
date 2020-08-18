@@ -8,7 +8,9 @@
         <div class="description__body">
             <p class="description__text text-fourth">{{ description }}</p>
 
-            <tag-list :tags="tags"/>
+            <tag-list 
+                :tags="tags"
+                :main-tag="mainTag"/>
         </div>
 
         <div class="description__footer">
@@ -39,7 +41,8 @@ export default {
             description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                            dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
                            congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`,
-            tags: []
+            tags: [],
+            mainTag: null
         }
     },
 

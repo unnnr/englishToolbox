@@ -10,7 +10,7 @@ class Tag extends Model
     const UPDATED_AT = null;
 
     public $fillable = [
-        'label', 'color'
+        'label', 'color', 'default'
     ];
 
     public function videos()

@@ -122,11 +122,14 @@ export default {
         async createVideo() {
 
             let data = new FormData(this.$refs.form);
-            let tags = this.$refs.tags.selected;
 
+            let tags = this.$refs.tags.selected;
             for (const [index, tag] of tags.entries())
                 data.append(`tags[${index}]`, tag.id);
-
+            
+            let mainTag = this.$refs.tags.main;
+            if (mainTag)
+                data.append('mainTag', mainTag.id);
 
             try {
                 let post = await Posts.create(data);

@@ -14,13 +14,14 @@ class Video extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')
-            ->withPivot('main');
+            ->withPivot('main')->where('main');
     }   
 
     public function mainTag()
     {
-        $mainTag = $this->tags()
-            ->where('default', true)
+        $mainTag = $this->morphToMany(Tag::class, 'taggable')
+            ->withPivot('main')
+            ->where('main', true)
             ->first();
 
         if (!!!$mainTag)

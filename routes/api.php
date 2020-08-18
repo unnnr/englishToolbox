@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Tag;
 use App\Models\Video;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +31,5 @@ Route::group(['namespace' => 'Api'], function() {
 });
 
 Route::get('dump', function() {
-
-
+    dd(Video::find(7)->tags);
 });

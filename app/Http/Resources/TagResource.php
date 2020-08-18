@@ -21,7 +21,9 @@ class TagResource extends JsonResource
             
             'label' => $this->label,
 
-            'color' => $this->color
+            'color' => $this->color,
+             
+            'default' => $this->default
         ];
     }
 }

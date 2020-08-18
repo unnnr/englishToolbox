@@ -1,8 +1,12 @@
 <template>
     <div class="description__tags tags">
         <h4 class="tags__title heading-fifth">Tag list</h4>
-        <button class="tag tag--main" type="button">
-            <span class="tag__name" for="cb1">isiQuisEleifend</span>
+        <button 
+            class="tag tag--main" 
+            type="button"
+            :style="{ 'background-color': mainTag && mainTag.color }">
+            
+            <span class="tag__name" for="cb1">{{ mainTag && mainTag.label }}</span>
         </button>
 
         <button class="tag" type="button"
@@ -19,7 +23,8 @@ export default {
     name: 'tag-list',
 
     props: {
-        tags: Array
+        tags: Array,
+        mainTag: Object
     }
 }
 </script>

@@ -624,45 +624,35 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
 
 
-var MAX_TAGS_COUNT = 5;
+var MAX_TAGS_COUNT = 4;
 var MAX_CREATED_TAGS_COUNT = 30;
 var BLUR_DELAY = 200;
 var main;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-editor',
   data: function data() {
-    var _this = this;
-
     return {
       inputIsActive: false,
       inputIsFocused: false,
       newLabel: '',
       selectedCount: 0,
+      main: null,
       loadedTags: [],
       createdTags: [],
       errorMessage: '',
       contextMenu: [{
         label: 'Set as main',
-        action: function action(tag) {
-          return _this.mainTag = tag;
-        }
+        action: function action() {}
       }]
     };
   },
   computed: {
-    mainTag: {
-      set: function set(domElement) {
-        var oldTag = this.$options.mainTag;
-        if (oldTag) this.$options.mainTag.classList.remove('tag--main');
-        this.$options.mainTag = domElement;
-        domElement.classList.add('tag--main');
-      },
-      get: function get() {
-        return this.$options.mainTag;
-      }
-    },
     tagsCounter: function tagsCounter() {
       return this.selectedCount + '/' + MAX_TAGS_COUNT;
     },
@@ -671,7 +661,7 @@ var main;
 
       for (var _i = 0, _arr = [].concat(_toConsumableArray(this.loadedTags), _toConsumableArray(this.createdTags)); _i < _arr.length; _i++) {
         var tag = _arr[_i];
-        if (tag.selected) selected.push(tag);
+        if (tag.selected && !!!tag.main) selected.push(tag);
       }
 
       return [].concat(selected);
@@ -684,6 +674,10 @@ var main;
     }
   },
   watch: {
+    main: function main(newTag, oldTag) {
+      if (oldTag) this.$set(oldTag, 'main', false);
+      this.$set(newTag, 'main', true);
+    },
     newLabel: function newLabel() {
       this.checkInput();
     }
@@ -694,7 +688,7 @@ var main;
   },
   methods: {
     load: function load() {
-      var _this2 = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -705,7 +699,7 @@ var main;
                 return _models_Tags__WEBPACK_IMPORTED_MODULE_1__["default"].all();
 
               case 2:
-                _this2.loadedTags = _context.sent;
+                _this.loadedTags = _context.sent;
 
               case 3:
               case "end":
@@ -715,6 +709,16 @@ var main;
         }, _callee);
       }))();
     },
+    createContext: function createContext(tag) {
+      var _this2 = this;
+
+      var SET_AS_MAIN = 0;
+      var DELETE = 1;
+
+      this.contextMenu[SET_AS_MAIN].action = function () {
+        return _this2.main = tag;
+      };
+    },
     setUpInputAutoGrow: function setUpInputAutoGrow() {
       var buffer = this.$refs.buffer;
       this.$refs.input.addEventListener('input', function () {
@@ -723,6 +727,7 @@ var main;
       });
     },
     toggle: function toggle(tag) {
+      if (this.mainTag && this.mainTag.id === tag.id) return;
       var currentState = tag.selected;
       if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
       this.$set(tag, 'selected', !!!currentState);
@@ -854,10 +859,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-list',
   props: {
-    tags: Array
+    tags: Array,
+    mainTag: Object
   }
 });
 
@@ -1042,6 +1052,7 @@ __webpack_require__.r(__webpack_exports__);
       presentor.updateInfo({
         title: post.title,
         description: post.description,
+        mainTag: post.mainTag,
         tags: post.tags
       });
       _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', event);
@@ -1192,7 +1203,7 @@ var MAX_URL_LENGTH = 180;
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, tags, _iterator, _step, _step$value, index, tag, post, errors;
+        var data, tags, _iterator, _step, _step$value, index, tag, mainTag, post, errors;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -1213,11 +1224,13 @@ var MAX_URL_LENGTH = 180;
                   _iterator.f();
                 }
 
-                _context.prev = 4;
-                _context.next = 7;
+                mainTag = _this.$refs.tags.main;
+                if (mainTag) data.append('mainTag', mainTag.id);
+                _context.prev = 6;
+                _context.next = 9;
                 return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
 
-              case 7:
+              case 9:
                 post = _context.sent;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
@@ -1225,12 +1238,12 @@ var MAX_URL_LENGTH = 180;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
                   post: post
                 });
-                _context.next = 16;
+                _context.next = 18;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](4);
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context["catch"](6);
                 console.log(_context.t0);
 
                 if (_context.t0.status == 422) {
@@ -1239,15 +1252,15 @@ var MAX_URL_LENGTH = 180;
                   if (errors.description) _this.descriptionError = errors.description.join('. ');
                 }
 
-              case 16:
+              case 18:
                 ;
 
-              case 17:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[4, 12]]);
+        }, _callee, null, [[6, 14]]);
       }))();
     },
     submit: function submit(event) {
@@ -1295,6 +1308,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-info',
@@ -1304,7 +1319,8 @@ __webpack_require__.r(__webpack_exports__);
       date: 'April 17 2020',
       views: 1289,
       description: " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et\n                           dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas\n                           congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.",
-      tags: []
+      tags: [],
+      mainTag: null
     };
   },
   components: {
@@ -4176,7 +4192,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "transition-group",
-    { staticClass: "tags", attrs: { name: "tags" } },
+    { ref: "tags", staticClass: "tags", attrs: { name: "tags" } },
     [
       _c(
         "h4",
@@ -4282,11 +4298,17 @@ var render = function() {
             ],
             key: tag.id,
             staticClass: "tag tag--created",
-            style: { "background-color": tag.selected ? tag.color : "" },
+            class: { "tag--main": tag.main },
+            style: {
+              "background-color": tag.selected || tag.main ? tag.color : ""
+            },
             attrs: { type: "button" },
             on: {
               click: function($event) {
                 return _vm.toggle(tag)
+              },
+              contextmenu: function($event) {
+                return _vm.createContext(tag)
               }
             }
           },
@@ -4313,11 +4335,17 @@ var render = function() {
             ],
             key: tag.id,
             staticClass: "tag",
-            style: { "background-color": tag.selected ? tag.color : "" },
+            class: { "tag--main": tag.main },
+            style: {
+              "background-color": tag.selected || tag.main ? tag.color : ""
+            },
             attrs: { type: "button" },
             on: {
               click: function($event) {
                 return _vm.toggle(tag)
+              },
+              contextmenu: function($event) {
+                return _vm.createContext(tag)
               }
             }
           },
@@ -4362,7 +4390,19 @@ var render = function() {
         _vm._v("Tag list")
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "button",
+        {
+          staticClass: "tag tag--main",
+          style: { "background-color": _vm.mainTag && _vm.mainTag.color },
+          attrs: { type: "button" }
+        },
+        [
+          _c("span", { staticClass: "tag__name", attrs: { for: "cb1" } }, [
+            _vm._v(_vm._s(_vm.mainTag && _vm.mainTag.label))
+          ])
+        ]
+      ),
       _vm._v(" "),
       _vm._l(_vm.tags, function(ref, index) {
         var label = ref.label
@@ -4386,22 +4426,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "tag tag--main", attrs: { type: "button" } },
-      [
-        _c("span", { staticClass: "tag__name", attrs: { for: "cb1" } }, [
-          _vm._v("isiQuisEleifend")
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -4730,7 +4755,7 @@ var render = function() {
           _vm._v(_vm._s(_vm.description))
         ]),
         _vm._v(" "),
-        _c("tag-list", { attrs: { tags: _vm.tags } })
+        _c("tag-list", { attrs: { tags: _vm.tags, "main-tag": _vm.mainTag } })
       ],
       1
     ),

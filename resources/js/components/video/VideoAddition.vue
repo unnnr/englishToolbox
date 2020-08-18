@@ -48,6 +48,7 @@ export default {
 			presentor.updateInfo({
 				title: post.title,
 				description: post.description,
+				mainTag: post.mainTag,
 				tags: post.tags
 			});
 
