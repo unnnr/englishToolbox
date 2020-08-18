@@ -54,7 +54,7 @@ export default {
 
         callAction(method) {
 
-            method();
+            method(this.target);
             this.shown = false;
         }
     }
@@ -62,16 +62,17 @@ export default {
 
 const Context = new function()
 {
-    function onRightClick(event, items) {
+    function onRightClick(event, items, vnode, el) {
 
         VueInstance.marginTop = event.pageY;
         VueInstance.marginLeft = event.pageX;
 
+        VueInstance.target = el;
         VueInstance.items = items;
         VueInstance.show();
     }
 
-    function wrappMethod(target, items) {
+    function wrappMethod(target, items, vnode, el) {
 
         return function(event) {
 
@@ -81,7 +82,7 @@ const Context = new function()
             event.preventDefault();
             event.stopPropagation();
 
-            target(event, items);            
+            target(event, items, vnode, el);            
         };
     }   
 
@@ -98,7 +99,7 @@ const Context = new function()
                         items: binding.value
                     };
 
-                    el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items));
+                    el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items, vnode, el));
 
                     listenrs.push(listener);
                 }

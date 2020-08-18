@@ -35,8 +35,13 @@
                         <span class="tag__name" for="cb2">{{ label }}</span>
                     </div>
                 </div>
-                <button class="card__tag-main tag tag--main" type="button">
-                    <span class="tag__name" for="cb2">nequeLaoreet</span>
+                <button 
+                    class="card__tag-main tag tag--main"
+                    type="button"
+                    v-if="mainTag"
+                    :style="{'background-color': mainTag.color}">
+
+                    <span class="tag__name" for="cb2">{{ mainTag.label }}</span>
                 </button>
             </div>
             <time class="card__date">July 19 2020</time>
@@ -60,7 +65,11 @@ export default {
         title: String,
         description: String,
         imageUrl: String,
+
         tags: Array,
+
+        mainTag: Object,
+        
         selected: Boolean
     },
 
@@ -92,6 +101,7 @@ export default {
     },
 
     methods: {
+
         select() {
 
             bus.dispatch('card-selecting', { card: this });

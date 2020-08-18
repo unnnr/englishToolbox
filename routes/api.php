@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Models\Tag;
+use App\Models\Video;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +32,6 @@ Route::group(['namespace' => 'Api'], function() {
 });
 
 Route::get('dump', function() {
-    dd(Tag::where(['label' =>'video', 'default' => true])->firstOrFail());
+
+
 });

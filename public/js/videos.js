@@ -155,6 +155,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -167,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
     description: String,
     imageUrl: String,
     tags: Array,
+    mainTag: Object,
     selected: Boolean
   },
   data: function data() {
@@ -307,25 +313,26 @@ __webpack_require__.r(__webpack_exports__);
       this.shown = true;
     },
     callAction: function callAction(method) {
-      method();
+      method(this.target);
       this.shown = false;
     }
   }
 });
 var Context = new function () {
-  function onRightClick(event, items) {
+  function onRightClick(event, items, vnode, el) {
     VueInstance.marginTop = event.pageY;
     VueInstance.marginLeft = event.pageX;
+    VueInstance.target = el;
     VueInstance.items = items;
     VueInstance.show();
   }
 
-  function wrappMethod(target, items) {
+  function wrappMethod(target, items, vnode, el) {
     return function (event) {
       if (!!!VueInstance) throw Error('Anu context components has been created');
       event.preventDefault();
       event.stopPropagation();
-      target(event, items);
+      target(event, items, vnode, el);
     };
   }
 
@@ -337,7 +344,7 @@ var Context = new function () {
             target: el,
             items: binding.value
           };
-          el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items));
+          el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items, vnode, el));
           listenrs.push(listener);
         }
       }
@@ -417,6 +424,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
 //
 //
 //
@@ -620,9 +629,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var MAX_TAGS_COUNT = 5;
 var MAX_CREATED_TAGS_COUNT = 30;
 var BLUR_DELAY = 200;
+var main;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-editor',
   data: function data() {
+    var _this = this;
+
     return {
       inputIsActive: false,
       inputIsFocused: false,
@@ -631,15 +643,26 @@ var BLUR_DELAY = 200;
       loadedTags: [],
       createdTags: [],
       errorMessage: '',
-      contextItems: [{
-        label: 'I am',
-        action: function action() {
-          return console.log('anm');
+      contextMenu: [{
+        label: 'Set as main',
+        action: function action(tag) {
+          return _this.mainTag = tag;
         }
       }]
     };
   },
   computed: {
+    mainTag: {
+      set: function set(domElement) {
+        var oldTag = this.$options.mainTag;
+        if (oldTag) this.$options.mainTag.classList.remove('tag--main');
+        this.$options.mainTag = domElement;
+        domElement.classList.add('tag--main');
+      },
+      get: function get() {
+        return this.$options.mainTag;
+      }
+    },
     tagsCounter: function tagsCounter() {
       return this.selectedCount + '/' + MAX_TAGS_COUNT;
     },
@@ -671,7 +694,7 @@ var BLUR_DELAY = 200;
   },
   methods: {
     load: function load() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -682,7 +705,7 @@ var BLUR_DELAY = 200;
                 return _models_Tags__WEBPACK_IMPORTED_MODULE_1__["default"].all();
 
               case 2:
-                _this.loadedTags = _context.sent;
+                _this2.loadedTags = _context.sent;
 
               case 3:
               case "end":
@@ -717,12 +740,12 @@ var BLUR_DELAY = 200;
       this.submit();
     },
     onInputBlur: function onInputBlur() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$options.delayTimer = setTimeout(function () {
-        _this2.inputIsFocused = false;
+        _this3.inputIsFocused = false;
 
-        _this2.checkInput();
+        _this3.checkInput();
       }, BLUR_DELAY);
     },
     onInputFocus: function onInputFocus() {
@@ -743,7 +766,7 @@ var BLUR_DELAY = 200;
       }
     },
     submit: function submit(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var label, data, newTag;
@@ -751,9 +774,9 @@ var BLUR_DELAY = 200;
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                label = _this3.newLabel.trim();
+                label = _this4.newLabel.trim();
 
-                if (!(label.length === 0 || _this3.selectedCount >= MAX_CREATED_TAGS_COUNT)) {
+                if (!(label.length === 0 || _this4.selectedCount >= MAX_CREATED_TAGS_COUNT)) {
                   _context2.next = 3;
                   break;
                 }
@@ -764,17 +787,17 @@ var BLUR_DELAY = 200;
                 data = new FormData();
                 data.append('label', label);
                 data.append('color', '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'));
-                _this3.inputIsActive = false;
+                _this4.inputIsActive = false;
                 _context2.prev = 7;
                 _context2.next = 10;
                 return _models_Tags__WEBPACK_IMPORTED_MODULE_1__["default"].create(data);
 
               case 10:
                 newTag = _context2.sent;
-                _this3.errorMessage = '';
-                _this3.newLabel = '';
+                _this4.errorMessage = '';
+                _this4.newLabel = '';
 
-                _this3.createdTags.push(newTag);
+                _this4.createdTags.push(newTag);
 
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('tag-created', {
                   tag: newTag
@@ -786,11 +809,11 @@ var BLUR_DELAY = 200;
                 _context2.prev = 17;
                 _context2.t0 = _context2["catch"](7);
                 console.log(_context2.t0);
-                if (_context2.t0.status == 422 && _context2.t0.body.errors.label) _this3.errorMessage = _context2.t0.body.errors.label.join('. ');
+                if (_context2.t0.status == 422 && _context2.t0.body.errors.label) _this4.errorMessage = _context2.t0.body.errors.label.join('. ');
 
               case 21:
                 _context2.prev = 21;
-                _this3.inputIsActive = true;
+                _this4.inputIsActive = true;
                 return _context2.finish(21);
 
               case 24:
@@ -3851,7 +3874,23 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _vm._m(1)
+            _vm.mainTag
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "card__tag-main tag tag--main",
+                    style: { "background-color": _vm.mainTag.color },
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "tag__name", attrs: { for: "cb2" } },
+                      [_vm._v(_vm._s(_vm.mainTag.label))]
+                    )
+                  ]
+                )
+              : _vm._e()
           ],
           2
         ),
@@ -3873,23 +3912,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "card__tag-main tag tag--main",
-        attrs: { type: "button" }
-      },
-      [
-        _c("span", { staticClass: "tag__name", attrs: { for: "cb2" } }, [
-          _vm._v("nequeLaoreet")
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -4109,6 +4131,7 @@ var render = function() {
       _vm._l(_vm.reversed, function(ref) {
         var index = ref.index
         var tags = ref.tags
+        var mainTag = ref.mainTag
         var title = ref.title
         var selected = ref.selected
         var thumbnail = ref.thumbnail
@@ -4118,6 +4141,7 @@ var render = function() {
           attrs: {
             tags: tags,
             title: title,
+            mainTag: mainTag,
             selected: selected,
             imageUrl: thumbnail,
             description: description
@@ -4251,8 +4275,8 @@ var render = function() {
               {
                 name: "context",
                 rawName: "v-context:items",
-                value: _vm.contextItems,
-                expression: "contextItems",
+                value: _vm.contextMenu,
+                expression: "contextMenu",
                 arg: "items"
               }
             ],
@@ -4282,8 +4306,8 @@ var render = function() {
               {
                 name: "context",
                 rawName: "v-context:items",
-                value: _vm.contextItems,
-                expression: "contextItems",
+                value: _vm.contextMenu,
+                expression: "contextMenu",
                 arg: "items"
               }
             ],
@@ -18175,6 +18199,7 @@ var Posts = new function () {
       posts[index].index = Number(index);
     }
 
+    console.log(posts);
     return posts;
   };
 

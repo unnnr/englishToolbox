@@ -4,13 +4,15 @@
             postType="video"
             :key='-1'/>
         <card
-            v-for="({index, tags, title, selected, thumbnail, description}) of reversed"
+            v-for="({index, tags, mainTag, title, selected, thumbnail, description}) of reversed"
             :key="index"
             :tags="tags"
             :title="title"
+            :mainTag="mainTag"
             :selected="selected"
             :imageUrl='thumbnail'
-            :description="description"/>
+            :description="description"
+            />
     </transition-group>
 </template>
 
@@ -69,10 +71,12 @@ export default {
                 return;
 
             let post = Posts.get(Number(event.card.$vnode.key));
+            
             bus.dispatch('post-selecting', { post });
         });
 
         bus.listen('card-editing', event => {
+
             let post = Posts.get(Number(event.card.$vnode.key));
 
             bus.dispatch('post-editing', { post });

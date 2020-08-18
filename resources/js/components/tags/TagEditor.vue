@@ -43,7 +43,7 @@
             class="tag tag--created"
             type="button"
             v-for="(tag) of reversedCreatedTags"
-            v-context:items="contextItems"
+            v-context:items="contextMenu"
             :key="tag.id"
             :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)">
@@ -55,7 +55,7 @@
             class="tag"
             type="button"
             v-for="(tag) of loadedTags"
-            v-context:items="contextItems"
+            v-context:items="contextMenu"
             :key="tag.id"
             :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)">
@@ -74,6 +74,8 @@ const MAX_TAGS_COUNT = 5;
 const MAX_CREATED_TAGS_COUNT = 30;
 const BLUR_DELAY = 200;
 
+let main;
+
 export default {
     name: 'tag-editor',
 
@@ -90,13 +92,36 @@ export default {
 
             errorMessage: '',
 
-            contextItems: [
-                { label: 'I am', action: () => console.log('anm') }
+            contextMenu: [
+                {
+                     label: 'Set as main',
+                     action:  (tag) => this.mainTag = tag
+                }
             ]
         }
     },
 
     computed: {
+
+        mainTag: {
+            
+            set(domElement) {
+            
+                let oldTag = this.$options.mainTag;
+
+                if (oldTag)
+                    this.$options.mainTag.classList.remove('tag--main');
+                
+                this.$options.mainTag = domElement;
+                
+                domElement.classList.add('tag--main');
+
+            },
+
+            get() {
+                return this.$options.mainTag;
+            }
+        },
 
         tagsCounter() {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
@@ -125,6 +150,7 @@ export default {
     },
 
     watch: {
+
         newLabel() {
             this.checkInput();
         }

@@ -46,8 +46,7 @@ class VideoService
 
     public function create(UploadVideo $request)
     {
-
-        // Creating viode
+        // Creating video
         $videoId = Youtube::parseVidFromURL($request->input('videoUrl'));
         
         $title = $this->getVideoTitle($videoId);
@@ -60,12 +59,13 @@ class VideoService
             'description' =>  $description,
         ]);
 
-        // Creating 
+        // Attaching tags
         $tags = $this->getTags( $request->input('tags') ); 
-        $video->tags()->saveMany($tags);
+        $video->tags()->attach($tags);
 
+        // Attachinng main tag
         $mainTag = $this->getMainTag( $request->input('mainTag') );
-        $video->tags()->save($mainTag);
+        $video->tags()->attach($mainTag, ['main' => true]);
 
         return new VideoResource($video);
     }
