@@ -1,13 +1,17 @@
 <template>
     <div class="card card--rectangle card--margined"
-        :class="{'card--selected': selected}"
-        v-context:items="contextItems">
+        :class="{'card--selected': selected}">
 
         <div class="card__image" 
-             @click="select" 
-             :style="{ backgroundImage: 'url(\'' + imageUrl + '\')' }">
+            v-context:items="contextItems"
+            :style="{ backgroundImage: 'url(\'' + imageUrl + '\')' }"
+            @click="select">
+            
             <div class="card__header">
-                <button class="card__favorite-button">
+                <button 
+                    class="card__favorite-button"
+                    @click.stop="">
+
                     <span class="card__favorite-icon material-icons-round">favorite</span>
                 </button>
                 <div class="card__views">
@@ -25,6 +29,7 @@
                     v-for="({label, color}, index) in tags"
                     :key="index"
                     :style="{'background-color': color}">
+                    
                     <div class="card__tag-tooltip tooltip">
                         <div class="tooltip__arrow"></div>
                         <span class="tag__name" for="cb2">{{ label }}</span>
@@ -62,7 +67,26 @@ export default {
     data: function() {
         return {
             contextItems: [
-                { label: 'I am', action: () => console.log('anm') }
+                {   
+                    label: 'Open',
+                    action: () => {
+                        bus.dispatch('card-selecting', { card: this });
+                    }
+                },
+                {   
+                    label: 'Edit',
+                    action: () => {
+                        bus.dispatch('card-editing', { card: this });
+                    } 
+                },
+                { 
+                    label: 'Delete',
+                    action: () => {
+                        alert('Not implemented');
+                    } 
+                },
+                
+
             ]
         }   
     },
@@ -70,7 +94,7 @@ export default {
     methods: {
         select() {
 
-            bus.dispatch('card-touched', { card: this });
+            bus.dispatch('card-selecting', { card: this });
         }
     },
 

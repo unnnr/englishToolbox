@@ -150,6 +150,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -165,18 +170,34 @@ __webpack_require__.r(__webpack_exports__);
     selected: Boolean
   },
   data: function data() {
+    var _this = this;
+
     return {
       contextItems: [{
-        label: 'I am',
+        label: 'Open',
         action: function action() {
-          return console.log('anm');
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selecting', {
+            card: _this
+          });
+        }
+      }, {
+        label: 'Edit',
+        action: function action() {
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-editing', {
+            card: _this
+          });
+        }
+      }, {
+        label: 'Delete',
+        action: function action() {
+          alert('Not implemented');
         }
       }]
     };
   },
   methods: {
     select: function select() {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selecting', {
         card: this
       });
     }
@@ -450,10 +471,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _this2.selectedCard = null;
       _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing');
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-touched', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-selecting', function (event) {
       if (event.card === _this2.selectedCard) return;
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting', {
+        post: post
+      });
+    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-editing', function (event) {
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing', {
         post: post
       });
     });
@@ -462,7 +489,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       _this2.cards.push(newCard);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
       var _iterator = _createForOfIteratorHelper(_this2.cards),
           _step;
 
@@ -966,9 +993,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting', event);
       _this.editing = true;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
       var presentor = _this.$refs.presentor;
       var post = event.post;
       _this.editing = false;
@@ -977,6 +1005,7 @@ __webpack_require__.r(__webpack_exports__);
         description: post.description,
         tags: post.tags
       });
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', event);
     });
   }
 });
@@ -3698,15 +3727,6 @@ var render = function() {
   return _c(
     "div",
     {
-      directives: [
-        {
-          name: "context",
-          rawName: "v-context:items",
-          value: _vm.contextItems,
-          expression: "contextItems",
-          arg: "items"
-        }
-      ],
       staticClass: "card card--rectangle card--margined",
       class: { "card--selected": _vm.selected }
     },
@@ -3714,12 +3734,42 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [
+            {
+              name: "context",
+              rawName: "v-context:items",
+              value: _vm.contextItems,
+              expression: "contextItems",
+              arg: "items"
+            }
+          ],
           staticClass: "card__image",
           style: { backgroundImage: "url('" + _vm.imageUrl + "')" },
           on: { click: _vm.select }
         },
         [
-          _vm._m(0),
+          _c("div", { staticClass: "card__header" }, [
+            _c(
+              "button",
+              {
+                staticClass: "card__favorite-button",
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                  }
+                }
+              },
+              [
+                _c(
+                  "span",
+                  { staticClass: "card__favorite-icon material-icons-round" },
+                  [_vm._v("favorite")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
           _vm._v(" "),
           _c("h5", { staticClass: "card__title heading-fifth" }, [
             _vm._v(_vm._s(_vm.title))
@@ -3775,22 +3825,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__header" }, [
-      _c("button", { staticClass: "card__favorite-button" }, [
-        _c(
-          "span",
-          { staticClass: "card__favorite-icon material-icons-round" },
-          [_vm._v("favorite")]
-        )
+    return _c("div", { staticClass: "card__views" }, [
+      _c("span", { staticClass: "card__views-icon material-icons-round" }, [
+        _vm._v("visibility")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card__views" }, [
-        _c("span", { staticClass: "card__views-icon material-icons-round" }, [
-          _vm._v("visibility")
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
-      ])
+      _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
     ])
   },
   function() {
