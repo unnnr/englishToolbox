@@ -150,6 +150,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -165,18 +170,34 @@ __webpack_require__.r(__webpack_exports__);
     selected: Boolean
   },
   data: function data() {
+    var _this = this;
+
     return {
       contextItems: [{
-        label: 'I am',
+        label: 'Open',
         action: function action() {
-          return console.log('anm');
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selecting', {
+            card: _this
+          });
+        }
+      }, {
+        label: 'Edit',
+        action: function action() {
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-editing', {
+            card: _this
+          });
+        }
+      }, {
+        label: 'Delete',
+        action: function action() {
+          alert('Not implemented');
         }
       }]
     };
   },
   methods: {
     select: function select() {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-touched', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selecting', {
         card: this
       });
     }
@@ -450,10 +471,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _this2.selectedCard = null;
       _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing');
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-touched', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-selecting', function (event) {
       if (event.card === _this2.selectedCard) return;
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting', {
+        post: post
+      });
+    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-editing', function (event) {
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing', {
         post: post
       });
     });
@@ -462,7 +489,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       _this2.cards.push(newCard);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
       var _iterator = _createForOfIteratorHelper(_this2.cards),
           _step;
 
@@ -612,6 +639,9 @@ var BLUR_DELAY = 200;
     };
   },
   computed: {
+    tagsCounter: function tagsCounter() {
+      return this.selectedCount + '/' + MAX_TAGS_COUNT;
+    },
     selected: function selected() {
       var selected = [];
 
@@ -967,9 +997,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting', event);
       _this.editing = true;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
       var presentor = _this.$refs.presentor;
       var post = event.post;
       _this.editing = false;
@@ -978,6 +1009,7 @@ __webpack_require__.r(__webpack_exports__);
         description: post.description,
         tags: post.tags
       });
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selected', event);
     });
   }
 });
@@ -1062,21 +1094,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
+var MAX_DESCRIPTION_LENGTH = 180;
+var MAX_URL_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
+  components: {
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
   data: function data() {
     return {
       url: '',
       description: ''
     };
   },
-  components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
+  computed: {
+    descriptionCounter: function descriptionCounter() {
+      return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+    },
+    descriptionMaxLength: function descriptionMaxLength() {
+      return MAX_DESCRIPTION_LENGTH;
+    }
   },
   methods: {
     updateLink: function updateLink() {
@@ -3699,15 +3751,6 @@ var render = function() {
   return _c(
     "div",
     {
-      directives: [
-        {
-          name: "context",
-          rawName: "v-context:items",
-          value: _vm.contextItems,
-          expression: "contextItems",
-          arg: "items"
-        }
-      ],
       staticClass: "card card--rectangle card--margined",
       class: { "card--selected": _vm.selected }
     },
@@ -3715,12 +3758,42 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [
+            {
+              name: "context",
+              rawName: "v-context:items",
+              value: _vm.contextItems,
+              expression: "contextItems",
+              arg: "items"
+            }
+          ],
           staticClass: "card__image",
           style: { backgroundImage: "url('" + _vm.imageUrl + "')" },
           on: { click: _vm.select }
         },
         [
-          _vm._m(0),
+          _c("div", { staticClass: "card__header" }, [
+            _c(
+              "button",
+              {
+                staticClass: "card__favorite-button",
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                  }
+                }
+              },
+              [
+                _c(
+                  "span",
+                  { staticClass: "card__favorite-icon material-icons-round" },
+                  [_vm._v("favorite")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
           _vm._v(" "),
           _c("h5", { staticClass: "card__title heading-fifth" }, [
             _vm._v(_vm._s(_vm.title))
@@ -3776,22 +3849,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__header" }, [
-      _c("button", { staticClass: "card__favorite-button" }, [
-        _c(
-          "span",
-          { staticClass: "card__favorite-icon material-icons-round" },
-          [_vm._v("favorite")]
-        )
+    return _c("div", { staticClass: "card__views" }, [
+      _c("span", { staticClass: "card__views-icon material-icons-round" }, [
+        _vm._v("visibility")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card__views" }, [
-        _c("span", { staticClass: "card__views-icon material-icons-round" }, [
-          _vm._v("visibility")
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
-      ])
+      _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
     ])
   },
   function() {
@@ -4499,13 +4562,48 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(2),
+            _c(
+              "label",
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+              [
+                _c("span", [
+                  _vm._v(
+                    "\n                    Custom description\n                    "
+                  ),
+                  _c("small", { staticClass: "editor__counter" }, [
+                    _vm._v(_vm._s(_vm.descriptionCounter))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v("Your error here")
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
               staticClass: "editor__textarea textarea-second",
               attrs: {
                 placeholder: "place for your description",
-                name: "description"
+                name: "description",
+                maxlength: _vm.descriptionMaxLength
+              },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
               }
             }),
             _vm._v(" "),
@@ -4514,7 +4612,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(3)
+        _vm._m(2)
       ]
     )
   ])
@@ -4540,27 +4638,6 @@ var staticRenderFns = [
       [
         _c("span", [
           _vm._v("\n                    YouTube link\n                ")
-        ]),
-        _vm._v(" "),
-        _c("small", { staticClass: "editor__error" }, [
-          _vm._v("Your error here")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-      [
-        _c("span", [
-          _vm._v(
-            "\n                    Custom description\n                    "
-          ),
-          _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
         ]),
         _vm._v(" "),
         _c("small", { staticClass: "editor__error" }, [

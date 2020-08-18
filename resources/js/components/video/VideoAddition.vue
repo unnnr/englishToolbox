@@ -33,10 +33,12 @@ export default {
 
 	mounted() {
 		bus.listen('post-editing', event => {
+			bus.dispatch('post-selecting', event);
+
 			this.editing = true;
 		});
 
-		bus.listen('post-selected', event => {
+		bus.listen('post-selecting', event => {
 
 			let presentor = this.$refs.presentor;
 			let post = event.post;
@@ -49,6 +51,7 @@ export default {
 				tags: post.tags
 			});
 
+			bus.dispatch('post-selected', event);
 		});	
 	}
 };

@@ -63,13 +63,19 @@ export default {
             bus.dispatch('post-editing');
         });
         
-        bus.listen('card-touched', event => {
+        bus.listen('card-selecting', event => {
 
             if (event.card === this.selectedCard)
                 return;
 
             let post = Posts.get(Number(event.card.$vnode.key));
-            bus.dispatch('post-selected', { post });
+            bus.dispatch('post-selecting', { post });
+        });
+
+        bus.listen('card-editing', event => {
+            let post = Posts.get(Number(event.card.$vnode.key));
+
+            bus.dispatch('post-editing', { post });
         });
 
         bus.listen('post-created', event => {
@@ -79,7 +85,7 @@ export default {
             this.cards.push(newCard);
         });
 
-        bus.listen('post-selected', event => {
+        bus.listen('post-selecting', event => {
 
             for (const card of this.cards)
             {

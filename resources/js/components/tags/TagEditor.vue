@@ -95,6 +95,11 @@ export default {
     },
 
     computed: {
+
+        tagsCounter() {
+            return this.selectedCount + '/' + MAX_TAGS_COUNT;
+        },
+
         selected() {
 
             let selected = [];
