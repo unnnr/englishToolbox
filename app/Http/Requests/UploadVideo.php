@@ -28,8 +28,8 @@ class UploadVideo extends FormRequest
     {
 
         return [
-                            //  'unique:videos,videoID'
-            'videoUrl' => ['required', 'string', 'max:1',  new ValidYoutubeVideo],
+             //  'unique:videos,videoID'
+            'videoUrl' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
             'description' => ['max:2'],
             'tags' => ['array', 'max:5'],  
             'tags.*' => ['numeric', 'distinct']

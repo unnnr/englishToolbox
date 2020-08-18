@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->string('label');
             $table->string('color');
+            $table->boolean('default')->nullable();
             $table->timestamp('created_at');
         });
     }

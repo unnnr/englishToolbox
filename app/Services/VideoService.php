@@ -17,23 +17,38 @@ class VideoService
 {
     public function create(UploadVideo $request)
     {
-        $tags = [];
-        $tagsId = $request->input('tags', []);
-        
-        foreach ($tagsId as $id)
-            $tags[] = Tag::find($id);
+        // Setting main tag
+        $mainTag = null;
+        $mainTagId = $request->input('mainTag');
 
-        $videoId = Youtube::parseVidFromURL($request->input('video_url'));
+        if (!!!$mainTagId)
+            $mainTag = Tag::where(['label' =>'video', 'default' => true])->firstOrFail();
+        else 
+            $mainTag = Tag::find($mainTag);
+
+        //  Parse tags
+        $tags = [];
+        $tagsIds = $request->input('tags', []);
+        
+        foreach ($tagsIds as $id)
+            $tags[] = Tag::findOrFail($id);
+
+        
+        //  Create video
+        $videoId = Youtube::parseVidFromURL($request->input('videoUrl'));
         $info = Youtube::getVideoInfo($videoId, ['snippet']);
+        
+        $title = $info->snippet->title;
+        $description = $request->input('description');
        
         $video = Video::create([
+            'title' =>  $title,
             'videoID' => $videoId,
-            'title' => $info->snippet->title,
-            'description' => $request->input('description')
+            'description' =>  $description,
         ]);
 
         $video->tags()->saveMany($tags);
-        // $video->tags()->saveMany(Tag::all());
+        $video->tags()->save($mainTag);
 
         return new VideoResource($video);
     }
