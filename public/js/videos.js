@@ -587,6 +587,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 
 
 var MAX_TAGS_COUNT = 5;
@@ -1362,7 +1363,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\r\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -1381,7 +1382,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .4s;\n}\n\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-21ac7d9c] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\n.tags-enter[data-v-21ac7d9c]\r\n{\r\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\r\n{\r\n    transition: all .4s;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -4073,12 +4074,22 @@ var render = function() {
     "transition-group",
     { staticClass: "tags", attrs: { name: "tags" } },
     [
-      _c("h4", { key: -2, staticClass: "tags__title text-fourth" }, [
-        _vm._v("\n\n        Add tags"),
-        _c("small", { staticClass: "editor__counter" }, [
-          _vm._v(_vm._s(_vm.selectedCount) + "/5")
-        ])
-      ]),
+      _c(
+        "h4",
+        { key: -2, staticClass: "editor__label tags__title text-fourth" },
+        [
+          _c("span", [
+            _vm._v("\n            Add tags\n            "),
+            _c("small", { staticClass: "editor__counter" }, [
+              _vm._v(_vm._s(_vm.selectedCount) + "/5")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("small", { staticClass: "editor__error" }, [
+            _vm._v("Your error here")
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "button",
@@ -18419,7 +18430,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })

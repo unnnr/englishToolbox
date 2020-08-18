@@ -1,10 +1,11 @@
 <template>
     <transition-group name="tags" class="tags">
-        <h4 
-            class="tags__title text-fourth"
-            :key="-2">
-
-            Add tags<small class="editor__counter">{{ selectedCount }}/5</small>
+        <h4 class="editor__label tags__title text-fourth" :key="-2">
+            <span>
+                Add tags
+                <small class="editor__counter">{{ selectedCount }}/5</small>
+            </span>
+            <small class="editor__error">Your error here</small>
         </h4>
             
         <button 

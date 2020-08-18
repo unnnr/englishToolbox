@@ -26,7 +26,7 @@ button {
 html,
 body,
 main {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .tags {
@@ -88,8 +88,10 @@ main {
   color: #a1a1b1;
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
-  max-width: 29px;
-  padding: 7px 5px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  padding: 7px 10px;
   -webkit-transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
   transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
   transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
@@ -104,8 +106,8 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-right: 5px;
   color: inherit;
+  margin-right: 5px;
 }
 
 .tag--new .tag__label span {
@@ -113,27 +115,12 @@ main {
   font-size: 19px;
 }
 
-.tag--new-active {
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 7px 10px;
-  -webkit-box-shadow: 0px 0px 0px 2px transparent;
-          box-shadow: 0px 0px 0px 2px transparent;
-  color: #fff;
-  background: #a1a1b1;
-}
-
 .tag__input {
   font-size: 12px;
   font-weight: 600;
   color: inherit;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  min-width: 55px;
+  width: 55px;
 }
 
 .tag__input::-webkit-input-placeholder {

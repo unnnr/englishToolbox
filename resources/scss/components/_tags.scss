@@ -221,8 +221,8 @@
   box-shadow: inset 0px 0px 0px 2px $text-third;
   color: $text-third;
   flex-basis: 100%;
-  max-width: 29px;
-  padding: 7px 5px;
+  max-width: max-content;
+  padding: 7px 10px;
   transition:
     max-width .3s ease-in-out,
     min-width .3s ease-in-out,
@@ -235,8 +235,8 @@
     height: 15px;
     display: flex;
     align-items: center;
-    margin-right: 5px;
     color: inherit;
+    margin-right: 5px;
 
     span {
       color: inherit;
@@ -245,20 +245,12 @@
   }
 }
 
-.tag--new-active {
-  max-width: max-content;
-  padding: 7px 10px;
-  box-shadow: 0px 0px 0px 2px transparent;
-  color: $text-fourth;
-  background: $text-third;
-}
-
 .tag__input {
   font-size: 12px;
   font-weight: $semibold;
   color: inherit;
-  max-width: max-content;
-  display: flex;
+  min-width: 55px;
+  width: 55px;
 
   &::placeholder {
     font-weight: $semibold;
