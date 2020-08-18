@@ -16,12 +16,12 @@
                     <span>
                         YouTube link
                     </span> 
-                    <small class="editor__error">Your error here</small>
+                    <small class="editor__error">{{ urlError }}</small>
                 </label>
                 <input class="editor__input input-second"
                        type="text"
                        placeholder="https://..."
-                       name="video_url"
+                       name="videoUrl"
                        required
                        v-model="url"
                        @keyup.enter="updateLink"
@@ -31,7 +31,7 @@
                         Custom description
                         <small class="editor__counter">{{ descriptionCounter }}</small>
                     </span> 
-                    <small class="editor__error">Your error here</small>
+                    <small class="editor__error">{{ descriptionError }}</small>
                 </label>
                 <textarea 
                     class="editor__textarea textarea-second"
@@ -71,7 +71,9 @@ export default {
     data: function () { 
         return {
             url: '',
-            description: ''
+            description: '',
+            urlError: '',
+            descriptionError: ''
         }
     },
 
@@ -89,23 +91,18 @@ export default {
 
     methods: {
         updateLink () {
-            if (this.$options.previousUrl === this.url)
+            if (this.url.length === 0 || this.$options.previousUrl === this.url)
                 return;
 
             this.$options.previousUrl = this.url;
             
-            let videoID = getYouTubeID(this.url);
-            if (!!!videoID)
-            {
-                console.error('Icorrect url');
-                return;
-            }
+            let videoID = this.validateVideo();
             
-
-            bus.dispatch('editor-link-changed', { 
-                url: this.url,
-                videoID: videoID
-            });
+            if (videoID)
+                bus.dispatch('editor-link-changed', { 
+                    url: this.url,
+                    videoID: videoID
+                });
         },
 
         validateVideo() {
@@ -113,14 +110,16 @@ export default {
             let videoID = getYouTubeID(this.url)
             if (!!!videoID)
             {
-                console.error('Icorrect url');
+                this.urlError = 'Not youtube link';
                 return false;
-			}
+            }
+            
+            this.urlError = '';
 
-            return true;
+            return videoID;
         },
 
-        createVideo() {
+        async createVideo() {
 
             let data = new FormData(this.$refs.form);
             let tags = this.$refs.tags.selected;
@@ -128,14 +127,26 @@ export default {
             for (const [index, tag] of tags.entries())
                 data.append(`tags[${index}]`, tag.id);
 
-            Posts.create(data)
-            .then( post => {
+
+            try {
+                let post = await Posts.create(data);
+
                 bus.dispatch('post-created', { post });
                 bus.dispatch('post-selected', { post  });
-            })
-            .catch( error => {
+            }
+            catch(error) {
                 console.log(error);
-            })
+
+                if (error.status == 422 )
+                {
+                    let errors = error.body.errors;
+
+                    if (errors.videoUrl)
+                        this.urlError = errors.videoUrl.join('. ');
+                    if (errors.description)
+                        this.descriptionError = errors.description.join('. ')
+                }
+            };
         },
 
         submit (event) {

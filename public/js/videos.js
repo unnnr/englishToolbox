@@ -1037,12 +1037,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1056,6 +1060,10 @@ function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symb
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -1118,12 +1126,14 @@ var MAX_URL_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
   components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__["default"]
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
       url: '',
-      description: ''
+      description: '',
+      urlError: '',
+      descriptionError: ''
     };
   },
   computed: {
@@ -1136,61 +1146,86 @@ var MAX_URL_LENGTH = 180;
   },
   methods: {
     updateLink: function updateLink() {
-      if (this.$options.previousUrl === this.url) return;
+      if (this.url.length === 0 || this.$options.previousUrl === this.url) return;
       this.$options.previousUrl = this.url;
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default()(this.url);
-
-      if (!!!videoID) {
-        console.error('Icorrect url');
-        return;
-      }
-
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-link-changed', {
+      var videoID = this.validateVideo();
+      if (videoID) _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
         url: this.url,
         videoID: videoID
       });
     },
     validateVideo: function validateVideo() {
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
 
       if (!!!videoID) {
-        console.error('Icorrect url');
+        this.urlError = 'Not youtube link';
         return false;
       }
 
-      return true;
+      this.urlError = '';
+      return videoID;
     },
     createVideo: function createVideo() {
-      var data = new FormData(this.$refs.form);
-      var tags = this.$refs.tags.selected;
+      var _this = this;
 
-      var _iterator = _createForOfIteratorHelper(tags.entries()),
-          _step;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, tags, _iterator, _step, _step$value, index, tag, post, errors;
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var _step$value = _slicedToArray(_step.value, 2),
-              index = _step$value[0],
-              tag = _step$value[1];
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                data = new FormData(_this.$refs.form);
+                tags = _this.$refs.tags.selected;
+                _iterator = _createForOfIteratorHelper(tags.entries());
 
-          data.append("tags[".concat(index, "]"), tag.id);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    _step$value = _slicedToArray(_step.value, 2), index = _step$value[0], tag = _step$value[1];
+                    data.append("tags[".concat(index, "]"), tag.id);
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
+                }
 
-      _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].create(data).then(function (post) {
-        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
-          post: post
-        });
-        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selected', {
-          post: post
-        });
-      })["catch"](function (error) {
-        console.log(error);
-      });
+                _context.prev = 4;
+                _context.next = 7;
+                return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
+
+              case 7:
+                post = _context.sent;
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
+                  post: post
+                });
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', {
+                  post: post
+                });
+                _context.next = 16;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](4);
+                console.log(_context.t0);
+
+                if (_context.t0.status == 422) {
+                  errors = _context.t0.body.errors;
+                  if (errors.videoUrl) _this.urlError = errors.videoUrl.join('. ');
+                  if (errors.description) _this.descriptionError = errors.description.join('. ');
+                }
+
+              case 16:
+                ;
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[4, 12]]);
+      }))();
     },
     submit: function submit(event) {
       event.preventDefault();
@@ -4505,7 +4540,19 @@ var render = function() {
           "div",
           { staticClass: "editor__body", attrs: { action: "" } },
           [
-            _vm._m(1),
+            _c(
+              "label",
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+              [
+                _c("span", [
+                  _vm._v("\n                    YouTube link\n                ")
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v(_vm._s(_vm.urlError))
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -4520,7 +4567,7 @@ var render = function() {
               attrs: {
                 type: "text",
                 placeholder: "https://...",
-                name: "video_url",
+                name: "videoUrl",
                 required: ""
               },
               domProps: { value: _vm.url },
@@ -4558,7 +4605,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("small", { staticClass: "editor__error" }, [
-                  _vm._v("Your error here")
+                  _vm._v(_vm._s(_vm.descriptionError))
                 ])
               ]
             ),
@@ -4594,7 +4641,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(1)
       ]
     )
   ])
@@ -4609,24 +4656,6 @@ var staticRenderFns = [
         _vm._v("New video")
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-      [
-        _c("span", [
-          _vm._v("\n                    YouTube link\n                ")
-        ]),
-        _vm._v(" "),
-        _c("small", { staticClass: "editor__error" }, [
-          _vm._v("Your error here")
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this
