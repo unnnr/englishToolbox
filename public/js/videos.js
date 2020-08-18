@@ -638,6 +638,9 @@ var BLUR_DELAY = 200;
     };
   },
   computed: {
+    tagsCounter: function tagsCounter() {
+      return this.selectedCount + '/' + MAX_TAGS_COUNT;
+    },
     selected: function selected() {
       var selected = [];
 
@@ -1090,21 +1093,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
+var MAX_DESCRIPTION_LENGTH = 180;
+var MAX_URL_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
+  components: {
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
   data: function data() {
     return {
       url: '',
       description: ''
     };
   },
-  components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
+  computed: {
+    descriptionCounter: function descriptionCounter() {
+      return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+    },
+    descriptionMaxLength: function descriptionMaxLength() {
+      return MAX_DESCRIPTION_LENGTH;
+    }
   },
   methods: {
     updateLink: function updateLink() {
@@ -4116,7 +4139,7 @@ var render = function() {
       _c("h4", { key: -2, staticClass: "tags__title text-fourth" }, [
         _vm._v("\n\n        Add tags"),
         _c("small", { staticClass: "editor__counter" }, [
-          _vm._v(_vm._s(_vm.selectedCount) + "/5")
+          _vm._v(_vm._s(_vm.tagsCounter))
         ])
       ]),
       _vm._v(" "),
@@ -4528,13 +4551,48 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(2),
+            _c(
+              "label",
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+              [
+                _c("span", [
+                  _vm._v(
+                    "\n                    Custom description\n                    "
+                  ),
+                  _c("small", { staticClass: "editor__counter" }, [
+                    _vm._v(_vm._s(_vm.descriptionCounter))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v("Your error here")
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
               staticClass: "editor__textarea textarea-second",
               attrs: {
                 placeholder: "place for your description",
-                name: "description"
+                name: "description",
+                maxlength: _vm.descriptionMaxLength
+              },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
               }
             }),
             _vm._v(" "),
@@ -4543,7 +4601,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(3)
+        _vm._m(2)
       ]
     )
   ])
@@ -4569,27 +4627,6 @@ var staticRenderFns = [
       [
         _c("span", [
           _vm._v("\n                    YouTube link\n                ")
-        ]),
-        _vm._v(" "),
-        _c("small", { staticClass: "editor__error" }, [
-          _vm._v("Your error here")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-      [
-        _c("span", [
-          _vm._v(
-            "\n                    Custom description\n                    "
-          ),
-          _c("small", { staticClass: "editor__counter" }, [_vm._v("0/180")])
         ]),
         _vm._v(" "),
         _c("small", { staticClass: "editor__error" }, [

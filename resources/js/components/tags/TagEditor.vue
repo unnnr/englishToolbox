@@ -4,7 +4,7 @@
             class="tags__title text-fourth"
             :key="-2">
 
-            Add tags<small class="editor__counter">{{ selectedCount }}/5</small>
+            Add tags<small class="editor__counter">{{ tagsCounter }}</small>
         </h4>
             
         <button 
@@ -94,6 +94,11 @@ export default {
     },
 
     computed: {
+
+        tagsCounter() {
+            return this.selectedCount + '/' + MAX_TAGS_COUNT;
+        },
+
         selected() {
 
             let selected = [];
