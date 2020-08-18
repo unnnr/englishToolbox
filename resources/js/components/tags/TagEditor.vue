@@ -5,7 +5,7 @@
                 Add tags
                 <small class="editor__counter">{{ selectedCount }}/5</small>
             </span>
-            <small class="editor__error">Your error here</small>
+            <small class="editor__error">{{ errorMessage }}</small>
         </h4>
             
         <button 
@@ -87,6 +87,8 @@ export default {
 
             loadedTags: [],
             createdTags: [],
+
+            errorMessage: 'as',
 
             contextItems: [
                 { label: 'I am', action: () => console.log('anm') }
@@ -227,7 +229,7 @@ export default {
             this.inputIsActive = false;
 
             let newTag = await Tags.create(data);
-
+            console.log(newTag);
             this.inputIsActive = true;
 
             if (newTag)

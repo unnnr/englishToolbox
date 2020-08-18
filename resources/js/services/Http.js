@@ -18,9 +18,24 @@ const Http = new function()
         if (json)
             options.headers['Content-Type'] = 'application/json';
 
-        let response = await fetch(window.location.origin + path ? '/api/' + path : '' , options)
+        let response = await fetch(window.location.origin + path ? '/api/' + path : '' , options);
+
         if (!!!response.ok)
-            return null;
+        {
+            let body;
+
+            if (response.headers.get('Content-Type') === 'application/json')
+                body =  await response.json(); 
+            else 
+                body =  await response.text(); 
+
+            throw {
+                name: 'Failed request',
+                message: response.statusText,
+                status: response.status,
+                body: body,
+            };
+        }
         
         let contentType  = response.headers.get("Content-Type") 
         if (contentType === 'application/json')

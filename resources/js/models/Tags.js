@@ -13,14 +13,12 @@ const Tags = new function ()
     this.create = async (data) =>
     {
         let resonse = await Http.post('tags', data);
-        if (!!!resonse)
-            return null;
 
         return {
             color: resonse.color, 
             label: resonse.label,
             id: resonse.id
-        }
+        } ;
     }
 
     this.remove = async () =>

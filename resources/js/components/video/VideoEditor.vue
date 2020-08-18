@@ -50,6 +50,7 @@
 </template>
 
 <script>
+
 import getYouTubeID from 'get-youtube-id';
 import bus from '@services/eventbus';
 import Posts from '@models/Posts'
