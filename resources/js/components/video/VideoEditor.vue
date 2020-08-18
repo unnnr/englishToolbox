@@ -143,6 +143,7 @@ export default {
 
                     if (errors.videoUrl)
                         this.urlError = errors.videoUrl.join('. ');
+                        
                     if (errors.description)
                         this.descriptionError = errors.description.join('. ')
                 }

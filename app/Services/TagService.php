@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Models\Tag;
 use App\Models\Video;
-use App\Http\Requests\CreateTags;
+use App\Http\Requests\CreateTag;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\VideoResource;
 
 class TagService
 {
 
-    public function create(CreateTags $request)
+    public function create(CreateTag $request)
     {
         $newTag = Tag::create([
             'label' => $request->input('label'),

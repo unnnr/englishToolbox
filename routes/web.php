@@ -18,13 +18,19 @@ Auth::routes([
     'verify' => false
 ]);
 
+
+Route::group(['namespace' => 'Web'], function() {
+
+    Route::get('videos', 'VideoController@index')->name('videos');
+
+});
+
 Route::post('audio', 'AudioController@store');
 Route::get('audio', 'AudioController@index')->name('audio');
 
 Route::post('schemas', 'SchemaController@store');
 Route::get('schemas', 'SchemaController@index')->name('schemas');
 
-Route::get('videos', 'VideoController@index')->name('videos');
 
 Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');

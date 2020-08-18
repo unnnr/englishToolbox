@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('video', 'VideoApiController')->except([
-    'destroy', 'update'
-]);
+Route::group(['namespace' => 'Api'], function() {
 
-/* Route::apiResource('video.tags', 'TagController')->except([
-    'destroy', 'update'
-])->shallow(); */
+    Route::apiResource('video', 'VideoController')->except([
+        'destroy', 'update'
+    ]);
 
-Route::match(['get', 'head'], 'tags', 'TagController@all');
-//Route::get('video/{video}/tags', 'TagController@index');
-Route::post('/tags', 'TagController@store');
 
+    Route::match(['get', 'head'], 'tags', 'TagController@all');
+    //Route::get('video/{video}/tags', 'TagController@index');
+    Route::post('/tags', 'TagController@store');
+
+});
 
 Route::get('dump', function() {
     $video = \App\Models\Video::first();

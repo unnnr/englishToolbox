@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\CreateTags;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTag;
 use App\Http\Requests;
-use App\Models\Tag;
-use App\Models\Video;
 use App\Services\TagService;
 
 class TagController extends Controller
@@ -26,7 +25,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTags $request, TagService $tagService)
+    public function store(CreateTag $request, TagService $tagService)
     {
         return $tagService->create($request);
     }
