@@ -63,16 +63,8 @@ const MAX_URL_LENGTH = 180;
 export default {
     name: 'video-editor',
 
-
     components: {
         TagEditor
-    },
-
-    props: {
-        type: {
-            type: String,
-            default: 'creating'
-        }
     },
 
     data: function () { 
@@ -96,15 +88,6 @@ export default {
         }
     },
 
-    watch: {
-        type() {
-            /* let taglist = this.$refs.tags;
-            
-            taglist.clear();
-            this.clear(); */
-        }
-    },
-
     mounted() {
         bus.listen('post-editing', event => {
 
@@ -120,13 +103,17 @@ export default {
 
             if (!!!post.mainTag.default)
                 tags.main = tags.getTagById(post.mainTag.id);
+
+            this.$options.postID = post.id;
+            this.onSumbit = this.editVideo;
         });
-        
 
         bus.listen('post-creating', event => {
             
             this.clear();
             this.$refs.tags.clear();
+
+            this.onSumbit = this.createVideo;
 		});
     },
 
@@ -138,6 +125,8 @@ export default {
             
             this.description = '';
             this.descriptionError = '';
+
+            this.$options.postID = null;
         },
 
         updateLink () {
@@ -169,8 +158,8 @@ export default {
             return videoID;
         },
 
-        async createVideo() {
-
+        getFormData() {
+            
             let data = new FormData(this.$refs.form);
 
             let tags = this.$refs.tags.selected;
@@ -181,11 +170,33 @@ export default {
             if (mainTag)
                 data.append('mainTag', mainTag.id);
 
-            try {
-                let post = await Posts.create(data);
+            return data;
+        },
 
-                bus.dispatch('post-created', { post });
-                bus.dispatch('post-selected', { post  });
+        async createVideo(data) {
+
+            let post = await Posts.create(data);
+
+            bus.dispatch('post-created', { post });
+            bus.dispatch('post-selected', { post  });
+        },
+
+        async editVideo(data) {
+
+            let id = this.$options.postID;
+            let post = await Posts.edit(id, data);
+
+            // bus.dispatch('post-edited', { post });
+            // bus.dispatch('post-selected', { post  });
+        },
+
+        async submit (event) {
+
+            let data = this.getFormData();
+
+            try {
+                if (this.onSumbit)
+                    await this.onSumbit(data);
             }
             catch(error) {
                 console.log(error);
@@ -201,31 +212,8 @@ export default {
                         this.descriptionError = errors.description.join('. ')
                 }
             };
-        },
 
-        async editVideo()
-        {
-
-        },
-
-        async submit (event) {
-
-            switch (this.type)
-            {
-                case 'creating' : {
-                    if (this.validateVideo())
-                        await this.createVideo();
-                    
-                    break;
-                }
-
-                case 'editing' : {
-                    if (this.validateVideo())
-                        console.log(123);
-
-                    break;
-                }
-            }
+          
         }
     }
 }

@@ -49,7 +49,7 @@ const Posts = new function ()
             return null;
 
         let newPost = {
-            index: response.id - 1,
+            id: response.id,
             tags: response.tags,
             title: response.title,
             mainTag: response.mainTag,
@@ -60,6 +60,11 @@ const Posts = new function ()
         posts.push(newPost);
         
         return createCopy(newPost);
+    }
+
+    this.edit = (index, data) =>
+    {
+        console.log(index, data);
     }
 
     this.get = (index) =>

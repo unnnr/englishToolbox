@@ -86,6 +86,8 @@ export default {
 
         bus.listen('post-created', event => {
 
+            console.log(event);
+            
             let newCard = Cards.get(event.post.index);
 
             this.cards.push(newCard);
