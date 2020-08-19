@@ -6,7 +6,7 @@
         <form 
             class="editor__form"
             ref="form"
-            @submit='submit' >
+            @submit.prevent='submit' >
             
             <div class="editor__header">
                 <h5 class="editor__title text-third">New video</h5>
@@ -68,11 +68,19 @@ export default {
         TagEditor
     },
 
+    props: {
+        type: {
+            type: String,
+            default: 'creating'
+        }
+    },
+
     data: function () { 
         return {
             url: '',
-            description: '',
             urlError: '',
+            
+            description: '',
             descriptionError: ''
         }
     },
@@ -88,7 +96,27 @@ export default {
         }
     },
 
+    watch: {
+        type() {
+            console.log('watch');
+            
+            let taglist = this.$refs.tags;
+            
+            taglist.clear();
+            this.clear();
+        }
+    },
+
     methods: {
+
+        clear() {
+            this.url = '';
+            this.urlError = '';
+            
+            this.description = '';
+            this.descriptionError = '';
+        },
+
         updateLink () {
             if (this.url.length === 0 || this.$options.previousUrl === this.url)
                 return;
@@ -152,12 +180,24 @@ export default {
             };
         },
 
-        submit (event) {
+        async submit (event) {
 
-            event.preventDefault();
+            switch (this.type)
+            {
+                case 'creating' : {
+                    if (this.validateVideo())
+                        await this.createVideo();
+                    
+                    break;
+                }
 
-            if (this.validateVideo())
-                this.createVideo();
+                case 'editing' : {
+                    if (this.validateVideo())
+                        await this.createVideo();
+
+                    break;
+                }
+            }
         }
     }
 }

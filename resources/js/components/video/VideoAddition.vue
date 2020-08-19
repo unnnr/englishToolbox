@@ -3,8 +3,10 @@
         <div class="addition__body">
             <div class="addition__wrapper" ref="wrapper">
 				<transition name="fade">
- 					<video-editor v-if="editing" 
-								  ref="editor"/>
+ 					<video-editor 
+					 	ref="editor"
+						v-if="editing" 
+						:type="editorType"/>
 				</transition>
                 <video-presentor ref="presentor"/>
             </div>
@@ -22,7 +24,8 @@ export default {
 
 	data: function () {
 		return {
-			editing: true
+			editing: true,
+			editorType: 'creating',
 		}
 	},
 
@@ -33,8 +36,16 @@ export default {
 
 	mounted() {
 		bus.listen('post-editing', event => {
-			bus.dispatch('post-selecting', event);
+					
+			this.editorType = 'editing';
 
+			this.editing = true;	
+		});
+
+		bus.listen('post-creating', event => {
+			
+			this.editorType = 'creating';
+			
 			this.editing = true;
 		});
 
