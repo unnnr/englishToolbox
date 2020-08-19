@@ -109,7 +109,7 @@ export default {
             let videoID = getYouTubeID(this.url)
             if (!!!videoID)
             {
-                this.urlError = 'Not youtube link';
+                this.urlError = 'Incorrect youtube link';
                 return false;
             }
             

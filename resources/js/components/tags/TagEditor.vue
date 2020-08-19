@@ -3,7 +3,7 @@
         <h4 class="editor__label tags__title text-fourth" :key="-2">
             <span>
                 Add tags
-                <small class="editor__counter">{{ selectedCount }}/5</small>
+                <small class="editor__counter">{{ tagsCounter }}</small>
             </span>
             <small class="editor__error">{{ errorMessage }}</small>
         </h4>
@@ -20,7 +20,7 @@
             v-context:items="contextMenu"
             :key="tag.id"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
 
@@ -34,7 +34,7 @@
             v-context:items="contextMenu"
             :key="tag.id"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
             
@@ -49,7 +49,7 @@ import NewTagInput from '@components/tags/NewTagInput'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
-const MAX_TAGS_COUNT = 4;
+const MAX_TAGS_COUNT = 5;
 const MAX_CREATED_TAGS_COUNT = 30;
 
 export default {
@@ -76,7 +76,7 @@ export default {
     },
 
     computed: {
-
+        
         tagsCounter() {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
         },
@@ -87,7 +87,7 @@ export default {
 
             for (const tag of [...this.loadedTags, ...this.createdTags])
             {
-                if (tag.selected && !!! tag.main)
+                if (tag.selected && !!!tag.main)
                     selected.push(tag);
             }
             
@@ -106,7 +106,8 @@ export default {
             if (oldTag)
                 this.$set(oldTag, 'main', false);
 
-            this.$set(newTag, 'main', true);
+            if (newTag)
+                this.$set(newTag, 'main', true);
         }
     },
 
@@ -124,19 +125,30 @@ export default {
             const SET_AS_MAIN = 0;
             const DELETE = 1;
 
-            this.contextMenu[SET_AS_MAIN].action = () =>
-                this.main = tag;
+            this.contextMenu[SET_AS_MAIN].action = () => {
+                this.main = null;
+                this.toggle(tag);
+            }
         },
 
         toggle(tag) {
 
-            if (this.mainTag && this.mainTag.id === tag.id)
-                return;
-
             let currentState = tag.selected;
 
-            if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT)
-                return;
+
+            if (!!!currentState)
+            {
+                if (this.selectedCount >= MAX_TAGS_COUNT)
+                    return;
+
+                if (!!!this.main)
+                    this.main = tag;
+            }
+            else
+            {
+                if (tag.main)
+                    this.main = null;
+            }
 
             this.$set(tag, 'selected', !!!currentState);
             this.selectedCount += currentState ? -1 : 1; 
@@ -152,6 +164,7 @@ export default {
         async submit(event) {
 
             let label = this.$refs.input.label.trim();
+
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
             

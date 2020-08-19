@@ -763,7 +763,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var MAX_TAGS_COUNT = 4;
+var MAX_TAGS_COUNT = 5;
 var MAX_CREATED_TAGS_COUNT = 30;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tag-editor',
@@ -804,7 +804,7 @@ var MAX_CREATED_TAGS_COUNT = 30;
   watch: {
     main: function main(newTag, oldTag) {
       if (oldTag) this.$set(oldTag, 'main', false);
-      this.$set(newTag, 'main', true);
+      if (newTag) this.$set(newTag, 'main', true);
     }
   },
   mounted: function mounted() {
@@ -840,13 +840,21 @@ var MAX_CREATED_TAGS_COUNT = 30;
       var DELETE = 1;
 
       this.contextMenu[SET_AS_MAIN].action = function () {
-        return _this2.main = tag;
+        _this2.main = null;
+
+        _this2.toggle(tag);
       };
     },
     toggle: function toggle(tag) {
-      if (this.mainTag && this.mainTag.id === tag.id) return;
       var currentState = tag.selected;
-      if (!!!currentState && this.selectedCount >= MAX_TAGS_COUNT) return;
+
+      if (!!!currentState) {
+        if (this.selectedCount >= MAX_TAGS_COUNT) return;
+        if (!!!this.main) this.main = tag;
+      } else {
+        if (tag.main) this.main = null;
+      }
+
       this.$set(tag, 'selected', !!!currentState);
       this.selectedCount += currentState ? -1 : 1;
     },
@@ -1270,7 +1278,7 @@ var MAX_URL_LENGTH = 180;
       var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
 
       if (!!!videoID) {
-        this.urlError = 'Not youtube link';
+        this.urlError = 'Incorrect youtube link';
         return false;
       }
 
@@ -4419,7 +4427,7 @@ var render = function() {
           _c("span", [
             _vm._v("\n            Add tags\n            "),
             _c("small", { staticClass: "editor__counter" }, [
-              _vm._v(_vm._s(_vm.selectedCount) + "/5")
+              _vm._v(_vm._s(_vm.tagsCounter))
             ])
           ]),
           _vm._v(" "),
@@ -4451,9 +4459,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag tag--created",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -4488,9 +4494,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
