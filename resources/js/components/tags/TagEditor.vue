@@ -31,8 +31,8 @@
             class="tag"
             type="button"
             v-for="(tag) of loadedTags"
-            v-context:items="contextMenu"
             :key="tag.id"
+            v-context:items="contextMenu"
             :class="{ 'tag--main': tag.main }"
             :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)"
@@ -205,6 +205,26 @@ export default {
 .tags-enter-active
 {
     transition: all .4s;
+}
+
+</style>
+
+
+<style scoped>
+
+.tag:before {
+    width: 0;
+    margin-right: 0;
+    content:'';
+    transform: scaleX(0);
+    transition: transform .2s ease-in-out, margin-right .2s ease-in-out, width .2s ease-in-out;
+}
+
+.tag--main:before {
+    width: 15px;
+    margin-right: 5px;
+    content: "star";
+    transform: scaleX(1);
 }
 
 </style>
