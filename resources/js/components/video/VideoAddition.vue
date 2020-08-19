@@ -5,7 +5,7 @@
 				<transition name="fade">
  					<video-editor 
 					 	ref="editor"
-						v-if="editing" 
+						v-show="editing" 
 						:type="editorType"/>
 				</transition>
                 <video-presentor ref="presentor"/>
@@ -24,7 +24,7 @@ export default {
 
 	data: function () {
 		return {
-			editing: true,
+			editing: false,
 			editorType: 'creating',
 		}
 	},
@@ -36,15 +36,12 @@ export default {
 
 	mounted() {
 		bus.listen('post-editing', event => {
-					
-			this.editorType = 'editing';
+
 
 			this.editing = true;	
 		});
 
 		bus.listen('post-creating', event => {
-			
-			this.editorType = 'creating';
 			
 			this.editing = true;
 		});

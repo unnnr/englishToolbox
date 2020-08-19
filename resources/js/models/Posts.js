@@ -1,4 +1,5 @@
 import Http from '@services/Http';
+import { post } from 'jquery';
 
 const Posts = new function ()
 {
@@ -6,6 +7,7 @@ const Posts = new function ()
     {
         if (!!!Number.isInteger(index) || index >= posts.length || index < 0)
             return false;
+
         return true;
     }
 
@@ -18,6 +20,26 @@ const Posts = new function ()
 
         if (Posts.onload)
             Posts.onload();
+    }
+
+    function createCopy(post)
+    {
+        let tagsCopy = [];
+            
+        for (let tag of post.tags)
+            tagsCopy.push({  ...tag });
+        
+        let postCopy= {
+            index: post.id - 1,
+            id: post.id, 
+            title: post.title,
+            videoID: post.videoID,
+            description: post.description,
+            mainTag: {...post.mainTag},
+            tags: tagsCopy
+        };
+
+        return postCopy;
     }
 
     this.create = async (data) =>
@@ -37,7 +59,7 @@ const Posts = new function ()
 
         posts.push(newPost);
         
-        return newPost;
+        return createCopy(newPost);
     }
 
     this.get = (index) =>
@@ -46,15 +68,18 @@ const Posts = new function ()
             return null;
 
         let post = posts[index];
-        return { ...post };
+
+        return createCopy(post);
     }
 
     this.all = () =>
     {
-        for (let index in posts)
-            posts[index].index = Number(index);
+        let postsCopy = [];
+        
+        for (let post of posts)
+           postsCopy.push(createCopy(post));
 
-        return posts;
+        return [ ...postsCopy ];
     }
 
     let posts = [];

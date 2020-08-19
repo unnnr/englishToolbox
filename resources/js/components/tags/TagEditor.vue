@@ -20,7 +20,7 @@
             v-context:items="contextMenu"
             :key="tag.id"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
 
@@ -34,7 +34,7 @@
             :key="tag.id"
             v-context:items="contextMenu"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
             
@@ -81,17 +81,36 @@ export default {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
         },
 
-        selected() {
+        selected: {
+          
+            get() {
 
-            let selected = [];
+                let selected = [];
 
-            for (const tag of [...this.loadedTags, ...this.createdTags])
-            {
-                if (tag.selected && !!!tag.main)
-                    selected.push(tag);
+                for (const tag of [...this.loadedTags, ...this.createdTags])
+                {
+                    if (tag.selected && !!!tag.main)
+                        selected.push(tag);
+                }
+
+                return [...selected];
+            },
+
+            set(tags) {
+                
+                if (tags.length > MAX_TAGS_COUNT - 1) // -1 Cause 1 is reserved for main tag
+                    return;
+                
+                for (let tag of this.selected)
+                    tag.selected = false;
+               
+                for (let { id } of tags)
+                {
+                    let tag = this.getTagById(id);
+
+                    tag.selected = true;
+                }
             }
-            
-            return [...selected];
         },
         
         reversedCreatedTags() {
@@ -103,6 +122,8 @@ export default {
 
         main(newTag, oldTag)
         {   
+            console.log(newTag, oldTag);
+
             if (oldTag)
                 this.$set(oldTag, 'main', false);
 
@@ -117,6 +138,17 @@ export default {
     },
 
     methods: {
+
+        getTagById(id) {
+
+            for (const tag of [...this.loadedTags, ...this.createdTags])
+            {
+                if (tag.id === id)
+                    return tag;
+            }
+
+            return null;
+        },
 
         load() {
             Tags.onload(() => {

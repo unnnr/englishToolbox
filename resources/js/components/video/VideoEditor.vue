@@ -98,13 +98,36 @@ export default {
 
     watch: {
         type() {
-            console.log('watch');
-            
-            let taglist = this.$refs.tags;
+            /* let taglist = this.$refs.tags;
             
             taglist.clear();
-            this.clear();
+            this.clear(); */
         }
+    },
+
+    mounted() {
+        bus.listen('post-editing', event => {
+
+            let post = event.post;
+
+            this.url = 'https://youtube.com/watch?v=' + post.videoID;
+            this.description = post.description || '';
+
+            let tags=  this.$refs.tags;
+
+            tags.clear();
+            tags.selected = post.tags;
+
+            if (!!!post.mainTag.default)
+                tags.main = tags.getTagById(post.mainTag.id);
+        });
+        
+
+        bus.listen('post-creating', event => {
+            
+            this.clear();
+            this.$refs.tags.clear();
+		});
     },
 
     methods: {
@@ -180,6 +203,11 @@ export default {
             };
         },
 
+        async editVideo()
+        {
+
+        },
+
         async submit (event) {
 
             switch (this.type)
@@ -193,7 +221,7 @@ export default {
 
                 case 'editing' : {
                     if (this.validateVideo())
-                        await this.createVideo();
+                        console.log(123);
 
                     break;
                 }
