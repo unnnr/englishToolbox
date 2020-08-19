@@ -58,14 +58,18 @@ const Http = new function()
         return self.make('POST', ...arguments)
     }
 
-    this.put = function ()
+    this.put = function (path, data, json = null)
     {
-        return self.make('PUT', ...arguments)
+        data.append('_method', 'PUT');
+
+        return self.make('POST', path, data, json);
     }
 
-    this.patch = function ()
+    this.patch = function (path, data, json = null)
     {
-        return self.make('PATCH', ...arguments)
+        data.append('_method', 'PUT');
+
+        return self.make('POST', path, data, json)
     }
 
     let self = this;

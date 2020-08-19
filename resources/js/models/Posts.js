@@ -1,5 +1,4 @@
 import Http from '@services/Http';
-import { post } from 'jquery';
 
 const Posts = new function ()
 {
@@ -20,6 +19,15 @@ const Posts = new function ()
 
         if (Posts.onload)
             Posts.onload();
+    }
+
+    function getById(id)
+    {
+        for (const post of posts)
+        {
+            if (post.id == id)
+                return post;
+        }
     }
 
     function createCopy(post)
@@ -62,9 +70,21 @@ const Posts = new function ()
         return createCopy(newPost);
     }
 
-    this.edit = (index, data) =>
+    this.edit = async (index, data) =>
     {
-        console.log(index, data);
+        let response = await Http.patch('video/' + index, data);
+        if (!!!response)
+            return null;
+
+        let target = getById(response.id);
+        
+        target.tags = response.tags,
+        target.title = response.title,
+        target.mainTag = response.mainTag,
+        target.videoID = response.videoID,
+        target.description = response.description
+
+        return createCopy(target);
     }
 
     this.get = (index) =>

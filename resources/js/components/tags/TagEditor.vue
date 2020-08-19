@@ -120,10 +120,7 @@ export default {
 
     watch: {
 
-        main(newTag, oldTag)
-        {   
-            console.log(newTag, oldTag);
-
+        main(newTag, oldTag) {   
             if (oldTag)
                 this.$set(oldTag, 'main', false);
 

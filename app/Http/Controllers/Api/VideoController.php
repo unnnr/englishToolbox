@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\VideoService;
 use App\Http\Requests\UploadVideo;
+use App\Http\Requests\UpdateVideo;
 
 class VideoController extends Controller
 {
@@ -50,10 +51,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, VideoService $videoService)
+    public function update(int $id, UpdateVideo $request, VideoService $videoService)
     {
-        // NOT IN USAGE FOR NOWe
-        return $videoService->update($id, []);
+        return $videoService->update($id, $request);
     }
 
     /**
