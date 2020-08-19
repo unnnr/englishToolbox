@@ -8,36 +8,10 @@
             <small class="editor__error">{{ errorMessage }}</small>
         </h4>
             
-        <button 
-            type="button"
-            class="tag tag--new "
+        <new-tag-input
+            ref="input"
             :key="-1"
-            :class="{
-                'tag--new-active': inputIsActive,
-                'tag--new-focused': inputIsFocused
-            }"
-            @click="onWrapperClick">
-
-            <label
-                class="tag__label tag__label--new"
-                for="tn1"
-                @click="onLabelClick">
-                
-                <span class="material-icons-round">add</span>
-            </label>
-            <input 
-                id="tn1"
-                ref="input"
-                class="tag__input"
-                type="text"
-                placeholder="newTag"
-                v-model="newLabel"
-                :disabled="inputIsDisabled"
-                @blur="onInputBlur"
-                @focus="onInputFocus"
-                @keydown.enter.prevent.stop="submit">
-            <div class="tag__buffer" ref="buffer"></div>
-        </button>
+            :submit="submit"/>
 
         <button
             class="tag tag--created"
@@ -71,24 +45,22 @@
 
 <script>
 
+import NewTagInput from '@components/tags/NewTagInput'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
 const MAX_TAGS_COUNT = 4;
 const MAX_CREATED_TAGS_COUNT = 30;
-const BLUR_DELAY = 200;
-
-let main;
 
 export default {
     name: 'tag-editor',
 
+    components: {
+        NewTagInput
+    },
+
     data: function () {
         return {
-            inputIsActive: false,
-            inputIsFocused: false,
-
-            newLabel: '',
             selectedCount: 0,
 
             main: null,
@@ -121,10 +93,6 @@ export default {
             
             return [...selected];
         },
-
-        inputIsDisabled(){
-            return !!!this.inputIsActive;
-        },
         
         reversedCreatedTags() {
             return [...this.createdTags].reverse();
@@ -139,17 +107,11 @@ export default {
                 this.$set(oldTag, 'main', false);
 
             this.$set(newTag, 'main', true);
-        },
-
-        newLabel() {
-            this.checkInput();
         }
     },
 
     mounted() {
         this.load();
-
-        this.setUpInputAutoGrow();
     },
 
     methods: {
@@ -166,16 +128,6 @@ export default {
                 this.main = tag;
         },
 
-        setUpInputAutoGrow() {
-             
-            let buffer = this.$refs.buffer;
-
-            this.$refs.input.addEventListener('input', function() {
-                this.nextElementSibling.innerHTML = this.value;
-                this.style.width = this.nextElementSibling.clientWidth + 'px';
-            });
-        },
-
         toggle(tag) {
 
             if (this.mainTag && this.mainTag.id === tag.id)
@@ -189,64 +141,17 @@ export default {
             this.$set(tag, 'selected', !!!currentState);
             this.selectedCount += currentState ? -1 : 1; 
         },
-
-        // New button methods
-
-        onWrapperClick()
-        {
-            this.inputFocus();
-
-            if (!!!this.inputIsActive)
-                this.inputIsActive  = true;
-        },
-
-        onLabelClick()
-        {
-            this.inputFocus();
-
-            if (!!!this.inputIsActive)
-                return;
-
-            this.inputIsActive  = false;
-            this.submit();
-        },
-
-        onInputBlur() {
-            this.$options.delayTimer = setTimeout(() => {
-                this.inputIsFocused = false;
-                this.checkInput();
-            }, BLUR_DELAY)
-        },
-
-        onInputFocus() {
-
-            clearTimeout(this.$options.delayTimer)
-            this.inputIsFocused = true;
-        },
-
-        inputFocus() {
-            this.$refs.input.focus();
-        },
-    
+ 
         remove(tag) {
             
             let tagIndex = this.createdTags.indexOf(tag);
 
             this.createdTags.splice(tagIndex, 1);
         },
-        
-        checkInput() {
-            
-            if (this.newLabel.length === 0 && !!!this.inputIsFocused)
-            {
-                clearTimeout(this.$options.delayedTimer)
-                this.inputIsActive = false;
-            }
-        },
 
         async submit(event) {
 
-            let label = this.newLabel.trim();
+            let label = this.$refs.input.label.trim();
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
                 return;
             
@@ -254,7 +159,6 @@ export default {
             data.append('label', label);
             data.append('color',  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'));
 
-            this.inputIsActive = false;
 
             try {
                 let newTag = await Tags.create(data)
@@ -273,23 +177,12 @@ export default {
                 if (error.status == 422 && error.body.errors.label)
                     this.errorMessage = error.body.errors.label.join('. ');
             }
-            finally{
-                this.inputIsActive = true;  
-            }
         }
     }
 }
 </script>
 
 <style scoped>
-
-.tag__buffer {
-    position: absolute;
-    top: -1000px;
-    left: -1000px;
-    visibility: hidden;
-    white-space: pre;
-}
 
 .tags-enter
 {

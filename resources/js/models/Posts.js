@@ -54,7 +54,6 @@ const Posts = new function ()
         for (let index in posts)
             posts[index].index = Number(index);
 
-        console.log(posts);
         return posts;
     }
 
