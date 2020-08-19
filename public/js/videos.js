@@ -1557,7 +1557,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\r\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0);\r\n            transform: scale(0);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -1576,7 +1576,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -1595,7 +1595,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .4s;\n}\n\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\r\n{\r\n    transform: scale(0.5);\r\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\r\n{\r\n    transition: \r\n        transform .3s ease-in-out,\r\n        opacity .4s ease-in-out;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -1614,7 +1614,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\n\n    content:'';\n\n    width: 0;\n    margin-right: 0;\n    transform: scaleX(0);\n\n    transition: transform .2s ease-in-out, margin-right .2s ease-in-out, width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\n    content: \"star\";\n\n    transform: scaleX(1);\n    width: 15px;\n    margin-right: 5px;\n}\n\n", ""]);
+exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\r\n    width: 0;\r\n    margin-right: 0;\r\n    content:'';\r\n    transform: scale(0);\r\n    transition: \r\n        transform .2s ease-in-out, \r\n        margin-right .2s ease-in-out, \r\n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\r\n    width: 15px;\r\n    margin-right: 5px;\r\n    content: \"star\";\r\n    transform: scale(1);\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -18896,7 +18896,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })
