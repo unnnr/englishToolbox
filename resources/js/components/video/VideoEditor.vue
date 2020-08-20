@@ -96,7 +96,7 @@ export default {
             this.url = 'https://youtube.com/watch?v=' + post.videoID;
             this.description = post.description || '';
 
-            let tags=  this.$refs.tags;
+            let tags = this.$refs.tags;
 
             tags.clear();
             tags.selected = post.tags;
@@ -169,6 +169,8 @@ export default {
             let mainTag = this.$refs.tags.main;
             if (mainTag)
                 data.append('mainTag', mainTag.id);
+            else 
+                data.append('mainTag', '');
 
             return data;
         },
@@ -185,8 +187,6 @@ export default {
 
             let id = this.$options.postID;
             let post = await Posts.edit(id, data);
-
-            console.log(post);
             
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });

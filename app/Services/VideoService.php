@@ -101,13 +101,14 @@ class VideoService
         $tags = $request->input('tags');
         if ($tags)
         {
-            $video->tags()->detach();
+            $video->tags()->wherePivot('main', null)->detach();
             
             $this->attachTags($video, $request);
         }
 
         $mainTag = $request->input('mainTag');
-        if ($mainTag)
+        //dd($mainTag,  $video->mainTag()->id);
+        if ($mainTag !== $video->mainTag()->id)
         { 
             $previous = $video->mainTag();
             if ($previous->default != true)

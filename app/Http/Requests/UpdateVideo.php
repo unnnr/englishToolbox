@@ -27,7 +27,7 @@ class UpdateVideo extends FormRequest
         return [
             'tags' => ['array', 'max:4'],  
             'tags.*' => ['numeric', 'distinct'],
-            'mainTag' => ['numeric'],
+            'mainTag' => ['nullable', 'numeric'],
             'videoUrl' => ['string', 'max:300',  new ValidYoutubeVideo],
             'description' => ['string', 'nullable', 'max:180'],
         ];

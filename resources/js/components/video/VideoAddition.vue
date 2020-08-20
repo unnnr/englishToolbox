@@ -46,7 +46,7 @@ export default {
 			this.editing = true;
 		});
 
-		bus.listen('post-selecting', event => {
+	/* 	bus.listen('post-selecting', event => {
 
 			let presentor = this.$refs.presentor;
 			let post = event.post;
@@ -61,7 +61,7 @@ export default {
 			});
 
 			bus.dispatch('post-selected', event);
-		});	
+		});	 */
 	}
 };
 </script>
