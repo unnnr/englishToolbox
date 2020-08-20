@@ -29,7 +29,7 @@ class UpdateVideo extends FormRequest
             'tags.*' => ['numeric', 'distinct'],
             'mainTag' => ['numeric'],
             'videoUrl' => ['string', 'max:300',  new ValidYoutubeVideo],
-            'description' => ['max:180'],
+            'description' => ['string', 'nullable', 'max:180'],
         ];
     }
 }

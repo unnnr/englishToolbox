@@ -94,7 +94,7 @@ class VideoService
         }
 
         $description = $request->input('description');
-        if (is_string($description))
+        if ($request->has('description'))
             $video->description = $description;
 
 

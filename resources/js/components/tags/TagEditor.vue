@@ -149,6 +149,7 @@ export default {
 
         load() {
             Tags.onload(() => {
+                this.main = null;
                 this.selectedCount = 0;
                 this.createdTags = [];
                 this.loadedTags = Tags.all()
@@ -158,6 +159,7 @@ export default {
         clear() {
             // this.loadedTags = [];
             this.load();
+
         },
 
         createContext(tag) {
@@ -166,14 +168,29 @@ export default {
             const DELETE = 1;
 
             if (tag.main)
+            {
                 this.contextMenu[SET_AS_MAIN].label = 'Make default';
-            else
-                this.contextMenu[SET_AS_MAIN].label = 'Set as main';
-
-            this.contextMenu[SET_AS_MAIN].action = () => {
-                this.main = null;
-                this.toggle(tag);
+                this.contextMenu[SET_AS_MAIN].action = () => {
+                    this.main = null; 
+                }
             }
+            else
+            {
+                this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+                this.contextMenu[SET_AS_MAIN].action = () => {
+                
+                    if (tag.selected)
+                    {
+                        this.main = tag;
+                        return;
+                    }          
+
+                    if (this.toggle(tag))
+                        this.main = tag; 
+                }
+            }
+
+        
         },
 
         toggle(tag) {
@@ -184,7 +201,7 @@ export default {
             if (!!!currentState)
             {
                 if (this.selectedCount >= MAX_TAGS_COUNT)
-                    return;
+                    return false;
 
                 if (!!!this.main)
                     this.main = tag;
@@ -195,8 +212,11 @@ export default {
                     this.main = null;
             }
 
+
             this.$set(tag, 'selected', !!!currentState);
-            this.selectedCount += currentState ? -1 : 1; 
+            this.selectedCount += currentState ? -1 : 1;
+            
+            return true;
         },
  
         remove(tag) {

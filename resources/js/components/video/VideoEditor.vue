@@ -178,7 +178,7 @@ export default {
             let post = await Posts.create(data);
 
             bus.dispatch('post-created', { post });
-            bus.dispatch('post-selected', { post  });
+            bus.dispatch('post-selecting', { post  });
         },
 
         async editVideo(data) {
@@ -186,8 +186,10 @@ export default {
             let id = this.$options.postID;
             let post = await Posts.edit(id, data);
 
-            // bus.dispatch('post-edited', { post });
-            // bus.dispatch('post-selected', { post  });
+            console.log(post);
+            
+            bus.dispatch('post-edited', { post });
+            bus.dispatch('post-selecting', { post  });
         },
 
         async submit (event) {

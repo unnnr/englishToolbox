@@ -86,11 +86,21 @@ export default {
 
         bus.listen('post-created', event => {
 
-            console.log(event);
-            
             let newCard = Cards.get(event.post.index);
 
             this.cards.push(newCard);
+        });
+
+         bus.listen('post-edited', event => {
+            
+            let post = event.post;
+            let newCard = Cards.get(post.index);
+            let card = this.getCardById(post.id);
+
+            console.log(card, newCard);
+
+            Object.assign(card, newCard);
+
         });
 
         bus.listen('post-selecting', event => {
@@ -109,6 +119,17 @@ export default {
                 }
             }
         });
+    },
+
+    methods: {
+        getCardById(id) {
+            
+            for (const card of this.cards)
+            {
+                if (card.id == id)
+                    return card;
+            }
+        }
     }
 }
 </script>
