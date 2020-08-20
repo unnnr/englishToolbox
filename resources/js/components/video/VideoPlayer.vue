@@ -31,23 +31,30 @@ export default {
 	},
 
 	mounted() {
-		bus.listen('post-editing', event => {
+
+		bus.listen('post-selected', event => {
+			this.videoID = event.post.videoID;
+			this.showOverlay = false;
+		});
+
+		bus.listen('post-creating', event => {
 			this.showOverlay = true;
 		});
 
-		bus.listen('post-selected', event => {
-			this.showOverlay = false;
-			this.videoID = event.post.videoID;
-		});
-
 		bus.listen('post-editing', event => {
-			this.videoID = 'null';
+			this.videoID = event.post.videoID;
+			this.showOverlay = false;
 		});
 
 		bus.listen('editor-link-changed', event => {		
 			this.videoID = event.videoID;
 			this.showOverlay = false;
 		})
+
+		bus.listen('post-deleted', event => {
+			this.videoID = event.post.videoID;
+			this.showOverlay = false;
+		});
 	}
 };
 </script>

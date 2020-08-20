@@ -20,7 +20,7 @@
             v-context:items="contextMenu"
             :key="tag.id"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
 
@@ -34,7 +34,7 @@
             :key="tag.id"
             v-context:items="contextMenu"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
             
@@ -81,17 +81,36 @@ export default {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
         },
 
-        selected() {
+        selected: {
+          
+            get() {
 
-            let selected = [];
+                let selected = [];
 
-            for (const tag of [...this.loadedTags, ...this.createdTags])
-            {
-                if (tag.selected && !!!tag.main)
-                    selected.push(tag);
+                for (const tag of [...this.loadedTags, ...this.createdTags])
+                {
+                    if (tag.selected && !!!tag.main)
+                        selected.push(tag);
+                }
+
+                return [...selected];
+            },
+
+            set(tags) {
+                
+                if (tags.length > MAX_TAGS_COUNT - 1) // -1 Cause 1 is reserved for main tag
+                    return;
+                
+                for (let tag of this.selected)
+                    tag.selected = false;
+               
+                for (let { id } of tags)
+                {
+                    let tag = this.getTagById(id);
+
+                    tag.selected = true;
+                }
             }
-            
-            return [...selected];
         },
         
         reversedCreatedTags() {
@@ -101,8 +120,7 @@ export default {
 
     watch: {
 
-        main(newTag, oldTag)
-        {   
+        main(newTag, oldTag) {   
             if (oldTag)
                 this.$set(oldTag, 'main', false);
 
@@ -118,8 +136,20 @@ export default {
 
     methods: {
 
+        getTagById(id) {
+
+            for (const tag of [...this.loadedTags, ...this.createdTags])
+            {
+                if (tag.id === id)
+                    return tag;
+            }
+
+            return null;
+        },
+
         load() {
             Tags.onload(() => {
+                this.main = null;
                 this.selectedCount = 0;
                 this.createdTags = [];
                 this.loadedTags = Tags.all()
@@ -129,6 +159,7 @@ export default {
         clear() {
             // this.loadedTags = [];
             this.load();
+
         },
 
         createContext(tag) {
@@ -137,14 +168,29 @@ export default {
             const DELETE = 1;
 
             if (tag.main)
+            {
                 this.contextMenu[SET_AS_MAIN].label = 'Make default';
-            else
-                this.contextMenu[SET_AS_MAIN].label = 'Set as main';
-
-            this.contextMenu[SET_AS_MAIN].action = () => {
-                this.main = null;
-                this.toggle(tag);
+                this.contextMenu[SET_AS_MAIN].action = () => {
+                    this.main = null; 
+                }
             }
+            else
+            {
+                this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+                this.contextMenu[SET_AS_MAIN].action = () => {
+                
+                    if (tag.selected)
+                    {
+                        this.main = tag;
+                        return;
+                    }          
+
+                    if (this.toggle(tag))
+                        this.main = tag; 
+                }
+            }
+
+        
         },
 
         toggle(tag) {
@@ -155,7 +201,7 @@ export default {
             if (!!!currentState)
             {
                 if (this.selectedCount >= MAX_TAGS_COUNT)
-                    return;
+                    return false;
 
                 if (!!!this.main)
                     this.main = tag;
@@ -166,8 +212,11 @@ export default {
                     this.main = null;
             }
 
+
             this.$set(tag, 'selected', !!!currentState);
-            this.selectedCount += currentState ? -1 : 1; 
+            this.selectedCount += currentState ? -1 : 1;
+            
+            return true;
         },
  
         remove(tag) {

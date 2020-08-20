@@ -19,9 +19,7 @@ use App\Models\Video;
 
 Route::group(['namespace' => 'Api'], function() {
 
-    Route::apiResource('video', 'VideoController')->except([
-        'destroy', 'update'
-    ]);
+    Route::apiResource('video', 'VideoController');
 
 
     Route::match(['get', 'head'], 'tags', 'TagController@all');

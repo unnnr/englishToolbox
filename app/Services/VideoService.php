@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Alaouy\Youtube\Facades\Youtube;
 use App\Http\Requests\UploadVideo;
+use App\Http\Requests\UpdateVideo;
 use App\Services\YoutubeService;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
@@ -14,18 +15,6 @@ use App\Models\Tag;
 
 class VideoService
 {
-    /* private function getMainTag(?int $id) : Tag
-    {
-        $mainTag = null;
-
-        if (!!!$id)
-            $mainTag = Tag::where(['label' =>'video', 'default' => true])->firstOrFail();
-        else 
-            $mainTag = Tag::find($id);
-
-        return $mainTag;
-    }
- */
     private function getVideoTitle(string $youtubeId) : string
     {
         $info = Youtube::getVideoInfo($youtubeId, ['snippet']);
@@ -78,11 +67,8 @@ class VideoService
 
     public function get(int $id)
     {
-        $video = Video::find($id);
+        $video = Video::findOrFail($id);
 
-        if(!!!$video)
-            return null;
-            
         return new VideoResource($video);
     }
 
@@ -93,13 +79,54 @@ class VideoService
         return VideoResource::collection($videos);
     }
 
-    public function update()
+    public function update(int $id, UpdateVideo $request)
     {
+        $video = Video::findOrFail($id);
+        
+        $url = $request->input('videoUrl');
+        if ($url)
+        {
+            $videoID = Youtube::parseVidFromURL($url);
+            $video->videoID = $videoID;
+            
+            $title = $this->getVideoTitle($videoID);
+            $video->title = $title;
+        }
 
-    }
+        $description = $request->input('description');
+        if ($request->has('description'))
+            $video->description = $description;
 
-    public function destroy()
+
+        $tags = $request->input('tags');
+        if ($tags)
+        {
+            $video->tags()->detach();
+            
+            $this->attachTags($video, $request);
+        }
+
+        $mainTag = $request->input('mainTag');
+        if ($mainTag)
+        { 
+            $previous = $video->mainTag();
+            if ($previous->default != true)
+                $video->tags()->detach($previous->id);
+
+            $this->attachMainTag($video, $request);
+        }
+
+        $video->save();
+
+        return new VideoResource($video);
+    }   
+
+    public function destroy(int $id)
     {
+        $video = Video::findOrFail($id);
 
+        $video->tags()->detach();
+        
+        $video->delete();
     }
 }

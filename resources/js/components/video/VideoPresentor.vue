@@ -22,9 +22,30 @@
 <script>
 import VideoInfo from '@components/video/VideoInfo.vue';
 import Comments from '@components/Comments';
+import bus from '@services/eventbus';
 
 export default {
     name: 'video-presentor',
+
+    components: {
+        VideoInfo,
+        Comments
+    },
+
+    mounted() {
+
+        bus.listen('post-selecting', event => {
+
+			let post = event.post;
+
+			this.tags =  post.tags;
+			this.title =  post.title;
+			this.mainTag =  post.mainTag;
+			this.description =  post.description;
+
+			bus.dispatch('post-selected', event);
+		});	
+    },
 
   	methods: {
 		updateInfo(newData) {
@@ -32,11 +53,6 @@ export default {
 
 			Object.assign(info.$data, newData)
 		}
-	},
-
-    components: {
-        VideoInfo,
-        Comments
-    }
+	}
 }
 </script>

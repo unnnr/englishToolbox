@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTag;
+use App\Http\Requests\UpdateTag;
 use App\Http\Requests;
 use App\Services\TagService;
 
@@ -48,9 +49,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(int $id, TagService $tagService)
     {
-        //
+        return $tagService->update($id,  $request);
     }
 
     /**
