@@ -62,14 +62,12 @@ export default {
     },
 
     mounted() {
-        this.load();
+         Tags.onload(() => {
+            this.tags = Tags.all();
+        })
     },
 
     methods: {
-
-        async load() {
-            this.tags = await Tags.all();
-        },
 
         toggleFilters() {
             

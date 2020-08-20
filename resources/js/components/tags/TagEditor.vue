@@ -112,18 +112,34 @@ export default {
     },
 
     mounted() {
+        
         this.load();
     },
 
     methods: {
-        async load() {
-            this.loadedTags = await Tags.all();
+
+        load() {
+            Tags.onload(() => {
+                this.selectedCount = 0;
+                this.createdTags = [];
+                this.loadedTags = Tags.all()
+            });
+        },
+
+        clear() {
+            // this.loadedTags = [];
+            this.load();
         },
 
         createContext(tag) {
 
             const SET_AS_MAIN = 0;
             const DELETE = 1;
+
+            if (tag.main)
+                this.contextMenu[SET_AS_MAIN].label = 'Make default';
+            else
+                this.contextMenu[SET_AS_MAIN].label = 'Set as main';
 
             this.contextMenu[SET_AS_MAIN].action = () => {
                 this.main = null;

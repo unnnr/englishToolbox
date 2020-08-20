@@ -3,11 +3,29 @@ import Http from '@services/Http';
 
 const Tags = new function ()
 {
-    this.all = async () =>
+    async function load()
     {
-        let tags = await Http.get('tags');
+        tags = await Http.get('tags');
+        
+        loaded = true;
 
-        return tags;
+        for (const callback of callbacks)
+            callback();
+    } 
+
+    this.all = (withoutDefault = true) =>
+    {
+        let selectedTags = [];
+    
+        for (const tag of tags)
+        {
+            if (!!!withoutDefault || !!!tag.default)
+                selectedTags.push({
+                    ...tag
+                });
+        }
+        
+        return selectedTags ;
     }
     
     this.create = async (data) =>
@@ -25,6 +43,23 @@ const Tags = new function ()
     {
         
     }
+
+    this.onload = (callback) =>
+    {
+        if (loaded)
+        {
+            callback();
+            return;
+        }
+
+        callbacks.push(callback);
+    }
+
+    let tags = [];
+    let loaded  = false;
+    let callbacks = [];
+
+    load();
 }();
    
 export default Tags;

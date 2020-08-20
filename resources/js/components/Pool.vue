@@ -60,9 +60,11 @@ export default {
 
             if (this.selectedCard)
                 this.$set(this.selectedCard, 'selected', false);
+
+
             this.selectedCard = null;
 
-            bus.dispatch('post-editing');
+            bus.dispatch('post-creating');
         });
         
         bus.listen('card-selecting', event => {
