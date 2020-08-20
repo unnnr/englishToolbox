@@ -196,7 +196,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Delete',
         action: function action() {
-          alert('Not implemented');
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-deliting', {
+            card: _this
+          });
         }
       }]
     };
@@ -406,13 +408,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/* harmony import */ var _models_Cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Cards */ "./resources/js/models/Cards.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _components_Card_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/Card.vue */ "./resources/js/components/Card.vue");
-/* harmony import */ var _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/NewCard.vue */ "./resources/js/components/NewCard.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Cards__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Cards */ "./resources/js/models/Cards.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _components_Card_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/Card.vue */ "./resources/js/components/Card.vue");
+/* harmony import */ var _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/NewCard.vue */ "./resources/js/components/NewCard.vue");
+
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -463,90 +473,117 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   components: {
-    Card: _components_Card_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    NewCard: _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    Card: _components_Card_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    NewCard: _components_NewCard_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   beforeMount: function beforeMount() {
     var _this = this;
 
-    _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].onload = function () {
-      _this.cards = _models_Cards__WEBPACK_IMPORTED_MODULE_2__["default"].all();
+    _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload = function () {
+      _this.cards = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all();
     };
   },
   mounted: function mounted() {
     var _this2 = this;
 
     // Init listeners
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('new-card-touched', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('new-card-touched', function (event) {
       if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
       _this2.selectedCard = null;
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-creating');
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-creating');
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-selecting', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-selecting', function (event) {
       if (event.card === _this2.selectedCard) return;
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-selecting', {
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post
       });
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('card-editing', function (event) {
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_1__["default"].get(Number(event.card.$vnode.key));
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('post-editing', {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-editing', function (event) {
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-editing', {
         post: post
       });
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-created', function (event) {
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_2__["default"].get(event.post.index);
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-deliting', /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
+        var card, index;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                card = event.card;
+                console.log(card, card.id);
+                _context.next = 4;
+                return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](Number(event.card.$vnode.key));
+
+              case 4:
+                index = _this2.cards.indexOf(card);
+
+                _this2.cards.splice(index, 1);
+
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('card-deleted');
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-created', function (event) {
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.index);
 
       _this2.cards.push(newCard);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-edited', function (event) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-edited', function (event) {
       var post = event.post;
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_2__["default"].get(post.index);
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.index);
 
       var card = _this2.getCardById(post.id);
 
       console.log(card, newCard);
       Object.assign(card, newCard);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
-      var _iterator = _createForOfIteratorHelper(_this2.cards),
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-selecting', function (event) {
+      /* for (const card of this.cards)
+      {
+          if (card.id === event.post.id)
+          {
+              if (this.selectedCard)
+                  this.$set(this.selectedCard, 'selected', false);
+               this.selectedCard = card;
+              this.$set(this.selectedCard, 'selected', true);
+               break;
+          }
+      } */
+      var card = _this2.getCardById(event.post.id);
+
+      if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
+      _this2.selectedCard = card;
+
+      _this2.$set(_this2.selectedCard, 'selected', true);
+    });
+  },
+  methods: {
+    getCardById: function getCardById(id) {
+      var _iterator = _createForOfIteratorHelper(this.cards),
           _step;
 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var card = _step.value;
-
-          if (card.id === event.post.id) {
-            if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
-            _this2.selectedCard = card;
-
-            _this2.$set(_this2.selectedCard, 'selected', true);
-
-            break;
-          }
+          if (card.id == id) return card;
         }
       } catch (err) {
         _iterator.e(err);
       } finally {
         _iterator.f();
-      }
-    });
-  },
-  methods: {
-    getCardById: function getCardById(id) {
-      var _iterator2 = _createForOfIteratorHelper(this.cards),
-          _step2;
-
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var card = _step2.value;
-          if (card.id == id) return card;
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
       }
     }
   }
@@ -905,16 +942,25 @@ var MAX_CREATED_TAGS_COUNT = 30;
 
       var SET_AS_MAIN = 0;
       var DELETE = 1;
-      if (tag.main) this.contextMenu[SET_AS_MAIN].label = 'Make default';else this.contextMenu[SET_AS_MAIN].label = 'Set as main';
 
-      this.contextMenu[SET_AS_MAIN].action = function () {
-        if (tag.selected) {
-          _this2.main = tag;
-          return;
-        }
+      if (tag.main) {
+        this.contextMenu[SET_AS_MAIN].label = 'Make default';
 
-        if (_this2.toggle(tag)) _this2.main = tag;
-      };
+        this.contextMenu[SET_AS_MAIN].action = function () {
+          _this2.main = null;
+        };
+      } else {
+        this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+
+        this.contextMenu[SET_AS_MAIN].action = function () {
+          if (tag.selected) {
+            _this2.main = tag;
+            return;
+          }
+
+          if (_this2.toggle(tag)) _this2.main = tag;
+        };
+      }
     },
     toggle: function toggle(tag) {
       var currentState = tag.selected;
@@ -35087,15 +35133,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/tags/TagEditor.vue ***!
   \****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TagEditor_vue_vue_type_template_id_21ac7d9c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TagEditor.vue?vue&type=template&id=21ac7d9c&scoped=true& */ "./resources/js/components/tags/TagEditor.vue?vue&type=template&id=21ac7d9c&scoped=true&");
 /* harmony import */ var _TagEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TagEditor.vue?vue&type=script&lang=js& */ "./resources/js/components/tags/TagEditor.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _TagEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _TagEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _TagEditor_vue_vue_type_style_index_0_id_21ac7d9c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TagEditor.vue?vue&type=style&index=0&id=21ac7d9c&scoped=true&lang=css& */ "./resources/js/components/tags/TagEditor.vue?vue&type=style&index=0&id=21ac7d9c&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _TagEditor_vue_vue_type_style_index_0_id_21ac7d9c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TagEditor.vue?vue&type=style&index=0&id=21ac7d9c&scoped=true&lang=css& */ "./resources/js/components/tags/TagEditor.vue?vue&type=style&index=0&id=21ac7d9c&scoped=true&lang=css&");
 /* harmony import */ var _TagEditor_vue_vue_type_style_index_1_id_21ac7d9c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TagEditor.vue?vue&type=style&index=1&id=21ac7d9c&scoped=true&lang=css& */ "./resources/js/components/tags/TagEditor.vue?vue&type=style&index=1&id=21ac7d9c&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -35129,7 +35174,7 @@ component.options.__file = "resources/js/components/tags/TagEditor.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/tags/TagEditor.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35835,25 +35880,25 @@ var Posts = new function () {
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.next = 2;
+              _context4.next = 2;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
 
             case 2:
-              posts = _context3.sent;
+              posts = _context4.sent;
               if (!!!Array.isArray(posts)) console.error('500 error');
               if (Posts.onload) Posts.onload();
 
             case 5:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _init.apply(this, arguments);
   }
@@ -36015,6 +36060,42 @@ var Posts = new function () {
 
     return function (_x2, _x3) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+
+  this["delete"] = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('video/' + id);
+
+            case 2:
+              response = _context3.sent;
+
+              if (!!response) {
+                _context3.next = 5;
+                break;
+              }
+
+              return _context3.abrupt("return", null);
+
+            case 5:
+              return _context3.abrupt("return", response);
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x4) {
+      return _ref3.apply(this, arguments);
     };
   }();
 
@@ -36337,6 +36418,13 @@ var Http = new function () {
   this.patch = function (path, data) {
     var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
+    return self.make('POST', path, data, json);
+  };
+
+  this["delete"] = function (path) {
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new FormData();
+    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    data.append('_method', 'DELETE');
     return self.make('POST', path, data, json);
   };
 

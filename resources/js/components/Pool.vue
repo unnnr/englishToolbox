@@ -84,6 +84,19 @@ export default {
             bus.dispatch('post-editing', { post });
         });
 
+        bus.listen('card-deliting', async event => {
+            
+            let card = event.card;
+
+            console.log(card, card.id);
+            await Posts.delete(Number(event.card.$vnode.key));
+
+            let index = this.cards.indexOf(card);
+            this.cards.splice(index, 1);
+
+            bus.dispatch('card-deleted');
+        });
+
         bus.listen('post-created', event => {
 
             let newCard = Cards.get(event.post.index);
@@ -91,7 +104,7 @@ export default {
             this.cards.push(newCard);
         });
 
-         bus.listen('post-edited', event => {
+        bus.listen('post-edited', event => {
             
             let post = event.post;
             let newCard = Cards.get(post.index);
@@ -105,7 +118,7 @@ export default {
 
         bus.listen('post-selecting', event => {
 
-            for (const card of this.cards)
+            /* for (const card of this.cards)
             {
                 if (card.id === event.post.id)
                 {
@@ -117,7 +130,15 @@ export default {
 
                     break;
                 }
-            }
+            } */
+
+            let card = this.getCardById(event.post.id);
+
+            if (this.selectedCard)
+                    this.$set(this.selectedCard, 'selected', false);
+
+            this.selectedCard = card;
+            this.$set(this.selectedCard, 'selected', true);
         });
     },
 

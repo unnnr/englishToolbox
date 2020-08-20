@@ -72,6 +72,14 @@ const Http = new function()
         return self.make('POST', path, data, json)
     }
 
+    this.delete = function (path, data = new FormData, json = null)
+    {
+        data.append('_method', 'DELETE');
+
+        return self.make('POST', path, data, json)
+    }
+
+
     let self = this;
 }();
 

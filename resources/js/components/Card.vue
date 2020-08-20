@@ -91,11 +91,9 @@ export default {
                 { 
                     label: 'Delete',
                     action: () => {
-                        alert('Not implemented');
+                        bus.dispatch('card-deliting', { card: this});
                     } 
                 },
-                
-
             ]
         }   
     },

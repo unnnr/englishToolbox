@@ -128,6 +128,15 @@ const Posts = new function ()
         return createCopy(target);
     }
 
+    this.delete = async (id) =>
+    {
+        let response = await Http.delete('video/' + id);
+        if (!!!response)
+            return null;
+            
+        return response;
+    } 
+
     this.get = (index) =>
     {
         if (!!!validateIndex(index))
