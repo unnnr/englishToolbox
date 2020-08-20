@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Delete',
         action: function action() {
-          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-deliting', {
+          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-deleting', {
             card: _this
           });
         }
@@ -505,26 +505,29 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         post: post
       });
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-deliting', /*#__PURE__*/function () {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-deleting', function (event) {
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-deleting', {
+        post: post
+      });
+    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-deleting', /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
-        var card, index;
+        var post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                card = event.card;
-                console.log(card, card.id);
-                _context.next = 4;
-                return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](Number(event.card.$vnode.key));
+                post = event.post;
+                _context.next = 3;
+                return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](post.id);
+
+              case 3:
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-deleted', {
+                  post: post
+                });
 
               case 4:
-                index = _this2.cards.indexOf(card);
-
-                _this2.cards.splice(index, 1);
-
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('card-deleted');
-
-              case 7:
               case "end":
                 return _context.stop();
             }
@@ -536,14 +539,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return _ref.apply(this, arguments);
       };
     }());
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-deleted', function (event) {
+      var card = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
+      if (_this2.selectedCard == card) _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+        card: _this2.cards[0]
+      });
+
+      var index = _this2.cards.indexOf(card);
+
+      _this2.cards.splice(index, 1);
+    });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-created', function (event) {
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.index);
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
 
       _this2.cards.push(newCard);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-edited', function (event) {
       var post = event.post;
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.index);
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.id);
 
       var card = _this2.getCardById(post.id);
 
@@ -1659,6 +1672,10 @@ __webpack_require__.r(__webpack_exports__);
       _this.videoID = event.videoID;
       _this.showOverlay = false;
     });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {
+      _this.videoID = event.post.videoID;
+      _this.showOverlay = false;
+    });
   }
 });
 
@@ -1675,6 +1692,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_video_VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/video/VideoInfo.vue */ "./resources/js/components/video/VideoInfo.vue");
 /* harmony import */ var _components_Comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/Comments */ "./resources/js/components/Comments.vue");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -1696,19 +1714,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-presentor',
+  components: {
+    VideoInfo: _components_video_VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Comments: _components_Comments__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
+      var post = event.post;
+      _this.tags = post.tags;
+      _this.title = post.title;
+      _this.mainTag = post.mainTag;
+      _this.description = post.description;
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
+    });
+  },
   methods: {
     updateInfo: function updateInfo(newData) {
       var info = this.$refs.videoInfo;
       Object.assign(info.$data, newData);
     }
-  },
-  components: {
-    VideoInfo: _components_video_VideoInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Comments: _components_Comments__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -21682,7 +21713,7 @@ var render = function() {
       _c("new-card", { key: -1, attrs: { postType: "video" } }),
       _vm._v(" "),
       _vm._l(_vm.reversed, function(ref) {
-        var index = ref.index
+        var id = ref.id
         var tags = ref.tags
         var mainTag = ref.mainTag
         var title = ref.title
@@ -21690,7 +21721,7 @@ var render = function() {
         var thumbnail = ref.thumbnail
         var description = ref.description
         return _c("card", {
-          key: index,
+          key: id,
           attrs: {
             tags: tags,
             title: title,
@@ -34959,14 +34990,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************!*\
   !*** ./resources/js/components/Pool.vue ***!
   \******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pool_vue_vue_type_template_id_6d0abdf2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pool.vue?vue&type=template&id=6d0abdf2&scoped=true& */ "./resources/js/components/Pool.vue?vue&type=template&id=6d0abdf2&scoped=true&");
 /* harmony import */ var _Pool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pool.vue?vue&type=script&lang=js& */ "./resources/js/components/Pool.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Pool_vue_vue_type_style_index_0_id_6d0abdf2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pool.vue?vue&type=style&index=0&id=6d0abdf2&scoped=true&lang=css& */ "./resources/js/components/Pool.vue?vue&type=style&index=0&id=6d0abdf2&scoped=true&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Pool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Pool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _Pool_vue_vue_type_style_index_0_id_6d0abdf2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pool.vue?vue&type=style&index=0&id=6d0abdf2&scoped=true&lang=css& */ "./resources/js/components/Pool.vue?vue&type=style&index=0&id=6d0abdf2&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -34998,7 +35030,7 @@ component.options.__file = "resources/js/components/Pool.vue"
 /*!*******************************************************************!*\
   !*** ./resources/js/components/Pool.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36099,9 +36131,8 @@ var Posts = new function () {
     };
   }();
 
-  this.get = function (index) {
-    if (!!!validateIndex(index)) return null;
-    var post = posts[index];
+  this.get = function (id) {
+    var post = getById(id);
     return createCopy(post);
   };
 

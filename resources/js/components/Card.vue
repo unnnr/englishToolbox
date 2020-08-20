@@ -91,7 +91,7 @@ export default {
                 { 
                     label: 'Delete',
                     action: () => {
-                        bus.dispatch('card-deliting', { card: this});
+                        bus.dispatch('card-deleting', { card: this});
                     } 
                 },
             ]

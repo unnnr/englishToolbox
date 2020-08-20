@@ -1,6 +1,5 @@
 import Http from '@services/Http';
 import getYouTubeID from 'get-youtube-id';
-import { reduceRight } from 'lodash';
 
 const Posts = new function ()
 {
@@ -137,12 +136,9 @@ const Posts = new function ()
         return response;
     } 
 
-    this.get = (index) =>
+    this.get = (id) =>
     {
-        if (!!!validateIndex(index))
-            return null;
-
-        let post = posts[index];
+        let post = getById(id)
 
         return createCopy(post);
     }

@@ -50,6 +50,11 @@ export default {
 			this.videoID = event.videoID;
 			this.showOverlay = false;
 		})
+
+		bus.listen('post-deleted', event => {
+			this.videoID = event.post.videoID;
+			this.showOverlay = false;
+		});
 	}
 };
 </script>

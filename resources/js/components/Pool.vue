@@ -4,8 +4,8 @@
             postType="video"
             :key='-1'/>
         <card
-            v-for="({index, tags, mainTag, title, selected, thumbnail, description}) of reversed"
-            :key="index"
+            v-for="({id, tags, mainTag, title, selected, thumbnail, description}) of reversed"
+            :key="id"
             :tags="tags"
             :title="title"
             :mainTag="mainTag"
@@ -61,7 +61,6 @@ export default {
             if (this.selectedCard)
                 this.$set(this.selectedCard, 'selected', false);
 
-
             this.selectedCard = null;
 
             bus.dispatch('post-creating');
@@ -84,22 +83,36 @@ export default {
             bus.dispatch('post-editing', { post });
         });
 
-        bus.listen('card-deliting', async event => {
+        bus.listen('card-deleting', event => {
             
-            let card = event.card;
+            let post = Posts.get(Number(event.card.$vnode.key));
 
-            console.log(card, card.id);
-            await Posts.delete(Number(event.card.$vnode.key));
+            bus.dispatch('post-deleting', { post });
+        });
+
+        bus.listen('post-deleting', async event => {
+            
+            let post = event.post;
+
+            await Posts.delete(post.id);
+
+            bus.dispatch('post-deleted', { post });
+        });
+
+        bus.listen('post-deleted',  event => {
+
+            let card = Cards.get(event.post.id);
+
+            if (this.selectedCard == card)
+                bus.dispatch('post-selecting', { card: this.cards[0] });
 
             let index = this.cards.indexOf(card);
             this.cards.splice(index, 1);
-
-            bus.dispatch('card-deleted');
         });
 
         bus.listen('post-created', event => {
 
-            let newCard = Cards.get(event.post.index);
+            let newCard = Cards.get(event.post.id);
 
             this.cards.push(newCard);
         });
@@ -107,7 +120,7 @@ export default {
         bus.listen('post-edited', event => {
             
             let post = event.post;
-            let newCard = Cards.get(post.index);
+            let newCard = Cards.get(post.id);
             let card = this.getCardById(post.id);
 
             console.log(card, newCard);
