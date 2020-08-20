@@ -1,4 +1,6 @@
 import Http from '@services/Http';
+import getYouTubeID from 'get-youtube-id';
+import { reduceRight } from 'lodash';
 
 const Posts = new function ()
 {
@@ -50,6 +52,28 @@ const Posts = new function ()
         return postCopy;
     }
 
+    function isFormDataEmpty(data)
+    {
+        if (data.values().next())
+            return false;
+
+        return true;
+    }
+
+    function compareDataWithTags(data, tags)
+    {
+        for (const index in tags)
+        {
+            let tag =  tags[index];
+
+            if (tag.id !== data.get(`tags[${index}]`))
+                return;
+        }
+
+        for (const index in tags)
+            data.delete(`tags[${index}]`);
+    }
+
     this.create = async (data) =>
     {
         let response = await Http.post('video', data);
@@ -70,14 +94,31 @@ const Posts = new function ()
         return createCopy(newPost);
     }
 
-    this.edit = async (index, data) =>
+    this.edit = async (id, data) =>
     {
-        let response = await Http.patch('video/' + index, data);
-        if (!!!response)
-            return null;
-
-        let target = getById(response.id);
+        let target = getById(id);
         
+        let videoID = getYouTubeID(String(data.get('videoUrl')));
+        if (target.videoID === videoID)
+            data.delete('videoUrl');
+        
+        let description = data.get('description');
+        if (target.description === description)
+            data.delete('description');
+
+        let mainTag = data.get('mainTag');
+        if (target.mainTag.id == mainTag)
+            data.delete('mainTag');
+
+        compareDataWithTags(data, target.tags)
+
+        if (isFormDataEmpty(data))
+            return createCopy(target);
+
+        let response = await Http.patch('video/' + id, data);
+        if (!!!response)
+            return null; 
+
         target.tags = response.tags,
         target.title = response.title,
         target.mainTag = response.mainTag,
