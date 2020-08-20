@@ -121,8 +121,12 @@ class VideoService
         return new VideoResource($video);
     }   
 
-    public function destroy()
+    public function destroy(int $id)
     {
+        $video = Video::findOrFail($id);
 
+        $video->tags()->detach();
+        
+        $video->delete();
     }
 }

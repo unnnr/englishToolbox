@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Services\VideoService;
 use App\Http\Requests\UploadVideo;
 use App\Http\Requests\UpdateVideo;
+use App\Http\Requests\DeleteVideo;
+
 
 class VideoController extends Controller
 {
@@ -62,10 +64,8 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id, VideoService $videoService)
+    public function destroy(int $id, DeleteVideo $request, VideoService $videoService)
     {
-        // NOT IN USAGE FOR NOW
-
-        return $videoService->destroy($id, []);
+        return $videoService->destroy($id);
     }
 }
