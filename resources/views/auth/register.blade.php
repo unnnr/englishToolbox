@@ -44,7 +44,7 @@
     </div>
   </section>
 
-  {{-- <section class="register-overlay">
+  <section class="register-overlay">
     <object class="register-overlay__image" data="{{ asset("img/svg/register-overlay.svg") }}" type="image/svg+xml"></object>
-  </section> --}}
+  </section>
 @endsection
