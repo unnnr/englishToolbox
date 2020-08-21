@@ -435,9 +435,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   beforeMount: function beforeMount() {
     var _this = this;
 
-    _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload = function () {
+    _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
       _this.cards = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all();
-    };
+    });
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -18664,285 +18664,18 @@ var Cards = new function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_2__);
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
+var Wrapper = new Proxy({}, {
+  get: function get(dummy, property) {
+    if (property === 'self') return Posts;else return target[property];
+  }
+});
 var Posts = new function () {
-  function init() {
-    return _init.apply(this, arguments);
-  }
-
-  function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
-
-            case 2:
-              posts = _context4.sent;
-              if (!!!Array.isArray(posts)) console.error('500 error');
-              if (Posts.onload) Posts.onload();
-
-            case 5:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-    return _init.apply(this, arguments);
-  }
-
-  function getById(id) {
-    var _iterator = _createForOfIteratorHelper(posts),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var post = _step.value;
-        if (post.id == id) return post;
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  }
-
-  function createCopy(post) {
-    var tagsCopy = [];
-
-    var _iterator2 = _createForOfIteratorHelper(post.tags),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var tag = _step2.value;
-        tagsCopy.push(_objectSpread({}, tag));
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-
-    var postCopy = {
-      index: post.id - 1,
-      id: post.id,
-      title: post.title,
-      videoID: post.videoID,
-      description: post.description,
-      mainTag: _objectSpread({}, post.mainTag),
-      tags: tagsCopy
-    };
-    return postCopy;
-  }
-
-  function isFormDataEmpty(data) {
-    if (data.values().next()) return false;
-    return true;
-  }
-
-  function compareDataWithTags(data, tags) {
-    for (var index in tags) {
-      var tag = tags[index];
-      if (tag.id !== data.get("tags[".concat(index, "]"))) return;
-    }
-
-    for (var _index in tags) {
-      data["delete"]("tags[".concat(_index, "]"));
-    }
-  }
-
-  this.create = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var response, newPost;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('video', data);
-
-            case 2:
-              response = _context.sent;
-
-              if (!!response) {
-                _context.next = 5;
-                break;
-              }
-
-              return _context.abrupt("return", null);
-
-            case 5:
-              newPost = {
-                id: response.id,
-                tags: response.tags,
-                title: response.title,
-                mainTag: response.mainTag,
-                videoID: response.videoID,
-                description: response.description
-              };
-              posts.push(newPost);
-              return _context.abrupt("return", createCopy(newPost));
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  this.edit = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, data) {
-      var target, videoID, description, mainTag, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              target = getById(id);
-              videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default()(String(data.get('videoUrl')));
-              if (target.videoID === videoID) data["delete"]('videoUrl');
-              description = data.get('description');
-              if (target.description === description) data["delete"]('description');
-              mainTag = data.get('mainTag');
-              if (target.mainTag.id == mainTag) data["delete"]('mainTag');
-              compareDataWithTags(data, target.tags);
-
-              if (!isFormDataEmpty(data)) {
-                _context2.next = 10;
-                break;
-              }
-
-              return _context2.abrupt("return", createCopy(target));
-
-            case 10:
-              _context2.next = 12;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
-
-            case 12:
-              response = _context2.sent;
-
-              if (!!response) {
-                _context2.next = 15;
-                break;
-              }
-
-              return _context2.abrupt("return", null);
-
-            case 15:
-              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
-              return _context2.abrupt("return", createCopy(target));
-
-            case 17:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x2, _x3) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  this["delete"] = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('video/' + id);
-
-            case 2:
-              response = _context3.sent;
-
-              if (!!response) {
-                _context3.next = 5;
-                break;
-              }
-
-              return _context3.abrupt("return", null);
-
-            case 5:
-              return _context3.abrupt("return", response);
-
-            case 6:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function (_x4) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  this.get = function (id) {
-    var post = getById(id);
-    return createCopy(post);
+  this.track = function (newTarget) {
+    target = newTarget;
   };
-
-  this.all = function () {
-    var postsCopy = [];
-
-    var _iterator3 = _createForOfIteratorHelper(posts),
-        _step3;
-
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var post = _step3.value;
-        postsCopy.push(createCopy(post));
-      }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
-    }
-
-    return [].concat(postsCopy);
-  };
-
-  var posts = [];
-  init();
 }();
-/* harmony default export */ __webpack_exports__["default"] = (Posts);
+var target = {};
+/* harmony default export */ __webpack_exports__["default"] = (Wrapper);
 
 /***/ }),
 
@@ -19098,6 +18831,319 @@ var Tags = new function () {
   load();
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Tags);
+
+/***/ }),
+
+/***/ "./resources/js/models/Videos.js":
+/*!***************************************!*\
+  !*** ./resources/js/models/Videos.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var Videos = new function () {
+  function init() {
+    return _init.apply(this, arguments);
+  }
+
+  function _init() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _iterator4, _step4, callback;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
+
+            case 2:
+              videos = _context4.sent;
+              if (!!!Array.isArray(videos)) console.error('500 error');
+              isLoaded = true;
+              _iterator4 = _createForOfIteratorHelper(callbackCollection);
+
+              try {
+                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                  callback = _step4.value;
+                  callback();
+                }
+              } catch (err) {
+                _iterator4.e(err);
+              } finally {
+                _iterator4.f();
+              }
+
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _init.apply(this, arguments);
+  }
+
+  function getById(id) {
+    var _iterator = _createForOfIteratorHelper(videos),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var video = _step.value;
+        if (video.id == id) return video;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+
+  function createCopy(video) {
+    var tagsCopy = [];
+
+    var _iterator2 = _createForOfIteratorHelper(video.tags),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var tag = _step2.value;
+        tagsCopy.push(_objectSpread({}, tag));
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    var videoCopy = {
+      index: video.id - 1,
+      id: video.id,
+      title: video.title,
+      videoID: video.videoID,
+      description: video.description,
+      mainTag: _objectSpread({}, video.mainTag),
+      tags: tagsCopy
+    };
+    return videoCopy;
+  }
+
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
+  }
+
+  function compareDataWithTags(data, tags) {
+    for (var index in tags) {
+      var tag = tags[index];
+      if (tag.id !== data.get("tags[".concat(index, "]"))) return;
+    }
+
+    for (var _index in tags) {
+      data["delete"]("tags[".concat(_index, "]"));
+    }
+  }
+
+  this.create = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+      var response, newvideo;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].video('video', data);
+
+            case 2:
+              response = _context.sent;
+
+              if (!!response) {
+                _context.next = 5;
+                break;
+              }
+
+              return _context.abrupt("return", null);
+
+            case 5:
+              newvideo = {
+                id: response.id,
+                tags: response.tags,
+                title: response.title,
+                mainTag: response.mainTag,
+                videoID: response.videoID,
+                description: response.description
+              };
+              videos.push(newvideo);
+              return _context.abrupt("return", createCopy(newvideo));
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  this.edit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, data) {
+      var target, videoID, description, mainTag, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              target = getById(id);
+              videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default()(String(data.get('videoUrl')));
+              if (target.videoID === videoID) data["delete"]('videoUrl');
+              description = data.get('description');
+              if (target.description === description) data["delete"]('description');
+              mainTag = data.get('mainTag');
+              if (target.mainTag.id == mainTag) data["delete"]('mainTag');
+              compareDataWithTags(data, target.tags);
+
+              if (!isFormDataEmpty(data)) {
+                _context2.next = 10;
+                break;
+              }
+
+              return _context2.abrupt("return", createCopy(target));
+
+            case 10:
+              _context2.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
+
+            case 12:
+              response = _context2.sent;
+
+              if (!!response) {
+                _context2.next = 15;
+                break;
+              }
+
+              return _context2.abrupt("return", null);
+
+            case 15:
+              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
+              return _context2.abrupt("return", createCopy(target));
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2, _x3) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  this["delete"] = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('video/' + id);
+
+            case 2:
+              response = _context3.sent;
+
+              if (!!response) {
+                _context3.next = 5;
+                break;
+              }
+
+              return _context3.abrupt("return", null);
+
+            case 5:
+              return _context3.abrupt("return", response);
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x4) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  this.get = function (id) {
+    var video = getById(id);
+    return createCopy(video);
+  };
+
+  this.all = function () {
+    var videosCopy = [];
+
+    var _iterator3 = _createForOfIteratorHelper(videos),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var video = _step3.value;
+        videosCopy.push(createCopy(video));
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    console.log(12);
+    return [].concat(videosCopy);
+  };
+
+  this.onload = function (callback) {
+    if (isLoaded) return callback();
+    callbackCollection.push(callback);
+  };
+
+  var videos = [];
+  var isLoaded = false;
+  var callbackCollection = [];
+  init();
+}();
+/* harmony default export */ __webpack_exports__["default"] = (Videos);
 
 /***/ }),
 
@@ -19324,6 +19370,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ContextMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/ContextMenu */ "./resources/js/components/ContextMenu.vue");
 /* harmony import */ var _components_content_FilterBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/content/FilterBar */ "./resources/js/components/content/FilterBar.vue");
 /* harmony import */ var _components_Pool__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/Pool */ "./resources/js/components/Pool.vue");
+/* harmony import */ var _models_Videos__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @models/Videos */ "./resources/js/models/Videos.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -19353,6 +19401,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+_models_Posts__WEBPACK_IMPORTED_MODULE_8__["default"].self.track(_models_Videos__WEBPACK_IMPORTED_MODULE_7__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_1___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({

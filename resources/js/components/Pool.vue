@@ -48,9 +48,9 @@ export default {
 
     beforeMount()
     {
-        Posts.onload = () => {
+        Posts.onload(() => {
             this.cards = Cards.all()
-        };
+        });
     },
 
     mounted()
