@@ -8,7 +8,7 @@
 						v-show="editing" 
 						:type="editorType"/>
 				</transition>
-                <video-presentor ref="presentor"/>
+                <post-presentor ref="presentor"/>
             </div>
         </div>
     </div>
@@ -16,11 +16,11 @@
 
 <script>
 import bus from '@services/eventbus';
-import VideoEditor from "@components/video/VideoEditor.vue";
-import VideoPresentor from "@components/video/VideoPresentor.vue";
+import VideoEditor from "@components/content/video/VideoEditor.vue";
+import PostPresentor from "@components/content/PostPresentor.vue";
 
 export default {
-	name: "video-addition",
+	name: "video-details",
 
 	data: function () {
 		return {
@@ -30,7 +30,7 @@ export default {
 	},
 
 	components: {
-    	VideoPresentor,
+    	PostPresentor,
     	VideoEditor,
 	},
 
@@ -47,20 +47,7 @@ export default {
 		});
 
 		bus.listen('post-selecting', event => {
-
-			let presentor = this.$refs.presentor;
-			let post = event.post;
-
 			this.editing = false;
-
-			presentor.updateInfo({
-				title: post.title,
-				description: post.description,
-				mainTag: post.mainTag,
-				tags: post.tags
-			});
-
-			bus.dispatch('post-selected', event);
 		});	
 	}
 };

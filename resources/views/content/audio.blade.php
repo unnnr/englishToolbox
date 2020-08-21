@@ -16,9 +16,9 @@
  @include('components.audioPlayer')
 
   <div class="addition">
-    <div class="addition__wrapper">
+    <div class="addition__body">
 
-      <div class="addition__body">
+      <div class="addition__wrapper">
 
         <div class="addition__header">
           <button class="addition__header-button addition__header-button--active text-fourth">Description</button>
@@ -37,7 +37,7 @@
 
         </div>
 
-        {{-- @include('components.audioEditor') --}}
+        @include('components.audioEditor') 
 
       </div>
 

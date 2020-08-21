@@ -15,6 +15,6 @@
 @section('selected')
 
   <video-player></video-player>
-  <video-addition></video-addition>  
+  <video-details></video-details>  
 
 @endsection

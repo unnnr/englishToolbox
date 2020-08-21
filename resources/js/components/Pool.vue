@@ -123,8 +123,6 @@ export default {
             let newCard = Cards.get(post.id);
             let card = this.getCardById(post.id);
 
-            console.log(card, newCard);
-
             Object.assign(card, newCard);
 
         });

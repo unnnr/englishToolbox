@@ -93,6 +93,8 @@ export default {
                         selected.push(tag);
                 }
 
+                console.log('seeeleceted', selected);
+
                 return [...selected];
             },
 
@@ -108,7 +110,7 @@ export default {
                 {
                     let tag = this.getTagById(id);
 
-                    tag.selected = true;
+                    this.$set(tag, 'selected', true);
                 }
             }
         },

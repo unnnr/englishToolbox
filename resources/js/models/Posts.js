@@ -3,14 +3,6 @@ import getYouTubeID from 'get-youtube-id';
 
 const Posts = new function ()
 {
-    function validateIndex(index)
-    {
-        if (!!!Number.isInteger(index) || index >= posts.length || index < 0)
-            return false;
-
-        return true;
-    }
-
     async function init()
     {
         posts = await Http.get('video')
@@ -64,7 +56,7 @@ const Posts = new function ()
         for (const index in tags)
         {
             let tag =  tags[index];
-
+            
             if (tag.id !== data.get(`tags[${index}]`))
                 return;
         }
