@@ -193,11 +193,13 @@ export default {
 
             let data = this.getFormData();
 
-            try {
+            try 
+            {
                 if (this.onSumbit)
                     await this.onSumbit(data);
             }
-            catch(error) {
+            catch(error) 
+            {
                 console.log(error);
 
                 if (error.status == 422 )
