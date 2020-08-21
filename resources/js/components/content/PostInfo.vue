@@ -31,7 +31,7 @@
 import TagList from '@components/tags/TagList';
 
 export default {
-    name: 'video-info',
+    name: 'post-info',
 
     data: function () {
         return {

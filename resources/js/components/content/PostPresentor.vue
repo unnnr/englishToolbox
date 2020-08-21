@@ -8,7 +8,7 @@
         <div class="addition__tabs">
   
             <div class="addition__tab addition__tab--description">
-              <video-info ref="videoInfo"/>
+              <post-info ref="videoInfo"/>
             </div>
             
             <div class="addition__tab addition__tab--comments">
@@ -20,15 +20,15 @@
 </template>
 
 <script>
-import VideoInfo from '@components/video/VideoInfo.vue';
-import Comments from '@components/Comments';
+import PostInfo from '@components/content/PostInfo.vue';
+import Comments from '@components/content/Comments';
 import bus from '@services/eventbus';
 
 export default {
-    name: 'video-presentor',
+    name: 'post-presentor',
 
     components: {
-        VideoInfo,
+        PostInfo,
         Comments
     },
 
