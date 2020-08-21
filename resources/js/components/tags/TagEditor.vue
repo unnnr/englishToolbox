@@ -266,12 +266,15 @@ export default {
 
 .tags-enter
 {
-    transform: scaleX(0);
+    transform: scale(0.5);
+    opacity: 0;
 }
 
 .tags-enter-active
 {
-    transition: all .4s;
+    transition: 
+        transform .3s ease-in-out,
+        opacity .4s ease-in-out;
 }
 
 </style>
@@ -283,15 +286,18 @@ export default {
     width: 0;
     margin-right: 0;
     content:'';
-    transform: scaleX(0);
-    transition: transform .2s ease-in-out, margin-right .2s ease-in-out, width .2s ease-in-out;
+    transform: scale(0);
+    transition: 
+        transform .2s ease-in-out, 
+        margin-right .2s ease-in-out, 
+        width .2s ease-in-out;
 }
 
 .tag--main:before {
     width: 15px;
     margin-right: 5px;
     content: "star";
-    transform: scaleX(1);
+    transform: scale(1);
 }
 
 </style>

@@ -11,32 +11,28 @@
     <form class="auth" method="POST" action="{{ route('login') }}">
       @csrf
       <h4 class="auth__title heading-fourth">login in</h4>
-      <div class="auth__input-group">
-        <input class="auth__input input-main"  name="email" type="email" placeholder="your email" required>
-        <span class="auth__input-icon auth__input-icon--type material-icons-round">email</span>
+      <div class="auth__input-group auth__input-group--account">
+        <input class="auth__input input-main" type="text" name="name" placeholder="your name" required>
         <small class="auth__input-error"></small>
       </div>
-      <div class="auth__input-group">
-        <input class="auth__input input-main" name="password" type="password" placeholder="repeat password" required>
-        <span class="auth__input-icon auth__input-icon--type material-icons-round">lock</span>
+      <div class="auth__input-group auth__input-group--password">
+        <input class="auth__input input-main" type="password" name="password" placeholder="your password" required>
+        <button class="auth__input-visibility-button material-icons-round" type="button">visibility</button>
         <small class="auth__input-error"></small>
       </div>
       <button class="auth__input-button button-main" type="submit">confirm</button>
       <div class="login-with">
         <p class="login-with__text text-fourth">Or login with</p>
         <div class="login-with__buttons">
-          <a href="#" class="login-with__button login-with__button--first"><i
-              class="login-with__icon login-with__icon--google fab fa-google"></i></a>
-          <a href="#" class="login-with__button login-with__button--second"><i
-              class="login-with__icon login-with__icon--facebook fab fa-facebook"></i></a>
-          <a href="#" class="login-with__button login-with__button--third"><i
-              class="login-with__icon login-with__icon--twetter fab fa-twitter"></i></a>
+          <button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--google fab fa-google"></i></button>
+          <button class="login-with__button " type="button"><i class="login-with__icon login-with__icon--facebook fab fa-facebook"></i></button>
+          <button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--twetter fab fa-twitter"></i></button>
         </div>
-        <a href="#" class="login-with__link text-fourth">Don't have an account?</a>
+        <a href="#" class="login-with__link text-fourth">Already have an account?</a>
       </div>
     </form>
     <div class="form__poster form__poster--login-in">
-      <object class="form__img" data="/public/img/svg/loginin.svg" type="image/svg+xml"></object>
+      <object class="form__img" data="{{ asset("img/svg/login.svg") }}" type="image/svg+xml"></object>
     </div>
   </section>
 @endsection

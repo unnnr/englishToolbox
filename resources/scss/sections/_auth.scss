@@ -1,3 +1,7 @@
+// ====
+// auth
+// ====
+
 .auth {
   display: flex;
   flex-direction: column;
@@ -7,19 +11,20 @@
   margin-right: 55px;
   
   @include xl-devices {
-    margin-right: 40px;
     width: 100%;
     align-items: center;
-  }
-  @include sm-devices {
-    margin-right: 40px;
-    margin-left: 40px;
+    padding: 0 30px;
+    margin-right: 0;
   }
 }
 
 .auth__title {
   margin-bottom: 30px;
 }
+
+// ================
+// auth input group
+// ================
 
 .auth__input-group {
   position: relative;
@@ -28,57 +33,79 @@
   align-items: center;
   width: max-content;
 
+  &::before {
+    font-family: "Material Icons Round";
+    position: absolute;
+    margin-left: 15px; 
+    font-size: 25px;
+
+    @include sm-devices {
+      font-size: 20px;
+    }
+  }
+
+  &::after {
+    font-family: "Material Icons Round";
+    position: absolute;
+    right: -40px;
+    font-size: 25px;
+
+    @include sm-devices {
+      right: -25px;
+      font-size: 20px;
+    }
+  }
+
   @include xs-devices {
     width: 100%;
   }
 }
+
+.auth__input-group--account {
+  &::before {
+    content: "account_circle";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--email {
+  &::before {
+    content: "email";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--password {
+  &::before {
+    content: "lock";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--error {
+  &::after {
+    content: "new_releases";
+    color: $color-second;
+  }
+}
+
+.auth__input-group--success {
+  &::after {
+    content: "verified";
+    color: $color-third;
+  }
+}
+
+// ==========
+// auth input
+// ==========
+
 .auth__input {
   width: 500px;
   padding-left: 55px;
 
   @include xs-devices {
     width: 100%;
-  }
-}
-
-.auth__input-icon {
-  font-size: 25px !important;
-  position: absolute;
-
-  @include sm-devices {
-    font-size: 20px !important;
-  }
-}
-
-.auth__input-icon--type {
-  left: 15px;
-  color: $color-main;
-}
-
-.auth__input-icon--visibility {
-  right: 15px;
-  color: $text-third;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.auth__input-icon--alarm {
-  right: -40px;
-  color: $color-second !important;
-
-  @include sm-devices {
-    right: -25px;
-  }
-}
-
-.auth__input-icon--success {
-  right: -40px;
-  color: $color-third !important;
-
-  @include sm-devices {
-    right: -25px;
   }
 }
 
@@ -90,6 +117,18 @@
   font-size: 12px;
   color: $color-second;
   font-weight: $medium;
+}
+
+.auth__input-visibility-button {
+  position: absolute;
+  right: 0;
+  font-size: 25px !important;
+  margin-right: 15px;
+  color: $text-third;
+
+  @include sm-devices {
+    font-size: 20px !important;
+  }
 }
 
 .auth__input-button {
@@ -104,6 +143,9 @@
   }
 }
 
+// ===========
+// form poster
+// ===========
 
 .form__poster {
   display: flex;
@@ -123,7 +165,9 @@
  width: vw(725,1920);
 }
 
+// ==========
 // login with
+// ==========
 
 .login-with {
   width: 500px;
@@ -141,10 +185,6 @@
 .login-with__buttons {
   display: flex;
   margin: 25px 0px;
-
-  @include xs-devices {
-    flex-direction: column;
-  }
 }
 
 .login-with__button {
@@ -168,31 +208,32 @@
     box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.2);
   }
 
+  &:nth-child(1) {
+    margin-right: 20px;
+
+    @include xs-devices {
+      margin-right: 10px;
+    }
+  }
+
+  &:nth-child(2) {
+    margin: 0px 10px;
+
+    @include xs-devices {
+      margin: 0px 5px;
+    }
+  }
+
+  &:nth-child(3) {
+    margin-left: 20px;
+
+    @include xs-devices {
+      margin-left: 10px;
+    }
+  }
+
   @include xs-devices {
     height: 60px;
-  }
-}
-
-.login-with__button--first {
-  margin-right: 20px;
-
-  @include xs-devices {
-    margin-right: 0px;
-  }
-}
-.login-with__button--second {
-  margin: 0px 10px;
-
-  @include xs-devices {
-    margin: 15px 0;
-  }
-}
-
-.login-with__button--third {
-  margin-left: 20px;
-
-  @include xs-devices {
-    margin-left: 0;
   }
 }
 

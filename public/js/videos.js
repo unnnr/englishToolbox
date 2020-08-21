@@ -525,9 +525,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           {
               if (this.selectedCard)
                   this.$set(this.selectedCard, 'selected', false);
-               this.selectedCard = card;
+                this.selectedCard = card;
               this.$set(this.selectedCard, 'selected', true);
-               break;
+                break;
           }
       } */
       var card = _this2.getCardById(event.post.id);
@@ -19426,7 +19426,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
 
 
 /***/ })

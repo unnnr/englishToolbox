@@ -168,7 +168,9 @@ export default {
 
 <style scoped>
 .list-move {
-  transition: transform 1s;
+  transition: 
+  transform 1s ease-in-out,
+  opacity 1s ease-in-out;
 }
 
 
@@ -180,11 +182,11 @@ export default {
 
 @-webkit-keyframes scale-in-bottom {
   0% {
-    -webkit-transform: scale(0);
-            transform: scale(0);
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
     -webkit-transform-origin: 50% 100%;
             transform-origin: 50% 100%;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     -webkit-transform: scale(1);
@@ -194,13 +196,14 @@ export default {
     opacity: 1;
   }
 }
+
 @keyframes scale-in-bottom {
   0% {
-    -webkit-transform: scale(0);
-            transform: scale(0);
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
     -webkit-transform-origin: 50% 100%;
             transform-origin: 50% 100%;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     -webkit-transform: scale(1);

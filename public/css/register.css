@@ -49,18 +49,12 @@ main {
 
 @media (max-width: 1400px) {
   .auth {
-    margin-right: 40px;
     width: 100%;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-  }
-}
-
-@media (max-width: 770px) {
-  .auth {
-    margin-right: 40px;
-    margin-left: 40px;
+    padding: 0 30px;
+    margin-right: 0;
   }
 }
 
@@ -82,10 +76,62 @@ main {
   width: max-content;
 }
 
+.auth__input-group::before {
+  font-family: "Material Icons Round";
+  position: absolute;
+  margin-left: 15px;
+  font-size: 25px;
+}
+
+@media (max-width: 770px) {
+  .auth__input-group::before {
+    font-size: 20px;
+  }
+}
+
+.auth__input-group::after {
+  font-family: "Material Icons Round";
+  position: absolute;
+  right: -40px;
+  font-size: 25px;
+}
+
+@media (max-width: 770px) {
+  .auth__input-group::after {
+    right: -25px;
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 576px) {
   .auth__input-group {
     width: 100%;
   }
+}
+
+.auth__input-group--account::before {
+  content: "account_circle";
+  color: #6666ff;
+}
+
+.auth__input-group--email::before {
+  content: "email";
+  color: #6666ff;
+}
+
+.auth__input-group--password::before {
+  content: "lock";
+  color: #6666ff;
+}
+
+.auth__input-group--error::after {
+  content: "new_releases";
+  color: #ff6688;
+}
+
+.auth__input-group--success::after {
+  content: "verified";
+  color: #1dd1bb;
 }
 
 .auth__input {
@@ -99,53 +145,6 @@ main {
   }
 }
 
-.auth__input-icon {
-  font-size: 25px !important;
-  position: absolute;
-}
-
-@media (max-width: 770px) {
-  .auth__input-icon {
-    font-size: 20px !important;
-  }
-}
-
-.auth__input-icon--type {
-  left: 15px;
-  color: #6666ff;
-}
-
-.auth__input-icon--visibility {
-  right: 15px;
-  color: #a1a1b1;
-}
-
-.auth__input-icon--visibility:hover {
-  cursor: pointer;
-}
-
-.auth__input-icon--alarm {
-  right: -40px;
-  color: #ff6688 !important;
-}
-
-@media (max-width: 770px) {
-  .auth__input-icon--alarm {
-    right: -25px;
-  }
-}
-
-.auth__input-icon--success {
-  right: -40px;
-  color: #1dd1bb !important;
-}
-
-@media (max-width: 770px) {
-  .auth__input-icon--success {
-    right: -25px;
-  }
-}
-
 .auth__input-error {
   position: absolute;
   bottom: -12.5px;
@@ -155,6 +154,20 @@ main {
   font-size: 12px;
   color: #ff6688;
   font-weight: 500;
+}
+
+.auth__input-visibility-button {
+  position: absolute;
+  right: 0;
+  font-size: 25px !important;
+  margin-right: 15px;
+  color: #a1a1b1;
+}
+
+@media (max-width: 770px) {
+  .auth__input-visibility-button {
+    font-size: 20px !important;
+  }
 }
 
 .auth__input-button {
@@ -219,15 +232,6 @@ main {
   margin: 25px 0px;
 }
 
-@media (max-width: 576px) {
-  .login-with__buttons {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-}
-
 .login-with__button {
   background: #fff;
   border-radius: 15px;
@@ -263,39 +267,39 @@ main {
           box-shadow: 0px 5px 25px rgba(102, 102, 255, 0.2);
 }
 
-@media (max-width: 576px) {
-  .login-with__button {
-    height: 60px;
-  }
-}
-
-.login-with__button--first {
+.login-with__button:nth-child(1) {
   margin-right: 20px;
 }
 
 @media (max-width: 576px) {
-  .login-with__button--first {
-    margin-right: 0px;
+  .login-with__button:nth-child(1) {
+    margin-right: 10px;
   }
 }
 
-.login-with__button--second {
+.login-with__button:nth-child(2) {
   margin: 0px 10px;
 }
 
 @media (max-width: 576px) {
-  .login-with__button--second {
-    margin: 15px 0;
+  .login-with__button:nth-child(2) {
+    margin: 0px 5px;
   }
 }
 
-.login-with__button--third {
+.login-with__button:nth-child(3) {
   margin-left: 20px;
 }
 
 @media (max-width: 576px) {
-  .login-with__button--third {
-    margin-left: 0;
+  .login-with__button:nth-child(3) {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-with__button {
+    height: 60px;
   }
 }
 
@@ -359,7 +363,7 @@ main {
 }
 
 .register-overlay {
-  position: absolute;
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -374,6 +378,7 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  z-index: 50;
 }
 
 .register-overlay__image {
