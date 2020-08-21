@@ -382,5 +382,29 @@ main {
 }
 
 .register-overlay__image {
-  width: 31.25vw;
+  width: 600px;
+}
+
+@media (max-width: 1400px) {
+  .register-overlay__image {
+    width: 450px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .register-overlay__image {
+    width: 400px;
+  }
+}
+
+@media (max-width: 770px) {
+  .register-overlay__image {
+    width: 325px;
+  }
+}
+
+@media (max-width: 370px) {
+  .register-overlay__image {
+    width: 275px;
+  }
 }

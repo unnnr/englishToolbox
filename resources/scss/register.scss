@@ -25,5 +25,21 @@
 }
 
 .register-overlay__image {
-  width: vw(600,1920);
+  width: 600px;
+
+  @include xl-devices {
+    width: 450px;
+  }
+
+  @include md-devices {
+    width: 400px;
+  }
+  
+  @include sm-devices {
+    width: 325px;
+  }
+
+  @include xxs-devices {
+    width: 275px;
+  }
 }
