@@ -785,7 +785,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_content_PostInfo_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/content/PostInfo.vue */ "./resources/js/components/content/PostInfo.vue");
 /* harmony import */ var _components_content_Comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/content/Comments */ "./resources/js/components/content/Comments.vue");
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -807,7 +806,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -815,18 +813,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     PostInfo: _components_content_PostInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Comments: _components_content_Comments__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
-      var post = event.post;
-      _this.tags = post.tags;
-      _this.title = post.title;
-      _this.mainTag = post.mainTag;
-      _this.description = post.description;
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
-    });
   },
   methods: {
     updateInfo: function updateInfo(newData) {

@@ -12,6 +12,7 @@
   display: flex;
   flex-flow: row wrap;
   order: 2;
+  position: relative;
 
   @include lg-devices {
     margin: 0 0 30px;
@@ -22,6 +23,17 @@
     margin-top: 30px;
     margin-bottom: 0;
   }
+}
+
+.selected__overlay {
+  display: flex;
+  position: absolute;
+  z-index: $z-second;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: $bg-fifth;
 }
 
 // ========

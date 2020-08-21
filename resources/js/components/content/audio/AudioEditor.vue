@@ -6,20 +6,34 @@
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
-                    Title<small class="editor__counter">0/50</small>
+                    <span>
+                        Title
+                        <small class="editor__counter">0/50</small>
+                    </span> 
+                    <small class="editor__error">your error</small>
                 </label>
                 <input class="editor__input input-second" type="text" placeholder="place for your title">
                 <label class="editor__label text-fourth" for="">
-                    Custom description<small class="editor__counter">0/180</small>
+                    <span>
+                        Custom description
+                        <small class="editor__counter">0/150</small>
+                    </span> 
+                    <small class="editor__error">your error</small>
                 </label>
                 <textarea class="editor__textarea textarea-second" placeholder="place for your description"></textarea>
-                <label class="editor__label text-fourth">Upload files</label>
-                <div class="editor__button-group">
-                    <button class="editor__button" type="button"><span class="material-icons-round">insert_photo</span>image</button>
-                    <button class="editor__button" type="button"><span class="material-icons-round">audiotrack</span>audio</button>
-                </div>
-                <div class="editor__tags">
-                    <h4 class="editor__label text-fourth">Add tags<small class="editor__counter">0/5</small></h4>
+                <label class="editor__label text-fourth" for="">
+                    <span>Upload files</span> 
+                    <small class="editor__error">your error</small>
+                </label>
+                <div class="editor__upload">
+                    <label class="editor__input-group editor__input-group--image" for="image">
+                        <span class="editor__file-placeholder text-sixth">image</span>
+                        <input class="editor__file-input" id="image" type="file">
+                    </label>
+                    <label class="editor__input-group editor__input-group--audio" for="audio">
+                        <span class="editor__file-placeholder text-sixth">audio</span>
+                        <input class="editor__file-input" id="audio" type="file">
+                    </label>
                 </div>
             </div>
             <div class="editor__footer">

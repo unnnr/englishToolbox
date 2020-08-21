@@ -94,9 +94,58 @@
 // editor buttons
 // ==============
 
-.editor__button-group {
+.editor__upload {
   display: flex;
   margin-bottom: 25px;
+}
+
+.editor__input-group {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 2px solid $bg-main;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  color: $color-main;
+  overflow: hidden;
+  width: 100%;
+
+  &:nth-child(1) {
+    margin-right: 7.5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:before {
+    font-family: "material icons round";
+    font-size: 25px;
+    margin-right: 7.5px;
+  }
+}
+
+.editor__input-group--image {
+  &:before {
+    content: "insert_photo";
+  }
+}
+
+.editor__input-group--audio {
+  &:before {
+    content: "audiotrack";
+  }
+}
+
+.editor__file-placeholder {
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor__file-input {
+  display: none;
 }
 
 // =============

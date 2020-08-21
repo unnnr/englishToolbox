@@ -1341,11 +1341,60 @@ main {
   margin-bottom: 15px;
 }
 
-.editor__button-group {
+.editor__upload {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 25px;
+}
+
+.editor__input-group {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 2px solid #fafafa;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 15px;
+  color: #6666ff;
+  overflow: hidden;
+  width: 100%;
+}
+
+.editor__input-group:nth-child(1) {
+  margin-right: 7.5px;
+}
+
+.editor__input-group:hover {
+  cursor: pointer;
+}
+
+.editor__input-group:before {
+  font-family: "material icons round";
+  font-size: 25px;
+  margin-right: 7.5px;
+}
+
+.editor__input-group--image:before {
+  content: "insert_photo";
+}
+
+.editor__input-group--audio:before {
+  content: "audiotrack";
+}
+
+.editor__file-placeholder {
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor__file-input {
+  display: none;
 }
 
 .editor__footer-button {
@@ -1365,6 +1414,7 @@ main {
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
+  position: relative;
 }
 
 @media (max-width: 1200px) {
@@ -1381,6 +1431,19 @@ main {
     margin-top: 30px;
     margin-bottom: 0;
   }
+}
+
+.selected__overlay {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  z-index: 20;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: #fff;
 }
 
 .addition {
