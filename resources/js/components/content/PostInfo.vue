@@ -29,6 +29,7 @@
 <script>
 
 import TagList from '@components/tags/TagList';
+import bus from '@services/eventbus';
 
 export default {
     name: 'post-info',
@@ -44,6 +45,21 @@ export default {
             tags: [],
             mainTag: null
         }
+    },
+
+     mounted() {
+
+        bus.listen('post-selecting', event => {
+
+			let post = event.post;
+
+			this.tags =  post.tags;
+			this.title =  post.title;
+			this.mainTag =  post.mainTag;
+			this.description =  post.description;
+
+			bus.dispatch('post-selected', event);
+		});	
     },
 
     components: {

@@ -525,9 +525,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           {
               if (this.selectedCard)
                   this.$set(this.selectedCard, 'selected', false);
-                this.selectedCard = card;
+               this.selectedCard = card;
               this.$set(this.selectedCard, 'selected', true);
-                break;
+               break;
           }
       } */
       var card = _this2.getCardById(event.post.id);
@@ -712,6 +712,7 @@ var SHOWING_TIME = 500;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tags_TagList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/tags/TagList */ "./resources/js/components/tags/TagList.vue");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 //
 //
 //
@@ -741,6 +742,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'post-info',
   data: function data() {
@@ -752,6 +754,18 @@ __webpack_require__.r(__webpack_exports__);
       tags: [],
       mainTag: null
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-selecting', function (event) {
+      var post = event.post;
+      _this.tags = post.tags;
+      _this.title = post.title;
+      _this.mainTag = post.mainTag;
+      _this.description = post.description;
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selected', event);
+    });
   },
   components: {
     TagList: _components_tags_TagList__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -1766,7 +1780,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: transform 1s;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -1861,7 +1875,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scaleX(0);\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: all .4s;\n}\n\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scale(0.5);\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: \n        transform .3s ease-in-out,\n        opacity .4s ease-in-out;\n}\n\n", ""]);
 
 // exports
 
@@ -1880,7 +1894,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scaleX(0);\n    transition: transform .2s ease-in-out, margin-right .2s ease-in-out, width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scaleX(1);\n}\n\n", ""]);
+exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scale(0);\n    transition: \n        transform .2s ease-in-out, \n        margin-right .2s ease-in-out, \n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scale(1);\n}\n\n", ""]);
 
 // exports
 
@@ -19426,7 +19440,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
 
 
 /***/ })
