@@ -107,8 +107,7 @@ class VideoService
         }
 
         $mainTag = $request->input('mainTag');
-        //dd($mainTag,  $video->mainTag()->id);
-        if ($mainTag !== $video->mainTag()->id)
+        if ($request->has('mainTag') && $mainTag !== $video->mainTag()->id)
         { 
             $previous = $video->mainTag();
             if ($previous->default != true)
