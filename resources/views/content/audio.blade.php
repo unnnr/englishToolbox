@@ -7,13 +7,16 @@
 @endsection
 
 @section('js')
-  <script type="text/javascript" src=" {{ asset('js/videos.js') }}"></script>
+  <script type="text/javascript" src=" {{ asset('js/audio.js') }}"></script>
 @endsection
 
 
 @section('selected')
 
- @include('components.audioPlayer')
+  <audio-player></audio-player>
+  <audio-details></audio-details>  
+
+ {{-- @include('components.audioPlayer')
 
   <div class="addition">
     <div class="addition__body">
@@ -28,7 +31,7 @@
         <div class="addition__tabs">
 
           <div class="addition__tab addition__tab--description">
-            {{-- @include('components.description') --}}
+            @include('components.description')
           </div>
 
           <div class="addition__tab addition__tab--comments">
@@ -42,7 +45,9 @@
       </div>
 
     </div>
-  </div>
+  </div> --}}
+
+  
 
 @endsection
 

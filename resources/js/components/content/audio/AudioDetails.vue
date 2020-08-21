@@ -1,8 +1,8 @@
 <template>
     <div class="addition">
         <div class="addition__body">
-            <div class="addition__wrapper" ref="wrapper">
-				<transition name="fade">
+            <div class="addition__wrapper">
+                <transition name="fade">
  					<audio-editor 
 					 	ref="editor"
 						v-show="editing" 
@@ -16,7 +16,7 @@
 
 <script>
 import bus from '@services/eventbus';
-import AudioEditor from "@components/content/video/VideoEditor.vue";
+import AudioEditor from "@components/content/audio/AudioEditor.vue";
 import PostPresentor from "@components/content/PostPresentor.vue";
 
 export default {
@@ -29,7 +29,7 @@ export default {
     
 	data: function () {
 		return {
-			editing: false,
+			editing: true,
 			editorType: 'creating',
 		}
 	},

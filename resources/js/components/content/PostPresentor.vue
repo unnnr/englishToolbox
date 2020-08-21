@@ -22,7 +22,6 @@
 <script>
 import PostInfo from '@components/content/PostInfo.vue';
 import Comments from '@components/content/Comments';
-import bus from '@services/eventbus';
 
 export default {
     name: 'post-presentor',
@@ -30,21 +29,6 @@ export default {
     components: {
         PostInfo,
         Comments
-    },
-
-    mounted() {
-
-        bus.listen('post-selecting', event => {
-
-			let post = event.post;
-
-			this.tags =  post.tags;
-			this.title =  post.title;
-			this.mainTag =  post.mainTag;
-			this.description =  post.description;
-
-			bus.dispatch('post-selected', event);
-		});	
     },
 
   	methods: {
