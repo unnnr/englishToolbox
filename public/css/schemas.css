@@ -1241,58 +1241,6 @@ main {
   }
 }
 
-.editor__alert {
-  background: #1e1e1e;
-  color: #ff6688;
-  position: absolute;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 25px 15px;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.editor__alert-text {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-weight: 600;
-  color: inherit;
-}
-
-.editor__alert-text:before {
-  font-family: "Material Icons Round";
-  content: "highlight_off";
-  font-size: 25px;
-  font-weight: 500;
-  margin-right: 5px;
-  color: inherit;
-}
-
-.editor__alert-text span {
-  font-weight: 500;
-  margin-left: 5px;
-}
-
-.editor__alert--icon {
-  font-size: 25px !important;
-  margin-right: 5px;
-}
-
-.editor__alert--text {
-  color: inherit;
-}
-
 .editor__form {
   position: absolute;
   width: 100%;

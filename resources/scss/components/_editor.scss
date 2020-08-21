@@ -18,49 +18,6 @@
   }
 }
 
-.editor__alert {
-  background: #1e1e1e;
-  color: $color-second;
-  position: absolute;
-  z-index: $z-third;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 25px 15px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.editor__alert-text {
-  display: flex;
-  align-items: center;
-  font-weight: $semibold;
-  color: inherit;
-  
-  &:before {
-    font-family: "Material Icons Round";
-    content: "highlight_off";
-    font-size: 25px;
-    font-weight: $medium;
-    margin-right: 5px;
-    color: inherit;
-  }
-
-  span {
-    font-weight: $medium; 
-    margin-left: 5px;
-  }
-}
-.editor__alert--icon {
-  font-size: 25px !important;
-  margin-right: 5px;
-}
-
-.editor__alert--text {
-  color: inherit;
-}
-
 .editor__form {
   position: absolute;
   width: 100%;

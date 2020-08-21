@@ -8,6 +8,14 @@
 
 @section('content')
 
+<section class="alert container">
+  <div class="alert__content">
+    <div class="alert__header"></div>
+    <div class="alert__body"></div>
+    <div class="alert__footer"></div>
+  </div>
+</section> 
+
 <section class="banner container">
   <div class="banner__carousel"></div>
 </section>

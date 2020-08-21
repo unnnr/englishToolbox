@@ -1,8 +1,5 @@
 <template>
     <div class="editor">
-            <!-- <div class="editor__alert">
-                <p class="editor__alert-text text-fifth">Error:<span>your error here</span></p>
-            </div> -->
         <form 
             class="editor__form"
             ref="form"

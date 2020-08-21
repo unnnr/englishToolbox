@@ -1065,6 +1065,26 @@ button:active {
   }
 }
 
+.alert {
+  position: fixed;
+  top: 30px;
+  z-index: 40;
+  width: 100%;
+}
+
+.alert__content {
+  background: rgba(18, 18, 18, 0.95);
+  height: 100px;
+  width: 100%;
+  border-radius: 15px;
+}
+
+@media (max-width: 1200px) {
+  .alert__content {
+    border-radius: 10px;
+  }
+}
+
 .space {
   min-height: 1000px;
   width: 100%;
