@@ -24,9 +24,15 @@ class UploadAudio extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
-            'description' => 'max:300',  // required
-            'file' => 'required|max:10240|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav'
+            'title' => 'required|max:50',
+            'description' => 'max:180',
+
+            'audio' => 'required|max:10240|mimes:mpga,wav',
+            'thumbnail' => 'required|max:10240|image',
+
+            'mainTag' => 'numeric',  
+            'tags.*' => 'numeric|distinct',
+            'tags' => 'array|max:4'
         ];
     }
 }

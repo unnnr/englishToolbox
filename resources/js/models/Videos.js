@@ -69,7 +69,7 @@ const Videos = new function ()
 
     this.create = async (data) =>
     {
-        let response = await Http.video('video', data);
+        let response = await Http.post('video', data);
         if (!!!response)
             return null;
 
@@ -144,10 +144,7 @@ const Videos = new function ()
         for (let video of videos)
            videosCopy.push(createCopy(video));
 
-        console.log(12);
-
         return [ ...videosCopy ];
-
     }
 
     this.onload = (callback) =>
@@ -156,7 +153,12 @@ const Videos = new function ()
             return callback();
         
         callbackCollection.push(callback);
-    }    
+    }   
+
+    this.createThumbnail = (video) =>
+    {
+        return `https://i.ytimg.com/vi/${video.videoID}/sddefault.jpg`;
+    } 
 
     let videos = [];
     let isLoaded = false;

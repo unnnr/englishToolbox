@@ -23,10 +23,10 @@ Route::group(['namespace' => 'Web'], function() {
 
     Route::get('videos', 'VideoController@index')->name('videos');
 
+    Route::get('audio', 'AudioController@index')->name('audio');
+
 });
 
-Route::post('audio', 'AudioController@store');
-Route::get('audio', 'AudioController@index')->name('audio');
 
 Route::post('schemas', 'SchemaController@store');
 Route::get('schemas', 'SchemaController@index')->name('schemas');

@@ -15,9 +15,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(int $id, TagService $tagService)
+    public function index(TagService $tagService)
     {
-        return $tagService->videoTags($id);
+        return $tagService->all();
     }
 
     /**
@@ -63,15 +63,5 @@ class TagController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Return all tags
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function all(TagService $tagService)
-    {
-        return $tagService->all();
     }
 }

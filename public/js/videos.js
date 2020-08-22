@@ -525,9 +525,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           {
               if (this.selectedCard)
                   this.$set(this.selectedCard, 'selected', false);
-                this.selectedCard = card;
+               this.selectedCard = card;
               this.$set(this.selectedCard, 'selected', true);
-                break;
+               break;
           }
       } */
       var card = _this2.getCardById(event.post.id);
@@ -1005,7 +1005,6 @@ var MAX_URL_LENGTH = 180;
       _this.url = 'https://youtube.com/watch?v=' + post.videoID;
       _this.description = post.description || '';
       var tags = _this.$refs.tags;
-      tags.clear();
       tags.selected = post.tags;
       if (!!!post.mainTag["default"]) tags.main = tags.getTagById(post.mainTag.id);
       _this.$options.postID = post.id;
@@ -1026,6 +1025,8 @@ var MAX_URL_LENGTH = 180;
       this.description = '';
       this.descriptionError = '';
       this.$options.postID = null;
+      var tags = this.$refs.tags;
+      tags.clear();
     },
     updateLink: function updateLink() {
       if (this.url.length === 0 || this.$options.previousUrl === this.url) return;
@@ -1048,6 +1049,7 @@ var MAX_URL_LENGTH = 180;
       return videoID;
     },
     getFormData: function getFormData() {
+      var nullableMainTag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var data = new FormData(this.$refs.form);
       var tags = this.$refs.tags.selected;
 
@@ -1069,20 +1071,23 @@ var MAX_URL_LENGTH = 180;
       }
 
       var mainTag = this.$refs.tags.main;
-      if (mainTag) data.append('mainTag', mainTag.id);else data.append('mainTag', '');
+      if (mainTag) data.append('mainTag', mainTag.id);else if (nullableMainTag) data.append('mainTag', '');
       return data;
     },
-    createVideo: function createVideo(data) {
+    createVideo: function createVideo() {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var post;
+        var data, post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                data = _this2.getFormData();
+                _context.next = 3;
                 return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
 
-              case 2:
+              case 3:
                 post = _context.sent;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
                   post: post
@@ -1091,7 +1096,7 @@ var MAX_URL_LENGTH = 180;
                   post: post
                 });
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -1099,20 +1104,21 @@ var MAX_URL_LENGTH = 180;
         }, _callee);
       }))();
     },
-    editVideo: function editVideo(data) {
-      var _this2 = this;
+    editVideo: function editVideo() {
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var id, post;
+        var id, data, post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                id = _this2.$options.postID;
-                _context2.next = 3;
+                id = _this3.$options.postID;
+                data = _this3.getFormData(true);
+                _context2.next = 4;
                 return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].edit(id, data);
 
-              case 3:
+              case 4:
                 post = _context2.sent;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
                   post: post
@@ -1121,7 +1127,7 @@ var MAX_URL_LENGTH = 180;
                   post: post
                 });
 
-              case 6:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -1130,49 +1136,48 @@ var MAX_URL_LENGTH = 180;
       }))();
     },
     submit: function submit(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var data, errors;
+        var errors;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                data = _this3.getFormData();
-                _context3.prev = 1;
+                _context3.prev = 0;
 
-                if (!_this3.onSumbit) {
-                  _context3.next = 5;
+                if (!_this4.onSumbit) {
+                  _context3.next = 4;
                   break;
                 }
 
-                _context3.next = 5;
-                return _this3.onSumbit(data);
+                _context3.next = 4;
+                return _this4.onSumbit();
 
-              case 5:
-                _context3.next = 11;
+              case 4:
+                _context3.next = 10;
                 break;
 
-              case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](1);
+              case 6:
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](0);
                 console.log(_context3.t0);
 
                 if (_context3.t0.status == 422) {
                   errors = _context3.t0.body.errors;
-                  if (errors.videoUrl) _this3.urlError = errors.videoUrl.join('. ');
-                  if (errors.description) _this3.descriptionError = errors.description.join('. ');
+                  if (errors.videoUrl) _this4.urlError = errors.videoUrl.join('. ');
+                  if (errors.description) _this4.descriptionError = errors.description.join('. ');
                 }
 
-              case 11:
+              case 10:
                 ;
 
-              case 12:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 7]]);
+        }, _callee3, null, [[0, 6]]);
       }))();
     }
   }
@@ -1763,7 +1768,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\r\n  transition: \r\n  transform 1s ease-in-out,\r\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0.5);\r\n            transform: scale(0.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(0.5);\r\n            transform: scale(0.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -1839,7 +1844,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -1858,7 +1863,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\r\n{\r\n    transform: scale(0.5);\r\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\r\n{\r\n    transition: \r\n        transform .3s ease-in-out,\r\n        opacity .4s ease-in-out;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scale(0.5);\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: \n        transform .3s ease-in-out,\n        opacity .4s ease-in-out;\n}\n\n", ""]);
 
 // exports
 
@@ -1877,7 +1882,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\r\n    width: 0;\r\n    margin-right: 0;\r\n    content:'';\r\n    transform: scale(0);\r\n    transition: \r\n        transform .2s ease-in-out, \r\n        margin-right .2s ease-in-out, \r\n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\r\n    width: 15px;\r\n    margin-right: 5px;\r\n    content: \"star\";\r\n    transform: scale(1);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scale(0);\n    transition: \n        transform .2s ease-in-out, \n        margin-right .2s ease-in-out, \n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scale(1);\n}\n\n", ""]);
 
 // exports
 
@@ -18977,7 +18982,7 @@ var Videos = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].video('video', data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('video', data);
 
             case 2:
               response = _context.sent;
@@ -19126,7 +19131,6 @@ var Videos = new function () {
       _iterator3.f();
     }
 
-    console.log(12);
     return [].concat(videosCopy);
   };
 
@@ -19423,7 +19427,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
 
 
 /***/ })

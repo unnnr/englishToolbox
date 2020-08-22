@@ -17,4 +17,9 @@ class Tag extends Model
     {
         return $this->morphedByMany(Video::class, 'taggable');
     }
+
+    public function audio()
+    {
+        return $this->morphedByMany(Video::class, 'taggable');
+    }
 }

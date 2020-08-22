@@ -1,6 +1,10 @@
 <template>
     <div class="editor">
-        <form class="editor__form">
+        <form
+            ref="form"
+            class="editor__form"
+            @submit.prevent="submit">
+
             <div class="editor__header">
                 <h5 class="editor__title text-third">New audio</h5>
             </div>
@@ -8,33 +12,65 @@
                 <label class="editor__label text-fourth" for="">
                     <span>
                         Title
-                        <small class="editor__counter">0/50</small>
+                        <small class="editor__counter">{{ titleCounter }}</small>
                     </span> 
-                    <small class="editor__error">your error</small>
+                    <small class="editor__error">{{ titleError }}</small>
                 </label>
-                <input class="editor__input input-second" type="text" placeholder="place for your title">
+                <input 
+                    type="text"
+                    name='title'
+                    class="editor__input input-second"
+                    placeholder="place for your title"
+                    autocomplete="off"
+                    required
+                    v-model="title"
+                    :maxlength="titleMaxLength">
                 <label class="editor__label text-fourth" for="">
                     <span>
                         Custom description
-                        <small class="editor__counter">0/150</small>
+                        <small class="editor__counter">{{ descriptionCounter }}</small>
                     </span> 
-                    <small class="editor__error">your error</small>
+                    <small class="editor__error">{{ descriptionError }}</small>
                 </label>
-                <textarea class="editor__textarea textarea-second" placeholder="place for your description"></textarea>
+                <textarea 
+                    class="editor__textarea textarea-second"
+                    placeholder="place for your description"
+                    name="description"
+                    v-model="description"
+                    :maxlength="descriptionMaxLength">
+                </textarea>
                 <label class="editor__label text-fourth" for="">
                     <span>Upload files</span> 
-                    <small class="editor__error">your error</small>
+                    <small class="editor__error">{{ filesError }}</small>
                 </label>
                 <div class="editor__upload">
                     <label class="editor__input-group editor__input-group--image" for="image">
-                        <span class="editor__file-placeholder text-sixth">image</span>
-                        <input class="editor__file-input" id="image" type="file">
+                        <span class="editor__file-placeholder text-sixth">{{ imageName }}</span>
+                        <input 
+                            id="image"
+                            ref='image'
+                            type="file"
+                            name="thumbnail"
+                            class="editor__file-input"
+                            accept="image/*"
+                            required
+                            @change="updateFileName('image')">
                     </label>
                     <label class="editor__input-group editor__input-group--audio" for="audio">
-                        <span class="editor__file-placeholder text-sixth">audio</span>
-                        <input class="editor__file-input" id="audio" type="file">
+                        <span class="editor__file-placeholder text-sixth">{{ audioName }}</span>
+                        <input
+                            id="audio" 
+                            ref="audio"
+                            type="file"
+                            name="audio"
+                            class="editor__file-input"
+                            accept="audio/*"
+                            required
+                            @change="updateFileName('audio')">
                     </label>
                 </div>
+
+                <tag-editor ref="tags"/>
             </div>
             <div class="editor__footer">
                 <button class="editor__footer-button button-second">confirm</button>
@@ -45,14 +81,19 @@
 
 <script>
 
+// Modules
 import getYouTubeID from 'get-youtube-id';
+
+// Logic
 import bus from '@services/eventbus';
-import Posts from '@models/Posts'
+import Audio from '@models/Audio'
 import Tags from '@models/Tags'
+
+//Components
 import TagEditor from '@components/tags/TagEditor';
 
+const MAX_TITLE_LENGTH =  50;
 const MAX_DESCRIPTION_LENGTH = 180;
-const MAX_URL_LENGTH = 180;
 
 export default {
     name: 'audio-editor',
@@ -63,15 +104,28 @@ export default {
 
     data: function () { 
         return {
-            url: '',
-            urlError: '',
-            
+            title: '',
+            titleError: '',
+
             description: '',
-            descriptionError: ''
+            descriptionError: '',
+
+            imageName: 'image',
+            audioName: 'audio',
+
+            filesError: ''
         }
     },
 
     computed: {
+
+        titleCounter() {
+            return this.title.length + '/' + MAX_TITLE_LENGTH;
+        },
+
+        titleMaxLength() {
+            return MAX_TITLE_LENGTH;
+        },
 
         descriptionCounter() {
             return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
@@ -86,13 +140,8 @@ export default {
         bus.listen('post-editing', event => {
 
             let post = event.post;
-
-            this.url = 'https://youtube.com/watch?v=' + post.videoID;
-            this.description = post.description || '';
-
             let tags = this.$refs.tags;
 
-            tags.clear();
             tags.selected = post.tags;
 
             if (!!!post.mainTag.default)
@@ -107,52 +156,45 @@ export default {
             this.clear();
             this.$refs.tags.clear();
 
-            this.onSumbit = this.createVideo;
+            this.onSumbit = this.createAudio;
 		});
     },
 
     methods: {
 
         clear() {
-            this.url = '';
-            this.urlError = '';
-            
-            this.description = '';
-            this.descriptionError = '';
+            this.title =  '';
+            this.titleError =  '';
 
-            this.$options.postID = null;
+            this.description =  '';
+            this.descriptionError =  '';
+
+            this.imageName =  'image';
+            this.audioName =  'audio';
+
+            this.filesError =  ''; 
+
+            let tags = this.$refs.tags;
+
+            tags.clear();
         },
 
-        updateLink () {
-            if (this.url.length === 0 || this.$options.previousUrl === this.url)
-                return;
-
-            this.$options.previousUrl = this.url;
+        updateFileName( label ) {
             
-            let videoID = this.validateVideo();
-            
-            if (videoID)
-                bus.dispatch('editor-link-changed', { 
-                    url: this.url,
-                    videoID: videoID
-                });
-        },
+            let input =  this.$refs[label];
 
-        validateVideo() {
-
-            let videoID = getYouTubeID(this.url)
-            if (!!!videoID)
+            if (!!!input.files.length)
             {
-                this.urlError = 'Incorrect youtube link';
-                return false;
+                this[label + 'Name'] = label;
+                return;
             }
-            
-            this.urlError = '';
 
-            return videoID;
+            let fileName = input.files[0].name;
+
+            this[label + 'Name']  = fileName;
         },
 
-        getFormData() {
+        getFormData(nullableMainTag = false) {
             
             let data = new FormData(this.$refs.form);
 
@@ -163,49 +205,38 @@ export default {
             let mainTag = this.$refs.tags.main;
             if (mainTag)
                 data.append('mainTag', mainTag.id);
-            else 
+            
+            else if (nullableMainTag)
                 data.append('mainTag', '');
 
             return data;
         },
 
-        async createVideo(data) {
-
-            let post = await Posts.create(data);
-
-            bus.dispatch('post-created', { post });
-            bus.dispatch('post-selecting', { post  });
+        async createAudio() {
+            
+            let data = this.getFormData();
+            let post = await Audio.create(data);
         },
 
-        async editVideo(data) {
+        async editAudio() {
 
-            let id = this.$options.postID;
-            let post = await Posts.edit(id, data);
-            
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
         async submit (event) {
-
-            let data = this.getFormData();
-
-            try {
+            try 
+            {
                 if (this.onSumbit)
-                    await this.onSumbit(data);
+                    await this.onSumbit();
             }
-            catch(error) {
+            catch(error) 
+            {
                 console.log(error);
 
                 if (error.status == 422 )
                 {
-                    let errors = error.body.errors;
-
-                    if (errors.videoUrl)
-                        this.urlError = errors.videoUrl.join('. ');
-                        
-                    if (errors.description)
-                        this.descriptionError = errors.description.join('. ')
+                   
                 }
             };
 
