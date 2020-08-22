@@ -36,7 +36,7 @@ class VideoService
     {
         $mainTag = $request->input('mainTag');
         
-        if ($mainTag)
+        if (is_int($mainTag))
             $video->tags()->attach($mainTag, ['main' => true]);
     }
 

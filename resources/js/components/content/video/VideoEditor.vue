@@ -95,7 +95,6 @@ export default {
 
             let tags = this.$refs.tags;
 
-            tags.clear();
             tags.selected = post.tags;
 
             if (!!!post.mainTag.default)
@@ -124,6 +123,10 @@ export default {
             this.descriptionError = '';
 
             this.$options.postID = null;
+
+            let tags = this.$refs.tags;
+
+            tags.clear();
         },
 
         updateLink () {
@@ -155,7 +158,7 @@ export default {
             return videoID;
         },
 
-        getFormData() {
+        getFormData(nullableMainTag = false) {
             
             let data = new FormData(this.$refs.form);
 
@@ -166,23 +169,26 @@ export default {
             let mainTag = this.$refs.tags.main;
             if (mainTag)
                 data.append('mainTag', mainTag.id);
-            else 
+
+            else if(nullableMainTag)
                 data.append('mainTag', '');
 
             return data;
         },
 
-        async createVideo(data) {
+        async createVideo() {
 
+            let data = this.getFormData();
             let post = await Posts.create(data);
 
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
-        async editVideo(data) {
+        async editVideo() {
 
             let id = this.$options.postID;
+            let data = this.getFormData(true);
             let post = await Posts.edit(id, data);
             
             bus.dispatch('post-edited', { post });
@@ -190,13 +196,10 @@ export default {
         },
 
         async submit (event) {
-
-            let data = this.getFormData();
-
             try 
             {
                 if (this.onSumbit)
-                    await this.onSumbit(data);
+                    await this.onSumbit();
             }
             catch(error) 
             {

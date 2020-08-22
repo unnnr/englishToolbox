@@ -2,7 +2,8 @@
     <div class="editor">
         <form
             ref="form"
-            class="editor__form">
+            class="editor__form"
+            @submit.prevent="submit">
 
             <div class="editor__header">
                 <h5 class="editor__title text-third">New audio</h5>
@@ -21,6 +22,7 @@
                     class="editor__input input-second"
                     placeholder="place for your title"
                     autocomplete="off"
+                    required
                     v-model="title"
                     :maxlength="titleMaxLength">
                 <label class="editor__label text-fourth" for="">
@@ -49,7 +51,8 @@
                             ref='image'
                             type="file"
                             class="editor__file-input"
-                            accept="audio"
+                            accept="image/*"
+                            required
                             @change="updateFileName('image')">
                     </label>
                     <label class="editor__input-group editor__input-group--audio" for="audio">
@@ -59,7 +62,8 @@
                             ref="audio"
                             type="file"
                             class="editor__file-input"
-                            accept="image"
+                            accept="image/*"
+                            required
                             @change="updateFileName('audio')">
                     </label>
                 </div>
@@ -80,7 +84,7 @@ import getYouTubeID from 'get-youtube-id';
 
 // Logic
 import bus from '@services/eventbus';
-import Posts from '@models/Posts'
+import Audio from '@models/Audio'
 import Tags from '@models/Tags'
 
 //Components
@@ -134,12 +138,8 @@ export default {
         bus.listen('post-editing', event => {
 
             let post = event.post;
-
-         
-
             let tags = this.$refs.tags;
 
-            tags.clear();
             tags.selected = post.tags;
 
             if (!!!post.mainTag.default)
@@ -154,14 +154,27 @@ export default {
             this.clear();
             this.$refs.tags.clear();
 
-            this.onSumbit = this.createVideo;
+            this.onSumbit = this.createAudio;
 		});
     },
 
     methods: {
 
         clear() {
-          
+            this.title =  '';
+            this.titleError =  '';
+
+            this.description =  '';
+            this.descriptionError =  '';
+
+            this.imageName =  'image';
+            this.audioName =  'audio';
+
+            this.filesError =  ''; 
+
+            let tags = this.$refs.tags;
+
+            tags.clear();
         },
 
         updateFileName( label ) {
@@ -179,29 +192,37 @@ export default {
             this[label + 'Name']  = fileName;
         },
 
-        getFormData() {
+        getFormData(nullableMainTag = false) {
             
             let data = new FormData(this.$refs.form);
 
+            let tags = this.$refs.tags.selected;
+            for (const [index, tag] of tags.entries())
+                data.append(`tags[${index}]`, tag.id);
+            
+            let mainTag = this.$refs.tags.main;
+            if (mainTag)
+                data.append('mainTag', mainTag.id);
+            
+            else if (nullableMainTag)
+                data.append('mainTag', '');
 
             return data;
         },
 
-        async creatAudio(data) {
-
-
+        async createAudio() {
+            
+            let data = this.getFormData();
+            let post = await Audio.create(data);
         },
 
-        async editAudio(data) {
+        async editAudio() {
 
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
         async submit (event) {
-
-            let data = this.getFormData();
-
             try 
             {
                 if (this.onSumbit)

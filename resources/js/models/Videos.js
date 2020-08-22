@@ -69,7 +69,7 @@ const Videos = new function ()
 
     this.create = async (data) =>
     {
-        let response = await Http.video('video', data);
+        let response = await Http.post('video', data);
         if (!!!response)
             return null;
 
@@ -144,10 +144,7 @@ const Videos = new function ()
         for (let video of videos)
            videosCopy.push(createCopy(video));
 
-        console.log(12);
-
         return [ ...videosCopy ];
-
     }
 
     this.onload = (callback) =>

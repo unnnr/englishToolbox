@@ -5,7 +5,7 @@ import Vue from 'vue';
 import vClickOutside from 'v-click-outside'
 
 // Importing models
-import Audio from '@models/Videos'
+import Audio from '@models/Audio'
 import Posts from '@models/Posts';
 
 // Importing  static components

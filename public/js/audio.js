@@ -898,7 +898,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Audio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Audio */ "./resources/js/models/Audio.js");
 /* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
 /* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
 
@@ -907,6 +907,24 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -1028,7 +1046,6 @@ var MAX_DESCRIPTION_LENGTH = 180;
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-editing', function (event) {
       var post = event.post;
       var tags = _this.$refs.tags;
-      tags.clear();
       tags.selected = post.tags;
       if (!!!post.mainTag["default"]) tags.main = tags.getTagById(post.mainTag.id);
       _this.$options.postID = post.id;
@@ -1039,11 +1056,21 @@ var MAX_DESCRIPTION_LENGTH = 180;
 
       _this.$refs.tags.clear();
 
-      _this.onSumbit = _this.createVideo;
+      _this.onSumbit = _this.createAudio;
     });
   },
   methods: {
-    clear: function clear() {},
+    clear: function clear() {
+      this.title = '';
+      this.titleError = '';
+      this.description = '';
+      this.descriptionError = '';
+      this.imageName = 'image';
+      this.audioName = 'audio';
+      this.filesError = '';
+      var tags = this.$refs.tags;
+      tags.clear();
+    },
     updateFileName: function updateFileName(label) {
       var input = this.$refs[label];
 
@@ -1056,15 +1083,48 @@ var MAX_DESCRIPTION_LENGTH = 180;
       this[label + 'Name'] = fileName;
     },
     getFormData: function getFormData() {
+      var nullableMainTag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var data = new FormData(this.$refs.form);
+      var tags = this.$refs.tags.selected;
+
+      var _iterator = _createForOfIteratorHelper(tags.entries()),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var _step$value = _slicedToArray(_step.value, 2),
+              index = _step$value[0],
+              tag = _step$value[1];
+
+          data.append("tags[".concat(index, "]"), tag.id);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var mainTag = this.$refs.tags.main;
+      if (mainTag) data.append('mainTag', mainTag.id);else if (nullableMainTag) data.append('mainTag', '');
       return data;
     },
-    creatAudio: function creatAudio(data) {
+    createAudio: function createAudio() {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                data = _this2.getFormData();
+                _context.next = 3;
+                return _models_Audio__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
+
+              case 3:
+                post = _context.sent;
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -1072,7 +1132,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
         }, _callee);
       }))();
     },
-    editAudio: function editAudio(data) {
+    editAudio: function editAudio() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -1094,45 +1154,43 @@ var MAX_DESCRIPTION_LENGTH = 180;
       }))();
     },
     submit: function submit(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                data = _this2.getFormData();
-                _context3.prev = 1;
+                _context3.prev = 0;
 
-                if (!_this2.onSumbit) {
-                  _context3.next = 5;
+                if (!_this3.onSumbit) {
+                  _context3.next = 4;
                   break;
                 }
 
-                _context3.next = 5;
-                return _this2.onSumbit(data);
+                _context3.next = 4;
+                return _this3.onSumbit(data);
 
-              case 5:
-                _context3.next = 11;
+              case 4:
+                _context3.next = 10;
                 break;
 
-              case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](1);
+              case 6:
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](0);
                 console.log(_context3.t0);
 
                 if (_context3.t0.status == 422) {}
 
-              case 11:
+              case 10:
                 ;
 
-              case 12:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 7]]);
+        }, _callee3, null, [[0, 6]]);
       }))();
     }
   }
@@ -4842,176 +4900,200 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "editor" }, [
-    _c("form", { ref: "form", staticClass: "editor__form" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "editor__body", attrs: { action: "" } },
-        [
-          _c(
-            "label",
-            { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-            [
-              _c("span", [
-                _vm._v("\n                    Title\n                    "),
-                _c("small", { staticClass: "editor__counter" }, [
-                  _vm._v(_vm._s(_vm.titleCounter))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("small", { staticClass: "editor__error" }, [
-                _vm._v(_vm._s(_vm.titleError))
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
-              }
-            ],
-            staticClass: "editor__input input-second",
-            attrs: {
-              type: "text",
-              name: "title",
-              placeholder: "place for your title",
-              autocomplete: "off",
-              maxlength: _vm.titleMaxLength
-            },
-            domProps: { value: _vm.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.title = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-            [
-              _c("span", [
-                _vm._v(
-                  "\n                    Custom description\n                    "
-                ),
-                _c("small", { staticClass: "editor__counter" }, [
-                  _vm._v(_vm._s(_vm.descriptionCounter))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("small", { staticClass: "editor__error" }, [
-                _vm._v(_vm._s(_vm.descriptionError))
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.description,
-                expression: "description"
-              }
-            ],
-            staticClass: "editor__textarea textarea-second",
-            attrs: {
-              placeholder: "place for your description",
-              name: "description",
-              maxlength: _vm.descriptionMaxLength
-            },
-            domProps: { value: _vm.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.description = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "editor__label text-fourth", attrs: { for: "" } },
-            [
-              _c("span", [_vm._v("Upload files")]),
-              _vm._v(" "),
-              _c("small", { staticClass: "editor__error" }, [
-                _vm._v(_vm._s(_vm.filesError))
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "editor__upload" }, [
+    _c(
+      "form",
+      {
+        ref: "form",
+        staticClass: "editor__form",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "editor__body", attrs: { action: "" } },
+          [
             _c(
               "label",
-              {
-                staticClass: "editor__input-group editor__input-group--image",
-                attrs: { for: "image" }
-              },
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
               [
-                _c(
-                  "span",
-                  { staticClass: "editor__file-placeholder text-sixth" },
-                  [_vm._v(_vm._s(_vm.imageName))]
-                ),
+                _c("span", [
+                  _vm._v("\n                    Title\n                    "),
+                  _c("small", { staticClass: "editor__counter" }, [
+                    _vm._v(_vm._s(_vm.titleCounter))
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  ref: "image",
-                  staticClass: "editor__file-input",
-                  attrs: { id: "image", type: "file", accept: "audio" },
-                  on: {
-                    change: function($event) {
-                      return _vm.updateFileName("image")
-                    }
-                  }
-                })
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v(_vm._s(_vm.titleError))
+                ])
               ]
             ),
             _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.title,
+                  expression: "title"
+                }
+              ],
+              staticClass: "editor__input input-second",
+              attrs: {
+                type: "text",
+                name: "title",
+                placeholder: "place for your title",
+                autocomplete: "off",
+                required: "",
+                maxlength: _vm.titleMaxLength
+              },
+              domProps: { value: _vm.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.title = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
             _c(
               "label",
-              {
-                staticClass: "editor__input-group editor__input-group--audio",
-                attrs: { for: "audio" }
-              },
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
               [
-                _c(
-                  "span",
-                  { staticClass: "editor__file-placeholder text-sixth" },
-                  [_vm._v(_vm._s(_vm.audioName))]
-                ),
+                _c("span", [
+                  _vm._v(
+                    "\n                    Custom description\n                    "
+                  ),
+                  _c("small", { staticClass: "editor__counter" }, [
+                    _vm._v(_vm._s(_vm.descriptionCounter))
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  ref: "audio",
-                  staticClass: "editor__file-input",
-                  attrs: { id: "audio", type: "file", accept: "image" },
-                  on: {
-                    change: function($event) {
-                      return _vm.updateFileName("audio")
-                    }
-                  }
-                })
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v(_vm._s(_vm.descriptionError))
+                ])
               ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("tag-editor", { ref: "tags" })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._m(1)
-    ])
+            ),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
+              staticClass: "editor__textarea textarea-second",
+              attrs: {
+                placeholder: "place for your description",
+                name: "description",
+                maxlength: _vm.descriptionMaxLength
+              },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "editor__label text-fourth", attrs: { for: "" } },
+              [
+                _c("span", [_vm._v("Upload files")]),
+                _vm._v(" "),
+                _c("small", { staticClass: "editor__error" }, [
+                  _vm._v(_vm._s(_vm.filesError))
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "editor__upload" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "editor__input-group editor__input-group--image",
+                  attrs: { for: "image" }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "editor__file-placeholder text-sixth" },
+                    [_vm._v(_vm._s(_vm.imageName))]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    ref: "image",
+                    staticClass: "editor__file-input",
+                    attrs: {
+                      id: "image",
+                      type: "file",
+                      accept: "image/*",
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.updateFileName("image")
+                      }
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "editor__input-group editor__input-group--audio",
+                  attrs: { for: "audio" }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "editor__file-placeholder text-sixth" },
+                    [_vm._v(_vm._s(_vm.audioName))]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    ref: "audio",
+                    staticClass: "editor__file-input",
+                    attrs: {
+                      id: "audio",
+                      type: "file",
+                      accept: "image/*",
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.updateFileName("audio")
+                      }
+                    }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("tag-editor", { ref: "tags" })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -17557,7 +17639,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
 /* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _models_Videos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Videos */ "./resources/js/models/Videos.js");
+/* harmony import */ var _models_Audio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Audio */ "./resources/js/models/Audio.js");
 /* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
 /* harmony import */ var _components_ContextMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/ContextMenu */ "./resources/js/components/ContextMenu.vue");
 /* harmony import */ var _components_content_FilterBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/content/FilterBar */ "./resources/js/components/content/FilterBar.vue");
@@ -17578,7 +17660,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].self.track(_models_Videos__WEBPACK_IMPORTED_MODULE_2__["default"]);
+_models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].self.track(_models_Audio__WEBPACK_IMPORTED_MODULE_2__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_1___default.a);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -18704,6 +18786,318 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/models/Audio.js":
+/*!**************************************!*\
+  !*** ./resources/js/models/Audio.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var Audio = new function () {
+  function init() {
+    return _init.apply(this, arguments);
+  }
+
+  function _init() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _iterator4, _step4, callback;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('audio');
+
+            case 2:
+              audioCollection = _context4.sent;
+              if (!!!Array.isArray(audioCollection)) console.error('500 error');
+              isLoaded = true;
+              _iterator4 = _createForOfIteratorHelper(callbackCollection);
+
+              try {
+                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                  callback = _step4.value;
+                  callback();
+                }
+              } catch (err) {
+                _iterator4.e(err);
+              } finally {
+                _iterator4.f();
+              }
+
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _init.apply(this, arguments);
+  }
+
+  function getById(id) {
+    var _iterator = _createForOfIteratorHelper(audioCollection),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _audio = _step.value;
+        if (_audio.id == id) return _audio;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+
+  function createCopy(video) {
+    var mainTagCopy = _objectSpread({}, audio.mainTag);
+
+    var tagsCopy = [];
+
+    var _iterator2 = _createForOfIteratorHelper(video.tags),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var tag = _step2.value;
+        tagsCopy.push(_objectSpread({}, tag));
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    var audioCopy = {
+      id: audio.id,
+      tags: tagsCopy,
+      title: audio.title,
+      mainTag: mainTagCopy,
+      imageUrl: audio.imageUrl,
+      audioUrl: audio.audioUrl,
+      description: audio.description
+    };
+    return audioCopy;
+  }
+
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
+  }
+
+  function compareDataWithTags(data, tags) {
+    for (var index in tags) {
+      var tag = tags[index];
+      if (tag.id !== data.get("tags[".concat(index, "]"))) return;
+    }
+
+    for (var _index in tags) {
+      data["delete"]("tags[".concat(_index, "]"));
+    }
+  }
+
+  this.create = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+      var response, newvideo;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('audio', data);
+
+            case 2:
+              response = _context.sent;
+
+              if (!!response) {
+                _context.next = 5;
+                break;
+              }
+
+              return _context.abrupt("return", null);
+
+            case 5:
+              newvideo = {
+                id: response.id,
+                tags: response.tags,
+                title: response.title,
+                mainTag: response.mainTag,
+                imageUrl: response.imageUrl,
+                audioUrl: response.audioUrl,
+                description: response.description
+              };
+              audioCollection.push(newvideo);
+              return _context.abrupt("return", createCopy(newvideo));
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  this.edit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, data) {
+      var target, videoID, description, mainTag, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              target = getById(id);
+              videoID = getYouTubeID(String(data.get('videoUrl')));
+              if (target.videoID === videoID) data["delete"]('videoUrl');
+              description = data.get('description');
+              if (target.description === description) data["delete"]('description');
+              mainTag = data.get('mainTag');
+              if (target.mainTag.id == mainTag) data["delete"]('mainTag');
+              compareDataWithTags(data, target.tags);
+
+              if (!isFormDataEmpty(data)) {
+                _context2.next = 10;
+                break;
+              }
+
+              return _context2.abrupt("return", createCopy(target));
+
+            case 10:
+              _context2.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
+
+            case 12:
+              response = _context2.sent;
+
+              if (!!response) {
+                _context2.next = 15;
+                break;
+              }
+
+              return _context2.abrupt("return", null);
+
+            case 15:
+              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
+              return _context2.abrupt("return", createCopy(target));
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2, _x3) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  this["delete"] = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('audio/' + id);
+
+            case 2:
+              response = _context3.sent;
+
+              if (!!response) {
+                _context3.next = 5;
+                break;
+              }
+
+              return _context3.abrupt("return", null);
+
+            case 5:
+              return _context3.abrupt("return", response);
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x4) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  this.get = function (id) {
+    var audio = getById(id);
+    return createCopy(audio);
+  };
+
+  this.all = function () {
+    var audioCopy = [];
+
+    var _iterator3 = _createForOfIteratorHelper(audioCollection),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _audio2 = _step3.value;
+        audioCopy.push(createCopy(_audio2));
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    return [].concat(audioCopy);
+  };
+
+  this.onload = function (callback) {
+    if (isLoaded) return callback();
+    callbackCollection.push(callback);
+  };
+
+  var isLoaded = false;
+  var audioCollection = [];
+  var callbackCollection = [];
+  init();
+}();
+/* harmony default export */ __webpack_exports__["default"] = (Audio);
+
+/***/ }),
+
 /***/ "./resources/js/models/Cards.js":
 /*!**************************************!*\
   !*** ./resources/js/models/Cards.js ***!
@@ -18941,319 +19335,6 @@ var Tags = new function () {
   load();
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Tags);
-
-/***/ }),
-
-/***/ "./resources/js/models/Videos.js":
-/*!***************************************!*\
-  !*** ./resources/js/models/Videos.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_2__);
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
-var Videos = new function () {
-  function init() {
-    return _init.apply(this, arguments);
-  }
-
-  function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var _iterator4, _step4, callback;
-
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('video');
-
-            case 2:
-              videos = _context4.sent;
-              if (!!!Array.isArray(videos)) console.error('500 error');
-              isLoaded = true;
-              _iterator4 = _createForOfIteratorHelper(callbackCollection);
-
-              try {
-                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                  callback = _step4.value;
-                  callback();
-                }
-              } catch (err) {
-                _iterator4.e(err);
-              } finally {
-                _iterator4.f();
-              }
-
-            case 7:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-    return _init.apply(this, arguments);
-  }
-
-  function getById(id) {
-    var _iterator = _createForOfIteratorHelper(videos),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var video = _step.value;
-        if (video.id == id) return video;
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  }
-
-  function createCopy(video) {
-    var tagsCopy = [];
-
-    var _iterator2 = _createForOfIteratorHelper(video.tags),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var tag = _step2.value;
-        tagsCopy.push(_objectSpread({}, tag));
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-
-    var videoCopy = {
-      index: video.id - 1,
-      id: video.id,
-      title: video.title,
-      videoID: video.videoID,
-      description: video.description,
-      mainTag: _objectSpread({}, video.mainTag),
-      tags: tagsCopy
-    };
-    return videoCopy;
-  }
-
-  function isFormDataEmpty(data) {
-    if (data.values().next()) return false;
-    return true;
-  }
-
-  function compareDataWithTags(data, tags) {
-    for (var index in tags) {
-      var tag = tags[index];
-      if (tag.id !== data.get("tags[".concat(index, "]"))) return;
-    }
-
-    for (var _index in tags) {
-      data["delete"]("tags[".concat(_index, "]"));
-    }
-  }
-
-  this.create = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var response, newvideo;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].video('video', data);
-
-            case 2:
-              response = _context.sent;
-
-              if (!!response) {
-                _context.next = 5;
-                break;
-              }
-
-              return _context.abrupt("return", null);
-
-            case 5:
-              newvideo = {
-                id: response.id,
-                tags: response.tags,
-                title: response.title,
-                mainTag: response.mainTag,
-                videoID: response.videoID,
-                description: response.description
-              };
-              videos.push(newvideo);
-              return _context.abrupt("return", createCopy(newvideo));
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  this.edit = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, data) {
-      var target, videoID, description, mainTag, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              target = getById(id);
-              videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default()(String(data.get('videoUrl')));
-              if (target.videoID === videoID) data["delete"]('videoUrl');
-              description = data.get('description');
-              if (target.description === description) data["delete"]('description');
-              mainTag = data.get('mainTag');
-              if (target.mainTag.id == mainTag) data["delete"]('mainTag');
-              compareDataWithTags(data, target.tags);
-
-              if (!isFormDataEmpty(data)) {
-                _context2.next = 10;
-                break;
-              }
-
-              return _context2.abrupt("return", createCopy(target));
-
-            case 10:
-              _context2.next = 12;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
-
-            case 12:
-              response = _context2.sent;
-
-              if (!!response) {
-                _context2.next = 15;
-                break;
-              }
-
-              return _context2.abrupt("return", null);
-
-            case 15:
-              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
-              return _context2.abrupt("return", createCopy(target));
-
-            case 17:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x2, _x3) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  this["delete"] = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('video/' + id);
-
-            case 2:
-              response = _context3.sent;
-
-              if (!!response) {
-                _context3.next = 5;
-                break;
-              }
-
-              return _context3.abrupt("return", null);
-
-            case 5:
-              return _context3.abrupt("return", response);
-
-            case 6:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function (_x4) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  this.get = function (id) {
-    var video = getById(id);
-    return createCopy(video);
-  };
-
-  this.all = function () {
-    var videosCopy = [];
-
-    var _iterator3 = _createForOfIteratorHelper(videos),
-        _step3;
-
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var video = _step3.value;
-        videosCopy.push(createCopy(video));
-      }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
-    }
-
-    console.log(12);
-    return [].concat(videosCopy);
-  };
-
-  this.onload = function (callback) {
-    if (isLoaded) return callback();
-    callbackCollection.push(callback);
-  };
-
-  var videos = [];
-  var isLoaded = false;
-  var callbackCollection = [];
-  init();
-}();
-/* harmony default export */ __webpack_exports__["default"] = (Videos);
 
 /***/ }),
 
