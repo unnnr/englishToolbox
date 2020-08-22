@@ -1460,6 +1460,26 @@ main {
   }
 }
 
+@media (max-width: 1200px) {
+  .selected__overlay-image {
+    padding: 0 250px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .selected__overlay-image {
+    margin: 0;
+    padding: 0 20.83333vw;
+  }
+}
+
+@media (max-width: 770px) {
+  .selected__overlay-image {
+    margin: 0;
+    padding: 0 17.54386vw;
+  }
+}
+
 .addition {
   display: -webkit-box;
   display: -ms-flexbox;

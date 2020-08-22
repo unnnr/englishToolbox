@@ -1,14 +1,11 @@
 .alert {
-  z-index: $z-fourth;
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 30px;
   background: $bg-fifth;
   box-shadow: $shadow-second;
   @include border-radius;
   padding: 15px;
   width: 600px;
+  height: max-content;
 }
 
 .alert--warning {
@@ -24,17 +21,17 @@
     }
   }
 
-  .alert__footer {
+  .alert__buttons {
 
-    .alert__footer-button--cancel {
+    .alert__button--cancel {
       display: block;
     }
 
-    .alert__footer-button--confirm {
+    .alert__button--confirm {
       display: block;
     }
 
-    .alert__footer-button--okay {
+    .alert__button--okay {
       display: none;
     }
   }
@@ -53,17 +50,17 @@
     }
   }
 
-  .alert__footer {
+  .alert__buttons {
 
-    .alert__footer-button--cancel {
+    .alert__button--cancel {
       display: none;
     }
 
-    .alert__footer-button--confirm {
+    .alert__button--confirm {
       display: none;
     }
 
-    .alert__footer-button--okay {
+    .alert__button--okay {
       display: block;
     }
   }
@@ -95,12 +92,12 @@
   font-weight: $medium;
 }
 
-.alert__footer {
+.alert__buttons {
   display: flex;
-  justify-content: center ;
+  justify-content: center;
 }
 
-.alert__footer-button {
+.alert__button {
   font-size: 1.8em;
   font-weight: $medium;
   height: 40px;
@@ -108,18 +105,22 @@
   border-radius: 10px;
 }
 
-.alert__footer-button--cancel {
+.alert__button--cancel {
+  display: none;
   color: $text-third;
   border: 2px solid $text-third;
   margin-right: 15px;
+
 }
 
-.alert__footer-button--confirm {
+.alert__button--confirm {
+  display: none;
   color: $text-fourth;
   background: $color-fourth;
 }
 
-.alert__footer-button--okay {
+.alert__button--okay {
+  display: none;
   color: $text-fourth;
   background: $color-second;
 }

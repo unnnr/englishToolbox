@@ -42,6 +42,21 @@ main {
   overflow-x: hidden;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-fifth;
+}
+
+.modal--alert {
+  display: flex;
+  justify-content: center;
+}
+
 .pool {
   display: flex;
   flex-wrap: wrap;
