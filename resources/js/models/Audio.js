@@ -24,12 +24,12 @@ const Audio = new function ()
         }
     }
 
-    function createCopy(video)
+    function createCopy(audio)
     {
         let mainTagCopy = {...audio.mainTag};
 
         let tagsCopy = [];
-        for (let tag of video.tags)
+        for (let tag of audio.tags)
             tagsCopy.push({  ...tag });
     
         let audioCopy = {
@@ -37,7 +37,7 @@ const Audio = new function ()
             tags: tagsCopy,
             title: audio.title,
             mainTag: mainTagCopy,
-            imageUrl: audio.imageUrl,
+            imageUrl: audio.thumbnailUrl,
             audioUrl: audio.audioUrl,
             description: audio.description
         };
@@ -155,6 +155,12 @@ const Audio = new function ()
         
         callbackCollection.push(callback);
     }    
+
+    this.createThumbnail = (audio) =>
+    {
+        console.log(audio);
+        return audio.imageUrl;
+    } 
 
     let isLoaded = false;
     let audioCollection = [];

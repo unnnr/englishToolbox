@@ -3,13 +3,13 @@ import Posts from '@models/Posts'
 
 const Cards = new function()
 {
-    this.get = (index) =>
+    this.get = (id) =>
     {
-        let post = Posts.get(index);
+        let post = Posts.get(id);
         
         let card = { ...post };
 
-        card.thumbnail =`https://i.ytimg.com/vi/${post.videoID}/sddefault.jpg`
+        card.thumbnail = Posts.createThumbnail(post);
         
         return card;
     }
@@ -22,7 +22,7 @@ const Cards = new function()
         {
             let card = { ...post };
 
-            card.thumbnail =`https://i.ytimg.com/vi/${post.videoID}/sddefault.jpg`;
+            card.thumbnail = Posts.createThumbnail(post);
 
             cards.push(card);
         }

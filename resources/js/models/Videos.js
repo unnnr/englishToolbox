@@ -153,7 +153,12 @@ const Videos = new function ()
             return callback();
         
         callbackCollection.push(callback);
-    }    
+    }   
+
+    this.createThumbnail = (video) =>
+    {
+        return `https://i.ytimg.com/vi/${video.videoID}/sddefault.jpg`;
+    } 
 
     let videos = [];
     let isLoaded = false;

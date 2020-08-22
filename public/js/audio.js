@@ -18865,8 +18865,8 @@ var Audio = new function () {
 
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var _audio = _step.value;
-        if (_audio.id == id) return _audio;
+        var audio = _step.value;
+        if (audio.id == id) return audio;
       }
     } catch (err) {
       _iterator.e(err);
@@ -18875,12 +18875,12 @@ var Audio = new function () {
     }
   }
 
-  function createCopy(video) {
+  function createCopy(audio) {
     var mainTagCopy = _objectSpread({}, audio.mainTag);
 
     var tagsCopy = [];
 
-    var _iterator2 = _createForOfIteratorHelper(video.tags),
+    var _iterator2 = _createForOfIteratorHelper(audio.tags),
         _step2;
 
     try {
@@ -18899,7 +18899,7 @@ var Audio = new function () {
       tags: tagsCopy,
       title: audio.title,
       mainTag: mainTagCopy,
-      imageUrl: audio.imageUrl,
+      imageUrl: audio.thumbnailUrl,
       audioUrl: audio.audioUrl,
       description: audio.description
     };
@@ -19071,8 +19071,8 @@ var Audio = new function () {
 
     try {
       for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var _audio2 = _step3.value;
-        audioCopy.push(createCopy(_audio2));
+        var audio = _step3.value;
+        audioCopy.push(createCopy(audio));
       }
     } catch (err) {
       _iterator3.e(err);
@@ -19086,6 +19086,11 @@ var Audio = new function () {
   this.onload = function (callback) {
     if (isLoaded) return callback();
     callbackCollection.push(callback);
+  };
+
+  this.createThumbnail = function (audio) {
+    console.log(audio);
+    return audio.imageUrl;
   };
 
   var isLoaded = false;
@@ -19121,12 +19126,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var Cards = new function () {
-  this.get = function (index) {
-    var post = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(index);
+  this.get = function (id) {
+    var post = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(id);
 
     var card = _objectSpread({}, post);
 
-    card.thumbnail = "https://i.ytimg.com/vi/".concat(post.videoID, "/sddefault.jpg");
+    card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
     return card;
   };
 
@@ -19142,7 +19147,7 @@ var Cards = new function () {
 
         var card = _objectSpread({}, post);
 
-        card.thumbnail = "https://i.ytimg.com/vi/".concat(post.videoID, "/sddefault.jpg");
+        card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
         cards.push(card);
       }
     } catch (err) {

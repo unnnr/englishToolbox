@@ -19,15 +19,15 @@ class AudioResource extends JsonResource
 
             'title' => $this->title,
 
-            'thumbnailUrl' => $this->thumbnail,
-
-            'audioUrl' => $this->videoID,
-
             'description' => $this->description,
 
             'mainTag' => new TagResource($this->mainTag()),
 
-            'tags' => TagResource::collection($this->tags)
+            'tags' => TagResource::collection($this->tags),
+
+            'thumbnailUrl' => asset('storage/thumbnails/'. $this->thumbnail),
+
+            'audioUrl' => asset('storage/audio/'. $this->audio)
         ];
     }
 }
