@@ -54,5 +54,11 @@ class TagSeeder extends Seeder
             'color' => 'lightgreen', 
             'default' => true
         ]);
+
+        Tag::create([
+            'label' => 'audio',
+            'color' => 'paleturquoise', 
+            'default' => true
+        ]);
     }
 }

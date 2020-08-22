@@ -21,10 +21,12 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::apiResource('video', 'VideoController');
 
+    Route::apiResource('audio', 'AudioController');
 
-    Route::match(['get', 'head'], 'tags', 'TagController@all');
-    //Route::get('video/{video}/tags', 'TagController@index');
-    Route::post('/tags', 'TagController@store');
+    Route::apiResource('tags', 'TagController');
+
+  /*   Route::match(['get', 'head'], 'tags', 'TagController@all');
+    Route::post('/tags', 'TagController@store'); */
 
 });
 

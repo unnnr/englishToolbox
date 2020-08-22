@@ -50,6 +50,7 @@
                             id="image"
                             ref='image'
                             type="file"
+                            name="thumbnail"
                             class="editor__file-input"
                             accept="image/*"
                             required
@@ -61,8 +62,9 @@
                             id="audio" 
                             ref="audio"
                             type="file"
+                            name="audio"
                             class="editor__file-input"
-                            accept="image/*"
+                            accept="audio/*"
                             required
                             @change="updateFileName('audio')">
                     </label>
@@ -226,7 +228,7 @@ export default {
             try 
             {
                 if (this.onSumbit)
-                    await this.onSumbit(data);
+                    await this.onSumbit();
             }
             catch(error) 
             {

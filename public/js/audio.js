@@ -1000,6 +1000,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
 // Modules
  // Logic
 
@@ -1169,7 +1171,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
                 }
 
                 _context3.next = 4;
-                return _this3.onSumbit(data);
+                return _this3.onSumbit();
 
               case 4:
                 _context3.next = 10;
@@ -5042,6 +5044,7 @@ var render = function() {
                     attrs: {
                       id: "image",
                       type: "file",
+                      name: "thumbnail",
                       accept: "image/*",
                       required: ""
                     },
@@ -5073,7 +5076,8 @@ var render = function() {
                     attrs: {
                       id: "audio",
                       type: "file",
-                      accept: "image/*",
+                      name: "audio",
+                      accept: "audio/*",
                       required: ""
                     },
                     on: {
@@ -17646,17 +17650,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pool__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/Pool */ "./resources/js/components/Pool.vue");
 /* harmony import */ var _components_content_audio_AudioDetails__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @components/content/audio/AudioDetails */ "./resources/js/components/content/audio/AudioDetails.vue");
 /* harmony import */ var _components_content_audio_AudioPlayer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @components/content/audio/AudioPlayer */ "./resources/js/components/content/audio/AudioPlayer.vue");
-// Importing Vue core
- // Importing plugins
-
- // Importing models
-
-
- // Importing  static components
 
 
 
- // Importing dynamic components
+
+
+
 
 
 
