@@ -33,8 +33,17 @@
   width: 100%;
   left: 0;
   top: 0;
-  background: $bg-fifth;
 }
+
+.selected__overlay-image {
+  background: $bg-fifth;
+  width: 100%;
+  height: 100%;
+  margin: 0 7.5px;
+  @include border-radius;
+  padding: 50px 0;
+}
+
 
 // ========
 // addition 

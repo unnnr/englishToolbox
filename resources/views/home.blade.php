@@ -8,12 +8,14 @@
 
 @section('content')
 
-<section class="alert container">
-  <div class="alert__content">
-    <div class="alert__header"></div>
-    <div class="alert__body"></div>
-    <div class="alert__footer"></div>
-  </div>
+<section class="alert alert--error container">
+    <span class="alert__header text-second"></span>
+    <p class="alert__description text-fifth">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium fusce id velit ut tortor pretium.</p>
+    <div class="alert__footer">
+      <button class="alert__footer-button alert__footer-button--cancel">cancel</button>
+      <button class="alert__footer-button alert__footer-button--confirm">Confirm</button>
+      <button class="alert__footer-button alert__footer-button--okay">got it</button>
+    </div>
 </section> 
 
 <section class="banner container">

@@ -1066,23 +1066,134 @@ button:active {
 }
 
 .alert {
+  z-index: 40;
   position: fixed;
   top: 30px;
-  z-index: 40;
-  width: 100%;
-}
-
-.alert__content {
-  background: rgba(18, 18, 18, 0.95);
-  height: 100px;
-  width: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
+          box-shadow: 0px 5px 25px rgba(161, 161, 177, 0.1);
   border-radius: 15px;
+  padding: 15px;
+  width: 600px;
 }
 
 @media (max-width: 1200px) {
-  .alert__content {
+  .alert {
     border-radius: 10px;
   }
+}
+
+.alert--warning .alert__header {
+  color: #f9a922;
+}
+
+.alert--warning .alert__header:before {
+  content: "error_outline";
+}
+
+.alert--warning .alert__header:after {
+  content: "Warning!";
+}
+
+.alert--warning .alert__footer .alert__footer-button--cancel {
+  display: block;
+}
+
+.alert--warning .alert__footer .alert__footer-button--confirm {
+  display: block;
+}
+
+.alert--warning .alert__footer .alert__footer-button--okay {
+  display: none;
+}
+
+.alert--error .alert__header {
+  color: #ff6688;
+}
+
+.alert--error .alert__header:before {
+  content: "highlight_off";
+}
+
+.alert--error .alert__header:after {
+  content: "Error!";
+}
+
+.alert--error .alert__footer .alert__footer-button--cancel {
+  display: none;
+}
+
+.alert--error .alert__footer .alert__footer-button--confirm {
+  display: none;
+}
+
+.alert--error .alert__footer .alert__footer-button--okay {
+  display: block;
+}
+
+.alert__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 15px;
+  color: inherit;
+  border-radius: 10px;
+  font-size: inherit;
+}
+
+.alert__header:before {
+  font-family: "Material Icons Round";
+  margin-right: 5px;
+  font-size: 25px;
+}
+
+.alert__header:after {
+  font-size: 2.5em;
+}
+
+.alert__description {
+  color: #848499;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.alert__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.alert__footer-button {
+  font-size: 1.8em;
+  font-weight: 500;
+  height: 40px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.alert__footer-button--cancel {
+  color: #a1a1b1;
+  border: 2px solid #a1a1b1;
+  margin-right: 15px;
+}
+
+.alert__footer-button--confirm {
+  color: #fff;
+  background: #f9a922;
+}
+
+.alert__footer-button--okay {
+  color: #fff;
+  background: #ff6688;
 }
 
 .space {

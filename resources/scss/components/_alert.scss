@@ -1,13 +1,125 @@
 .alert {
+  z-index: $z-fourth;
   position: fixed;
   top: 30px;
-  z-index: $z-fourth;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $bg-fifth;
+  box-shadow: $shadow-second;
+  @include border-radius;
+  padding: 15px;
+  width: 600px;
 }
 
-.alert__content {
-  background: rgba(18, 18, 18, 0.95);
-  height: 100px;
+.alert--warning {
+
+  .alert__header {
+    color: $color-fourth;
+
+    &:before {
+      content: "error_outline";
+    }
+    &:after {
+      content: "Warning!";
+    }
+  }
+
+  .alert__footer {
+
+    .alert__footer-button--cancel {
+      display: block;
+    }
+
+    .alert__footer-button--confirm {
+      display: block;
+    }
+
+    .alert__footer-button--okay {
+      display: none;
+    }
+  }
+}
+
+.alert--error {
+
+  .alert__header {
+    color: $color-second;
+
+    &:before {
+      content: "highlight_off";
+    }
+    &:after {
+      content: "Error!";
+    }
+  }
+
+  .alert__footer {
+
+    .alert__footer-button--cancel {
+      display: none;
+    }
+
+    .alert__footer-button--confirm {
+      display: none;
+    }
+
+    .alert__footer-button--okay {
+      display: block;
+    }
+  }
+}
+
+
+.alert__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: inherit;
+  border-radius: 10px;
+  font-size: inherit;
+
+  &:before {
+    font-family: "Material Icons Round";
+    margin-right: 5px;
+    font-size: 25px;
+  }
+
+  &:after {
+    font-size: 2.5em;
+  }
+}
+
+.alert__description {
+  color: $text-second;
+  margin-bottom: 15px;
+  font-weight: $medium;
+}
+
+.alert__footer {
+  display: flex;
+  justify-content: center ;
+}
+
+.alert__footer-button {
+  font-size: 1.8em;
+  font-weight: $medium;
+  height: 40px;
   width: 100%;
-  @include border-radius;
+  border-radius: 10px;
+}
+
+.alert__footer-button--cancel {
+  color: $text-third;
+  border: 2px solid $text-third;
+  margin-right: 15px;
+}
+
+.alert__footer-button--confirm {
+  color: $text-fourth;
+  background: $color-fourth;
+}
+
+.alert__footer-button--okay {
+  color: $text-fourth;
+  background: $color-second;
 }
