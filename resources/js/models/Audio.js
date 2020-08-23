@@ -29,7 +29,7 @@ const Audio = new function ()
 
     function createCopy(audio)
     {
-        let mainTagCopy = {...audio.mainTag};
+        let mainTagCopy = { ...audio.mainTag };
 
         let tagsCopy = [];
         for (let tag of audio.tags)
@@ -40,7 +40,7 @@ const Audio = new function ()
             tags: tagsCopy,
             title: audio.title,
             mainTag: mainTagCopy,
-            imageUrl: audio.thumbnailUrl,
+            imageUrl: audio.imageUrl,
             audioUrl: audio.audioUrl,
             description: audio.description
         };
@@ -81,7 +81,7 @@ const Audio = new function ()
             tags: response.tags,
             title: response.title,
             mainTag: response.mainTag,
-            thumbnailUrl: response.thumbnailUrl,
+            imageUrl: response.imageUrl,
             audioUrl: response.audioUrl,
             description: response.description
         };
@@ -113,13 +113,13 @@ const Audio = new function ()
         if (target.mainTag.id == mainTag)
             data.delete('mainTag');
 
-        let image = data.get('thumbnail');
+        let image = data.get('imageFile');
         if (image.size === 0)
-            data.delete('thumbnail');
+            data.delete('imageFile');
 
-        let audio = data.get('audio');
+        let audio = data.get('audioFile');
         if (audio.size === 0)
-            data.delete('audio');
+            data.delete('audioFile');
 
         compareDataWithTags(data, target.tags)
 
@@ -130,18 +130,13 @@ const Audio = new function ()
         if (!!!response)
             return null; 
 
-        target.tags = response.tags,
-        target.title = response.title,
-        target.mainTag = response.mainTag,
-        target.audioUrl = response.audioUrl,
-        target.description = response.description
-        target.thumbnailUrl = response.thumbnailUrl;
+        target.tags = response.tags;
+        target.title = response.title;
+        target.mainTag = response.mainTag;
+        target.audioUrl = response.audioUrl;
+        target.imageUrl = response.imageUrl;
+        target.description = response.description;
         
-        console.log('response', response);
-
-        console.log('target', target);
-
-
         return createCopy(target);
     }
 
@@ -181,6 +176,7 @@ const Audio = new function ()
 
     this.createThumbnail = (audio) =>
     {
+        console.log(audio);
         return audio.imageUrl;
     } 
 

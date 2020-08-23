@@ -27,8 +27,8 @@ class UploadAudio extends FormRequest
             'title' => 'required|max:50',
             'description' => 'max:180',
 
-            'audio' => 'required|max:10240|mimes:mpga,wav',
-            'thumbnail' => 'required|max:10240|image',
+            'audioFile' => 'required|max:10240|mimes:mpga,wav',
+            'imageFile' => 'required|max:10240|image',
 
             'mainTag' => 'numeric',  
             'tags.*' => 'numeric|distinct',

@@ -407,6 +407,9 @@ __webpack_require__.r(__webpack_exports__);
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function () {
       _this.shown = false;
     });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function () {
+      _this.shown = false;
+    });
   }
 });
 
@@ -1155,6 +1158,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
       });
     },
     onAudioEdited: function onAudioEdited(post) {
+      console.log('First');
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
         post: post
       });
@@ -5135,7 +5139,7 @@ var render = function() {
                     attrs: {
                       id: "image",
                       type: "file",
-                      name: "thumbnail",
+                      name: "imageFile",
                       accept: "image/*",
                       required: _vm.isRequired
                     },
@@ -5163,7 +5167,7 @@ var render = function() {
                     attrs: {
                       id: "audio",
                       type: "file",
-                      name: "audio",
+                      name: "audioFile",
                       accept: "audio/*",
                       required: _vm.isRequired
                     },
@@ -19056,7 +19060,7 @@ var Audio = new function () {
       tags: tagsCopy,
       title: audio.title,
       mainTag: mainTagCopy,
-      imageUrl: audio.thumbnailUrl,
+      imageUrl: audio.imageUrl,
       audioUrl: audio.audioUrl,
       description: audio.description
     };
@@ -19105,7 +19109,7 @@ var Audio = new function () {
                 tags: response.tags,
                 title: response.title,
                 mainTag: response.mainTag,
-                thumbnailUrl: response.thumbnailUrl,
+                imageUrl: response.imageUrl,
                 audioUrl: response.audioUrl,
                 description: response.description
               };
@@ -19141,10 +19145,10 @@ var Audio = new function () {
               mainTag = data.get('mainTag');
               if (target.mainTag["default"] && !!!mainTag.lenght) data["delete"]('mainTag');
               if (target.mainTag.id == mainTag) data["delete"]('mainTag');
-              image = data.get('thumbnail');
-              if (image.size === 0) data["delete"]('thumbnail');
-              audio = data.get('audio');
-              if (audio.size === 0) data["delete"]('audio');
+              image = data.get('imageFile');
+              if (image.size === 0) data["delete"]('imageFile');
+              audio = data.get('audioFile');
+              if (audio.size === 0) data["delete"]('audioFile');
               compareDataWithTags(data, target.tags);
 
               if (!isFormDataEmpty(data)) {
@@ -19169,13 +19173,15 @@ var Audio = new function () {
               return _context2.abrupt("return", null);
 
             case 21:
-              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.audioUrl = response.audioUrl, target.description = response.description;
-              target.thumbnailUrl = response.thumbnailUrl;
-              console.log('response', response);
-              console.log('target', target);
+              target.tags = response.tags;
+              target.title = response.title;
+              target.mainTag = response.mainTag;
+              target.audioUrl = response.audioUrl;
+              target.imageUrl = response.imageUrl;
+              target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 26:
+            case 28:
             case "end":
               return _context2.stop();
           }
@@ -19255,6 +19261,7 @@ var Audio = new function () {
   };
 
   this.createThumbnail = function (audio) {
+    console.log(audio);
     return audio.imageUrl;
   };
 

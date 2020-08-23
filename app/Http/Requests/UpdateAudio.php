@@ -27,8 +27,8 @@ class UpdateAudio extends FormRequest
             'title' => 'max:50',
             'description' => 'max:180',
 
-            'audio' => 'max:10240|mimes:mpga,wav',
-            'thumbnail' => 'max:10240|image',
+            'audioFile' => 'max:10240|mimes:mpga,wav',
+            'imageFile' => 'max:10240|image',
 
             'mainTag' => 'numeric',  
             'tags.*' => 'numeric|distinct',

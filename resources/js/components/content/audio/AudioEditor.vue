@@ -50,7 +50,7 @@
                             id="image"
                             ref='image'
                             type="file"
-                            name="thumbnail"
+                            name="imageFile"
                             class="editor__file-input"
                             accept="image/*"
                             :required='isRequired'
@@ -62,7 +62,7 @@
                             id="audio" 
                             ref="audio"
                             type="file"
-                            name="audio"
+                            name="audioFile"
                             class="editor__file-input"
                             accept="audio/*"
                             :required='isRequired'
@@ -182,7 +182,9 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
-         onAudioEdited(post) {
+        onAudioEdited(post) {
+            console.log('First');
+            
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },

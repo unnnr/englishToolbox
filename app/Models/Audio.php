@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Audio extends Model
 {
     protected $fillable = [
-        'title', 'description', 'thumbnail', 'audio'
+        'title', 'description', 'imageFile', 'audioFile'
     ];
 
     public function tags()

@@ -25,9 +25,9 @@ class AudioResource extends JsonResource
 
             'tags' => TagResource::collection($this->tags),
 
-            'thumbnailUrl' => asset('storage/thumbnails/'. $this->thumbnail),
+            'imageUrl' => asset('storage/thumbnails/'. $this->imageFile),
 
-            'audioUrl' => asset('storage/audio/'. $this->audio)
+            'audioUrl' => asset('storage/audio/'. $this->audioFile)
         ];
     }
 }
