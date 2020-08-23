@@ -6,7 +6,7 @@
             @submit.prevent="submit">
 
             <div class="editor__header">
-                <h5 class="editor__title text-third">New audio</h5>
+                <h5 class="editor__title text-third">{{ formTitle }}</h5>
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
@@ -141,8 +141,12 @@ export default {
             return MAX_DESCRIPTION_LENGTH;
         },
 
-        isRequired(){
+        isRequired() {
             return this.state ? this.state.isFieldsRequired() : false;
+        },
+
+        formTitle() {
+            return this.state ? this.state.getTitle() : ''; 
         }
     },
 

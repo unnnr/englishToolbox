@@ -65,6 +65,11 @@ export default function(vueInstance)
     {
 
     }
+
+    this.getTitle = () => 
+    {
+        return 'New audio';
+    }
     
     const vue = vueInstance;
 

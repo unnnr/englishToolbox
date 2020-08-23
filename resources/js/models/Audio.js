@@ -37,7 +37,7 @@ const Audio = new function ()
             tags: tagsCopy,
             title: audio.title,
             mainTag: mainTagCopy,
-            imageUrl: audio.imageUrl,
+            imageUrl: audio.thumbnailUrl,
             audioUrl: audio.audioUrl,
             description: audio.description
         };
@@ -78,7 +78,7 @@ const Audio = new function ()
             tags: response.tags,
             title: response.title,
             mainTag: response.mainTag,
-            imageUrl: response.thumbnailUrl,
+            thumbnailUrl: response.thumbnailUrl,
             audioUrl: response.audioUrl,
             description: response.description
         };
@@ -105,16 +105,12 @@ const Audio = new function ()
             data.delete('description');
 
         let mainTag = data.get('mainTag');
-        console.log('tag', !!!mainTag, typeof mainTag);
-
-
         if (target.mainTag.default && !!!mainTag.lenght)
             data.delete('mainTag');
         if (target.mainTag.id == mainTag)
             data.delete('mainTag');
 
         let image = data.get('thumbnail');
-        console.log(image);
         if (image.size === 0)
             data.delete('thumbnail');
 
@@ -134,7 +130,14 @@ const Audio = new function ()
         target.tags = response.tags,
         target.title = response.title,
         target.mainTag = response.mainTag,
+        target.audioUrl = response.audioUrl,
         target.description = response.description
+        target.thumbnailUrl = response.thumbnailUrl;
+        
+        console.log('response', response);
+
+        console.log('target', target);
+
 
         return createCopy(target);
     }

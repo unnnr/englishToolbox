@@ -123,25 +123,13 @@ export default {
             let newCard = Cards.get(post.id);
             let card = this.getCardById(post.id);
 
+
+            console.log('second', card.imageUrl, newCard.imageUrl);
             Object.assign(card, newCard);
 
         });
 
         bus.listen('post-selecting', event => {
-
-            /* for (const card of this.cards)
-            {
-                if (card.id === event.post.id)
-                {
-                    if (this.selectedCard)
-                        this.$set(this.selectedCard, 'selected', false);
-
-                    this.selectedCard = card;
-                    this.$set(this.selectedCard, 'selected', true);
-
-                    break;
-                }
-            } */
 
             let card = this.getCardById(event.post.id);
 

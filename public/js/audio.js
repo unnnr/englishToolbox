@@ -516,20 +516,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       var card = _this2.getCardById(post.id);
 
+      console.log('second', card.imageUrl, newCard.imageUrl);
       Object.assign(card, newCard);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-selecting', function (event) {
-      /* for (const card of this.cards)
-      {
-          if (card.id === event.post.id)
-          {
-              if (this.selectedCard)
-                  this.$set(this.selectedCard, 'selected', false);
-               this.selectedCard = card;
-              this.$set(this.selectedCard, 'selected', true);
-               break;
-          }
-      } */
       var card = _this2.getCardById(event.post.id);
 
       if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
@@ -1028,6 +1018,9 @@ var MAX_DESCRIPTION_LENGTH = 180;
     },
     isRequired: function isRequired() {
       return this.state ? this.state.isFieldsRequired() : false;
+    },
+    formTitle: function formTitle() {
+      return this.state ? this.state.getTitle() : '';
     }
   },
   mounted: function mounted() {
@@ -4806,7 +4799,11 @@ var render = function() {
         }
       },
       [
-        _vm._m(0),
+        _c("div", { staticClass: "editor__header" }, [
+          _c("h5", { staticClass: "editor__title text-third" }, [
+            _vm._v(_vm._s(_vm.formTitle))
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -4978,22 +4975,12 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ]
     )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "editor__header" }, [
-      _c("h5", { staticClass: "editor__title text-third" }, [
-        _vm._v("New audio")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -18678,8 +18665,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -18780,7 +18765,7 @@ var Audio = new function () {
       tags: tagsCopy,
       title: audio.title,
       mainTag: mainTagCopy,
-      imageUrl: audio.imageUrl,
+      imageUrl: audio.thumbnailUrl,
       audioUrl: audio.audioUrl,
       description: audio.description
     };
@@ -18829,7 +18814,7 @@ var Audio = new function () {
                 tags: response.tags,
                 title: response.title,
                 mainTag: response.mainTag,
-                imageUrl: response.thumbnailUrl,
+                thumbnailUrl: response.thumbnailUrl,
                 audioUrl: response.audioUrl,
                 description: response.description
               };
@@ -18863,42 +18848,43 @@ var Audio = new function () {
               if (description === '') description = null;
               if (target.description == description) data["delete"]('description');
               mainTag = data.get('mainTag');
-              console.log('tag', !!!mainTag, _typeof(mainTag));
               if (target.mainTag["default"] && !!!mainTag.lenght) data["delete"]('mainTag');
               if (target.mainTag.id == mainTag) data["delete"]('mainTag');
               image = data.get('thumbnail');
-              console.log(image);
               if (image.size === 0) data["delete"]('thumbnail');
               audio = data.get('audio');
               if (audio.size === 0) data["delete"]('audio');
               compareDataWithTags(data, target.tags);
 
               if (!isFormDataEmpty(data)) {
-                _context2.next = 18;
+                _context2.next = 16;
                 break;
               }
 
               return _context2.abrupt("return", createCopy(target));
 
-            case 18:
-              _context2.next = 20;
+            case 16:
+              _context2.next = 18;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('audio/' + id, data);
 
-            case 20:
+            case 18:
               response = _context2.sent;
 
               if (!!response) {
-                _context2.next = 23;
+                _context2.next = 21;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 23:
-              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.description = response.description;
+            case 21:
+              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.audioUrl = response.audioUrl, target.description = response.description;
+              target.thumbnailUrl = response.thumbnailUrl;
+              console.log('response', response);
+              console.log('target', target);
               return _context2.abrupt("return", createCopy(target));
 
-            case 25:
+            case 26:
             case "end":
               return _context2.stop();
           }
@@ -19516,6 +19502,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
   this.hadleError = function () {};
 
+  this.getTitle = function () {
+    return 'New audio';
+  };
+
   var vue = vueInstance;
   init();
 });
@@ -19610,6 +19600,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   };
 
   this.hadleError = function () {};
+
+  this.getTitle = function () {
+    return 'Edit post';
+  };
 
   var vue = vueInstance;
   var target = post;

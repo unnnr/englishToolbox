@@ -47,7 +47,7 @@ export default function(vueInstance, post)
         return data;
     }
 
-    
+        
     this.updateAudio = () =>
     {  
        let input = ref('audio');
@@ -79,7 +79,13 @@ export default function(vueInstance, post)
     this.hadleError = () =>
     {
 
+    }    
+    
+    this.getTitle= () => 
+    {
+        return 'Edit post';
     }
+    
 
     const vue = vueInstance;
     const target = post;
