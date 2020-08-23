@@ -1476,6 +1476,8 @@ var MAX_CREATED_TAGS_COUNT = 30;
         } finally {
           _iterator2.f();
         }
+
+        this.selectedCount = tags.length;
       }
     },
     reversedCreatedTags: function reversedCreatedTags() {
@@ -1511,7 +1513,6 @@ var MAX_CREATED_TAGS_COUNT = 30;
       });
     },
     clear: function clear() {
-      // this.loadedTags = [];
       this.load();
     },
     createContext: function createContext(tag) {

@@ -20,7 +20,7 @@
             v-context:items="contextMenu"
             :key="tag.id"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
 
@@ -34,7 +34,7 @@
             :key="tag.id"
             v-context:items="contextMenu"
             :class="{ 'tag--main': tag.main }"
-            :style="{ 'background-color': tag.selected || tag.main ? tag.color : ''}"
+            :style="{ 'background-color': tag.selected ? tag.color : ''}"
             @click="toggle(tag)"
             @click.right="createContext(tag)">
             
@@ -105,13 +105,16 @@ export default {
                 
                 for (let tag of this.selected)
                     tag.selected = false;
-               
+
                 for (let { id } of tags)
                 {
                     let tag = this.getTagById(id);
 
                     this.$set(tag, 'selected', true);
                 }
+
+                this.selectedCount = tags.length;
+
             }
         },
         
@@ -127,7 +130,18 @@ export default {
                 this.$set(oldTag, 'main', false);
 
             if (newTag)
+            {
+                if (!!!newTag.selected)
+                {
+                    if (this.selectedCount >= MAX_TAGS_COUNT)   
+                        return false;
+
+                    this.$set(newTag, 'selected', true);
+                    this.selectedCount++;
+                }
+                
                 this.$set(newTag, 'main', true);
+            }
         }
     },
 
@@ -159,9 +173,7 @@ export default {
         },
 
         clear() {
-            // this.loadedTags = [];
             this.load();
-
         },
 
         createContext(tag) {

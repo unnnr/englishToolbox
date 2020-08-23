@@ -1559,6 +1559,8 @@ var MAX_CREATED_TAGS_COUNT = 30;
         } finally {
           _iterator2.f();
         }
+
+        this.selectedCount = tags.length;
       }
     },
     reversedCreatedTags: function reversedCreatedTags() {
@@ -1568,7 +1570,16 @@ var MAX_CREATED_TAGS_COUNT = 30;
   watch: {
     main: function main(newTag, oldTag) {
       if (oldTag) this.$set(oldTag, 'main', false);
-      if (newTag) this.$set(newTag, 'main', true);
+
+      if (newTag) {
+        if (!!!newTag.selected) {
+          if (this.selectedCount >= MAX_TAGS_COUNT) return false;
+          this.$set(newTag, 'selected', true);
+          this.selectedCount++;
+        }
+
+        this.$set(newTag, 'main', true);
+      }
     }
   },
   mounted: function mounted() {
@@ -1594,7 +1605,6 @@ var MAX_CREATED_TAGS_COUNT = 30;
       });
     },
     clear: function clear() {
-      // this.loadedTags = [];
       this.load();
     },
     createContext: function createContext(tag) {
@@ -5223,9 +5233,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag tag--created",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -5260,9 +5268,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -18620,12 +18626,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var Cards = new function () {
-  this.get = function (index) {
-    var post = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(index);
+  this.get = function (id) {
+    var post = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].get(id);
 
     var card = _objectSpread({}, post);
 
-    card.thumbnail = "https://i.ytimg.com/vi/".concat(post.videoID, "/sddefault.jpg");
+    card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
+    console.log('card', card);
     return card;
   };
 
@@ -18641,7 +18648,7 @@ var Cards = new function () {
 
         var card = _objectSpread({}, post);
 
-        card.thumbnail = "https://i.ytimg.com/vi/".concat(post.videoID, "/sddefault.jpg");
+        card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
         cards.push(card);
       }
     } catch (err) {
@@ -19139,6 +19146,10 @@ var Videos = new function () {
     callbackCollection.push(callback);
   };
 
+  this.createThumbnail = function (video) {
+    return "https://i.ytimg.com/vi/".concat(video.videoID, "/sddefault.jpg");
+  };
+
   var videos = [];
   var isLoaded = false;
   var callbackCollection = [];
@@ -19373,28 +19384,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pool__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/Pool */ "./resources/js/components/Pool.vue");
 /* harmony import */ var _models_Videos__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @models/Videos */ "./resources/js/models/Videos.js");
 /* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 
 

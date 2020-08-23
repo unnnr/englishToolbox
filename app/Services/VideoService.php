@@ -36,7 +36,7 @@ class VideoService
     {
         $mainTag = $request->input('mainTag');
         
-        if (is_int($mainTag))
+        if ($mainTag)
             $video->tags()->attach($mainTag, ['main' => true]);
     }
 
@@ -57,6 +57,10 @@ class VideoService
 
     public function create(UploadVideo $request)
     {
+
+        $mainTag = $request->input('mainTag');
+
+        
         $video = $this->createVideo($request);
 
         $this->attachTags($video, $request);
@@ -107,7 +111,7 @@ class VideoService
         }
 
         $mainTag = $request->input('mainTag');
-        if ($request->has('mainTag') && $mainTag !== $video->mainTag()->id)
+        if ($request->has('mainTag') && $mainTag != $video->mainTag()->id)
         { 
             $previous = $video->mainTag();
             if ($previous->default != true)
