@@ -49,12 +49,9 @@ main {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: $z-fifth;
-}
-
-.modal--alert {
   display: flex;
   justify-content: center;
+  z-index: $z-fifth;
 }
 
 .pool {

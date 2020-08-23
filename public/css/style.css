@@ -109,16 +109,13 @@ main {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 50;
-}
-
-.modal--alert {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  z-index: 50;
 }
 
 .pool {
