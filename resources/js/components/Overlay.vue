@@ -1,14 +1,17 @@
 <template>
-    <div class="selected__overlay container">
-        <transition name="fade">
+    <transition name="fade">
+        <div 
+            class="selected__overlay container"
+            v-if="shown">
+
             <object 
                 class="selected__overlay-image" 
                 type="image/svg+xml"
-                v-if="shown"
                 :data="src">
             </object>
-        </transition>
-    </div>
+        </div>
+    </transition>
+
 </template>
 
 <script>
@@ -40,7 +43,7 @@ export default {
             this.shown = false;
         })
 
-        bus.listen('posts-loaded', () => {
+        bus.listen('post-selected', () => {
             this.shown = false;
         })
 

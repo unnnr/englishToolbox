@@ -1,5 +1,9 @@
 <template>
-    <transition-group name="list" tag="section" class="pool container">
+    <transition-group 
+        name="list"
+        tag="section"
+        class="pool container"
+        :move-class="moveClass">
         <new-card
             postType="video"
             :key='-1'/>
@@ -11,8 +15,7 @@
             :mainTag="mainTag"
             :selected="selected"
             :imageUrl='thumbnail'
-            :description="description"
-            />
+            :description="description"/>
     </transition-group>
 </template>
 
@@ -31,7 +34,8 @@ export default {
 
     data: function () {
         return {
-            cards : []
+            moveClass: 'asdds',
+            cards: []
         };
     },
 
@@ -49,17 +53,28 @@ export default {
     beforeMount()
     {
         Posts.onload(() => {
-            setTimeout(() => {
-                  this.cards = Cards.all();
 
-                bus.dispatch('posts-loaded');
+            setTimeout(() => {
+                this.appendCards(Cards.all());
+
+                let firstCard = this.cards[0];
+
+                if (!!!firstCard)
+                    return;
+                
+                console.log(firstCard);
+                let id = Number(firstCard.id);
+                let post = Posts.get(id);
+
+                bus.dispatch('post-selecting', { post });
             }, 1000);
         });
     },
 
     mounted()
     {
-        // Init listeners
+        // Creating liteners 
+
         bus.listen('new-card-touched', event => {
 
             if (this.selectedCard)
@@ -69,7 +84,17 @@ export default {
 
             bus.dispatch('post-creating');
         });
+
+        bus.listen('post-created', event => {
+
+            let newCard = Cards.get(event.post.id);
+
+            this.cards.push(newCard);
+        });
         
+
+        // Selecting listeners
+
         bus.listen('card-selecting', event => {
 
             if (event.card === this.selectedCard)
@@ -80,12 +105,40 @@ export default {
             bus.dispatch('post-selecting', { post });
         });
 
+        bus.listen('post-selecting', event => {
+
+            let card = this.getCardById(event.post.id);
+
+            if (this.selectedCard)
+                    this.$set(this.selectedCard, 'selected', false);
+
+            this.selectedCard = card;
+            this.$set(this.selectedCard, 'selected', true);
+        });
+
+
+        // Editing listeners
+
         bus.listen('card-editing', event => {
 
             let post = Posts.get(Number(event.card.$vnode.key));
 
             bus.dispatch('post-editing', { post });
         });
+
+        bus.listen('post-edited', event => {
+            
+            let post = event.post;
+            let newCard = Cards.get(post.id);
+            let card = this.getCardById(post.id);
+
+
+            console.log('second', card.imageUrl, newCard.imageUrl);
+            Object.assign(card, newCard);
+
+        });
+
+        // Deleting listeners
 
         bus.listen('card-deleting', event => {
             
@@ -114,38 +167,14 @@ export default {
             this.cards.splice(index, 1);
         });
 
-        bus.listen('post-created', event => {
-
-            let newCard = Cards.get(event.post.id);
-
-            this.cards.push(newCard);
-        });
-
-        bus.listen('post-edited', event => {
-            
-            let post = event.post;
-            let newCard = Cards.get(post.id);
-            let card = this.getCardById(post.id);
-
-
-            console.log('second', card.imageUrl, newCard.imageUrl);
-            Object.assign(card, newCard);
-
-        });
-
-        bus.listen('post-selecting', event => {
-
-            let card = this.getCardById(event.post.id);
-
-            if (this.selectedCard)
-                    this.$set(this.selectedCard, 'selected', false);
-
-            this.selectedCard = card;
-            this.$set(this.selectedCard, 'selected', true);
-        });
     },
 
     methods: {
+        
+        move() {
+            console.log('Moving');
+        },
+
         getCardById(id) {
             
             for (const card of this.cards)
@@ -153,12 +182,43 @@ export default {
                 if (card.id == id)
                     return card;
             }
+        },
+
+        appendCards(cards)  {
+
+            function appendRecursively(newCards) {
+                
+                let card = newCards.pop();
+                
+                if (!!!card)
+                {
+                    // Set the default move class when the animation has finished playing 
+                    setTimeout(() => self.moveClass = 'list-move', DURATION);
+                    return;
+                }
+
+                poolCards.unshift(card);
+
+                // Set the delay between animations
+                setTimeout(() => appendRecursively(cards), DELAY);
+            }
+            
+            const DELAY = 130;
+            const DURATION = 500;
+
+            const poolCards = this.cards;
+            const self = this;
+
+            this.moveClass = 'ass';
+
+            appendRecursively(cards);
         }
     }
 }
 </script>
 
 <style scoped>
+
 .list-move {
   transition: 
   transform 1s ease-in-out,
@@ -168,14 +228,14 @@ export default {
 
 .list-enter-active
 {
-   -webkit-animation: scale-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: scale-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+   -webkit-animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 @-webkit-keyframes scale-in-bottom {
   0% {
-    -webkit-transform: scale(0.5);
-            transform: scale(0.5);
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
     -webkit-transform-origin: 50% 100%;
             transform-origin: 50% 100%;
     opacity: 0;
@@ -191,8 +251,8 @@ export default {
 
 @keyframes scale-in-bottom {
   0% {
-    -webkit-transform: scale(0.5);
-            transform: scale(0.5);
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
     -webkit-transform-origin: 50% 100%;
             transform-origin: 50% 100%;
     opacity: 0;

@@ -378,6 +378,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'overlay',
@@ -401,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('overlay-hidding', function () {
       _this.shown = false;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('posts-loaded', function () {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function () {
       _this.shown = false;
     });
   }
@@ -464,6 +467,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 
 
 
@@ -474,6 +480,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   name: 'pool',
   data: function data() {
     return {
+      moveClass: 'asdds',
       cards: []
     };
   },
@@ -491,20 +498,34 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
       setTimeout(function () {
-        _this.cards = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all();
-        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('posts-loaded');
+        _this.appendCards(_models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all());
+
+        var firstCard = _this.cards[0];
+        if (!!!firstCard) return;
+        console.log(firstCard);
+        var id = Number(firstCard.id);
+        var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(id);
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+          post: post
+        });
       }, 1000);
     });
   },
   mounted: function mounted() {
     var _this2 = this;
 
-    // Init listeners
+    // Creating liteners 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('new-card-touched', function (event) {
       if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
       _this2.selectedCard = null;
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-creating');
     });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-created', function (event) {
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
+
+      _this2.cards.push(newCard);
+    }); // Selecting listeners
+
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-selecting', function (event) {
       if (event.card === _this2.selectedCard) return;
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
@@ -512,12 +533,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         post: post
       });
     });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-selecting', function (event) {
+      var card = _this2.getCardById(event.post.id);
+
+      if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
+      _this2.selectedCard = card;
+
+      _this2.$set(_this2.selectedCard, 'selected', true);
+    }); // Editing listeners
+
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-editing', function (event) {
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-editing', {
         post: post
       });
     });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-edited', function (event) {
+      var post = event.post;
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.id);
+
+      var card = _this2.getCardById(post.id);
+
+      console.log('second', card.imageUrl, newCard.imageUrl);
+      Object.assign(card, newCard);
+    }); // Deleting listeners
+
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-deleting', function (event) {
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-deleting', {
@@ -562,30 +602,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       _this2.cards.splice(index, 1);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-created', function (event) {
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
-
-      _this2.cards.push(newCard);
-    });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-edited', function (event) {
-      var post = event.post;
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.id);
-
-      var card = _this2.getCardById(post.id);
-
-      console.log('second', card.imageUrl, newCard.imageUrl);
-      Object.assign(card, newCard);
-    });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-selecting', function (event) {
-      var card = _this2.getCardById(event.post.id);
-
-      if (_this2.selectedCard) _this2.$set(_this2.selectedCard, 'selected', false);
-      _this2.selectedCard = card;
-
-      _this2.$set(_this2.selectedCard, 'selected', true);
-    });
   },
   methods: {
+    move: function move() {
+      console.log('Moving');
+    },
     getCardById: function getCardById(id) {
       var _iterator = _createForOfIteratorHelper(this.cards),
           _step;
@@ -600,6 +621,32 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } finally {
         _iterator.f();
       }
+    },
+    appendCards: function appendCards(cards) {
+      function appendRecursively(newCards) {
+        var card = newCards.pop();
+
+        if (!!!card) {
+          // Set the default move class when the animation has finished playing 
+          setTimeout(function () {
+            return self.moveClass = 'list-move';
+          }, DURATION);
+          return;
+        }
+
+        poolCards.unshift(card); // Set the delay between animations
+
+        setTimeout(function () {
+          return appendRecursively(cards);
+        }, DELAY);
+      }
+
+      var DELAY = 130;
+      var DURATION = 500;
+      var poolCards = this.cards;
+      var self = this;
+      this.moveClass = 'ass';
+      appendRecursively(cards);
     }
   }
 });
@@ -1765,7 +1812,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -4467,21 +4514,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "selected__overlay container" },
-    [
-      _c("transition", { attrs: { name: "fade" } }, [
-        _vm.shown
-          ? _c("object", {
-              staticClass: "selected__overlay-image",
-              attrs: { type: "image/svg+xml", data: _vm.src }
-            })
-          : _vm._e()
-      ])
-    ],
-    1
-  )
+  return _c("transition", { attrs: { name: "fade" } }, [
+    _vm.shown
+      ? _c("div", { staticClass: "selected__overlay container" }, [
+          _c("object", {
+            staticClass: "selected__overlay-image",
+            attrs: { type: "image/svg+xml", data: _vm.src }
+          })
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4507,7 +4549,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "transition-group",
-    { staticClass: "pool container", attrs: { name: "list", tag: "section" } },
+    {
+      staticClass: "pool container",
+      attrs: { name: "list", tag: "section", "move-class": _vm.moveClass }
+    },
     [
       _c("new-card", { key: -1, attrs: { postType: "video" } }),
       _vm._v(" "),
