@@ -6,13 +6,16 @@ const Audio = new function ()
     {
         audioCollection = await Http.get('audio')
 
-        if (!!!Array.isArray(audioCollection))
-            console.error('500 error');
+        setTimeout(() => {
+            if (!!!Array.isArray(audioCollection))
+                console.error('500 error');
 
-        isLoaded = true;
+            isLoaded = true;
 
-        for (const callback of callbackCollection)
-            callback();
+            for (const callback of callbackCollection)
+                callback();
+
+        }, 1000);
     }
 
     function getById(id)

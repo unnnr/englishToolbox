@@ -47,6 +47,9 @@ export default {
             this.shown = false;
         })
 
+        bus.listen('post-creating', () => {
+            this.shown = false;
+        });
     }
 }
 </script>

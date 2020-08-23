@@ -54,21 +54,17 @@ export default {
     {
         Posts.onload(() => {
 
-            setTimeout(() => {
-                this.appendCards(Cards.all());
+            this.appendCards(Cards.all());
 
-                let firstCard = this.cards[0];
+            let firstCard = this.cards[0];
+            if (!!!firstCard)
+                return;
+            
+            let id = Number(firstCard.id);
+            let post = Posts.get(id);
 
-                if (!!!firstCard)
-                    return;
-                
-                console.log(firstCard);
-                let id = Number(firstCard.id);
-                let post = Posts.get(id);
-
-                bus.dispatch('post-selecting', { post });
-            }, 1000);
-        });
+            bus.dispatch('post-selecting', { post, disableScrolling: true });
+        }, 1000);
     },
 
     mounted()

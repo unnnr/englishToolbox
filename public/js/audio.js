@@ -497,19 +497,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var _this = this;
 
     _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
-      setTimeout(function () {
-        _this.appendCards(_models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all());
+      _this.appendCards(_models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all());
 
-        var firstCard = _this.cards[0];
-        if (!!!firstCard) return;
-        console.log(firstCard);
-        var id = Number(firstCard.id);
-        var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(id);
-        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
-          post: post
-        });
-      }, 1000);
-    });
+      var firstCard = _this.cards[0];
+      if (!!!firstCard) return;
+      var id = Number(firstCard.id);
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(id);
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+        post: post,
+        disableScrolling: true
+      });
+    }, 1000);
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -1228,6 +1226,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "audio-player",
@@ -1244,6 +1245,7 @@ __webpack_require__.r(__webpack_exports__);
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       _this.videoID = event.post.videoID;
       _this.showOverlay = false;
+      if (!!!event.disableScrolling) _this.scrollToPlayer();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
       _this.showOverlay = true;
@@ -1260,6 +1262,18 @@ __webpack_require__.r(__webpack_exports__);
       _this.videoID = event.post.videoID;
       _this.showOverlay = false;
     });
+  },
+  methods: {
+    scrollToPlayer: function scrollToPlayer() {
+      var SHIFT = 10;
+      var player = this.$refs.player;
+      var realatedTop = player.getBoundingClientRect().top;
+      var distance = realatedTop - SHIFT;
+      window.scrollBy({
+        top: distance,
+        behavior: 'smooth'
+      });
+    }
   }
 });
 
@@ -5202,68 +5216,64 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { ref: "player", staticClass: "player" }, [_vm._m(0)])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "player" }, [
-      _c("div", { staticClass: "player__rationed" }, [
-        _c("div", { staticClass: "player__image" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "audio" }, [
-          _c("div", { staticClass: "audio__player" }, [
-            _c("button", { staticClass: "audio__button-toggle" }, [
-              _c("i", { staticClass: "material-icons" }, [
-                _vm._v("visibility")
-              ]),
-              _c("span", [_vm._v("show")])
+    return _c("div", { staticClass: "player__rationed" }, [
+      _c("div", { staticClass: "player__image" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "audio" }, [
+        _c("div", { staticClass: "audio__player" }, [
+          _c("button", { staticClass: "audio__button-toggle" }, [
+            _c("i", { staticClass: "material-icons" }, [_vm._v("visibility")]),
+            _c("span", [_vm._v("show")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "audio__progress-control" }, [
+            _c("button", { staticClass: "audio__button-state" }, [
+              _c("i", { staticClass: "fas fa-play" })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "audio__progress-control" }, [
-              _c("button", { staticClass: "audio__button-state" }, [
-                _c("i", { staticClass: "fas fa-play" })
+            _c("div", { staticClass: "audio__progress-bar" }, [
+              _c("div", { staticClass: "audio__progress-current" }, [
+                _c("button", { staticClass: "audio__progress-cursor" })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "audio__progress-bar" }, [
-                _c("div", { staticClass: "audio__progress-current" }, [
-                  _c("button", { staticClass: "audio__progress-cursor" })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "audio__progress-maximum" })
+              _c("div", { staticClass: "audio__progress-maximum" })
+            ]),
+            _vm._v(" "),
+            _c("time", { staticClass: "audio__timer" }, [
+              _c("span", { staticClass: "audio__timer-current" }, [
+                _vm._v("0:00")
               ]),
               _vm._v(" "),
-              _c("time", { staticClass: "audio__timer" }, [
-                _c("span", { staticClass: "audio__timer-current" }, [
-                  _vm._v("0:00")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "audio__timer-separator" }, [
-                  _vm._v("/")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "audio__timer-maximum" }, [
-                  _vm._v("0:00")
-                ])
+              _c("span", { staticClass: "audio__timer-separator" }, [
+                _vm._v("/")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "audio__timer-maximum" }, [
+                _vm._v("0:00")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "audio__volume-control" }, [
+            _c("button", { staticClass: "audio__volume-button" }, [
+              _c("span", { staticClass: "material-icons-round" }, [
+                _vm._v("volume_up")
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "audio__volume-control" }, [
-              _c("button", { staticClass: "audio__volume-button" }, [
-                _c("span", { staticClass: "material-icons-round" }, [
-                  _vm._v("volume_up")
-                ])
+            _c("div", { staticClass: "audio__volume-bar" }, [
+              _c("div", { staticClass: "audio__volume-current" }, [
+                _c("button", { staticClass: "audio__volume-cursor" })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "audio__volume-bar" }, [
-                _c("div", { staticClass: "audio__volume-current" }, [
-                  _c("button", { staticClass: "audio__volume-cursor" })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "audio__volume-maximum" })
-              ])
+              _c("div", { staticClass: "audio__volume-maximum" })
             ])
           ])
         ])
@@ -18968,8 +18978,6 @@ var Audio = new function () {
 
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var _iterator4, _step4, callback;
-
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -18979,22 +18987,26 @@ var Audio = new function () {
 
             case 2:
               audioCollection = _context4.sent;
-              if (!!!Array.isArray(audioCollection)) console.error('500 error');
-              isLoaded = true;
-              _iterator4 = _createForOfIteratorHelper(callbackCollection);
+              setTimeout(function () {
+                if (!!!Array.isArray(audioCollection)) console.error('500 error');
+                isLoaded = true;
 
-              try {
-                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                  callback = _step4.value;
-                  callback();
+                var _iterator4 = _createForOfIteratorHelper(callbackCollection),
+                    _step4;
+
+                try {
+                  for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                    var callback = _step4.value;
+                    callback();
+                  }
+                } catch (err) {
+                  _iterator4.e(err);
+                } finally {
+                  _iterator4.f();
                 }
-              } catch (err) {
-                _iterator4.e(err);
-              } finally {
-                _iterator4.f();
-              }
+              }, 1000);
 
-            case 7:
+            case 4:
             case "end":
               return _context4.stop();
           }

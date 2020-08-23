@@ -1,6 +1,9 @@
 <template>
-	<div class="player">
-    	<div class="player__rationed">
+	<div 
+		class="player"
+		ref="player">
+    	
+		<div class="player__rationed">
   			<iframe class="player__video"
 			  		frameborder="0"
 					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -35,6 +38,9 @@ export default {
 		bus.listen('post-selected', event => {
 			this.videoID = event.post.videoID;
 			this.showOverlay = false;
+
+			if (!!!event.disableScrolling)
+            	this.scrollToPlayer();
 		});
 
 		bus.listen('post-creating', event => {
@@ -55,7 +61,23 @@ export default {
 			this.videoID = event.post.videoID;
 			this.showOverlay = false;
 		});
-	}
+	},
+
+	methods: {
+        scrollToPlayer() {
+            const SHIFT = 10;
+
+            let player = this.$refs.player;
+
+            let realatedTop = player.getBoundingClientRect().top;
+            let distance  = realatedTop - SHIFT;
+
+            window.scrollBy({
+                top: distance ,
+                behavior: 'smooth' 
+            })
+        }
+    }
 };
 </script>
 
