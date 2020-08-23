@@ -14,7 +14,7 @@
                         Title
                         <small class="editor__counter">{{ titleCounter }}</small>
                     </span> 
-                    <small class="editor__error">{{ titleError }}</small>
+                    <small class="editor__error">{{  errors.title }}</small>
                 </label>
                 <input 
                     type="text"
@@ -23,29 +23,29 @@
                     placeholder="place for your title"
                     autocomplete="off"
                     required
-                    v-model="title"
+                    v-model="audio.title"
                     :maxlength="titleMaxLength">
                 <label class="editor__label text-fourth" for="">
                     <span>
                         Custom description
                         <small class="editor__counter">{{ descriptionCounter }}</small>
                     </span> 
-                    <small class="editor__error">{{ descriptionError }}</small>
+                    <small class="editor__error">{{ errors.description }}</small>
                 </label>
                 <textarea 
                     class="editor__textarea textarea-second"
                     placeholder="place for your description"
                     name="description"
-                    v-model="description"
+                    v-model="audio.description"
                     :maxlength="descriptionMaxLength">
                 </textarea>
                 <label class="editor__label text-fourth" for="">
                     <span>Upload files</span> 
-                    <small class="editor__error">{{ filesError }}</small>
+                    <small class="editor__error">{{  errors.files }}</small>
                 </label>
                 <div class="editor__upload">
                     <label class="editor__input-group editor__input-group--image" for="image">
-                        <span class="editor__file-placeholder text-sixth">{{ imageName }}</span>
+                        <span class="editor__file-placeholder text-sixth">{{ audio.imageLabel }}</span>
                         <input 
                             id="image"
                             ref='image'
@@ -54,10 +54,10 @@
                             class="editor__file-input"
                             accept="image/*"
                             required
-                            @change="updateFileName('image')">
+                            @change="updateImage">
                     </label>
                     <label class="editor__input-group editor__input-group--audio" for="audio">
-                        <span class="editor__file-placeholder text-sixth">{{ audioName }}</span>
+                        <span class="editor__file-placeholder text-sixth">{{ audio.audioLabel }}</span>
                         <input
                             id="audio" 
                             ref="audio"
@@ -66,7 +66,7 @@
                             class="editor__file-input"
                             accept="audio/*"
                             required
-                            @change="updateFileName('audio')">
+                            @change="updateAudio">
                     </label>
                 </div>
 
@@ -86,8 +86,8 @@ import getYouTubeID from 'get-youtube-id';
 
 // Logic
 import bus from '@services/eventbus';
-import Audio from '@models/Audio'
 import Tags from '@models/Tags'
+import {editorState, creatorState} from '@states/audioEditorStates';
 
 //Components
 import TagEditor from '@components/tags/TagEditor';
@@ -104,23 +104,28 @@ export default {
 
     data: function () { 
         return {
-            title: '',
-            titleError: '',
 
-            description: '',
-            descriptionError: '',
+            audio: {
+                title: '',
+                description: '', 
+                imageLabel: '',
+                audioLabel: ''
+            },
 
-            imageName: 'image',
-            audioName: 'audio',
+            errors : {
+                title: '',
+                description: '',
+                files: '',
+            },
 
-            filesError: ''
+            state: null
         }
     },
 
     computed: {
 
         titleCounter() {
-            return this.title.length + '/' + MAX_TITLE_LENGTH;
+            return this.audio.title.length + '/' + MAX_TITLE_LENGTH;
         },
 
         titleMaxLength() {
@@ -128,7 +133,7 @@ export default {
         },
 
         descriptionCounter() {
-            return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+            return this.audio.description.length + '/' + MAX_DESCRIPTION_LENGTH;
         },
 
         descriptionMaxLength() {
@@ -148,77 +153,43 @@ export default {
                 tags.main = tags.getTagById(post.mainTag.id);
 
             this.$options.postID = post.id;
-            this.onSumbit = this.editAudio;
         });
 
         bus.listen('post-creating', event => {
             
-            this.clear();
-            this.$refs.tags.clear();
-
-            this.onSumbit = this.createAudio;
-		});
+            this.state = new creatorState(this);
+            console.log(this.state);
+        });
+        
+        this.state = new creatorState(this);
     },
 
     methods: {
 
         clear() {
-            this.title =  '';
-            this.titleError =  '';
+            this.audio.title =  '';
+            this.audio.description =  '';
+            this.audio.imageLabel =  '';
+            this.audio.audioLabel =  '';
 
-            this.description =  '';
-            this.descriptionError =  '';
-
-            this.imageName =  'image';
-            this.audioName =  'audio';
-
-            this.filesError =  ''; 
+            this.errors.title = '';
+            this.errors.description = '';
+            this.errors.files = '';
 
             let tags = this.$refs.tags;
 
             tags.clear();
         },
 
-        updateFileName( label ) {
-            
-            let input =  this.$refs[label];
-
-            if (!!!input.files.length)
-            {
-                this[label + 'Name'] = label;
-                return;
-            }
-
-            let fileName = input.files[0].name;
-
-            this[label + 'Name']  = fileName;
+        updateAudio() {
+            this.state.updateAudio();
         },
 
-        getFormData(nullableMainTag = false) {
-            
-            let data = new FormData(this.$refs.form);
-
-            let tags = this.$refs.tags.selected;
-            for (const [index, tag] of tags.entries())
-                data.append(`tags[${index}]`, tag.id);
-            
-            let mainTag = this.$refs.tags.main;
-            if (mainTag)
-                data.append('mainTag', mainTag.id);
-            
-            else if (nullableMainTag)
-                data.append('mainTag', '');
-
-            return data;
+        updateImage() {
+            this.state.updateImage();
         },
 
-        async createAudio() {
-
-            let data = this.getFormData();
-            let post = await Audio.create(data);
-
-
-            console.log(post);
+        onAudioCreated(post) {
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selecting', { post  });
         },
@@ -232,24 +203,10 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
-        async submit (event) {
-            try 
-            {
-                if (this.onSumbit)
-                    await this.onSumbit();
-            }
-            catch(error) 
-            {
-                console.log(error);
-
-                if (error.status == 422 )
-                {
-                   
-                }
-            };
-
-          
+        submit () {
+            this.state.submit();
         }
     }
 }
+
 </script>

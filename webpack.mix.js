@@ -14,6 +14,7 @@ mix.webpackConfig({
     resolve: {
         alias: {
             '@models': path.resolve(__dirname, 'resources/js/models/'),
+            '@states': path.resolve(__dirname, 'resources/js/vuestates/'),
             '@services': path.resolve(__dirname, 'resources/js/services/'),
             '@components': path.resolve(__dirname, 'resources/js/components/')
         }

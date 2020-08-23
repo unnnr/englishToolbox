@@ -898,28 +898,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Audio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Audio */ "./resources/js/models/Audio.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _states_audioEditorStates__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @states/audioEditorStates */ "./resources/js/vuestates/audioEditorStates.js");
 /* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 //
 //
@@ -1019,24 +1005,29 @@ var MAX_DESCRIPTION_LENGTH = 180;
   },
   data: function data() {
     return {
-      title: '',
-      titleError: '',
-      description: '',
-      descriptionError: '',
-      imageName: 'image',
-      audioName: 'audio',
-      filesError: ''
+      audio: {
+        title: '',
+        description: '',
+        imageLabel: '',
+        audioLabel: ''
+      },
+      errors: {
+        title: '',
+        description: '',
+        files: ''
+      },
+      state: null
     };
   },
   computed: {
     titleCounter: function titleCounter() {
-      return this.title.length + '/' + MAX_TITLE_LENGTH;
+      return this.audio.title.length + '/' + MAX_TITLE_LENGTH;
     },
     titleMaxLength: function titleMaxLength() {
       return MAX_TITLE_LENGTH;
     },
     descriptionCounter: function descriptionCounter() {
-      return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+      return this.audio.description.length + '/' + MAX_DESCRIPTION_LENGTH;
     },
     descriptionMaxLength: function descriptionMaxLength() {
       return MAX_DESCRIPTION_LENGTH;
@@ -1051,66 +1042,40 @@ var MAX_DESCRIPTION_LENGTH = 180;
       tags.selected = post.tags;
       if (!!!post.mainTag["default"]) tags.main = tags.getTagById(post.mainTag.id);
       _this.$options.postID = post.id;
-      _this.onSumbit = _this.editAudio;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-creating', function (event) {
-      _this.clear();
-
-      _this.$refs.tags.clear();
-
-      _this.onSumbit = _this.createAudio;
+      _this.state = new _states_audioEditorStates__WEBPACK_IMPORTED_MODULE_4__["creatorState"](_this);
+      console.log(_this.state);
     });
+    this.state = new _states_audioEditorStates__WEBPACK_IMPORTED_MODULE_4__["creatorState"](this);
   },
   methods: {
     clear: function clear() {
-      this.title = '';
-      this.titleError = '';
-      this.description = '';
-      this.descriptionError = '';
-      this.imageName = 'image';
-      this.audioName = 'audio';
-      this.filesError = '';
+      this.audio.title = '';
+      this.audio.description = '';
+      this.audio.imageLabel = '';
+      this.audio.audioLabel = '';
+      this.errors.title = '';
+      this.errors.description = '';
+      this.errors.files = '';
       var tags = this.$refs.tags;
       tags.clear();
     },
-    updateFileName: function updateFileName(label) {
-      var input = this.$refs[label];
-
-      if (!!!input.files.length) {
-        this[label + 'Name'] = label;
-        return;
-      }
-
-      var fileName = input.files[0].name;
-      this[label + 'Name'] = fileName;
+    updateAudio: function updateAudio() {
+      this.state.updateAudio();
     },
-    getFormData: function getFormData() {
-      var nullableMainTag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var data = new FormData(this.$refs.form);
-      var tags = this.$refs.tags.selected;
-
-      var _iterator = _createForOfIteratorHelper(tags.entries()),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var _step$value = _slicedToArray(_step.value, 2),
-              index = _step$value[0],
-              tag = _step$value[1];
-
-          data.append("tags[".concat(index, "]"), tag.id);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      var mainTag = this.$refs.tags.main;
-      if (mainTag) data.append('mainTag', mainTag.id);else if (nullableMainTag) data.append('mainTag', '');
-      return data;
+    updateImage: function updateImage() {
+      this.state.updateImage();
     },
-    createAudio: function createAudio() {
+    onAudioCreated: function onAudioCreated(post) {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
+        post: post
+      });
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
+        post: post
+      });
+    },
+    editAudio: function editAudio() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -1121,41 +1086,10 @@ var MAX_DESCRIPTION_LENGTH = 180;
               case 0:
                 data = _this2.getFormData();
                 _context.next = 3;
-                return _models_Audio__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
+                return Audio.create(data);
 
               case 3:
                 post = _context.sent;
-                console.log(post);
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
-                  post: post
-                });
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
-                  post: post
-                });
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    editAudio: function editAudio() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var data, post;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                data = _this3.getFormData();
-                _context2.next = 3;
-                return _models_Audio__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
-
-              case 3:
-                post = _context2.sent;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
                   post: post
                 });
@@ -1165,51 +1099,14 @@ var MAX_DESCRIPTION_LENGTH = 180;
 
               case 6:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }))();
     },
-    submit: function submit(event) {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.prev = 0;
-
-                if (!_this4.onSumbit) {
-                  _context3.next = 4;
-                  break;
-                }
-
-                _context3.next = 4;
-                return _this4.onSumbit();
-
-              case 4:
-                _context3.next = 10;
-                break;
-
-              case 6:
-                _context3.prev = 6;
-                _context3.t0 = _context3["catch"](0);
-                console.log(_context3.t0);
-
-                if (_context3.t0.status == 422) {}
-
-              case 10:
-                ;
-
-              case 11:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[0, 6]]);
-      }))();
+    submit: function submit() {
+      this.state.submit();
     }
   }
 });
@@ -4949,7 +4846,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("small", { staticClass: "editor__error" }, [
-                  _vm._v(_vm._s(_vm.titleError))
+                  _vm._v(_vm._s(_vm.errors.title))
                 ])
               ]
             ),
@@ -4959,8 +4856,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.title,
-                  expression: "title"
+                  value: _vm.audio.title,
+                  expression: "audio.title"
                 }
               ],
               staticClass: "editor__input input-second",
@@ -4972,13 +4869,13 @@ var render = function() {
                 required: "",
                 maxlength: _vm.titleMaxLength
               },
-              domProps: { value: _vm.title },
+              domProps: { value: _vm.audio.title },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.title = $event.target.value
+                  _vm.$set(_vm.audio, "title", $event.target.value)
                 }
               }
             }),
@@ -4997,7 +4894,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("small", { staticClass: "editor__error" }, [
-                  _vm._v(_vm._s(_vm.descriptionError))
+                  _vm._v(_vm._s(_vm.errors.description))
                 ])
               ]
             ),
@@ -5007,8 +4904,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.description,
-                  expression: "description"
+                  value: _vm.audio.description,
+                  expression: "audio.description"
                 }
               ],
               staticClass: "editor__textarea textarea-second",
@@ -5017,13 +4914,13 @@ var render = function() {
                 name: "description",
                 maxlength: _vm.descriptionMaxLength
               },
-              domProps: { value: _vm.description },
+              domProps: { value: _vm.audio.description },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.description = $event.target.value
+                  _vm.$set(_vm.audio, "description", $event.target.value)
                 }
               }
             }),
@@ -5035,7 +4932,7 @@ var render = function() {
                 _c("span", [_vm._v("Upload files")]),
                 _vm._v(" "),
                 _c("small", { staticClass: "editor__error" }, [
-                  _vm._v(_vm._s(_vm.filesError))
+                  _vm._v(_vm._s(_vm.errors.files))
                 ])
               ]
             ),
@@ -5051,7 +4948,7 @@ var render = function() {
                   _c(
                     "span",
                     { staticClass: "editor__file-placeholder text-sixth" },
-                    [_vm._v(_vm._s(_vm.imageName))]
+                    [_vm._v(_vm._s(_vm.audio.imageLabel))]
                   ),
                   _vm._v(" "),
                   _c("input", {
@@ -5064,11 +4961,7 @@ var render = function() {
                       accept: "image/*",
                       required: ""
                     },
-                    on: {
-                      change: function($event) {
-                        return _vm.updateFileName("image")
-                      }
-                    }
+                    on: { change: _vm.updateImage }
                   })
                 ]
               ),
@@ -5083,7 +4976,7 @@ var render = function() {
                   _c(
                     "span",
                     { staticClass: "editor__file-placeholder text-sixth" },
-                    [_vm._v(_vm._s(_vm.audioName))]
+                    [_vm._v(_vm._s(_vm.audio.audioLabel))]
                   ),
                   _vm._v(" "),
                   _c("input", {
@@ -5096,11 +4989,7 @@ var render = function() {
                       accept: "audio/*",
                       required: ""
                     },
-                    on: {
-                      change: function($event) {
-                        return _vm.updateFileName("audio")
-                      }
-                    }
+                    on: { change: _vm.updateAudio }
                   })
                 ]
               )
@@ -19562,6 +19451,155 @@ var Bus = new function () {
 }();
 var listeners = [];
 /* harmony default export */ __webpack_exports__["default"] = (Bus);
+
+/***/ }),
+
+/***/ "./resources/js/vuestates/audioEditorStates.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/vuestates/audioEditorStates.js ***!
+  \*****************************************************/
+/*! exports provided: editorState, creatorState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editorState", function() { return editorState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "creatorState", function() { return creatorState; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _models_Audio__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @models/Audio */ "./resources/js/models/Audio.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+ // Help functions
+
+function getLabel(input, label) {
+  var prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  if (!!!input.files.length) return prefix + label;
+  var fileName = input.files[0].name;
+  return fileName;
+}
+
+function appendTagsData(data, tags) {
+  var _iterator = _createForOfIteratorHelper(tags.entries()),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _step$value = _slicedToArray(_step.value, 2),
+          index = _step$value[0],
+          tag = _step$value[1];
+
+      data.append("tags[".concat(index, "]"), tag.id);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}
+
+function appendMainTagData(data, mainTag) {
+  var nullable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  if (mainTag) data.append('mainTag', mainTag.id);else if (nullable) data.append('mainTag', '');
+} // States
+
+
+function editorState(vueInstance) {
+  var _this = this;
+
+  function init() {}
+
+  this.getFormData = function () {};
+
+  this.setAudioLabel = function () {
+    _this.createLabel(vue, 'audio');
+  };
+
+  this.setImageLabel = function () {};
+
+  this.submit = function () {};
+
+  this.hadleError = function () {};
+
+  var vue = vueInstance;
+  init();
+}
+function creatorState(vueInstance) {
+  function ref(name) {
+    return vue.$refs[name];
+  }
+
+  function init() {
+    vue.clear();
+    vue.audio.audioLabel = 'audio';
+    vue.audio.imageLabel = 'image';
+    ref('tags').clear();
+  }
+
+  function getFormData() {
+    var data = new FormData(ref('form'));
+    var tags = ref('tags').selected;
+    appendTagsData(data, tags);
+    var mainTag = ref('tags').mainTag;
+    appendMainTagData(data, mainTag);
+    return data;
+  }
+
+  this.updateAudio = function () {
+    var input = ref('audio');
+    vue.audio.audioLabel = getLabel(input, 'audio');
+  };
+
+  this.updateImage = function () {
+    var input = ref('image');
+    vue.audio.imageLabel = getLabel(input, 'image');
+  };
+
+  this.submit = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    var data, post;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            data = getFormData();
+            _context.next = 3;
+            return _models_Audio__WEBPACK_IMPORTED_MODULE_1__["default"].create(data);
+
+          case 3:
+            post = _context.sent;
+            vue.onAudioCreated(post);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  this.hadleError = function () {};
+
+  var vue = vueInstance;
+  init();
+}
 
 /***/ }),
 
