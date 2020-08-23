@@ -4,9 +4,6 @@ import Audio from '@models/Audio'
 
 
 
-
-
-
 export default function(vueInstance)
 {
     function ref(name) 
@@ -59,6 +56,11 @@ export default function(vueInstance)
         vue.onAudioCreated(post);
     }
 
+    this.isFieldsRequired = () =>
+    {
+        return false;
+    }
+    
     this.hadleError = () =>
     {
 

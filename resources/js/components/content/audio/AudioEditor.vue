@@ -53,7 +53,7 @@
                             name="thumbnail"
                             class="editor__file-input"
                             accept="image/*"
-                            required
+                            :required='isRequired'
                             @change="updateImage">
                     </label>
                     <label class="editor__input-group editor__input-group--audio" for="audio">
@@ -65,7 +65,7 @@
                             name="audio"
                             class="editor__file-input"
                             accept="audio/*"
-                            required
+                            :required='isRequired'
                             @change="updateAudio">
                     </label>
                 </div>
@@ -139,6 +139,11 @@ export default {
 
         descriptionMaxLength() {
             return MAX_DESCRIPTION_LENGTH;
+        },
+
+        isRequired(){
+            console.log("what now?");
+            return this.state ? this.state.isFieldsRequired() : false;
         }
     },
 
@@ -169,26 +174,29 @@ export default {
             this.errors.files = '';
         },
 
-        updateAudio() {
-            this.state.updateAudio();
-        },
-
-        updateImage() {
-            this.state.updateImage();
-        },
-
         onAudioCreated(post) {
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
-         onAudioCreated(post) {
+         onAudioEdited(post) {
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
+        updateAudio() {
+            if (this.state)
+                this.state.updateAudio();
+        },
+
+        updateImage() {
+            if (this.state)
+                this.state.updateImage();
+        },
+
         submit () {
-            this.state.submit();
+            if (this.state)
+                this.state.submit();
         }
     }
 }

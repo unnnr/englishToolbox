@@ -64,11 +64,16 @@ export default function(vueInstance, post)
     {
         let id = target.id;
         let data = getFormData();
-        let post = await Posts.edit(id, data);
+        let post = await Audio.edit(id, data);
         
         vue.onAudioEdited(post);
     }
 
+    this.isFieldsRequired = () =>
+    {
+        return false;
+    }
+    
     this.hadleError = () =>
     {
 

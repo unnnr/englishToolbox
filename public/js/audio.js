@@ -900,10 +900,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @states/audio/editing */ "./resources/js/vuestates/audio/editing.js");
 /* harmony import */ var _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @states/audio/creation */ "./resources/js/vuestates/audio/creation.js");
 /* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -1029,6 +1025,10 @@ var MAX_DESCRIPTION_LENGTH = 180;
     },
     descriptionMaxLength: function descriptionMaxLength() {
       return MAX_DESCRIPTION_LENGTH;
+    },
+    isRequired: function isRequired() {
+      console.log("what now?");
+      return this.state ? this.state.isFieldsRequired() : false;
     }
   },
   mounted: function mounted() {
@@ -1042,7 +1042,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
     });
     this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
   },
-  methods: (_methods = {
+  methods: {
     clear: function clear() {
       this.audio.title = '';
       this.audio.description = '';
@@ -1052,12 +1052,6 @@ var MAX_DESCRIPTION_LENGTH = 180;
       this.errors.description = '';
       this.errors.files = '';
     },
-    updateAudio: function updateAudio() {
-      this.state.updateAudio();
-    },
-    updateImage: function updateImage() {
-      this.state.updateImage();
-    },
     onAudioCreated: function onAudioCreated(post) {
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
         post: post
@@ -1065,17 +1059,25 @@ var MAX_DESCRIPTION_LENGTH = 180;
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post
       });
+    },
+    onAudioEdited: function onAudioEdited(post) {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
+        post: post
+      });
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+        post: post
+      });
+    },
+    updateAudio: function updateAudio() {
+      if (this.state) this.state.updateAudio();
+    },
+    updateImage: function updateImage() {
+      if (this.state) this.state.updateImage();
+    },
+    submit: function submit() {
+      if (this.state) this.state.submit();
     }
-  }, _defineProperty(_methods, "onAudioCreated", function onAudioCreated(post) {
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
-      post: post
-    });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
-      post: post
-    });
-  }), _defineProperty(_methods, "submit", function submit() {
-    this.state.submit();
-  }), _methods)
+  }
 });
 
 /***/ }),
@@ -1487,7 +1489,16 @@ var MAX_CREATED_TAGS_COUNT = 30;
   watch: {
     main: function main(newTag, oldTag) {
       if (oldTag) this.$set(oldTag, 'main', false);
-      if (newTag) this.$set(newTag, 'main', true);
+
+      if (newTag) {
+        if (!!!newTag.selected) {
+          if (this.selectedCount >= MAX_TAGS_COUNT) return false;
+          this.$set(newTag, 'selected', true);
+          this.selectedCount++;
+        }
+
+        this.$set(newTag, 'main', true);
+      }
     }
   },
   mounted: function mounted() {
@@ -4927,7 +4938,7 @@ var render = function() {
                       type: "file",
                       name: "thumbnail",
                       accept: "image/*",
-                      required: ""
+                      required: _vm.isRequired
                     },
                     on: { change: _vm.updateImage }
                   })
@@ -4955,7 +4966,7 @@ var render = function() {
                       type: "file",
                       name: "audio",
                       accept: "audio/*",
-                      required: ""
+                      required: _vm.isRequired
                     },
                     on: { change: _vm.updateAudio }
                   })
@@ -5240,9 +5251,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag tag--created",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -5277,9 +5286,7 @@ var render = function() {
             key: tag.id,
             staticClass: "tag",
             class: { "tag--main": tag.main },
-            style: {
-              "background-color": tag.selected || tag.main ? tag.color : ""
-            },
+            style: { "background-color": tag.selected ? tag.color : "" },
             attrs: { type: "button" },
             on: {
               click: function($event) {
@@ -18797,7 +18804,7 @@ var Audio = new function () {
 
   this.create = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var response, newvideo;
+      var response, newVideo;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -18817,7 +18824,7 @@ var Audio = new function () {
 
             case 5:
               console.log(response);
-              newvideo = {
+              newVideo = {
                 id: response.id,
                 tags: response.tags,
                 title: response.title,
@@ -18827,8 +18834,8 @@ var Audio = new function () {
                 description: response.description
               };
               console.log(response.thumbnailUrl);
-              audioCollection.push(newvideo);
-              return _context.abrupt("return", createCopy(newvideo));
+              audioCollection.push(newVideo);
+              return _context.abrupt("return", createCopy(newVideo));
 
             case 10:
             case "end":
@@ -18845,46 +18852,51 @@ var Audio = new function () {
 
   this.edit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, data) {
-      var target, videoID, description, mainTag, response;
+      var target, title, description, mainTag, image, audio, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               target = getById(id);
-              videoID = getYouTubeID(String(data.get('videoUrl')));
-              if (target.videoID === videoID) data["delete"]('videoUrl');
+              title = data.get('title');
+              if (target.title == target.title) data["delete"]('title');
               description = data.get('description');
-              if (target.description === description) data["delete"]('description');
+              if (target.description == description) data["delete"]('description');
               mainTag = data.get('mainTag');
               if (target.mainTag.id == mainTag) data["delete"]('mainTag');
+              image = data.get('thumbnail');
+              if (image) data["delete"]('thumbnail');
+              audio = data.get('audio');
+              if (audio) data["delete"]('audio');
+              console.log(image);
               compareDataWithTags(data, target.tags);
 
               if (!isFormDataEmpty(data)) {
-                _context2.next = 10;
+                _context2.next = 15;
                 break;
               }
 
               return _context2.abrupt("return", createCopy(target));
 
-            case 10:
-              _context2.next = 12;
+            case 15:
+              _context2.next = 17;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
 
-            case 12:
+            case 17:
               response = _context2.sent;
 
               if (!!response) {
-                _context2.next = 15;
+                _context2.next = 20;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 15:
-              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
+            case 20:
+              target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 17:
+            case 22:
             case "end":
               return _context2.stop();
           }
@@ -19496,6 +19508,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }, _callee);
   }));
 
+  this.isFieldsRequired = function () {
+    return false;
+  };
+
   this.hadleError = function () {};
 
   var vue = vueInstance;
@@ -19571,7 +19587,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             id = target.id;
             data = getFormData();
             _context.next = 4;
-            return Posts.edit(id, data);
+            return _models_Audio__WEBPACK_IMPORTED_MODULE_2__["default"].edit(id, data);
 
           case 4:
             post = _context.sent;
@@ -19584,6 +19600,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     }, _callee);
   }));
+
+  this.isFieldsRequired = function () {
+    return false;
+  };
 
   this.hadleError = function () {};
 

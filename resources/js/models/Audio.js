@@ -74,7 +74,7 @@ const Audio = new function ()
             return null;
 
         console.log(response);
-        let newvideo = {
+        let newVideo = {
             id: response.id,
             tags: response.tags,
             title: response.title,
@@ -87,26 +87,36 @@ const Audio = new function ()
 
         console.log(response.thumbnailUrl);
 
-        audioCollection.push(newvideo);
+        audioCollection.push(newVideo);
         
-        return createCopy(newvideo);
+        return createCopy(newVideo);
     }
 
     this.edit = async (id, data) =>
     {
         let target = getById(id);
         
-        let videoID = getYouTubeID(String(data.get('videoUrl')));
-        if (target.videoID === videoID)
-            data.delete('videoUrl');
+        let title = data.get('title');
+        if (target.title == target.title)
+            data.delete('title');
         
         let description = data.get('description');
-        if (target.description === description)
+        if (target.description == description)
             data.delete('description');
 
         let mainTag = data.get('mainTag');
         if (target.mainTag.id == mainTag)
             data.delete('mainTag');
+
+        let image = data.get('thumbnail');
+        if (image)
+            data.delete('thumbnail');
+
+        let audio = data.get('audio');
+        if (audio)
+            data.delete('audio');
+
+        console.log(image);
 
         compareDataWithTags(data, target.tags)
 
@@ -120,7 +130,6 @@ const Audio = new function ()
         target.tags = response.tags,
         target.title = response.title,
         target.mainTag = response.mainTag,
-        target.videoID = response.videoID,
         target.description = response.description
 
         return createCopy(target);
