@@ -947,6 +947,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -967,13 +969,27 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       _this.editing = true;
+      if (!!!event.preventScrolling) _this.scrolleToDetails();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
       _this.editing = true;
+      if (!!!event.preventScrolling) _this.scrolleToDetails();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selecting', function (event) {
       _this.editing = false;
     });
+  },
+  methods: {
+    scrolleToDetails: function scrolleToDetails() {
+      var SHIFT = 10;
+      var details = this.$refs.details;
+      var realatedTop = details.getBoundingClientRect().top;
+      var distance = realatedTop - SHIFT;
+      window.scrollBy({
+        top: distance,
+        behavior: 'smooth'
+      });
+    }
   }
 });
 
@@ -4937,7 +4953,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "addition" }, [
+  return _c("div", { ref: "details", staticClass: "addition" }, [
     _c("div", { staticClass: "addition__body" }, [
       _c(
         "div",
@@ -4956,7 +4972,6 @@ var render = function() {
                     expression: "editing"
                   }
                 ],
-                ref: "editor",
                 attrs: { type: _vm.editorType }
               })
             ],
@@ -19261,7 +19276,6 @@ var Audio = new function () {
   };
 
   this.createThumbnail = function (audio) {
-    console.log(audio);
     return audio.imageUrl;
   };
 

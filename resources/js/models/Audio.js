@@ -176,7 +176,6 @@ const Audio = new function ()
 
     this.createThumbnail = (audio) =>
     {
-        console.log(audio);
         return audio.imageUrl;
     } 
 
