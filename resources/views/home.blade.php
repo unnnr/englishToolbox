@@ -8,13 +8,17 @@
 
 @section('content')
 
-<section class="alert container">
-  <div class="alert__content">
-    <div class="alert__header"></div>
-    <div class="alert__body"></div>
-    <div class="alert__footer"></div>
-  </div>
-</section> 
+{{-- <section class="modal modal--alert container">
+  <div class="alert alert--error">
+    <span class="alert__header text-second"></span>
+    <p class="alert__description text-fifth">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium fusce id velit ut tortor pretium.</p>
+    <div class="alert__buttons">
+      <button class="alert__button alert__button--cancel">cancel</button>
+      <button class="alert__button alert__button--confirm">Confirm</button>
+      <button class="alert__button alert__button--okay">got it</button>
+    </div>
+  </div> 
+</section> --}}
 
 <section class="banner container">
   <div class="banner__carousel"></div>

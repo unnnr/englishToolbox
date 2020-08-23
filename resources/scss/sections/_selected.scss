@@ -33,7 +33,30 @@
   width: 100%;
   left: 0;
   top: 0;
+}
+
+.selected__overlay-image {
   background: $bg-fifth;
+  width: 100%;
+  height: 100%;
+  margin: 0 7.5px;
+  @include border-radius;
+  padding: 50px 0;
+
+  @include lg-devices {
+
+    padding: 0 250px;
+  }
+
+  @include lg-devices {
+    margin: 0;
+    padding: 0 vw(250, 1200);
+  }
+
+  @include sm-devices {
+    margin: 0;
+    padding: 0 vw(100, 570);
+  }
 }
 
 // ========
