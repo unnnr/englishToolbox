@@ -73,7 +73,6 @@ const Audio = new function ()
         if (!!!response)
             return null;
 
-        console.log(response);
         let newVideo = {
             id: response.id,
             tags: response.tags,
@@ -85,8 +84,6 @@ const Audio = new function ()
         };
 
 
-        console.log(response.thumbnailUrl);
-
         audioCollection.push(newVideo);
         
         return createCopy(newVideo);
@@ -97,26 +94,33 @@ const Audio = new function ()
         let target = getById(id);
         
         let title = data.get('title');
-        if (target.title == target.title)
+        if (target.title == title)
             data.delete('title');
         
         let description = data.get('description');
+        if (description === '')
+            description = null;
+
         if (target.description == description)
             data.delete('description');
 
         let mainTag = data.get('mainTag');
+        console.log('tag', !!!mainTag, typeof mainTag);
+
+
+        if (target.mainTag.default && !!!mainTag.lenght)
+            data.delete('mainTag');
         if (target.mainTag.id == mainTag)
             data.delete('mainTag');
 
         let image = data.get('thumbnail');
-        if (image)
+        console.log(image);
+        if (image.size === 0)
             data.delete('thumbnail');
 
         let audio = data.get('audio');
-        if (audio)
+        if (audio.size === 0)
             data.delete('audio');
-
-        console.log(image);
 
         compareDataWithTags(data, target.tags)
 

@@ -142,7 +142,6 @@ export default {
         },
 
         isRequired(){
-            console.log("what now?");
             return this.state ? this.state.isFieldsRequired() : false;
         }
     },

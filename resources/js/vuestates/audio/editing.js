@@ -16,6 +16,8 @@ export default function(vueInstance, post)
     {
         vue.clear();
 
+        vue.audio.title =  post.title;
+        vue.audio.description = post.description || '';
         vue.audio.audioLabel = 'new audio';
         vue.audio.imageLabel = 'new image';
 

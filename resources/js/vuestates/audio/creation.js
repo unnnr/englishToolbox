@@ -58,7 +58,7 @@ export default function(vueInstance)
 
     this.isFieldsRequired = () =>
     {
-        return false;
+        return true;
     }
     
     this.hadleError = () =>

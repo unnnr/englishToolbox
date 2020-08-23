@@ -1027,7 +1027,6 @@ var MAX_DESCRIPTION_LENGTH = 180;
       return MAX_DESCRIPTION_LENGTH;
     },
     isRequired: function isRequired() {
-      console.log("what now?");
       return this.state ? this.state.isFieldsRequired() : false;
     }
   },
@@ -18679,6 +18678,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -18823,7 +18824,6 @@ var Audio = new function () {
               return _context.abrupt("return", null);
 
             case 5:
-              console.log(response);
               newVideo = {
                 id: response.id,
                 tags: response.tags,
@@ -18833,11 +18833,10 @@ var Audio = new function () {
                 audioUrl: response.audioUrl,
                 description: response.description
               };
-              console.log(response.thumbnailUrl);
               audioCollection.push(newVideo);
               return _context.abrupt("return", createCopy(newVideo));
 
-            case 10:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -18859,44 +18858,47 @@ var Audio = new function () {
             case 0:
               target = getById(id);
               title = data.get('title');
-              if (target.title == target.title) data["delete"]('title');
+              if (target.title == title) data["delete"]('title');
               description = data.get('description');
+              if (description === '') description = null;
               if (target.description == description) data["delete"]('description');
               mainTag = data.get('mainTag');
+              console.log('tag', !!!mainTag, _typeof(mainTag));
+              if (target.mainTag["default"] && !!!mainTag.lenght) data["delete"]('mainTag');
               if (target.mainTag.id == mainTag) data["delete"]('mainTag');
               image = data.get('thumbnail');
-              if (image) data["delete"]('thumbnail');
-              audio = data.get('audio');
-              if (audio) data["delete"]('audio');
               console.log(image);
+              if (image.size === 0) data["delete"]('thumbnail');
+              audio = data.get('audio');
+              if (audio.size === 0) data["delete"]('audio');
               compareDataWithTags(data, target.tags);
 
               if (!isFormDataEmpty(data)) {
-                _context2.next = 15;
+                _context2.next = 18;
                 break;
               }
 
               return _context2.abrupt("return", createCopy(target));
 
-            case 15:
-              _context2.next = 17;
+            case 18:
+              _context2.next = 20;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
 
-            case 17:
+            case 20:
               response = _context2.sent;
 
               if (!!response) {
-                _context2.next = 20;
+                _context2.next = 23;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 20:
+            case 23:
               target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 22:
+            case 25:
             case "end":
               return _context2.stop();
           }
@@ -19509,7 +19511,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   }));
 
   this.isFieldsRequired = function () {
-    return false;
+    return true;
   };
 
   this.hadleError = function () {};
@@ -19550,6 +19552,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
   function init() {
     vue.clear();
+    vue.audio.title = post.title;
+    vue.audio.description = post.description || '';
     vue.audio.audioLabel = 'new audio';
     vue.audio.imageLabel = 'new image';
     var tags = ref('tags');
