@@ -36,8 +36,6 @@ export default {
 
 	mounted() {
 		bus.listen('post-editing', event => {
-
-
 			this.editing = true;	
 		});
 

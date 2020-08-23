@@ -1051,7 +1051,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
       tags.selected = post.tags;
       if (!!!post.mainTag["default"]) tags.main = tags.getTagById(post.mainTag.id);
       _this.$options.postID = post.id;
-      _this.onSumbit = _this.editVideo;
+      _this.onSumbit = _this.editAudio;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-creating', function (event) {
       _this.clear();
@@ -1125,8 +1125,15 @@ var MAX_DESCRIPTION_LENGTH = 180;
 
               case 3:
                 post = _context.sent;
+                console.log(post);
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
+                  post: post
+                });
+                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
+                  post: post
+                });
 
-              case 4:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -1135,11 +1142,20 @@ var MAX_DESCRIPTION_LENGTH = 180;
       }))();
     },
     editAudio: function editAudio() {
+      var _this3 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var data, post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                data = _this3.getFormData();
+                _context2.next = 3;
+                return _models_Audio__WEBPACK_IMPORTED_MODULE_3__["default"].create(data);
+
+              case 3:
+                post = _context2.sent;
                 _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
                   post: post
                 });
@@ -1147,7 +1163,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
                   post: post
                 });
 
-              case 2:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -1156,7 +1172,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
       }))();
     },
     submit: function submit(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -1165,13 +1181,13 @@ var MAX_DESCRIPTION_LENGTH = 180;
               case 0:
                 _context3.prev = 0;
 
-                if (!_this3.onSumbit) {
+                if (!_this4.onSumbit) {
                   _context3.next = 4;
                   break;
                 }
 
                 _context3.next = 4;
-                return _this3.onSumbit();
+                return _this4.onSumbit();
 
               case 4:
                 _context3.next = 10;
@@ -18899,7 +18915,7 @@ var Audio = new function () {
       tags: tagsCopy,
       title: audio.title,
       mainTag: mainTagCopy,
-      imageUrl: audio.thumbnailUrl,
+      imageUrl: audio.imageUrl,
       audioUrl: audio.audioUrl,
       description: audio.description
     };
@@ -18943,19 +18959,21 @@ var Audio = new function () {
               return _context.abrupt("return", null);
 
             case 5:
+              console.log(response);
               newvideo = {
                 id: response.id,
                 tags: response.tags,
                 title: response.title,
                 mainTag: response.mainTag,
-                imageUrl: response.imageUrl,
+                imageUrl: response.thumbnailUrl,
                 audioUrl: response.audioUrl,
                 description: response.description
               };
+              console.log(response.thumbnailUrl);
               audioCollection.push(newvideo);
               return _context.abrupt("return", createCopy(newvideo));
 
-            case 8:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -19089,7 +19107,6 @@ var Audio = new function () {
   };
 
   this.createThumbnail = function (audio) {
-    console.log(audio);
     return audio.imageUrl;
   };
 
@@ -19132,6 +19149,7 @@ var Cards = new function () {
     var card = _objectSpread({}, post);
 
     card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
+    console.log('card', card);
     return card;
   };
 

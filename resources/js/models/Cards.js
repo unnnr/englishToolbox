@@ -10,7 +10,8 @@ const Cards = new function()
         let card = { ...post };
 
         card.thumbnail = Posts.createThumbnail(post);
-        
+
+        console.log('card', card);
         return card;
     }
 

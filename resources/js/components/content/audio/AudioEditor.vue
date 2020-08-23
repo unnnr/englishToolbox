@@ -148,7 +148,7 @@ export default {
                 tags.main = tags.getTagById(post.mainTag.id);
 
             this.$options.postID = post.id;
-            this.onSumbit = this.editVideo;
+            this.onSumbit = this.editAudio;
         });
 
         bus.listen('post-creating', event => {
@@ -213,12 +213,20 @@ export default {
         },
 
         async createAudio() {
-            
+
             let data = this.getFormData();
             let post = await Audio.create(data);
+
+
+            console.log(post);
+            bus.dispatch('post-created', { post });
+            bus.dispatch('post-selecting', { post  });
         },
 
         async editAudio() {
+             
+            let data = this.getFormData();
+            let post = await Audio.create(data);
 
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });

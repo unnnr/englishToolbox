@@ -37,7 +37,7 @@ const Audio = new function ()
             tags: tagsCopy,
             title: audio.title,
             mainTag: mainTagCopy,
-            imageUrl: audio.thumbnailUrl,
+            imageUrl: audio.imageUrl,
             audioUrl: audio.audioUrl,
             description: audio.description
         };
@@ -73,15 +73,19 @@ const Audio = new function ()
         if (!!!response)
             return null;
 
+        console.log(response);
         let newvideo = {
             id: response.id,
             tags: response.tags,
             title: response.title,
             mainTag: response.mainTag,
-            imageUrl: response.imageUrl,
+            imageUrl: response.thumbnailUrl,
             audioUrl: response.audioUrl,
             description: response.description
         };
+
+
+        console.log(response.thumbnailUrl);
 
         audioCollection.push(newvideo);
         
@@ -158,7 +162,6 @@ const Audio = new function ()
 
     this.createThumbnail = (audio) =>
     {
-        console.log(audio);
         return audio.imageUrl;
     } 
 
