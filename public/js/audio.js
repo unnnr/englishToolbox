@@ -18882,7 +18882,7 @@ var Audio = new function () {
 
             case 18:
               _context2.next = 20;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('video/' + id, data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('audio/' + id, data);
 
             case 20:
               response = _context2.sent;

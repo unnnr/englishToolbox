@@ -127,7 +127,7 @@ const Audio = new function ()
         if (isFormDataEmpty(data))
             return createCopy(target);
 
-        let response = await Http.patch('video/' + id, data);
+        let response = await Http.patch('audio/' + id, data);
         if (!!!response)
             return null; 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAudio;
+use App\Http\Requests\UpdateAudio;
 use App\Services\AudioService;
 
 class AudioController extends Controller
@@ -48,9 +49,9 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(int $id,AudioService $audioService, UpdateAudio $request)
     {
-        //
+        return $audioService->update($id, $request); 
     }
 
     /**
