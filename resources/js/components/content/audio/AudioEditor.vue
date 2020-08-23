@@ -145,7 +145,7 @@ export default {
     mounted() {
         bus.listen('post-editing', event => {
         
-            this.state = new EditingState(this);
+            this.state = new EditingState(this, event.post);
         });
 
         bus.listen('post-creating', event => {
@@ -182,15 +182,7 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
-        onAdudioEdited(post) {
-
-        },
-
-        async editAudio() {
-             
-            let data = this.getFormData();
-            let post = await Audio.create(data);
-
+         onAudioCreated(post) {
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },

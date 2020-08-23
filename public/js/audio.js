@@ -893,21 +893,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _states_audio_editing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @states/audio/editing */ "./resources/js/vuestates/audio/editing.js");
-/* harmony import */ var _states_audio_editing__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_states_audio_editing__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _states_audio_creation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @states/audio/creation */ "./resources/js/vuestates/audio/creation.js");
-/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @states/audio/editing */ "./resources/js/vuestates/audio/editing.js");
+/* harmony import */ var _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @states/audio/creation */ "./resources/js/vuestates/audio/creation.js");
+/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/components/tags/TagEditor.vue");
+var _methods;
 
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -1004,7 +999,7 @@ var MAX_DESCRIPTION_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'audio-editor',
   components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_6__["default"]
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
@@ -1039,15 +1034,15 @@ var MAX_DESCRIPTION_LENGTH = 180;
   mounted: function mounted() {
     var _this = this;
 
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-editing', function (event) {
-      _this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_4___default.a(_this);
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-editing', function (event) {
+      _this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__["default"](_this, event.post);
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-creating', function (event) {
-      _this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_5__["default"](_this);
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-creating', function (event) {
+      _this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](_this);
     });
-    this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_5__["default"](this);
+    this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
   },
-  methods: {
+  methods: (_methods = {
     clear: function clear() {
       this.audio.title = '';
       this.audio.description = '';
@@ -1064,48 +1059,23 @@ var MAX_DESCRIPTION_LENGTH = 180;
       this.state.updateImage();
     },
     onAudioCreated: function onAudioCreated(post) {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
         post: post
       });
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post
       });
-    },
-    onAdudioEdited: function onAdudioEdited(post) {},
-    editAudio: function editAudio() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, post;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                data = _this2.getFormData();
-                _context.next = 3;
-                return Audio.create(data);
-
-              case 3:
-                post = _context.sent;
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
-                  post: post
-                });
-                _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
-                  post: post
-                });
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    submit: function submit() {
-      this.state.submit();
     }
-  }
+  }, _defineProperty(_methods, "onAudioCreated", function onAudioCreated(post) {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
+      post: post
+    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+      post: post
+    });
+  }), _defineProperty(_methods, "submit", function submit() {
+    this.state.submit();
+  }), _methods)
 });
 
 /***/ }),
@@ -19537,10 +19507,89 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /*!*************************************************!*\
   !*** ./resources/js/vuestates/audio/editing.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @states/audio/helpers */ "./resources/js/vuestates/audio/helpers.js");
+/* harmony import */ var _models_Audio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Audio */ "./resources/js/models/Audio.js");
 
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (vueInstance, post) {
+  function ref(name) {
+    return vue.$refs[name];
+  }
+
+  function init() {
+    vue.clear();
+    vue.audio.audioLabel = 'new audio';
+    vue.audio.imageLabel = 'new image';
+    var tags = ref('tags');
+    tags.clear();
+    tags.selected = post.tags;
+    if (!!!post.mainTag["default"]) tags.main = tags.getTagById(post.mainTag.id);
+  }
+
+  function getFormData() {
+    var NULLABLE_MAIN_TAG = true;
+    var data = new FormData(ref('form'));
+    var tags = ref('tags').selected;
+    Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
+    var mainTag = ref('tags').mainTag;
+    Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendMainTagData"])(data, mainTag, NULLABLE_MAIN_TAG);
+    return data;
+  }
+
+  this.updateAudio = function () {
+    var input = ref('audio');
+    vue.audio.audioLabel = Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["getLabel"])(input, 'audio', 'new');
+  };
+
+  this.updateImage = function () {
+    var input = ref('image');
+    vue.audio.imageLabel = Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["getLabel"])(input, 'image', 'new');
+  };
+
+  this.submit = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    var id, data, post;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            id = target.id;
+            data = getFormData();
+            _context.next = 4;
+            return Posts.edit(id, data);
+
+          case 4:
+            post = _context.sent;
+            vue.onAudioEdited(post);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  this.hadleError = function () {};
+
+  var vue = vueInstance;
+  var target = post;
+  init();
+});
 
 /***/ }),
 
