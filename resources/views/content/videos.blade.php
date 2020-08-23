@@ -13,10 +13,7 @@
 @endsection
 
 @section('selected')
-  {{-- <div class="selected__overlay container">
-    <object class="selected__overlay-image" data="{{ asset("img/svg/selected-overlay.svg") }}" type="image/svg+xml"></object>
-  </div>
- --}}
+
   <video-player></video-player>
   <video-details></video-details>  
 

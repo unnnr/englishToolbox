@@ -7,7 +7,13 @@
     <filter-bar></filter-bar>
 
     <section class="selected container">
+
+      <overlay
+        src="{{ asset("img/svg/selected-overlay.svg") }}">
+      </overlay>
+
       @yield('selected')
+
     </section>
 
   </div>

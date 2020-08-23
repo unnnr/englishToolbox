@@ -49,7 +49,11 @@ export default {
     beforeMount()
     {
         Posts.onload(() => {
-            this.cards = Cards.all()
+            setTimeout(() => {
+                  this.cards = Cards.all();
+
+                bus.dispatch('posts-loaded');
+            }, 1000);
         });
     },
 
