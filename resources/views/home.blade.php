@@ -99,157 +99,133 @@
 <section class="reviews container">
   <h2 class="reviews__title heading-second">Student reviews</h2>
   <div class="reviews__cards">
-    <div class="reviews__card reviews__card--first">
+    <div class="reviews__card">
       <div class="reviews__card-person">
         <div class="reviews__card-photo"></div>
         <h5 class="reviews__card-name heading-fifth">Person Name</h5>
       </div>
       <div class="reviews__card-content">
         <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
       </div>
       <div class="reviews__card-grade">
         <div class="reviews__card-stars">
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-        </div>
-        <span class="reviews__card-rating">5.0</span>
-      </div>
-    </div>
-    <div class="reviews__card reviews__card--second">
-      <div class="reviews__card-person">
-        <div class="reviews__card-photo"></div>
-        <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-      </div>
-      <div class="reviews__card-content">
-        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-          accusam et justo duo dolores et ea rebum.</p>
-      </div>
-      <div class="reviews__card-grade">
-        <div class="reviews__card-stars">
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--half"></div>
         </div>
         <span class="reviews__card-rating">4.5</span>
       </div>
     </div>
-    <div class="reviews__card reviews__card--third">
+    <div class="reviews__card">
       <div class="reviews__card-person">
         <div class="reviews__card-photo"></div>
         <h5 class="reviews__card-name heading-fifth">Person Name</h5>
       </div>
       <div class="reviews__card-content">
         <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt.</p>
+        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
       </div>
       <div class="reviews__card-grade">
         <div class="reviews__card-stars">
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-        </div>
-        <span class="reviews__card-rating">4.0</span>
-      </div>
-    </div>
-    <div class="reviews__card reviews__card--fourth">
-      <div class="reviews__card-person">
-        <div class="reviews__card-photo"></div>
-        <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-      </div>
-      <div class="reviews__card-content">
-        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
-      </div>
-      <div class="reviews__card-grade">
-        <div class="reviews__card-stars">
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half" data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half" data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
-          <div class="reviews__card-star">
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_left.svg" type="image/svg+xml"></object>
-            <object class="reviews__card-star-half reviews__card-star-half--unselected"
-              data="/public/img/svg/star_right.svg" type="image/svg+xml"></object>
-          </div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--half"></div>
+          <div class="reviews__card-star"></div>
         </div>
         <span class="reviews__card-rating">3.5</span>
       </div>
     </div>
+    <div class="reviews__card">
+      <div class="reviews__card-person">
+        <div class="reviews__card-photo"></div>
+        <h5 class="reviews__card-name heading-fifth">Person Name</h5>
+      </div>
+      <div class="reviews__card-content">
+        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
+        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+      </div>
+      <div class="reviews__card-grade">
+        <div class="reviews__card-stars">
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--half"></div>
+        </div>
+        <span class="reviews__card-rating">4.5</span>
+      </div>
+    </div>
+    <div class="reviews__card">
+      <div class="reviews__card-person">
+        <div class="reviews__card-photo"></div>
+        <h5 class="reviews__card-name heading-fifth">Person Name</h5>
+      </div>
+      <div class="reviews__card-content">
+        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
+        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+      </div>
+      <div class="reviews__card-grade">
+        <div class="reviews__card-stars">
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--full"></div>
+          <div class="reviews__card-star reviews__card-star--half"></div>
+        </div>
+        <span class="reviews__card-rating">4.5</span>
+      </div>
+    </div>
   </div>
+  <button class="reviews__leave-review-button text-third">leave a review</button>
 </section>
+
+
+{{-- <section class="modal container">
+  <form class="leave-review">
+    <div class="leave-review__header">
+      <h5 class="heading-fifth">Leave your review</h5>
+      <button class="leave-review__close-button" type="button"></button>
+    </div>
+    <div class="leave-review__body">
+      <label class="leave-review__label text-fourth" for="">Title of review</label>
+      <input class="leave-review__input input-second" type="text" placeholder="your title">
+      <label class="leave-review__label text-fourth" for="">Text of your review</label>
+      <textarea class="leave-review__textarea textarea-second" placeholder="your review"></textarea>
+      <label class="leave-review__label text-fourth" for="">Grade</label>
+      <div class="leave-review__grade">
+        <div class="leave-review__stars">
+          <button class="leave-review__star leave-review__star--full">
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+          </button>
+          <button class="leave-review__star leave-review__star--full">
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+          </button>
+          <button class="leave-review__star leave-review__star--full">
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+          </button>
+          <button class="leave-review__star leave-review__star--half">
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+          </button>
+          <button class="leave-review__star leave-review__star">
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+            <object class="leave-review__half-star" data="{{ asset("img/svg/halfstar.svg") }}" type=""></object>
+          </button>
+        </div>
+        <span class="leave-review__rating">4.5</span>
+      </div>
+    </div>
+    <div class="leave-review__footer">
+      <button class="leave-review__button button-second">Confirm</button>
+    </div>
+  </form>
+</section> --}}
+
 @endsection
