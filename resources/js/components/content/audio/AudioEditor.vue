@@ -87,7 +87,8 @@ import getYouTubeID from 'get-youtube-id';
 // Logic
 import bus from '@services/eventbus';
 import Tags from '@models/Tags'
-import {editorState, creatorState} from '@states/audioEditorStates';
+import EditingState from '@states/audio/editing';
+import CreationState from '@states/audio/creation';
 
 //Components
 import TagEditor from '@components/tags/TagEditor';
@@ -143,25 +144,16 @@ export default {
 
     mounted() {
         bus.listen('post-editing', event => {
-
-            let post = event.post;
-            let tags = this.$refs.tags;
-
-            tags.selected = post.tags;
-
-            if (!!!post.mainTag.default)
-                tags.main = tags.getTagById(post.mainTag.id);
-
-            this.$options.postID = post.id;
+        
+            this.state = new EditingState(this);
         });
 
         bus.listen('post-creating', event => {
             
-            this.state = new creatorState(this);
-            console.log(this.state);
+            this.state = new CreationState(this);
         });
         
-        this.state = new creatorState(this);
+        this.state = new CreationState(this);
     },
 
     methods: {
@@ -175,10 +167,6 @@ export default {
             this.errors.title = '';
             this.errors.description = '';
             this.errors.files = '';
-
-            let tags = this.$refs.tags;
-
-            tags.clear();
         },
 
         updateAudio() {
@@ -192,6 +180,10 @@ export default {
         onAudioCreated(post) {
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selecting', { post  });
+        },
+
+        onAdudioEdited(post) {
+
         },
 
         async editAudio() {
