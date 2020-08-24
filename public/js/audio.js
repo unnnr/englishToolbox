@@ -1364,47 +1364,72 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showOverlay: true,
-      overlayUrl: window.location.origin + '/img/svg/audio-overlay.svg',
-      imageUrl: null,
-      audioUrl: null,
       toggleButtonMessage: 'show',
-      isImageBlured: true,
-      isAudioPlaying: true
+      overlay: {
+        url: window.location.origin + '/img/svg/audio-overlay.svg',
+        shown: true
+      },
+      image: {
+        blured: true,
+        url: null
+      },
+      audio: {
+        player: new Audio(),
+        playable: false,
+        playing: false,
+        url: null
+      }
     };
   },
   computed: {
     backgroundImage: function backgroundImage() {
-      if (this.imageUrl) return "url('".concat(this.imageUrl, "')");
+      if (this.image.url) return "url('".concat(this.image.url, "')");
       return null;
     }
   },
+  watch: {
+    'audio.url': function audioUrl(url) {
+      var _this = this;
+
+      console.log(url);
+      this.audio.player.src = url;
+      this.audio.player.addEventListener('canplaythrough', function () {
+        _this.audio.playable = true;
+      }, {
+        once: true
+      });
+      this.audio.player.addEventListener('timeupdate', function (event) {
+        console.log('-----------------------------');
+        console.log('Current ', _this.audio.player.currentTime * 1000);
+      });
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       var audio = event.post;
 
-      _this.clear();
+      _this2.clear();
 
-      _this.audioUrl = audio.audioUrl;
-      _this.imageUrl = audio.imageUrl;
-      _this.showOverlay = false;
-      if (!!!event.disableScrolling) _this.scrollToPlayer();
+      _this2.audio.url = audio.audioUrl;
+      _this2.image.url = audio.imageUrl;
+      _this2.overlay.shown = false;
+      if (!!!event.disableScrolling) _this2.scrollToPlayer();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
-      _this.audioUrl = null;
-      _this.imageurl = null;
-      _this.showOverlay = true;
+      _this2.audioUrl = null;
+      _this2.imageurl = null;
+      _this2.showOverlay = true;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       var audio = event.audio;
-      _this.audioUrl = audio.audioUrl;
-      _this.imageUrl = audio.imageUrl;
-      _this.showOverlay = false;
+      _this2.audio.url = audio.audioUrl;
+      _this2.imageUrl = audio.imageUrl;
+      _this2.overlay.shown = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-image-changed', function (event) {
-      _this.showOverlay = false;
+      _this2.showOverlay = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-audio-changed', function (event) {});
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {});
@@ -1422,17 +1447,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     clear: function clear() {
       this.toggleButtonMessage = 'show';
-      this.imageUrl = '';
-      this.audioUrl = '';
-      this.isImageBlured = true;
-      this.isAudioPlaying = false;
+      this.image.url = '';
+      this.image.blured = true;
+      this.audio.playable = false;
+      this.audio.playing = false;
+      this.audio.url = null;
     },
     toggleShowHide: function toggleShowHide() {
-      this.isImageBlured = !!!this.isImageBlured;
-      if (this.isImageBlured) this.toggleButtonMessage = 'show';else this.toggleButtonMessage = 'hide';
+      console.log(12);
+      this.image.blured = !!!this.image.blured;
+      if (this.image.blured) this.toggleButtonMessage = 'show';else this.toggleButtonMessage = 'hide';
     },
     togglePlayPause: function togglePlayPause() {
-      this.isAudioPlaying = !!!this.isAudioPlaying;
+      if (!!!this.audio.playable) return;
+      this.audio.playing = !!!this.audio.playing;
+      if (this.audio.playing) this.audio.player.play();else this.audio.player.pause();
     }
   }
 });
@@ -5486,11 +5515,11 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("transition", { attrs: { name: "fade" } }, [
-          _vm.showOverlay
+          _vm.overlay.shown
             ? _c("div", { staticClass: "player__overlay" }, [
                 _c("object", {
                   staticClass: "player__overlay-image",
-                  attrs: { type: "image/svg+xml", data: _vm.overlayUrl }
+                  attrs: { type: "image/svg+xml", data: _vm.overlay.url }
                 })
               ])
             : _vm._e()
@@ -5526,8 +5555,8 @@ var render = function() {
                     _c("i", {
                       staticClass: "fas",
                       class: {
-                        "fa-play": !!!_vm.isAudioPlaying,
-                        "fa-pause": _vm.isAudioPlaying
+                        "fa-play": !!!_vm.audio.playing,
+                        "fa-pause": _vm.audio.playing
                       }
                     })
                   ]

@@ -12,11 +12,11 @@
 
                 <div 
                     class="player__overlay"
-                    v-if="showOverlay">
+                    v-if="overlay.shown">
 
                     <object class="player__overlay-image" 
                         type="image/svg+xml"
-                        :data="overlayUrl">
+                        :data="overlay.url">
                     </object>
                 </div>
             </transition>
@@ -35,7 +35,7 @@
 
                             <i 
                                 class="fas"
-                                :class="{'fa-play': !!!isAudioPlaying, 'fa-pause': isAudioPlaying}">
+                                :class="{'fa-play': !!!audio.playing, 'fa-pause': audio.playing }">
                             </i>
                         </button>
                         <progress-slider/>
@@ -73,24 +73,51 @@ export default {
 
 	data: function () {
 		return {
-			showOverlay: true,
-            
-            overlayUrl: window.location.origin + '/img/svg/audio-overlay.svg',
-            imageUrl: null,
-            audioUrl: null,
-
             toggleButtonMessage: 'show',
-            isImageBlured: true,
-            isAudioPlaying: true,
+            
+            overlay: {
+                url:  window.location.origin + '/img/svg/audio-overlay.svg',
+                shown: true
+            },
+
+            image: {
+                blured: true,
+                url: null,
+            },
+
+            audio: {
+                player: new Audio(),
+                playable: false,
+                playing: false,
+                url: null,
+            },
+
         }
     },
     
     computed: {
         backgroundImage() {
-            if (this.imageUrl)
-                return `url('${this.imageUrl}')`
+            if (this.image.url)
+                return `url('${this.image.url}')`
 
             return null;
+        }
+    },
+
+    watch: {
+        'audio.url' : function(url) {
+            console.log(url);
+            this.audio.player.src = url;
+
+            this.audio.player.addEventListener('canplaythrough', () => {
+                this.audio.playable = true;
+            }, {once: true});
+
+            this.audio.player.addEventListener('timeupdate', event => {
+                console.log('-----------------------------');
+                console.log('Current ', this.audio.player.currentTime * 1000);
+
+            });
         }
     },
 
@@ -102,9 +129,9 @@ export default {
 
             this.clear();
 
-            this.audioUrl = audio.audioUrl;
-            this.imageUrl = audio.imageUrl;
-            this.showOverlay = false;
+            this.audio.url = audio.audioUrl;
+            this.image.url = audio.imageUrl;
+            this.overlay.shown = false;
 
             if (!!!event.disableScrolling)
                 this.scrollToPlayer();
@@ -119,10 +146,10 @@ export default {
 		bus.listen('post-editing', event => {
             let audio = event.audio;
 
-            this.audioUrl = audio.audioUrl;
+            this.audio.url = audio.audioUrl;
             this.imageUrl = audio.imageUrl;
 
-			this.showOverlay = false;
+			this.overlay.shown = false;
 		});
 
 		bus.listen('editor-image-changed', event => {		
@@ -141,7 +168,6 @@ export default {
     
     methods: {
         scrollToPlayer() {
-
             const SHIFT = 10;
 
             let player = this.$refs.player;
@@ -158,24 +184,38 @@ export default {
 
         clear() {
             this.toggleButtonMessage = 'show';
-            this.imageUrl = '';
-            this.audioUrl = '';
-            this.isImageBlured = true;
-            this.isAudioPlaying = false
+
+            this.image.url = '';
+            this.image.blured = true;
+
+            this.audio.playable = false;
+            this.audio.playing = false;
+            this.audio.url = null;
+
         },
 
         toggleShowHide() {
-            
-            this.isImageBlured = !!!this.isImageBlured;
+            console.log(12);
+            this.image.blured = !!!this.image.blured ;
 
-            if (this.isImageBlured)
+            if (this.image.blured )
                 this.toggleButtonMessage = 'show';
             else
                 this.toggleButtonMessage = 'hide';
         },
 
         togglePlayPause() {
-            this.isAudioPlaying = !!!this.isAudioPlaying;
+
+            if (!!!this.audio.playable)
+                return;
+
+            this.audio.playing = !!!this.audio.playing;
+
+            if (this.audio.playing)
+                this.audio.player.play();
+            else
+                this.audio.player.pause();
+
         },
     }
 };
