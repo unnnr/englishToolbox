@@ -15,7 +15,7 @@ const Audio = new function ()
             for (const callback of callbackCollection)
                 callback();
 
-        }, 1000);
+        }, 100);
     }
 
     function getById(id)

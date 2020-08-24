@@ -656,6 +656,87 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "progress-slider",
+  props: {
+    vertical: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  data: function data() {
+    return {
+      isThumbActive: false,
+      progress: 0
+    };
+  },
+  computed: {
+    backgroundImage: function backgroundImage() {
+      if (this.imageUrl) return "url('".concat(this.imageUrl, "')");
+      return null;
+    }
+  },
+  mounted: function mounted() {
+    document.addEventListener('mouseup', this.disableThumb);
+    document.addEventListener('mousemove', this.moveThumb);
+  },
+  methods: {
+    disableThumb: function disableThumb() {
+      this.isThumbActive = false;
+    },
+    activeThumb: function activeThumb() {
+      this.isThumbActive = true;
+    },
+    moveThumb: function moveThumb(event) {
+      if (!!!this.isThumbActive) return;
+      if (this.vertical) this.moveThumbVertically(event);else this.moveThumbHorizontally(event);
+    },
+    moveThumbVertically: function moveThumbVertically() {},
+    moveThumbHorizontally: function moveThumbHorizontally(event) {
+      var slider = this.$refs.slider;
+      var sliderWidth = slider.offsetWidth;
+      var sliderLeft = slider.getBoundingClientRect().left;
+      var cursoreLeft = event.pageX; // counting distance in px
+
+      var distance = cursoreLeft - sliderLeft;
+      if (distance < 0) distance = 0;else if (distance > sliderWidth) distance = sliderWidth; // counting progress in %
+
+      this.progress = distance * 100 / sliderWidth;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/content/Comments.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/content/Comments.vue?vue&type=script&lang=js& ***!
@@ -1208,6 +1289,15 @@ var MAX_DESCRIPTION_LENGTH = 180;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _components_ProgressSlider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/ProgressSlider */ "./resources/js/components/ProgressSlider.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1263,14 +1353,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "audio-player",
+  components: {
+    ProgressSlider: _components_ProgressSlider__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       showOverlay: true,
       overlayUrl: window.location.origin + '/img/svg/audio-overlay.svg',
       imageUrl: null,
-      audioUrl: null
+      audioUrl: null,
+      toggleButtonMessage: 'show',
+      isImageBlured: true,
+      isAudioPlaying: true
     };
   },
   computed: {
@@ -1284,6 +1381,9 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       var audio = event.post;
+
+      _this.clear();
+
       _this.audioUrl = audio.audioUrl;
       _this.imageUrl = audio.imageUrl;
       _this.showOverlay = false;
@@ -1316,6 +1416,20 @@ __webpack_require__.r(__webpack_exports__);
         top: distance,
         behavior: 'smooth'
       });
+    },
+    clear: function clear() {
+      this.toggleButtonMessage = 'show';
+      this.imageUrl = '';
+      this.audioUrl = '';
+      this.isImageBlured = true;
+      this.isAudioPlaying = false;
+    },
+    toggleShowHide: function toggleShowHide() {
+      this.isImageBlured = !!!this.isImageBlured;
+      if (this.isImageBlured) this.toggleButtonMessage = 'show';else this.toggleButtonMessage = 'hide';
+    },
+    togglePlayPause: function togglePlayPause() {
+      this.isAudioPlaying = !!!this.isAudioPlaying;
     }
   }
 });
@@ -1870,6 +1984,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.audio__progress-current[data-v-7341d4ce]\n{\n}\n.audio__progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
 
 // exports
 
@@ -3377,6 +3510,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--5-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/content/FilterBar.vue?vue&type=style&index=0&id=1725ce0a&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/content/FilterBar.vue?vue&type=style&index=0&id=1725ce0a&scoped=true&lang=css& ***!
@@ -4644,6 +4807,48 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { ref: "slider", staticClass: "audio__progress-bar" }, [
+    _c(
+      "div",
+      {
+        ref: "progressFilled",
+        staticClass: "audio__progress-current",
+        style: { width: _vm.progress + "%" }
+      },
+      [
+        _c("button", {
+          ref: "thumb",
+          staticClass: "audio__progress-cursor",
+          on: { mousedown: _vm.activeThumb }
+        })
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "audio__progress-maximum" })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/content/Comments.vue?vue&type=template&id=1ddb7f96&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/content/Comments.vue?vue&type=template&id=1ddb7f96& ***!
@@ -5279,7 +5484,53 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "audio" }, [
+          _c("div", { staticClass: "audio__player" }, [
+            _c(
+              "button",
+              {
+                staticClass: "audio__button-toggle",
+                on: { click: _vm.toggleShowHide }
+              },
+              [
+                _c("i", { staticClass: "material-icons" }, [
+                  _vm._v("visibility")
+                ]),
+                _c("span", [_vm._v(_vm._s(_vm.toggleButtonMessage))])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "audio__progress-control" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "audio__button-state",
+                    on: { click: _vm.togglePlayPause }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas",
+                      class: {
+                        "fa-play": !!!_vm.isAudioPlaying,
+                        "fa-pause": _vm.isAudioPlaying
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("progress-slider"),
+                _vm._v(" "),
+                _vm._m(0)
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ])
       ],
       1
     )
@@ -5290,56 +5541,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "audio" }, [
-      _c("div", { staticClass: "audio__player" }, [
-        _c("button", { staticClass: "audio__button-toggle" }, [
-          _c("i", { staticClass: "material-icons" }, [_vm._v("visibility")]),
-          _c("span", [_vm._v("show")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "audio__progress-control" }, [
-          _c("button", { staticClass: "audio__button-state" }, [
-            _c("i", { staticClass: "fas fa-play" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "audio__progress-bar" }, [
-            _c("div", { staticClass: "audio__progress-current" }, [
-              _c("button", { staticClass: "audio__progress-cursor" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "audio__progress-maximum" })
-          ]),
-          _vm._v(" "),
-          _c("time", { staticClass: "audio__timer" }, [
-            _c("span", { staticClass: "audio__timer-current" }, [
-              _vm._v("0:00")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "audio__timer-separator" }, [
-              _vm._v("/")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "audio__timer-maximum" }, [
-              _vm._v("0:00")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "audio__volume-control" }, [
-          _c("button", { staticClass: "audio__volume-button" }, [
-            _c("span", { staticClass: "material-icons-round" }, [
-              _vm._v("volume_up")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "audio__volume-bar" }, [
-            _c("div", { staticClass: "audio__volume-current" }, [
-              _c("button", { staticClass: "audio__volume-cursor" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "audio__volume-maximum" })
-          ])
+    return _c("time", { staticClass: "audio__timer" }, [
+      _c("span", { staticClass: "audio__timer-current" }, [_vm._v("0:00")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "audio__timer-separator" }, [_vm._v("/")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "audio__timer-maximum" }, [_vm._v("0:00")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "audio__volume-control" }, [
+      _c("button", { staticClass: "audio__volume-button" }, [
+        _c("span", { staticClass: "material-icons-round" }, [
+          _vm._v("volume_up")
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "audio__volume-bar" }, [
+        _c("div", { staticClass: "audio__volume-current" }, [
+          _c("button", { staticClass: "audio__volume-cursor" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "audio__volume-maximum" })
       ])
     ])
   }
@@ -18205,6 +18431,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ProgressSlider.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/ProgressSlider.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& */ "./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&");
+/* harmony import */ var _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=script&lang=js& */ "./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7341d4ce",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProgressSlider.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProgressSlider.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--5-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/content/Comments.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/content/Comments.vue ***!
@@ -19067,7 +19380,7 @@ var Audio = new function () {
                 } finally {
                   _iterator4.f();
                 }
-              }, 1000);
+              }, 100);
 
             case 4:
             case "end":
