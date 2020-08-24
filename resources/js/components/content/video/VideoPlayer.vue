@@ -11,8 +11,11 @@
 					allowfullscreen>
 			</iframe>
 			<transition name="fade">
-				<div v-if="showOverlay" class="player__overlay">
-      				<object class="player__overlay-image" :data="overlayUrl" type="image/svg+xml"></object>
+				<div 
+					v-if="showOverlay"
+					class="player__overlay">
+      				
+					<object class="player__overlay-image" :data="overlayUrl" type="image/svg+xml"></object>
     			</div>
 			</transition>
     	</div>

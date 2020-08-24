@@ -4,11 +4,22 @@
         ref="player">
 
         <div class="player__rationed">
-            <div class="player__image"></div>
-                <!--  <div class="player__overlay">
-                  <object class="player__overlay-image" data="{{ asset("img/svg/audio-overlay.svg") }}"
-                    type="image/svg+xml"></object>
-                </div>  -->
+            <div 
+                class="player__image"
+                :style="{ 'background-image':  backgroundImage}">
+            </div>
+            <transition name="fade">
+
+                <div 
+                    class="player__overlay"
+                    v-if="showOverlay">
+
+                    <object class="player__overlay-image" 
+                        type="image/svg+xml"
+                        :data="overlayUrl">
+                    </object>
+                </div>
+            </transition>
             <div class="audio">
                 <div class="audio__player">
                     <button class="audio__button-toggle"><i class="material-icons">visibility</i><span>show</span></button>
@@ -50,54 +61,80 @@ export default {
 	data: function () {
 		return {
 			showOverlay: true,
-			overlayUrl: window.location.origin + '/img/svg/video-overlay.svg',
-			videoID: 'null'
-		}
-	},
+			overlayUrl: window.location.origin + '/img/svg/audio-overlay.svg',
+            imageUrl: null,
+            audioUrl: null
+        }
+    },
+    
+    computed: {
+        backgroundImage() {
+            if (this.imageUrl)
+                return `url('${this.imageUrl}')`
+
+            return null;
+        }
+    },
 
 	mounted() {
 
 		bus.listen('post-selected', event => {
-			this.videoID = event.post.videoID;
+    
+            let audio = event.post;
+    
+            this.audioUrl = audio.audioUrl;
+            this.imageUrl = audio.imageUrl;
             this.showOverlay = false;
-          
+
             if (!!!event.disableScrolling)
                 this.scrollToPlayer();
 		});
 
 		bus.listen('post-creating', event => {
+            this.audioUrl = null;
+            this.imageurl = null;
 			this.showOverlay = true;
 		});
 
 		bus.listen('post-editing', event => {
-			this.videoID = event.post.videoID;
+
+            let audio = event.audio;
+
+            this.audioUrl = audio.audioUrl;
+            this.imageUrl = audio.imageUrl;
+
 			this.showOverlay = false;
 		});
 
-		bus.listen('editor-link-changed', event => {		
-			this.videoID = event.videoID;
+		bus.listen('editor-image-changed', event => {		
+			
 			this.showOverlay = false;
+        })
+        
+        bus.listen('editor-audio-changed', event => {		
+			
 		})
 
 		bus.listen('post-deleted', event => {
-			this.videoID = event.post.videoID;
-			this.showOverlay = false;
+			
 		});
     },
     
     methods: {
         scrollToPlayer() {
+
             const SHIFT = 10;
 
             let player = this.$refs.player;
 
-            let realatedTop = player.getBoundingClientRect().top;
-            let distance  = realatedTop - SHIFT;
+            let relatedTop = player.getBoundingClientRect().top;
+            let distance  = relatedTop - SHIFT;
 
-            window.scrollBy({
-                top: distance ,
-                behavior: 'smooth' 
-            })
+            if (relatedTop < 0)
+                window.scrollBy({
+                    top: distance ,
+                    behavior: 'smooth' 
+                })
         }
     }
 };

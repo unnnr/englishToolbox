@@ -62,13 +62,14 @@ export default {
 
             let details = this.$refs.details;
 
-            let realatedTop = details.getBoundingClientRect().top;
-            let distance  = realatedTop - SHIFT;
+            let relatedTop = details.getBoundingClientRect().top;
+            let distance  = relatedTop - SHIFT;
 
-            window.scrollBy({
-                top: distance ,
-                behavior: 'smooth' 
-            })
+			if (relatedTop < 0)
+            	window.scrollBy({
+            	    top: distance ,
+            	    behavior: 'smooth' 
+            	})
         }
 	}
 };

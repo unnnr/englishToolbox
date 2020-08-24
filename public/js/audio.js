@@ -160,6 +160,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -983,9 +985,9 @@ __webpack_require__.r(__webpack_exports__);
     scrolleToDetails: function scrolleToDetails() {
       var SHIFT = 10;
       var details = this.$refs.details;
-      var realatedTop = details.getBoundingClientRect().top;
-      var distance = realatedTop - SHIFT;
-      window.scrollBy({
+      var relatedTop = details.getBoundingClientRect().top;
+      var distance = relatedTop - SHIFT;
+      if (relatedTop < 0) window.scrollBy({
         top: distance,
         behavior: 'smooth'
       });
@@ -1249,47 +1251,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "audio-player",
   data: function data() {
     return {
       showOverlay: true,
-      overlayUrl: window.location.origin + '/img/svg/video-overlay.svg',
-      videoID: 'null'
+      overlayUrl: window.location.origin + '/img/svg/audio-overlay.svg',
+      imageUrl: null,
+      audioUrl: null
     };
+  },
+  computed: {
+    backgroundImage: function backgroundImage() {
+      if (this.imageUrl) return "url('".concat(this.imageUrl, "')");
+      return null;
+    }
   },
   mounted: function mounted() {
     var _this = this;
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
-      _this.videoID = event.post.videoID;
+      var audio = event.post;
+      _this.audioUrl = audio.audioUrl;
+      _this.imageUrl = audio.imageUrl;
       _this.showOverlay = false;
       if (!!!event.disableScrolling) _this.scrollToPlayer();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
+      _this.audioUrl = null;
+      _this.imageurl = null;
       _this.showOverlay = true;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
-      _this.videoID = event.post.videoID;
+      var audio = event.audio;
+      _this.audioUrl = audio.audioUrl;
+      _this.imageUrl = audio.imageUrl;
       _this.showOverlay = false;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-link-changed', function (event) {
-      _this.videoID = event.videoID;
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-image-changed', function (event) {
       _this.showOverlay = false;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {
-      _this.videoID = event.post.videoID;
-      _this.showOverlay = false;
-    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-audio-changed', function (event) {});
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {});
   },
   methods: {
     scrollToPlayer: function scrollToPlayer() {
       var SHIFT = 10;
       var player = this.$refs.player;
-      var realatedTop = player.getBoundingClientRect().top;
-      var distance = realatedTop - SHIFT;
-      window.scrollBy({
+      var relatedTop = player.getBoundingClientRect().top;
+      var distance = relatedTop - SHIFT;
+      if (relatedTop < 0) window.scrollBy({
         top: distance,
         behavior: 'smooth'
       });
@@ -4327,7 +4350,7 @@ var render = function() {
             }
           ],
           staticClass: "card__image",
-          style: { backgroundImage: "url('" + _vm.imageUrl + "')" },
+          style: { "background-image": "url('" + _vm.imageUrl + "')" },
           on: { click: _vm.select }
         },
         [
@@ -5235,65 +5258,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "player", staticClass: "player" }, [_vm._m(0)])
+  return _c("div", { ref: "player", staticClass: "player" }, [
+    _c(
+      "div",
+      { staticClass: "player__rationed" },
+      [
+        _c("div", {
+          staticClass: "player__image",
+          style: { "background-image": _vm.backgroundImage }
+        }),
+        _vm._v(" "),
+        _c("transition", { attrs: { name: "fade" } }, [
+          _vm.showOverlay
+            ? _c("div", { staticClass: "player__overlay" }, [
+                _c("object", {
+                  staticClass: "player__overlay-image",
+                  attrs: { type: "image/svg+xml", data: _vm.overlayUrl }
+                })
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "player__rationed" }, [
-      _c("div", { staticClass: "player__image" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "audio" }, [
-        _c("div", { staticClass: "audio__player" }, [
-          _c("button", { staticClass: "audio__button-toggle" }, [
-            _c("i", { staticClass: "material-icons" }, [_vm._v("visibility")]),
-            _c("span", [_vm._v("show")])
+    return _c("div", { staticClass: "audio" }, [
+      _c("div", { staticClass: "audio__player" }, [
+        _c("button", { staticClass: "audio__button-toggle" }, [
+          _c("i", { staticClass: "material-icons" }, [_vm._v("visibility")]),
+          _c("span", [_vm._v("show")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "audio__progress-control" }, [
+          _c("button", { staticClass: "audio__button-state" }, [
+            _c("i", { staticClass: "fas fa-play" })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "audio__progress-control" }, [
-            _c("button", { staticClass: "audio__button-state" }, [
-              _c("i", { staticClass: "fas fa-play" })
+          _c("div", { staticClass: "audio__progress-bar" }, [
+            _c("div", { staticClass: "audio__progress-current" }, [
+              _c("button", { staticClass: "audio__progress-cursor" })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "audio__progress-bar" }, [
-              _c("div", { staticClass: "audio__progress-current" }, [
-                _c("button", { staticClass: "audio__progress-cursor" })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "audio__progress-maximum" })
+            _c("div", { staticClass: "audio__progress-maximum" })
+          ]),
+          _vm._v(" "),
+          _c("time", { staticClass: "audio__timer" }, [
+            _c("span", { staticClass: "audio__timer-current" }, [
+              _vm._v("0:00")
             ]),
             _vm._v(" "),
-            _c("time", { staticClass: "audio__timer" }, [
-              _c("span", { staticClass: "audio__timer-current" }, [
-                _vm._v("0:00")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "audio__timer-separator" }, [
-                _vm._v("/")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "audio__timer-maximum" }, [
-                _vm._v("0:00")
-              ])
+            _c("span", { staticClass: "audio__timer-separator" }, [
+              _vm._v("/")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "audio__timer-maximum" }, [
+              _vm._v("0:00")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "audio__volume-control" }, [
+          _c("button", { staticClass: "audio__volume-button" }, [
+            _c("span", { staticClass: "material-icons-round" }, [
+              _vm._v("volume_up")
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "audio__volume-control" }, [
-            _c("button", { staticClass: "audio__volume-button" }, [
-              _c("span", { staticClass: "material-icons-round" }, [
-                _vm._v("volume_up")
-              ])
+          _c("div", { staticClass: "audio__volume-bar" }, [
+            _c("div", { staticClass: "audio__volume-current" }, [
+              _c("button", { staticClass: "audio__volume-cursor" })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "audio__volume-bar" }, [
-              _c("div", { staticClass: "audio__volume-current" }, [
-                _c("button", { staticClass: "audio__volume-cursor" })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "audio__volume-maximum" })
-            ])
+            _c("div", { staticClass: "audio__volume-maximum" })
           ])
         ])
       ])

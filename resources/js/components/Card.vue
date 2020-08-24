@@ -1,10 +1,12 @@
 <template>
-    <div class="card card--rectangle card--margined"
+    <div 
+        class="card card--rectangle card--margined"
         :class="{'card--selected': selected}">
 
-        <div class="card__image" 
+        <div 
+            class="card__image" 
             v-context:items="contextItems"
-            :style="{ backgroundImage: 'url(\'' + imageUrl + '\')' }"
+            :style="{ 'background-image': 'url(\'' + imageUrl + '\')' }"
             @click="select">
             
             <div class="card__header">
