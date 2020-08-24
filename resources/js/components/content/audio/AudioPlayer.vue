@@ -42,7 +42,9 @@
                             ref="progressSlider" 
                             :max="getAudioDuration()"
                             :value.sync="currentTime"
-                            @thumb-moved="changePlayerPosition"/>
+                            @thumb-moved="changePlayerPosition"
+                            @thumb-start-moving="pauseAudio"
+                            @thumb-end-moving="playAudio"/>
                         <time class="audio__timer">
                             <span class="audio__timer-current">{{ labels.currentTime }}</span>
                             <span class="audio__timer-separator">/</span>
@@ -127,19 +129,16 @@ export default {
                 this.audio.playable = true;
                 this.labels.duration =  this.parseTime(this.getAudioDuration());
             }, {once: true});
-
-            this.player.addEventListener('timeupdate', event => {
-                this.currentTime = this.player.currentTime * 1000;
-                
-                this.labels.currentTime = this.parseTime(this.currentTime);
-            });
         }
     },
 
 	mounted() {
+        this.player.addEventListener('timeupdate', event => {
+            this.currentTime = this.player.currentTime * 1000;
+            this.labels.currentTime = this.parseTime(this.currentTime);
+        });
 
 		bus.listen('post-selected', event => {
-    
             let audio = event.post;
 
             this.clear();
@@ -178,7 +177,6 @@ export default {
 		bus.listen('post-deleted', event => {
 			
         });
-
     },
     
     methods: {
@@ -218,20 +216,6 @@ export default {
                 this.toggleButtonMessage = 'hide';
         },
 
-        togglePlayPause() {
-
-            if (!!!this.audio.playable)
-                return;
-
-            this.audio.playing = !!!this.audio.playing;
-
-            if (this.audio.playing)
-                this.player.play();
-            else
-                this.player.pause();
-
-        },
-
         parseTime(ms) {
             let minutes = Math.floor(Math.floor(ms / 1000) / 60);
             let seconds = Math.floor(ms / 1000) - minutes * 60;
@@ -243,9 +227,31 @@ export default {
         },
 
         changePlayerPosition(value) {
+            console.log(this.getAudioDuration(), value );
+            this.player.currentTime  = value / 1001;
+        },
 
-            console.log(value);
-            this.player.currentTime  = value/ 1000;
+        togglePlayPause() {
+            if (this.audio.playing)
+                this.pauseAudio();
+            else
+                this.playAudio();       
+        },
+
+        playAudio() {
+            if (!!!this.audio.playable)
+                return;
+
+            this.audio.playing = true;
+            this.player.play();
+        },
+
+        pauseAudio() {
+            if (!!!this.audio.playable)
+                return;
+
+            this.audio.playing = false;
+            this.player.pause();
         },
 
         getAudioDuration() {

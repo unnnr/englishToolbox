@@ -59,26 +59,6 @@ export default {
             this.$emit('update:value', this.value);
         }
     },
-    
-    /* computed: {
-        DEPRECATEDvalue: {
-            get() {
-
-               // console.log('max ',this.max, this.progress)
-                return this.progress * this.max / 1000;
-            },
-
-            set(value) {
-
-                console.log(this.progress + '%');
-                console.log(value + ' of ' + this.max);
-                console.log('=============');
-
-
-                this.progress = value * 100 / this.max;
-            }
-        }
-    }, */
 
 	mounted() {
         document.addEventListener('mouseup', this.disableThumb);
@@ -89,9 +69,11 @@ export default {
 
         disableThumb() {
             this.isThumbActive = false;
+            this.$emit('thumb-end-moving');
         },
 
         activeThumb() {
+            this.$emit('thumb-start-moving');
             this.isThumbActive = true;
         },
 
@@ -106,8 +88,10 @@ export default {
             else
                this.moveThumbHorizontally(event);
 
-            console.log( this.progress, this.max);
-            this.$emit('thumb-moved', this.progress * this.max / 100);
+            if ( this.progress >= 100)
+                this.$emit('thumb-moved', this.max);
+            else
+                this.$emit('thumb-moved', this.progress * this.max / 100);
         },
 
         moveThumbVertically() {

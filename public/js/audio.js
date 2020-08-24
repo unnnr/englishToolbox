@@ -717,21 +717,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('update:value', this.value);
     }
   },
-
-  /* computed: {
-      DEPRECATEDvalue: {
-          get() {
-              // console.log('max ',this.max, this.progress)
-              return this.progress * this.max / 1000;
-          },
-           set(value) {
-               console.log(this.progress + '%');
-              console.log(value + ' of ' + this.max);
-              console.log('=============');
-                this.progress = value * 100 / this.max;
-          }
-      }
-  }, */
   mounted: function mounted() {
     document.addEventListener('mouseup', this.disableThumb);
     document.addEventListener('mousemove', this.onMove);
@@ -739,8 +724,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     disableThumb: function disableThumb() {
       this.isThumbActive = false;
+      this.$emit('thumb-end-moving');
     },
     activeThumb: function activeThumb() {
+      this.$emit('thumb-start-moving');
       this.isThumbActive = true;
     },
     onMove: function onMove(event) {
@@ -748,8 +735,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     moveThumb: function moveThumb(event) {
       if (this.vertical) this.moveThumbVertically(event);else this.moveThumbHorizontally(event);
-      console.log(this.progress, this.max);
-      this.$emit('thumb-moved', this.progress * this.max / 100);
+      if (this.progress >= 100) this.$emit('thumb-moved', this.max);else this.$emit('thumb-moved', this.progress * this.max / 100);
     },
     moveThumbVertically: function moveThumbVertically() {},
     moveThumbHorizontally: function moveThumbHorizontally(event) {
@@ -1387,6 +1373,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1436,15 +1424,15 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         once: true
       });
-      this.player.addEventListener('timeupdate', function (event) {
-        _this.currentTime = _this.player.currentTime * 1000;
-        _this.labels.currentTime = _this.parseTime(_this.currentTime);
-      });
     }
   },
   mounted: function mounted() {
     var _this2 = this;
 
+    this.player.addEventListener('timeupdate', function (event) {
+      _this2.currentTime = _this2.player.currentTime * 1000;
+      _this2.labels.currentTime = _this2.parseTime(_this2.currentTime);
+    });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       var audio = event.post;
 
@@ -1495,11 +1483,6 @@ __webpack_require__.r(__webpack_exports__);
       this.image.blured = !!!this.image.blured;
       if (this.image.blured) this.toggleButtonMessage = 'show';else this.toggleButtonMessage = 'hide';
     },
-    togglePlayPause: function togglePlayPause() {
-      if (!!!this.audio.playable) return;
-      this.audio.playing = !!!this.audio.playing;
-      if (this.audio.playing) this.player.play();else this.player.pause();
-    },
     parseTime: function parseTime(ms) {
       var minutes = Math.floor(Math.floor(ms / 1000) / 60);
       var seconds = Math.floor(ms / 1000) - minutes * 60;
@@ -1507,8 +1490,21 @@ __webpack_require__.r(__webpack_exports__);
       return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
     },
     changePlayerPosition: function changePlayerPosition(value) {
-      console.log(value);
-      this.player.currentTime = value / 1000;
+      console.log(this.getAudioDuration(), value);
+      this.player.currentTime = value / 1001;
+    },
+    togglePlayPause: function togglePlayPause() {
+      if (this.audio.playing) this.pauseAudio();else this.playAudio();
+    },
+    playAudio: function playAudio() {
+      if (!!!this.audio.playable) return;
+      this.audio.playing = true;
+      this.player.play();
+    },
+    pauseAudio: function pauseAudio() {
+      if (!!!this.audio.playable) return;
+      this.audio.playing = false;
+      this.player.pause();
     },
     getAudioDuration: function getAudioDuration() {
       return this.player.duration * 1000;
@@ -5622,7 +5618,9 @@ var render = function() {
                     "update:value": function($event) {
                       _vm.currentTime = $event
                     },
-                    "thumb-moved": _vm.changePlayerPosition
+                    "thumb-moved": _vm.changePlayerPosition,
+                    "thumb-start-moving": _vm.pauseAudio,
+                    "thumb-end-moving": _vm.playAudio
                   }
                 }),
                 _vm._v(" "),
@@ -18538,15 +18536,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/ProgressSlider.vue ***!
   \****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& */ "./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&");
 /* harmony import */ var _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=script&lang=js& */ "./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -18578,7 +18575,7 @@ component.options.__file = "resources/js/components/ProgressSlider.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
