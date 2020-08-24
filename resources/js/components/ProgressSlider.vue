@@ -28,7 +28,12 @@ export default {
         vertical: {
             type: Boolean,
             default: false
-        }
+        },
+
+        max: {
+            type: Number,
+            default: 120
+        },
     },
 
 	data: function () {
@@ -40,21 +45,32 @@ export default {
     },
     
     computed: {
-        backgroundImage() {
-            if (this.imageUrl)
-                return `url('${this.imageUrl}')`
+        value: {
+            get() {
 
-            return null;
+               // console.log('max ',this.max, this.progress)
+                return this.progress * this.max / 1000;
+            },
+
+            set(value) {
+
+                console.log(this.progress + '%');
+                console.log(value + ' of ' + this.max);
+                console.log('=============');
+
+
+                this.progress = value * 100 / this.max;
+            }
         }
     },
 
 	mounted() {
         document.addEventListener('mouseup', this.disableThumb);
-        document.addEventListener('mousemove', this.moveThumb);
+        document.addEventListener('mousemove', this.onMove);
     },
     
     methods: {
-   
+
         disableThumb() {
             this.isThumbActive = false;
         },
@@ -63,10 +79,12 @@ export default {
             this.isThumbActive = true;
         },
 
+        onMove(event) {
+            if (this.isThumbActive)
+                this.moveThumb(event);
+        },
+
         moveThumb(event) {
-            if (!!!this.isThumbActive)
-                return;
-    
             if (this.vertical)
                 this.moveThumbVertically(event);
             else

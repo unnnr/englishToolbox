@@ -693,6 +693,10 @@ __webpack_require__.r(__webpack_exports__);
     vertical: {
       type: Boolean,
       "default": false
+    },
+    max: {
+      type: Number,
+      "default": 120
     }
   },
   data: function data() {
@@ -703,14 +707,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    backgroundImage: function backgroundImage() {
-      if (this.imageUrl) return "url('".concat(this.imageUrl, "')");
-      return null;
+    value: {
+      get: function get() {
+        // console.log('max ',this.max, this.progress)
+        return this.progress * this.max / 1000;
+      },
+      set: function set(value) {
+        console.log(this.progress + '%');
+        console.log(value + ' of ' + this.max);
+        console.log('=============');
+        this.progress = value * 100 / this.max;
+      }
     }
   },
   mounted: function mounted() {
     document.addEventListener('mouseup', this.disableThumb);
-    document.addEventListener('mousemove', this.moveThumb);
+    document.addEventListener('mousemove', this.onMove);
   },
   methods: {
     disableThumb: function disableThumb() {
@@ -719,8 +731,10 @@ __webpack_require__.r(__webpack_exports__);
     activeThumb: function activeThumb() {
       this.isThumbActive = true;
     },
+    onMove: function onMove(event) {
+      if (this.isThumbActive) this.moveThumb(event);
+    },
     moveThumb: function moveThumb(event) {
-      if (!!!this.isThumbActive) return;
       if (this.vertical) this.moveThumbVertically(event);else this.moveThumbHorizontally(event);
     },
     moveThumbVertically: function moveThumbVertically() {},
@@ -1355,6 +1369,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1374,11 +1390,15 @@ __webpack_require__.r(__webpack_exports__);
         url: null
       },
       audio: {
-        player: new Audio(),
         playable: false,
         playing: false,
         url: null
-      }
+      },
+      labels: {
+        currentTime: '00:00',
+        duration: '00:00'
+      },
+      player: new Audio()
     };
   },
   computed: {
@@ -1391,16 +1411,18 @@ __webpack_require__.r(__webpack_exports__);
     'audio.url': function audioUrl(url) {
       var _this = this;
 
-      console.log(url);
-      this.audio.player.src = url;
-      this.audio.player.addEventListener('canplaythrough', function () {
+      var slider = this.$refs.progressSlider;
+      this.player.src = url;
+      this.player.addEventListener('canplaythrough', function () {
         _this.audio.playable = true;
+        _this.labels.duration = _this.parseTime(_this.getAudioDuration());
       }, {
         once: true
       });
-      this.audio.player.addEventListener('timeupdate', function (event) {
-        console.log('-----------------------------');
-        console.log('Current ', _this.audio.player.currentTime * 1000);
+      this.player.addEventListener('timeupdate', function (event) {
+        var currentTime = _this.player.currentTime * 1000;
+        slider.value = currentTime;
+        _this.labels.currentTime = _this.parseTime(currentTime);
       });
     }
   },
@@ -1454,14 +1476,22 @@ __webpack_require__.r(__webpack_exports__);
       this.audio.url = null;
     },
     toggleShowHide: function toggleShowHide() {
-      console.log(12);
       this.image.blured = !!!this.image.blured;
       if (this.image.blured) this.toggleButtonMessage = 'show';else this.toggleButtonMessage = 'hide';
     },
     togglePlayPause: function togglePlayPause() {
       if (!!!this.audio.playable) return;
       this.audio.playing = !!!this.audio.playing;
-      if (this.audio.playing) this.audio.player.play();else this.audio.player.pause();
+      if (this.audio.playing) this.player.play();else this.player.pause();
+    },
+    parseTime: function parseTime(ms) {
+      var minutes = Math.floor(Math.floor(ms / 1000) / 60);
+      var seconds = Math.floor(ms / 1000) - minutes * 60;
+      if (minutes > 59) minutes = seconds = '--';
+      return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    },
+    getAudioDuration: function getAudioDuration() {
+      return this.player.duration * 1000;
     }
   }
 });
@@ -5562,14 +5592,29 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("progress-slider"),
+                _c("progress-slider", {
+                  ref: "progressSlider",
+                  attrs: { max: _vm.getAudioDuration() }
+                }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("time", { staticClass: "audio__timer" }, [
+                  _c("span", { staticClass: "audio__timer-current" }, [
+                    _vm._v(_vm._s(_vm.labels.currentTime))
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "audio__timer-separator" }, [
+                    _vm._v("/")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "audio__timer-maximum" }, [
+                    _vm._v(_vm._s(_vm.labels.duration))
+                  ])
+                ])
               ],
               1
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(0)
           ])
         ])
       ],
@@ -5578,18 +5623,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("time", { staticClass: "audio__timer" }, [
-      _c("span", { staticClass: "audio__timer-current" }, [_vm._v("0:00")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "audio__timer-separator" }, [_vm._v("/")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "audio__timer-maximum" }, [_vm._v("0:00")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

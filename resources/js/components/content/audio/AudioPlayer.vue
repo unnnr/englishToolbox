@@ -38,11 +38,13 @@
                                 :class="{'fa-play': !!!audio.playing, 'fa-pause': audio.playing }">
                             </i>
                         </button>
-                        <progress-slider/>
+                        <progress-slider 
+                            ref="progressSlider" 
+                            :max="getAudioDuration()"/>
                         <time class="audio__timer">
-                            <span class="audio__timer-current">0:00</span>
+                            <span class="audio__timer-current">{{ labels.currentTime }}</span>
                             <span class="audio__timer-separator">/</span>
-                            <span class="audio__timer-maximum">0:00</span>
+                            <span class="audio__timer-maximum">{{ labels.duration }}</span>
                         </time>
                     </div>
                     <div class="audio__volume-control">
@@ -86,11 +88,17 @@ export default {
             },
 
             audio: {
-                player: new Audio(),
                 playable: false,
                 playing: false,
                 url: null,
             },
+
+            labels: {
+                currentTime: '00:00',
+                duration: '00:00'
+            },
+
+            player: new Audio(),
 
         }
     },
@@ -106,17 +114,22 @@ export default {
 
     watch: {
         'audio.url' : function(url) {
-            console.log(url);
-            this.audio.player.src = url;
 
-            this.audio.player.addEventListener('canplaythrough', () => {
+            let slider = this.$refs.progressSlider;
+
+            this.player.src = url;
+
+            this.player.addEventListener('canplaythrough', () => {
                 this.audio.playable = true;
+                this.labels.duration =  this.parseTime(this.getAudioDuration());
             }, {once: true});
 
-            this.audio.player.addEventListener('timeupdate', event => {
-                console.log('-----------------------------');
-                console.log('Current ', this.audio.player.currentTime * 1000);
-
+            this.player.addEventListener('timeupdate', event => {
+                let currentTime = this.player.currentTime * 1000;
+                
+                slider.value = currentTime;
+                
+                this.labels.currentTime = this.parseTime(currentTime);
             });
         }
     },
@@ -195,7 +208,6 @@ export default {
         },
 
         toggleShowHide() {
-            console.log(12);
             this.image.blured = !!!this.image.blured ;
 
             if (this.image.blured )
@@ -212,11 +224,25 @@ export default {
             this.audio.playing = !!!this.audio.playing;
 
             if (this.audio.playing)
-                this.audio.player.play();
+                this.player.play();
             else
-                this.audio.player.pause();
+                this.player.pause();
 
         },
+
+        parseTime(ms) {
+            let minutes = Math.floor(Math.floor(ms / 1000) / 60);
+            let seconds = Math.floor(ms / 1000) - minutes * 60;
+
+            if (minutes > 59)
+                minutes = seconds =  '--';
+
+            return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
+        },
+
+        getAudioDuration() {
+            return this.player.duration * 1000;
+        }
     }
 };
 </script>
