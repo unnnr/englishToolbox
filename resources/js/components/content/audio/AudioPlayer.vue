@@ -6,7 +6,8 @@
         <div class="player__rationed">
             <div 
                 class="player__image"
-                :style="{ 'background-image':  backgroundImage}">
+                :style="{ 'background-image':  backgroundImage}"
+                :class="{'player__image--blurred': image.blured }">
             </div>
             <transition name="fade">
 
@@ -24,9 +25,9 @@
                 <div class="audio__player">
                     <button 
                         class="audio__button-toggle"
-                        @click="toggleShowHide">
+                        @click.prevent="toggleShowHide">
 
-                        <i class="material-icons">visibility</i><span>{{ toggleButtonMessage }}</span>
+                        <i class="material-icons">{{ visibilityIcon }}</i><span>{{ toggleButtonMessage }}</span>
                     </button>
                     <div class="audio__progress-control">
                         <button
@@ -90,7 +91,7 @@ export default {
                 blured: true,
                 url: null,
             },
-
+ 
             audio: {
                 playable: false,
                 playing: false,
@@ -115,7 +116,14 @@ export default {
                 return `url('${this.image.url}')`
 
             return null;
-        }
+        },
+
+        visibilityIcon() {
+            if (this.image.blured) 
+                return 'visibility';
+            else  
+                return 'visibility_off';
+        },
     },
 
     watch: {
@@ -227,11 +235,12 @@ export default {
         },
 
         changePlayerPosition(value) {
-            console.log(this.getAudioDuration(), value );
             this.player.currentTime  = value / 1001;
         },
 
-        togglePlayPause() {
+        togglePlayPause(event) {
+            console.log(event, 123); 
+
             if (this.audio.playing)
                 this.pauseAudio();
             else
@@ -262,6 +271,10 @@ export default {
 </script>
 
 <style scoped>
+    .player__image {  
+        transition: filter .5s;
+    }
+    
 	.fade-enter-active, .fade-leave-active {
 	  transition: opacity 1s;
 	}

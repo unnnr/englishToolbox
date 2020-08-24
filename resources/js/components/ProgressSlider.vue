@@ -68,12 +68,14 @@ export default {
     methods: {
 
         disableThumb() {
+            if (this.isThumbActive)
+                this.$emit('thumb-end-moving');
             this.isThumbActive = false;
-            this.$emit('thumb-end-moving');
         },
 
         activeThumb() {
-            this.$emit('thumb-start-moving');
+            if (!!!this.isThumbActive)
+                this.$emit('thumb-start-moving');
             this.isThumbActive = true;
         },
 

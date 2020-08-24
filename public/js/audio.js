@@ -723,11 +723,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     disableThumb: function disableThumb() {
+      if (this.isThumbActive) this.$emit('thumb-end-moving');
       this.isThumbActive = false;
-      this.$emit('thumb-end-moving');
     },
     activeThumb: function activeThumb() {
-      this.$emit('thumb-start-moving');
+      if (!!!this.isThumbActive) this.$emit('thumb-start-moving');
       this.isThumbActive = true;
     },
     onMove: function onMove(event) {
@@ -1375,6 +1375,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1410,6 +1411,9 @@ __webpack_require__.r(__webpack_exports__);
     backgroundImage: function backgroundImage() {
       if (this.image.url) return "url('".concat(this.image.url, "')");
       return null;
+    },
+    visibilityIcon: function visibilityIcon() {
+      if (this.image.blured) return 'visibility';else return 'visibility_off';
     }
   },
   watch: {
@@ -1490,10 +1494,10 @@ __webpack_require__.r(__webpack_exports__);
       return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
     },
     changePlayerPosition: function changePlayerPosition(value) {
-      console.log(this.getAudioDuration(), value);
       this.player.currentTime = value / 1001;
     },
-    togglePlayPause: function togglePlayPause() {
+    togglePlayPause: function togglePlayPause(event) {
+      console.log(event, 123);
       if (this.audio.playing) this.pauseAudio();else this.playAudio();
     },
     playAudio: function playAudio() {
@@ -2137,7 +2141,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-2ed471ad], .fade-leave-active[data-v-2ed471ad] {\n  transition: opacity 1s;\n}\n.fade-enter[data-v-2ed471ad], .fade-leave-to[data-v-2ed471ad] {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.player__image[data-v-2ed471ad] {  \n        transition: filter .5s;\n}\n.fade-enter-active[data-v-2ed471ad], .fade-leave-active[data-v-2ed471ad] {\n\t  transition: opacity 1s;\n}\n.fade-enter[data-v-2ed471ad], .fade-leave-to[data-v-2ed471ad] {\n\t  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -5557,6 +5561,7 @@ var render = function() {
       [
         _c("div", {
           staticClass: "player__image",
+          class: { "player__image--blurred": _vm.image.blured },
           style: { "background-image": _vm.backgroundImage }
         }),
         _vm._v(" "),
@@ -5577,11 +5582,16 @@ var render = function() {
               "button",
               {
                 staticClass: "audio__button-toggle",
-                on: { click: _vm.toggleShowHide }
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.toggleShowHide($event)
+                  }
+                }
               },
               [
                 _c("i", { staticClass: "material-icons" }, [
-                  _vm._v("visibility")
+                  _vm._v(_vm._s(_vm.visibilityIcon))
                 ]),
                 _c("span", [_vm._v(_vm._s(_vm.toggleButtonMessage))])
               ]
