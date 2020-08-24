@@ -40,7 +40,9 @@
                         </button>
                         <progress-slider 
                             ref="progressSlider" 
-                            :max="getAudioDuration()"/>
+                            :max="getAudioDuration()"
+                            :value.sync="currentTime"
+                            @thumb-moved="changePlayerPosition"/>
                         <time class="audio__timer">
                             <span class="audio__timer-current">{{ labels.currentTime }}</span>
                             <span class="audio__timer-separator">/</span>
@@ -98,6 +100,8 @@ export default {
                 duration: '00:00'
             },
 
+            currentTime: 0,
+
             player: new Audio(),
 
         }
@@ -125,11 +129,9 @@ export default {
             }, {once: true});
 
             this.player.addEventListener('timeupdate', event => {
-                let currentTime = this.player.currentTime * 1000;
+                this.currentTime = this.player.currentTime * 1000;
                 
-                slider.value = currentTime;
-                
-                this.labels.currentTime = this.parseTime(currentTime);
+                this.labels.currentTime = this.parseTime(this.currentTime);
             });
         }
     },
@@ -238,6 +240,12 @@ export default {
                 minutes = seconds =  '--';
 
             return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
+        },
+
+        changePlayerPosition(value) {
+
+            console.log(value);
+            this.player.currentTime  = value/ 1000;
         },
 
         getAudioDuration() {

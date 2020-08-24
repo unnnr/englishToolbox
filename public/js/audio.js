@@ -697,6 +697,10 @@ __webpack_require__.r(__webpack_exports__);
     max: {
       type: Number,
       "default": 120
+    },
+    value: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
@@ -706,20 +710,28 @@ __webpack_require__.r(__webpack_exports__);
       isSmooth: true
     };
   },
-  computed: {
-    value: {
-      get: function get() {
-        // console.log('max ',this.max, this.progress)
-        return this.progress * this.max / 1000;
-      },
-      set: function set(value) {
-        console.log(this.progress + '%');
-        console.log(value + ' of ' + this.max);
-        console.log('=============');
-        this.progress = value * 100 / this.max;
-      }
+  watch: {
+    value: function value(progress) {
+      if (this.isThumbActive) return;
+      this.progress = progress * 100 / this.max;
+      this.$emit('update:value', this.value);
     }
   },
+
+  /* computed: {
+      DEPRECATEDvalue: {
+          get() {
+              // console.log('max ',this.max, this.progress)
+              return this.progress * this.max / 1000;
+          },
+           set(value) {
+               console.log(this.progress + '%');
+              console.log(value + ' of ' + this.max);
+              console.log('=============');
+                this.progress = value * 100 / this.max;
+          }
+      }
+  }, */
   mounted: function mounted() {
     document.addEventListener('mouseup', this.disableThumb);
     document.addEventListener('mousemove', this.onMove);
@@ -736,6 +748,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     moveThumb: function moveThumb(event) {
       if (this.vertical) this.moveThumbVertically(event);else this.moveThumbHorizontally(event);
+      console.log(this.progress, this.max);
+      this.$emit('thumb-moved', this.progress * this.max / 100);
     },
     moveThumbVertically: function moveThumbVertically() {},
     moveThumbHorizontally: function moveThumbHorizontally(event) {
@@ -1371,6 +1385,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1398,6 +1414,7 @@ __webpack_require__.r(__webpack_exports__);
         currentTime: '00:00',
         duration: '00:00'
       },
+      currentTime: 0,
       player: new Audio()
     };
   },
@@ -1420,9 +1437,8 @@ __webpack_require__.r(__webpack_exports__);
         once: true
       });
       this.player.addEventListener('timeupdate', function (event) {
-        var currentTime = _this.player.currentTime * 1000;
-        slider.value = currentTime;
-        _this.labels.currentTime = _this.parseTime(currentTime);
+        _this.currentTime = _this.player.currentTime * 1000;
+        _this.labels.currentTime = _this.parseTime(_this.currentTime);
       });
     }
   },
@@ -1489,6 +1505,10 @@ __webpack_require__.r(__webpack_exports__);
       var seconds = Math.floor(ms / 1000) - minutes * 60;
       if (minutes > 59) minutes = seconds = '--';
       return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    },
+    changePlayerPosition: function changePlayerPosition(value) {
+      console.log(value);
+      this.player.currentTime = value / 1000;
     },
     getAudioDuration: function getAudioDuration() {
       return this.player.duration * 1000;
@@ -4889,7 +4909,7 @@ var render = function() {
     {
       ref: "slider",
       staticClass: "audio__progress-bar",
-      on: { click: _vm.moveThumbHorizontally }
+      on: { click: _vm.moveThumb }
     },
     [
       _c(
@@ -5594,7 +5614,16 @@ var render = function() {
                 _vm._v(" "),
                 _c("progress-slider", {
                   ref: "progressSlider",
-                  attrs: { max: _vm.getAudioDuration() }
+                  attrs: {
+                    max: _vm.getAudioDuration(),
+                    value: _vm.currentTime
+                  },
+                  on: {
+                    "update:value": function($event) {
+                      _vm.currentTime = $event
+                    },
+                    "thumb-moved": _vm.changePlayerPosition
+                  }
                 }),
                 _vm._v(" "),
                 _c("time", { staticClass: "audio__timer" }, [

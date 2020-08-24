@@ -2,7 +2,7 @@
 	  <div 
         class="audio__progress-bar"
         ref="slider"
-        @click="moveThumbHorizontally">
+        @click="moveThumb">
                             
             <div 
                 class="audio__progress-current"
@@ -34,6 +34,11 @@ export default {
             type: Number,
             default: 120
         },
+
+        value: {
+            type: Number,
+            default: 0
+        }
     },
 
 	data: function () {
@@ -43,9 +48,20 @@ export default {
             isSmooth: true
         }
     },
+
+    watch: {
+        value(progress) {
+            if (this.isThumbActive)
+                return;
+
+            this.progress = progress * 100 / this.max;
+
+            this.$emit('update:value', this.value);
+        }
+    },
     
-    computed: {
-        value: {
+    /* computed: {
+        DEPRECATEDvalue: {
             get() {
 
                // console.log('max ',this.max, this.progress)
@@ -62,7 +78,7 @@ export default {
                 this.progress = value * 100 / this.max;
             }
         }
-    },
+    }, */
 
 	mounted() {
         document.addEventListener('mouseup', this.disableThumb);
@@ -89,7 +105,9 @@ export default {
                 this.moveThumbVertically(event);
             else
                this.moveThumbHorizontally(event);
-                
+
+            console.log( this.progress, this.max);
+            this.$emit('thumb-moved', this.progress * this.max / 100);
         },
 
         moveThumbVertically() {
@@ -113,7 +131,7 @@ export default {
                 distance = sliderWidth;
 
             // counting progress in %
-            this.progress = distance * 100 / sliderWidth;
+            this.progress = distance * 100 / sliderWidth;           
         }
     }
 };
