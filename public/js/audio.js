@@ -685,6 +685,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "progress-slider",
   props: {
@@ -696,7 +698,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isThumbActive: false,
-      progress: 0
+      progress: 0,
+      isSmooth: true
     };
   },
   computed: {
@@ -2002,7 +2005,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.audio__progress-current[data-v-7341d4ce]\n{\n}\n.audio__progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
+exports.push([module.i, "\n.audio__progress-smooth[data-v-7341d4ce]\n{\n    transition: all .2s;\n}\n.audio__progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
 
 // exports
 
@@ -4822,25 +4825,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "slider", staticClass: "audio__progress-bar" }, [
-    _c(
-      "div",
-      {
-        ref: "progressFilled",
-        staticClass: "audio__progress-current",
-        style: { width: _vm.progress + "%" }
-      },
-      [
-        _c("button", {
-          ref: "thumb",
-          staticClass: "audio__progress-cursor",
-          on: { mousedown: _vm.activeThumb }
-        })
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "audio__progress-maximum" })
-  ])
+  return _c(
+    "div",
+    {
+      ref: "slider",
+      staticClass: "audio__progress-bar",
+      on: { click: _vm.moveThumbHorizontally }
+    },
+    [
+      _c(
+        "div",
+        {
+          ref: "progressFilled",
+          staticClass: "audio__progress-current",
+          class: { "audio__progress-smooth": !!!_vm.isThumbActive },
+          style: { width: _vm.progress + "%" }
+        },
+        [
+          _c("button", {
+            ref: "thumb",
+            staticClass: "audio__progress-cursor",
+            on: { mousedown: _vm.activeThumb }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "audio__progress-maximum" })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -18435,14 +18447,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/ProgressSlider.vue ***!
   \****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProgressSlider_vue_vue_type_template_id_7341d4ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true& */ "./resources/js/components/ProgressSlider.vue?vue&type=template&id=7341d4ce&scoped=true&");
 /* harmony import */ var _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=script&lang=js& */ "./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ProgressSlider_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _ProgressSlider_vue_vue_type_style_index_0_id_7341d4ce_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css& */ "./resources/js/components/ProgressSlider.vue?vue&type=style&index=0&id=7341d4ce&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -18474,7 +18487,7 @@ component.options.__file = "resources/js/components/ProgressSlider.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/ProgressSlider.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

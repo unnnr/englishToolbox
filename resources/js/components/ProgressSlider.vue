@@ -1,11 +1,13 @@
 <template>
 	  <div 
         class="audio__progress-bar"
-        ref="slider">
+        ref="slider"
+        @click="moveThumbHorizontally">
                             
             <div 
                 class="audio__progress-current"
                 ref="progressFilled"
+                :class="{'audio__progress-smooth': !!!isThumbActive}"
                 :style="{'width': progress + '%'}">
 
             <button 
@@ -32,7 +34,8 @@ export default {
 	data: function () {
 		return {
             isThumbActive: false,
-            progress: 0
+            progress: 0,
+            isSmooth: true
         }
     },
     
@@ -63,11 +66,11 @@ export default {
         moveThumb(event) {
             if (!!!this.isThumbActive)
                 return;
-
+    
             if (this.vertical)
                 this.moveThumbVertically(event);
             else
-               this. moveThumbHorizontally(event);
+               this.moveThumbHorizontally(event);
                 
         },
 
@@ -100,8 +103,9 @@ export default {
 
 <style scoped>
 
-    .audio__progress-current
+    .audio__progress-smooth
     {
+        transition: all .2s;
     }
 
     .audio__progress-cursor
