@@ -1049,6 +1049,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1061,6 +1063,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editing: true,
+      target: null,
       editorType: 'creating'
     };
   },
@@ -1069,7 +1072,11 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       _this.editing = true;
+      _this.target = event.post;
       if (!!!event.preventScrolling) _this.scrolleToDetails();
+    });
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-edited', function (event) {
+      _this.target = null;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
       _this.editing = true;
@@ -1209,6 +1216,12 @@ var MAX_DESCRIPTION_LENGTH = 180;
   components: {
     TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
+  props: {
+    target: {
+      type: Object,
+      "default": false
+    }
+  },
   data: function data() {
     return {
       audio: {
@@ -1245,20 +1258,22 @@ var MAX_DESCRIPTION_LENGTH = 180;
       return this.state ? this.state.getTitle() : '';
     }
   },
+  watch: {
+    target: function target(value) {
+      if (value) this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__["default"](this, value);else this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
-
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-editing', function (event) {
-      _this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__["default"](_this, event.post);
-    });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-creating', function (event) {
-      _this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](_this);
-    });
-    this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    if (this.target) this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__["default"](this, this.target);else this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clear();
+    this.stateCreate();
   },
   methods: {
     clear: function clear() {
-      this.$refs.form.reset();
+      var form = this.$refs.form;
+      if (form) this.$refs.form.reset();
 
       for (var _i = 0, _arr = ['image', 'audio']; _i < _arr.length; _i++) {
         var label = _arr[_i];
@@ -1274,6 +1289,12 @@ var MAX_DESCRIPTION_LENGTH = 180;
       this.errors.description = '';
       this.errors.files = '';
     },
+    stateCreate: function stateCreate() {
+      this.state = new _states_audio_creation__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    },
+    stateEdit: function stateEdit(event) {
+      this.state = new _states_audio_editing__WEBPACK_IMPORTED_MODULE_3__["default"](this, event.post);
+    },
     onAudioCreated: function onAudioCreated(post) {
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
         post: post
@@ -1283,7 +1304,6 @@ var MAX_DESCRIPTION_LENGTH = 180;
       });
     },
     onAudioEdited: function onAudioEdited(post) {
-      console.log('First');
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
         post: post
       });
@@ -1437,7 +1457,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     backgroundImage: function backgroundImage() {
       if (this.image.url) return "url('".concat(this.image.url, "')");
-      return null;
+      return '#';
     },
     visibilityIcon: function visibilityIcon() {
       if (this.image.blured) return 'visibility';else return 'visibility_off';
@@ -1447,6 +1467,7 @@ __webpack_require__.r(__webpack_exports__);
     'audio.url': function audioUrl(url) {
       var _this = this;
 
+      if (!!!url) return;
       var slider = this.$refs.progressSlider;
       this.player.src = url;
       this.player.addEventListener('canplaythrough', function () {
@@ -1482,7 +1503,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
       var audio = event.post;
-      console.log(event);
 
       _this2.clear();
 
@@ -1518,6 +1538,7 @@ __webpack_require__.r(__webpack_exports__);
       this.audio.playable = false;
       this.audio.playing = false;
       this.audio.url = null;
+      this.currentTime = 0;
       this.overlay.shown = true;
     },
     toggleShowHide: function toggleShowHide() {
@@ -5318,17 +5339,11 @@ var render = function() {
             "transition",
             { attrs: { name: "fade" } },
             [
-              _c("audio-editor", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.editing,
-                    expression: "editing"
-                  }
-                ],
-                attrs: { type: _vm.editorType }
-              })
+              _vm.editing
+                ? _c("audio-editor", {
+                    attrs: { target: _vm.target, type: _vm.editorType }
+                  })
+                : _vm._e()
             ],
             1
           ),
@@ -19823,7 +19838,6 @@ var Cards = new function () {
     var card = _objectSpread({}, post);
 
     card.thumbnail = _models_Posts__WEBPACK_IMPORTED_MODULE_0__["default"].createThumbnail(post);
-    console.log('card', card);
     return card;
   };
 
@@ -20198,7 +20212,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var Bus = new function () {
   this.listen = function (event, callback) {
-    if (typeof event !== 'string') return false;
+    if (typeof event !== 'string' || typeof callback !== 'function') return false;
     if (!!!listeners[event]) listeners[event] = [];
     listeners[event].push(callback);
     return true;
@@ -20226,7 +20240,7 @@ var Bus = new function () {
     return true;
   };
 
-  this.remove = function (event, callback) {
+  this.detach = function (event, callback) {
     if (typeof event !== 'string') return false;
     var index = listeners[event].indexOf(callback);
     if (index === -1) return false;

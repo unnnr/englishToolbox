@@ -7,7 +7,9 @@
             <div class="addition__wrapper">
                 <transition name="fade">
  					<audio-editor 
-						v-show="editing" 
+					 	:target="target"
+						v-if="editing" 
+						
 						:type="editorType"/>
 				</transition>
                 <post-presentor ref="presentor"/>
@@ -32,20 +34,25 @@ export default {
 	data: function () {
 		return {
 			editing: true,
+			target: null,
 			editorType: 'creating',
 		}
 	},
 
 	mounted() {
 		bus.listen('post-editing', event => {
-			this.editing = true;	
+			this.editing = true;
+			this.target = event.post;
 
 			if (!!!event.preventScrolling)
 				this.scrolleToDetails();
 		});
 
+		bus.listen('post-edited', event => {
+			this.target = null;
+		});
+
 		bus.listen('post-creating', event => {
-			
 			this.editing = true;
 
 			if (!!!event.preventScrolling)

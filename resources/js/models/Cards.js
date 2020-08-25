@@ -11,7 +11,6 @@ const Cards = new function()
 
         card.thumbnail = Posts.createThumbnail(post);
 
-        console.log('card', card);
         return card;
     }
 

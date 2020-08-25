@@ -7,7 +7,7 @@
             <div 
                 class="player__image"
                 :style="{ 'background-image':  backgroundImage}"
-                :class="{'player__image--blurred': image.blured }">
+                :class="{ 'player__image--blurred': image.blured }">
             </div>
             <transition name="fade">
 
@@ -115,7 +115,7 @@ export default {
             if (this.image.url)
                 return `url('${this.image.url}')`
 
-            return null;
+            return '#';
         },
 
         visibilityIcon() {
@@ -128,6 +128,8 @@ export default {
 
     watch: {
         'audio.url' : function(url) {
+            if (!!!url)
+                return;
 
             let slider = this.$refs.progressSlider;
 
@@ -168,7 +170,6 @@ export default {
 		bus.listen('post-editing', event => {
             let audio = event.post;
 
-            console.log(event);
             this.clear();
 
             this.audio.url = audio.audioUrl;
@@ -223,6 +224,8 @@ export default {
             this.audio.playable = false;
             this.audio.playing = false;
             this.audio.url = null;
+
+            this.currentTime = 0;
 
             this.overlay.shown = true;
         },

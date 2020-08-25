@@ -2,7 +2,7 @@ const Bus = new function ()
 {
     this.listen = (event, callback) =>
     {
-        if (typeof event !== 'string')
+        if (typeof event !== 'string' || typeof callback !== 'function')
             return false;
 
         if (!!!listeners[event])
@@ -27,7 +27,7 @@ const Bus = new function ()
         return true;
     }
 
-    this.remove = (event, callback) =>
+    this.detach = (event, callback) =>
     {
         if (typeof event !== 'string')
             return false;
@@ -40,6 +40,7 @@ const Bus = new function ()
         listeners[event].splice(index, 1);
 
         return true;
+
     }
 }();
 

@@ -104,6 +104,13 @@ export default {
         TagEditor
     },
 
+    props: {
+        target: {
+            type: Object,
+            default: false
+        }
+    },
+
     data: function () { 
         return {
 
@@ -151,25 +158,36 @@ export default {
         }
     },
 
-    mounted() {
-        bus.listen('post-editing', event => {
-        
-            this.state = new EditingState(this, event.post);
-        });
+    watch: {
+        target(value) {
+            if (value)
+                this.state = new EditingState(this, value);
+            else 
+                this.state = new CreationState(this);
+        }
 
-        bus.listen('post-creating', event => {
-            
+    },
+    
+    mounted() {
+        if (this.target)
+            this.state = new EditingState(this, this.target);
+        else 
             this.state = new CreationState(this);
-        });
-        
-        this.state = new CreationState(this);
+    },
+
+    beforeDestroy() {
+        this.clear();
+
+        this.stateCreate();
     },
 
     methods: {
 
         clear() {
-            this.$refs.form.reset();
+            let form = this.$refs.form;
 
+            if (form)
+                this.$refs.form.reset();
 
             for (let label of ['image', 'audio'])
             {
@@ -187,7 +205,14 @@ export default {
             this.errors.title = '';
             this.errors.description = '';
             this.errors.files = '';
+        },
 
+        stateCreate() {
+            this.state = new CreationState(this);
+        },
+
+        stateEdit(event) {
+            this.state = new EditingState(this, event.post);
         },
 
         onAudioCreated(post) {
@@ -196,8 +221,6 @@ export default {
         },
 
         onAudioEdited(post) {
-            console.log('First');
-            
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },
@@ -233,7 +256,7 @@ export default {
                 URL.revokeObjectURL(this[propName]);
 
             let file = this.$refs[ref].files[0];
-            let url = URL.createObjectURL(file)
+            let url  = URL.createObjectURL(file)
 
             this[propName] = url;
 
