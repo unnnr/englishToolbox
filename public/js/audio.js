@@ -1192,6 +1192,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // Modules
  // Logic
 
@@ -1257,6 +1258,14 @@ var MAX_DESCRIPTION_LENGTH = 180;
   },
   methods: {
     clear: function clear() {
+      this.$refs.form.reset();
+
+      for (var _i = 0, _arr = ['image', 'audio']; _i < _arr.length; _i++) {
+        var label = _arr[_i];
+        var object = this[label + 'UrlObject'];
+        if (object) URL.revokeObjectURL(object);
+      }
+
       this.audio.title = '';
       this.audio.description = '';
       this.audio.imageLabel = '';
@@ -1283,10 +1292,28 @@ var MAX_DESCRIPTION_LENGTH = 180;
       });
     },
     updateAudio: function updateAudio() {
-      if (this.state) this.state.updateAudio();
+      if (!!!this.state) return;
+      this.state.updateAudio();
+      var url = this.fileToUrl('audio');
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-audio-changed', {
+        audioUrl: url
+      });
     },
     updateImage: function updateImage() {
-      if (this.state) this.state.updateImage();
+      if (!!!this.state) return;
+      this.state.updateImage();
+      var url = this.fileToUrl('image');
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-image-changed', {
+        imageUrl: url
+      });
+    },
+    fileToUrl: function fileToUrl(ref) {
+      var propName = ref + 'UrlObject';
+      if (this[propName]) URL.revokeObjectURL(this[propName]);
+      var file = this.$refs[ref].files[0];
+      var url = URL.createObjectURL(file);
+      this[propName] = url;
+      return url;
     },
     submit: function submit() {
       if (this.state) this.state.submit();
@@ -1424,7 +1451,10 @@ __webpack_require__.r(__webpack_exports__);
       this.player.src = url;
       this.player.addEventListener('canplaythrough', function () {
         _this.audio.playable = true;
-        _this.labels.duration = _this.parseTime(_this.getAudioDuration());
+
+        var duration = _this.getAudioDuration();
+
+        _this.labels.duration = _this.parseTime(duration);
       }, {
         once: true
       });
@@ -1448,20 +1478,26 @@ __webpack_require__.r(__webpack_exports__);
       if (!!!event.disableScrolling) _this2.scrollToPlayer();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
-      _this2.audioUrl = null;
-      _this2.imageurl = null;
-      _this2.showOverlay = true;
+      _this2.clear();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', function (event) {
-      var audio = event.audio;
+      var audio = event.post;
+      console.log(event);
+
+      _this2.clear();
+
       _this2.audio.url = audio.audioUrl;
-      _this2.imageUrl = audio.imageUrl;
+      _this2.image.url = audio.imageUrl;
       _this2.overlay.shown = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-image-changed', function (event) {
-      _this2.showOverlay = false;
+      _this2.image.url = event.imageUrl;
+      if (_this2.audio.url && _this2.image.url) _this2.overlay.shown = false;
     });
-    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-audio-changed', function (event) {});
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-audio-changed', function (event) {
+      _this2.audio.url = event.audioUrl;
+      if (_this2.audio.url && _this2.image.url) _this2.overlay.shown = false;
+    });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {});
   },
   methods: {
@@ -1482,6 +1518,7 @@ __webpack_require__.r(__webpack_exports__);
       this.audio.playable = false;
       this.audio.playing = false;
       this.audio.url = null;
+      this.overlay.shown = true;
     },
     toggleShowHide: function toggleShowHide() {
       this.image.blured = !!!this.image.blured;
@@ -1497,7 +1534,6 @@ __webpack_require__.r(__webpack_exports__);
       this.player.currentTime = value / 1001;
     },
     togglePlayPause: function togglePlayPause(event) {
-      console.log(event, 123);
       if (this.audio.playing) this.pauseAudio();else this.playAudio();
     },
     playAudio: function playAudio() {
@@ -5376,6 +5412,7 @@ var render = function() {
                   expression: "audio.title"
                 }
               ],
+              ref: "audio",
               staticClass: "editor__input input-second",
               attrs: {
                 type: "text",

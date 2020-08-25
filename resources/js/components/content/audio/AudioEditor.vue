@@ -18,6 +18,7 @@
                 </label>
                 <input 
                     type="text"
+                    ref="audio"
                     name='title'
                     class="editor__input input-second"
                     placeholder="place for your title"
@@ -167,6 +168,17 @@ export default {
     methods: {
 
         clear() {
+            this.$refs.form.reset();
+
+
+            for (let label of ['image', 'audio'])
+            {
+                let object = this[label + 'UrlObject'];
+
+                if (object)
+                    URL.revokeObjectURL(object);
+            }
+         
             this.audio.title =  '';
             this.audio.description =  '';
             this.audio.imageLabel =  '';
@@ -175,6 +187,7 @@ export default {
             this.errors.title = '';
             this.errors.description = '';
             this.errors.files = '';
+
         },
 
         onAudioCreated(post) {
@@ -190,13 +203,41 @@ export default {
         },
 
         updateAudio() {
-            if (this.state)
-                this.state.updateAudio();
+            if (!!!this.state)
+                return;
+
+            this.state.updateAudio();
+               
+            let url = this.fileToUrl('audio');
+
+
+            bus.dispatch('editor-audio-changed', { audioUrl: url});
         },
 
         updateImage() {
-            if (this.state)
-                this.state.updateImage();
+            if (!!!this.state)
+                return;
+            
+            this.state.updateImage();
+            
+            let url = this.fileToUrl('image');
+
+            bus.dispatch('editor-image-changed', { imageUrl: url});
+        },
+
+        fileToUrl(ref) {
+            
+            let propName = ref + 'UrlObject';
+
+            if(this[propName])
+                URL.revokeObjectURL(this[propName]);
+
+            let file = this.$refs[ref].files[0];
+            let url = URL.createObjectURL(file)
+
+            this[propName] = url;
+
+            return url;
         },
 
         submit () {

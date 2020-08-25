@@ -135,7 +135,9 @@ export default {
 
             this.player.addEventListener('canplaythrough', () => {
                 this.audio.playable = true;
-                this.labels.duration =  this.parseTime(this.getAudioDuration());
+
+                let duration = this.getAudioDuration();
+                this.labels.duration =  this.parseTime(duration);
             }, {once: true});
         }
     },
@@ -160,26 +162,35 @@ export default {
 		});
 
 		bus.listen('post-creating', event => {
-            this.audioUrl = null;
-            this.imageurl = null;
-			this.showOverlay = true;
+            this.clear();
 		});
 
 		bus.listen('post-editing', event => {
-            let audio = event.audio;
+            let audio = event.post;
+
+            console.log(event);
+            this.clear();
 
             this.audio.url = audio.audioUrl;
-            this.imageUrl = audio.imageUrl;
+            this.image.url = audio.imageUrl;
 
 			this.overlay.shown = false;
 		});
 
-		bus.listen('editor-image-changed', event => {		
-			this.showOverlay = false;
+		bus.listen('editor-image-changed', event => {
+
+            this.image.url = event.imageUrl;
+
+            if (this.audio.url && this.image.url)
+			    this.overlay.shown = false;
         })
         
-        bus.listen('editor-audio-changed', event => {		
-			
+        bus.listen('editor-audio-changed', event => {	
+            
+            this.audio.url = event.audioUrl;
+            
+			if (this.audio.url && this.image.url)
+			    this.overlay.shown = false;
 		})
 
 		bus.listen('post-deleted', event => {
@@ -213,6 +224,7 @@ export default {
             this.audio.playing = false;
             this.audio.url = null;
 
+            this.overlay.shown = true;
         },
 
         toggleShowHide() {
@@ -239,8 +251,6 @@ export default {
         },
 
         togglePlayPause(event) {
-            console.log(event, 123); 
-
             if (this.audio.playing)
                 this.pauseAudio();
             else
