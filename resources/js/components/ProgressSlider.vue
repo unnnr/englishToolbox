@@ -1,22 +1,22 @@
 <template>
 	  <div 
-        class="audio__progress-bar"
+        class="progress-bar"
         ref="slider"
         @click="moveThumb">
                             
             <div 
-                class="audio__progress-current"
+                class="progress-current"
                 ref="progressFilled"
-                :class="{'audio__progress-smooth': !!!isThumbActive}"
+                :class="{'progress-smooth': !!!isThumbActive}"
                 :style="{'width': progress + '%'}">
 
             <button 
-                class="audio__progress-cursor"
+                class="progress-cursor"
                 ref="thumb"
                 @mousedown="activeThumb">
             </button>
         </div>
-        <div class="audio__progress-maximum"></div>
+        <div class="progress-maximum"></div>
     </div>
 </template>
 
@@ -132,7 +132,7 @@ export default {
         transition: all .2s;
     }
 
-    .audio__progress-cursor
+    .progress-cursor
     {
         transform: translateX(50%);
     }

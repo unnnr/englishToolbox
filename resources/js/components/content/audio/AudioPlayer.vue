@@ -54,11 +54,11 @@
                     </div>
                     <div class="audio__volume-control">
                         <button class="audio__volume-button"><span class="material-icons-round">volume_up</span></button>
-                        <div class="audio__volume-bar">
-                            <div class="audio__volume-current">
-                                <button class="audio__volume-cursor"></button>
+                        <div class="audio__volume-bar progress-bar">
+                            <div class="progress-current">
+                                <button class="progress-cursor"></button>
                             </div>
-                            <div class="audio__volume-maximum"></div>
+                            <div class="progress-maximum"></div>
                         </div>
                     </div>
                 </div>

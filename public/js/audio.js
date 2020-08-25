@@ -557,7 +557,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       var card = _this2.getCardById(post.id);
 
-      console.log('second', card.imageUrl, newCard.imageUrl);
       Object.assign(card, newCard);
     }); // Deleting listeners
 
@@ -1031,8 +1030,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 /* harmony import */ var _components_content_audio_AudioEditor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/content/audio/AudioEditor.vue */ "./resources/js/components/content/audio/AudioEditor.vue");
 /* harmony import */ var _components_content_PostPresentor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/content/PostPresentor.vue */ "./resources/js/components/content/PostPresentor.vue");
-//
-//
 //
 //
 //
@@ -2141,7 +2138,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.audio__progress-smooth[data-v-7341d4ce]\n{\n    transition: all .2s;\n}\n.audio__progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
+exports.push([module.i, "\n.audio__progress-smooth[data-v-7341d4ce]\n{\n    transition: all .2s;\n}\n.progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
 
 // exports
 
@@ -4965,7 +4962,7 @@ var render = function() {
     "div",
     {
       ref: "slider",
-      staticClass: "audio__progress-bar",
+      staticClass: "progress-bar",
       on: { click: _vm.moveThumb }
     },
     [
@@ -4973,20 +4970,20 @@ var render = function() {
         "div",
         {
           ref: "progressFilled",
-          staticClass: "audio__progress-current",
-          class: { "audio__progress-smooth": !!!_vm.isThumbActive },
+          staticClass: "progress-current",
+          class: { "progress-smooth": !!!_vm.isThumbActive },
           style: { width: _vm.progress + "%" }
         },
         [
           _c("button", {
             ref: "thumb",
-            staticClass: "audio__progress-cursor",
+            staticClass: "progress-cursor",
             on: { mousedown: _vm.activeThumb }
           })
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "audio__progress-maximum" })
+      _c("div", { staticClass: "progress-maximum" })
     ]
   )
 }
@@ -5340,9 +5337,7 @@ var render = function() {
             { attrs: { name: "fade" } },
             [
               _vm.editing
-                ? _c("audio-editor", {
-                    attrs: { target: _vm.target, type: _vm.editorType }
-                  })
+                ? _c("audio-editor", { attrs: { target: _vm.target } })
                 : _vm._e()
             ],
             1
@@ -5723,12 +5718,12 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "audio__volume-bar" }, [
-        _c("div", { staticClass: "audio__volume-current" }, [
-          _c("button", { staticClass: "audio__volume-cursor" })
+      _c("div", { staticClass: "audio__volume-bar progress-bar" }, [
+        _c("div", { staticClass: "progress-current" }, [
+          _c("button", { staticClass: "progress-cursor" })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "audio__volume-maximum" })
+        _c("div", { staticClass: "progress-maximum" })
       ])
     ])
   }
