@@ -708,9 +708,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     value: function value(progress) {
       if (this.isThumbActive) return;
-      var newValue = progress * 100 / this.max;
-      if (newValue > 100) this.progress = 100;
-      this.$emit('update:value', this.value);
+      var newProgress = progress * 100 / this.max;
+      if (newProgress > 100) newProgress = 100;
+      this.progress = newProgress;
     }
   },
   mounted: function mounted() {
@@ -740,7 +740,10 @@ __webpack_require__.r(__webpack_exports__);
       if (distance < 0) distance = 0;else if (distance > sliderWidth) distance = sliderWidth; // Counting progress in %
 
       this.progress = distance * 100 / sliderWidth;
-      if (this.progress >= 100) this.$emit('thumb-moved', this.max);else this.$emit('thumb-moved', this.progress * this.max / 100);
+      var value = this.progress * this.max / 100;
+      if (this.progress >= 100) value = this.max;
+      this.$emit('thumb-moved', value);
+      this.$emit('update:value', value);
     }
   }
 });
@@ -1414,6 +1417,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1435,6 +1441,8 @@ __webpack_require__.r(__webpack_exports__);
       audio: {
         currentTime: 0,
         volume: 1,
+        volumeBeforeMute: 1,
+        muted: false,
         playable: false,
         playing: false,
         url: null
@@ -1453,9 +1461,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     visibilityIcon: function visibilityIcon() {
       if (this.image.blured) return 'visibility';else return 'visibility_off';
+    },
+    volumeIcon: function volumeIcon() {
+      if (this.audio.volume == 0) return 'volume_off';
+      if (this.audio.volume < 0.33) return 'volume_mute';
+      if (this.audio.volume < 0.66) return 'volume_down';
+      return 'volume_up';
     }
   },
   watch: {
+    'audio.volume': function audioVolume(value) {
+      this.player.audio = value;
+    },
     'audio.url': function audioUrl(url) {
       var _this = this;
 
@@ -1479,6 +1496,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.player.addEventListener('timeupdate', function (event) {
       _this2.audio.currentTime = _this2.player.currentTime * 1000;
+      console.log(_this2.audio.currentTime);
       _this2.labels.currentTime = _this2.parseTime(_this2.audio.currentTime);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
@@ -1542,14 +1560,20 @@ __webpack_require__.r(__webpack_exports__);
     togglePlayPause: function togglePlayPause(event) {
       if (this.audio.playing) this.pauseAudio();else this.playAudio();
     },
+    toggleVolume: function toggleVolume() {
+      if (this.audio.volume > 0) {
+        this.audio.volumeBeforeMute = this.audio.volume;
+        this.audio.volume = 0;
+      } else {
+        var previousVolume = this.audio.volumeBeforeMute;
+        if (previousVolume) this.audio.volume = previousVolume;else this.audio.volume = 1;
+      }
+    },
     parseTime: function parseTime(ms) {
       var minutes = Math.floor(Math.floor(ms / 1000) / 60);
       var seconds = Math.floor(ms / 1000) - minutes * 60;
       if (minutes > 59) minutes = seconds = '--';
       return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
-    },
-    changeVolume: function changeVolume(value) {
-      this.player.volume = value;
     },
     changePlayerPosition: function changePlayerPosition(value) {
       this.player.currentTime = value / 1001;
@@ -5620,7 +5644,6 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("progress-slider", {
-                  ref: "progressSlider",
                   attrs: {
                     max: _vm.getAudioDuration(),
                     value: _vm.audio.currentTime
@@ -5656,10 +5679,20 @@ var render = function() {
               "div",
               { staticClass: "audio__volume-control" },
               [
-                _vm._m(0),
+                _c(
+                  "button",
+                  {
+                    staticClass: "audio__volume-button",
+                    on: { click: _vm.toggleVolume }
+                  },
+                  [
+                    _c("span", { staticClass: "material-icons-round" }, [
+                      _vm._v(_vm._s(_vm.volumeIcon))
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c("progress-slider", {
-                  ref: "progressSlider",
                   staticClass: "audio__volume-bar",
                   attrs: {
                     max: _vm.getAudioMaxVolume(),
@@ -5668,8 +5701,7 @@ var render = function() {
                   on: {
                     "update:value": function($event) {
                       return _vm.$set(_vm.audio, "volume", $event)
-                    },
-                    "thumb-moved": _vm.changeVolume
+                    }
                   }
                 })
               ],
@@ -5682,16 +5714,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "audio__volume-button" }, [
-      _c("span", { staticClass: "material-icons-round" }, [_vm._v("volume_up")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

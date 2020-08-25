@@ -50,11 +50,11 @@ export default {
             if (this.isThumbActive)
                 return;
 
-            let newValue = progress * 100 / this.max;
-            if (newValue > 100)
-                this.progress = 100;
-            
-            this.$emit('update:value', this.value);
+            let newProgress = progress * 100 / this.max;
+            if (newProgress > 100)
+                newProgress = 100;
+                
+            this.progress = newProgress;    
         }
     },
 
@@ -105,10 +105,13 @@ export default {
             // Counting progress in %
             this.progress = distance * 100 / sliderWidth;       
 
+            let value = this.progress * this.max / 100;
+            
             if (this.progress >= 100)
-                this.$emit('thumb-moved', this.max);
-            else
-                this.$emit('thumb-moved', this.progress * this.max / 100);
+                value = this.max;
+
+            this.$emit('thumb-moved', value);
+            this.$emit('update:value', value);
         }
     }
 };

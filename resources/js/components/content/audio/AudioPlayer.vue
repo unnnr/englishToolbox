@@ -40,7 +40,6 @@
                             </i>
                         </button>
                         <progress-slider 
-                            ref="progressSlider" 
                             :max="getAudioDuration()"
                             :value.sync="audio.currentTime"
                             @thumb-moved="changePlayerPosition"
@@ -53,13 +52,17 @@
                         </time>
                     </div>
                     <div class="audio__volume-control">
-                        <button class="audio__volume-button"><span class="material-icons-round">volume_up</span></button>
-                           <progress-slider 
-                            ref="progressSlider" 
+                        <button 
+                            class="audio__volume-button"
+                            @click="toggleVolume">
+                            
+                            <span class="material-icons-round">{{ volumeIcon }}</span>
+                        </button>
+                        <progress-slider 
                             class="audio__volume-bar"
                             :max="getAudioMaxVolume()"
                             :value.sync="audio.volume"
-                            @thumb-moved="changeVolume"/>
+                          />
                     </div>
                 </div>
             </div>
@@ -95,6 +98,8 @@ export default {
             audio: {
                 currentTime: 0,
                 volume: 1,
+                volumeBeforeMute: 1,
+                muted: false,
                 playable: false,
                 playing: false,
                 url: null,
@@ -124,9 +129,27 @@ export default {
             else  
                 return 'visibility_off';
         },
+
+        volumeIcon() {
+            
+            if (this.audio.volume == 0)
+                return 'volume_off';
+                
+            if (this.audio.volume < 0.33)
+                return 'volume_mute';
+
+            if (this.audio.volume  < 0.66)
+                return 'volume_down';
+                
+            return 'volume_up';
+        }
     },
 
     watch: {
+        'audio.volume': function(value){
+            this.player.audio = value;
+        },  
+
         'audio.url' : function(url) {
             if (!!!url)
                 return;
@@ -137,8 +160,9 @@ export default {
 
             this.player.addEventListener('canplaythrough', () => {
                 this.audio.playable = true;
+                
                 this.player.volume = this.audio.volume;
-
+                
                 let duration = this.getAudioDuration();
                 this.labels.duration = this.parseTime(duration);
             }, {once: true});
@@ -148,6 +172,7 @@ export default {
 	mounted() {
         this.player.addEventListener('timeupdate', event => {
             this.audio.currentTime = this.player.currentTime * 1000;
+            console.log(this.audio.currentTime);
             this.labels.currentTime = this.parseTime(this.audio.currentTime);
         });
 
@@ -247,6 +272,23 @@ export default {
                 this.playAudio();       
         },
 
+        toggleVolume() {
+            if(this.audio.volume > 0)
+            {
+                this.audio.volumeBeforeMute = this.audio.volume;
+                this.audio.volume = 0;
+            }
+            else 
+            {
+                let previousVolume = this.audio.volumeBeforeMute;
+
+                if (previousVolume)
+                    this.audio.volume = previousVolume;
+                else
+                    this.audio.volume = 1;
+            }
+        },
+
         parseTime(ms) {
             let minutes = Math.floor(Math.floor(ms / 1000) / 60);
             let seconds = Math.floor(ms / 1000) - minutes * 60;
@@ -255,10 +297,6 @@ export default {
                 minutes = seconds =  '--';
 
             return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
-        },
-
-        changeVolume(value) {
-            this.player.volume = value;
         },
 
         changePlayerPosition(value) {
