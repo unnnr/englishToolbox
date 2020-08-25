@@ -7,7 +7,7 @@
             <div 
                 ref="progressFilled"
                 class="progress-current"
-                :class="{'progress-smooth': !!!isThumbActive}"
+                :class="{'progress-current--smooth': !!!isThumbActive}"
                 :style="{'width': progress + '%'}">
 
             <button 
@@ -25,10 +25,6 @@ export default {
     name: "progress-slider",
     
     props: {
-        vertical: {
-            type: Boolean,
-            default: false
-        },
 
         max: {
             type: Number,
@@ -54,8 +50,10 @@ export default {
             if (this.isThumbActive)
                 return;
 
-            this.progress = progress * 100 / this.max;
-
+            let newValue = progress * 100 / this.max;
+            if (newValue > 100)
+                this.progress = 100;
+            
             this.$emit('update:value', this.value);
         }
     },
@@ -63,6 +61,8 @@ export default {
 	mounted() {
         document.addEventListener('mouseup', this.disableThumb);
         document.addEventListener('mousemove', this.onMove);
+
+        this.progress = this.value * 100 / this.max;
     },
     
     methods: {
@@ -87,29 +87,13 @@ export default {
         },
 
         moveThumb(event) {
-            if (this.vertical)
-                this.moveThumbVertically(event);
-            else
-               this.moveThumbHorizontally(event);
-
-            if ( this.progress >= 100)
-                this.$emit('thumb-moved', this.max);
-            else
-                this.$emit('thumb-moved', this.progress * this.max / 100);
-        },
-
-        moveThumbVertically() {
-
-        },
-
-        moveThumbHorizontally(event) {
             let slider = this.$refs.slider;
             
             let sliderWidth = slider.offsetWidth;
             let sliderLeft = slider.getBoundingClientRect().left;
             let cursoreLeft =  event.pageX;
 
-            // counting distance in px
+            // Counting distance in px
             let distance = cursoreLeft - sliderLeft;
 
             if (distance < 0)
@@ -118,22 +102,14 @@ export default {
             else if (distance > sliderWidth)
                 distance = sliderWidth;
 
-            // counting progress in %
-            this.progress = distance * 100 / sliderWidth;           
+            // Counting progress in %
+            this.progress = distance * 100 / sliderWidth;       
+
+            if (this.progress >= 100)
+                this.$emit('thumb-moved', this.max);
+            else
+                this.$emit('thumb-moved', this.progress * this.max / 100);
         }
     }
 };
 </script>
-
-<style scoped>
-
-    .audio__progress-smooth
-    {
-        transition: all .2s;
-    }
-
-    .progress-thumb
-    {
-        transform: translateX(50%);
-    }
-</style>

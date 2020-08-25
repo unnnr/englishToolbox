@@ -739,11 +739,18 @@ main {
           justify-content: flex-end;
 }
 
+.progress-current--smooth {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
 .progress-thumb {
   height: 13px;
   min-width: 13px;
   border-radius: 50px;
   background: #fff;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
 }
 
 .progress-thumb:hover {
@@ -754,9 +761,12 @@ main {
 .progress-thumb:active {
   cursor: -webkit-grabbing !important;
   cursor: grabbing !important;
+  -webkit-transform: translateX(50%) scale(0.98);
+          transform: translateX(50%) scale(0.98);
 }
 
 .audio__volume-bar {
+  margin-right: 0;
   width: 100px;
 }
 

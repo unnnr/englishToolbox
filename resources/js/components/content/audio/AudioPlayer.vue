@@ -42,7 +42,7 @@
                         <progress-slider 
                             ref="progressSlider" 
                             :max="getAudioDuration()"
-                            :value.sync="currentTime"
+                            :value.sync="audio.currentTime"
                             @thumb-moved="changePlayerPosition"
                             @thumb-start-moving="pauseAudio"
                             @thumb-end-moving="playAudio"/>
@@ -57,7 +57,9 @@
                            <progress-slider 
                             ref="progressSlider" 
                             class="audio__volume-bar"
-                          />
+                            :max="getAudioMaxVolume()"
+                            :value.sync="audio.volume"
+                            @thumb-moved="changeVolume"/>
                     </div>
                 </div>
             </div>
@@ -91,6 +93,8 @@ export default {
             },
  
             audio: {
+                currentTime: 0,
+                volume: 1,
                 playable: false,
                 playing: false,
                 url: null,
@@ -100,8 +104,6 @@ export default {
                 currentTime: '00:00',
                 duration: '00:00'
             },
-
-            currentTime: 0,
 
             player: new Audio(),
 
@@ -135,17 +137,18 @@ export default {
 
             this.player.addEventListener('canplaythrough', () => {
                 this.audio.playable = true;
+                this.player.volume = this.audio.volume;
 
                 let duration = this.getAudioDuration();
-                this.labels.duration =  this.parseTime(duration);
+                this.labels.duration = this.parseTime(duration);
             }, {once: true});
         }
     },
 
 	mounted() {
         this.player.addEventListener('timeupdate', event => {
-            this.currentTime = this.player.currentTime * 1000;
-            this.labels.currentTime = this.parseTime(this.currentTime);
+            this.audio.currentTime = this.player.currentTime * 1000;
+            this.labels.currentTime = this.parseTime(this.audio.currentTime);
         });
 
 		bus.listen('post-selected', event => {
@@ -219,11 +222,11 @@ export default {
             this.image.url = '';
             this.image.blured = true;
 
+            this.audio.currentTime = 0;
+            this.audio.volume = 1;
             this.audio.playable = false;
             this.audio.playing = false;
             this.audio.url = null;
-
-            this.currentTime = 0;
 
             this.overlay.shown = true;
         },
@@ -237,6 +240,13 @@ export default {
                 this.toggleButtonMessage = 'hide';
         },
 
+        togglePlayPause(event) {
+            if (this.audio.playing)
+                this.pauseAudio();
+            else
+                this.playAudio();       
+        },
+
         parseTime(ms) {
             let minutes = Math.floor(Math.floor(ms / 1000) / 60);
             let seconds = Math.floor(ms / 1000) - minutes * 60;
@@ -247,15 +257,12 @@ export default {
             return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
         },
 
-        changePlayerPosition(value) {
-            this.player.currentTime  = value / 1001;
+        changeVolume(value) {
+            this.player.volume = value;
         },
 
-        togglePlayPause(event) {
-            if (this.audio.playing)
-                this.pauseAudio();
-            else
-                this.playAudio();       
+        changePlayerPosition(value) {
+            this.player.currentTime  = value / 1001;
         },
 
         playAudio() {
@@ -276,6 +283,10 @@ export default {
 
         getAudioDuration() {
             return this.player.duration * 1000;
+        },
+
+        getAudioMaxVolume() {
+            return 1;
         }
     }
 };
