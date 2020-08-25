@@ -739,19 +739,19 @@ main {
           justify-content: flex-end;
 }
 
-.progress-cursor {
+.progress-thumb {
   height: 13px;
   min-width: 13px;
   border-radius: 50px;
   background: #fff;
 }
 
-.progress-cursor:hover {
+.progress-thumb:hover {
   cursor: -webkit-grab !important;
   cursor: grab !important;
 }
 
-.progress-cursor:active {
+.progress-thumb:active {
   cursor: -webkit-grabbing !important;
   cursor: grabbing !important;
 }

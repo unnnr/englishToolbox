@@ -5,14 +5,14 @@
         @click="moveThumb">
                             
             <div 
-                class="progress-current"
                 ref="progressFilled"
+                class="progress-current"
                 :class="{'progress-smooth': !!!isThumbActive}"
                 :style="{'width': progress + '%'}">
 
             <button 
-                class="progress-cursor"
-                ref="thumb"
+                ref="thumb" 
+                class="progress-thumb"
                 @mousedown="activeThumb">
             </button>
         </div>
@@ -132,7 +132,7 @@ export default {
         transition: all .2s;
     }
 
-    .progress-cursor
+    .progress-thumb
     {
         transform: translateX(50%);
     }

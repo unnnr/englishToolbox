@@ -1418,8 +1418,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2138,7 +2136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.audio__progress-smooth[data-v-7341d4ce]\n{\n    transition: all .2s;\n}\n.progress-cursor[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
+exports.push([module.i, "\n.audio__progress-smooth[data-v-7341d4ce]\n{\n    transition: all .2s;\n}\n.progress-thumb[data-v-7341d4ce]\n{\n    transform: translateX(50%);\n}\n", ""]);
 
 // exports
 
@@ -4977,7 +4975,7 @@ var render = function() {
         [
           _c("button", {
             ref: "thumb",
-            staticClass: "progress-cursor",
+            staticClass: "progress-thumb",
             on: { mousedown: _vm.activeThumb }
           })
         ]
@@ -5698,7 +5696,19 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm._m(0)
+            _c(
+              "div",
+              { staticClass: "audio__volume-control" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("progress-slider", {
+                  ref: "progressSlider",
+                  staticClass: "audio__volume-bar"
+                })
+              ],
+              1
+            )
           ])
         ])
       ],
@@ -5711,20 +5721,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "audio__volume-control" }, [
-      _c("button", { staticClass: "audio__volume-button" }, [
-        _c("span", { staticClass: "material-icons-round" }, [
-          _vm._v("volume_up")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "audio__volume-bar progress-bar" }, [
-        _c("div", { staticClass: "progress-current" }, [
-          _c("button", { staticClass: "progress-cursor" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "progress-maximum" })
-      ])
+    return _c("button", { staticClass: "audio__volume-button" }, [
+      _c("span", { staticClass: "material-icons-round" }, [_vm._v("volume_up")])
     ])
   }
 ]
