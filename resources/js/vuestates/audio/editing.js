@@ -83,7 +83,7 @@ export default function(vueInstance, post)
     
     this.getTitle= () => 
     {
-        return 'Edit post';
+        return 'Edit audio';
     }
     
 

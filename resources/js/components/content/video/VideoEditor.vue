@@ -6,7 +6,7 @@
             @submit.prevent='submit' >
             
             <div class="editor__header">
-                <h5 class="editor__title text-third">New video</h5>
+                <h5 class="editor__title text-third">{{ title }}</h5>
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
@@ -53,6 +53,8 @@ import bus from '@services/eventbus';
 import Posts from '@models/Posts'
 import Tags from '@models/Tags'
 import TagEditor from '@components/tags/TagEditor';
+import EditingState from '@states/video/editing';
+import CreationState from '@states/video/creation';
 
 const MAX_DESCRIPTION_LENGTH = 180;
 const MAX_URL_LENGTH = 180;
@@ -62,6 +64,13 @@ export default {
 
     components: {
         TagEditor
+    },
+
+    props: {
+        target: {
+            type: Object,
+            default: false
+        }
     },
 
     data: function () { 
@@ -82,40 +91,46 @@ export default {
 
         descriptionMaxLength() {
             return MAX_DESCRIPTION_LENGTH;
+        },
+
+        title() {
+            if (this.state)
+                return this.state.getTitle();
+            return '';
         }
     },
 
+    watch: {
+        target(value) {
+            if (value)
+                this.state = new EditingState(this, value);
+            else 
+                this.state = new CreationState(this);
+        }
+
+    },
+
     mounted() {
-        bus.listen('post-editing', event => {
+        if (this.target)
+            this.state = new EditingState(this, this.target);
+        else 
+            this.state = new CreationState(this);
+    },
 
-            let post = event.post;
+    beforeDestroy() {
+        this.clear();
 
-            this.url = 'https://youtube.com/watch?v=' + post.videoID;
-            this.description = post.description || '';
-
-            let tags = this.$refs.tags;
-
-            tags.selected = post.tags;
-
-            if (!!!post.mainTag.default)
-                tags.main = tags.getTagById(post.mainTag.id);
-
-            this.$options.postID = post.id;
-            this.onSumbit = this.editVideo;
-        });
-
-        bus.listen('post-creating', event => {
-            
-            this.clear();
-            this.$refs.tags.clear();
-
-            this.onSumbit = this.createVideo;
-		});
+        this.stateCreate();
     },
 
     methods: {
 
         clear() {
+            let form = this.$refs.form;
+
+            if (form)
+                this.$refs.form.reset();
+
             this.url = '';
             this.urlError = '';
             
@@ -127,6 +142,20 @@ export default {
             let tags = this.$refs.tags;
 
             tags.clear();
+        },
+
+        validateVideo() {
+    
+            let videoID = getYouTubeID(this.url)
+            if (!!!videoID)
+            {
+                this.urlError = 'Incorrect youtube link';
+                return false;
+            }
+        
+            this.urlError = '';
+
+            return videoID;
         },
 
         updateLink () {
@@ -144,80 +173,28 @@ export default {
                 });
         },
 
-        validateVideo() {
-
-            let videoID = getYouTubeID(this.url)
-            if (!!!videoID)
-            {
-                this.urlError = 'Incorrect youtube link';
-                return false;
-            }
-            
-            this.urlError = '';
-
-            return videoID;
+        stateCreate() {
+            this.state = new CreationState(this);
         },
 
-        getFormData(nullableMainTag = false) {
-            
-            let data = new FormData(this.$refs.form);
-
-            let tags = this.$refs.tags.selected;
-            for (const [index, tag] of tags.entries())
-                data.append(`tags[${index}]`, tag.id);
-            
-            let mainTag = this.$refs.tags.main;
-            if (mainTag)
-                data.append('mainTag', mainTag.id);
-
-            else if(nullableMainTag)
-                data.append('mainTag', '');
-
-            return data;
+        stateEdit(event) {
+            this.state = new EditingState(this, event.post);
         },
-
-        async createVideo() {
-
-            let data = this.getFormData();
-            let post = await Posts.create(data);
-
+        
+        onVideoCreated(post) {
             bus.dispatch('post-created', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
-        async editVideo() {
-
-            let id = this.$options.postID;
-            let data = this.getFormData(true);
-            let post = await Posts.edit(id, data);
-            
+        onVideoEdited(post) {
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },
 
-        async submit (event) {
-            try 
-            {
-                if (this.onSumbit)
-                    await this.onSumbit();
-            }
-            catch(error) 
-            {
-                console.log(error);
-
-                if (error.status == 422 )
-                {
-                    let errors = error.body.errors;
-
-                    if (errors.videoUrl)
-                        this.urlError = errors.videoUrl.join('. ');
-                        
-                    if (errors.description)
-                        this.descriptionError = errors.description.join('. ')
-                }
-            };
-
-          
+        submit () {
+            
+            if (this.state)
+                this.state.submit();
         }
     }
 }

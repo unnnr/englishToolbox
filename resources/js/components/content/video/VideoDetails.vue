@@ -1,12 +1,15 @@
 <template>
-    <div class="addition">
+    <div 
+		class="addition"
+		ref="details">
+
         <div class="addition__body">
             <div class="addition__wrapper" ref="wrapper">
 				<transition name="fade">
  					<video-editor 
 					 	ref="editor"
 						v-show="editing" 
-						:type="editorType"/>
+						:target="target"/>
 				</transition>
                 <post-presentor ref="presentor"/>
             </div>
@@ -25,7 +28,7 @@ export default {
 	data: function () {
 		return {
 			editing: false,
-			editorType: 'creating',
+			target: null
 		}
 	},
 
@@ -38,8 +41,14 @@ export default {
 		bus.listen('post-editing', event => {
 			this.editing = true;	
 
+			this.target = event.post;
+
 			if (!!!event.preventScrolling)
 				this.scrolleToDetails();
+		});
+
+		bus.listen('post-edited', event => {
+			this.target = null;
 		});
 
 		bus.listen('post-creating', event => {
@@ -63,7 +72,7 @@ export default {
             let details = this.$refs.details;
 
             let relatedTop = details.getBoundingClientRect().top;
-            let distance  = relatedTop - SHIFT;
+            let distance = relatedTop - SHIFT;
 
 			if (relatedTop < 0)
             	window.scrollBy({

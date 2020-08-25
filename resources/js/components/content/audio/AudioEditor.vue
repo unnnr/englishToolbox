@@ -165,7 +165,6 @@ export default {
             else 
                 this.state = new CreationState(this);
         }
-
     },
     
     mounted() {
@@ -249,7 +248,6 @@ export default {
         },
 
         fileToUrl(ref) {
-            
             let propName = ref + 'UrlObject';
 
             if(this[propName])

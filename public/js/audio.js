@@ -20433,7 +20433,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   this.hadleError = function () {};
 
   this.getTitle = function () {
-    return 'Edit post';
+    return 'Edit audio';
   };
 
   var vue = vueInstance;

@@ -128,8 +128,6 @@ export default {
             let newCard = Cards.get(post.id);
             let card = this.getCardById(post.id);
 
-
-            console.log('second', card.imageUrl, newCard.imageUrl);
             Object.assign(card, newCard);
 
         });
