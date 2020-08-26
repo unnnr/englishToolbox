@@ -180,6 +180,11 @@ export default {
         stateEdit(event) {
             this.state = new EditingState(this, event.post);
         },
+
+        onServerError() {
+            bus.dispatch('alert-error', { message: `An unexpected error has occurred on 
+                                                    the server. Please try again later` });
+        },
         
         onVideoCreated(post) {
             bus.dispatch('post-created', { post });

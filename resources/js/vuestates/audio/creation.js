@@ -50,10 +50,10 @@ export default function(vueInstance)
 
     this.submit = async() => 
     {
-        let data = getFormData();
-
         try { 
-            let post = await Audio.create();
+            let data = getFormData();
+            let post = await Audio.create(data);
+
             vue.onAudioCreated(post);
         }
         catch(erorr) {
@@ -74,7 +74,7 @@ export default function(vueInstance)
             vue.onServerError();
             return;
         }
-        
+
         if (error.status === 422)
         {
             let errors = error.body.errors;
@@ -93,8 +93,6 @@ export default function(vueInstance)
 
             if (errors.imageFile)
                 vue.errors.files += errors.imageFile.join('. ');
-            
-          
         }
     }
 

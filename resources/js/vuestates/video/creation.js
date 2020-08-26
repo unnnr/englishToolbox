@@ -37,15 +37,35 @@ export default function(vueInstance)
 
     this.submit = async() => 
     {
-        let data = getFormData();
-        let post = await Posts.create(data);
-
-        vue.onVideoCreated(post);
+        try { 
+            let data = getFormData();
+            let post = await Posts.create(data);
+            
+            vue.onVideoCreated(post);
+        }
+        catch(erorr) {
+            this.hadleError(erorr);
+        }
     }
         
-    this.hadleError = () =>
+    this.hadleError = (error) =>
     {
+        if (error.status === 500)
+        {
+            vue.onServerError();
+            return;
+        }
 
+        if (error.status === 422)
+        {
+            let errors = error.body.errors;
+            
+            if (errors.videoUrl)
+                vue.urlError += errors.videoUrl.join('. ');
+        
+            if (errors.description)
+                vue.descriptionError += errors.description.join('. ');
+        }
     }
     
     const vue = vueInstance;

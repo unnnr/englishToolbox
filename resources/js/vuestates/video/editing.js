@@ -49,17 +49,37 @@ export default function(vueInstance, post)
 
     this.submit = async () => 
     {
-        let id = target.id;
-        let data = getFormData();
-        let post = await Posts.edit(id, data);
-        
-        vue.onVideoEdited(post);
+        try { 
+            let id = target.id;
+            let data = getFormData();
+            let post = await Posts.edit(id, data);
+            
+            vue.onVideoEdited(post);
+        }
+        catch(erorr) {
+            this.hadleError(erorr);
+        }
     }
     
-    this.hadleError = () =>
+    this.hadleError = (error) =>
     {
+        if (error.status === 500)
+        {
+            vue.onServerError();
+            return;
+        }
 
-    }    
+        if (error.status === 422)
+        {
+            let errors = error.body.errors;
+            
+            if (errors.videoUrl)
+                vue.urlError += errors.videoUrl.join('. ');
+    
+            if (errors.description)
+                vue.descriptionError += errors.description.join('. ');
+        }
+    } 
   
     const vue = vueInstance;
     const target = post;

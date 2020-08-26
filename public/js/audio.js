@@ -20582,10 +20582,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            _context.prev = 0;
             data = getFormData();
-            _context.prev = 1;
             _context.next = 4;
-            return _models_Audio__WEBPACK_IMPORTED_MODULE_2__["default"].create();
+            return _models_Audio__WEBPACK_IMPORTED_MODULE_2__["default"].create(data);
 
           case 4:
             post = _context.sent;
@@ -20595,7 +20595,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           case 8:
             _context.prev = 8;
-            _context.t0 = _context["catch"](1);
+            _context.t0 = _context["catch"](0);
 
             _this.hadleError(_context.t0);
 
@@ -20604,7 +20604,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 8]]);
+    }, _callee, null, [[0, 8]]);
   }));
 
   this.isFieldsRequired = function () {
@@ -20661,6 +20661,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (vueInstance, post) {
+  var _this = this;
+
   function ref(name) {
     return vue.$refs[name];
   }
@@ -20698,33 +20700,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   };
 
   this.submit = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-    var id, data, post;
+    var id, data, _post;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            _context.prev = 0;
             id = target.id;
             data = getFormData();
-            _context.next = 4;
+            _context.next = 5;
             return _models_Audio__WEBPACK_IMPORTED_MODULE_2__["default"].edit(id, data);
 
-          case 4:
-            post = _context.sent;
-            vue.onAudioEdited(post);
+          case 5:
+            _post = _context.sent;
+            vue.onAudioEdited(_post);
+            _context.next = 12;
+            break;
 
-          case 6:
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](0);
+
+            _this.hadleError(_context.t0);
+
+          case 12:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[0, 9]]);
   }));
 
   this.isFieldsRequired = function () {
     return false;
   };
 
-  this.hadleError = function () {};
+  this.hadleError = function (error) {
+    if (error.status === 500) {
+      vue.onServerError();
+      return;
+    }
+
+    if (error.status === 422) {
+      var errors = error.body.errors;
+      if (errors.title) vue.errors.title += errors.title.join('. ');
+      if (errors.description) vue.errors.description += errors.description.join('. ');
+      if (errors.audioFile) vue.errors.files += errors.audioFile.join('. ');
+      if (errors.audioFile && errors.imageFile) vue.errors.files += ' ';
+      if (errors.imageFile) vue.errors.files += errors.imageFile.join('. ');
+    }
+  };
 
   this.getTitle = function () {
     return 'Edit audio';

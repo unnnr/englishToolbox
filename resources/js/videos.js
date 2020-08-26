@@ -9,9 +9,10 @@ import VideoPlayer from  '@components/content/video/VideoPlayer';
 import ContextMenu from '@components/ContextMenu'
 import FilterBar from '@components/content/FilterBar'
 import Overlay from '@components/content/Overlay'
-import Pool from  '@components/Pool';
 import Videos from '@models/Videos'
+import Alert from  '@components/Alert'
 import Posts from '@models/Posts';
+import Pool from  '@components/Pool';
 
 
 Posts.self.track(Videos)
@@ -23,12 +24,12 @@ const app = new Vue({
     el: document.querySelector('main'),
 
     components: {
-		Overlay,
 		VideoDetails,
     	VideoPlayer,
+		ContextMenu,
 		FilterBar,
-		Pool,
-
-		ContextMenu
+		Overlay,
+		Alert,
+		Pool
     }
 });
