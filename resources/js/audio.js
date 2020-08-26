@@ -9,7 +9,7 @@ import FilterBar from '@components/content/FilterBar'
 import Overlay from '@components/content/Overlay'
 import Audio from '@models/Audio'
 import Posts from '@models/Posts';
-import Modal from '@components/Modal';
+import Alert from '@components/Alert';
 import Pool from  '@components/Pool';
 
 
@@ -27,7 +27,7 @@ const app = new Vue({
 		ContextMenu,
 		FilterBar,
 		Overlay,
-		Modal,
+		Alert,
 		Pool
     }
 });

@@ -38,7 +38,7 @@
 import bus from '@services/eventbus';
 
 export default {
-    name: 'modal',
+    name: 'alert',
     
     data: function() {
         return {

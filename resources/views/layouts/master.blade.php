@@ -31,7 +31,7 @@
       ]);
     @endphp
 
-    <modal></modal>
+    <alert></alert>
 
     <context-menu></context-menu>
 
