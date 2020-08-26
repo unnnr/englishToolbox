@@ -61,8 +61,7 @@ export default {
 		})
 
 		bus.listen('post-deleted', event => {
-			this.videoID = event.post.videoID;
-			this.showOverlay = false;
+			
 		});
 	},
 

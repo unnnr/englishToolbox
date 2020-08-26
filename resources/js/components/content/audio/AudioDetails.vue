@@ -7,10 +7,8 @@
             <div class="addition__wrapper">
                 <transition name="fade">
  					<audio-editor 
-					 	:target="target"
 						v-if="editing" 
-						
-						:type="editorType"/>
+					 	:target="target"/>
 				</transition>
                 <post-presentor ref="presentor"/>
             </div>

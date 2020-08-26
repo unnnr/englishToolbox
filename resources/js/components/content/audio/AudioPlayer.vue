@@ -40,9 +40,8 @@
                             </i>
                         </button>
                         <progress-slider 
-                            ref="progressSlider" 
                             :max="getAudioDuration()"
-                            :value.sync="currentTime"
+                            :value.sync="audio.currentTime"
                             @thumb-moved="changePlayerPosition"
                             @thumb-start-moving="pauseAudio"
                             @thumb-end-moving="playAudio"/>
@@ -53,13 +52,17 @@
                         </time>
                     </div>
                     <div class="audio__volume-control">
-                        <button class="audio__volume-button"><span class="material-icons-round">volume_up</span></button>
-                        <div class="progress-bar audio__volume-bar">
-                            <div class="audio__volume-current">
-                                <button class="audio__volume-cursor"></button>
-                            </div>
-                            <div class="audio__volume-maximum"></div>
-                        </div>
+                        <button 
+                            class="audio__volume-button"
+                            @click="toggleVolume">
+                            
+                            <span class="material-icons-round">{{ volumeIcon }}</span>
+                        </button>
+                        <progress-slider 
+                            class="audio__volume-bar"
+                            :max="getAudioMaxVolume()"
+                            :value.sync="audio.volume"
+                          />
                     </div>
                 </div>
             </div>
@@ -93,6 +96,10 @@ export default {
             },
  
             audio: {
+                currentTime: 0,
+                volume: 1,
+                volumeBeforeMute: 1,
+                muted: false,
                 playable: false,
                 playing: false,
                 url: null,
@@ -102,8 +109,6 @@ export default {
                 currentTime: '0:00',
                 duration: '0:00'
             },
-
-            currentTime: 0,
 
             player: new Audio(),
 
@@ -124,9 +129,27 @@ export default {
             else  
                 return 'visibility_off';
         },
+
+        volumeIcon() {
+            
+            if (this.audio.volume == 0)
+                return 'volume_off';
+                
+            if (this.audio.volume < 0.33)
+                return 'volume_mute';
+
+            if (this.audio.volume  < 0.66)
+                return 'volume_down';
+                
+            return 'volume_up';
+        }
     },
 
     watch: {
+        'audio.volume': function(value){
+            this.player.audio = value;
+        },  
+
         'audio.url' : function(url) {
             if (!!!url)
                 return;
@@ -137,17 +160,19 @@ export default {
 
             this.player.addEventListener('canplaythrough', () => {
                 this.audio.playable = true;
-
+                
+                this.player.volume = this.audio.volume;
+                
                 let duration = this.getAudioDuration();
-                this.labels.duration =  this.parseTime(duration);
+                this.labels.duration = this.parseTime(duration);
             }, {once: true});
         }
     },
 
 	mounted() {
         this.player.addEventListener('timeupdate', event => {
-            this.currentTime = this.player.currentTime * 1000;
-            this.labels.currentTime = this.parseTime(this.currentTime);
+            this.audio.currentTime = this.player.currentTime * 1000;
+            this.labels.currentTime = this.parseTime(this.audio.currentTime);
         });
 
 		bus.listen('post-selected', event => {
@@ -221,11 +246,11 @@ export default {
             this.image.url = '';
             this.image.blured = true;
 
+            this.audio.currentTime = 0;
+            this.audio.volume = 1;
             this.audio.playable = false;
             this.audio.playing = false;
             this.audio.url = null;
-
-            this.currentTime = 0;
 
             this.overlay.shown = true;
         },
@@ -237,6 +262,30 @@ export default {
                 this.toggleButtonMessage = 'show';
             else
                 this.toggleButtonMessage = 'hide';
+        },
+
+        togglePlayPause(event) {
+            if (this.audio.playing)
+                this.pauseAudio();
+            else
+                this.playAudio();       
+        },
+
+        toggleVolume() {
+            if(this.audio.volume > 0)
+            {
+                this.audio.volumeBeforeMute = this.audio.volume;
+                this.audio.volume = 0;
+            }
+            else 
+            {
+                let previousVolume = this.audio.volumeBeforeMute;
+
+                if (previousVolume)
+                    this.audio.volume = previousVolume;
+                else
+                    this.audio.volume = 1;
+            }
         },
 
         parseTime(ms) {
@@ -251,13 +300,6 @@ export default {
 
         changePlayerPosition(value) {
             this.player.currentTime  = value / 1001;
-        },
-
-        togglePlayPause(event) {
-            if (this.audio.playing)
-                this.pauseAudio();
-            else
-                this.playAudio();       
         },
 
         playAudio() {
@@ -278,6 +320,10 @@ export default {
 
         getAudioDuration() {
             return this.player.duration * 1000;
+        },
+
+        getAudioMaxVolume() {
+            return 1;
         }
     }
 };

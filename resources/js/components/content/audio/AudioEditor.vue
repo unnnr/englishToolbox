@@ -165,7 +165,6 @@ export default {
             else 
                 this.state = new CreationState(this);
         }
-
     },
     
     mounted() {
@@ -225,6 +224,11 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
+        onServerError() {
+            bus.dispatch('alert-error', { message: `An unexpected error has occurred on 
+                                                    the server. Please try again later` });
+        },
+
         updateAudio() {
             if (!!!this.state)
                 return;
@@ -249,7 +253,6 @@ export default {
         },
 
         fileToUrl(ref) {
-            
             let propName = ref + 'UrlObject';
 
             if(this[propName])
@@ -263,9 +266,9 @@ export default {
             return url;
         },
 
-        submit () {
+        async submit () {
             if (this.state)
-                this.state.submit();
+                await this.state.submit();
         }
     }
 }

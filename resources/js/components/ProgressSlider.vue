@@ -1,22 +1,22 @@
 <template>
 	  <div 
-        class="progress-bar audio__progress-bar"
+        class="progress-bar"
         ref="slider"
         @click="moveThumb">
                             
             <div 
-                class="audio__progress-current"
                 ref="progressFilled"
-                :class="{'audio__progress-smooth': !!!isThumbActive}"
+                class="progress-current"
+                :class="{'progress-current--smooth': !!!isThumbActive}"
                 :style="{'width': progress + '%'}">
 
             <button 
-                class="audio__progress-cursor"
-                ref="thumb"
+                ref="thumb" 
+                class="progress-thumb"
                 @mousedown="activeThumb">
             </button>
         </div>
-        <div class="audio__progress-maximum"></div>
+        <div class="progress-maximum"></div>
     </div>
 </template>
 
@@ -25,10 +25,6 @@ export default {
     name: "progress-slider",
     
     props: {
-        vertical: {
-            type: Boolean,
-            default: false
-        },
 
         max: {
             type: Number,
@@ -54,15 +50,19 @@ export default {
             if (this.isThumbActive)
                 return;
 
-            this.progress = progress * 100 / this.max;
-
-            this.$emit('update:value', this.value);
+            let newProgress = progress * 100 / this.max;
+            if (newProgress > 100)
+                newProgress = 100;
+                
+            this.progress = newProgress;    
         }
     },
 
 	mounted() {
         document.addEventListener('mouseup', this.disableThumb);
         document.addEventListener('mousemove', this.onMove);
+
+        this.progress = this.value * 100 / this.max;
     },
     
     methods: {
@@ -72,6 +72,8 @@ export default {
                 this.$emit('thumb-end-moving');
                 
             this.isThumbActive = false;
+
+            document.documentElement.style.cursor = "unset";
         },
 
         activeThumb() {
@@ -79,6 +81,8 @@ export default {
                 this.$emit('thumb-start-moving');
 
             this.isThumbActive = true;
+
+            document.documentElement.style.cursor = "grabbing";
         },
 
         onMove(event) {
@@ -87,29 +91,13 @@ export default {
         },
 
         moveThumb(event) {
-            if (this.vertical)
-                this.moveThumbVertically(event);
-            else
-               this.moveThumbHorizontally(event);
-
-            if ( this.progress >= 100)
-                this.$emit('thumb-moved', this.max);
-            else
-                this.$emit('thumb-moved', this.progress * this.max / 100);
-        },
-
-        moveThumbVertically() {
-
-        },
-
-        moveThumbHorizontally(event) {
             let slider = this.$refs.slider;
             
             let sliderWidth = slider.offsetWidth;
             let sliderLeft = slider.getBoundingClientRect().left;
             let cursoreLeft =  event.pageX;
 
-            // counting distance in px
+            // Counting distance in px
             let distance = cursoreLeft - sliderLeft;
 
             if (distance < 0)
@@ -118,22 +106,17 @@ export default {
             else if (distance > sliderWidth)
                 distance = sliderWidth;
 
-            // counting progress in %
-            this.progress = distance * 100 / sliderWidth;           
+            // Counting progress in %
+            this.progress = distance * 100 / sliderWidth;       
+
+            let value = this.progress * this.max / 100;
+            
+            if (this.progress >= 100)
+                value = this.max;
+
+            this.$emit('thumb-moved', value);
+            this.$emit('update:value', value);
         }
     }
 };
 </script>
-
-<style scoped>
-
-    .audio__progress-smooth
-    {
-        transition: all .2s;
-    }
-
-    .audio__progress-cursor
-    {
-        transform: translateX(50%);
-    }
-</style>

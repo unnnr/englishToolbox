@@ -31,13 +31,16 @@
       ]);
     @endphp
 
+    <alert></alert>
+
+    <context-menu></context-menu>
+
     @include('sections.navbar', ['links' => $links])
 
     @yield('content')
 
     @include('sections.basement',  ['links' =>  $links])
 
-    <context-menu></context-menu>
   </main>
 
   <script src="{{ asset("js/main.js") }}"></script>

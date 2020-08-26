@@ -1,14 +1,3 @@
-export function getLabel(input, label, prefix = false)
-{
-    if (!!!input.files.length)
-        return prefix ? prefix + ' ' + label : label;
-
-    let fileName = input.files[0].name;
-
-    return fileName;
-}
-
-
 export function appendTagsData(data, tags)
 {
     for (const [index, tag] of tags.entries())

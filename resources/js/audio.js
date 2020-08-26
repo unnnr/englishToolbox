@@ -2,14 +2,15 @@
 import Vue from 'vue';
 
 import vClickOutside from 'v-click-outside'
-import Audio from '@models/Audio'
-import Posts from '@models/Posts';
-import ContextMenu from '@components/ContextMenu'
-import FilterBar from '@components/content/FilterBar'
-import Pool from  '@components/Pool';
-import Overlay from '@components/Overlay'
 import AudioDetails from  '@components/content/audio/AudioDetails';
 import AudioPlayer from  '@components/content/audio/AudioPlayer';
+import ContextMenu from '@components/ContextMenu'
+import FilterBar from '@components/content/FilterBar'
+import Overlay from '@components/content/Overlay'
+import Audio from '@models/Audio'
+import Posts from '@models/Posts';
+import Alert from '@components/Alert';
+import Pool from  '@components/Pool';
 
 
 Posts.self.track(Audio)
@@ -21,12 +22,12 @@ const app = new Vue({
     el: document.querySelector('main'),
 
     components: {
-		Overlay,
-		AudioDetails,
     	AudioPlayer,
+		AudioDetails,
+		ContextMenu,
 		FilterBar,
-		Pool,
-
-		ContextMenu
+		Overlay,
+		Alert,
+		Pool
     }
 });

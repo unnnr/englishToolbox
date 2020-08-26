@@ -41,7 +41,7 @@ export default function(vueInstance, post)
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
 
-        let mainTag = ref('tags').mainTag;
+        let mainTag = ref('tags').main; 
         appendMainTagData(data, mainTag, NULLABLE_MAIN_TAG);
             
         return data;
@@ -64,11 +64,16 @@ export default function(vueInstance, post)
 
     this.submit = async () => 
     {
-        let id = target.id;
-        let data = getFormData();
-        let post = await Audio.edit(id, data);
-        
-        vue.onAudioEdited(post);
+        try { 
+            let id = target.id;
+            let data = getFormData();
+            let post = await Audio.edit(id, data);
+            
+            vue.onAudioEdited(post);
+        }
+        catch(erorr) {
+            this.hadleError(erorr);
+        }
     }
 
     this.isFieldsRequired = () =>
@@ -76,14 +81,38 @@ export default function(vueInstance, post)
         return false;
     }
     
-    this.hadleError = () =>
+    this.hadleError = (error) =>
     {
+        if (error.status === 500)
+        {
+            vue.onServerError();
+            return;
+        }
 
-    }    
+        if (error.status === 422)
+        {
+            let errors = error.body.errors;
+            
+            if (errors.title)
+                vue.errors.title += errors.title.join('. ');
+        
+            if (errors.description)
+                vue.errors.description += errors.description.join('. ');
+
+            if (errors.audioFile)
+                vue.errors.files += errors.audioFile.join('. ');
+            
+            if (errors.audioFile && errors.imageFile)
+                vue.errors.files += ' ';
+
+            if (errors.imageFile)
+                vue.errors.files += errors.imageFile.join('. ');
+        }
+    }  
     
     this.getTitle= () => 
     {
-        return 'Edit post';
+        return 'Edit audio';
     }
     
 

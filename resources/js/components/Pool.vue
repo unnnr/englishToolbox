@@ -128,8 +128,6 @@ export default {
             let newCard = Cards.get(post.id);
             let card = this.getCardById(post.id);
 
-
-            console.log('second', card.imageUrl, newCard.imageUrl);
             Object.assign(card, newCard);
 
         });
@@ -147,9 +145,15 @@ export default {
             
             let post = event.post;
 
-            await Posts.delete(post.id);
-
-            bus.dispatch('post-deleted', { post });
+           
+            bus.dispatch('alert-confirm', {
+                message: 'Are you sure you want to remove the post?',
+                onConfirm: async () =>
+                {
+                    await Posts.delete(post.id);
+                    bus.dispatch('post-deleted', { post });
+                }
+            })
         });
 
         bus.listen('post-deleted',  event => {
