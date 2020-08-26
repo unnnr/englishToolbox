@@ -21,7 +21,7 @@ mix.webpackConfig({
     }
 })
 .disableSuccessNotifications()
-.js('resources/js/videos.js', 'public/js')
+.js('resources/js/audio.js', 'public/js')
 // .browserSync({
 // proxy: 'englishToolbox:80',
 // files: ['public/**/*.css', 'resources/**/*']

@@ -19865,63 +19865,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 /***/ }),
 
-/***/ "./resources/js/vuestates/audio/helpers.js":
-/*!*************************************************!*\
-  !*** ./resources/js/vuestates/audio/helpers.js ***!
-  \*************************************************/
-/*! exports provided: getLabel, appendTagsData, appendMainTagData */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLabel", function() { return getLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendTagsData", function() { return appendTagsData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendMainTagData", function() { return appendMainTagData; });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function getLabel(input, label) {
-  var prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  if (!!!input.files.length) return prefix ? prefix + ' ' + label : label;
-  var fileName = input.files[0].name;
-  return fileName;
-}
-function appendTagsData(data, tags) {
-  var _iterator = _createForOfIteratorHelper(tags.entries()),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _step$value = _slicedToArray(_step.value, 2),
-          index = _step$value[0],
-          tag = _step$value[1];
-
-      data.append("tags[".concat(index, "]"), tag.id);
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-}
-function appendMainTagData(data, mainTag) {
-  var nullable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  if (mainTag) data.append('mainTag', mainTag.id);else if (nullable) data.append('mainTag', '');
-}
-
-/***/ }),
-
 /***/ "./resources/js/vuestates/video/creation.js":
 /*!**************************************************!*\
   !*** ./resources/js/vuestates/video/creation.js ***!
@@ -20029,7 +19972,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @states/audio/helpers */ "./resources/js/vuestates/audio/helpers.js");
+/* harmony import */ var _states_video_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @states/video/helpers */ "./resources/js/vuestates/video/helpers.js");
 /* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
 
 
@@ -20061,9 +20004,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var NULLABLE_MAIN_TAG = true;
     var data = new FormData(ref('form'));
     var tags = ref('tags').selected;
-    Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
-    var mainTag = ref('tags').mainTag;
-    Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendMainTagData"])(data, mainTag, NULLABLE_MAIN_TAG);
+    Object(_states_video_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
+    var mainTag = ref('tags').main;
+    Object(_states_video_helpers__WEBPACK_IMPORTED_MODULE_1__["appendMainTagData"])(data, mainTag, NULLABLE_MAIN_TAG);
     return data;
   }
 

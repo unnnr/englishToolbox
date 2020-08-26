@@ -4,7 +4,7 @@ export function appendTagsData(data, tags)
         data.append(`tags[${index}]`, tag.id);
 }
 
-export function appendMainTagData(data,mainTag, nullable = false)
+export function appendMainTagData(data, mainTag, nullable = false)
 { 
     if (mainTag) data.append('mainTag', mainTag.id);
     else if(nullable) data.append('mainTag', '');

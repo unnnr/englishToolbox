@@ -20684,7 +20684,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var data = new FormData(ref('form'));
     var tags = ref('tags').selected;
     Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
-    var mainTag = ref('tags').mainTag;
+    var mainTag = ref('tags').main;
     Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendMainTagData"])(data, mainTag, NULLABLE_MAIN_TAG);
     return data;
   }

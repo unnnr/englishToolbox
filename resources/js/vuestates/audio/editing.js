@@ -41,7 +41,7 @@ export default function(vueInstance, post)
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
 
-        let mainTag = ref('tags').mainTag;
+        let mainTag = ref('tags').main; 
         appendMainTagData(data, mainTag, NULLABLE_MAIN_TAG);
             
         return data;

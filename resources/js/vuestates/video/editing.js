@@ -1,6 +1,6 @@
 
-import {appendMainTagData} from '@states/audio/helpers'
-import {appendTagsData} from '@states/audio/helpers'
+import {appendMainTagData} from '@states/video/helpers'
+import {appendTagsData} from '@states/video/helpers'
 
 import Posts from '@models/Posts'
 
@@ -19,7 +19,7 @@ export default function(vueInstance, post)
         vue.description = target.description || '';
 
 
-        let tags = ref('tags')
+        let tags = ref('tags');
         tags.clear();
         tags.selected = target.tags;
 
@@ -36,9 +36,9 @@ export default function(vueInstance, post)
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
 
-        let mainTag = ref('tags').mainTag;
+        let mainTag = ref('tags').main;
         appendMainTagData(data, mainTag, NULLABLE_MAIN_TAG);
-            
+           
         return data;
     }
 
