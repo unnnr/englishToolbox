@@ -8,7 +8,7 @@ import VideoDetails from  '@components/content/video/VideoDetails';
 import VideoPlayer from  '@components/content/video/VideoPlayer';
 import ContextMenu from '@components/ContextMenu'
 import FilterBar from '@components/content/FilterBar'
-import Overlay from '@components/Overlay'
+import Overlay from '@components/content/Overlay'
 import Pool from  '@components/Pool';
 import Videos from '@models/Videos'
 import Posts from '@models/Posts';
