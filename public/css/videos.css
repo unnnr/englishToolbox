@@ -631,14 +631,17 @@ main {
   font-size: 18px;
   background: #6666ff;
   border-radius: 10px;
-  padding: 0 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-left: 10px;
+  min-width: 125px;
 }
 
 .audio__button-toggle i {
@@ -766,6 +769,13 @@ main {
 
 .audio__timer {
   white-space: nowrap;
+  min-width: 75px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .audio__timer-current,

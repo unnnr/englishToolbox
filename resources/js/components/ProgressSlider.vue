@@ -1,6 +1,6 @@
 <template>
 	  <div 
-        class="audio__progress-bar"
+        class="progress-bar audio__progress-bar"
         ref="slider"
         @click="moveThumb">
                             

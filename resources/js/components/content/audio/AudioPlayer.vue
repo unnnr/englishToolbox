@@ -11,7 +11,7 @@
             </div>
             <transition name="fade">
 
-                <div 
+                <!-- <div 
                     class="player__overlay"
                     v-if="overlay.shown">
 
@@ -19,7 +19,7 @@
                         type="image/svg+xml"
                         :data="overlay.url">
                     </object>
-                </div>
+                </div> -->
             </transition>
             <div class="audio">
                 <div class="audio__player">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="audio__volume-control">
                         <button class="audio__volume-button"><span class="material-icons-round">volume_up</span></button>
-                        <div class="audio__volume-bar">
+                        <div class="progress-bar audio__volume-bar">
                             <div class="audio__volume-current">
                                 <button class="audio__volume-cursor"></button>
                             </div>
@@ -99,8 +99,8 @@ export default {
             },
 
             labels: {
-                currentTime: '00:00',
-                duration: '00:00'
+                currentTime: '0:00',
+                duration: '0:00'
             },
 
             currentTime: 0,
@@ -246,7 +246,7 @@ export default {
             if (minutes > 59)
                 minutes = seconds =  '--';
 
-            return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
+            return minutes + ':' + String(seconds).padStart(2, '0')
         },
 
         changePlayerPosition(value) {

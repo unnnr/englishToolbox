@@ -100,10 +100,11 @@
   font-size: 18px;
   background: $color-main;
   border-radius: 10px;
-  padding: 0 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-left: 10px;
+  min-width: 125px;
   
   i {
     margin-right: 5px;
@@ -206,6 +207,9 @@
 
 .audio__timer {
   white-space: nowrap;
+  min-width: 75px;
+  display: flex;
+  justify-content: center;
 }
 
 .audio__timer-current,
