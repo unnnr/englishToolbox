@@ -72,6 +72,8 @@ export default {
                 this.$emit('thumb-end-moving');
                 
             this.isThumbActive = false;
+
+            document.documentElement.style.cursor = "unset";
         },
 
         activeThumb() {
@@ -79,6 +81,8 @@ export default {
                 this.$emit('thumb-start-moving');
 
             this.isThumbActive = true;
+
+            document.documentElement.style.cursor = "grabbing";
         },
 
         onMove(event) {

@@ -172,7 +172,6 @@ export default {
 	mounted() {
         this.player.addEventListener('timeupdate', event => {
             this.audio.currentTime = this.player.currentTime * 1000;
-            console.log(this.audio.currentTime);
             this.labels.currentTime = this.parseTime(this.audio.currentTime);
         });
 

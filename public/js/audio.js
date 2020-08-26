@@ -722,10 +722,12 @@ __webpack_require__.r(__webpack_exports__);
     disableThumb: function disableThumb() {
       if (this.isThumbActive) this.$emit('thumb-end-moving');
       this.isThumbActive = false;
+      document.documentElement.style.cursor = "unset";
     },
     activeThumb: function activeThumb() {
       if (!!!this.isThumbActive) this.$emit('thumb-start-moving');
       this.isThumbActive = true;
+      document.documentElement.style.cursor = "grabbing";
     },
     onMove: function onMove(event) {
       if (this.isThumbActive) this.moveThumb(event);
@@ -1496,7 +1498,6 @@ __webpack_require__.r(__webpack_exports__);
 
     this.player.addEventListener('timeupdate', function (event) {
       _this2.audio.currentTime = _this2.player.currentTime * 1000;
-      console.log(_this2.audio.currentTime);
       _this2.labels.currentTime = _this2.parseTime(_this2.audio.currentTime);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
