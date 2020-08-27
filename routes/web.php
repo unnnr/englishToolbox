@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::group(['namespace' => 'Web'], function() {
 
     Route::get('videos', 'VideoController@index')->name('videos');

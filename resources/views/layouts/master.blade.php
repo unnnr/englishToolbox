@@ -30,7 +30,7 @@
         ['i recomend' => 'recomend']
       ]);
     @endphp
-
+    
     <alert></alert>
 
     <context-menu></context-menu>
