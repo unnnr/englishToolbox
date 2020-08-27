@@ -9,8 +9,8 @@
 
     </nav>
     <div class="navbar-desktop__aside">
-      <a href="{{ route('login') }}" class="navbar-desktop__aside-link navbar-desktop__aside-link--login-in">login in</a>
-      <a href="{{ route('register') }}" class="navbar-desktop__aside-link navbar-desktop__aside-link--sign-up">sing up</a>
+      <a href="{{ '#' }}" class="navbar-desktop__aside-link navbar-desktop__aside-link--login-in">login in</a>
+      <a href="{{'#' }}" class="navbar-desktop__aside-link navbar-desktop__aside-link--sign-up">sing up</a>
       <!-- <a href="#" class="navbar-desktop__account-link"><span class="material-icons-round">account_circle</span></a> -->
     </div>
   </div>
@@ -31,8 +31,8 @@
       @endforeach
 
       <div class="navbar-mobile__footer">
-        <a href="{{ route('login') }}" class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in">login in</a>
-        <a href="{{ route('register') }}" class="navbar-mobile__footer-link navbar-mobile__footer-link--sign-up">sing up</a>
+        <a href="{{ '#' }}" class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in">login in</a>
+        <a href="{{ '#' }}" class="navbar-mobile__footer-link navbar-mobile__footer-link--sign-up">sing up</a>
       </div>
     </nav>
     <div class="navbar-mobile__overlay"></div>

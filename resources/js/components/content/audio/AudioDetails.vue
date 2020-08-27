@@ -33,7 +33,6 @@ export default {
 		return {
 			editing: true,
 			target: null,
-			editorType: 'creating',
 		}
 	},
 

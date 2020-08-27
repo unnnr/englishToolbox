@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes([
-    'reset' => false,
-    'verify' => false
-]);
-
-
 Route::group(['namespace' => 'Web'], function() {
 
     Route::get('videos', 'VideoController@index')->name('videos');
@@ -37,4 +31,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('recomend', function(){ return view("recomend");})->name('recomend');
 Route::get('account', function(){ return view("account");})->name('account');
-
