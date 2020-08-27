@@ -8,7 +8,10 @@
             @submit.prevent="submit">
 
             <h4 class="auth__title heading-fourth">login in</h4>
-            <div class="auth__input-group auth__input-group--account">
+            <div
+                class="auth__input-group auth__input-group--account"
+                :class="{'auth__input-group--error':  errors.email}">
+
                 <input 
                     class="auth__input input-main"
                     placeholder="your email"
@@ -19,13 +22,18 @@
 
                 <small class="auth__input-error">{{ errors.email }}</small>
             </div>
-            <div class="auth__input-group auth__input-group--password">
+            <div 
+                class="auth__input-group auth__input-group--password"
+                :class="{'auth__input-group--error':  errors.password}">
+                
                 <input
                     class="auth__input input-main"
                     placeholder="your password"
                     name="password" 
                     v-model="data.password"
                     :type="passwordType" 
+                    :maxlength="rules.password.max"
+                    :minlength="rules.password.min" 
                     required>
 
                 <button
@@ -75,15 +83,17 @@ export default {
         return {
            isPasswordShown: false,
            
-           data: {
+            data: { 
                email: '',
                password: ''
-           },
+            },
 
-           errors: {
+            errors: {
                email: '',
                password: ''
-           }
+            },
+            
+            rules: Auth.rules()
         }   
     },
 
@@ -116,17 +126,20 @@ export default {
             this.isPasswordShown = !!!this.isPasswordShown;
         },
 
+        redirect() {
+            window.location.replace(window.origin + '/home');
+        },
+
         submit() {
             let form =  this.$refs.form;
             
             let data = new FormData(form);
 
             
-            Auth.login(data).catch(this.parseErrors);
+            Auth.login(data).then(this.redirect).catch(this.parseErrors);
         },
 
         parseErrors(error) { 
-            console.log(error);
             if (error.status == 422)
             {
                 let data = error.body.errors;
@@ -141,7 +154,6 @@ export default {
             }
 
             bus.dispatch('alert-error');
-
         }
     }
 }

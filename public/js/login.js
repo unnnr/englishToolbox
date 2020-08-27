@@ -375,6 +375,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -389,7 +397,8 @@ __webpack_require__.r(__webpack_exports__);
       errors: {
         email: '',
         password: ''
-      }
+      },
+      rules: _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].rules()
     };
   },
   computed: {
@@ -412,14 +421,15 @@ __webpack_require__.r(__webpack_exports__);
     togglePreview: function togglePreview() {
       this.isPasswordShown = !!!this.isPasswordShown;
     },
+    redirect: function redirect() {
+      window.location.replace(window.origin + '/home');
+    },
     submit: function submit() {
       var form = this.$refs.form;
       var data = new FormData(form);
-      _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].login(data)["catch"](this.parseErrors);
+      _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].login(data).then(this.redirect)["catch"](this.parseErrors);
     },
     parseErrors: function parseErrors(error) {
-      console.log(error);
-
       if (error.status == 422) {
         var data = error.body.errors;
         if (data.email) this.errors.email = data.email.join('. ');
@@ -2639,7 +2649,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--account" },
+          {
+            staticClass: "auth__input-group auth__input-group--account",
+            class: { "auth__input-group--error": _vm.errors.email }
+          },
           [
             _c("input", {
               directives: [
@@ -2676,7 +2689,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--password" },
+          {
+            staticClass: "auth__input-group auth__input-group--password",
+            class: { "auth__input-group--error": _vm.errors.password }
+          },
           [
             _vm.passwordType === "checkbox"
               ? _c("input", {
@@ -2692,6 +2708,8 @@ var render = function() {
                   attrs: {
                     placeholder: "your password",
                     name: "password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "checkbox"
                   },
@@ -2739,6 +2757,8 @@ var render = function() {
                   attrs: {
                     placeholder: "your password",
                     name: "password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "radio"
                   },
@@ -2762,6 +2782,8 @@ var render = function() {
                   attrs: {
                     placeholder: "your password",
                     name: "password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: _vm.passwordType
                   },
@@ -15258,6 +15280,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: document.querySelector('main'),
   components: {
@@ -15301,7 +15324,7 @@ var Auth = new function () {
 
             case 2:
               respose = _context.sent;
-              console.log(Response);
+              console.log(respose);
 
             case 4:
             case "end":
@@ -15316,11 +15339,49 @@ var Auth = new function () {
     };
   }();
 
-  this.register = function () {};
+  this.register = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+      var respose;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('register', data);
+
+            case 2:
+              respose = _context2.sent;
+              console.log(respose);
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   this.check = function () {};
 
   this.user = function () {};
+
+  this.rules = function () {
+    return {
+      password: {
+        max: 20,
+        min: 8
+      },
+      name: {
+        max: 30,
+        min: 5
+      }
+    };
+  };
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Auth);
 
