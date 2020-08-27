@@ -8,38 +8,44 @@
             @submit.prevent="submit">
 
             <h4 class="auth__title heading-fourth">Sing up</h4>
-            <div class="auth__input-group auth__input-group--account">
+            <div 
+                class="auth__input-group auth__input-group--account"
+                :class="{'auth__input-group--error':  errors.name}">
+
                 <input 
                     class="auth__input input-main" 
                     name="name" 
                     type="text" 
                     placeholder="your name" 
                     v-model="data.name"
-                    :class="{'auth__input-group--error':  errors.name}"
                     required>
 
                 <small class="auth__input-error"> {{ errors.name }}</small>
             </div>
-            <div class="auth__input-group auth__input-group--email">
+            <div 
+                class="auth__input-group auth__input-group--email"
+                :class="{'auth__input-group--error':  errors.email}">
+
                 <input 
                     class="auth__input input-main"
                     type="email"
                     name="email" 
                     placeholder="your email" 
                     v-model="data.email"
-                    :class="{'auth__input-group--error':  errors.email}"
                     required>
 
                 <small class="auth__input-error"> {{ errors.email }} </small>
             </div>
-            <div class="auth__input-group auth__input-group--password">
+            <div 
+                class="auth__input-group auth__input-group--password"
+                :class="{'auth__input-group--error':  errors.password}">
+                
                 <input 
                     class="auth__input input-main"
                     name="password" 
                     placeholder="your password" 
                     v-model="data.passoword"
                     :type="passwordType" 
-                    :class="{'auth__input-group--error':  errors.passoword}"
                     required>
 
                 <button 
@@ -49,16 +55,18 @@
 
                     {{ previewIcon }}
                 </button>
-                <small class="auth__input-error"> {{ errors.confirmation }} </small>
+                <small class="auth__input-error"> {{  errors.password }} </small>
             </div>
-            <div class="auth__input-group auth__input-group--password">
+            <div 
+                class="auth__input-group auth__input-group--password"
+                :class="{'auth__input-group--error':  errors.confirmation}">
+                
                 <input 
                     class="auth__input input-main" 
                     name="password_confirmation" 
                     placeholder="repeat password" 
                     v-model="data.confirmation"
                     :type="passwordType" 
-                    :class="{'auth__input-group--error':  errors.name}"
                     required>
                 
                 <small class="auth__input-error"> {{ errors.confirmation }} </small>
@@ -146,31 +154,41 @@ export default {
             this.isPasswordShown = !!!this.isPasswordShown;
         },
 
+        redirect() {
+            window.location.replace(window.origin + '/home');
+        },
+
         submit() {
             let form =  this.$refs.form;
             
             let data = new FormData(form);
 
-            Auth.register(data).catch(this.parseErrors);
+            Auth.register(data).then(this.redirect).catch(this.parseErrors);
         },
 
         parseErrors(error) { 
             console.log(error);
+
             if (error.status == 422)
             {
                 let data = error.body.errors;
 
-                if (data.email )
+                if (data.name)
+                    this.errors.password = data.password.join('. ');    
+
+                if (data.email)
                     this.errors.email = data.email.join('. ');
 
                 if (data.password)
                     this.errors.password = data.password.join('. ');;   
 
+                if (data.confirmation)
+                    this.errors.password = data.confirmation.join('. ');    
+
                 return;
             }
 
             bus.dispatch('alert-error');
-
         }
     }
 }

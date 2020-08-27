@@ -401,6 +401,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -442,19 +450,24 @@ __webpack_require__.r(__webpack_exports__);
     togglePreview: function togglePreview() {
       this.isPasswordShown = !!!this.isPasswordShown;
     },
+    redirect: function redirect() {
+      window.location.replace(window.origin + '/home');
+    },
     submit: function submit() {
       var form = this.$refs.form;
       var data = new FormData(form);
-      _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data)["catch"](this.parseErrors);
+      _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data).then(this.redirect)["catch"](this.parseErrors);
     },
     parseErrors: function parseErrors(error) {
       console.log(error);
 
       if (error.status == 422) {
         var data = error.body.errors;
+        if (data.name) this.errors.password = data.password.join('. ');
         if (data.email) this.errors.email = data.email.join('. ');
         if (data.password) this.errors.password = data.password.join('. ');
         ;
+        if (data.confirmation) this.errors.password = data.confirmation.join('. ');
         return;
       }
 
@@ -2669,7 +2682,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--account" },
+          {
+            staticClass: "auth__input-group auth__input-group--account",
+            class: { "auth__input-group--error": _vm.errors.name }
+          },
           [
             _c("input", {
               directives: [
@@ -2681,7 +2697,6 @@ var render = function() {
                 }
               ],
               staticClass: "auth__input input-main",
-              class: { "auth__input-group--error": _vm.errors.name },
               attrs: {
                 name: "name",
                 type: "text",
@@ -2707,7 +2722,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--email" },
+          {
+            staticClass: "auth__input-group auth__input-group--email",
+            class: { "auth__input-group--error": _vm.errors.email }
+          },
           [
             _c("input", {
               directives: [
@@ -2719,7 +2737,6 @@ var render = function() {
                 }
               ],
               staticClass: "auth__input input-main",
-              class: { "auth__input-group--error": _vm.errors.email },
               attrs: {
                 type: "email",
                 name: "email",
@@ -2745,7 +2762,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--password" },
+          {
+            staticClass: "auth__input-group auth__input-group--password",
+            class: { "auth__input-group--error": _vm.errors.password }
+          },
           [
             _vm.passwordType === "checkbox"
               ? _c("input", {
@@ -2758,7 +2778,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.passoword },
                   attrs: {
                     name: "password",
                     placeholder: "your password",
@@ -2806,7 +2825,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.passoword },
                   attrs: {
                     name: "password",
                     placeholder: "your password",
@@ -2830,7 +2848,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.passoword },
                   attrs: {
                     name: "password",
                     placeholder: "your password",
@@ -2866,14 +2883,17 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("small", { staticClass: "auth__input-error" }, [
-              _vm._v(" " + _vm._s(_vm.errors.confirmation) + " ")
+              _vm._v(" " + _vm._s(_vm.errors.password) + " ")
             ])
           ]
         ),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "auth__input-group auth__input-group--password" },
+          {
+            staticClass: "auth__input-group auth__input-group--password",
+            class: { "auth__input-group--error": _vm.errors.confirmation }
+          },
           [
             _vm.passwordType === "checkbox"
               ? _c("input", {
@@ -2886,7 +2906,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.name },
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
@@ -2938,7 +2957,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.name },
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
@@ -2962,7 +2980,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "auth__input input-main",
-                  class: { "auth__input-group--error": _vm.errors.name },
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
@@ -15362,14 +15379,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./resources/js/components/auth/RegisterSection.vue ***!
   \**********************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterSection_vue_vue_type_template_id_21697386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterSection.vue?vue&type=template&id=21697386& */ "./resources/js/components/auth/RegisterSection.vue?vue&type=template&id=21697386&");
 /* harmony import */ var _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterSection.vue?vue&type=script&lang=js& */ "./resources/js/components/auth/RegisterSection.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -15399,7 +15417,7 @@ component.options.__file = "resources/js/components/auth/RegisterSection.vue"
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/auth/RegisterSection.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
