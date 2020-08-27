@@ -5,7 +5,7 @@ const Tags = new function ()
 {
     async function load()
     {
-        tags = await Http.get('tags');
+        tags = await Http.get('api/tags');
         
         loaded = true;
 
@@ -30,7 +30,7 @@ const Tags = new function ()
     
     this.create = async (data) =>
     {
-        let resonse = await Http.post('tags', data);
+        let resonse = await Http.post('api/tags', data);
         
         return {
             color: resonse.color, 

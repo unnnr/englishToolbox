@@ -4,7 +4,7 @@ const Audio = new function ()
 {
     async function init()
     {
-        audioCollection = await Http.get('audio')
+        audioCollection = await Http.get('api/audio')
 
         setTimeout(() => {
             if (!!!Array.isArray(audioCollection))
@@ -72,7 +72,7 @@ const Audio = new function ()
 
     this.create = async (data) =>
     {
-        let response = await Http.post('audio', data);
+        let response = await Http.post('api/audio', data);
         if (!!!response)
             return null;
 
@@ -126,7 +126,7 @@ const Audio = new function ()
         if (isFormDataEmpty(data))
             return createCopy(target);
 
-        let response = await Http.patch('audio/' + id, data);
+        let response = await Http.patch('api/audio/' + id, data);
         if (!!!response)
             return null; 
 
@@ -142,7 +142,7 @@ const Audio = new function ()
 
     this.delete = async (id) =>
     {
-        let response = await Http.delete('audio/' + id);
+        let response = await Http.delete('api/audio/' + id);
         if (!!!response)
             return null;
             

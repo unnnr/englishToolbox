@@ -5,7 +5,7 @@ const Videos = new function ()
 {
     async function init()
     {
-        videos = await Http.get('video')
+        videos = await Http.get('api/video')
 
         setTimeout(() => {
             if (!!!Array.isArray(videos))
@@ -71,7 +71,7 @@ const Videos = new function ()
 
     this.create = async (data) =>
     {
-        let response = await Http.post('video', data);
+        let response = await Http.post('api/video', data);
         if (!!!response)
             return null;
 
@@ -110,7 +110,7 @@ const Videos = new function ()
         if (isFormDataEmpty(data))
             return createCopy(target);
 
-        let response = await Http.patch('video/' + id, data);
+        let response = await Http.patch('api/video/' + id, data);
         if (!!!response)
             return null; 
 
@@ -125,7 +125,7 @@ const Videos = new function ()
 
     this.delete = async (id) =>
     {
-        let response = await Http.delete('video/' + id);
+        let response = await Http.delete('api/video/' + id);
         if (!!!response)
             return null;
             

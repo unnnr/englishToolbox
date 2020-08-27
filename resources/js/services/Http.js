@@ -18,7 +18,7 @@ const Http = new function()
         if (json)
             options.headers['Content-Type'] = 'application/json';
 
-        let response = await fetch(window.location.origin + path ? '/api/' + path : '' , options);
+        let response = await fetch(window.location.origin + path ? '/' + path : '' , options);
 
         if (!!!response.ok)
         {

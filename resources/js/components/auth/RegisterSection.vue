@@ -1,5 +1,5 @@
 <template>
-    <section class="login-in container">
+    <section class="sign-up container">
         <form 
             method="POST"
             class="auth"
@@ -7,35 +7,61 @@
             ref="form"
             @submit.prevent="submit">
 
-            <h4 class="auth__title heading-fourth">login in</h4>
+            <h4 class="auth__title heading-fourth">Sing up</h4>
             <div class="auth__input-group auth__input-group--account">
                 <input 
-                    class="auth__input input-main"
-                    placeholder="your email"
+                    class="auth__input input-main" 
+                    name="name" 
                     type="text" 
-                    name="email"
-                    v-model="data.email"
+                    placeholder="your name" 
+                    v-model="data.name"
+                    :class="{'auth__input-group--error':  errors.name}"
                     required>
 
-                <small class="auth__input-error">{{ errors.email }}</small>
+                <small class="auth__input-error"> {{ errors.name }}</small>
+            </div>
+            <div class="auth__input-group auth__input-group--email">
+                <input 
+                    class="auth__input input-main"
+                    type="email"
+                    name="email" 
+                    placeholder="your email" 
+                    v-model="data.email"
+                    :class="{'auth__input-group--error':  errors.email}"
+                    required>
+
+                <small class="auth__input-error"> {{ errors.email }} </small>
             </div>
             <div class="auth__input-group auth__input-group--password">
-                <input
+                <input 
                     class="auth__input input-main"
-                    placeholder="your password"
                     name="password" 
-                    v-model="data.password"
+                    placeholder="your password" 
+                    v-model="data.passoword"
                     :type="passwordType" 
+                    :class="{'auth__input-group--error':  errors.passoword}"
                     required>
 
-                <button
+                <button 
                     class="auth__input-visibility-button material-icons-round"
                     type="button"
                     @click="togglePreview">
-                
+
                     {{ previewIcon }}
                 </button>
-                <small class="auth__input-error">{{ errors.password }}</small>
+                <small class="auth__input-error"> {{ errors.confirmation }} </small>
+            </div>
+            <div class="auth__input-group auth__input-group--password">
+                <input 
+                    class="auth__input input-main" 
+                    name="password_confirmation" 
+                    placeholder="repeat password" 
+                    v-model="data.confirmation"
+                    :type="passwordType" 
+                    :class="{'auth__input-group--error':  errors.name}"
+                    required>
+                
+                <small class="auth__input-error"> {{ errors.confirmation }} </small>
             </div>
             <button class="auth__input-button button-main" type="submit">confirm</button>
             <div class="login-with">
@@ -47,13 +73,13 @@
                 </div>
                 <a 
                     class="login-with__link text-fourth"
-                    :href="registerUrl">
+                    :href="loginUrl">
                     
                     Already have an account?
                 </a>
             </div>
         </form>
-        <div class="form__poster form__poster--login-in">
+        <div class="form__poster">
             <object 
                 class="form__img"
                 type="image/svg+xml"
@@ -69,31 +95,35 @@ import bus from '@services/eventbus'
 import Auth from '@services/Auth'
 
 export default {
-    name: 'login-section',
+    name: 'register-section',
     
     data: function() {
         return {
            isPasswordShown: false,
            
            data: {
+               name: '',
                email: '',
-               password: ''
+               password: '',
+               confirmation: ''
            },
 
            errors: {
+               name: '',
                email: '',
-               password: ''
+               password: '',
+               confirmation: ''
            }
         }   
     },
 
     computed: {
         imageUrl() {
-            return window.origin + '/img/svg/login.svg';
+            return window.origin + '/img/svg/register.svg';
         },
 
-        registerUrl() {
-            return window.origin + '/register';
+        loginUrl() {
+            return window.origin + '/login';
         },
 
         previewIcon() {
@@ -121,8 +151,7 @@ export default {
             
             let data = new FormData(form);
 
-            
-            Auth.login(data).catch(this.parseErrors);
+            Auth.register(data).catch(this.parseErrors);
         },
 
         parseErrors(error) { 

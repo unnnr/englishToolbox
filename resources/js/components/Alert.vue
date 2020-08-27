@@ -37,6 +37,9 @@
 
 import bus from '@services/eventbus';
 
+
+const DEFAULT_MESSAGE = `An unexpected error has occurred on the server. Please try again later`;
+
 export default {
     name: 'alert',
     
@@ -89,7 +92,7 @@ export default {
 
     mounted() {
         bus.listen('alert-error', (event) => {
-            this.message = event.message;
+            this.message = event.message || DEFAULT_MESSAGE;
             this.warning = false;
             this.shown = true;
         });
