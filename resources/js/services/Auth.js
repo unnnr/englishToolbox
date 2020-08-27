@@ -27,6 +27,21 @@ const Auth = new function() {
 
     }
 
+    this.rules = () =>
+    {
+        return {
+            password: {
+                max: 20,
+                min: 8
+            },
+
+            name: {
+                max: 30, 
+                min: 5
+            }
+        }
+    }
+
 }();
 
 export default Auth;

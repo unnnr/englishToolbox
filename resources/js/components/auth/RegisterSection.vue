@@ -18,6 +18,8 @@
                     type="text" 
                     placeholder="your name" 
                     v-model="data.name"
+                    :maxlength="rules.name.max"
+                    :minlength="rules.name.min" 
                     required>
 
                 <small class="auth__input-error"> {{ errors.name }}</small>
@@ -44,8 +46,10 @@
                     class="auth__input input-main"
                     name="password" 
                     placeholder="your password" 
-                    v-model="data.passoword"
+                    v-model="data.password"
                     :type="passwordType" 
+                    :maxlength="rules.password.max"
+                    :minlength="rules.password.min" 
                     required>
 
                 <button 
@@ -59,7 +63,7 @@
             </div>
             <div 
                 class="auth__input-group auth__input-group--password"
-                :class="{'auth__input-group--error':  errors.confirmation}">
+                :class="{'auth__input-group--error':  errors.password}">
                 
                 <input 
                     class="auth__input input-main" 
@@ -67,6 +71,8 @@
                     placeholder="repeat password" 
                     v-model="data.confirmation"
                     :type="passwordType" 
+                    :maxlength="rules.password.max"
+                    :minlength="rules.password.min" 
                     required>
                 
                 <small class="auth__input-error"> {{ errors.confirmation }} </small>
@@ -102,6 +108,7 @@
 import bus from '@services/eventbus'
 import Auth from '@services/Auth'
 
+console.log(Auth.rules());
 export default {
     name: 'register-section',
     
@@ -121,19 +128,13 @@ export default {
                email: '',
                password: '',
                confirmation: ''
-           }
+           },
+
+           rules: Auth.rules()
         }   
     },
 
     computed: {
-        imageUrl() {
-            return window.origin + '/img/svg/register.svg';
-        },
-
-        loginUrl() {
-            return window.origin + '/login';
-        },
-
         previewIcon() {
             if (this.isPasswordShown)
                 return 'visibility_off';
@@ -146,8 +147,16 @@ export default {
                 return 'text';
 
             return 'password';
+        },
+
+        imageUrl() {
+            return window.origin + '/img/svg/register.svg';
+        },
+
+        loginUrl() {
+            return window.origin + '/login';
         }
-    },      
+    },    
 
     methods: {
         togglePreview() {
@@ -163,7 +172,16 @@ export default {
             
             let data = new FormData(form);
 
-            Auth.register(data).then(this.redirect).catch(this.parseErrors);
+            if (this.validate())
+                Auth.register(data).then(this.redirect).catch(this.parseErrors);
+        },
+
+        validate() {
+            if (this.data.password === this.data.confirmation)
+                return true;
+
+            this.errors.password = 'The password confirmation does not match';
+            return false;
         },
 
         parseErrors(error) { 

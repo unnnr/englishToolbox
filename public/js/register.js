@@ -409,8 +409,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
+console.log(_services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].rules());
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'register-section',
   data: function data() {
@@ -427,16 +434,11 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         password: '',
         confirmation: ''
-      }
+      },
+      rules: _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].rules()
     };
   },
   computed: {
-    imageUrl: function imageUrl() {
-      return window.origin + '/img/svg/register.svg';
-    },
-    loginUrl: function loginUrl() {
-      return window.origin + '/login';
-    },
     previewIcon: function previewIcon() {
       if (this.isPasswordShown) return 'visibility_off';
       return 'visibility';
@@ -444,6 +446,12 @@ __webpack_require__.r(__webpack_exports__);
     passwordType: function passwordType() {
       if (this.isPasswordShown) return 'text';
       return 'password';
+    },
+    imageUrl: function imageUrl() {
+      return window.origin + '/img/svg/register.svg';
+    },
+    loginUrl: function loginUrl() {
+      return window.origin + '/login';
     }
   },
   methods: {
@@ -456,7 +464,12 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var form = this.$refs.form;
       var data = new FormData(form);
-      _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data).then(this.redirect)["catch"](this.parseErrors);
+      if (this.validate()) _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data).then(this.redirect)["catch"](this.parseErrors);
+    },
+    validate: function validate() {
+      if (this.data.password === this.data.confirmation) return true;
+      this.errors.password = 'The password confirmation does not match';
+      return false;
     },
     parseErrors: function parseErrors(error) {
       console.log(error);
@@ -2701,6 +2714,8 @@ var render = function() {
                 name: "name",
                 type: "text",
                 placeholder: "your name",
+                maxlength: _vm.rules.name.max,
+                minlength: _vm.rules.name.min,
                 required: ""
               },
               domProps: { value: _vm.data.name },
@@ -2773,25 +2788,27 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.data.passoword,
-                      expression: "data.passoword"
+                      value: _vm.data.password,
+                      expression: "data.password"
                     }
                   ],
                   staticClass: "auth__input input-main",
                   attrs: {
                     name: "password",
                     placeholder: "your password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "checkbox"
                   },
                   domProps: {
-                    checked: Array.isArray(_vm.data.passoword)
-                      ? _vm._i(_vm.data.passoword, null) > -1
-                      : _vm.data.passoword
+                    checked: Array.isArray(_vm.data.password)
+                      ? _vm._i(_vm.data.password, null) > -1
+                      : _vm.data.password
                   },
                   on: {
                     change: function($event) {
-                      var $$a = _vm.data.passoword,
+                      var $$a = _vm.data.password,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
@@ -2799,17 +2816,17 @@ var render = function() {
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
                           $$i < 0 &&
-                            _vm.$set(_vm.data, "passoword", $$a.concat([$$v]))
+                            _vm.$set(_vm.data, "password", $$a.concat([$$v]))
                         } else {
                           $$i > -1 &&
                             _vm.$set(
                               _vm.data,
-                              "passoword",
+                              "password",
                               $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                             )
                         }
                       } else {
-                        _vm.$set(_vm.data, "passoword", $$c)
+                        _vm.$set(_vm.data, "password", $$c)
                       }
                     }
                   }
@@ -2820,21 +2837,23 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.data.passoword,
-                      expression: "data.passoword"
+                      value: _vm.data.password,
+                      expression: "data.password"
                     }
                   ],
                   staticClass: "auth__input input-main",
                   attrs: {
                     name: "password",
                     placeholder: "your password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "radio"
                   },
-                  domProps: { checked: _vm._q(_vm.data.passoword, null) },
+                  domProps: { checked: _vm._q(_vm.data.password, null) },
                   on: {
                     change: function($event) {
-                      return _vm.$set(_vm.data, "passoword", null)
+                      return _vm.$set(_vm.data, "password", null)
                     }
                   }
                 })
@@ -2843,24 +2862,26 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.data.passoword,
-                      expression: "data.passoword"
+                      value: _vm.data.password,
+                      expression: "data.password"
                     }
                   ],
                   staticClass: "auth__input input-main",
                   attrs: {
                     name: "password",
                     placeholder: "your password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: _vm.passwordType
                   },
-                  domProps: { value: _vm.data.passoword },
+                  domProps: { value: _vm.data.password },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.data, "passoword", $event.target.value)
+                      _vm.$set(_vm.data, "password", $event.target.value)
                     }
                   }
                 }),
@@ -2892,7 +2913,7 @@ var render = function() {
           "div",
           {
             staticClass: "auth__input-group auth__input-group--password",
-            class: { "auth__input-group--error": _vm.errors.confirmation }
+            class: { "auth__input-group--error": _vm.errors.password }
           },
           [
             _vm.passwordType === "checkbox"
@@ -2909,6 +2930,8 @@ var render = function() {
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "checkbox"
                   },
@@ -2960,6 +2983,8 @@ var render = function() {
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: "radio"
                   },
@@ -2983,6 +3008,8 @@ var render = function() {
                   attrs: {
                     name: "password_confirmation",
                     placeholder: "repeat password",
+                    maxlength: _vm.rules.password.max,
+                    minlength: _vm.rules.password.min,
                     required: "",
                     type: _vm.passwordType
                   },
@@ -15379,15 +15406,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./resources/js/components/auth/RegisterSection.vue ***!
   \**********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterSection_vue_vue_type_template_id_21697386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterSection.vue?vue&type=template&id=21697386& */ "./resources/js/components/auth/RegisterSection.vue?vue&type=template&id=21697386&");
 /* harmony import */ var _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterSection.vue?vue&type=script&lang=js& */ "./resources/js/components/auth/RegisterSection.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RegisterSection_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -15417,7 +15443,7 @@ component.options.__file = "resources/js/components/auth/RegisterSection.vue"
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/auth/RegisterSection.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15552,6 +15578,19 @@ var Auth = new function () {
   this.check = function () {};
 
   this.user = function () {};
+
+  this.rules = function () {
+    return {
+      password: {
+        max: 20,
+        min: 8
+      },
+      name: {
+        max: 30,
+        min: 5
+      }
+    };
+  };
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Auth);
 
