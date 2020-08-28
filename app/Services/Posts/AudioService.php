@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Posts;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -9,9 +9,17 @@ use App\Http\Requests\UploadAudio;
 use App\Http\Requests\UpdateAudio;
 use App\Models\Audio;
 
-class AudioService
+use App\Services\Posts\PostService;
+
+
+class AudioService extends PostService
 {
-    private function createAudio(UploadAudio $request) : Audio
+
+    protected $model = Audio::class;
+    
+    protected $resource = AudioResource::class;
+
+    protected function beforeCreate(Request $request)
     {
         $fullpath = $request->file('audioFile')->store('public/audio');
         $audioFile = basename($fullpath);
@@ -21,54 +29,49 @@ class AudioService
 
         $title =  $request->input('title'); 
         $description = $request->input('description');
-        
-        return Audio::create([
+
+        return [
             'title' => $title,
             'description' => $description,
             'audioFile' => $audioFile,
             'imageFile' => $imageFile,
-        ]); 
-    }
-    
-    private function attachTags(Audio $audio, Request $request)
-    {
-        $tags = $request->input('tags'); 
-        $audio->tags()->attach($tags);
-
-        return $tags;
+        ]; 
     }
 
-    private function attachMainTag(Audio $audio, Request $request)
-    {
-        $mainTag = $request->input('mainTag');
-        
-        if (is_int($mainTag))
-            $audio->tags()->attach($mainTag, ['main' => true]);
+    protected function beforeUpdate(Request $request, Audio $element)
+    {   
+        $data = [];
+
+        if ($request->has('audioFile'))
+        {
+            $previousFile = $element->audioFile;
+            Storage::delete('public/audio/' . $previousFile);
+
+            $fullpath = $request->file('audioFile')->store('public/audio');
+            $data['audioFile'] = basename($fullpath);
+        }
+
+        if ($request->has('imageFile'))
+        {
+            $previousFile = $element->imageFile;
+            Storage::delete('public/thumbnails/' . $previousFile);
+
+            $fullpath = $request->file('imageFile')->store('public/thumbnails');
+            $data['imageFile'] = basename($fullpath);
+        }
+
+        if ($request->has('title'))
+           $data['title'] = $request->input('title'); 
+
+        if ($request->has('description'))
+           $data['description'] = $request->input('description'); 
+
+
+        return $data;
     }
 
-    public function create(UploadAudio $request)
-    {
-        $audio = $this->createAudio($request);
 
-        $this->attachTags($audio, $request);
-        $this->attachMainTag($audio, $request);
-
-        return new AudioResource($audio);
-    }
-
-    public function get()
-    {
-        
-    }
-
-    public function all()
-    {
-        $all = Audio::all();
-
-        return AudioResource::collection($all);
-    }
-
-    public function update(int $id, UpdateAudio $request)
+   /*  public function update(int $id, UpdateAudio $request)
     {
         $audio = Audio::findOrFail($id);
         
@@ -129,10 +132,5 @@ class AudioService
         $audio->save();
 
         return new AudioResource($audio);
-    }
-
-    public function delete()
-    {
-
-    }
+    } */
 }

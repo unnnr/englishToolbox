@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadAudio;
 use App\Http\Requests\UpdateAudio;
-use App\Services\AudioService;
+use App\Services\Posts\AudioService;
 
 class AudioController extends Controller
 {
@@ -51,7 +51,7 @@ class AudioController extends Controller
      */
     public function update(int $id,AudioService $audioService, UpdateAudio $request)
     {
-        return $audioService->update($id, $request); 
+        return $audioService->update($request, $id); 
     }
 
     /**

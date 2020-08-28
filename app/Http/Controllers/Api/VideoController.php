@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\VideoService;
+use App\Services\Posts\VideoService;
 use App\Http\Requests\UploadVideo;
 use App\Http\Requests\UpdateVideo;
 use App\Http\Requests\DeleteVideo;
@@ -55,7 +55,7 @@ class VideoController extends Controller
      */
     public function update(int $id, UpdateVideo $request, VideoService $videoService)
     {
-        return $videoService->update($id, $request);
+        return $videoService->update($request, $id);
     }
 
     /**
