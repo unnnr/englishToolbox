@@ -30,9 +30,9 @@ class UploadAudio extends FormRequest
             'audioFile' => 'required|max:10240|mimes:mpga,wav',
             'imageFile' => 'required|max:10240|image',
 
-            'mainTag' => 'numeric',  
+            'mainTag' => 'nullable|numeric',  
             'tags.*' => 'numeric|distinct',
-            'tags' => 'array|max:4'
+            'tags' => 'array|nullable|max:4'
         ];
     }
 }

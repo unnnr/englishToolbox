@@ -144,6 +144,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'alert',
   data: function data() {
@@ -180,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-error', function (event) {
-      _this.message = event.message;
+      _this.message = event.message || DEFAULT_MESSAGE;
       _this.warning = false;
       _this.shown = true;
     });
@@ -1182,8 +1183,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editing: true,
-      target: null,
-      editorType: 'creating'
+      target: null
     };
   },
   mounted: function mounted() {
@@ -2285,7 +2285,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\r\n  transition: \r\n  transform 1s ease-in-out,\r\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-6d0abdf2] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-6d0abdf2]\n{\n   -webkit-animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-6d0abdf2 .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-6d0abdf2 {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -2380,7 +2380,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-48edf245] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -2399,7 +2399,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\r\n{\r\n    transform: scale(0.5);\r\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\r\n{\r\n    transition: \r\n        transform .3s ease-in-out,\r\n        opacity .4s ease-in-out;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-21ac7d9c]\n{\n    transform: scale(0.5);\n    opacity: 0;\n}\n.tags-enter-active[data-v-21ac7d9c]\n{\n    transition: \n        transform .3s ease-in-out,\n        opacity .4s ease-in-out;\n}\n\n", ""]);
 
 // exports
 
@@ -2418,7 +2418,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\r\n    width: 0;\r\n    margin-right: 0;\r\n    content:'';\r\n    transform: scale(0);\r\n    transition: \r\n        transform .2s ease-in-out, \r\n        margin-right .2s ease-in-out, \r\n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\r\n    width: 15px;\r\n    margin-right: 5px;\r\n    content: \"star\";\r\n    transform: scale(1);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag[data-v-21ac7d9c]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scale(0);\n    transition: \n        transform .2s ease-in-out, \n        margin-right .2s ease-in-out, \n        width .2s ease-in-out;\n}\n.tag--main[data-v-21ac7d9c]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scale(1);\n}\n\n", ""]);
 
 // exports
 
@@ -19782,7 +19782,7 @@ var Audio = new function () {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('audio');
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('api/audio');
 
             case 2:
               audioCollection = _context4.sent;
@@ -19886,7 +19886,7 @@ var Audio = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('audio', data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/audio', data);
 
             case 2:
               response = _context.sent;
@@ -19955,7 +19955,7 @@ var Audio = new function () {
 
             case 16:
               _context2.next = 18;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('audio/' + id, data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('api/audio/' + id, data);
 
             case 18:
               response = _context2.sent;
@@ -19997,7 +19997,7 @@ var Audio = new function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('audio/' + id);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('api/audio/' + id);
 
             case 2:
               response = _context3.sent;
@@ -20198,7 +20198,7 @@ var Tags = new function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('tags');
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('api/tags');
 
             case 2:
               tags = _context3.sent;
@@ -20255,7 +20255,7 @@ var Tags = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('tags', data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/tags', data);
 
             case 2:
               resonse = _context.sent;
@@ -20353,7 +20353,7 @@ var Http = new function () {
               };
               if (json) options.headers['Content-Type'] = 'application/json';
               _context.next = 6;
-              return fetch(window.location.origin + path ? '/api/' + path : '', options);
+              return fetch(window.location.origin + path ? '/' + path : '', options);
 
             case 6:
               response = _context.sent;
@@ -20552,7 +20552,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var data = new FormData(ref('form'));
     var tags = ref('tags').selected;
     Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
-    var mainTag = ref('tags').mainTag;
+    var mainTag = ref('tags').main;
     Object(_states_audio_helpers__WEBPACK_IMPORTED_MODULE_1__["appendMainTagData"])(data, mainTag);
     return data;
   }
@@ -20787,6 +20787,9 @@ function getLabel(input, label) {
   return fileName;
 }
 function appendTagsData(data, tags) {
+  var nullable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  console.log(tags);
+
   var _iterator = _createForOfIteratorHelper(tags.entries()),
       _step;
 
@@ -20818,7 +20821,7 @@ function appendMainTagData(data, mainTag) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\audio.js */"./resources/js/audio.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/audio.js */"./resources/js/audio.js");
 
 
 /***/ })

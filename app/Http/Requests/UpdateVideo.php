@@ -25,9 +25,9 @@ class UpdateVideo extends FormRequest
     public function rules()
     {
         return [
-            'tags' => ['array', 'max:4'],  
+            'tags' => ['array', 'max:4', 'nullable'],  
             'tags.*' => ['numeric', 'distinct'],
-            'mainTag' => ['nullable', 'numeric'],
+            'mainTag' => ['numeric', 'nullable'],
             'videoUrl' => ['string', 'max:300',  new ValidYoutubeVideo],
             'description' => ['string', 'nullable', 'max:180'],
         ];

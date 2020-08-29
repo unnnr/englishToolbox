@@ -32,7 +32,6 @@ abstract class PostService
             return;
 
         $mainTag = $request->input('mainTag');
-
             
         $post->tags()->attach($mainTag, ['main' => true]);
     }
@@ -79,15 +78,16 @@ abstract class PostService
         $element->fill($data);
         $element->save();
 
-        if ($request->has('mainTag'))
+        $mainTag = $request->input('mainTag');
+        if ($request->has('mainTag') && $mainTag != $element->mainTag()->id)
         { 
             $previous = $element->mainTag();
-            $element->tags()->detach($previous->id);
-
+            if ($previous->default != true)
+                $element->tags()->detach($previous->id);
             $this->attachMainTag($element, $request);
         }
-
-        if ($request->has('tags') )
+    
+        if ($request->has('tags'))
         {
             $element->tags()->wherePivot('main', null)->detach();
             

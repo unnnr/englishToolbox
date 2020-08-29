@@ -29,15 +29,15 @@ export default function(vueInstance, post)
 
     function getFormData()
     {
-        const NULLABLE_MAIN_TAG = true;
+        const NULLABLE = true;
 
         let data = new FormData(ref('form'));
 
         let tags = ref('tags').selected;
-        appendTagsData(data, tags);
+        appendTagsData(data, tags, NULLABLE);
 
         let mainTag = ref('tags').main;
-        appendMainTagData(data, mainTag, NULLABLE_MAIN_TAG);
+        appendMainTagData(data, mainTag, NULLABLE);
            
         return data;
     }
