@@ -44,5 +44,12 @@ class UserService
         return new UserResource($user);
     }
 
+    public function currentUser()
+    {
+        $user = Auth::user();
+        
+        return new UserResource($user);
+    }
+
     const REMEMBER_ME = true;
 }

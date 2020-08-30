@@ -29,14 +29,13 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('profile', 'ProfileController')->name('account');
 });
 
+
 Route::post('register', 'UserController@register');
-    
+
 Route::post('login', 'UserController@login');
 
+Route::get('profile', 'UserController@profile');
 
 Route::get('schemas', 'SchemaController@index')->name('schemas');
-
-
-
 
 Route::get('recomend', function(){ return view("recomend");})->name('recomend');

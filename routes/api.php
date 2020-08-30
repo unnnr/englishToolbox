@@ -28,14 +28,9 @@ Route::group(['namespace' => 'Api'], function() {
 
 	Route::apiResource('tags', 'TagController');
     
-    
-
-
-
-    Route::post('register', 'UserController@register');
-    
-	Route::post('login', 'UserController@login');
 });
+
+Route::get('profile', 'UserController@profile');
 
 Route::get('dump', function(Request $request) {
     
