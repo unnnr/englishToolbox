@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
-
 Route::group(['namespace' => 'Web'], function() {
 
     Route::get('videos', 'VideoController@index')->name('videos');
 
     Route::get('audio', 'AudioController@index')->name('audio');
 
+    Route::get('login', 'LoginController@index')->name('login');
+
+    Route::get('register', 'RegisterController@index')->name('register');
 });
 
 

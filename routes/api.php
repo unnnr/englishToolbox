@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Models\Tag;
 use App\Models\Video;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +26,19 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::apiResource('audio', 'AudioController');
 
-    Route::apiResource('tags', 'TagController');
+	Route::apiResource('tags', 'TagController');
+    
+    
 
-  /*   Route::match(['get', 'head'], 'tags', 'TagController@all');
-    Route::post('/tags', 'TagController@store'); */
 
+
+	Route::post('register', 'UserController@register');
 });
 
-Route::get('dump', function() {
-    dd(Video::find(7)->tags);
-});
+Route::get('dump', function(Request $request) {
+    
+    dump( $request->all());
+    dump( $request->session()->all());
+    dump(Cookie::get());
+    dd(Auth::user());
+})->middleware('web');

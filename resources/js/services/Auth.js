@@ -4,14 +4,14 @@ const Auth = new function() {
 
     this.login = async (data) => 
     {
-        let respose = await Http.post('login', data);
+        let respose = await Http.post('api/login', data);
 
         console.log(respose); 
     }
 
     this.register = async (data) =>
     {
-        let respose = await Http.post('register', data);
+        let respose = await Http.post('api/register', data);
 
         console.log(respose); 
     }

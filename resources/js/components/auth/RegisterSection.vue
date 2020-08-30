@@ -192,7 +192,7 @@ export default {
                 let data = error.body.errors;
 
                 if (data.name)
-                    this.errors.password = data.password.join('. ');    
+                    this.errors.name = data.name.join('. ');    
 
                 if (data.email)
                     this.errors.email = data.email.join('. ');
