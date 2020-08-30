@@ -15,6 +15,7 @@ mix.webpackConfig({
         alias: {
             '@models': path.resolve(__dirname, 'resources/js/models/'),
             '@states': path.resolve(__dirname, 'resources/js/vuestates/'),
+            '@sections': path.resolve(__dirname, 'resources/js/sections'),
             '@services': path.resolve(__dirname, 'resources/js/services/'),
             '@components': path.resolve(__dirname, 'resources/js/components/')
         }
@@ -23,8 +24,9 @@ mix.webpackConfig({
 .disableSuccessNotifications()
 //.js('resources/js/audio.js', 'public/js')
 //.js('resources/js/videos.js', 'public/js')
-.js('resources/js/login.js', 'public/js')
+//.js('resources/js/login.js', 'public/js')
 //.js('resources/js/register.js', 'public/js')
+.js('resources/js/profile.js', 'public/js')
 
 // .browserSync({
 // proxy: 'englishToolbox:80',

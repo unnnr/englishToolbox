@@ -25,7 +25,7 @@
         ['about me' => 'home'],
         'videos',
         'audio', 
-        'schemas',
+        ['schemas' => '#'],
         'games', 
         ['i recomend' => 'recomend']
       ]);
