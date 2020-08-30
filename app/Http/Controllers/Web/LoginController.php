@@ -12,9 +12,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest');
     }
-    
+
     public function index()
     {
-        return view('auth.login');
+        return view('auth.login');  
     }
 }
