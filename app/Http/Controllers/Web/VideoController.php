@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
-        return view('content.videos');
+        return view('content.videos');  
     }
 }

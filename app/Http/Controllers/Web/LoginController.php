@@ -13,8 +13,9 @@ class LoginController extends Controller
         $this->middleware('guest');
     }
 
-    public function index()
+    public function __invoke()
     {
         return view('auth.login');  
+
     }
 }

@@ -14,8 +14,8 @@ class ProfileController extends Controller
         $this->middleware('guest');
     }
 
-    public function index()
+    public function __invoke()
     {
-        return view('profile');
+        return view('profile');  
     }
 }

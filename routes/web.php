@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Web'], function() {
 
-    Route::get('videos', 'VideoController@index')->name('videos');
+    Route::get('/',  'HomeController');
+    Route::get('/home', 'HomeController')->name('home');
 
-    Route::get('audio', 'AudioController@index')->name('audio');
+    Route::get('videos', 'VideoController')->name('videos');
 
-    Route::get('login', 'LoginController@index')->name('login');
+    Route::get('audio', 'AudioController')->name('audio');
 
-    Route::get('register', 'RegisterController@index')->name('register');
+    Route::get('login', 'LoginController')->name('login');
+
+    Route::get('register', 'RegisterController')->name('register');
     
-    Route::get('profile', 'ProfileController@index')->name('account');
+    Route::get('profile', 'ProfileController')->name('account');
 });
 
 Route::post('register', 'UserController@register');
@@ -34,7 +37,6 @@ Route::post('login', 'UserController@login');
 Route::get('schemas', 'SchemaController@index')->name('schemas');
 
 
-Route::get('/',  'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('recomend', function(){ return view("recomend");})->name('recomend');

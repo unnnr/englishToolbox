@@ -11,8 +11,13 @@ use App\Http\Requests\UploadAudio;
 
 class RegisterController extends Controller
 {
-    public function index(Request $request)
+    public function __construct()
     {
-        return view('auth.register');
+        $this->middleware('guest');
+    }
+    
+    public function __invoke()
+    {
+        return view('auth.register');  
     }
 }
