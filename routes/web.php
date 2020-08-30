@@ -22,10 +22,15 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('login', 'LoginController@index')->name('login');
 
     Route::get('register', 'RegisterController@index')->name('register');
+    
+    Route::get('profile', 'ProfileController@index')->name('account');
 });
 
+Route::post('register', 'UserController@register');
+    
+Route::post('login', 'UserController@login');
 
-Route::post('schemas', 'SchemaController@store');
+
 Route::get('schemas', 'SchemaController@index')->name('schemas');
 
 
@@ -33,4 +38,3 @@ Route::get('/',  'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('recomend', function(){ return view("recomend");})->name('recomend');
-Route::get('account', function(){ return view("account");})->name('account');

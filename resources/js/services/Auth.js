@@ -8,22 +8,25 @@ const Auth = new function() {
     {
         // await axios.get('/api/csrf-cookie');
         
-        let respose = await axios({
+        /* let response = await axios({
             method: 'post',
             url: '/api/login',
             withCredentials: true,
             headers: {'Content-Type': 'multipart/form-data' },
             data: data
-        });
+        }); */
 
-        return respose;
+
+        let response = await Http.post('login', data);
+
+        return response;
     }
 
     this.register = async (data) =>
     {
-        let respose = await Http.post('api/register', data);
+        let response = await Http.post('register', data);
 
-        console.log(respose); 
+        console.log(response); 
     }
 
 

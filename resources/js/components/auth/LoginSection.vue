@@ -141,6 +141,7 @@ export default {
         },
 
         parseErrors(error) { 
+            console.info(error);
             if (error.status == 422)
             {
                 let data = error.body.errors;

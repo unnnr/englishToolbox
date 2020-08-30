@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationExeption;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -18,8 +18,10 @@ class UserService
         
         $user = User::create($data);
 
-        $authToken = $user->createToken('authToken')->plainTextToken;
+        //$authToken = $user->createToken('authToken')->plainTextToken;
         
+        Auth::login($user, self::REMEMBER_ME);
+
         return (new UserResource($user))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED); 
@@ -30,9 +32,9 @@ class UserService
     {
         $data = $request->validated();
 
-        if (!!!Auth::attempt($data))
-            throw new ValidationExeption([
-                'password' => 'Password dosn`t match email'
+        if (!!!Auth::attempt($data, self::REMEMBER_ME))
+            throw ValidationException::withMessages([
+                'password' => 'Password dosn`t match to email'
             ]);
 
         $user = Auth::user();
@@ -41,4 +43,6 @@ class UserService
         
         return new UserResource($user);
     }
+
+    const REMEMBER_ME = true;
 }

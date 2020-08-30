@@ -2243,6 +2243,8 @@ __webpack_require__.r(__webpack_exports__);
       _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].login(data).then(this.redirect)["catch"](this.parseErrors);
     },
     parseErrors: function parseErrors(error) {
+      console.info(error);
+
       if (error.status == 422) {
         var data = error.body.errors;
         if (data.email) this.errors.email = data.email.join('. ');
@@ -17130,25 +17132,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var Auth = new function () {
   this.login = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var respose;
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default()({
-                method: 'post',
-                url: '/api/login',
-                withCredentials: true,
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                },
-                data: data
-              });
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('login', data);
 
             case 2:
-              respose = _context.sent;
-              return _context.abrupt("return", respose);
+              response = _context.sent;
+              return _context.abrupt("return", response);
 
             case 4:
             case "end":
@@ -17165,17 +17159,17 @@ var Auth = new function () {
 
   this.register = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-      var respose;
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/register', data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('register', data);
 
             case 2:
-              respose = _context2.sent;
-              console.log(respose);
+              response = _context2.sent;
+              console.log(response);
 
             case 4:
             case "end":
