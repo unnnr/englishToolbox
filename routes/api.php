@@ -32,7 +32,9 @@ Route::group(['namespace' => 'Api'], function() {
 
 
 
-	Route::post('register', 'UserController@register');
+    Route::post('register', 'UserController@register');
+    
+	Route::post('login', 'UserController@login');
 });
 
 Route::get('dump', function(Request $request) {

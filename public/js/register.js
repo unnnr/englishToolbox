@@ -17307,9 +17307,6 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
 axios__WEBPACK_IMPORTED_MODULE_4___default.a.defaults.withCredentials = true;
-axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/csrf-cookie').then(function (responce) {
-  console.log(responce);
-});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: document.querySelector('main'),
   components: {
@@ -17349,13 +17346,20 @@ var Auth = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/login', data);
+              return axios.get('/api/csrf-cookie');
 
             case 2:
+              _context.next = 4;
+              return axios.post('/api/login', {
+                headers: data.getHeaders(),
+                data: data
+              });
+
+            case 4:
               respose = _context.sent;
               console.log(respose);
 
-            case 4:
+            case 6:
             case "end":
               return _context.stop();
           }

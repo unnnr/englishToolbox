@@ -135,8 +135,9 @@ export default {
             
             let data = new FormData(form);
 
-            
-            Auth.login(data).then(this.redirect).catch(this.parseErrors);
+            Auth.login(data)
+            .then(this.redirect)
+            .catch(this.parseErrors);
         },
 
         parseErrors(error) { 

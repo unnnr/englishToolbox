@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationExeption;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -19,8 +20,6 @@ class UserService
 
         $authToken = $user->createToken('authToken')->plainTextToken;
         
-        Auth::login($user);
-        
         return (new UserResource($user))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED); 
@@ -29,11 +28,17 @@ class UserService
     
     public function login(Request $request)
     {
-        if (!!!Auth::attempt($data));
-            return response()
-                ->setStatusCode(Response::HTTP_BAD_REQUEST);
+        $data = $request->validated();
 
-        return response()
-            ->setStatusCode(Response::HTTP_OK);
+        if (!!!Auth::attempt($data))
+            throw new ValidationExeption([
+                'password' => 'Password dosn`t match email'
+            ]);
+
+        $user = Auth::user();
+
+        // Refresh token
+        
+        return new UserResource($user);
     }
 }

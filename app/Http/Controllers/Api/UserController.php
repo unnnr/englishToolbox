@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function login(LoginUser $request, UserService $service)
     {
-        return $service->register($request);
+        return $service->login($request);
     }
 
     public function logout()

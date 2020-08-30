@@ -1,12 +1,22 @@
 import Http from '@services/Http';
+import axios from 'axios';
+
 
 const Auth = new function() {
 
     this.login = async (data) => 
     {
-        let respose = await Http.post('api/login', data);
+        // await axios.get('/api/csrf-cookie');
+        
+        let respose = await axios({
+            method: 'post',
+            url: '/api/login',
+            withCredentials: true,
+            headers: {'Content-Type': 'multipart/form-data' },
+            data: data
+        });
 
-        console.log(respose); 
+        return respose;
     }
 
     this.register = async (data) =>
@@ -42,6 +52,7 @@ const Auth = new function() {
         }
     }
 
+    // axios.defaults.withCredentials = true;
 }();
 
 export default Auth;
