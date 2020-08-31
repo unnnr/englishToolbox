@@ -2277,6 +2277,7 @@ console.log(_services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].rules());
     submit: function submit() {
       var form = this.$refs.form;
       var data = new FormData(form);
+      return _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data);
       if (this.validate()) _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].register(data).then(this.redirect)["catch"](this.parseErrors);
     },
     validate: function validate() {
@@ -17298,15 +17299,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_RegisterSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/auth/RegisterSection */ "./resources/js/components/auth/RegisterSection.vue");
 /* harmony import */ var _components_ContextMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/ContextMenu */ "./resources/js/components/ContextMenu.vue");
 /* harmony import */ var _components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/Alert */ "./resources/js/components/Alert.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-
 
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
-axios__WEBPACK_IMPORTED_MODULE_4___default.a.defaults.withCredentials = true;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: document.querySelector('main'),
   components: {
@@ -17330,6 +17327,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -17337,29 +17336,23 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
 var Auth = new function () {
   this.login = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-      var respose;
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.get('/api/csrf-cookie');
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('login', data);
 
             case 2:
-              _context.next = 4;
-              return axios.post('/api/login', {
-                headers: data.getHeaders(),
-                data: data
-              });
+              response = _context.sent;
+              return _context.abrupt("return", response);
 
             case 4:
-              respose = _context.sent;
-              console.log(respose);
-
-            case 6:
             case "end":
               return _context.stop();
           }
@@ -17374,17 +17367,17 @@ var Auth = new function () {
 
   this.register = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-      var respose;
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/register', data);
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('register', data);
 
             case 2:
-              respose = _context2.sent;
-              console.log(respose);
+              response = _context2.sent;
+              console.log(response);
 
             case 4:
             case "end":
@@ -17414,7 +17407,8 @@ var Auth = new function () {
         min: 5
       }
     };
-  };
+  }; // axios.defaults.withCredentials = true;
+
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Auth);
 

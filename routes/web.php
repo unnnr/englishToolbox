@@ -36,6 +36,8 @@ Route::post('login', 'UserController@login');
 
 Route::get('user', 'UserController@profile');
 
+Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail');
+
 // Route::get('schemas', 'SchemaController@index')->name('schemas');
 
 // Route::get('recomend', function(){ return view("recomend");})->name('recomend');

@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\Registered;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -12,6 +13,9 @@ use App\Models\User;
 
 class UserService
 {
+
+    const REMEMBER_ME = true;
+
     public function register(Request $request)
     {
         $data = $request->validated();
@@ -21,6 +25,10 @@ class UserService
         //$authToken = $user->createToken('authToken')->plainTextToken;
         
         Auth::login($user, self::REMEMBER_ME);
+
+
+        $user->sendEmailVerificationNotification();
+        //event(new Registered($user));
 
         return (new UserResource($user))
             ->response()
@@ -50,6 +58,4 @@ class UserService
         
         return new UserResource($user);
     }
-
-    const REMEMBER_ME = true;
 }

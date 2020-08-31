@@ -30,12 +30,10 @@ Route::group(['namespace' => 'Api'], function() {
     
 });
 
-Route::get('profile', 'UserController@profile');
-
-Route::get('dump', function(Request $request) {
+/* Route::get('dump', function(Request $request) {
     
     dump( $request->all());
     dump( $request->session()->all());
     dump(Cookie::get());
     dd(Auth::user());
-})->middleware('web');
+})->middleware('web'); */
