@@ -19,7 +19,6 @@
 
 <script>
 
-import Vue from 'vue';
 import { throttle } from 'throttle-debounce';
 
 export default {
@@ -36,9 +35,9 @@ export default {
     },
 
     mounted() {
-        VueInstance = this;
-
         window.addEventListener('scroll', throttle(100, this.hide), true);
+        
+        this.$el.dispatchEvent(new CustomEvent('context:mouted', { detail: this }));
     },
 
     methods: {
@@ -60,60 +59,6 @@ export default {
     }
 };
 
-const Context = new function()
-{
-    function onRightClick(event, items, vnode, el) {
-
-        VueInstance.marginTop = event.pageY;
-        VueInstance.marginLeft = event.pageX;
-
-        VueInstance.target = el;
-        VueInstance.items = items;
-        VueInstance.show();
-    }
-
-    function wrappMethod(target, items, vnode, el) {
-
-        return function(event) {
-
-            if (!!!VueInstance)
-                throw Error('Anu context components has been created');
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            target(event, items, vnode, el);            
-        };
-    }   
-
-    function init() {
-        
-        Vue.directive('context', {
-
-            bind(el, binding, vnode) {
-
-                if (binding.arg == 'items')
-                {
-                    let listener = {
-                        target: el,
-                        items: binding.value
-                    };
-
-                    el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items, vnode, el));
-
-                    listenrs.push(listener);
-                }
-            }
-        });
-
-    }
-
-    let listenrs = [];
-
-    init();
-}();
-
-let VueInstance;
 
 </script>
 

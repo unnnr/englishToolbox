@@ -1,7 +1,9 @@
  
 import Vue from 'vue';
 
-import ContextMenu from '@components/ContextMenu'
+// import ContextMenu from '@components/ContextMenu'
+import vClickOutside from 'v-click-outside'
+import ContextMenu from '@plugins/ContextMenu'
 import Alert from  '@components/Alert'
 
 
@@ -11,18 +13,14 @@ export default new function()
     {
         target =  document.querySelector('main');
         components = {
-            ContextMenu,
             Alert
         };
     }
-
 
     this.components  = (elements) =>
     {
         Object.assign(components, elements);
 
-        console.log(components);
-        
         return this;
     }
 
@@ -35,6 +33,10 @@ export default new function()
 
     this.boot = () =>
     {
+        Vue.use(vClickOutside);
+        Vue.use(ContextMenu);
+
+        
         new Vue({
             el: target,
         

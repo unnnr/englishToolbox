@@ -1,5 +1,7 @@
 <template>
-    <form class="management__tab-body">
+    <form 
+    v-context:items="[{label: 123, action: () => {}}]"
+    class="management__tab-body">
         <div class="management__account-header">
             <div class="management__account-photo"></div>
                 <div class="management__account-wrapper">

@@ -1,5 +1,5 @@
  
-import App from '@root/app';
+import App from '@root/App';
 
 import ProfileEditor from '@sections/ProfileEditor'
 import ProfileComments from '@sections/ProfileComments'
