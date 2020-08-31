@@ -2020,10 +2020,8 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var throttle_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! throttle-debounce */ "./node_modules/throttle-debounce/index.umd.js");
-/* harmony import */ var throttle_debounce__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(throttle_debounce__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var throttle_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! throttle-debounce */ "./node_modules/throttle-debounce/index.umd.js");
+/* harmony import */ var throttle_debounce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(throttle_debounce__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2043,7 +2041,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'context-menu',
@@ -2056,8 +2053,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    VueInstance = this;
-    window.addEventListener('scroll', Object(throttle_debounce__WEBPACK_IMPORTED_MODULE_1__["throttle"])(100, this.hide), true);
+    window.addEventListener('scroll', Object(throttle_debounce__WEBPACK_IMPORTED_MODULE_0__["throttle"])(100, this.hide), true);
+    this.$el.dispatchEvent(new CustomEvent('context:mouted', {
+      detail: this
+    }));
   },
   methods: {
     hide: function hide() {
@@ -2072,43 +2071,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
-var Context = new function () {
-  function onRightClick(event, items, vnode, el) {
-    VueInstance.marginTop = event.pageY;
-    VueInstance.marginLeft = event.pageX;
-    VueInstance.target = el;
-    VueInstance.items = items;
-    VueInstance.show();
-  }
-
-  function wrappMethod(target, items, vnode, el) {
-    return function (event) {
-      if (!!!VueInstance) throw Error('Anu context components has been created');
-      event.preventDefault();
-      event.stopPropagation();
-      target(event, items, vnode, el);
-    };
-  }
-
-  function init() {
-    vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('context', {
-      bind: function bind(el, binding, vnode) {
-        if (binding.arg == 'items') {
-          var listener = {
-            target: el,
-            items: binding.value
-          };
-          el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items, vnode, el));
-          listenrs.push(listener);
-        }
-      }
-    });
-  }
-
-  var listenrs = [];
-  init();
-}();
-var VueInstance;
 
 /***/ }),
 
@@ -4335,6 +4297,19 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/v-click-outside/dist/v-click-outside.umd.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/v-click-outside/dist/v-click-outside.umd.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,n){ true?module.exports=n():undefined}(this,function(){var e="__v-click-outside",n="undefined"!=typeof window,t="undefined"!=typeof navigator,i=n&&("ontouchstart"in window||t&&navigator.msMaxTouchPoints>0)?["touchstart"]:["click"];function o(n,t){var o=function(e){var n="function"==typeof e;if(!n&&"object"!=typeof e)throw new Error("v-click-outside: Binding value must be a function or an object");return{handler:n?e:e.handler,middleware:e.middleware||function(e){return e},events:e.events||i,isActive:!(!1===e.isActive)}}(t.value),r=o.handler,d=o.middleware;o.isActive&&(n[e]=o.events.map(function(e){return{event:e,handler:function(e){return function(e){var n=e.el,t=e.event,i=e.handler,o=e.middleware,r=t.path||t.composedPath&&t.composedPath(),d=r?r.indexOf(n)<0:!n.contains(t.target);t.target!==n&&d&&o(t)&&i(t)}({event:e,el:n,handler:r,middleware:d})}}}),n[e].forEach(function(t){var i=t.event,o=t.handler;return setTimeout(function(){n[e]&&document.documentElement.addEventListener(i,o,!1)},0)}))}function r(n){(n[e]||[]).forEach(function(e){return document.documentElement.removeEventListener(e.event,e.handler,!1)}),delete n[e]}var d=n?{bind:o,update:function(e,n){var t=n.value,i=n.oldValue;JSON.stringify(t)!==JSON.stringify(i)&&(r(e),o(e,{value:t}))},unbind:r}:{};return{install:function(e){e.directive("click-outside",d)},directive:d}});
+//# sourceMappingURL=v-click-outside.umd.js.map
+
 
 /***/ }),
 
@@ -17060,6 +17035,66 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./resources/js/App.js":
+/*!*****************************!*\
+  !*** ./resources/js/App.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.umd.js");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _plugins_ContextMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @plugins/ContextMenu */ "./resources/js/vueplugins/ContextMenu.js");
+/* harmony import */ var _plugins_ErrorHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @plugins/ErrorHandler */ "./resources/js/vueplugins/ErrorHandler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (new function () {
+  var _this = this;
+
+  function init() {
+    target = document.querySelector('main');
+    components = {};
+  }
+
+  this.components = function (elements) {
+    Object.assign(components, elements);
+    return _this;
+  };
+
+  this.withDevtools = function () {
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
+    return _this;
+  };
+
+  this.boot = function () {
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_plugins_ErrorHandler__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_1___default.a);
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_plugins_ContextMenu__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+      el: target,
+      components: _objectSpread({}, components)
+    });
+  };
+
+  var components = [];
+  var target;
+  init();
+}());
+
+/***/ }),
+
 /***/ "./resources/js/components/Alert.vue":
 /*!*******************************************!*\
   !*** ./resources/js/components/Alert.vue ***!
@@ -17294,24 +17329,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _root_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @root/App */ "./resources/js/App.js");
 /* harmony import */ var _components_auth_RegisterSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/auth/RegisterSection */ "./resources/js/components/auth/RegisterSection.vue");
-/* harmony import */ var _components_ContextMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/ContextMenu */ "./resources/js/components/ContextMenu.vue");
-/* harmony import */ var _components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/Alert */ "./resources/js/components/Alert.vue");
 
 
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: document.querySelector('main'),
-  components: {
-    RegisterSection: _components_auth_RegisterSection__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ContextMenu: _components_ContextMenu__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Alert: _components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }
+_root_App__WEBPACK_IMPORTED_MODULE_0__["default"].withDevtools();
+_root_App__WEBPACK_IMPORTED_MODULE_0__["default"].components({
+  RegisterSection: _components_auth_RegisterSection__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
+_root_App__WEBPACK_IMPORTED_MODULE_0__["default"].boot();
 
 /***/ }),
 
@@ -17395,6 +17421,10 @@ var Auth = new function () {
   this.check = function () {};
 
   this.user = function () {};
+
+  this.isVerified = function () {
+    return false;
+  };
 
   this.rules = function () {
     return {
@@ -17616,6 +17646,93 @@ var Bus = new function () {
 }();
 var listeners = [];
 /* harmony default export */ __webpack_exports__["default"] = (Bus);
+
+/***/ }),
+
+/***/ "./resources/js/vueplugins/ContextMenu.js":
+/*!************************************************!*\
+  !*** ./resources/js/vueplugins/ContextMenu.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_ContextMenu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/ContextMenu */ "./resources/js/components/ContextMenu.vue");
+
+var Context = new function () {
+  function onRightClick(event, items, vnode, el) {
+    menu.marginTop = event.pageY;
+    menu.marginLeft = event.pageX;
+    menu.target = el;
+    menu.items = items;
+    menu.show();
+  }
+
+  function wrappMethod(target, items, vnode, el) {
+    return function (event) {
+      if (!!!menu) throw Error('Any context components hasnt been created');
+      event.preventDefault();
+      event.stopPropagation();
+      target(event, items, vnode, el);
+    };
+  }
+
+  this.setMenu = function (vm) {
+    if (menu) menu.hide();
+    menu = vm;
+  };
+
+  this.bind = function (el, binding, vnode) {
+    if (binding.arg != 'items') return;
+    var listener = {
+      target: el,
+      items: binding.value
+    };
+    el.addEventListener('contextmenu', wrappMethod(onRightClick, listener.items, vnode, el));
+    listenrs.push(listener);
+  };
+
+  var listenrs = [];
+  var menu;
+}();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install: function install(Vue) {
+    Vue.component('context-menu', _components_ContextMenu__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    Vue.directive('context', {
+      bind: Context.bind
+    });
+    document.addEventListener('context:mouted', function (event) {
+      return Context.setMenu(event.detail);
+    }, true);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/vueplugins/ErrorHandler.js":
+/*!*************************************************!*\
+  !*** ./resources/js/vueplugins/ErrorHandler.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _components_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/Alert */ "./resources/js/components/Alert.vue");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install: function install(Vue) {
+    Vue.component('alert', _components_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+    Vue.config.errorHandler = function (err, vm, info) {
+      console.log(err);
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('alert-error');
+    };
+  }
+});
 
 /***/ }),
 

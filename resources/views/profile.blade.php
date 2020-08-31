@@ -28,6 +28,8 @@
 
 <reviews></reviews>
 
+<require-email-overlay></require-email-overlay>
+
 <section class="favorites container">
   <h3 class="heading-third">Favorite list</h3>
   <div class="pool pool--four-columns">

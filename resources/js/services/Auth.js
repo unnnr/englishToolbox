@@ -40,6 +40,11 @@ const Auth = new function() {
 
     }
 
+    this.isVerified = () =>
+    {
+        return false;
+    }
+
     this.rules = () =>
     {
         return {

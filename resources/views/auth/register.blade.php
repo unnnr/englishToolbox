@@ -12,9 +12,4 @@
 
 @section('content')
   <register-section></register-section>
-
-  {{-- <section class="register-overlay">
-    <object class="register-overlay__image" data="{{ asset("img/svg/register-overlay.svg") }}" type="image/svg+xml"></object>
-  </section> --}}
-
 @endsection

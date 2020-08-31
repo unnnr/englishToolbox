@@ -1,18 +1,10 @@
- 
-import Vue from 'vue';
-
+import App from '@root/App';
 import RegisterSection from '@components/auth/RegisterSection'
-import ContextMenu from '@components/ContextMenu'
-import Alert from  '@components/Alert'
 
-Vue.config.devtools = true;
+App.withDevtools();
 
-const app = new Vue({
-    el: document.querySelector('main'),
-
-    components: {
-        RegisterSection,
-        ContextMenu,
-        Alert,
-    }
+App.components({
+    RegisterSection
 });
+
+App.boot();

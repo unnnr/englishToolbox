@@ -56,7 +56,7 @@ const Context = new function ()
 }();
 
 export default {
-    install: function (Vue, options)
+    install: function (Vue)
     {
         Vue.component('context-menu', ContextMenuComponent);
 
