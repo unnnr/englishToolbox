@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Events;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
@@ -29,12 +29,16 @@ class VerificationService
             throw new AuthorizationException;
 
         if ($request->user()->hasVerifiedEmail())
-            return response('', Responce::HTTP_NO_CONTENT);
-        
+            return $request->wantsJson() 
+                        ? response('', Responce::HTTP_NO_CONTENT)
+                        : redirect('profile'); 
+
         if ($request->user()->markEmailAsVerified())
             event(new Verified($request->user()));
 
-        return response('', Responce::HTTP_NO_CONTENT);
+        return $request->wantsJson() 
+                    ? response('', Responce::HTTP_NO_CONTENT)
+                    : redirect('profile');     
     }
 
     public function verificationUrl($user)

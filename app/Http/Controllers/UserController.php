@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['register', 'login']);
+        $this->middleware('auth:api')->except(['register', 'login']);
     }
     
     public function register(RegisterUser $request, UserService $service)
@@ -29,11 +29,6 @@ class UserController extends Controller
     public function logout(UserService $service)
     {
         return $service->logout();
-    }
-
-    public function verifyMail($userID, $hash, UserService $service)
-    {
-        return $service->verifyMail($userID, $hash);
     }
 
     public function profile(UserService $service)

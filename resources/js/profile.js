@@ -1,22 +1,17 @@
  
-import Vue from 'vue';
+import App from '@root/app';
 
 import ProfileEditor from '@sections/ProfileEditor'
 import ProfileComments from '@sections/ProfileComments'
 import Reviews from '@sections/Reviews'
-import ContextMenu from '@components/ContextMenu'
-import Alert from  '@components/Alert'
 
-Vue.config.devtools = true;
 
-const app = new Vue({
-    el: document.querySelector('main'),
+App.withDevtools();
 
-    components: {
-        ProfileEditor,
-        ProfileComments,
-        Reviews,
-        ContextMenu,
-        Alert,
-    }
+App.components({
+    ProfileEditor,
+    ProfileComments,
+    Reviews
 });
+
+App.boot();

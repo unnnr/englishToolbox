@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 mix.webpackConfig({
     resolve: {
         alias: {
+            '@root' : path.resolve(__dirname, 'resources/js/'),
             '@models': path.resolve(__dirname, 'resources/js/models/'),
             '@states': path.resolve(__dirname, 'resources/js/vuestates/'),
             '@sections': path.resolve(__dirname, 'resources/js/sections'),
@@ -25,8 +26,8 @@ mix.webpackConfig({
 //.js('resources/js/audio.js', 'public/js')
 //.js('resources/js/videos.js', 'public/js')
 //.js('resources/js/login.js', 'public/js')
-.js('resources/js/register.js', 'public/js')
-//.js('resources/js/profile.js', 'public/js')
+//.js('resources/js/register.js', 'public/js')
+.js('resources/js/profile.js', 'public/js')
 
 // .browserSync({
 // proxy: 'englishToolbox:80',

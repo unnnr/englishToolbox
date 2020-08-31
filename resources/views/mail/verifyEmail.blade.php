@@ -1,6 +1,6 @@
 @component('mail::message')
 
-    NONO
+    URL 
 
     @component('mail::button', ['url' => $url])
         verify

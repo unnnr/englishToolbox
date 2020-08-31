@@ -173,6 +173,7 @@ export default {
             let data = new FormData(form);
 
             return   Auth.register(data);
+            
             if (this.validate())
                 Auth.register(data).then(this.redirect).catch(this.parseErrors);
         },
