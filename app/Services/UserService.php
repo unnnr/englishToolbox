@@ -27,8 +27,8 @@ class UserService
         Auth::login($user, self::REMEMBER_ME);
 
 
-        $user->sendEmailVerificationNotification();
-        //event(new Registered($user));
+        // $user->sendEmailVerificationNotification();
+        event(new Registered($user));
 
         return (new UserResource($user))
             ->response()
@@ -50,6 +50,11 @@ class UserService
         // Refresh token
         
         return new UserResource($user);
+    }
+
+    public function verifyMail($userID, $hash)
+    {
+
     }
 
     public function currentUser()

@@ -31,6 +31,11 @@ class UserController extends Controller
         return $service->logout();
     }
 
+    public function verifyMail($userID, $hash, UserService $service)
+    {
+        return $service->verifyMail($userID, $hash);
+    }
+
     public function profile(UserService $service)
     {
         return $service->currentUser();

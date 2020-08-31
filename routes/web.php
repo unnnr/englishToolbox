@@ -36,7 +36,7 @@ Route::post('login', 'UserController@login');
 
 Route::get('user', 'UserController@profile');
 
-Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail');
+Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 
 // Route::get('schemas', 'SchemaController@index')->name('schemas');
 

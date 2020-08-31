@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Services\VerificationService;
 
 class VerifyEmailMail extends Mailable
 {
@@ -31,9 +32,10 @@ class VerifyEmailMail extends Mailable
     {
         $email = $this->user->email;
         $name = $this->user->name;
+        $url = app(VerificationService::class)->verificationUrl($this->user);
 
         return $this->to($email, $name)
-        ->markdown('mail.verifyEmail')
-        ->with([ 'url' => 123]);
+            ->markdown('mail.verifyEmail')
+            ->with([ 'url' => $url]);
     }
 }

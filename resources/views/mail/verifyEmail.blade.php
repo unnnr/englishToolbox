@@ -2,7 +2,7 @@
 
     NONO
 
-    @component('mail::button', ['url' => '123'])
+    @component('mail::button', ['url' => $url])
         verify
     @endcomponent
 

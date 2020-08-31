@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
@@ -36,14 +37,14 @@ class VerificationService
         return response('', Responce::HTTP_NO_CONTENT);
     }
 
-    public function verificationUrl($notifiable)
+    public function verificationUrl($user)
     {
         return URL::temporarySignedRoute(
             'verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification()),
+                'id' => $user->getKey(),
+                'hash' => sha1($user->getEmailForVerification()),
             ]
         );
     }
