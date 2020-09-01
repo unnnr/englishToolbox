@@ -3,7 +3,6 @@ import Alert from  '@components/Alert'
 
 export default {
     install: function(Vue) {
-
         Vue.component('alert', Alert);
 
         Vue.config.errorHandler = (err, vm, info) =>

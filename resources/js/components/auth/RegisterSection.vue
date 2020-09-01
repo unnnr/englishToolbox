@@ -10,7 +10,7 @@
             <h4 class="auth__title heading-fourth">Sing up</h4>
             <div 
                 class="auth__input-group auth__input-group--account"
-                :class="{'auth__input-group--error':  errors.name}">
+                :class="'auth__input-group' + getIconGroup('name')">
 
                 <input 
                     class="auth__input input-main" 
@@ -20,13 +20,14 @@
                     v-model="data.name"
                     :maxlength="rules.name.max"
                     :minlength="rules.name.min" 
+                    @blur="checkName"
                     required>
 
                 <small class="auth__input-error"> {{ errors.name }}</small>
             </div>
             <div 
                 class="auth__input-group auth__input-group--email"
-                :class="{'auth__input-group--error':  errors.email}">
+                :class="'auth__input-group' + getIconGroup('email')">
 
                 <input 
                     class="auth__input input-main"
@@ -34,13 +35,14 @@
                     name="email" 
                     placeholder="your email" 
                     v-model="data.email"
+                    @blur="checkEmail"
                     required>
 
                 <small class="auth__input-error"> {{ errors.email }} </small>
             </div>
             <div 
                 class="auth__input-group auth__input-group--password"
-                :class="{'auth__input-group--error':  errors.password}">
+                :class="'auth__input-group' + getIconGroup('password')">
                 
                 <input 
                     class="auth__input input-main"
@@ -49,7 +51,8 @@
                     v-model="data.password"
                     :type="passwordType" 
                     :maxlength="rules.password.max"
-                    :minlength="rules.password.min" 
+                    :minlength="rules.password.min"
+                    @blur="checkPassword"
                     required>
 
                 <button 
@@ -63,7 +66,7 @@
             </div>
             <div 
                 class="auth__input-group auth__input-group--password"
-                :class="{'auth__input-group--error':  errors.password}">
+                :class="'auth__input-group' + getIconGroup('confirmation')">
                 
                 <input 
                     class="auth__input input-main" 
@@ -73,6 +76,7 @@
                     :type="passwordType" 
                     :maxlength="rules.password.max"
                     :minlength="rules.password.min" 
+                    @blur="checkConfirmation"
                     required>
                 
                 <small class="auth__input-error"> {{ errors.confirmation }} </small>
@@ -107,8 +111,8 @@
 
 import bus from '@services/eventbus'
 import Auth from '@services/Auth'
+import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
-console.log(Auth.rules());
 export default {
     name: 'register-section',
     
@@ -128,6 +132,13 @@ export default {
                email: '',
                password: '',
                confirmation: ''
+           },
+
+           confirmed: {
+                name: false,
+                email: false, 
+                password: false,
+                confirmation: false,
            },
 
            rules: Auth.rules()
@@ -159,6 +170,63 @@ export default {
     },    
 
     methods: {
+        check(label, validator, options) {
+
+            let validation = validator(options);
+
+            if (validation.passed)
+            {
+                this.errors[label] = '';
+                this.confirmed[label] = true;
+
+                return true;
+            }
+            
+            this.errors[label] = validation.message;
+            this.confirmed[label] = false;
+            
+            return false;
+        },
+
+        checkName() {
+            return this.check('name', isName, {
+                target: this.data.name,
+                min: this.rules.name.min,
+                max: this.rules.name.max
+            });
+        },
+
+        checkEmail() {
+            return this.check('email', isEmail, {
+                target: this.data.email,
+            });
+        },
+
+        checkPassword() {
+            return this.check('password', isPassword, {
+                target: this.data.password,
+                min: this.rules.password.min,
+                max: this.rules.password.max
+            });
+        },
+
+        checkConfirmation() {
+            return this.check('confirmation', isConfirmation, {
+                target: this.data.password,
+                confirmation: this.data.confirmation
+
+            });
+        },
+
+        
+        getIconGroup(label) {
+            if (this.confirmed[label])
+                return '--success';
+
+            else if (this.errors[label])
+                return '--error';
+        },
+
         togglePreview() {
             this.isPasswordShown = !!!this.isPasswordShown;
         },
@@ -172,38 +240,40 @@ export default {
             
             let data = new FormData(form);
 
-            return   Auth.register(data);
-            
+            return Auth.register(data).catch(this.parseErrors);
+        
             if (this.validate())
                 Auth.register(data).then(this.redirect).catch(this.parseErrors);
         },
 
         validate() {
-            if (this.data.password === this.data.confirmation)
-                return true;
+            let validators = [
+                this.checkName,
+                this.checkEmail,
+                this.checkPassword,
+                this.checkConfirmation
+            ];
 
-            this.errors.password = 'The password confirmation does not match';
-            return false;
+
+            for (const validator of validators)
+            {
+                if (!!!validator())
+                    return false;
+            }
+
+            return true;
         },
 
         parseErrors(error) { 
-            console.log(error);
-
             if (error.status == 422)
             {
                 let data = error.body.errors;
-
-                if (data.name)
-                    this.errors.name = data.name.join('. ');    
-
-                if (data.email)
-                    this.errors.email = data.email.join('. ');
-
-                if (data.password)
-                    this.errors.password = data.password.join('. ');;   
-
-                if (data.confirmation)
-                    this.errors.password = data.confirmation.join('. ');    
+    
+                for (let [label, messages] of Object.entries(data))
+                {
+                    this.errors[label] = messages.join('. ');
+                    this.confirmed[label] = false;  
+                }
 
                 return;
             }

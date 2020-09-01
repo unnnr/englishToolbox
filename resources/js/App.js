@@ -10,13 +10,18 @@ export default new function()
     function init()
     {
         target =  document.querySelector('main');
-        
-        components = { };
     }
 
     this.components  = (elements) =>
     {
         Object.assign(components, elements);
+
+        return this;
+    }
+
+    this.plugins = (elements) =>
+    {
+        Object.assign(plugins, elements);
 
         return this;
     }
@@ -30,9 +35,8 @@ export default new function()
 
     this.boot = () =>
     {
-        Vue.use(ErrorHandling);
-        Vue.use(vClickOutside);
-        Vue.use(ContextMenu);
+        for (const [name, plugin] of   Object.entries(plugins))
+            Vue.use(plugin);
 
         new Vue({
             el: target,
@@ -43,7 +47,13 @@ export default new function()
         });
     }
 
-    let components = [];
+    let components = {};
+    let plugins = {
+        ErrorHandling,
+        vClickOutside,
+        ContextMenu
+    };
+
     let target;
 
     init();
