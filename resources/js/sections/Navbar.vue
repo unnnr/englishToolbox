@@ -35,27 +35,37 @@
         </div>
 
         <div class="navbar-mobile">
-            <button  class="navbar-mobile__button navbar-mobile__button--show"><span class="material-icons-round">menu</span></button>
-        
+            <button  
+                class="navbar-mobile__button navbar-mobile__button--show"
+                @click="showMobileNav">
+                
+                <span class="material-icons-round">menu</span>
+            </button>
             <a 
                 class="navbar-mobile__logo"
                 :href="homeUrl">
 
                 Namehere
             </a>
-            <nav class="navbar-mobile__links">
+            <nav 
+                class="navbar-mobile__links"
+                :class="{'navbar-mobile__links--slide': isMobileNavShown}">
+
                 <div class="navbar-mobile__header">
                     <!-- <a href="#" class="navbar-mobile__account-link"><span class="material-icons-round">account_circle</span></a> -->
-                    <button class="navbar-mobile__button navbar-mobile__button--hide"><span class="material-icons-round">clear</span></button>
+                    <button
+                        class="navbar-mobile__button navbar-mobile__button--hide"
+                        @click="hideMobileNav">
+                        
+                        <span class="material-icons-round">clear</span>
+                    </button>
                 </div>
-      
                 <a
                     class="navbar-mobile__link"
                     :href="homeUrl">
                     
                     Name
                 </a>
-
                 <a
                     class="navbar-mobile__link"
                     v-for="(link, index) in links"
@@ -64,7 +74,6 @@
                     
                     {{ link.label }}
                 </a>
-
                 <div class="navbar-mobile__footer">
                     <a 
                         class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in"
@@ -80,17 +89,23 @@
                     </a>
                 </div>
             </nav>
-            <div class="navbar-mobile__overlay"></div>
+            <div 
+                class="navbar-mobile__overlay"
+                :class="{'navbar-mobile__overlay--visible': isMobileNavShown}"></div>
         </div>
     </section>
 </template>
 
 <script>
+import Auth from '@services/Auth';
+
 export default {
     name: 'navbar',
 
     data: function() {
         return {
+            isMobileNavShown: false,
+
             links: [
                 { label: 'about me', uri:'home'},
                 { label: 'videos'},
@@ -100,6 +115,30 @@ export default {
                 { label: 'i recommend', uri:'recommend'},
 
             ]
+        }
+    },
+
+    computed: {
+        homeUrl() {
+            return window.origin + '/home';
+        }, 
+        
+        loginUrl() {
+            return window.origin + '/login';
+        }, 
+
+        registerUrl() {
+            return window.origin + '/register';
+        }
+    },
+
+    methods: {
+        showMobileNav() {
+            this.isMobileNavShown = true;
+        },
+
+        hideMobileNav() {
+            this.isMobileNavShown = false;
         }
     },
 
@@ -117,18 +156,5 @@ export default {
         }       
     },
 
-    computed: {
-        homeUrl() {
-            return window.origin + '/home';
-        }, 
-        
-        loginUrl() {
-            return window.origin + '/login';
-        }, 
-
-        registerUrl() {
-            return window.origin + '/register';
-        }
-    }
 }
 </script>

@@ -270,6 +270,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -363,10 +364,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'navbar',
   data: function data() {
     return {
+      isMobileNavShown: false,
       links: [{
         label: 'about me',
         uri: 'home'
@@ -384,6 +398,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }]
     };
   },
+  computed: {
+    homeUrl: function homeUrl() {
+      return window.origin + '/home';
+    },
+    loginUrl: function loginUrl() {
+      return window.origin + '/login';
+    },
+    registerUrl: function registerUrl() {
+      return window.origin + '/register';
+    }
+  },
+  methods: {
+    showMobileNav: function showMobileNav() {
+      this.isMobileNavShown = true;
+    },
+    hideMobileNav: function hideMobileNav() {
+      this.isMobileNavShown = false;
+    }
+  },
   beforeMount: function beforeMount() {
     var _iterator = _createForOfIteratorHelper(this.links),
         _step;
@@ -400,17 +433,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _iterator.e(err);
     } finally {
       _iterator.f();
-    }
-  },
-  computed: {
-    homeUrl: function homeUrl() {
-      return window.origin + '/home';
-    },
-    loginUrl: function loginUrl() {
-      return window.origin + '/login';
-    },
-    registerUrl: function registerUrl() {
-      return window.origin + '/register';
     }
   }
 });
@@ -3084,7 +3106,14 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "navbar-mobile" }, [
-      _vm._m(0),
+      _c(
+        "button",
+        {
+          staticClass: "navbar-mobile__button navbar-mobile__button--show",
+          on: { click: _vm.showMobileNav }
+        },
+        [_c("span", { staticClass: "material-icons-round" }, [_vm._v("menu")])]
+      ),
       _vm._v(" "),
       _c(
         "a",
@@ -3094,9 +3123,26 @@ var render = function() {
       _vm._v(" "),
       _c(
         "nav",
-        { staticClass: "navbar-mobile__links" },
+        {
+          staticClass: "navbar-mobile__links",
+          class: { "navbar-mobile__links--slide": _vm.isMobileNavShown }
+        },
         [
-          _vm._m(1),
+          _c("div", { staticClass: "navbar-mobile__header" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "navbar-mobile__button navbar-mobile__button--hide",
+                on: { click: _vm.hideMobileNav }
+              },
+              [
+                _c("span", { staticClass: "material-icons-round" }, [
+                  _vm._v("clear")
+                ])
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c(
             "a",
@@ -3158,34 +3204,14 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "navbar-mobile__overlay" })
+      _c("div", {
+        staticClass: "navbar-mobile__overlay",
+        class: { "navbar-mobile__overlay--visible": _vm.isMobileNavShown }
+      })
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "navbar-mobile__button navbar-mobile__button--show" },
-      [_c("span", { staticClass: "material-icons-round" }, [_vm._v("menu")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-mobile__header" }, [
-      _c(
-        "button",
-        { staticClass: "navbar-mobile__button navbar-mobile__button--hide" },
-        [_c("span", { staticClass: "material-icons-round" }, [_vm._v("clear")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
