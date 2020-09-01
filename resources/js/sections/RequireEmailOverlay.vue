@@ -16,12 +16,7 @@
 import Auth from  '@services/Auth';
 
 export default {
-    name: 'require-email-overlay', 
-
-    data: function() {
-        return {
-        }
-    },
+    name: 'require-email-overlay',
 
     computed: {
         imageUrl() {
@@ -32,7 +27,6 @@ export default {
             return !!!Auth.isVerified();
         }
     }
-
 }
 </script>
 

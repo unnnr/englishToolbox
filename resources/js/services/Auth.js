@@ -2,6 +2,12 @@ import Http from '@services/Http';
 
 const Auth = new function() {
 
+    async function init()
+    {
+        user = await Http.get('user');
+        window.user = user; 
+    }
+
     this.login = async (data) => 
     {
         let response = await Http.post('login', data);
@@ -24,12 +30,15 @@ const Auth = new function() {
 
     this.user = () =>
     {
+        if (!!!user)
+            return null;
 
+        return { ...user };
     }
 
     this.isVerified = () =>
     {
-        return false;
+        return user.verified;
     }
 
     this.rules = () =>
@@ -46,6 +55,10 @@ const Auth = new function() {
             }
         }
     }
+
+    let user = null; 
+
+    init();
 }();
 
 export default Auth;

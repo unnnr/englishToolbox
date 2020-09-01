@@ -52,6 +52,13 @@ class UserService
         return new UserResource($user);
     }
 
+    public function logout()
+    {
+        Auth::logout();
+
+        return response('', Response::HTTP_NO_CONTENT);
+    }
+
     public function verifyMail($userID, $hash)
     {
 

@@ -46,7 +46,7 @@ export default {
     name: 'profile-editor',
 
     data: function () {
-        
+        return {}
     }
 }
 </script>

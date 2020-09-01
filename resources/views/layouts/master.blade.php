@@ -27,7 +27,7 @@
         'audio', 
         ['schemas' => '#'],
         'games', 
-        ['i recomend' => 'recomend']
+        ['i recommend' => 'recommend']
       ]);
     @endphp
     
@@ -35,7 +35,7 @@
 
     <context-menu></context-menu>
 
-    @include('sections.navbar', ['links' => $links])
+    <navbar></navbar>
 
     @yield('content')
 

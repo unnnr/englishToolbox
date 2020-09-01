@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['register', 'login']);
+        $this->middleware('auth')->except(['register', 'login', 'logout']);
     }
     
     public function register(RegisterUser $request, UserService $service)

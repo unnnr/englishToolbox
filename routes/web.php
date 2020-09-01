@@ -34,10 +34,12 @@ Route::post('register', 'UserController@register');
 
 Route::post('login', 'UserController@login');
 
+Route::get('logout', 'UserController@logout');
+
 Route::get('user', 'UserController@profile');
 
 Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 
 // Route::get('schemas', 'SchemaController@index')->name('schemas');
 
-// Route::get('recomend', function(){ return view("recomend");})->name('recomend');
+Route::get('recommend', function(){ return view("recomend");})->name('recommend');

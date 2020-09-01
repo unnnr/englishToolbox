@@ -2,6 +2,7 @@
 import Vue from 'vue';
 
 import vClickOutside from 'v-click-outside'
+import Navbar from '@sections/Navbar'
 import ContextMenu from '@plugins/ContextMenu'
 import ErrorHandling from '@plugins/ErrorHandler';
 
@@ -47,7 +48,10 @@ export default new function()
         });
     }
 
-    let components = {};
+    let components = {
+        Navbar
+    };
+
     let plugins = {
         ErrorHandling,
         vClickOutside,

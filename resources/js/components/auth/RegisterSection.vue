@@ -240,8 +240,6 @@ export default {
             
             let data = new FormData(form);
 
-            return Auth.register(data).catch(this.parseErrors);
-        
             if (this.validate())
                 Auth.register(data).then(this.redirect).catch(this.parseErrors);
         },
@@ -253,7 +251,6 @@ export default {
                 this.checkPassword,
                 this.checkConfirmation
             ];
-
 
             for (const validator of validators)
             {
