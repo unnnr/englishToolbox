@@ -1,23 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Tag\CreateTag;
-use App\Http\Requests\Tag\UpdateTag;
-use App\Http\Requests;
-use App\Services\TagService;
+use Illuminate\Http\Request;
 
-class TagController extends Controller
+class Comments extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TagService $tagService)
+    public function index()
     {
-        return $tagService->all();
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,20 +32,31 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTag $request, TagService $tagService)
+    public function store(Request $request)
     {
-        return $tagService->create($request);
+        //
     }
 
     /**
-     * Return the specified tag.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id, TagService $tagService)
+    public function show($id)
     {
- 
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -49,9 +66,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, TagService $tagService)
+    public function update(Request $request, $id)
     {
-        return $tagService->update($id,  $request);
+        //
     }
 
     /**

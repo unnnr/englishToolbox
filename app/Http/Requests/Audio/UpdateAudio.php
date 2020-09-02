@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Audio;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginUser extends FormRequest
+class UpdateAudio extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,15 @@ class LoginUser extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|between:5,64',
+            'title' => 'max:50',
+            'description' => 'max:180',
+
+            'audioFile' => 'max:10240|mimes:mpga,wav',
+            'imageFile' => 'max:10240|image',
+
+            'mainTag' => 'numeric',  
+            'tags.*' => 'numeric|distinct',
+            'tags' => 'array|max:4'
         ];
     }
 }

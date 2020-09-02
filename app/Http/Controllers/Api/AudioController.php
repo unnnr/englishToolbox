@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UploadAudio;
-use App\Http\Requests\UpdateAudio;
 use App\Services\Posts\AudioService;
+use App\Http\Requests\Audio\CreateAudio;
+use App\Http\Requests\Audio\UpdateAudio;
 
 class AudioController extends Controller
 {
@@ -26,7 +26,7 @@ class AudioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AudioService $audioService, UploadAudio $request)
+    public function store(AudioService $audioService, CreateAudio $request)
     {
         return $audioService->create($request); 
     }

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Posts\VideoService;
-use App\Http\Requests\UploadVideo;
-use App\Http\Requests\UpdateVideo;
-use App\Http\Requests\DeleteVideo;
+use App\Http\Requests\Video\CreateVideo;
+use App\Http\Requests\Video\UpdateVideo;
+use App\Http\Requests\Video\DeleteVideo;
 
 
 class VideoController extends Controller

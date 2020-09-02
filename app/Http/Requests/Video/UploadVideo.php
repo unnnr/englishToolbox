@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Video;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Alaouy\Youtube\Rules\ValidYoutubeVideo;
 
-class UpdateVideo extends FormRequest
+use App\Rules\YoutubeID;
+
+class CreateVideo extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +26,14 @@ class UpdateVideo extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'tags' => ['array', 'max:4', 'nullable'],  
-            'tags.*' => ['numeric', 'distinct'],
-            'mainTag' => ['numeric', 'nullable'],
-            'videoUrl' => ['string', 'max:300',  new ValidYoutubeVideo],
-            'description' => ['string', 'nullable', 'max:180'],
+             //  'unique:videos,videoID'
+            'videoUrl' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
+            'description' => ['max:180'],
+            'mainTag' => ['numeric'],
+            'tags' => ['array', 'max:4'],  
+            'tags.*' => ['numeric', 'distinct']
         ];
     }
 }

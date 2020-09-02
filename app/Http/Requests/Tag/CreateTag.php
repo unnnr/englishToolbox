@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAudio extends FormRequest
+class CreateTag extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,8 @@ class UpdateAudio extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'max:50',
-            'description' => 'max:180',
-
-            'audioFile' => 'max:10240|mimes:mpga,wav',
-            'imageFile' => 'max:10240|image',
-
-            'mainTag' => 'numeric',  
-            'tags.*' => 'numeric|distinct',
-            'tags' => 'array|max:4'
+            'label' => 'required|string|unique:tags|max:40',
+            'color' => 'required|string|max:40',
         ];
     }
 }

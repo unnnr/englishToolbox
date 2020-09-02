@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Schema;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTag extends FormRequest
+class CreateSchema extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CreateTag extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|string|unique:tags|max:40',
-            'color' => 'required|string|max:40',
+            'title' => 'required|max:100',
+            'image' => 'required|image|max:20480'
         ];
     }
 }
