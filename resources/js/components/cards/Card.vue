@@ -64,15 +64,40 @@ export default {
     },
     
     props: {
-        title: String,
-        description: String,
-        imageUrl: String,
+        title: {
+            type: String, 
+            default: ''
+        },
 
-        tags: Array,
+        description: {
+            type: String, 
+            default: ''
+        },
 
-        mainTag: Object,
-        
-        selected: Boolean
+        imageUrl: {
+            type: String,
+            default: '#',
+        },
+
+        tags: {
+            type: Array, 
+            default: []
+        },
+
+        mainTag: {
+            type: Object,
+            default: null
+        },
+
+        selected:  {
+            type: Boolean,
+            default: false
+        },
+
+        editable:  {
+            type: Boolean,
+            default: false
+        }   
     },
 
     data: function() {
@@ -83,34 +108,34 @@ export default {
                     action: () => {
                         bus.dispatch('card-selecting', { card: this });
                     }
-                },
-                {   
-                    label: 'Edit',
-                    action: () => {
-                        bus.dispatch('card-editing', { card: this });
-                    } 
-                },
-                { 
-                    label: 'Delete',
-                    action: () => {
-                        bus.dispatch('card-deleting', { card: this});
-                    } 
-                },
+                }
             ]
         }   
     },
 
     methods: {
-
         select() {
-
             bus.dispatch('card-selecting', { card: this });
         }
     },
 
+    beforeMount() {
+        if (!!!this.editable)
+            return;
 
-    mounted() {
-
+        this.contextItems.push( {   
+                label: 'Edit',
+                action: () => {
+                    bus.dispatch('card-editing', { card: this });
+                } 
+            },
+            { 
+                label: 'Delete',
+                action: () => {
+                    bus.dispatch('card-deleting', { card: this});
+                } 
+            },
+        )
     }
 }
 </script>

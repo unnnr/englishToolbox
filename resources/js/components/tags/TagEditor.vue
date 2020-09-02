@@ -202,9 +202,7 @@ export default {
                     if (this.toggle(tag))
                         this.main = tag; 
                 }
-            }
-
-        
+            }        
         },
 
         toggle(tag) {

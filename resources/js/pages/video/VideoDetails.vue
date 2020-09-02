@@ -18,23 +18,24 @@
 </template>
 
 <script>
-import bus from '@services/eventbus';
-import VideoEditor from "@pages/video/VideoEditor.vue";
-import PostPresentor from "@components/posts/PostPresentor.vue";
+import bus from '@services/eventbus'
+import VideoEditor from "@pages/video/VideoEditor.vue"
+import PostPresentor from "@components/posts/PostPresentor.vue"
 
 export default {
 	name: "video-details",
+
+	components: {
+    	PostPresentor,
+    	VideoEditor,
+	},
+
 
 	data: function () {
 		return {
 			editing: false,
 			target: null
 		}
-	},
-
-	components: {
-    	PostPresentor,
-    	VideoEditor,
 	},
 
 	mounted() {

@@ -21,14 +21,12 @@ const Auth = new function() {
     {
         let response = await Http.post('register', data); 
 
-        console.log(response); 
+        return response;
     }
 
-
-    this.check = () =>
-    {
-
-    }
+    this.isAdmin = () => {
+        return user.admin;
+    },
 
     this.user = () =>
     {

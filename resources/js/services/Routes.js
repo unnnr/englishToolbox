@@ -27,14 +27,12 @@ export default new function()
     {
         for (const {label, url, active} of [...links, ...additional])
         {
-            console.log(label, name);
             if (label !== name)
                 continue;
 
             if (active)
                 break;
 
-            console.log(url);
             return url;
         } 
 

@@ -499,12 +499,34 @@ __webpack_require__.r(__webpack_exports__);
     ContextMenu: _components_ContextMenu__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
-    title: String,
-    description: String,
-    imageUrl: String,
-    tags: Array,
-    mainTag: Object,
-    selected: Boolean
+    title: {
+      type: String,
+      "default": ''
+    },
+    description: {
+      type: String,
+      "default": ''
+    },
+    imageUrl: {
+      type: String,
+      "default": '#'
+    },
+    tags: {
+      type: Array,
+      "default": []
+    },
+    mainTag: {
+      type: Object,
+      "default": null
+    },
+    selected: {
+      type: Boolean,
+      "default": false
+    },
+    editable: {
+      type: Boolean,
+      "default": false
+    }
   },
   data: function data() {
     var _this = this;
@@ -514,20 +536,6 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Open',
         action: function action() {
           _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-selecting', {
-            card: _this
-          });
-        }
-      }, {
-        label: 'Edit',
-        action: function action() {
-          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-editing', {
-            card: _this
-          });
-        }
-      }, {
-        label: 'Delete',
-        action: function action() {
-          _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-deleting', {
             card: _this
           });
         }
@@ -541,7 +549,26 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {}
+  beforeMount: function beforeMount() {
+    var _this2 = this;
+
+    if (!!!this.editable) return;
+    this.contextItems.push({
+      label: 'Edit',
+      action: function action() {
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-editing', {
+          card: _this2
+        });
+      }
+    }, {
+      label: 'Delete',
+      action: function action() {
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('card-deleting', {
+          card: _this2
+        });
+      }
+    });
+  }
 });
 
 /***/ }),
@@ -597,11 +624,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/* harmony import */ var _models_Cards__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Cards */ "./resources/js/models/Cards.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _components_cards_Card_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/cards/Card.vue */ "./resources/js/components/cards/Card.vue");
-/* harmony import */ var _components_cards_NewCard_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/cards/NewCard.vue */ "./resources/js/components/cards/NewCard.vue");
+/* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Cards__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Cards */ "./resources/js/models/Cards.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _components_cards_Card_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @components/cards/Card.vue */ "./resources/js/components/cards/Card.vue");
+/* harmony import */ var _components_cards_NewCard_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @components/cards/NewCard.vue */ "./resources/js/components/cards/NewCard.vue");
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -643,6 +671,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -653,7 +685,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   name: 'pool',
   data: function data() {
     return {
-      moveClass: 'asdds',
+      canCreateContent: false,
+      moveClass: 'static',
       cards: []
     };
   },
@@ -663,24 +696,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   components: {
-    Card: _components_cards_Card_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    NewCard: _components_cards_NewCard_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    Card: _components_cards_Card_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    NewCard: _components_cards_NewCard_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   beforeMount: function beforeMount() {
     var _this = this;
 
-    _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
-      _this.appendCards(_models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].all());
+    _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].onload(function () {
+      _this.appendCards(_models_Cards__WEBPACK_IMPORTED_MODULE_4__["default"].all());
 
       var firstCard = _this.cards[0];
       if (!!!firstCard) return;
       var id = Number(firstCard.id);
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(id);
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].get(id);
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post,
         disableScrolling: true
       });
     }, 1000);
+    _services_Auth__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
+      _this.canCreateContent = _services_Auth__WEBPACK_IMPORTED_MODULE_2__["default"].isAdmin();
+    });
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -692,14 +728,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-creating');
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-created', function (event) {
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_4__["default"].get(event.post.id);
 
       _this2.cards.push(newCard);
     }); // Selecting listeners
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-selecting', function (event) {
       if (event.card === _this2.selectedCard) return;
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].get(Number(event.card.$vnode.key));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post
       });
@@ -714,14 +750,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }); // Editing listeners
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-editing', function (event) {
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].get(Number(event.card.$vnode.key));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-editing', {
         post: post
       });
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-edited', function (event) {
       var post = event.post;
-      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(post.id);
+      var newCard = _models_Cards__WEBPACK_IMPORTED_MODULE_4__["default"].get(post.id);
 
       var card = _this2.getCardById(post.id);
 
@@ -729,7 +765,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }); // Deleting listeners
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('card-deleting', function (event) {
-      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].get(Number(event.card.$vnode.key));
+      var post = _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].get(Number(event.card.$vnode.key));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-deleting', {
         post: post
       });
@@ -751,7 +787,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                           switch (_context.prev = _context.next) {
                             case 0:
                               _context.next = 2;
-                              return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](post.id);
+                              return _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"]["delete"](post.id);
 
                             case 2:
                               _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-deleted', {
@@ -787,7 +823,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       };
     }());
     _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].listen('post-deleted', function (event) {
-      var card = _models_Cards__WEBPACK_IMPORTED_MODULE_3__["default"].get(event.post.id);
+      var card = _models_Cards__WEBPACK_IMPORTED_MODULE_4__["default"].get(event.post.id);
       if (_this2.selectedCard == card) _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         card: _this2.cards[0]
       });
@@ -798,9 +834,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
   },
   methods: {
-    move: function move() {
-      console.log('Moving');
-    },
     getCardById: function getCardById(id) {
       var _iterator = _createForOfIteratorHelper(this.cards),
           _step;
@@ -839,7 +872,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var DURATION = 500;
       var poolCards = this.cards;
       var self = this;
-      this.moveClass = 'ass';
+      this.moveClass = 'static';
       appendRecursively(cards);
     }
   }
@@ -1705,15 +1738,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "video-details",
+  components: {
+    PostPresentor: _components_posts_PostPresentor_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    VideoEditor: _pages_video_VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       editing: false,
       target: null
     };
-  },
-  components: {
-    PostPresentor: _components_posts_PostPresentor_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    VideoEditor: _pages_video_VideoEditor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     var _this = this;
@@ -5090,7 +5123,9 @@ var render = function() {
       attrs: { name: "list", tag: "section", "move-class": _vm.moveClass }
     },
     [
-      _c("new-card", { key: -1, attrs: { postType: "video" } }),
+      _vm.canCreateContent
+        ? _c("new-card", { key: -1, attrs: { postType: "video" } })
+        : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.reversed, function(ref) {
         var id = ref.id
@@ -5108,6 +5143,7 @@ var render = function() {
             mainTag: mainTag,
             selected: selected,
             imageUrl: thumbnail,
+            editable: _vm.canCreateContent,
             description: description
           }
         })
@@ -20252,7 +20288,7 @@ var Auth = new function () {
 
             case 2:
               response = _context2.sent;
-              console.log(response);
+              return _context2.abrupt("return", response);
 
             case 4:
             case "end":
@@ -20267,9 +20303,9 @@ var Auth = new function () {
     };
   }();
 
-  this.check = function () {};
-
-  this.user = function () {
+  this.isAdmin = function () {
+    return user.admin;
+  }, this.user = function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
   };
@@ -20483,10 +20519,8 @@ __webpack_require__.r(__webpack_exports__);
           label = _arr2$_i.label,
           url = _arr2$_i.url,
           active = _arr2$_i.active;
-      console.log(label, name);
       if (label !== name) continue;
       if (active) break;
-      console.log(url);
       return url;
     }
 

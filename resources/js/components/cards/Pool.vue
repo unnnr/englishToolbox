@@ -4,8 +4,10 @@
         tag="section"
         class="pool container"
         :move-class="moveClass">
+        
         <new-card
             postType="video"
+            v-if="canCreateContent"
             :key='-1'/>
         <card
             v-for="({id, tags, mainTag, title, selected, thumbnail, description}) of reversed"
@@ -15,6 +17,7 @@
             :mainTag="mainTag"
             :selected="selected"
             :imageUrl='thumbnail'
+            :editable="canCreateContent"
             :description="description"/>
     </transition-group>
 </template>
@@ -22,6 +25,7 @@
 <script>
 
 import bus from '@services/eventbus';
+import Auth from '@services/Auth'
 import Posts from '@models/Posts';
 import Cards from '@models/Cards';
 import Tags from '@models/Tags';
@@ -34,7 +38,10 @@ export default {
 
     data: function () {
         return {
-            moveClass: 'asdds',
+            canCreateContent: false,
+
+            moveClass: 'static',
+
             cards: []
         };
     },
@@ -65,8 +72,11 @@ export default {
 
             bus.dispatch('post-selecting', { post, disableScrolling: true });
         }, 1000);
-    },
 
+        Auth.onload(() => {
+            this.canCreateContent = Auth.isAdmin();
+        });
+    },
     mounted()
     {
         // Creating liteners 
@@ -170,11 +180,6 @@ export default {
     },
 
     methods: {
-        
-        move() {
-            console.log('Moving');
-        },
-
         getCardById(id) {
             
             for (const card of this.cards)
@@ -209,7 +214,7 @@ export default {
             const poolCards = this.cards;
             const self = this;
 
-            this.moveClass = 'ass';
+            this.moveClass = 'static';
 
             appendRecursively(cards);
         }
