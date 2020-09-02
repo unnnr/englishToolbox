@@ -2,7 +2,7 @@
 import Vue from 'vue';
 
 import vClickOutside from 'v-click-outside'
-import Navbar from '@sections/Navbar'
+import Navbar from '@components/Navbar'
 import ContextMenu from '@plugins/ContextMenu'
 import ErrorHandling from '@plugins/ErrorHandler';
 

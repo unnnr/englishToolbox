@@ -1,19 +1,10 @@
- 
-import Vue from 'vue';
+import App from '@root/App'
+import LoginSection from '@pages/login/LoginSection'
 
-import LoginSection from '@components/auth/LoginSection'
-import ContextMenu from '@components/ContextMenu'
-import Alert from  '@components/Alert'
+App.withDevtools();
 
-
-Vue.config.devtools = true;
-
-const app = new Vue({
-    el: document.querySelector('main'),
-
-    components: {
-        LoginSection,
-        ContextMenu,
-        Alert,
-    }
+App.components({
+    LoginSection
 });
+
+App.boot();

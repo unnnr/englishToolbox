@@ -25,8 +25,8 @@ import bus from '@services/eventbus';
 import Posts from '@models/Posts';
 import Cards from '@models/Cards';
 import Tags from '@models/Tags';
-import Card from '@components/Card.vue';
-import NewCard from '@components/NewCard.vue';
+import Card from '@components/cards/Card.vue';
+import NewCard from '@components/cards/NewCard.vue';
 
 
 export default {

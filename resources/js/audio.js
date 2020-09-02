@@ -1,33 +1,25 @@
+import AudioDetails from  '@pages/audio/AudioDetails'
+import AudioPlayer from  '@pages/audio/AudioPlayer'
+import FilterBar from '@components/posts/FilterBar'
+import Overlay from '@components/posts/Overlay'
+import Audio from '@models/Videos'
 
-import Vue from 'vue';
+import Posts from '@models/Posts'
+import Pool from  '@components/cards/Pool'
 
-import vClickOutside from 'v-click-outside'
-import AudioDetails from  '@components/content/audio/AudioDetails';
-import AudioPlayer from  '@components/content/audio/AudioPlayer';
-import ContextMenu from '@components/ContextMenu'
-import FilterBar from '@components/content/FilterBar'
-import Overlay from '@components/content/Overlay'
-import Audio from '@models/Audio'
-import Posts from '@models/Posts';
-import Alert from '@components/Alert';
-import Pool from  '@components/Pool';
+import App from '@root/App'
 
 
-Posts.self.track(Audio)
+Posts.self.track(Audio);
 
-Vue.config.devtools = true;
-Vue.use(vClickOutside);
+App.withDevtools();
 
-const app = new Vue({
-    el: document.querySelector('main'),
-
-    components: {
-    	AudioPlayer,
-		AudioDetails,
-		ContextMenu,
-		FilterBar,
-		Overlay,
-		Alert,
-		Pool
-    }
+App.components({
+	AudioDetails,
+    AudioPlayer,
+	FilterBar,
+	Overlay,
+	Pool
 });
+
+App.boot();

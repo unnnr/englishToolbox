@@ -19,8 +19,8 @@
 
 <script>
 import bus from '@services/eventbus';
-import VideoEditor from "@components/content/video/VideoEditor.vue";
-import PostPresentor from "@components/content/PostPresentor.vue";
+import VideoEditor from "@pages/video/VideoEditor.vue";
+import PostPresentor from "@components/posts/PostPresentor.vue";
 
 export default {
 	name: "video-details",

@@ -18,8 +18,8 @@
 
 <script>
 import bus from '@services/eventbus';
-import AudioEditor from "@components/content/audio/AudioEditor.vue";
-import PostPresentor from "@components/content/PostPresentor.vue";
+import AudioEditor from "@pages/audio/AudioEditor.vue";
+import PostPresentor from "@components/posts/PostPresentor.vue";
 
 export default {
 	name: "audio-details",

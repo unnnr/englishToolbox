@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import PostInfo from '@components/content/PostInfo.vue';
-import Comments from '@components/content/Comments';
+import PostInfo from '@components/posts/PostInfo.vue';
+import Comments from '@components/posts/Comments';
 
 export default {
     name: 'post-presentor',

@@ -42,8 +42,7 @@
     @include('sections.basement',  ['links' =>  $links])
 
   </main>
-
-  <script src="{{ asset("js/main.js") }}"></script>
+  
   @yield('js')
 
 </body>

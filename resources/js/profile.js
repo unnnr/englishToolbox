@@ -1,10 +1,9 @@
- 
-import App from '@root/App';
+ import App from '@root/App';
 
-import Reviews from '@sections/Reviews'
-import ProfileEditor from '@sections/ProfileEditor'
-import ProfileComments from '@sections/ProfileComments'
-import RequireEmailOverlay from '@sections/RequireEmailOverlay';
+import Reviews from '@pages/profile/Reviews'
+import ProfileEditor from '@pages/profile/ProfileEditor'
+import ProfileComments from '@pages/profile/ProfileComments'
+import RequireEmailOverlay from '@pages/profile/RequireEmailOverlay';
 
 App.withDevtools();
 

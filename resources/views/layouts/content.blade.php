@@ -8,9 +8,9 @@
 
     <section class="selected container">
 
-      {{-- <overlay
+      <overlay
         src="{{ asset("img/svg/selected-overlay.svg") }}">
-      </overlay> --}}
+      </overlay> 
 
       @yield('selected')
 

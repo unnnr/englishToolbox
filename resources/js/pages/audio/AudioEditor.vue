@@ -26,6 +26,7 @@
                     required
                     v-model="audio.title"
                     :maxlength="titleMaxLength">
+                    
                 <label class="editor__label text-fourth" for="">
                     <span>
                         Custom description
@@ -56,6 +57,7 @@
                             accept="image/*"
                             :required='isRequired'
                             @change="updateImage">
+
                     </label>
                     <label class="editor__input-group editor__input-group--audio" for="audio">
                         <span class="editor__file-placeholder text-sixth">{{ audio.audioLabel }}</span>
@@ -68,6 +70,7 @@
                             accept="audio/*"
                             :required='isRequired'
                             @change="updateAudio">
+                            
                     </label>
                 </div>
 

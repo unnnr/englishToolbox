@@ -26,7 +26,8 @@ class RegisterUser extends FormRequest
         return [
             'name' => 'required|string|between:3,32',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|string|between:5,64',
+            'password' => 'required|string|between:5,64',
+            'confirmation' => 'required|same:password',
             'remember_me' => 'boolean'
         ];
     }

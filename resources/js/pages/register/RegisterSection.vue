@@ -1,5 +1,5 @@
 <template>
-    <section class="login-in container">
+    <section class="sign-up container">
         <form 
             method="POST"
             class="auth"
@@ -7,45 +7,79 @@
             ref="form"
             @submit.prevent="submit">
 
-            <h4 class="auth__title heading-fourth">login in</h4>
-            <div
+            <h4 class="auth__title heading-fourth">Sing up</h4>
+            <div 
                 class="auth__input-group auth__input-group--account"
+                :class="'auth__input-group' + getIconGroup('name')">
+
+                <input 
+                    class="auth__input input-main" 
+                    name="name" 
+                    type="text" 
+                    placeholder="your name" 
+                    v-model="data.name"
+                    :maxlength="rules.name.max"
+                    :minlength="rules.name.min" 
+                    @blur="checkName"
+                    required>
+
+                <small class="auth__input-error"> {{ errors.name }}</small>
+            </div>
+            <div 
+                class="auth__input-group auth__input-group--email"
                 :class="'auth__input-group' + getIconGroup('email')">
 
                 <input 
                     class="auth__input input-main"
-                    placeholder="your email"
-                    type="text" 
-                    name="email"
+                    type="email"
+                    name="email" 
+                    placeholder="your email" 
                     v-model="data.email"
-                    @blur="checkEmail" 
+                    @blur="checkEmail"
                     required>
 
-                <small class="auth__input-error">{{ errors.email }}</small>
+                <small class="auth__input-error"> {{ errors.email }} </small>
             </div>
             <div 
                 class="auth__input-group auth__input-group--password"
                 :class="'auth__input-group' + getIconGroup('password')">
                 
-                <input
+                <input 
                     class="auth__input input-main"
-                    placeholder="your password"
                     name="password" 
+                    placeholder="your password" 
                     v-model="data.password"
                     :type="passwordType" 
                     :maxlength="rules.password.max"
-                    :minlength="rules.password.min" 
+                    :minlength="rules.password.min"
                     @blur="checkPassword"
                     required>
 
-                <button
+                <button 
                     class="auth__input-visibility-button material-icons-round"
                     type="button"
                     @click="togglePreview">
-                
+
                     {{ previewIcon }}
                 </button>
-                <small class="auth__input-error">{{ errors.password }}</small>
+                <small class="auth__input-error"> {{  errors.password }} </small>
+            </div>
+            <div 
+                class="auth__input-group auth__input-group--password"
+                :class="'auth__input-group' + getIconGroup('confirmation')">
+                
+                <input 
+                    class="auth__input input-main" 
+                    name="confirmation" 
+                    placeholder="repeat password" 
+                    v-model="data.confirmation"
+                    :type="passwordType" 
+                    :maxlength="rules.password.max"
+                    :minlength="rules.password.min" 
+                    @blur="checkConfirmation"
+                    required>
+                
+                <small class="auth__input-error"> {{ errors.confirmation }} </small>
             </div>
             <button class="auth__input-button button-main" type="submit">confirm</button>
             <div class="login-with">
@@ -57,13 +91,13 @@
                 </div>
                 <a 
                     class="login-with__link text-fourth"
-                    :href="registerUrl">
+                    :href="loginUrl">
                     
                     Already have an account?
                 </a>
             </div>
         </form>
-        <div class="form__poster form__poster--login-in">
+        <div class="form__poster">
             <object 
                 class="form__img"
                 type="image/svg+xml"
@@ -80,40 +114,38 @@ import Auth from '@services/Auth'
 import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
 export default {
-    name: 'login-section',
+    name: 'register-section',
     
     data: function() {
         return {
            isPasswordShown: false,
            
-            data: { 
+           data: {
+               name: '',
                email: '',
-               password: ''
-            },
+               password: '',
+               confirmation: ''
+           },
 
-            errors: {
+           errors: {
+               name: '',
                email: '',
-               password: ''
-            },
+               password: '',
+               confirmation: ''
+           },
 
-            confirmed: {
-                email: false,
-                password: false
-            },
-            
-            rules: Auth.rules()
+           confirmed: {
+                name: false,
+                email: false, 
+                password: false,
+                confirmation: false,
+           },
+
+           rules: Auth.rules()
         }   
     },
 
     computed: {
-        imageUrl() {
-            return window.origin + '/img/svg/login.svg';
-        },
-
-        registerUrl() {
-            return window.origin + '/register';
-        },
-
         previewIcon() {
             if (this.isPasswordShown)
                 return 'visibility_off';
@@ -126,26 +158,18 @@ export default {
                 return 'text';
 
             return 'password';
+        },
+
+        imageUrl() {
+            return window.origin + '/img/svg/register.svg';
+        },
+
+        loginUrl() {
+            return window.origin + '/login';
         }
-    },      
+    },    
 
     methods: {
-        togglePreview() {
-            this.isPasswordShown = !!!this.isPasswordShown;
-        },
-
-        redirect() {
-            window.location.replace(window.origin + '/home');
-        },
-
-        getIconGroup(label) {
-            if (this.confirmed[label])
-                return '--success';
-
-            else if (this.errors[label])
-                return '--error';
-        },
-
         check(label, validator, options) {
 
             let validation = validator(options);
@@ -164,6 +188,14 @@ export default {
             return false;
         },
 
+        checkName() {
+            return this.check('name', isName, {
+                target: this.data.name,
+                min: this.rules.name.min,
+                max: this.rules.name.max
+            });
+        },
+
         checkEmail() {
             return this.check('email', isEmail, {
                 target: this.data.email,
@@ -178,18 +210,29 @@ export default {
             });
         },
 
-        validate() {   
-            let validators = [
-                this.checkEmail,
-                this.checkPassword,
-            ];
+        checkConfirmation() {
+            return this.check('confirmation', isConfirmation, {
+                target: this.data.password,
+                confirmation: this.data.confirmation
 
-            for (const validator of validators)
-            {
-                if (!!!validator())
-                    return false;
-            }
-            return true;
+            });
+        },
+
+        
+        getIconGroup(label) {
+            if (this.confirmed[label])
+                return '--success';
+
+            else if (this.errors[label])
+                return '--error';
+        },
+
+        togglePreview() {
+            this.isPasswordShown = !!!this.isPasswordShown;
+        },
+
+        redirect() {
+            window.location.replace(window.origin + '/home');
         },
 
         submit() {
@@ -198,9 +241,24 @@ export default {
             let data = new FormData(form);
 
             if (this.validate())
-                Auth.login(data)
-                .then(this.redirect)
-                .catch(this.parseErrors);
+                Auth.register(data).then(this.redirect).catch(this.parseErrors);
+        },
+
+        validate() {
+            let validators = [
+                this.checkName,
+                this.checkEmail,
+                this.checkPassword,
+                this.checkConfirmation
+            ];
+
+            for (const validator of validators)
+            {
+                if (!!!validator())
+                    return false;
+            }
+
+            return true;
         },
 
         parseErrors(error) { 
@@ -217,7 +275,7 @@ export default {
                 return;
             }
 
-            bus.dispatch('alert-error');
+            throw error();
         }
     }
 }
