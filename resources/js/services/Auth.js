@@ -5,7 +5,9 @@ const Auth = new function() {
     async function init()
     {
         user = await Http.get('user');
-        window.user = user; 
+    
+        for (const callback of callbacks)
+            callback();
     }
 
     this.login = async (data) => 
@@ -38,7 +40,15 @@ const Auth = new function() {
 
     this.isVerified = () =>
     {
-        return user.verified;
+        if (user)
+            return user.verified;
+
+        return false;
+    }
+    
+    this.onload = (callback) =>
+    {
+        callbacks.push(callback);
     }
 
     this.rules = () =>
@@ -56,7 +66,9 @@ const Auth = new function() {
         }
     }
 
+
     let user = null; 
+    let callbacks = [];
 
     init();
 }();

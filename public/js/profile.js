@@ -271,142 +271,145 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+/* harmony import */ var _services_Routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Routes */ "./resources/js/services/Routes.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'navbar',
   data: function data() {
     return {
       isMobileNavShown: false,
-      links: [{
-        label: 'about me',
-        uri: 'home'
-      }, {
-        label: 'videos'
-      }, {
-        label: 'audio'
-      }, {
-        label: 'games'
-      }, {
-        label: 'schemas'
-      }, {
-        label: 'i recommend',
-        uri: 'recommend'
-      }]
+      profileShown: true,
+      AppName: 'Etoolbox',
+      links: []
     };
   },
   computed: {
     homeUrl: function homeUrl() {
-      return window.origin + '/home';
+      return _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].redirectUrl('home');
     },
     loginUrl: function loginUrl() {
-      return window.origin + '/login';
+      return _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].redirectUrl('login');
     },
     registerUrl: function registerUrl() {
-      return window.origin + '/register';
+      return _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].redirectUrl('register');
+    },
+    profileUrl: function profileUrl() {
+      return _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].redirectUrl('profile');
     }
   },
   methods: {
@@ -418,22 +421,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   beforeMount: function beforeMount() {
-    var _iterator = _createForOfIteratorHelper(this.links),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var link = _step.value;
-        console.log(link);
-        var uri = link.uri;
-        if (!!!uri) uri = link.label;
-        link.url = window.origin + '/' + uri;
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
+    this.links = _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].all();
   }
 });
 
@@ -594,13 +582,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'require-email-overlay',
+  data: function data() {
+    return {
+      shown: true
+    };
+  },
   computed: {
     imageUrl: function imageUrl() {
       return window.origin + '/img/svg/register-overlay.svg';
-    },
-    shown: function shown() {
-      return !!!_services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].isVerified();
     }
+  },
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    _services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].onload(function () {
+      _this.shown = !!!_services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].isVerified();
+    });
   }
 });
 
@@ -3067,6 +3064,7 @@ var render = function() {
               {
                 key: index,
                 staticClass: "navbar-desktop__link",
+                class: { "navbar-desktop__link--active": link.active },
                 attrs: { href: link.url }
               },
               [
@@ -3083,25 +3081,52 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "navbar-desktop__aside" }, [
-        _c(
-          "a",
-          {
-            staticClass:
-              "navbar-desktop__aside-link navbar-desktop__aside-link--login-in",
-            attrs: { href: _vm.loginUrl }
-          },
-          [_vm._v("\n                \n                login in\n            ")]
-        ),
+        !!!_vm.profileShown
+          ? _c(
+              "a",
+              {
+                staticClass:
+                  "navbar-desktop__aside-link navbar-desktop__aside-link--login-in",
+                attrs: { href: _vm.loginUrl }
+              },
+              [
+                _vm._v(
+                  "\n                \n                login in\n            "
+                )
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass:
-              "navbar-desktop__aside-link navbar-desktop__aside-link--sign-up",
-            attrs: { href: _vm.registerUrl }
-          },
-          [_vm._v(" \n                \n                sing up\n            ")]
-        )
+        !!!_vm.profileShown
+          ? _c(
+              "a",
+              {
+                staticClass:
+                  "navbar-desktop__aside-link navbar-desktop__aside-link--sign-up",
+                attrs: { href: _vm.registerUrl }
+              },
+              [
+                _vm._v(
+                  " \n                \n                sing up\n            "
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.profileShown
+          ? _c(
+              "a",
+              {
+                staticClass: "navbar-desktop__account-link",
+                attrs: { href: _vm.profileUrl }
+              },
+              [
+                _c("span", { staticClass: "material-icons-round" }, [
+                  _vm._v("account_circle")
+                ])
+              ]
+            )
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
@@ -3129,6 +3154,21 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "navbar-mobile__header" }, [
+            _vm.profileShown
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "navbar-mobile__account-link",
+                    attrs: { href: _vm.profileUrl }
+                  },
+                  [
+                    _c("span", { staticClass: "material-icons-round" }, [
+                      _vm._v("account_circle")
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "button",
               {
@@ -3159,6 +3199,7 @@ var render = function() {
               {
                 key: index,
                 staticClass: "navbar-mobile__link",
+                class: { "navbar-desktop__link--active": link.active },
                 attrs: { href: link.url }
               },
               [
@@ -3172,33 +3213,37 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "navbar-mobile__footer" }, [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "navbar-mobile__footer-link navbar-mobile__footer-link--login-in",
-                attrs: { href: _vm.loginUrl }
-              },
-              [
-                _vm._v(
-                  "\n                    \n                    login in\n                "
+            !!!_vm.profileShown
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "navbar-mobile__footer-link navbar-mobile__footer-link--login-in",
+                    attrs: { href: _vm.loginUrl }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    \n                    login in\n                "
+                    )
+                  ]
                 )
-              ]
-            ),
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass:
-                  "navbar-mobile__footer-link navbar-mobile__footer-link--sign-up",
-                attrs: { href: _vm.registerUrl }
-              },
-              [
-                _vm._v(
-                  "\n                   \n                    sing up\n                "
+            !!!_vm.profileShown
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "navbar-mobile__footer-link navbar-mobile__footer-link--sign-up",
+                    attrs: { href: _vm.registerUrl }
+                  },
+                  [
+                    _vm._v(
+                      "\n                   \n                    sing up\n                "
+                    )
+                  ]
                 )
-              ]
-            )
+              : _vm._e()
           ])
         ],
         2
@@ -17016,6 +17061,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -17034,6 +17085,8 @@ var Auth = new function () {
 
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var _iterator, _step, callback;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -17043,9 +17096,20 @@ var Auth = new function () {
 
             case 2:
               user = _context3.sent;
-              window.user = user;
+              _iterator = _createForOfIteratorHelper(callbacks);
 
-            case 4:
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  callback = _step.value;
+                  callback();
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
+            case 5:
             case "end":
               return _context3.stop();
           }
@@ -17117,7 +17181,12 @@ var Auth = new function () {
   };
 
   this.isVerified = function () {
-    return user.verified;
+    if (user) return user.verified;
+    return false;
+  };
+
+  this.onload = function (callback) {
+    callbacks.push(callback);
   };
 
   this.rules = function () {
@@ -17134,6 +17203,7 @@ var Auth = new function () {
   };
 
   var user = null;
+  var callbacks = [];
   init();
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Auth);
@@ -17287,6 +17357,77 @@ var Http = new function () {
 
 /***/ }),
 
+/***/ "./resources/js/services/Routes.js":
+/*!*****************************************!*\
+  !*** ./resources/js/services/Routes.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (new function () {
+  function init() {
+    var activeUri = location.pathname.substr(1);
+
+    for (var _i = 0, _arr = [].concat(links, additional); _i < _arr.length; _i++) {
+      var link = _arr[_i];
+      var uri = link.uri;
+      if (!!!uri) uri = link.label;
+      if (activeUri.startsWith(uri)) link.active = true;
+      link.url = window.origin + '/' + uri;
+    }
+  }
+
+  this.all = function () {
+    return links;
+  };
+
+  this.redirectUrl = function (name) {
+    for (var _i2 = 0, _arr2 = [].concat(links, additional); _i2 < _arr2.length; _i2++) {
+      var _arr2$_i = _arr2[_i2],
+          label = _arr2$_i.label,
+          url = _arr2$_i.url,
+          active = _arr2$_i.active;
+      console.log(label, name);
+      if (label !== name) continue;
+      if (active) break;
+      console.log(url);
+      return url;
+    }
+
+    return '#';
+  };
+
+  var links = [{
+    label: 'videos'
+  }, {
+    label: 'audio'
+  }, {
+    label: 'games'
+  }, {
+    label: 'schemas'
+  }, {
+    label: 'about me',
+    uri: 'home'
+  }, {
+    label: 'i recommend',
+    uri: 'recommend'
+  }];
+  var additional = [{
+    label: 'profile'
+  }, {
+    label: 'register'
+  }, {
+    label: 'login'
+  }, {
+    label: 'home'
+  }];
+  init();
+}());
+
+/***/ }),
+
 /***/ "./resources/js/services/eventbus.js":
 /*!*******************************************!*\
   !*** ./resources/js/services/eventbus.js ***!
@@ -17424,8 +17565,8 @@ __webpack_require__.r(__webpack_exports__);
     Vue.component('alert', _components_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
     Vue.config.errorHandler = function (err, vm, info) {
-      console.log(err);
       _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('alert-error');
+      throw err;
     };
   }
 });

@@ -11,6 +11,7 @@
                 <a 
                     class="navbar-desktop__link"
                     v-for="(link, index) in links"
+                    :class="{'navbar-desktop__link--active': link.active}"
                     :key="index"
                     :href="link.url">
                     
@@ -18,19 +19,25 @@
                 </a>
             </nav>
             <div class="navbar-desktop__aside">
-                <a 
+                <a v-if="!!!profileShown"
                     class="navbar-desktop__aside-link navbar-desktop__aside-link--login-in"
                     :href="loginUrl">
                     
                     login in
                 </a>
-                <a 
+                <a v-if="!!!profileShown"
                     class="navbar-desktop__aside-link navbar-desktop__aside-link--sign-up"
                     :href="registerUrl"> 
                     
                     sing up
                 </a>
-                <!-- <a href="#" class="navbar-desktop__account-link"><span class="material-icons-round">account_circle</span></a> -->
+                <a 
+                    class="navbar-desktop__account-link"
+                    v-if="profileShown"
+                    :href="profileUrl">
+                    
+                    <span class="material-icons-round">account_circle</span>
+                </a>
             </div>
         </div>
 
@@ -52,7 +59,13 @@
                 :class="{'navbar-mobile__links--slide': isMobileNavShown}">
 
                 <div class="navbar-mobile__header">
-                    <!-- <a href="#" class="navbar-mobile__account-link"><span class="material-icons-round">account_circle</span></a> -->
+                    <a 
+                        class="navbar-mobile__account-link"
+                        v-if="profileShown"
+                        :href="profileUrl">
+
+                        <span class="material-icons-round">account_circle</span>
+                    </a>
                     <button
                         class="navbar-mobile__button navbar-mobile__button--hide"
                         @click="hideMobileNav">
@@ -69,20 +82,23 @@
                 <a
                     class="navbar-mobile__link"
                     v-for="(link, index) in links"
+                    :class="{'navbar-desktop__link--active': link.active}"
                     :key="index"
                     :href="link.url">
                     
                     {{ link.label }}
                 </a>
                 <div class="navbar-mobile__footer">
-                    <a 
+                    <a  
                         class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in"
+                        v-if="!!!profileShown"
                         :href="loginUrl">
                         
                         login in
                     </a>
                     <a 
                         class="navbar-mobile__footer-link navbar-mobile__footer-link--sign-up"
+                        v-if="!!!profileShown"
                         :href="registerUrl">
                        
                         sing up
@@ -98,6 +114,7 @@
 
 <script>
 import Auth from '@services/Auth';
+import Routes from '@services/Routes';
 
 export default {
     name: 'navbar',
@@ -106,29 +123,29 @@ export default {
         return {
             isMobileNavShown: false,
 
-            links: [
-                { label: 'about me', uri:'home'},
-                { label: 'videos'},
-                { label: 'audio'},
-                { label: 'games',},
-                { label: 'schemas'},
-                { label: 'i recommend', uri:'recommend'},
+            profileShown: true,
 
-            ]
+            AppName: 'Etoolbox',
+
+            links: []
         }
     },
 
     computed: {
         homeUrl() {
-            return window.origin + '/home';
+            return Routes.redirectUrl('home');
         }, 
         
         loginUrl() {
-            return window.origin + '/login';
+            return Routes.redirectUrl('login');
         }, 
 
         registerUrl() {
-            return window.origin + '/register';
+            return Routes.redirectUrl('register');
+        },
+
+        profileUrl() {
+            return Routes.redirectUrl('profile');
         }
     },
 
@@ -143,17 +160,7 @@ export default {
     },
 
     beforeMount() {
-        for (let link of this.links)
-        {
-            console.log(link);
-
-            let uri = link.uri;
-
-            if (!!!uri)
-                uri  = link.label;
-            
-            link.url = window.origin + '/' + uri;
-        }       
+        this.links = Routes.all();
     },
 
 }

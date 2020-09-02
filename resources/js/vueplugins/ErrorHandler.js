@@ -7,9 +7,9 @@ export default {
 
         Vue.config.errorHandler = (err, vm, info) =>
         {
-            console.log(err);
-
-            bus.dispatch('alert-error',);
+            
+            bus.dispatch('alert-error');
+            throw err;
         }
     }
 }

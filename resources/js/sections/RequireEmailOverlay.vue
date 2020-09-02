@@ -18,14 +18,22 @@ import Auth from  '@services/Auth';
 export default {
     name: 'require-email-overlay',
 
+    data: function() {
+        return {
+            shown: true
+        }
+    },
+
     computed: {
         imageUrl() {
             return window.origin + '/img/svg/register-overlay.svg';
-        }, 
-
-        shown() {
-            return !!!Auth.isVerified();
         }
+    },
+
+    beforeMount() {
+        Auth.onload(() => {
+            this.shown = !!!Auth.isVerified();
+        });
     }
 }
 </script>

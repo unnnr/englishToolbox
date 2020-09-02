@@ -18,8 +18,10 @@ function initNavbar()
 
     let navbar = document.querySelector('.navbar-mobile__links');
     let overlay = document.querySelector('.navbar-mobile__overlay');
+
     let showButton = document.querySelector('.navbar-mobile__button--show');
     let hideButton = document.querySelector('.navbar-mobile__button--hide');
+    
     hideButton.onclick = hide;
     showButton.onclick = show;
 }
