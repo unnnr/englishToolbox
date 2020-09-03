@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Services\CommentService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\CreateComment;
-use App\Services\CommentService;
+use App\Http\Requests\Comment\UpdateComment;
+use App\Http\Requests\Comment\DeleteComment;
 
 
 class CommentController extends Controller
 {
+
+    public function __construct()
+    {
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +34,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateComment $request, CommentService $service)
+    public function store(CreateComment $request, CommentService $service, $postType, $postId)
     {
-        return $service->create($request);
+        return $service->create($request, $postType, (int) $postId);
     }
 
     /**
@@ -49,9 +57,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateComment $request, CommentService $service)
     {
-        //
+        $service->update($request);
     }
 
     /**

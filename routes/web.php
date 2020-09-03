@@ -30,13 +30,13 @@ Route::group(['namespace' => 'Web'], function() {
 });
 
 
+Route::get('user', 'UserController@profile');
+
 Route::post('register', 'UserController@register');
 
 Route::post('login', 'UserController@login');
 
 Route::get('logout', 'UserController@logout');
-
-Route::get('user', 'UserController@profile');
 
 Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 

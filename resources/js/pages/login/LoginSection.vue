@@ -59,7 +59,7 @@
                     class="login-with__link text-fourth"
                     :href="registerUrl">
                     
-                    Already have an account?
+                    Don`t have an account?
                 </a>
             </div>
         </form>

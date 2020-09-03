@@ -24,7 +24,7 @@ class UpdateComment extends FormRequest
     public function rules()
     {
         return [
-
+            'text' => 'string|required'
         ];
     }
 }

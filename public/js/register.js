@@ -684,7 +684,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         return;
       }
 
-      throw error();
+      throw error;
     }
   }
 });
@@ -16224,7 +16224,7 @@ var Auth = new function () {
 
             case 2:
               response = _context2.sent;
-              console.log(response);
+              return _context2.abrupt("return", response);
 
             case 4:
             case "end":
@@ -16239,9 +16239,9 @@ var Auth = new function () {
     };
   }();
 
-  this.check = function () {};
-
-  this.user = function () {
+  this.isAdmin = function () {
+    return user.admin;
+  }, this.user = function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
   };
@@ -16455,10 +16455,8 @@ __webpack_require__.r(__webpack_exports__);
           label = _arr2$_i.label,
           url = _arr2$_i.url,
           active = _arr2$_i.active;
-      console.log(label, name);
       if (label !== name) continue;
       if (active) break;
-      console.log(url);
       return url;
     }
 

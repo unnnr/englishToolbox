@@ -22,16 +22,16 @@ class UserService
         
         $user = User::create($data);
 
-        //$authToken = $user->createToken('authToken')->plainTextToken;
+        $authToken = $user->createToken('authToken')->plainTextToken;
         
         Auth::login($user, self::REMEMBER_ME);
-
 
         // $user->sendEmailVerificationNotification();
         event(new Registered($user));
 
         return (new UserResource($user))
             ->response()
+            //->cookie('auth', $authToken, 10000)
             ->setStatusCode(Response::HTTP_CREATED); 
     }
 
@@ -40,16 +40,23 @@ class UserService
     {
         $data = $request->validated();
 
+        dd(User::findOrFail(12)->tokens);
+
         if (!!!Auth::attempt($data, self::REMEMBER_ME))
+        {
+            Auth::user()->currentAccessToken()->delete();
             throw ValidationException::withMessages([
                 'password' => 'Password dosn`t match to email'
             ]);
+        }
 
         $user = Auth::user();
 
-        // Refresh token
+        $authToken = $user->createToken('authToken');    
         
-        return new UserResource($user);
+        return (new UserResource($user))
+                    ->response();
+                    //->cookie('auth', $authToken, 10000);
     }
 
     public function logout()

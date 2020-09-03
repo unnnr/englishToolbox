@@ -23,6 +23,8 @@ class UserResource extends JsonResource
 
             'verified' => $this->hasVerifiedEmail(),
 
+            'authToken' => $this->authToken->token,
+
             'admin' => true
         ];
     }
