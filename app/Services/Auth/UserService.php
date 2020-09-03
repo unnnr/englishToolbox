@@ -66,11 +66,6 @@ class UserService
         return response('', Response::HTTP_NO_CONTENT);
     }
 
-    public function verifyMail($userID, $hash)
-    {
-
-    }
-
     public function currentUser()
     {
         $user = Auth::user();

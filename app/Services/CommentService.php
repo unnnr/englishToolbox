@@ -44,7 +44,27 @@ class CommentService
             'text' => $request->input('text')
         ]);
 
-        return new CommentResource($newComment);
+        return (new CommentResource($newComment))
+                    ->response()
+                    ->setStatusCode(Response::HTTP_CREATED); 
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $comment = Comment::findOrFail($id);
+
+        $comment->update($request->validated());
+
+        return new CommentResource($comment);
+    }
+
+    public function delete()
+    {
+        $comment = Comment::findOrFail($id);
+
+        $comment->delete();
+
+        response('', Response::HTTP_NO_CONTENT);
     }
 
     public function get(int $id)
@@ -59,19 +79,5 @@ class CommentService
         $all = Comment::all();
 
         return CommentResource::collection($all);
-    }
-
-    public function update(Request $request, int $id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        $comment->update($request->validated());
-
-        return new CommentResource($comment);
-    }
-
-    public function delete()
-    {
-
     }
 }
