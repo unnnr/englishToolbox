@@ -2,6 +2,24 @@ import Http from '@services/Http';
 
 const Auth = new function() {
 
+
+    function daysToDate(days)
+    {
+        let date = new Date();
+
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+
+        return date.toUTCString();
+    }
+
+    function saveToken(token)
+    {
+        let value = token;
+        let expires = daysToDate(AUTH_TOKEN_EXPIRES);
+
+        document.cookie = `auth=${value}; expires=${expires};  path=/`; 
+    }
+    
     async function init()
     {
         user = await Http.get('user');
@@ -14,12 +32,22 @@ const Auth = new function() {
     {
         let response = await Http.post('login', data);
 
+        if (!!!response.authToken)
+            throw Error('Incorrect http response');
+
+        saveToken(response.token);
+
         return response;
     }
 
     this.register = async (data) =>
     {
         let response = await Http.post('register', data); 
+
+        if (!!!response.authToken)
+            throw Error('Incorrect http response');
+
+        saveToken(response.token);
 
         return response;
     }
@@ -64,6 +92,7 @@ const Auth = new function() {
         }
     }
 
+    const AUTH_TOKEN_EXPIRES = 12;
 
     let user = null; 
     let callbacks = [];

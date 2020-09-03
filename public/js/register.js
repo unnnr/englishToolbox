@@ -650,8 +650,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     togglePreview: function togglePreview() {
       this.isPasswordShown = !!!this.isPasswordShown;
     },
-    redirect: function redirect() {
-      window.location.replace(window.origin + '/home');
+    redirect: function redirect() {//window.location.replace(window.origin + '/home');
     },
     submit: function submit() {
       var form = this.$refs.form;
@@ -16145,6 +16144,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var Auth = new function () {
+  function daysToDate(days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    return date.toUTCString();
+  }
+
+  function saveToken(token) {
+    var value = token;
+    var expires = daysToDate(AUTH_TOKEN_EXPIRES);
+    document.cookie = "auth=".concat(value, "; expires=").concat(expires, ";  path=/");
+  }
+
   function init() {
     return _init.apply(this, arguments);
   }
@@ -16197,9 +16208,19 @@ var Auth = new function () {
 
             case 2:
               response = _context.sent;
+
+              if (!!response.authToken) {
+                _context.next = 5;
+                break;
+              }
+
+              throw Error('Incorrect http response');
+
+            case 5:
+              saveToken(response.token);
               return _context.abrupt("return", response);
 
-            case 4:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -16224,9 +16245,19 @@ var Auth = new function () {
 
             case 2:
               response = _context2.sent;
+
+              if (!!response.authToken) {
+                _context2.next = 5;
+                break;
+              }
+
+              throw Error('Incorrect http response');
+
+            case 5:
+              saveToken(response.token);
               return _context2.abrupt("return", response);
 
-            case 4:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -16268,6 +16299,7 @@ var Auth = new function () {
     };
   };
 
+  var AUTH_TOKEN_EXPIRES = 12;
   var user = null;
   var callbacks = [];
   init();
