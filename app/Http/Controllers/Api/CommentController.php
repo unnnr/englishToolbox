@@ -15,7 +15,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        
+        $this->middleware('auth:sanctum');
     }
 
     /**
@@ -25,7 +25,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        
+        $this->middleware('auth:sanctum');
     }
 
     /**
@@ -57,9 +57,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateComment $request, CommentService $service)
+    public function update(UpdateComment $request, CommentService $service, $id)
     {
-        $service->update($request);
+        return $service->update($request, (int) $id);
     }
 
     /**

@@ -29,9 +29,6 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('profile', 'ProfileController')->name('account');
 });
 
-
-Route::get('user', 'UserController@profile');
-
 Route::post('register', 'UserController@register');
 
 Route::post('login', 'UserController@login');

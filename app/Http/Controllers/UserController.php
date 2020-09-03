@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['register', 'login', 'logout']);
+        $this->middleware('auth:sanctum')->only(['profile']);
     }
     
     public function register(RegisterUser $request, UserService $service)

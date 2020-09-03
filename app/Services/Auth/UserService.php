@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\AuthenticatedUserResource;
 use App\Models\User;
 
 
@@ -24,7 +25,7 @@ class UserService
 
         Auth::login($user, self::REMEMBER_ME);
         
-        $authToken = $user->createToken('authToken')->plainTextToken;
+        $authToken = $user->createToken('authToken');
         
         $user->withAccessToken($authToken);
 
@@ -32,9 +33,8 @@ class UserService
         event(new Registered($user));
 
 
-        return (new UserResource($user))
+        return (new AuthenticatedUserResource($user))
             ->response()
-            //->cookie('auth', $authToken, 10000)
             ->setStatusCode(Response::HTTP_CREATED); 
     }
 
@@ -42,9 +42,6 @@ class UserService
     public function login(Request $request)
     {
         $data = $request->validated();
-
-        dd(User::findOrFail(12)->tokens);
-
         if (!!!Auth::attempt($data, self::REMEMBER_ME))
         {
             Auth::user()->currentAccessToken()->delete();
@@ -55,14 +52,11 @@ class UserService
 
         $user = Auth::user();
 
-        $authToken = $user->createToken('authToken');  
+        $authToken = $user->createToken('authToken'); 
         
-        dump($user->currentAccessToken);
-        dd($authToken);
-        
-        return (new UserResource($user))
-                    ->response();
-                    //->cookie('auth', $authToken, 10000);
+        $user->withAccessToken($authToken);
+    
+        return new AuthenticatedUserResource($user);
     }
 
     public function logout()

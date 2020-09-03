@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class AuthenticatedUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,6 +22,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
 
             'verified' => $this->hasVerifiedEmail(),
+    
+            'authToken' => $this->currentAccessToken()->plainTextToken,
 
             'admin' => true
         ];

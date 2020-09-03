@@ -19,7 +19,7 @@ class CommentService
         Video::class
     ];
 
-    private function getPostClass($postType)
+    private function getPostClass(string $postType)
     {
         foreach ($this->commentable as $class)
         {   
@@ -30,42 +30,44 @@ class CommentService
         return null;
     }
 
-    public function create(Request $request, $postType, $postId)
+    public function create(Request $request, string $postType, int $postId)
     {
-        return auth();
-
         $postClass = $this->getPostClass($postType);
 
         if (is_null($postClass))
-            return response('', Response::HTTP_BAD_REQUEST);
+            return response(null, Response::HTTP_BAD_REQUEST);
         
         $post = $postClass::findOrFail($postId);
 
         $newComment = $post->comments()->create([
-            'user_id' =>  auth('web')->user()->id,
+            'user_id' =>  auth()->user()->id,
             'text' => $request->input('text')
         ]);
 
         return new CommentResource($newComment);
     }
 
-    public function get($id)
+    public function get(int $id)
     {
-        $comment = Comment::find($id);
+        $comment = Comment::findOfFail($id);
 
         return new CommentResource($comment);
     }
 
     public function all()
     {
-        $all = Tag::all();
+        $all = Comment::all();
 
         return CommentResource::collection($all);
     }
 
-    public function update()
+    public function update(Request $request, int $id)
     {
-       
+        $comment = Comment::findOrFail($id);
+
+        $comment->update($request->validated());
+
+        return new CommentResource($comment);
     }
 
     public function delete()
