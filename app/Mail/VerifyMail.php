@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Services\Auth\VerificationService;
 
-class VerifyEmailMail extends Mailable
+class VerifyMail extends Mailable
 {
 
     private $user;
@@ -34,8 +34,8 @@ class VerifyEmailMail extends Mailable
         $name = $this->user->name;
         $url = app(VerificationService::class)->verificationUrl($this->user);
 
-        return $this->to($email, $name)
-            ->markdown('mail.verifyEmail')
+        return $this->view('mail.verifyEmail')
+            ->to($email, $name)
             ->with([ 'url' => $url]);
     }
 }

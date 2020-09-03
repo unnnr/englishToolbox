@@ -1,12 +1,14 @@
-@component('mail::message')
 
-    URL 
+<div style="height: 800px; display: flex;align-items: center; justify-content: center;">
+    <button  main style="width: 500px; height: 320px;">
+        <a href="https://www.youtube.com/watch?v=QMegMJ5LmSc'">
+            How to pronouce BURYATIA
+        </a>
+    </button>
+</div>
 
-    @component('mail::button', ['url' => $url])
-        verify
-    @endcomponent
-
-    Thanks,<br>
-    {{ config('app.name') }}
-
-@endcomponent
+<button>
+    <a href="{{ $url }}">
+            Verify
+    </a>
+</button>

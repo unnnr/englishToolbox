@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Mail\VerifyEmailMail;
+use App\Mail\VerifyMail;
 
 
 class VerifyEmail extends Notification
@@ -42,7 +42,7 @@ class VerifyEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        return new VerifyEmailMail($notifiable);
+        return new VerifyMail($notifiable);
     }
 
     /**
