@@ -22,12 +22,15 @@ class UserService
         
         $user = User::create($data);
 
+        Auth::login($user, self::REMEMBER_ME);
+        
         $authToken = $user->createToken('authToken')->plainTextToken;
         
-        Auth::login($user, self::REMEMBER_ME);
+        $user->withAccessToken($authToken);
 
         // $user->sendEmailVerificationNotification();
         event(new Registered($user));
+
 
         return (new UserResource($user))
             ->response()
@@ -52,7 +55,10 @@ class UserService
 
         $user = Auth::user();
 
-        $authToken = $user->createToken('authToken');    
+        $authToken = $user->createToken('authToken');  
+        
+        dump($user->currentAccessToken);
+        dd($authToken);
         
         return (new UserResource($user))
                     ->response();

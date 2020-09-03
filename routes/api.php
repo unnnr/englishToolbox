@@ -38,6 +38,10 @@ Route::group(['namespace' => 'Api'], function() {
         ]);;
 });
 
+
+Route::middleware('auth:sanctum')->get('dump', function(Request $request) {
+    return $request->user();
+});
 /* Route::get('dump', function(Request $request) {
     
     dump( $request->all());

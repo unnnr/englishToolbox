@@ -49,12 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
     	$this->attributes['password'] = bcrypt($value);
     }
 
-    public function getAuthTokenAttribute()
-    {
-        return $this->tokens()->where('name', 'authToken')->first();
-    }
-
-
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
