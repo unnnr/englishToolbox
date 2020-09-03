@@ -58,7 +58,7 @@ class CommentService
         return new CommentResource($comment);
     }
 
-    public function delete()
+    public function delete(int $id)
     {
         $comment = Comment::findOrFail($id);
 
@@ -69,7 +69,7 @@ class CommentService
 
     public function get(int $id)
     {
-        $comment = Comment::findOfFail($id);
+        $comment = Comment::findOrFail($id);
 
         return new CommentResource($comment);
     }

@@ -15,7 +15,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:sanctum')->except(['show', 'index']);
     }
 
     /**
@@ -23,9 +23,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CommentService $service)
     {
-        $this->middleware('auth:sanctum');
+        return $service->all();
     }
 
     /**
@@ -45,9 +45,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(CommentService $service, $id)
     {
-        //
+        return $service->get($id);
     }
 
     /**
@@ -68,8 +68,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CommentService $service, $id)
     {
-        //
+        return $service->delete($id);
     }
 }

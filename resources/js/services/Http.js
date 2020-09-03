@@ -1,6 +1,6 @@
 const Http = new function()
 {   
-    this.make = async function (method, path, data, json = false)
+    this.make = async function (method, path, data, additional = {})
     {
         let token = document.querySelector('meta[name="csrf-token"]').content;
         // data.set('_token', token);
@@ -15,7 +15,11 @@ const Http = new function()
             }
         };
 
-        if (json)
+
+        if (Array.isArray(additional.headers))
+            options.headers.push(...additional.headers);
+
+        if (additional.json)
             options.headers['Content-Type'] = 'application/json';
 
         let response = await fetch(window.location.origin + path ? '/' + path : '' , options);
@@ -78,7 +82,6 @@ const Http = new function()
 
         return self.make('POST', path, data, json)
     }
-
 
     let self = this;
 }();
