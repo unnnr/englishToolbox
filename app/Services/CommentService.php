@@ -80,4 +80,18 @@ class CommentService
 
         return CommentResource::collection($all);
     }
+
+    public function allPostComments(string $postType, int $postId)
+    {
+        $postClass = $this->getPostClass($postType);
+
+        if (is_null($postClass))
+            return response(null, Response::HTTP_BAD_REQUEST);
+
+        $post = $postClass::findOrFail($postId);
+        
+        $comments = $post->comments;
+
+        return CommentResource::collection( $comments);
+    }
 }

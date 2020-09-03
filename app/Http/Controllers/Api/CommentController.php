@@ -23,9 +23,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CommentService $service)
+    public function index(CommentService $service, string $postType, int $postId)
     {
-        return $service->all();
+        return $service->allPostComments($postType, $postId);
     }
 
     /**

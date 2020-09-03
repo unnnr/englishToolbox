@@ -23,31 +23,20 @@ use App\Models\Video;
 Route::group(['namespace' => 'Api'], function() {
 
     Route::apiResource('video', 'VideoController');
-    Route::get('video/comments', 'VideoController@comments');
 
     Route::apiResource('audio', 'AudioController');
-    Route::get('audio/comments', 'VideoController@audio');
 
 	Route::apiResource('tags', 'TagController');
     
-    Route::apiResource('comment', 'CommentController')->except(['store']);
-    Route::post('{postType}/{postId}/comment', 'CommentController@store')
-        ->where([
-            'postid' => '[0-9]+',
-            'postType' => '[A-z]+'
-        ]);;
+    Route::apiResource('comment', 'CommentController')->except(['store', 'index']);
+    
+    Route::post('{postType}/{postId}/comment', 'CommentController@store');
+    Route::get('{postType}/{postId}/comment', 'CommentController@index');
+
+    Route::get('profile', 'UserController@profile');
 });
 
-Route::get('profile', 'UserController@profile');
 
 Route::middleware('auth:sanctum')->get('dump', function(Request $request) {
     return $request->user();
 });
-
-/* Route::get('dump', function(Request $request) {
-    
-    dump( $request->all());
-    dump( $request->session()->all());
-    dump(Cookie::get());
-    dd(Auth::user());
-})->middleware('web'); */

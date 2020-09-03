@@ -2,12 +2,11 @@
 
 namespace App\Services\Posts;
 
+use Illuminate\Http\Request;
 use Alaouy\Youtube\Facades\Youtube;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
-
 use App\Services\Posts\PostService;
-use Illuminate\Http\Request;
 
 class VideoService extends PostService
 {
