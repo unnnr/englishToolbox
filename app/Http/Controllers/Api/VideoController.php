@@ -28,7 +28,7 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadVideo $request, VideoService $videoService)
+    public function store(CreateVideo $request, VideoService $videoService)
     {
         $video = $videoService->create($request);
 

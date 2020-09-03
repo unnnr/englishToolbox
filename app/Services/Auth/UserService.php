@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Registered;
-use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 

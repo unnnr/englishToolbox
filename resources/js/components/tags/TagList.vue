@@ -4,6 +4,7 @@
         <button 
             class="tag tag--main" 
             type="button"
+            v-if="mainTag"
             :style="{ 'background-color': mainTag && mainTag.color }">
             
             <span class="tag__name" for="cb1">{{ mainTag && mainTag.label }}</span>
@@ -23,8 +24,15 @@ export default {
     name: 'tag-list',
 
     props: {
-        tags: Array,
-        mainTag: Object
+        tags: {
+            type: Array,
+            default: []
+        },
+
+        mainTag: {
+            type: Object,
+            default: null
+        }
     }
 }
 </script>

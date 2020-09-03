@@ -2,20 +2,20 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\Video;
-use App\Http\Requests\CreateTag;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\VideoResource;
+
 
 class TagService
 {
 
-    public function create(CreateTag $request)
+    public function create(Request $request)
     {
         $newTag = Tag::create([
-            'label' => $request->input('label'),
-            'color' => $request->input('color')
+            $request->validated()
         ]);
 
         return new TagResource($newTag);
@@ -35,7 +35,7 @@ class TagService
         return TagResource::collection($all);
     }
 
-    public function update()
+    public function update(Request $request)
     {
 
     }

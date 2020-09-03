@@ -23,11 +23,19 @@ use App\Models\Video;
 Route::group(['namespace' => 'Api'], function() {
 
     Route::apiResource('video', 'VideoController');
+    Route::get('video/comments', 'VideoController@comments');
 
     Route::apiResource('audio', 'AudioController');
+    Route::get('audio/comments', 'VideoController@audio');
 
 	Route::apiResource('tags', 'TagController');
     
+    Route::apiResource('comment', 'CommentController')->except(['store']);
+    Route::post('{postType}/{postId}/comment', 'CommentController@store')
+        ->where([
+            'postid' => '[0-9]+',
+            'postType' => '[A-z]+'
+        ]);;
 });
 
 /* Route::get('dump', function(Request $request) {

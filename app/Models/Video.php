@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
+use App\Models\Comment;
 
 class Video extends Model
 {
@@ -15,6 +16,11 @@ class Video extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable')
             ->withPivot('main')->where('main');
+    }   
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }   
 
     public function mainTag()

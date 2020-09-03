@@ -275,7 +275,7 @@ export default {
                 return;
             }
 
-            throw error();
+            throw error;
         }
     }
 }

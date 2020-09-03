@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Services\UserService;
-use App\Http\Requests\RegisterUser;
-use App\Http\Requests\LoginUser;
+use App\Services\Auth\UserService;
+use App\Http\Requests\Auth\RegisterUser;
+use App\Http\Requests\Auth\LoginUser;
 
 class UserController extends Controller
 {

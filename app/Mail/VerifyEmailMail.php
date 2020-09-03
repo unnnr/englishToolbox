@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Services\VerificationService;
+use App\Services\Auth\VerificationService;
 
 class VerifyEmailMail extends Mailable
 {
