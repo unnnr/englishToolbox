@@ -44,11 +44,24 @@
         </div>
         <form 
 			class="comments__footer"
-			v-if="showInput">
+			ref="form"
+			v-if="showInput"
+			@submit.prevent="submit">
 
-        	<a class="comments__account-link" href="#"><span class="material-icons-round">account_circle</span></a>
-        	<textarea class="comments__textarea" placeholder="your comment"></textarea>
-        	<button class="comments__send-button"><span class="material-icons-round">send</span></button>
+        	<a class="comments__account-link" href="#">
+				<span class="material-icons-round">account_circle</span>
+			</a>
+        	<textarea 
+				class="comments__textarea"
+				placeholder="your comment"
+				minlength="1"
+				maxlength="500"
+				name="message"
+				v-model="newComment"
+				required>
+			</textarea>
+			
+        	<button class="comments__send-button" type="submit"><span class="material-icons-round">send</span></button>
         </form>
     </div>
 </template>
@@ -58,12 +71,13 @@
 import Shrinkable from '@mixins/ShrinkableDetailsTag'
 import Comments from '@models/Comments'
 import Auth from '@services/Auth'
+import bus from '@services/eventbus'
 
 const COMMENT_MARGIN_HEIGHT = 30;
 
 export default {
-    name: 'comments',
-
+	name: 'comments',
+	
 	mixins: [Shrinkable],
 	
 	data: function () {
@@ -79,7 +93,11 @@ export default {
 
 			shrinkDuration: 800,
 
-			showInput: false
+			showInput: false,
+
+			submitting: false,
+		
+			newComment: ''
         }
 	},
 
@@ -110,8 +128,22 @@ export default {
 			this.comments = await Comments.getAttached(1);	
 		});
 	},
+
+	mounted() {
+		bus.listen('post-selecting', this.onSelect);	
+	},	
+
+	beforeDestroy() {
+		bus.detach('post-selecting', this.onSelect);	
+	},
 	
 	methods: {
+		async onSelect(event) {
+			this.$options.selectedPostId = event.post.id;
+
+			this.comments = await Comments.getAttached(event.post.id);	
+		},
+		
         shrink() {
             let content = this.$refs.content;
 
@@ -121,7 +153,26 @@ export default {
             setTimeout(() => { 
 				this.bodyHeight = this.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px'; 
 			}, this.renderDuration)
-        }
+		},
+
+		trimTextarea() {
+			this.newComment = this.newComment.trim();
+		},
+		
+		async submit() {
+
+			if (this.submitting)
+				return; 
+
+			this.submitting = true;
+
+			this.trimTextarea();
+
+			let postId = this.$options.selectedPostId; 
+			let data = new FormData(this.$refs.form);
+			
+			Comments.create(postId, data);
+		}
 	}
     
 }

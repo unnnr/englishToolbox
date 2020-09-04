@@ -899,6 +899,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mixins/ShrinkableDetailsTag */ "./resources/js/vue/mixins/ShrinkableDetailsTag.js");
 /* harmony import */ var _models_Comments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Comments */ "./resources/js/models/Comments.js");
 /* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -960,6 +961,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -1001,7 +1016,9 @@ var COMMENT_MARGIN_HEIGHT = 30;
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }],
       shrinkDuration: 800,
-      showInput: false
+      showInput: false,
+      submitting: false,
+      newComment: ''
     };
   },
   computed: {
@@ -1040,16 +1057,81 @@ var COMMENT_MARGIN_HEIGHT = 30;
       }, _callee);
     })));
   },
+  mounted: function mounted() {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_4__["default"].listen('post-selecting', this.onSelect);
+  },
+  beforeDestroy: function beforeDestroy() {
+    _services_eventbus__WEBPACK_IMPORTED_MODULE_4__["default"].detach('post-selecting', this.onSelect);
+  },
   methods: {
-    shrink: function shrink() {
+    onSelect: function onSelect(event) {
       var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.$options.selectedPostId = event.post.id;
+                _context2.next = 3;
+                return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].getAttached(event.post.id);
+
+              case 3:
+                _this2.comments = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    shrink: function shrink() {
+      var _this3 = this;
 
       var content = this.$refs.content;
       this.bodyHeight = content.offsetHeight + 'px'; // Gives time for rendering
 
       setTimeout(function () {
-        _this2.bodyHeight = _this2.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px';
+        _this3.bodyHeight = _this3.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px';
       }, this.renderDuration);
+    },
+    trimTextarea: function trimTextarea() {
+      this.newComment = this.newComment.trim();
+    },
+    submit: function submit() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var postId, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!_this4.submitting) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 2:
+                _this4.submitting = true;
+
+                _this4.trimTextarea();
+
+                postId = _this4.$options.selectedPostId;
+                data = new FormData(_this4.$refs.form);
+                _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data);
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 });
@@ -5802,16 +5884,52 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.showInput
-      ? _c("form", { staticClass: "comments__footer" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("textarea", {
-            staticClass: "comments__textarea",
-            attrs: { placeholder: "your comment" }
-          }),
-          _vm._v(" "),
-          _vm._m(1)
-        ])
+      ? _c(
+          "form",
+          {
+            ref: "form",
+            staticClass: "comments__footer",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submit($event)
+              }
+            }
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newComment,
+                  expression: "newComment"
+                }
+              ],
+              staticClass: "comments__textarea",
+              attrs: {
+                placeholder: "your comment",
+                minlength: "1",
+                maxlength: "500",
+                name: "message",
+                required: ""
+              },
+              domProps: { value: _vm.newComment },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.newComment = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ]
+        )
       : _vm._e()
   ])
 }
@@ -5834,9 +5952,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "comments__send-button" }, [
-      _c("span", { staticClass: "material-icons-round" }, [_vm._v("send")])
-    ])
+    return _c(
+      "button",
+      { staticClass: "comments__send-button", attrs: { type: "submit" } },
+      [_c("span", { staticClass: "material-icons-round" }, [_vm._v("send")])]
+    )
   }
 ]
 render._withStripped = true
@@ -19111,23 +19231,22 @@ var Tags = new function () {
   }();
 
   this.create = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-      var response;
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(postId, data) {
+      var postType, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/comment', data);
+              postType = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].getModelLabel();
+              _context2.next = 3;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post("api/".concat(postType, "/").concat(postId, "/comments"), data);
 
-            case 2:
+            case 3:
               response = _context2.sent;
-              return _context2.abrupt("return", {
-                id: response.id,
-                text: response.text
-              });
+              console.log(response);
+              return _context2.abrupt("return", {});
 
-            case 4:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -19135,7 +19254,7 @@ var Tags = new function () {
       }, _callee2);
     }));
 
-    return function (_x2) {
+    return function (_x2, _x3) {
       return _ref2.apply(this, arguments);
     };
   }();

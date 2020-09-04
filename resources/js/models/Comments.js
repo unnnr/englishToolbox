@@ -56,14 +56,16 @@ const Tags = new function ()
         return parsed;
     }
     
-    this.create = async (data) =>
+    this.create = async (postId, data) =>
     {
-        let response = await Http.post('api/comment', data);
+        let postType = Posts.getModelLabel();
+
+        let response = await Http.post(`api/${postType}/${postId}/comments`, data);
         
+        console.log(response);
         return {
-            id: response.id,
-            text: response.text
-        };
+
+        }
     }
 
     this.remove = async () =>
