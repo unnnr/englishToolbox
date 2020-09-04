@@ -14,12 +14,13 @@ mix.webpackConfig({
     resolve: {
         alias: {
             '@root' : path.resolve(__dirname, 'resources/js/'),
-            '@pages': path.resolve(__dirname, 'resources/js/pages/'),
             '@models': path.resolve(__dirname, 'resources/js/models/'),
-            '@states': path.resolve(__dirname, 'resources/js/vuestates/'),
-            '@plugins' : path.resolve(__dirname, 'resources/js/vueplugins/'),
             '@services': path.resolve(__dirname, 'resources/js/services/'),
-            '@components': path.resolve(__dirname, 'resources/js/components/')
+            
+            '@pages': path.resolve(__dirname, 'resources/js/vue/pages/'),
+            '@states': path.resolve(__dirname, 'resources/js/vue/states/'),
+            '@plugins' : path.resolve(__dirname, 'resources/js/vue/plugins/'),
+            '@components': path.resolve(__dirname, 'resources/js/vue/components/')
         }
     }
 })
