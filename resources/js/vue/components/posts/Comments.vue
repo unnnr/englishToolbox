@@ -158,6 +158,11 @@ export default {
 		trimTextarea() {
 			this.newComment = this.newComment.trim();
 		},
+
+		onServerError(error)  {
+			console.log(error);
+			this.submitting = false;
+		},
 		
 		async submit() {
 
@@ -165,13 +170,16 @@ export default {
 				return; 
 
 			this.submitting = true;
-
 			this.trimTextarea();
 
 			let postId = this.$options.selectedPostId; 
 			let data = new FormData(this.$refs.form);
 			
-			Comments.create(postId, data);
+			let newComment = await Comments.create(postId, data).catch(this.onServerError);
+
+			this.comments.push(newComment);
+
+			this.submitting = false;
 		}
 	}
     

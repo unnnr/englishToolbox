@@ -1100,11 +1100,15 @@ var COMMENT_MARGIN_HEIGHT = 30;
     trimTextarea: function trimTextarea() {
       this.newComment = this.newComment.trim();
     },
+    onServerError: function onServerError(error) {
+      console.log(error);
+      this.submitting = false;
+    },
     submit: function submit() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var postId, data;
+        var postId, data, newComment;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -1123,9 +1127,17 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data);
+                _context3.next = 8;
+                return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
-              case 7:
+              case 8:
+                newComment = _context3.sent;
+
+                _this4.comments.push(newComment);
+
+                _this4.submitting = false;
+
+              case 11:
               case "end":
                 return _context3.stop();
             }
@@ -19159,8 +19171,9 @@ var Tags = new function () {
   }
 
   function createInstance(response) {
+    console.log(response);
     return {
-      message: response.text,
+      message: response.message,
       sender: 'name',
       date: '19 may 2020',
       id: response.id
@@ -19243,10 +19256,9 @@ var Tags = new function () {
 
             case 3:
               response = _context2.sent;
-              console.log(response);
-              return _context2.abrupt("return", {});
+              return _context2.abrupt("return", createInstance(response));
 
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }

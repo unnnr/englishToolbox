@@ -16,8 +16,10 @@ const Tags = new function ()
 
     function createInstance(response)
     {
+        console.log(response);
+        
         return {
-            message: response.text, 
+            message: response.message, 
             sender: 'name',
             date: '19 may 2020',
             id: response.id,
@@ -62,10 +64,7 @@ const Tags = new function ()
 
         let response = await Http.post(`api/${postType}/${postId}/comments`, data);
         
-        console.log(response);
-        return {
-
-        }
+        return createInstance(response);
     }
 
     this.remove = async () =>

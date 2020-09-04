@@ -41,7 +41,7 @@ class CommentService
 
         $newComment = $post->comments()->create([
             'user_id' =>  auth()->user()->id,
-            'text' => $request->input('text')
+            'message' => $request->input('message')
         ]);
 
         return (new CommentResource($newComment))
