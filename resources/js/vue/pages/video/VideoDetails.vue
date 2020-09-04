@@ -80,7 +80,16 @@ export default {
             	    top: distance ,
             	    behavior: 'smooth' 
             	})
-        }
+		},
+
+		shrink() {
+
+		},
+
+		open() {
+
+		}
+		
 	}
 };
 </script>

@@ -22,13 +22,16 @@
                 <div 
                     class="addition__tab addition__tab--description"
                     v-if="detailsShown">
-                    <post-info ref="videoInfo"/>
+                    <post-info
+                        ref="videoInfo"
+                        :shrinkable="mobileWidth"/>
                 </div>
             </transition>
                 
             <div 
                 class="addition__tab addition__tab--comments">
-                <comments/>
+                <comments 
+                    :shrinkable="mobileWidth" />
             </div>
         </div>
     </div>
@@ -61,6 +64,8 @@ export default {
         {
             if (value)
                 this.detailsShown = true;
+
+            console.log('MOVILE');
         }
     },
 
@@ -80,11 +85,13 @@ export default {
         },
 
         onResize() {
-            const WINDOW_MOBILE_BOUDARY = 1000;
+            const WINDOW_MOBILE_BOUDARY = 1200;
 
             let windowWidth = window.innerWidth;
 
-            if (windowWidth <= WINDOW_MOBILE_BOUDARY &&  !!!this.mobileWidth)
+            console.log(windowWidth);
+
+            if (windowWidth <= WINDOW_MOBILE_BOUDARY)
                 this.mobileWidth = true;
             else
                 this.mobileWidth = false;
