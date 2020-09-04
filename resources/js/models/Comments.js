@@ -41,8 +41,6 @@ const Tags = new function ()
     this.getAttached = async (postId) => 
     {
         let postType = Posts.getModelLabel();
-
-        console.log(postType);
         
         let response = await Http.get(`api/${postType}/${postId}/comments`);
 
@@ -54,7 +52,7 @@ const Tags = new function ()
                 createInstance(comment)
             );              
         }
-            console.log(parsed);
+        
         return parsed;
     }
     

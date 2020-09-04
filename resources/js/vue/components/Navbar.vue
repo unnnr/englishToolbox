@@ -161,6 +161,10 @@ export default {
 
     beforeMount() {
         this.links = Routes.all();
+
+        Auth.onload(() => {
+            this.profileShown = Auth.check();
+        });
     },
 
 }

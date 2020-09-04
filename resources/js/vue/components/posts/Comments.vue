@@ -42,7 +42,10 @@
           		</div>
 			</div>
         </div>
-        <form class="comments__footer">
+        <form 
+			class="comments__footer"
+			v-if="showInput">
+
         	<a class="comments__account-link" href="#"><span class="material-icons-round">account_circle</span></a>
         	<textarea class="comments__textarea" placeholder="your comment"></textarea>
         	<button class="comments__send-button"><span class="material-icons-round">send</span></button>
@@ -52,8 +55,9 @@
 
 <script>
 
-import Shrinkable from '@mixins/ShrinkableDetailsTag';
-import Comments from '@models/Comments';
+import Shrinkable from '@mixins/ShrinkableDetailsTag'
+import Comments from '@models/Comments'
+import Auth from '@services/Auth'
 
 const COMMENT_MARGIN_HEIGHT = 30;
 
@@ -73,7 +77,9 @@ export default {
 				{ id: 6, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
 			],
 
-			shrinkDuration: 800
+			shrinkDuration: 800,
+
+			showInput: false
         }
 	},
 
@@ -95,7 +101,11 @@ export default {
 		}
 	},
 
-    mounted() {
+    beforeMount() {
+		Auth.onload(() => {
+			this.showInput = Auth.check();
+		});
+
 		Comments.onload(async () => {
 			this.comments = await Comments.getAttached(1);	
 		});

@@ -117,7 +117,7 @@ export default {
 
             if (this.selectedCard)
                     this.$set(this.selectedCard, 'selected', false);
-
+            
             this.selectedCard = card;
             this.$set(this.selectedCard, 'selected', true);
         });

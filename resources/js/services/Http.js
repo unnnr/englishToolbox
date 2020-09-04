@@ -11,10 +11,17 @@ const Http = new function()
             headers: {
                 'X-CSRF-TOKEN': token,
                 'X-Requested-With': 'XMLHttpRequest',
-                'Accept':'application/json'
+                'Accept':'application/json',
             }
         };
 
+        for (let header of Http.defaultHeaders)
+        {
+            let key = Object.keys(header)[0];
+            let value = header[key];
+            
+            options.headers[key] = value;
+        }
 
         if (Array.isArray(additional.headers))
             options.headers.push(...additional.headers);
@@ -81,7 +88,9 @@ const Http = new function()
         data.append('_method', 'DELETE');
 
         return self.make('POST', path, data, json)
-    }
+    };
+
+    this.defaultHeaders = [];
 
     let self = this;
 }();

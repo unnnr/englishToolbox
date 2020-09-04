@@ -33,8 +33,9 @@ Route::group(['namespace' => 'Api'], function() {
     Route::post('{postType}/{postId}/comments', 'CommentController@store');
     Route::get('{postType}/{postId}/comments', 'CommentController@index');
 
-    Route::get('profile', 'UserController@profile');
 });
+
+Route::get('profile', 'UserController@profile');
 
 
 Route::middleware('auth:sanctum')->get('dump', function(Request $request) {

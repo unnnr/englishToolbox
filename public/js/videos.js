@@ -421,7 +421,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeMount: function beforeMount() {
+    var _this = this;
+
     this.links = _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].all();
+    _services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].onload(function () {
+      _this.profileShown = _services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].check();
+    });
   }
 });
 
@@ -893,6 +898,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mixins/ShrinkableDetailsTag */ "./resources/js/vue/mixins/ShrinkableDetailsTag.js");
 /* harmony import */ var _models_Comments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Comments */ "./resources/js/models/Comments.js");
+/* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -951,6 +957,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+
 
 
 var COMMENT_MARGIN_HEIGHT = 30;
@@ -990,7 +1000,8 @@ var COMMENT_MARGIN_HEIGHT = 30;
         date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }],
-      shrinkDuration: 800
+      shrinkDuration: 800,
+      showInput: false
     };
   },
   computed: {
@@ -1004,9 +1015,12 @@ var COMMENT_MARGIN_HEIGHT = 30;
       return comment.offsetHeight;
     }
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
+    _services_Auth__WEBPACK_IMPORTED_MODULE_3__["default"].onload(function () {
+      _this.showInput = _services_Auth__WEBPACK_IMPORTED_MODULE_3__["default"].check();
+    });
     _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].onload( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
@@ -1290,10 +1304,12 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
       var post = event.post;
-      _this.tags = post.tags;
-      _this.title = post.title;
-      _this.mainTag = post.mainTag;
-      _this.description = post.description;
+      Object.assign(_this.data, {
+        tags: post.tags,
+        title: post.title,
+        mainTag: post.mainTag,
+        description: post.description
+      });
       _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
     });
   }
@@ -5785,7 +5801,18 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _vm.showInput
+      ? _c("form", { staticClass: "comments__footer" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "comments__textarea",
+            attrs: { placeholder: "your comment" }
+          }),
+          _vm._v(" "),
+          _vm._m(1)
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -5793,21 +5820,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "comments__footer" }, [
-      _c("a", { staticClass: "comments__account-link", attrs: { href: "#" } }, [
+    return _c(
+      "a",
+      { staticClass: "comments__account-link", attrs: { href: "#" } },
+      [
         _c("span", { staticClass: "material-icons-round" }, [
           _vm._v("account_circle")
         ])
-      ]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "comments__textarea",
-        attrs: { placeholder: "your comment" }
-      }),
-      _vm._v(" "),
-      _c("button", { staticClass: "comments__send-button" }, [
-        _c("span", { staticClass: "material-icons-round" }, [_vm._v("send")])
-      ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "comments__send-button" }, [
+      _c("span", { staticClass: "material-icons-round" }, [_vm._v("send")])
     ])
   }
 ]
@@ -19048,11 +19076,10 @@ var Tags = new function () {
           switch (_context.prev = _context.next) {
             case 0:
               postType = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].getModelLabel();
-              console.log(postType);
-              _context.next = 4;
+              _context.next = 3;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get("api/".concat(postType, "/").concat(postId, "/comments"));
 
-            case 4:
+            case 3:
               response = _context.sent;
               parsed = [];
               _iterator2 = _createForOfIteratorHelper(response);
@@ -19068,10 +19095,9 @@ var Tags = new function () {
                 _iterator2.f();
               }
 
-              console.log(parsed);
               return _context.abrupt("return", parsed);
 
-            case 10:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -19695,6 +19721,9 @@ var Auth = new function () {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.set('auth', token, {
       expires: AUTH_TOKEN_EXPIRES
     });
+    _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
+      'Authorization': 'Bearer ' + token
+    }];
   }
 
   function removeToken() {
@@ -19713,11 +19742,15 @@ var Auth = new function () {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('user');
+              _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
+                'Authorization': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
+              }];
+              _context3.next = 3;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/profile')["catch"](function () {});
 
-            case 2:
+            case 3:
               user = _context3.sent;
+              loaded = true;
               _iterator = _createForOfIteratorHelper(callbacks);
 
               try {
@@ -19731,7 +19764,7 @@ var Auth = new function () {
                 _iterator.f();
               }
 
-            case 5:
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -19765,7 +19798,7 @@ var Auth = new function () {
               throw Error('Incorrect http response');
 
             case 5:
-              saveToken(response.token);
+              saveToken(response.authToken);
               return _context.abrupt("return", response);
 
             case 7:
@@ -19802,7 +19835,7 @@ var Auth = new function () {
               throw Error('Incorrect http response');
 
             case 5:
-              saveToken(response.token);
+              saveToken(response.authToken);
               return _context2.abrupt("return", response);
 
             case 7:
@@ -19819,10 +19852,15 @@ var Auth = new function () {
   }();
 
   this.isAdmin = function () {
+    if (!!!user) return false;
     return user.admin;
   }, this.user = function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
+  };
+
+  this.check = function () {
+    return Boolean(user);
   };
 
   this.isVerified = function () {
@@ -19831,10 +19869,17 @@ var Auth = new function () {
   };
 
   this.getCredentials = function () {
-    return ['Accept', 'Berier ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')];
+    return {
+      'Accept': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
+    };
   };
 
   this.onload = function (callback) {
+    if (loaded) {
+      callback();
+      return;
+    }
+
     callbacks.push(callback);
   };
 
@@ -19852,6 +19897,7 @@ var Auth = new function () {
   };
 
   var AUTH_TOKEN_EXPIRES = 12;
+  var loaded = false;
   var user = null;
   var callbacks = [];
   init();
@@ -19877,11 +19923,13 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -19897,10 +19945,16 @@ var Http = new function () {
       var additional,
           token,
           options,
+          _iterator,
+          _step,
+          header,
+          key,
+          value,
           response,
           body,
           contentType,
           _args = arguments;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -19917,40 +19971,55 @@ var Http = new function () {
                   'Accept': 'application/json'
                 }
               };
+              _iterator = _createForOfIteratorHelper(Http.defaultHeaders);
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  header = _step.value;
+                  key = Object.keys(header)[0];
+                  value = header[key];
+                  options.headers[key] = value;
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
               if (Array.isArray(additional.headers)) (_options$headers = options.headers).push.apply(_options$headers, _toConsumableArray(additional.headers));
               if (additional.json) options.headers['Content-Type'] = 'application/json';
-              _context.next = 7;
+              _context.next = 9;
               return fetch(window.location.origin + path ? '/' + path : '', options);
 
-            case 7:
+            case 9:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 19;
+                _context.next = 21;
                 break;
               }
 
               if (!(response.headers.get('Content-Type') === 'application/json')) {
-                _context.next = 15;
+                _context.next = 17;
                 break;
               }
 
-              _context.next = 12;
+              _context.next = 14;
               return response.json();
 
-            case 12:
+            case 14:
               body = _context.sent;
-              _context.next = 18;
+              _context.next = 20;
               break;
 
-            case 15:
-              _context.next = 17;
+            case 17:
+              _context.next = 19;
               return response.text();
 
-            case 17:
+            case 19:
               body = _context.sent;
 
-            case 18:
+            case 20:
               throw {
                 name: 'Failed request',
                 message: response.statusText,
@@ -19958,25 +20027,25 @@ var Http = new function () {
                 body: body
               };
 
-            case 19:
+            case 21:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 25;
+                _context.next = 27;
                 break;
               }
 
-              _context.next = 23;
+              _context.next = 25;
               return response.json();
 
-            case 23:
+            case 25:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 25:
+            case 27:
               return _context.abrupt("return", response.text());
 
-            case 26:
+            case 28:
             case "end":
               return _context.stop();
           }
@@ -20016,6 +20085,7 @@ var Http = new function () {
     return self.make('POST', path, data, json);
   };
 
+  this.defaultHeaders = [];
   var self = this;
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Http);

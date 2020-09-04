@@ -85,12 +85,14 @@ export default {
 
         bus.listen('post-selecting', event => {
 
-			let post = event.post;
-
-			this.tags =  post.tags;
-			this.title =  post.title;
-			this.mainTag =  post.mainTag;
-			this.description =  post.description;
+            let post = event.post;
+            
+            Object.assign(this.data, {
+                tags: post.tags, 
+                title: post.title,
+                mainTag: post.mainTag,
+                description: post.description
+            });
 
 			bus.dispatch('post-selected', event);
 		});	

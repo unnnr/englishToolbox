@@ -8,6 +8,8 @@ const Auth = new function() {
         Cookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
+
+        Http.defaultHeaders = [{'Authorization': 'Bearer ' + token}];
     }
     
     function removeToken() 
@@ -17,8 +19,12 @@ const Auth = new function() {
 
     async function init()
     {
-        user = await Http.get('user');
+        Http.defaultHeaders = [{'Authorization': 'Bearer ' + Cookies.get('auth')}];
+
+        user = await Http.get('api/profile').catch(() => {});
     
+        loaded = true;
+
         for (const callback of callbacks)
             callback();
     }
@@ -34,7 +40,7 @@ const Auth = new function() {
         if (!!!response.authToken)
             throw Error('Incorrect http response');
 
-        saveToken(response.token);
+        saveToken(response.authToken);
 
         return response;
     }
@@ -46,12 +52,15 @@ const Auth = new function() {
         if (!!!response.authToken)
             throw Error('Incorrect http response');
 
-        saveToken(response.token);
+        saveToken(response.authToken);
 
         return response;
     }
 
     this.isAdmin = () => {
+        if (!!!user)
+            return false;
+            
         return user.admin;
     },
 
@@ -61,6 +70,10 @@ const Auth = new function() {
             return null;
 
         return { ...user };
+    }
+
+    this.check = () => {
+        return Boolean(user);
     }
 
     this.isVerified = () =>
@@ -73,11 +86,17 @@ const Auth = new function() {
 
     this.getCredentials = () =>
     {
-        return  ['Accept', 'Berier ' + Cookies.get('auth')];
+        return  {'Accept': 'Bearer ' + Cookies.get('auth')};
     }
     
     this.onload = (callback) =>
     {
+        if (loaded)
+        {
+            callback();
+            return
+        }
+
         callbacks.push(callback);
     }
 
@@ -98,6 +117,7 @@ const Auth = new function() {
 
     const AUTH_TOKEN_EXPIRES = 12;
 
+    let loaded = false;
     let user = null; 
     let callbacks = [];
 

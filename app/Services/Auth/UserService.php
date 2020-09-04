@@ -32,7 +32,6 @@ class UserService
         // $user->sendEmailVerificationNotification();
         event(new Registered($user));
 
-
         return (new AuthenticatedUserResource($user))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED); 
