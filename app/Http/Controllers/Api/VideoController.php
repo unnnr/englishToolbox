@@ -68,9 +68,4 @@ class VideoController extends Controller
     {
         return $videoService->destroy($id);
     }
-
-    public function comments(int $id)
-    {
-        return  $videoService->getComments();
-    }
 }

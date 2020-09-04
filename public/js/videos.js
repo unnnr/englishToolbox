@@ -889,7 +889,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mixins/ShrinkableDetailsTag */ "./resources/js/vue/mixins/ShrinkableDetailsTag.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mixins/ShrinkableDetailsTag */ "./resources/js/vue/mixins/ShrinkableDetailsTag.js");
+/* harmony import */ var _models_Comments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Comments */ "./resources/js/models/Comments.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -943,35 +952,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 var COMMENT_MARGIN_HEIGHT = 30;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'comments',
-  mixins: [_mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
       comments: [{
+        id: 1,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }, {
+        id: 2,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }, {
+        id: 3,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }, {
+        id: 4,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }, {
+        id: 5,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }, {
+        id: 6,
         sender: 'IamSENDER',
-        time: '19 may 2020',
+        date: '19 may 2020',
         message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'
       }],
       shrinkDuration: 800
@@ -988,16 +1004,37 @@ var COMMENT_MARGIN_HEIGHT = 30;
       return comment.offsetHeight;
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    var _this = this;
+
+    _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].onload( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].getAttached(1);
+
+            case 2:
+              _this.comments = _context.sent;
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
+  },
   methods: {
     shrink: function shrink() {
-      var _this = this;
+      var _this2 = this;
 
       var content = this.$refs.content;
       this.bodyHeight = content.offsetHeight + 'px'; // Gives time for rendering
 
       setTimeout(function () {
-        _this.bodyHeight = _this.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px';
+        _this2.bodyHeight = _this2.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px';
       }, this.renderDuration);
     }
   }
@@ -1350,7 +1387,6 @@ __webpack_require__.r(__webpack_exports__);
     onResize: function onResize() {
       var WINDOW_MOBILE_BOUDARY = 1200;
       var windowWidth = window.innerWidth;
-      console.log(windowWidth);
       if (windowWidth <= WINDOW_MOBILE_BOUDARY) this.mobileWidth = true;else this.mobileWidth = false;
     }
     /* updateInfo(newData) {
@@ -1360,7 +1396,7 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   beforeMount: function beforeMount() {
-    this.onResize = Object(throttle_debounce__WEBPACK_IMPORTED_MODULE_0__["throttle"])(200, this.onResize);
+    this.onResize = Object(throttle_debounce__WEBPACK_IMPORTED_MODULE_0__["throttle"])(300, this.onResize);
     this.onResize();
     window.addEventListener('resize', this.onResize);
   },
@@ -5715,20 +5751,21 @@ var render = function() {
               _vm._v(_vm._s(_vm.commentsCount) + " comments")
             ]),
             _vm._v(" "),
-            _vm._l(_vm.comments, function(ref, id) {
+            _vm._l(_vm.comments, function(ref) {
               var sender = ref.sender
               var message = ref.message
-              var time = ref.time
+              var date = ref.date
+              var id = ref.id
               return _c("div", { key: id, staticClass: "comment" }, [
                 _c("div", { staticClass: "comment__image" }),
                 _vm._v(" "),
                 _c("div", { staticClass: "comment__body" }, [
                   _c("p", { staticClass: "comment__text text-sixth" }, [
-                    _c("span", { staticClass: "comment__name" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "comment__mention" }, [
-                      _vm._v("@" + _vm._s(sender))
+                    _c("span", { staticClass: "comment__name" }, [
+                      _vm._v(_vm._s(sender))
                     ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "comment__mention" }),
                     _vm._v(
                       "\n                \t\t\t" +
                         _vm._s(message) +
@@ -5737,7 +5774,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("time", { staticClass: "comment__date text-sixth" }, [
-                    _vm._v(_vm._s(time))
+                    _vm._v(_vm._s(date))
                   ])
                 ])
               ])
@@ -18904,6 +18941,217 @@ var Cards = new function () {
 
 /***/ }),
 
+/***/ "./resources/js/models/Comments.js":
+/*!*****************************************!*\
+  !*** ./resources/js/models/Comments.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var Tags = new function () {
+  function load() {
+    return _load.apply(this, arguments);
+  }
+
+  function _load() {
+    _load = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _iterator3, _step3, callback;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('api/tags');
+
+            case 2:
+              comments = _context4.sent;
+              loaded = true;
+              _iterator3 = _createForOfIteratorHelper(callbacks);
+
+              try {
+                for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                  callback = _step3.value;
+                  callback();
+                }
+              } catch (err) {
+                _iterator3.e(err);
+              } finally {
+                _iterator3.f();
+              }
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _load.apply(this, arguments);
+  }
+
+  function createInstance(response) {
+    return {
+      message: response.text,
+      sender: 'name',
+      date: '19 may 2020',
+      id: response.id
+    };
+  }
+
+  this.all = function () {
+    var selectedComments = [];
+
+    var _iterator = _createForOfIteratorHelper(comments),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _comments = _step.value;
+        selectedComments.push(createInstance(comment));
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return selectedComments;
+  };
+
+  this.getAttached = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(postId) {
+      var postType, response, parsed, _iterator2, _step2, _comment;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              postType = _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].getModelLabel();
+              console.log(postType);
+              _context.next = 4;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get("api/".concat(postType, "/").concat(postId, "/comments"));
+
+            case 4:
+              response = _context.sent;
+              parsed = [];
+              _iterator2 = _createForOfIteratorHelper(response);
+
+              try {
+                for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                  _comment = _step2.value;
+                  parsed.push(createInstance(_comment));
+                }
+              } catch (err) {
+                _iterator2.e(err);
+              } finally {
+                _iterator2.f();
+              }
+
+              console.log(parsed);
+              return _context.abrupt("return", parsed);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  this.create = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].post('api/comment', data);
+
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", {
+                id: response.id,
+                text: response.text
+              });
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  this.remove = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('api/comment', data);
+
+          case 2:
+            response = _context3.sent;
+
+          case 3:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  this.onload = function (callback) {
+    if (loaded) {
+      callback();
+      return;
+    }
+
+    callbacks.push(callback);
+  };
+
+  var comments = [];
+  var loaded = false;
+  var callbacks = [];
+  load();
+}();
+/* harmony default export */ __webpack_exports__["default"] = (Tags);
+
+/***/ }),
+
 /***/ "./resources/js/models/Posts.js":
 /*!**************************************!*\
   !*** ./resources/js/models/Posts.js ***!
@@ -19393,6 +19641,10 @@ var Videos = new function () {
 
   this.createThumbnail = function (video) {
     return "https://i.ytimg.com/vi/".concat(video.videoID, "/sddefault.jpg");
+  };
+
+  this.getModelLabel = function () {
+    return 'video';
   };
 
   var videos = [];

@@ -83,7 +83,7 @@ export default {
 		},
 
 		shrink() {
-
+			
 		},
 
 		open() {

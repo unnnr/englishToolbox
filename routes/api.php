@@ -30,8 +30,8 @@ Route::group(['namespace' => 'Api'], function() {
     
     Route::apiResource('comment', 'CommentController')->except(['store', 'index']);
     
-    Route::post('{postType}/{postId}/comment', 'CommentController@store');
-    Route::get('{postType}/{postId}/comment', 'CommentController@index');
+    Route::post('{postType}/{postId}/comments', 'CommentController@store');
+    Route::get('{postType}/{postId}/comments', 'CommentController@index');
 
     Route::get('profile', 'UserController@profile');
 });

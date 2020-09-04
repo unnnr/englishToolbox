@@ -27,17 +27,17 @@
 				<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
           		<div
 			  		class="comment"
-					v-for="({sender, message, time}, id) in comments"
+					v-for="({sender, message, date, id}) in comments"
 					:key="id">
 
             		<div class="comment__image"></div>
             		<div class="comment__body">
               			<p class="comment__text text-sixth">
-                			<span class="comment__name"></span>
-                			<span class="comment__mention">@{{ sender }}</span>
+                			<span class="comment__name">{{ sender }}</span>
+                			<span class="comment__mention"></span>
                 			{{ message }}
               			</p>
-              			<time class="comment__date text-sixth">{{ time }}</time>
+              			<time class="comment__date text-sixth">{{ date }}</time>
             		</div>
           		</div>
 			</div>
@@ -53,7 +53,7 @@
 <script>
 
 import Shrinkable from '@mixins/ShrinkableDetailsTag';
-
+import Comments from '@models/Comments';
 
 const COMMENT_MARGIN_HEIGHT = 30;
 
@@ -65,12 +65,12 @@ export default {
 	data: function () {
         return {
 			comments: [
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ sender: 'IamSENDER', time: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 1, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 2, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 3, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 4, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 5, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
+				{ id: 6, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
 			],
 
 			shrinkDuration: 800
@@ -91,14 +91,14 @@ export default {
 
 			let comment = content.children[1];
 
-
 			return comment.offsetHeight;
 		}
 	},
 
     mounted() {
-
-
+		Comments.onload(async () => {
+			this.comments = await Comments.getAttached(1);	
+		});
 	},
 	
 	methods: {

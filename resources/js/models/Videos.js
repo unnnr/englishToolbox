@@ -170,6 +170,10 @@ const Videos = new function ()
         return `https://i.ytimg.com/vi/${video.videoID}/sddefault.jpg`;
     } 
 
+    this.getModelLabel = () => {
+        return 'video'
+    }
+
     let videos = [];
     let isLoaded = false;
     let callbackCollection = [];

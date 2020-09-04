@@ -14,30 +14,48 @@ const Tags = new function ()
             callback();
     } 
 
+    function createInstance(response)
+    {
+        return {
+            message: response.text, 
+            sender: 'name',
+            date: '19 may 2020',
+            id: response.id,
+        }
+    }
+
     this.all = () =>
     {
         let selectedComments = [];
     
         for (const comments of comments)
         {
-            selectedTags.push({
-                ...comments
-            });              
+            selectedComments.push(
+                createInstance(comment)
+            );              
         }
         
-        return se ;
+        return selectedComments;
     }
 
-    this.getAttached = (postId) => 
+    this.getAttached = async (postId) => 
     {
-        let postType = Posts.getModelName();
-        
-        let response = await Http.post(`api/${postType}/${postId}/comments`, data);
+        let postType = Posts.getModelLabel();
 
-        return {
-            id: response.id,
-            text: response.text
-        };
+        console.log(postType);
+        
+        let response = await Http.get(`api/${postType}/${postId}/comments`);
+
+        let parsed = [];
+
+        for (const comment of response)
+        {
+            parsed.push(
+                createInstance(comment)
+            );              
+        }
+            console.log(parsed);
+        return parsed;
     }
     
     this.create = async (data) =>

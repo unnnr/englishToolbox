@@ -89,8 +89,6 @@ export default {
 
             let windowWidth = window.innerWidth;
 
-            console.log(windowWidth);
-
             if (windowWidth <= WINDOW_MOBILE_BOUDARY)
                 this.mobileWidth = true;
             else
@@ -105,7 +103,7 @@ export default {
     },
     
     beforeMount() {
-        this.onResize = throttle(200, this.onResize);
+        this.onResize = throttle(300, this.onResize);
         this.onResize();
 
         window.addEventListener('resize', this.onResize);
