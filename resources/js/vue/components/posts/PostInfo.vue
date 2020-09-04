@@ -1,7 +1,7 @@
 <template>
     <div class="description">
         <div class="description__header">
-            <h5 class="description__title heading-fifth">{{ title }}</h5>
+            <h5 class="description__title heading-fifth">{{ data.title }}</h5>
             <button
                 class="description__mobile-button"
                 :class="{'description__mobile-button--upturned': shrinked}"
@@ -26,22 +26,22 @@
                 class="description__body-content"
                 ref='content'>
                 
-                <p class="description__text text-fourth">{{ description }}</p>
+                <p class="description__text text-fourth">{{ data.description }}</p>
 
                 <tag-list 
-                    :tags="tags"
-                    :main-tag="mainTag"/>
+                    :tags="data.tags"
+                    :main-tag="data.mainTag"/>
             </div>
                 
         </div>
        
 
         <div class="description__footer">
-            <time class="description__date">{{ date }}</time>
+            <time class="description__date">{{ data.date }}</time>
             
             <div class="description__views">
                 <span class="description__views-icon material-icons-round">visibility</span>
-                <span class="description__views-count">{{ views }}</span>
+                <span class="description__views-count">{{ data.views }}</span>
             </div>
         </div>
     </div>
@@ -51,11 +51,9 @@
 
 <script>
 
+import Shrinkable from '@mixins/ShrinkableDetailsTag';
 import TagList from '@components/tags/TagList';
 import bus from '@services/eventbus';
-
-const SHRINK_DURATION = 700;
-const RENDER_DURATION = 100;
 
 export default {
     name: 'post-info',
@@ -64,45 +62,22 @@ export default {
         TagList
     },
 
-    props: {
-        shrinkable: {
-            type: Boolean
-        }
-    },
+    mixins: [Shrinkable],
 
     data: function () {
         return {
-            title: 'Lorem ipsum dolor',
-            date: 'April 17 2020',
-            views: 1289,
-            description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+
+            data: {
+                title: 'Lorem ipsum dolor',
+                date: 'April 17 2020',
+                views: 1289,
+                description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                            dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
                            congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`,
-           
-            tags: [],
-            mainTag: null,
 
-            shrinked: false,
-            
-            bodyHeight: 'fit-content'
-        }
-    },
-
-    computed: {
-        buttonTransition() {
-            return `transform ${SHRINK_DURATION}ms`;
-        },
-
-        bodyTransition() {
-            return `max-height ${SHRINK_DURATION}ms`;
-        }
-    },
-
-    watch: {
-        shrinkable(value) {
-            console.log(!!!value)
-            if (!!!value)
-                this.open();
+                tags: [],
+                mainTag: null
+            },
         }
     },
 
@@ -119,48 +94,6 @@ export default {
 
 			bus.dispatch('post-selected', event);
 		});	
-    },
-
-
-    methods: {
-        transitionEnded() {
-            if (!!!this.shrinked)
-                this.bodyHeight = 'fit-content';
-
-            this.animationTimer = null;
-        },
-
-        shrink() {
-            let content = this.$refs.content;
-
-            this.bodyHeight = content.offsetHeight + 'px';
-            
-            // Gives time for rendering
-            setTimeout(() => { this.bodyHeight = 0 ;}, RENDER_DURATION)
-        },
-
-		open() {
-            let content = this.$refs.content;
-
-            this.bodyHeight = content.offsetHeight + 'px';
-        },
-        
-        toggle() {
-            if (!!!this.shrinkable)
-                return;
-
-            if (this.animationTimer) 
-                clearTimeout(this.animationTimer)
-
-            this.shrinked = !!!this.shrinked;
-
-            if (this.shrinked)
-                this.shrink();
-            else 
-                this.open();
-
-            this.animationTimer = setTimeout(this.transitionEnded,  SHRINK_DURATION); 
-        }
     }
 }
 </script>

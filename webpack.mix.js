@@ -18,6 +18,7 @@ mix.webpackConfig({
             '@services': path.resolve(__dirname, 'resources/js/services/'),
             
             '@pages': path.resolve(__dirname, 'resources/js/vue/pages/'),
+            '@mixins': path.resolve(__dirname, 'resources/js/vue/mixins/'),
             '@states': path.resolve(__dirname, 'resources/js/vue/states/'),
             '@plugins' : path.resolve(__dirname, 'resources/js/vue/plugins/'),
             '@components': path.resolve(__dirname, 'resources/js/vue/components/')
