@@ -167,6 +167,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,7 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Youtube' => Alaouy\Youtube\Facades\Youtube::class
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

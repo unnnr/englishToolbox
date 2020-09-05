@@ -684,6 +684,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5773,14 +5776,14 @@ var render = function() {
         return _c("card", {
           key: card.id,
           attrs: {
-            tags: card.tags,
             title: card.title,
+            imageUrl: card.thumbnail,
+            createdAt: card.createdAt,
+            description: card.description,
+            tags: card.tags,
             mainTag: card.mainTag,
             selected: card.selected,
-            imageUrl: card.thumbnail,
-            editable: _vm.canCreateContent,
-            createdAt: card.createdAt,
-            description: card.description
+            editable: _vm.canCreateContent
           }
         })
       })

@@ -11,15 +11,18 @@
             :key='-1'/>
         <card
             v-for="card of reversed"
+
             :key="card.id"
-            :tags="card.tags"
             :title="card.title"
-            :mainTag="card.mainTag"
-            :selected="card.selected"
             :imageUrl='card.thumbnail'
-            :editable="canCreateContent"
             :createdAt="card.createdAt"
-            :description="card.description"/>
+            :description="card.description"
+            
+            :tags="card.tags"
+            :mainTag="card.mainTag"
+            
+            :selected="card.selected"
+            :editable="canCreateContent"/>
     </transition-group>
 </template>
 

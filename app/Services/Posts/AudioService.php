@@ -2,6 +2,7 @@
 
 namespace App\Services\Posts;
 
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Resources\AudioResource;
