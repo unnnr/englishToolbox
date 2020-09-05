@@ -10,15 +10,16 @@
             v-if="canCreateContent"
             :key='-1'/>
         <card
-            v-for="({id, tags, mainTag, title, selected, thumbnail, description}) of reversed"
-            :key="id"
-            :tags="tags"
-            :title="title"
-            :mainTag="mainTag"
-            :selected="selected"
-            :imageUrl='thumbnail'
+            v-for="card of reversed"
+            :key="card.id"
+            :tags="card.tags"
+            :title="card.title"
+            :mainTag="card.mainTag"
+            :selected="card.selected"
+            :imageUrl='card.thumbnail'
             :editable="canCreateContent"
-            :description="description"/>
+            :createdAt="card.createdAt"
+            :description="card.description"/>
     </transition-group>
 </template>
 

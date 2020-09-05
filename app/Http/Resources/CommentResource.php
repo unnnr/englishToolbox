@@ -19,7 +19,7 @@ class CommentResource extends JsonResource
             
             'message' => $this->message,
 
-            'created_at' => $this->created_at,
+            'createdAt' => $this->created_at,
 
             'sender' => [
                 'id' => $this->user->id,

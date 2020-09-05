@@ -46,7 +46,7 @@
                     <span class="tag__name" for="cb2">{{ mainTag.label }}</span>
                 </button>
             </div>
-            <time class="card__date">July 19 2020</time>
+            <time class="card__date">{{ createdAt }}</time>
         </div>
     </div>
 </template>
@@ -97,7 +97,12 @@ export default {
         editable:  {
             type: Boolean,
             default: false
-        }   
+        },
+        
+        createdAt: {
+            type: String,
+            default: 'Jul 20 2020'
+        },
     },
 
     data: function() {

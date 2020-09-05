@@ -15,8 +15,12 @@ const FormatedDate = new function() {
 
     const formatOptions = [
         'en-US',
-        { day:'numeric', year: 'numeric', month: 'short'}
-    ]
+        {
+            day:'numeric',
+            year: 'numeric',
+            month: 'short'
+        }
+    ];
 }();
 
 export default FormatedDate;

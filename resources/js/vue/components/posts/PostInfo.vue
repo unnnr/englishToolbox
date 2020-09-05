@@ -37,8 +37,8 @@
        
 
         <div class="description__footer">
-            <time class="description__date">{{ data.date }}</time>
             
+            <time class="description__createdAt">{{ data.createdAt }}</time>
             <div class="description__views">
                 <span class="description__views-icon material-icons-round">visibility</span>
                 <span class="description__views-count">{{ data.views }}</span>
@@ -69,8 +69,8 @@ export default {
 
             data: {
                 title: 'Lorem ipsum dolor',
-                date: 'April 17 2020',
                 views: 1289,
+                createdAt: 'April 17 2020',
                 description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                            dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
                            congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`,
@@ -88,10 +88,7 @@ export default {
             let post = event.post;
             
             Object.assign(this.data, {
-                tags: post.tags, 
-                title: post.title,
-                mainTag: post.mainTag,
-                description: post.description
+                ...post
             });
 
 			bus.dispatch('post-selected', event);

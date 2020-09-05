@@ -531,6 +531,10 @@ __webpack_require__.r(__webpack_exports__);
     editable: {
       type: Boolean,
       "default": false
+    },
+    createdAt: {
+      type: String,
+      "default": 'Jul 20 2020'
     }
   },
   data: function data() {
@@ -655,6 +659,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
 //
 //
 //
@@ -1309,6 +1314,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_ShrinkableDetailsTag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mixins/ShrinkableDetailsTag */ "./resources/js/vue/mixins/ShrinkableDetailsTag.js");
 /* harmony import */ var _components_tags_TagList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/tags/TagList */ "./resources/js/vue/components/tags/TagList.vue");
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1373,8 +1384,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: {
         title: 'Lorem ipsum dolor',
-        date: 'April 17 2020',
         views: 1289,
+        createdAt: 'April 17 2020',
         description: " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et\n                           dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas\n                           congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.",
         tags: [],
         mainTag: null
@@ -1386,12 +1397,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
       var post = event.post;
-      Object.assign(_this.data, {
-        tags: post.tags,
-        title: post.title,
-        mainTag: post.mainTag,
-        description: post.description
-      });
+      Object.assign(_this.data, _objectSpread({}, post));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
     });
   }
@@ -5676,7 +5682,9 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _c("time", { staticClass: "card__date" }, [_vm._v("July 19 2020")])
+        _c("time", { staticClass: "card__date" }, [
+          _vm._v(_vm._s(_vm.createdAt))
+        ])
       ])
     ]
   )
@@ -5761,24 +5769,18 @@ var render = function() {
         ? _c("new-card", { key: -1, attrs: { postType: "video" } })
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.reversed, function(ref) {
-        var id = ref.id
-        var tags = ref.tags
-        var mainTag = ref.mainTag
-        var title = ref.title
-        var selected = ref.selected
-        var thumbnail = ref.thumbnail
-        var description = ref.description
+      _vm._l(_vm.reversed, function(card) {
         return _c("card", {
-          key: id,
+          key: card.id,
           attrs: {
-            tags: tags,
-            title: title,
-            mainTag: mainTag,
-            selected: selected,
-            imageUrl: thumbnail,
+            tags: card.tags,
+            title: card.title,
+            mainTag: card.mainTag,
+            selected: card.selected,
+            imageUrl: card.thumbnail,
             editable: _vm.canCreateContent,
-            description: description
+            createdAt: card.createdAt,
+            description: card.description
           }
         })
       })
@@ -6159,8 +6161,8 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "description__footer" }, [
-      _c("time", { staticClass: "description__date" }, [
-        _vm._v(_vm._s(_vm.data.date))
+      _c("time", { staticClass: "description__createdAt" }, [
+        _vm._v(_vm._s(_vm.data.createdAt))
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "description__views" }, [
@@ -19177,7 +19179,7 @@ var Tags = new function () {
     return {
       message: response.message,
       sender: response.sender.name,
-      date: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(response.created_at),
+      date: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(response.createdAt),
       //'19 may 2020',
       id: response.id
     };
@@ -19505,6 +19507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
 /* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/FormatedDate */ "./resources/js/services/FormatedDate.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -19522,6 +19525,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -19604,13 +19608,13 @@ var Videos = new function () {
     }
 
     var videoCopy = {
-      index: video.id - 1,
       id: video.id,
       title: video.title,
       videoID: video.videoID,
       description: video.description,
       mainTag: _objectSpread({}, video.mainTag),
-      tags: tagsCopy
+      tags: tagsCopy,
+      createdAt: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(video.createdAt)
     };
     return videoCopy;
   }

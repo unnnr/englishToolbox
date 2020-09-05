@@ -1,5 +1,7 @@
 import Http from '@services/Http';
 import getYouTubeID from 'get-youtube-id';
+import FormatedDate from '@services/FormatedDate'
+
 
 const Videos = new function ()
 {
@@ -35,13 +37,16 @@ const Videos = new function ()
             tagsCopy.push({  ...tag });
         
         let videoCopy= {
-            index: video.id - 1,
             id: video.id, 
+            
             title: video.title,
             videoID: video.videoID,
             description: video.description,
+
             mainTag: {...video.mainTag},
-            tags: tagsCopy
+            tags: tagsCopy,
+
+            createdAt: FormatedDate.parse(video.createdAt)
         };
 
         return videoCopy;

@@ -20,7 +20,7 @@ const Tags = new function ()
         return {
             message: response.message, 
             sender: response.sender.name,
-            date: FormatedDate.parse(response.created_at),//'19 may 2020',
+            date: FormatedDate.parse(response.createdAt),//'19 may 2020',
             id: response.id,
         }
     }
