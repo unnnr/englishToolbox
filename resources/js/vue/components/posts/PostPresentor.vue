@@ -21,7 +21,7 @@
             <transition name="fade">
                 <div 
                     class="addition__tab addition__tab--description"
-                    v-if="detailsShown">
+                    v-show="detailsShown">
                     <post-info
                         ref="videoInfo"
                         :shrinkable="mobileWidth"/>

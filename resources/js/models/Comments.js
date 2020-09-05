@@ -1,6 +1,7 @@
 
 import Http from '@services/Http';
 import Posts from '@models/Posts'
+import FormatedDate from '@services/FormatedDate'
 
 const Tags = new function ()
 {
@@ -15,13 +16,11 @@ const Tags = new function ()
     } 
 
     function createInstance(response)
-    {
-        console.log(response);
-        
+    {        
         return {
             message: response.message, 
-            sender: 'name',
-            date: '19 may 2020',
+            sender: response.sender.name,
+            date: FormatedDate.parse(response.created_at),//'19 may 2020',
             id: response.id,
         }
     }

@@ -1038,24 +1038,6 @@ var COMMENT_MARGIN_HEIGHT = 30;
     _services_Auth__WEBPACK_IMPORTED_MODULE_3__["default"].onload(function () {
       _this.showInput = _services_Auth__WEBPACK_IMPORTED_MODULE_3__["default"].check();
     });
-    _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].onload( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].getAttached(1);
-
-            case 2:
-              _this.comments = _context.sent;
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    })));
   },
   mounted: function mounted() {
     _services_eventbus__WEBPACK_IMPORTED_MODULE_4__["default"].listen('post-selecting', this.onSelect);
@@ -1067,24 +1049,24 @@ var COMMENT_MARGIN_HEIGHT = 30;
     onSelect: function onSelect(event) {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
                 _this2.$options.selectedPostId = event.post.id;
-                _context2.next = 3;
+                _context.next = 3;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].getAttached(event.post.id);
 
               case 3:
-                _this2.comments = _context2.sent;
+                _this2.comments = _context.sent;
 
               case 4:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }))();
     },
     shrink: function shrink() {
@@ -1107,18 +1089,18 @@ var COMMENT_MARGIN_HEIGHT = 30;
     submit: function submit() {
       var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var postId, data, newComment;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 if (!_this4.submitting) {
-                  _context3.next = 2;
+                  _context2.next = 2;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context2.abrupt("return");
 
               case 2:
                 _this4.submitting = true;
@@ -1127,11 +1109,11 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                _context3.next = 8;
+                _context2.next = 8;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
               case 8:
-                newComment = _context3.sent;
+                newComment = _context2.sent;
 
                 _this4.comments.push(newComment);
 
@@ -1139,10 +1121,10 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
               case 11:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }))();
     }
   }
@@ -1206,6 +1188,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var SHOWING_TIME = 500;
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1213,9 +1196,14 @@ var SHOWING_TIME = 500;
   data: function data() {
     return {
       tags: [],
-      tagsShown: false,
-      wrapperHeight: 0
+      wrapperHeight: 0,
+      tagsShown: false
     };
+  },
+  computed: {
+    toggleButtonShown: function toggleButtonShown() {
+      if (Array.isArray(this.tags) && this.tags.length > 0) return true;
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -5997,16 +5985,21 @@ var render = function() {
       _c("div", { staticClass: "filter__panel" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "filter__button", on: { click: _vm.toggleFilters } },
-          [
-            _vm._v("\n\n                tags\n                "),
-            _c("span", { staticClass: "material-icons-round" }, [
-              _vm._v("filter_list")
-            ])
-          ]
-        )
+        _vm.toggleButtonShown
+          ? _c(
+              "button",
+              {
+                staticClass: "filter__button",
+                on: { click: _vm.toggleFilters }
+              },
+              [
+                _vm._v("\n\n                tags\n                "),
+                _c("span", { staticClass: "material-icons-round" }, [
+                  _vm._v("filter_list")
+                ])
+              ]
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -6233,19 +6226,27 @@ var render = function() {
       { staticClass: "addition__tabs" },
       [
         _c("transition", { attrs: { name: "fade" } }, [
-          _vm.detailsShown
-            ? _c(
-                "div",
-                { staticClass: "addition__tab addition__tab--description" },
-                [
-                  _c("post-info", {
-                    ref: "videoInfo",
-                    attrs: { shrinkable: _vm.mobileWidth }
-                  })
-                ],
-                1
-              )
-            : _vm._e()
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.detailsShown,
+                  expression: "detailsShown"
+                }
+              ],
+              staticClass: "addition__tab addition__tab--description"
+            },
+            [
+              _c("post-info", {
+                ref: "videoInfo",
+                attrs: { shrinkable: _vm.mobileWidth }
+              })
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -19114,6 +19115,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_Http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Http */ "./resources/js/services/Http.js");
 /* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @services/FormatedDate */ "./resources/js/services/FormatedDate.js");
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -19125,6 +19127,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -19171,11 +19174,11 @@ var Tags = new function () {
   }
 
   function createInstance(response) {
-    console.log(response);
     return {
       message: response.message,
-      sender: 'name',
-      date: '19 may 2020',
+      sender: response.sender.name,
+      date: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(response.created_at),
+      //'19 may 2020',
       id: response.id
     };
   }
@@ -20034,6 +20037,40 @@ var Auth = new function () {
   init();
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Auth);
+
+/***/ }),
+
+/***/ "./resources/js/services/FormatedDate.js":
+/*!***********************************************!*\
+  !*** ./resources/js/services/FormatedDate.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var FormatedDate = new function () {
+  this.parse = function (timestamp) {
+    var date = new Date(timestamp);
+
+    var dateString = _construct(Intl.DateTimeFormat, formatOptions).format(date).replace(',', '');
+
+    return dateString;
+  };
+
+  var formatOptions = ['en-US', {
+    day: 'numeric',
+    year: 'numeric',
+    month: 'short'
+  }];
+}();
+/* harmony default export */ __webpack_exports__["default"] = (FormatedDate);
 
 /***/ }),
 

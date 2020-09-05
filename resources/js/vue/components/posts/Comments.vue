@@ -123,10 +123,6 @@ export default {
 		Auth.onload(() => {
 			this.showInput = Auth.check();
 		});
-
-		Comments.onload(async () => {
-			this.comments = await Comments.getAttached(1);	
-		});
 	},
 
 	mounted() {

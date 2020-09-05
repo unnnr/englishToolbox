@@ -10,6 +10,7 @@
                     <input class="filter__search-input" type="text" placeholder="search">
                 </div>
                 <button 
+                    v-if="toggleButtonShown"
                     class="filter__button"
                     @click="toggleFilters">
 
@@ -50,14 +51,22 @@ import Tags from '@models/Tags';
 const SHOWING_TIME = 500;
 
 export default {
-
     name: 'filter-bar', 
 
     data: function() {
         return {
             tags: [],
+
+            wrapperHeight: 0,
+
             tagsShown: false,
-            wrapperHeight: 0
+        }
+    },
+
+    computed: {
+        toggleButtonShown() {
+            if (Array.isArray(this.tags) && this.tags.length > 0)
+                return true; 
         }
     },
 
@@ -68,7 +77,6 @@ export default {
     },
 
     methods: {
-
         toggleFilters() {
             
             let tagsBody = this.$refs.tagsBody;
