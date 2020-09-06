@@ -19867,20 +19867,22 @@ var Audio = new function () {
               return _context2.abrupt("return", createCopy(target));
 
             case 16:
-              _context2.next = 18;
+              console.log(12);
+              _context2.next = 19;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('api/audio/' + id, data);
 
-            case 18:
+            case 19:
               response = _context2.sent;
+              console.log(21);
 
               if (!!response) {
-                _context2.next = 21;
+                _context2.next = 23;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 21:
+            case 23:
               target.tags = response.tags;
               target.title = response.title;
               target.mainTag = response.mainTag;
@@ -19890,7 +19892,7 @@ var Audio = new function () {
               target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 29:
+            case 31:
             case "end":
               return _context2.stop();
           }
@@ -20775,40 +20777,42 @@ var Http = new function () {
                 _iterator.f();
               }
 
+              console.log('befpasd');
               if (Array.isArray(additional.headers)) (_options$headers = options.headers).push.apply(_options$headers, _toConsumableArray(additional.headers));
               if (additional.json) options.headers['Content-Type'] = 'application/json';
-              _context.next = 9;
+              console.log('somebsads');
+              _context.next = 11;
               return fetch(window.location.origin + path ? '/' + path : '', options);
 
-            case 9:
+            case 11:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 21;
+                _context.next = 23;
                 break;
               }
 
               if (!(response.headers.get('Content-Type') === 'application/json')) {
-                _context.next = 17;
+                _context.next = 19;
                 break;
               }
 
-              _context.next = 14;
+              _context.next = 16;
               return response.json();
 
-            case 14:
+            case 16:
               body = _context.sent;
-              _context.next = 20;
+              _context.next = 22;
               break;
 
-            case 17:
-              _context.next = 19;
+            case 19:
+              _context.next = 21;
               return response.text();
 
-            case 19:
+            case 21:
               body = _context.sent;
 
-            case 20:
+            case 22:
               throw {
                 name: 'Failed request',
                 message: response.statusText,
@@ -20816,25 +20820,25 @@ var Http = new function () {
                 body: body
               };
 
-            case 21:
+            case 23:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 27;
+                _context.next = 29;
                 break;
               }
 
-              _context.next = 25;
+              _context.next = 27;
               return response.json();
 
-            case 25:
+            case 27:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 27:
+            case 29:
               return _context.abrupt("return", response.text());
 
-            case 28:
+            case 30:
             case "end":
               return _context.stop();
           }
@@ -20856,22 +20860,19 @@ var Http = new function () {
   };
 
   this.put = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this.patch = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this["delete"] = function (path) {
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new FormData();
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'DELETE');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this.defaultHeaders = [];
@@ -22900,7 +22901,6 @@ function getLabel(input, label) {
 }
 function appendTagsData(data, tags) {
   var nullable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  console.log(123, tags);
 
   var _iterator = _createForOfIteratorHelper(tags.entries()),
       _step;

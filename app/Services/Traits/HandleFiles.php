@@ -22,7 +22,7 @@ trait HandleFiles
             $thumbnail->blur(25);
 
         if (is_null($outputPath))
-            $outputPath = self::DEFAULT_THUMBNAIL_PATH;
+            $outputPath = self::THUMBNAIL_PATH;
 
         $path = storage_path('app/' . $outputPath . '/' . $fileName);
         $thumbnail->save($path);

@@ -23,11 +23,18 @@ const Http = new function()
             options.headers[key] = value;
         }
 
+        console.log('befpasd');
+
         if (Array.isArray(additional.headers))
             options.headers.push(...additional.headers);
 
+
+
         if (additional.json)
             options.headers['Content-Type'] = 'application/json';
+
+        console.log('somebsads');
+
 
         let response = await fetch(window.location.origin + path ? '/' + path : '' , options);
 
@@ -69,25 +76,25 @@ const Http = new function()
         return self.make('POST', ...arguments)
     }
 
-    this.put = function (path, data, json = null)
+    this.put = function (path, data)
     {
         data.append('_method', 'PUT');
 
-        return self.make('POST', path, data, json);
+        return self.make('POST', path, data);
     }
 
-    this.patch = function (path, data, json = null)
+    this.patch = function (path, data)
     {
         data.append('_method', 'PUT');
 
-        return self.make('POST', path, data, json)
+        return self.make('POST', path, data)
     }
 
-    this.delete = function (path, data = new FormData, json = null)
+    this.delete = function (path, data = new FormData)
     {
         data.append('_method', 'DELETE');
 
-        return self.make('POST', path, data, json)
+        return self.make('POST', path, data)
     };
 
     this.defaultHeaders = [];

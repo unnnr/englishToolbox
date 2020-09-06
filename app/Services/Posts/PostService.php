@@ -99,11 +99,11 @@ abstract class PostService
 
     public function delete(int $id)
     {
-        if (method_exists(get_called_class(), 'beforeDelete'))
-            $data = $this->beforeEdit($request);
-
         $element = $this->model::findOrFail($id);
-        
+
+        if (method_exists(get_called_class(), 'beforeDelete'))
+            $data = $this->beforeEdit($request,  $element);
+  
         $element->tags()->detach();
         
         $element->delete();

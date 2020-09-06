@@ -11,7 +11,6 @@ export function getLabel(input, label, prefix = false)
 
 export function appendTagsData(data, tags, nullable = false)
 {
-    console.log(123 ,tags); 
     for (const [index, tag] of tags.entries())
         data.append(`tags[${index}]`, tag.id);
 }

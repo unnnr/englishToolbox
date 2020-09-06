@@ -62,7 +62,8 @@ class AudioService extends PostService implements MustHandleFiles
         if ($request->has('imageFile'))
         {
             $previousFile = $element->imageFile;
-            Storage::delete('public/thumbnails/' . $previousFile);
+            Storage::delete(self::IMAGES_PATH . $previousFile);
+            Storage::delete(self::THUMBNAIL_PATH . $previousFile);
 
             $fullpath = $request->file('imageFile')->store('public/thumbnails');
             $data['imageFile'] = basename($fullpath);
@@ -75,5 +76,15 @@ class AudioService extends PostService implements MustHandleFiles
            $data['description'] = $request->input('description'); 
 
         return $data;
+    }
+
+    protected function beforeDelete(Request $request, Audio $element)
+    {
+        $imageName = $element->imageFile;
+        $audioName =  $element->audioName;
+
+        Storage::delete(self::IMAGES_PATH . $imageName);
+        Storage::delete(self::THUMBNAIL_PATH . $imageName);
+        Storage::delete(self::AUIDIO_PATH . $audioName);
     }
 }

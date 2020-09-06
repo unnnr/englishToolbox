@@ -82,7 +82,6 @@ const Audio = new function ()
             description: response.description
         };
 
-
         audioCollection.push(newVideo);
         
         return createCopy(newVideo);
@@ -122,9 +121,14 @@ const Audio = new function ()
         if (isFormDataEmpty(data))
             return createCopy(target);
 
+        console.log(12);
         let response = await Http.patch('api/audio/' + id, data);
+        console.log(21);
+
+
         if (!!!response)
             return null; 
+
 
         target.tags = response.tags;
         target.title = response.title;
