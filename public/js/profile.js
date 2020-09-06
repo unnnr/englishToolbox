@@ -600,6 +600,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'profile-editor',
@@ -662,7 +666,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 form = _this.$refs.form;
                 _context.next = 8;
-                return _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].edit(new FormData(form))["catch"](function () {});
+                return _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].edit(new FormData(form))["catch"](function (error) {
+                  console.log(error);
+                });
 
               case 8:
                 _this.currentName = _this.newName;
@@ -3780,8 +3786,9 @@ var render = function() {
           ],
           staticClass: "management__account-input input-second",
           attrs: {
-            type: "text",
             placeholder: "Your name",
+            type: "text",
+            name: "name",
             disabled: _vm.loading,
             required: ""
           },
@@ -3826,8 +3833,9 @@ var render = function() {
           ],
           staticClass: "management__account-input input-second",
           attrs: {
-            type: "text",
             placeholder: "your-email@gmail.com",
+            type: "text",
+            name: "email",
             disabled: _vm.loading,
             required: ""
           },
@@ -3880,6 +3888,7 @@ var render = function() {
                 staticClass: "management__account-input input-second",
                 attrs: {
                   placeholder: "new password",
+                  name: "newPassword",
                   disabled: _vm.loading,
                   type: "checkbox"
                 },
@@ -3926,6 +3935,7 @@ var render = function() {
                 staticClass: "management__account-input input-second",
                 attrs: {
                   placeholder: "new password",
+                  name: "newPassword",
                   disabled: _vm.loading,
                   type: "radio"
                 },
@@ -3948,6 +3958,7 @@ var render = function() {
                 staticClass: "management__account-input input-second",
                 attrs: {
                   placeholder: "new password",
+                  name: "newPassword",
                   disabled: _vm.loading,
                   type: _vm.passwordType
                 },
@@ -4008,6 +4019,7 @@ var render = function() {
               staticClass: "management__account-input input-second",
               attrs: {
                 placeholder: "confirm new password",
+                name: "confirmation",
                 disabled: _vm.loading,
                 type: "checkbox"
               },
@@ -4054,6 +4066,7 @@ var render = function() {
               staticClass: "management__account-input input-second",
               attrs: {
                 placeholder: "confirm new password",
+                name: "confirmation",
                 disabled: _vm.loading,
                 type: "radio"
               },
@@ -4076,6 +4089,7 @@ var render = function() {
               staticClass: "management__account-input input-second",
               attrs: {
                 placeholder: "confirm new password",
+                name: "confirmation",
                 disabled: _vm.loading,
                 type: _vm.passwordType
               },
@@ -4126,9 +4140,9 @@ var render = function() {
             ],
             staticClass: "management__account-input input-second",
             attrs: {
-              type: "text",
               placeholder: "current password",
-              minlength: "5",
+              type: "text",
+              name: "password",
               disabled: _vm.loading,
               required: ""
             },
@@ -17259,13 +17273,13 @@ var Auth = new function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               name = data.get('name');
-              if (name === user.name) data.remove('name');
+              if (name === user.name) data["delete"]('name');
               email = data.get('email');
-              if (email === user.email) data.remove('email');
+              if (email === user.email) data["delete"]('email');
               newPassword = data.get('newPassword');
-              if (typeof newPassword === 'string' && !!!newPassword.length) data.remove('newPassword');
-              confirmation = data.get('newPassowrd');
-              if (typeof confirmation === 'string' && !!!confirmation.length) data.remove('confirmation');
+              if (typeof newPassword === 'string' && !!!newPassword.length) data["delete"]('newPassword');
+              confirmation = data.get('confirmation');
+              if (typeof confirmation === 'string' && !!!confirmation.length) data["delete"]('confirmation');
 
               if (!isFormDataEmpty(data)) {
                 _context3.next = 10;

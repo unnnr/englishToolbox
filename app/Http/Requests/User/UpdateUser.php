@@ -24,10 +24,11 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'string|between:3,32',
             'email' => 'email',
-            'newPassowrd' =>'required|string|between:5,64',
-            'confirmation' =>'required|string|same:newPassowrd',
-            'password' => 'required|string|between:5,64',
+            'newPassowrd' => 'string|between:5,64',
+            'confirmation' => 'string|same:newPassowrd',
+            'password' => 'required|string',
         ];
     }
 }

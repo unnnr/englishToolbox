@@ -17,8 +17,9 @@
         <div class="management__account-input-group">
             <input
                 class="management__account-input input-second"
-                type="text"
                 placeholder="Your name"
+                type="text"
+                name="name"
                 :disabled="loading"
                 v-model="data.newName"
                 required>
@@ -28,8 +29,9 @@
         <div class="management__account-input-group">
             <input 
                 class="management__account-input input-second" 
-                type="text" 
                 placeholder="your-email@gmail.com"
+                type="text" 
+                name="email"
                 :disabled="loading"
                 v-model="data.email"
                 required>
@@ -40,6 +42,7 @@
             <input 
                 class="management__account-input input-second"
                 placeholder="new password"
+                name="newPassword"
                 v-model="data.newPassword"
                 :disabled="loading"
                 :type="passwordType">
@@ -57,6 +60,7 @@
             <input 
                 class="management__account-input input-second" 
                 placeholder="confirm new password"
+                name="confirmation"
                 v-model="data.confirmation"
                 :disabled="loading"
                 :type="passwordType">
@@ -67,9 +71,9 @@
         <div class="management__account-input-group management__account-input-group--margined">
             <input
                 class="management__account-input input-second"
-                type="text"
                 placeholder="current password"
-                minlength="5"
+                type="text"
+                name="password"
                 v-model="data.currentPassoword"
                 :disabled="loading"
                 required>
@@ -130,8 +134,6 @@ export default {
             this.passowrdShown = !!!this.passowrdShown;
         },
 
-        
-
         async submit() {
             if (this.loading === true)
                 return;
@@ -142,7 +144,7 @@ export default {
             this.loading = true;
             
             let form = this.$refs.form;
-            await Auth.edit(new FormData(form)).catch(() => {});
+            await Auth.edit(new FormData(form)).catch((error) => {console.log(error)});
 
             this.currentName = this.newName;
 

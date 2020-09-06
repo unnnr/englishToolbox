@@ -84,19 +84,19 @@ const Auth = new function() {
     {
         let name = data.get('name');
         if (name === user.name)
-            data.remove('name');
+            data.delete('name');
 
         let email = data.get('email');
         if (email ===  user.email)
-            data.remove('email');
+            data.delete('email');
         
         let newPassword = data.get('newPassword');
         if (typeof newPassword === 'string' && !!!newPassword.length)
-            data.remove('newPassword');
+            data.delete('newPassword');
 
-        let confirmation = data.get('newPassowrd');
+        let confirmation = data.get('confirmation');
         if (typeof confirmation === 'string' && !!!confirmation.length)
-            data.remove('confirmation');
+            data.delete('confirmation');
 
         if (isFormDataEmpty(data))
             return;

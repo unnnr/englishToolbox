@@ -11,7 +11,7 @@ use App\Services\Traits\HandleAuthentication;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\Models\User;
-use App\Events\EmailChaged;
+use App\Events\EmailChanged;
 
 
 class UserService implements MustHandleAuthentication
@@ -27,7 +27,7 @@ class UserService implements MustHandleAuthentication
         return new UserResource($user);
     }
 
-    public function udpate(Request $request)
+    public function update(Request $request)
     {
         $user = auth()->user();
 
@@ -37,14 +37,17 @@ class UserService implements MustHandleAuthentication
         $confirmation = $request->input('password');
         $password = $user->password;
 
-        if (!!!Hash::check($password, $confirmation))
+        if (!!!Hash::check($confirmation, $password))
         {
-            throw ValidationException::withMessage([
+            throw ValidationException::withMessages([
                 'password' => 'Icorrect password'
             ]);
         }
 
         /// TO MIDDLEWATE
+
+        if ($request->has('name'))
+            $user->name = $request->input('name');
 
         if ($request->has('newPassword'))
             $user->password = $request->input('newPassword');

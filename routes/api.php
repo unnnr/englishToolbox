@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Api'], function() {
 });
 
 Route::match(['head', 'get'], 'profile', 'UserController@index');
-Route::match(['put', 'patch'], 'profile', 'UserController@edit');
+Route::match(['put', 'patch'], 'profile', 'UserController@update');
 Route::delete('profile', 'UserControlle@delete');
 
 

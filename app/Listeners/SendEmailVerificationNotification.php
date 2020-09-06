@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -24,7 +23,7 @@ class SendEmailVerificationNotification
      * @param  Registered  $event
      * @return void
      */
-    public function handle(Registered $event)
+    public function handle($event)
     {
         $event->user->sendEmailVerificationNotification();
     }
