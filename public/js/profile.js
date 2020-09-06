@@ -509,6 +509,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_Auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/Auth */ "./resources/js/services/Auth.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -582,6 +591,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'profile-editor',
   data: function data() {
@@ -594,7 +613,8 @@ __webpack_require__.r(__webpack_exports__);
         newPassword: '',
         confirmation: ''
       },
-      passowrdShown: false
+      passowrdShown: false,
+      loading: false
     };
   },
   computed: {
@@ -614,7 +634,48 @@ __webpack_require__.r(__webpack_exports__);
     togglePasswordView: function togglePasswordView() {
       this.passowrdShown = !!!this.passowrdShown;
     },
-    submit: function submit() {}
+    submit: function submit() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var form;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.loading === true)) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
+                if (!(_this.data.confirmation !== _this.data.newPassword)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 4:
+                _this.loading = true;
+                form = _this.$refs.form;
+                _context.next = 8;
+                return _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].edit(new FormData(form))["catch"](function () {});
+
+              case 8:
+                _this.currentName = _this.newName;
+                _this.loading = false;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
   }
 });
 
@@ -3670,6 +3731,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
+          return _vm.submit($event)
         }
       }
     },
@@ -3717,7 +3779,12 @@ var render = function() {
             }
           ],
           staticClass: "management__account-input input-second",
-          attrs: { type: "text", placeholder: "Your name" },
+          attrs: {
+            type: "text",
+            placeholder: "Your name",
+            disabled: _vm.loading,
+            required: ""
+          },
           domProps: { value: _vm.data.newName },
           on: {
             input: function($event) {
@@ -3758,7 +3825,12 @@ var render = function() {
             }
           ],
           staticClass: "management__account-input input-second",
-          attrs: { type: "text", placeholder: "your-email@gmail.com" },
+          attrs: {
+            type: "text",
+            placeholder: "your-email@gmail.com",
+            disabled: _vm.loading,
+            required: ""
+          },
           domProps: { value: _vm.data.email },
           on: {
             input: function($event) {
@@ -3806,7 +3878,11 @@ var render = function() {
                   }
                 ],
                 staticClass: "management__account-input input-second",
-                attrs: { placeholder: "new password", type: "checkbox" },
+                attrs: {
+                  placeholder: "new password",
+                  disabled: _vm.loading,
+                  type: "checkbox"
+                },
                 domProps: {
                   checked: Array.isArray(_vm.data.newPassword)
                     ? _vm._i(_vm.data.newPassword, null) > -1
@@ -3848,7 +3924,11 @@ var render = function() {
                   }
                 ],
                 staticClass: "management__account-input input-second",
-                attrs: { placeholder: "new password", type: "radio" },
+                attrs: {
+                  placeholder: "new password",
+                  disabled: _vm.loading,
+                  type: "radio"
+                },
                 domProps: { checked: _vm._q(_vm.data.newPassword, null) },
                 on: {
                   change: function($event) {
@@ -3866,7 +3946,11 @@ var render = function() {
                   }
                 ],
                 staticClass: "management__account-input input-second",
-                attrs: { placeholder: "new password", type: _vm.passwordType },
+                attrs: {
+                  placeholder: "new password",
+                  disabled: _vm.loading,
+                  type: _vm.passwordType
+                },
                 domProps: { value: _vm.data.newPassword },
                 on: {
                   input: function($event) {
@@ -3922,7 +4006,11 @@ var render = function() {
                 }
               ],
               staticClass: "management__account-input input-second",
-              attrs: { placeholder: "confirm new password", type: "checkbox" },
+              attrs: {
+                placeholder: "confirm new password",
+                disabled: _vm.loading,
+                type: "checkbox"
+              },
               domProps: {
                 checked: Array.isArray(_vm.data.confirmation)
                   ? _vm._i(_vm.data.confirmation, null) > -1
@@ -3964,7 +4052,11 @@ var render = function() {
                 }
               ],
               staticClass: "management__account-input input-second",
-              attrs: { placeholder: "confirm new password", type: "radio" },
+              attrs: {
+                placeholder: "confirm new password",
+                disabled: _vm.loading,
+                type: "radio"
+              },
               domProps: { checked: _vm._q(_vm.data.confirmation, null) },
               on: {
                 change: function($event) {
@@ -3984,6 +4076,7 @@ var render = function() {
               staticClass: "management__account-input input-second",
               attrs: {
                 placeholder: "confirm new password",
+                disabled: _vm.loading,
                 type: _vm.passwordType
               },
               domProps: { value: _vm.data.confirmation },
@@ -4032,7 +4125,13 @@ var render = function() {
               }
             ],
             staticClass: "management__account-input input-second",
-            attrs: { type: "text", placeholder: "current password" },
+            attrs: {
+              type: "text",
+              placeholder: "current password",
+              minlength: "5",
+              disabled: _vm.loading,
+              required: ""
+            },
             domProps: { value: _vm.data.currentPassoword },
             on: {
               input: function($event) {
@@ -17018,26 +17117,31 @@ var Auth = new function () {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.remove('auth');
   }
 
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
+  }
+
   function init() {
     return _init.apply(this, arguments);
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var _iterator, _step, callback;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
                 'Authorization': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
               }];
-              _context3.next = 3;
+              _context4.next = 3;
               return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/profile')["catch"](function () {});
 
             case 3:
-              user = _context3.sent;
+              user = _context4.sent;
               loaded = true;
               _iterator = _createForOfIteratorHelper(callbacks);
 
@@ -17054,10 +17158,10 @@ var Auth = new function () {
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _init.apply(this, arguments);
   }
@@ -17146,6 +17250,53 @@ var Auth = new function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
   };
+
+  this.edit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+      var name, email, newPassword, confirmation, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              name = data.get('name');
+              if (name === user.name) data.remove('name');
+              email = data.get('email');
+              if (email === user.email) data.remove('email');
+              newPassword = data.get('newPassword');
+              if (typeof newPassword === 'string' && !!!newPassword.length) data.remove('newPassword');
+              confirmation = data.get('newPassowrd');
+              if (typeof confirmation === 'string' && !!!confirmation.length) data.remove('confirmation');
+
+              if (!isFormDataEmpty(data)) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 10:
+              _context3.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].patch('api/profile', data);
+
+            case 12:
+              response = _context3.sent;
+              user.name = response.name;
+              user.email = response.email;
+              user.verified = response.verified;
+              return _context3.abrupt("return", response);
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 
   this.check = function () {
     return Boolean(user);
@@ -17274,42 +17425,40 @@ var Http = new function () {
                 _iterator.f();
               }
 
-              console.log('befpasd');
               if (Array.isArray(additional.headers)) (_options$headers = options.headers).push.apply(_options$headers, _toConsumableArray(additional.headers));
               if (additional.json) options.headers['Content-Type'] = 'application/json';
-              console.log('somebsads');
-              _context.next = 11;
+              _context.next = 9;
               return fetch(window.location.origin + path ? '/' + path : '', options);
 
-            case 11:
+            case 9:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 23;
+                _context.next = 21;
                 break;
               }
 
               if (!(response.headers.get('Content-Type') === 'application/json')) {
-                _context.next = 19;
+                _context.next = 17;
                 break;
               }
 
-              _context.next = 16;
+              _context.next = 14;
               return response.json();
 
-            case 16:
+            case 14:
               body = _context.sent;
-              _context.next = 22;
+              _context.next = 20;
               break;
 
-            case 19:
-              _context.next = 21;
+            case 17:
+              _context.next = 19;
               return response.text();
 
-            case 21:
+            case 19:
               body = _context.sent;
 
-            case 22:
+            case 20:
               throw {
                 name: 'Failed request',
                 message: response.statusText,
@@ -17317,25 +17466,25 @@ var Http = new function () {
                 body: body
               };
 
-            case 23:
+            case 21:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 29;
+                _context.next = 27;
                 break;
               }
 
-              _context.next = 27;
+              _context.next = 25;
               return response.json();
 
-            case 27:
+            case 25:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 29:
+            case 27:
               return _context.abrupt("return", response.text());
 
-            case 30:
+            case 28:
             case "end":
               return _context.stop();
           }

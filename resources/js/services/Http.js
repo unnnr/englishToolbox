@@ -23,18 +23,11 @@ const Http = new function()
             options.headers[key] = value;
         }
 
-        console.log('befpasd');
-
         if (Array.isArray(additional.headers))
             options.headers.push(...additional.headers);
 
-
-
         if (additional.json)
             options.headers['Content-Type'] = 'application/json';
-
-        console.log('somebsads');
-
 
         let response = await fetch(window.location.origin + path ? '/' + path : '' , options);
 

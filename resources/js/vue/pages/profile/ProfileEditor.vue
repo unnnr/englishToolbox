@@ -2,7 +2,7 @@
     <form
         class="management__tab-body"
         ref="form"
-        @submit.prevent="">
+        @submit.prevent="submit">
         
         <div class="management__account-header">
             <div class="management__account-photo"></div>
@@ -19,7 +19,9 @@
                 class="management__account-input input-second"
                 type="text"
                 placeholder="Your name"
-                v-model="data.newName">
+                :disabled="loading"
+                v-model="data.newName"
+                required>
             <span class="management__account-input-icon material-icons-round">account_circle</span>
         </div>
         <label class="management__account-label heading-fifth" for="">Email</label>
@@ -28,7 +30,9 @@
                 class="management__account-input input-second" 
                 type="text" 
                 placeholder="your-email@gmail.com"
-                v-model="data.email">
+                :disabled="loading"
+                v-model="data.email"
+                required>
             <span class="management__account-input-icon material-icons-round">email</span>
         </div>
         <label class="management__account-label heading-fifth" for="">Password</label>
@@ -37,6 +41,7 @@
                 class="management__account-input input-second"
                 placeholder="new password"
                 v-model="data.newPassword"
+                :disabled="loading"
                 :type="passwordType">
             <span class="management__account-input-icon material-icons-round">enhanced_encryption</span>
             <button 
@@ -53,6 +58,7 @@
                 class="management__account-input input-second" 
                 placeholder="confirm new password"
                 v-model="data.confirmation"
+                :disabled="loading"
                 :type="passwordType">
 
             <span class="management__account-input-icon material-icons-round">lock</span>
@@ -63,7 +69,10 @@
                 class="management__account-input input-second"
                 type="text"
                 placeholder="current password"
-                v-model="data.currentPassoword">
+                minlength="5"
+                v-model="data.currentPassoword"
+                :disabled="loading"
+                required>
             <span class="management__account-input-icon material-icons-round">check</span>
         </div>
         <button class="management__account-button button-second">confirm changes</button>
@@ -72,6 +81,8 @@
 </template>
 
 <script>
+import Auth from '@services/Auth';
+
 export default {
     name: 'profile-editor',
 
@@ -88,7 +99,9 @@ export default {
                 confirmation: '',
             },
 
-            passowrdShown: false
+            passowrdShown: false,
+
+            loading: false
         }
     },
 
@@ -117,8 +130,23 @@ export default {
             this.passowrdShown = !!!this.passowrdShown;
         },
 
-        submit() {
+        
+
+        async submit() {
+            if (this.loading === true)
+                return;
+
+            if ( this.data.confirmation !== this.data.newPassword)
+                return;
+
+            this.loading = true;
             
+            let form = this.$refs.form;
+            await Auth.edit(new FormData(form)).catch(() => {});
+
+            this.currentName = this.newName;
+
+            this.loading = false;
         }
     }
 }

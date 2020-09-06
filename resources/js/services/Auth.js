@@ -17,6 +17,14 @@ const Auth = new function() {
         Cookies.remove('auth');
     }
 
+    function isFormDataEmpty(data)
+    {
+        if (data.values().next())
+            return false;
+
+        return true;
+    }
+
     async function init()
     {
         Http.defaultHeaders = [{'Authorization': 'Bearer ' + Cookies.get('auth')}];
@@ -70,6 +78,36 @@ const Auth = new function() {
             return null;
 
         return { ...user };
+    }
+
+    this.edit = async (data) =>
+    {
+        let name = data.get('name');
+        if (name === user.name)
+            data.remove('name');
+
+        let email = data.get('email');
+        if (email ===  user.email)
+            data.remove('email');
+        
+        let newPassword = data.get('newPassword');
+        if (typeof newPassword === 'string' && !!!newPassword.length)
+            data.remove('newPassword');
+
+        let confirmation = data.get('newPassowrd');
+        if (typeof confirmation === 'string' && !!!confirmation.length)
+            data.remove('confirmation');
+
+        if (isFormDataEmpty(data))
+            return;
+
+        let response = await Http.patch('api/profile', data); 
+
+        user.name = response.name;
+        user.email = response.email;
+        user.verified = response.verified;
+        
+        return response;
     }
 
     this.check = () => {
