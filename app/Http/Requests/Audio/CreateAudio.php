@@ -25,7 +25,7 @@ class CreateAudio extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'description' => 'string|max:180',
+            'description' => 'string|max:180|nullable',
 
             'audioFile' => 'required|max:10240|mimes:mpga,wav',
             'imageFile' => 'required|max:10240|image',

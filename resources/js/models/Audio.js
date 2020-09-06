@@ -4,18 +4,12 @@ const Audio = new function ()
 {
     async function init()
     {
-        audioCollection = await Http.get('api/audio')
+        audioCollection = await Http.get('api/audio');
 
-        setTimeout(() => {
-            if (!!!Array.isArray(audioCollection))
-                console.error('500 error');
+        isLoaded = true;
 
-            isLoaded = true;
-
-            for (const callback of callbackCollection)
-                callback();
-
-        }, 100);
+        for (const callback of callbackCollection)
+            callback();
     }
 
     function getById(id)
@@ -40,8 +34,9 @@ const Audio = new function ()
             tags: tagsCopy,
             title: audio.title,
             mainTag: mainTagCopy,
-            imageUrl: audio.imageUrl,
-            audioUrl: audio.audioUrl,
+            image: audio.image,
+            audio: audio.audio,
+            thumbnail: audio.thumbnail,
             description: audio.description
         };
 
@@ -81,8 +76,9 @@ const Audio = new function ()
             tags: response.tags,
             title: response.title,
             mainTag: response.mainTag,
-            imageUrl: response.imageUrl,
-            audioUrl: response.audioUrl,
+            image: response.image,
+            audio: response.audio,
+            thumbnail: response.thumbnail,
             description: response.description
         };
 
@@ -133,8 +129,9 @@ const Audio = new function ()
         target.tags = response.tags;
         target.title = response.title;
         target.mainTag = response.mainTag;
-        target.audioUrl = response.audioUrl;
-        target.imageUrl = response.imageUrl;
+        target.audio = response.audio;
+        target.image = response.image;
+        target.thumbnail = response.thumbnail;
         target.description = response.description;
         
         return createCopy(target);
@@ -176,8 +173,13 @@ const Audio = new function ()
 
     this.createThumbnail = (audio) =>
     {
-        return audio.imageUrl;
-    } 
+        return audio.thumbnail;
+    }
+    
+    this.getModelLabel = () =>
+    {
+        return 'audio';
+    }
 
     let isLoaded = false;
     let audioCollection = [];

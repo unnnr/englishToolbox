@@ -128,9 +128,4 @@ abstract class PostService
 
         return $this->createCollectionResponce($this->model::all());
     }
-
-    public function comments($id) 
-    {
-        return $this->model::findOrFail($id)->comments;
-    }
 }

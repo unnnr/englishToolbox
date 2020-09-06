@@ -7,34 +7,43 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Resources\AudioResource;
 use App\Models\Audio;
-
+use App\Services\Traits\HandleFiles;
 use App\Services\Posts\PostService;
+use App\Services\Contracts\MustHandleFiles;
 
 
-class AudioService extends PostService
+class AudioService extends PostService implements MustHandleFiles
 {
+    use HandleFiles;
+
+    const AUDIO_PATH = 'public/audio';
+
+    const IMAGES_PATH = 'public/audioBackgrounds';
 
     protected $model = Audio::class;
     
     protected $resource = AudioResource::class;
 
     protected function beforeCreate(Request $request)
-    {
-        $fullpath = $request->file('audioFile')->store('public/audio');
-        $audioFile = basename($fullpath);
+    { 
+        // Creating files
+        $audioFileName =  $this->storeFile($request->file('audioFile'),  self::AUDIO_PATH);
         
-        $fullpath = $request->file('imageFile')->store('public/thumbnails');
-        $imageFile = basename($fullpath);
-
-        $title =  $request->input('title'); 
+        $imageFileName = $this->storeFile($request->file('imageFile'), self::IMAGES_PATH);
+        
+        $this->createThumbnail($request->file('imageFile'), $imageFileName, self::BLURED);
+        
+        // Retrieving sended data 
         $description = $request->input('description');
-
+        
+        $title =  $request->input('title'); 
+        
         return [
             'title' => $title,
             'description' => $description,
-            'audioFile' => $audioFile,
-            'imageFile' => $imageFile,
-        ]; 
+            'audioFile' => $audioFileName,
+            'imageFile' => $imageFileName,
+        ];
     }
 
     protected function beforeUpdate(Request $request, Audio $element)
@@ -64,7 +73,6 @@ class AudioService extends PostService
 
         if ($request->has('description'))
            $data['description'] = $request->input('description'); 
-
 
         return $data;
     }

@@ -9,15 +9,10 @@ const Videos = new function ()
     {
         videos = await Http.get('api/video')
 
-        setTimeout(() => {
-            if (!!!Array.isArray(videos))
-            console.error('500 error');
+        isLoaded = true;
 
-            isLoaded = true;
-
-            for (const callback of callbackCollection)
-                callback();
-        }, 1000);
+        for (const callback of callbackCollection)
+            callback();
     }
 
     function getById(id)

@@ -176,12 +176,14 @@ export default {
         });
 
 		bus.listen('post-selected', event => {
+
             let audio = event.post;
+            console.log(audio);
 
             this.clear();
 
-            this.audio.url = audio.audioUrl;
-            this.image.url = audio.imageUrl;
+            this.audio.url = audio.audio;
+            this.image.url = audio.image;
             this.overlay.shown = false;
 
             if (!!!event.disableScrolling)
@@ -197,15 +199,15 @@ export default {
 
             this.clear();
 
-            this.audio.url = audio.audioUrl;
-            this.image.url = audio.imageUrl;
+            this.audio.url = audio.audio;
+            this.image.url = audio.image;
 
 			this.overlay.shown = false;
 		});
 
 		bus.listen('editor-image-changed', event => {
 
-            this.image.url = event.imageUrl;
+            this.image.url = event.image;
 
             if (this.audio.url && this.image.url)
 			    this.overlay.shown = false;
@@ -213,7 +215,7 @@ export default {
         
         bus.listen('editor-audio-changed', event => {	
             
-            this.audio.url = event.audioUrl;
+            this.audio.url = event.audio;
             
 			if (this.audio.url && this.image.url)
 			    this.overlay.shown = false;

@@ -12,6 +12,7 @@ let Posts = new function ()
 {
     this.track = (newTarget) =>
     {
+        console.log(newTarget);
         target = newTarget;
     }
 }();

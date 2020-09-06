@@ -2,7 +2,7 @@ import AudioDetails from  '@pages/audio/AudioDetails'
 import AudioPlayer from  '@pages/audio/AudioPlayer'
 import FilterBar from '@components/posts/FilterBar'
 import Overlay from '@components/posts/Overlay'
-import Audio from '@models/Videos'
+import Audio from '@models/Audio'
 
 import Posts from '@models/Posts'
 import Pool from  '@components/cards/Pool'
