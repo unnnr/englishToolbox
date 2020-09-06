@@ -4,71 +4,66 @@ namespace App\Services\Auth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Auth\Events\Registered;
+use App\Services\Contracts\MustHandleAuthentication;
+use App\Services\Traits\HandleAuthentication;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\Models\User;
+use App\Events\EmailChaged;
 
 
-class UserService
+class UserService implements MustHandleAuthentication
 {
+    use HandleAuthentication;
 
     const REMEMBER_ME = true;
 
-    public function register(Request $request)
+    public function currentUser()
     {
-        $data = $request->validated();
+        $user = auth()->user();
         
-        $user = User::create($data);
-
-        Auth::login($user, self::REMEMBER_ME);
-        
-        $authToken = $user->createToken('authToken');
-        
-        $user->withAccessToken($authToken);
-
-        // $user->sendEmailVerificationNotification();
-        event(new Registered($user));
-
-        return (new AuthenticatedUserResource($user))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED); 
+        return new UserResource($user);
     }
 
-    
-    public function login(Request $request)
+    public function udpate(Request $request)
     {
-        $data = $request->validated();
-        if (!!!Auth::attempt($data, self::REMEMBER_ME))
+        $user = auth()->user();
+
+
+        /// TO MIDDLEWATE
+
+        $confirmation = $request->input('password');
+        $password = $user->password;
+
+        if (!!!Hash::check($password, $confirmation))
         {
-            Auth::user()->currentAccessToken()->delete();
-            throw ValidationException::withMessages([
-                'password' => 'Password dosn`t match to email'
+            throw ValidationException::withMessage([
+                'password' => 'Icorrect password'
             ]);
         }
 
-        $user = Auth::user();
+        /// TO MIDDLEWATE
 
-        $authToken = $user->createToken('authToken'); 
-        
-        $user->withAccessToken($authToken);
-    
-        return new AuthenticatedUserResource($user);
-    }
+        if ($request->has('newPassword'))
+            $user->password = $request->input('newPassword');
 
-    public function logout()
-    {
-        Auth::logout();
+        if ($request->has('email'))
+        { 
+            $user->email = $request->input('email');
+            $user->email_verified_at = null;
+            
+            event(new EmailChanged($user));
+        }
 
-        return response('', Response::HTTP_NO_CONTENT);
-    }
+        $user->save();
 
-    public function currentUser()
-    {
-        $user = Auth::user();
-        
         return new UserResource($user);
+    }
+
+    public function destroy()
+    {
+        // 
     }
 }

@@ -28,14 +28,16 @@ Route::group(['namespace' => 'Api'], function() {
 
 	Route::apiResource('tags', 'TagController');
     
-    Route::apiResource('comment', 'CommentController')->except(['store', 'index']);
+    Route::apiResource('comments', 'CommentController')->except(['store', 'index']);
     
     Route::post('{postType}/{postId}/comments', 'CommentController@store');
     Route::get('{postType}/{postId}/comments', 'CommentController@index');
 
 });
 
-Route::get('profile', 'UserController@profile');
+Route::match(['head', 'get'], 'profile', 'UserController@index');
+Route::match(['put', 'patch'], 'profile', 'UserController@edit');
+Route::delete('profile', 'UserControlle@delete');
 
 
 Route::middleware('auth:sanctum')->get('dump', function(Request $request) {

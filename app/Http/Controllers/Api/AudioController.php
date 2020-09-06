@@ -49,7 +49,7 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id,AudioService $audioService, UpdateAudio $request)
+    public function update(int $id, AudioService $audioService, UpdateAudio $request)
     {
         return $audioService->update($request, $id); 
     }

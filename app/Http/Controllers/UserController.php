@@ -6,22 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\UserService;
-use App\Http\Requests\Auth\RegisterUser;
-use App\Http\Requests\Auth\LoginUser;
+use App\Http\Requests\User\RegisterUser;
+use App\Http\Requests\User\LoginUser;
+use App\Http\Requests\User\UpdateUser;
+use App\Http\Requests\User\DeleteUser;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only(['profile']);
+        $this->middleware('auth:sanctum')->only([
+            'profile', 'update', 'destroy'
+        ]);
     }
     
-    public function register(RegisterUser $request, UserService $service)
+    public function register(UserService $service, RegisterUser $request)
     {
         return $service->register($request);
     }
 
-    public function login(LoginUser $request, UserService $service)
+    public function login(UserService $service, LoginUser $request)
     {
         return $service->login($request);
     }
@@ -31,8 +35,19 @@ class UserController extends Controller
         return $service->logout();
     }
 
-    public function profile(UserService $service)
+    public function index(UserService $service)
     {
         return $service->currentUser();
     }
+
+    public function update(UserService $service, UpdateUser $request)
+    {
+        return $service->update($request);
+    }
+    
+    public function destroy(UserService $service, DeleteUser $request)
+    {
+        return $service->update($request);
+    }
+
 }
