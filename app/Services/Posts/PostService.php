@@ -5,6 +5,10 @@ namespace App\Services\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Traits\HandleTags;
+use App\Events\PostCreated;
+use App\Events\PostUpdated;
+use App\Events\PostDeleted;
+
 
 abstract class PostService
 {  
@@ -43,6 +47,8 @@ abstract class PostService
 
         $this->updateTags($post, $request);
 
+        event(new PostCreated($post));
+
         return $this->createScalarResponce($post);
     }
 
@@ -63,6 +69,8 @@ abstract class PostService
 
         $this->updateTags($post, $request);
 
+        event(new PostUpdated($post));
+
         return $this->createScalarResponce($post);
     }
 
@@ -76,6 +84,8 @@ abstract class PostService
         $post->tags()->detach();
         
         $post->delete();
+
+        event(new PostDeleted($post));
 
         return;
     }

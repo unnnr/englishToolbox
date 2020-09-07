@@ -24,15 +24,6 @@ class AudioService extends PostService implements MustHandleFiles
     
     protected $resource = AudioResource::class;
 
-    protected function createUpdateInfo(Audio $post) 
-    {
-        return [
-            'title' => $post->title,
-            'description' => $post->description,
-            'thumbnail_url' => self::THUMBNAIL_PATH + $post->imageFile
-        ];
-    }
-
     protected function beforeCreate(Request $request)
     { 
         // Creating files
@@ -55,13 +46,13 @@ class AudioService extends PostService implements MustHandleFiles
         ];
     }
 
-    protected function beforeUpdate(Request $request, Audio $element)
+    protected function beforeUpdate(Request $request, Audio $post)
     {   
         $data = [];
 
         if ($request->has('audioFile'))
         {
-            $previousFile = $element->audioFile;
+            $previousFile = $post->audioFile;
             Storage::delete('public/audio/' . $previousFile);
 
             $fullpath = $request->file('audioFile')->store('public/audio');
@@ -70,7 +61,7 @@ class AudioService extends PostService implements MustHandleFiles
 
         if ($request->has('imageFile'))
         {
-            $previousFile = $element->imageFile;
+            $previousFile = $post->imageFile;
             Storage::delete(self::IMAGES_PATH . $previousFile);
             Storage::delete(self::THUMBNAIL_PATH . $previousFile);
 
@@ -87,10 +78,10 @@ class AudioService extends PostService implements MustHandleFiles
         return $data;
     }
 
-    protected function beforeDelete(Request $request, Audio $element)
+    protected function beforeDelete(Request $request, Audio $post)
     {
-        $imageName = $element->imageFile;
-        $audioName =  $element->audioName;
+        $imageName = $post->imageFile;
+        $audioName =  $post->audioName;
 
         Storage::delete(self::IMAGES_PATH . $imageName);
         Storage::delete(self::THUMBNAIL_PATH . $imageName);

@@ -24,9 +24,18 @@ class Video extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }   
 
-    public function updateInstace()
+    public function updateInstance()
     {
         return $this->morphOne(Update::class, 'updatetable');
+    }
+
+    public function convertToUpdate()
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'thumbnail_url' => 'some'
+        ];
     }
 
     public function mainTag()

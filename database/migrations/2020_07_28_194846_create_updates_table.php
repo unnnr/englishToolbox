@@ -15,10 +15,10 @@ class CreateUpdatesTable extends Migration
     {
         Schema::create('updates', function (Blueprint $table) {
             $table->id();
-            $table->string('thumbnail_url');
             $table->string('title');
             $table->string('description')->nullable();
-            $table->morphs('post');
+            $table->string('thumbnail_url');
+            $table->morphs('updatetable');
             $table->timestamps();
         });
     }

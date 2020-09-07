@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Update extends Model
 {
     protected $fillable = [
-        'thumbnail_url'
+        'title', 'description', 'thumbnail_url'
     ];
 
     public function updatetable() 

@@ -21,6 +21,15 @@ class Audio extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
+    public function convertToUpdate()
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'thumbnail_url' => $this->imageFile
+        ];
+    }
+
     public function mainTag()
     {
         $mainTag = $this->morphToMany(Tag::class, 'taggable')
