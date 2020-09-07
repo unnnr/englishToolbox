@@ -441,10 +441,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-awesome-swiper */ "./node_modules/vue-awesome-swiper/dist/vue-awesome-swiper.js");
-/* harmony import */ var vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/swiper-bundle.css */ "./node_modules/swiper/swiper-bundle.css");
-/* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper/swiper-bundle.css */ "./node_modules/swiper/swiper-bundle.css");
+/* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var swiper_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/core */ "./node_modules/swiper/swiper.esm.js");
+/* harmony import */ var vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-awesome-swiper/dist/exporter */ "./node_modules/vue-awesome-swiper/dist/exporter.js");
+/* harmony import */ var vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODULE_2__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -474,21 +491,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+swiper_core__WEBPACK_IMPORTED_MODULE_1__["Swiper"].use([swiper_core__WEBPACK_IMPORTED_MODULE_1__["Pagination"], Mousewheel, swiper_core__WEBPACK_IMPORTED_MODULE_1__["Autoplay"]]);
+
+
+var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODULE_2___default()(swiper_core__WEBPACK_IMPORTED_MODULE_1__["Swiper"]),
+    Swiper = _getAwesomeSwiper.Swiper,
+    SwiperSlide = _getAwesomeSwiper.SwiperSlide;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'banner-container',
+  components: {
+    Swiper: Swiper,
+    SwiperSlide: SwiperSlide
+  },
   data: function data() {
     return {
-      items: [],
-      swiperOptions: {}
+      swiperOptions: _defineProperty({
+        slidesPerView: 1,
+        autoplay: {
+          delay: 2000
+        },
+        spaceBetween: 30,
+        loop: true
+      }, "loop", true)
     };
   },
-  components: {
-    Swiper: vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__["Swiper"],
-    SwiperSlide: vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__["SwiperSlide"]
-  },
-  directives: {
-    swiper: vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__["directive"]
+  mounted: function mounted() {
+    console.log(this.$refs.swiper);
   },
   methods: {
     randomColor: function randomColor() {
@@ -14406,10 +14436,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-awesome-swiper/dist/vue-awesome-swiper.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-awesome-swiper/dist/vue-awesome-swiper.js ***!
-  \********************************************************************/
+/***/ "./node_modules/vue-awesome-swiper/dist/exporter.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vue-awesome-swiper/dist/exporter.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14421,7 +14451,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
  * Surmon <https://github.com/surmon-china>
  */
 
-(function(g,f){ true?f(exports,__webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js"),__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js")):undefined;}(this,(function(exports, SwiperClass, Vue){'use strict';SwiperClass=SwiperClass&&Object.prototype.hasOwnProperty.call(SwiperClass,'default')?SwiperClass['default']:SwiperClass;Vue=Vue&&Object.prototype.hasOwnProperty.call(Vue,'default')?Vue['default']:Vue;/**
+(function(g,f){ true?module.exports=f(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js")):undefined;}(this,(function(Vue){'use strict';Vue=Vue&&Object.prototype.hasOwnProperty.call(Vue,'default')?Vue['default']:Vue;/**
  * @file vue-awesome-swiper
  * @module constants
  * @author Surmon <https://github.com/surmon-china>
@@ -14881,17 +14911,7 @@ function exporter(SwiperClass) {
         _a[CoreNames.SwiperComponent] = getSwiperComponent(SwiperClass),
         _a[CoreNames.SwiperSlideComponent] = SwiperSlideComponent,
         _a;
-}/**
- * @file vue-awesome-swiper
- * @module default-export
- * @author Surmon <https://github.com/surmon-china>
- */
-var VueAwesomeSwiper = exporter(SwiperClass);
-var version = VueAwesomeSwiper.version;
-var install = VueAwesomeSwiper.install;
-var directive = VueAwesomeSwiper.directive;
-var Swiper = VueAwesomeSwiper.Swiper;
-var SwiperSlide = VueAwesomeSwiper.SwiperSlide;exports.Swiper=Swiper;exports.SwiperSlide=SwiperSlide;exports.default=VueAwesomeSwiper;exports.directive=directive;exports.install=install;exports.version=version;Object.defineProperty(exports,'__esModule',{value:true});})));
+}return exporter;})));
 
 /***/ }),
 
@@ -15295,7 +15315,7 @@ var render = function() {
       _c(
         "swiper",
         {
-          ref: "mySwiper",
+          ref: "swiper",
           staticClass: "banner__carousel",
           attrs: { options: _vm.swiperOptions }
         },
@@ -15303,22 +15323,30 @@ var render = function() {
           _c("swiper-slide", [
             _c("div", {
               staticClass: "item",
-              style: { backgroundColor: _vm.randomColor() }
+              style: { backgroundColor: _vm.randomColor(), width: 1000 + "px" }
             })
           ]),
           _vm._v(" "),
           _c("swiper-slide", [
             _c("div", {
               staticClass: "item",
-              style: { backgroundColor: _vm.randomColor() }
+              style: { backgroundColor: _vm.randomColor(), width: 1000 + "px" }
             })
           ]),
           _vm._v(" "),
-          _c("div", {
-            staticClass: "swiper-pagination",
-            attrs: { slot: "pagination" },
-            slot: "pagination"
-          })
+          _c("swiper-slide", [
+            _c("div", {
+              staticClass: "item",
+              style: { backgroundColor: _vm.randomColor(), width: 1000 + "px" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("swiper-slide", [
+            _c("div", {
+              staticClass: "item",
+              style: { backgroundColor: _vm.randomColor(), width: 1000 + "px" }
+            })
+          ])
         ],
         1
       )
