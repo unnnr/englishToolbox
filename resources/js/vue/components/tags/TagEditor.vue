@@ -76,15 +76,12 @@ export default {
     },
 
     computed: {
-        
         tagsCounter() {
             return this.selectedCount + '/' + MAX_TAGS_COUNT;
         },
 
         selected: {
-          
             get() {
-
                 let selected = [];
 
                 for (const tag of [...this.loadedTags, ...this.createdTags])
@@ -99,7 +96,6 @@ export default {
             },
 
             set(tags) {
-                
                 if (tags.length > MAX_TAGS_COUNT - 1) // -1 Cause 1 is reserved for main tag
                     return;
                 
@@ -124,7 +120,6 @@ export default {
     },
 
     watch: {
-
         main(newTag, oldTag) {   
             if (oldTag)
                 this.$set(oldTag, 'main', false);
@@ -146,14 +141,11 @@ export default {
     },
 
     mounted() {
-        
         this.load();
     },
 
     methods: {
-
         getTagById(id) {
-
             for (const tag of [...this.loadedTags, ...this.createdTags])
             {
                 if (tag.id === id)
@@ -177,7 +169,6 @@ export default {
         },
 
         createContext(tag) {
-
             const SET_AS_MAIN = 0;
             const DELETE = 1;
 
@@ -206,7 +197,6 @@ export default {
         },
 
         toggle(tag) {
-
             let currentState = tag.selected;
 
 
@@ -239,7 +229,6 @@ export default {
         },
 
         async submit(event) {
-
             let label = this.$refs.input.label.trim();
 
             if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)

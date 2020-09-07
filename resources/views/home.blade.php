@@ -12,9 +12,7 @@
 
 @section('content')
 
-<section class="banner container">
-  <div class="banner__carousel"></div>
-</section>
+<banner-container></banner-container>
 
 <section class="updates container">
   <div class="feed">
