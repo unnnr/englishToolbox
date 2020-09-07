@@ -5,33 +5,21 @@
             ref="swiper"
             class="banner__carousel"
             :options="swiperOptions"
-            >
+            @transition-end="paint">
 
                 <swiper-slide>
                     <div 
                         class="item"
-                        :style="{'backgroundColor': randomColor(), 'width':1000+'px'}">
+                        ref="firstSlide"
+                        :style="{'backgroundColor': fistColor}">
                     </div>   
                 </swiper-slide>
                 
                <swiper-slide>
                     <div 
                         class="item"
-                        :style="{'backgroundColor': randomColor(), 'width':1000+'px'}">
-                    </div>   
-                </swiper-slide>
-
-                <swiper-slide>
-                    <div 
-                        class="item"
-                        :style="{'backgroundColor': randomColor(), 'width':1000+'px'}">
-                    </div>   
-                </swiper-slide>
-
-                <swiper-slide>
-                    <div 
-                        class="item"
-                        :style="{'backgroundColor': randomColor(), 'width':1000+'px'}">
+                        ref="secondSlide"
+                        :style="{'backgroundColor': secondColor}">
                     </div>   
                 </swiper-slide>
 
@@ -41,19 +29,12 @@
 </template>
 
 <script>
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import 'swiper/swiper-bundle.css'
 
-
-import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
-
-
-SwiperClass.use([Pagination, Mousewheel, Autoplay])
-
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-
-
+SwiperClass.use([Pagination, Autoplay])
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
-
 
 export default {
     name: 'banner-container',
@@ -66,23 +47,40 @@ export default {
     data: function() {
         return {
 
+            fistColor: null,
+            secondColor: null,
+
             swiperOptions:{
-          slidesPerView: 1,
-	autoplay: { delay: 2000 },
-         spaceBetween: 30,
-        loop: true,
-          loop: true,
+                slidesPerView: 1,
+             
+                speed: 900,
+                autoplay: { 
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+            
+                loop: true,
             }
         }
     },  
 
-    mounted() {
-        console.log(this.$refs.swiper);
+    beforeMount() {
+        this.fistColor = this.randomColor();
+        this.secondColor = this.randomColor();
     },
 
     methods: {
         randomColor() {
             return  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0');
+        },
+
+        paint(event) {
+            let currentIndex = event.activeIndex % 2;
+
+            if (currentIndex == 0)
+                this.fistColor = this.randomColor();
+            else 
+                this.secondColor = this.randomColor();
         }
     }
 }
@@ -93,6 +91,14 @@ export default {
 .item {
     width: 100%;
     height: 100%;
+}
+
+
+</style>
+
+<style>
+.swiper-wrapper {
+  transition-timing-function: ease !important;
 }
 
 </style>
