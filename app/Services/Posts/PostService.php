@@ -4,9 +4,12 @@ namespace App\Services\Posts;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Traits\HandleTags;
 
 abstract class PostService
 {  
+    use HandleTags;
+    
     private function createScalarResponce($data)
     {
         return new $this->resource($data);
@@ -15,25 +18,6 @@ abstract class PostService
     private function createCollectionResponce(iterable $data)
     {
         return $this->resource::collection($data);
-    }
-
-    private function attachTags(Model $post, Request $request)
-    {
-        $tags = $request->input('tags'); 
-        $post->tags()->attach($tags);
-
-        return $tags;
-    }
-
-    private function attachMainTag(Model $post, Request $request)
-    {
-        
-        if (!!!$request->has('mainTag'))
-            return;
-
-        $mainTag = $request->input('mainTag');
-            
-        $post->tags()->attach($mainTag, ['main' => true]);
     }
 
     public function __construct()
@@ -55,58 +39,43 @@ abstract class PostService
         if (!!!$data)
             $data = $request->validated();
 
-        $element = $this->model::create($data);
+        $post = $this->model::create($data);
 
-        $this->attachTags($element, $request);
-        $this->attachMainTag($element, $request);
+        $this->updateTags($post, $request);
 
-        return $this->createScalarResponce($element);
+        return $this->createScalarResponce($post);
     }
 
     public function update(Request $request, int $id)
     {
         $data = null;
 
-        $element =  $this->model::findOrFail($id);
+        $post =  $this->model::findOrFail($id);
 
         if (method_exists(get_called_class(), 'beforeUpdate'))
-            $data = $this->beforeUpdate($request, $element);
+            $data = $this->beforeUpdate($request, $post);
 
         if (!!!$data)
             $data = $request->validated();
 
-        $element->fill($data);
-        $element->save();
+        $post->fill($data);
+        $post->save();
 
-        $mainTag = $request->input('mainTag');
-        if ($request->has('mainTag') && $mainTag != $element->mainTag()->id)
-        { 
-            $previous = $element->mainTag();
-            if ($previous->default != true)
-                $element->tags()->detach($previous->id);
-            $this->attachMainTag($element, $request);
-        }
-    
-        if ($request->has('tags'))
-        {
-            $element->tags()->wherePivot('main', null)->detach();
-            
-            $this->attachTags($element, $request);
-        }
+        $this->updateTags($post, $request);
 
-        return $this->createScalarResponce($element);
+        return $this->createScalarResponce($post);
     }
 
     public function delete(int $id)
     {
-        $element = $this->model::findOrFail($id);
+        $post = $this->model::findOrFail($id);
 
         if (method_exists(get_called_class(), 'beforeDelete'))
-            $data = $this->beforeEdit($request,  $element);
+            $data = $this->beforeEdit($request,  $post);
   
-        $element->tags()->detach();
+        $post->tags()->detach();
         
-        $element->delete();
+        $post->delete();
 
         return;
     }
@@ -116,9 +85,9 @@ abstract class PostService
         if (method_exists(get_called_class(), 'beforeGet'))
             $this->beforeGet($request);
 
-        $element = $this->model::findOrFail($id);
+        $post = $this->model::findOrFail($id);
 
-        return new $this->resource($element);
+        return new $this->resource($post);
     }
 
     public function all()

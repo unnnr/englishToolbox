@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
 use App\Models\Comment;
+use App\Models\Update;
 
 class Video extends Model
 {
@@ -22,6 +23,11 @@ class Video extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }   
+
+    public function updateInstace()
+    {
+        return $this->morphOne(Update::class, 'updatetable');
+    }
 
     public function mainTag()
     {

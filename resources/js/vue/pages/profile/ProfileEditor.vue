@@ -6,7 +6,7 @@
         
         <div class="management__account-header">
             <div class="management__account-photo"></div>
-                <div class="management__account-wrapper">
+            <div class="management__account-wrapper">
                 <h3 h3 class="management__account-name heading-third">
                     {{ data.currentName }}
                 </h3>
@@ -20,8 +20,10 @@
                 placeholder="Your name"
                 type="text"
                 name="name"
-                :disabled="loading"
                 v-model="data.newName"
+                :disabled="loading"
+                :minlength="rules.name.min"
+                :maxlength="rules.name.max"
                 required>
             <span class="management__account-input-icon material-icons-round">account_circle</span>
         </div>
@@ -45,6 +47,8 @@
                 name="newPassword"
                 v-model="data.newPassword"
                 :disabled="loading"
+                :minlength="rules.password.min"
+                :maxlength="rules.password.max"
                 :type="passwordType">
             <span class="management__account-input-icon material-icons-round">enhanced_encryption</span>
             <button 
@@ -63,6 +67,8 @@
                 name="confirmation"
                 v-model="data.confirmation"
                 :disabled="loading"
+                :minlength="rules.password.min"
+                :maxlength="rules.password.max"
                 :type="passwordType">
 
             <span class="management__account-input-icon material-icons-round">lock</span>
@@ -75,6 +81,8 @@
                 type="text"
                 name="password"
                 v-model="data.currentPassoword"
+                :minlength="rules.password.min"
+                :maxlength="rules.password.max"
                 :disabled="loading"
                 required>
             <span class="management__account-input-icon material-icons-round">check</span>
@@ -93,14 +101,26 @@ export default {
     data: function () {
         return {
             data: {
-                email: 'email@gmail.com',
+                email: '',
 
-                currentName: 'Your name',
+                currentName: '',
                 newName: '',
                 
                 currentPassword: '',
                 newPassword: '',
                 confirmation: '',
+            },
+
+            rulel: {
+                password: {
+                    max: null,
+                    min: null,
+                },
+
+                name: {
+                    max: null, 
+                    min: null
+                }
             },
 
             passowrdShown: false,
@@ -126,7 +146,16 @@ export default {
     },
 
     beforeMount() {
-        this.data.newName = this.data.currentName;
+        Auth.onload(() => {
+            let user = Auth.user();
+
+            this.data.email = user.email;
+            this.data.currentName = user.name;
+
+            this.data.newName = this.data.currentName;
+        });
+
+        this.rules = Auth.rules();
     }, 
 
     methods: {
@@ -135,7 +164,7 @@ export default {
         },
 
         async submit() {
-            if (this.loading === true)
+            if (this.loading)
                 return;
 
             if ( this.data.confirmation !== this.data.newPassword)
@@ -153,3 +182,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

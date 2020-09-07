@@ -24,6 +24,15 @@ class AudioService extends PostService implements MustHandleFiles
     
     protected $resource = AudioResource::class;
 
+    protected function createUpdateInfo(Audio $post) 
+    {
+        return [
+            'title' => $post->title,
+            'description' => $post->description,
+            'thumbnail_url' => self::THUMBNAIL_PATH + $post->imageFile
+        ];
+    }
+
     protected function beforeCreate(Request $request)
     { 
         // Creating files

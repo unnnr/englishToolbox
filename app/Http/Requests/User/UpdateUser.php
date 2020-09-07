@@ -26,8 +26,8 @@ class UpdateUser extends FormRequest
         return [
             'name' => 'string|between:3,32',
             'email' => 'email',
-            'newPassowrd' => 'string|between:5,64',
-            'confirmation' => 'string|same:newPassowrd',
+            'newPassword' => 'string|between:5,64',
+            'confirmation' => 'string|same:newPassword',
             'password' => 'required|string',
         ];
     }

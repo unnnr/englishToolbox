@@ -38,7 +38,7 @@
 
         <div class="description__footer">
             
-            <time class="description__createdAt">{{ data.createdAt }}</time>
+            <time class="description__date">{{ data.createdAt }}</time>
             <div class="description__views">
                 <span class="description__views-icon material-icons-round">visibility</span>
                 <span class="description__views-count">{{ data.views }}</span>

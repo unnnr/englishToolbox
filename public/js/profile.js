@@ -604,18 +604,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'profile-editor',
   data: function data() {
     return {
       data: {
-        email: 'email@gmail.com',
-        currentName: 'Your name',
+        email: '',
+        currentName: '',
         newName: '',
         currentPassword: '',
         newPassword: '',
         confirmation: ''
+      },
+      rulel: {
+        password: {
+          max: null,
+          min: null
+        },
+        name: {
+          max: null,
+          min: null
+        }
       },
       passowrdShown: false,
       loading: false
@@ -632,14 +650,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   beforeMount: function beforeMount() {
-    this.data.newName = this.data.currentName;
+    var _this = this;
+
+    _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].onload(function () {
+      var user = _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].user();
+      _this.data.email = user.email;
+      _this.data.currentName = user.name;
+      _this.data.newName = _this.data.currentName;
+    });
+    this.rules = _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].rules();
   },
   methods: {
     togglePasswordView: function togglePasswordView() {
       this.passowrdShown = !!!this.passowrdShown;
     },
     submit: function submit() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var form;
@@ -647,7 +673,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.loading === true)) {
+                if (!_this2.loading) {
                   _context.next = 2;
                   break;
                 }
@@ -655,7 +681,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 2:
-                if (!(_this.data.confirmation !== _this.data.newPassword)) {
+                if (!(_this2.data.confirmation !== _this2.data.newPassword)) {
                   _context.next = 4;
                   break;
                 }
@@ -663,16 +689,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return");
 
               case 4:
-                _this.loading = true;
-                form = _this.$refs.form;
+                _this2.loading = true;
+                form = _this2.$refs.form;
                 _context.next = 8;
                 return _services_Auth__WEBPACK_IMPORTED_MODULE_1__["default"].edit(new FormData(form))["catch"](function (error) {
                   console.log(error);
                 });
 
               case 8:
-                _this.currentName = _this.newName;
-                _this.loading = false;
+                _this2.currentName = _this2.newName;
+                _this2.loading = false;
 
               case 10:
               case "end":
@@ -3714,10 +3740,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164& ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3790,6 +3816,8 @@ var render = function() {
             type: "text",
             name: "name",
             disabled: _vm.loading,
+            minlength: _vm.rules.name.min,
+            maxlength: _vm.rules.name.max,
             required: ""
           },
           domProps: { value: _vm.data.newName },
@@ -3890,6 +3918,8 @@ var render = function() {
                   placeholder: "new password",
                   name: "newPassword",
                   disabled: _vm.loading,
+                  minlength: _vm.rules.password.min,
+                  maxlength: _vm.rules.password.max,
                   type: "checkbox"
                 },
                 domProps: {
@@ -3937,6 +3967,8 @@ var render = function() {
                   placeholder: "new password",
                   name: "newPassword",
                   disabled: _vm.loading,
+                  minlength: _vm.rules.password.min,
+                  maxlength: _vm.rules.password.max,
                   type: "radio"
                 },
                 domProps: { checked: _vm._q(_vm.data.newPassword, null) },
@@ -3960,6 +3992,8 @@ var render = function() {
                   placeholder: "new password",
                   name: "newPassword",
                   disabled: _vm.loading,
+                  minlength: _vm.rules.password.min,
+                  maxlength: _vm.rules.password.max,
                   type: _vm.passwordType
                 },
                 domProps: { value: _vm.data.newPassword },
@@ -4021,6 +4055,8 @@ var render = function() {
                 placeholder: "confirm new password",
                 name: "confirmation",
                 disabled: _vm.loading,
+                minlength: _vm.rules.password.min,
+                maxlength: _vm.rules.password.max,
                 type: "checkbox"
               },
               domProps: {
@@ -4068,6 +4104,8 @@ var render = function() {
                 placeholder: "confirm new password",
                 name: "confirmation",
                 disabled: _vm.loading,
+                minlength: _vm.rules.password.min,
+                maxlength: _vm.rules.password.max,
                 type: "radio"
               },
               domProps: { checked: _vm._q(_vm.data.confirmation, null) },
@@ -4091,6 +4129,8 @@ var render = function() {
                 placeholder: "confirm new password",
                 name: "confirmation",
                 disabled: _vm.loading,
+                minlength: _vm.rules.password.min,
+                maxlength: _vm.rules.password.max,
                 type: _vm.passwordType
               },
               domProps: { value: _vm.data.confirmation },
@@ -4143,6 +4183,8 @@ var render = function() {
               placeholder: "current password",
               type: "text",
               name: "password",
+              minlength: _vm.rules.password.min,
+              maxlength: _vm.rules.password.max,
               disabled: _vm.loading,
               required: ""
             },
@@ -17972,7 +18014,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileEditor.vue?vue&type=template&id=2b4e9164& */ "./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&");
+/* harmony import */ var _ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true& */ "./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true&");
 /* harmony import */ var _ProfileEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileEditor.vue?vue&type=script&lang=js& */ "./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -17984,11 +18026,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _ProfileEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "2b4e9164",
   null
   
 )
@@ -18014,19 +18056,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true& ***!
+  \*****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileEditor.vue?vue&type=template&id=2b4e9164& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/vue/pages/profile/ProfileEditor.vue?vue&type=template&id=2b4e9164&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileEditor_vue_vue_type_template_id_2b4e9164_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

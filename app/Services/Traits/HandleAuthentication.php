@@ -44,6 +44,10 @@ trait HandleAuthentication
         }
 
         $user =  auth()->user();
+
+        if ($user->currentAccessToken())
+            $user->currentAccessToken()->delete();
+
         $authToken = $user->createToken('authToken');    
         $user->withAccessToken($authToken);
     
@@ -53,6 +57,8 @@ trait HandleAuthentication
     public function logout()
     {
         auth()->logout();
+        
+        $user->currentAccessToken()->delete();
 
         return response('', Response::HTTP_NO_CONTENT);
     }

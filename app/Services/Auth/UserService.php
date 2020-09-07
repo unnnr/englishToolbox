@@ -62,7 +62,11 @@ class UserService implements MustHandleAuthentication
 
         $user->save();
 
-        return new UserResource($user);
+        $user->currentAccessToken()->delete();
+        $authToken = $user->createToken('authToken'); 
+        $user->withAccessToken($authToken);
+
+        return new AuthenticatedUserResource($user);
     }
 
     public function destroy()
