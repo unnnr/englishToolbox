@@ -1,7 +1,11 @@
 <template>
     <div 
-        class="card card--rectangle card--margined"
-        :class="{'card--selected': selected}">
+        class="card"
+        :class="{
+            'card--selected': selected,
+            'card--margined': margined,
+            'card--square': isSquare,
+            'card--rectangle': isRecatangle}">
 
         <div 
             class="card__image" 
@@ -56,6 +60,9 @@
 import bus from '@services/eventbus';
 import ContextMenu from '@components/ContextMenu';
 
+const SQUARE_CLASS = 'card--square';
+const RECTANGLE_CLASS = 'card--rectangle';
+
 export default {
     name: 'card',
 
@@ -64,45 +71,29 @@ export default {
     },
     
     props: {
-        title: {
-            type: String, 
-            default: ''
-        },
+        title: { type: String, default: '' },
 
-        description: {
-            type: String, 
-            default: ''
-        },
+        description: { type: String,  default: '' },
 
-        imageUrl: {
-            type: String,
-            default: '#',
-        },
+        imageUrl: { type: String, default: '#' },
 
-        tags: {
-            type: Array, 
-            default: []
-        },
+        tags: { type: Array, default: function() {
+            return []
+        } },
 
-        mainTag: {
-            type: Object,
-            default: null
-        },
+        mainTag: { type: Object, default: null },
 
-        selected:  {
-            type: Boolean,
-            default: false
-        },
+        selected:  { type: Boolean, default: false },
 
-        editable:  {
-            type: Boolean,
-            default: false
-        },
+        editable:  { type: Boolean, default: false },
         
-        createdAt: {
-            type: String,
-            default: 'Jul 20 2020'
-        },
+        createdAt: { type: String, default: 'Jul 20 2020' },
+
+        margined: { type: Boolean, default: false},
+
+        squareForm: { type: Boolean, default: false },
+
+        rectangleForm: { type: Boolean, default: false }
     },
 
     data: function() {
@@ -116,6 +107,18 @@ export default {
                 }
             ]
         }   
+    },
+
+    computed: {
+        isSquare() {
+            if (this.squareForm || (!!!this.squareForm &&  !!!this.rectangleForm))
+                return true;
+        },
+
+        isRecatangle() {
+            if (!!!this.squareForm && this.rectangleForm)
+                return true;
+        }
     },
 
     methods: {

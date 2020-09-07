@@ -14,19 +14,7 @@
 
 <banner-container></banner-container>
 
-<section class="updates container">
-  <div class="feed">
-    <h3 class="feed__title heading-third">Latest updates</h3>
-
-    {{-- @include('components.card')
-    @include('components.card')
-    @include('components.card')
-    @include('components.card') --}}
-
-
-
-  </div>
-</section>
+<updates-container></updates-container>
 
 <section class="popular container">
   <div class="feed">
