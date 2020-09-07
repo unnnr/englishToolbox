@@ -21,7 +21,9 @@ class UpdateResource extends JsonResource
 
             'description' => $this->description,  
 
-            'thumbnail' => $this->thumbnail_url
+            'thumbnail' => $this->thumbnail_url,
+
+            'createdAt' => $this->created_at
         ];
     }
 }

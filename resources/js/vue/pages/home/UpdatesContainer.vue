@@ -16,10 +16,15 @@
                         :key="card.id">
                        
                        <card 
-                        square-form
-                        margined
+                        :title="card.title"
+                        :description="card.description"
+                        :created-at="card.createdAt"
+                        :imageUrl="card.thumbnail"
                         :style="{
-                            'width': '400px'}"/>
+                            'width': '400px'}"
+
+                        square-form
+                        margined/>
                     </swiper-slide>
             </swiper>
         </div>
@@ -28,9 +33,10 @@
 
 <script>
 
-import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import Card from '@components/cards/Card';
+import Updates from '@models/Updates';
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import 'swiper/swiper-bundle.css'
 
 SwiperClass.use([Pagination, Autoplay])
@@ -52,24 +58,18 @@ export default {
                 {id: 2}, 
                 {id: 3}, 
                 {id: 4},
-                {id: 5}, 
-                {id: 6}, 
-                {id: 7}, 
-                {id: 8}, 
-
-
             ],
             
             swiperOptions: {
-                slidesPerView: 'auto',
-
-
+                slidesPerView: 'auto'
             }
         }
     },  
 
     beforeMount() {
-
+        Updates.onload(() => {
+            this.updates = Updates.all();  
+        });
     },
 
     methods: {

@@ -3,11 +3,11 @@ import Http from '@services/Http';
 import Posts from '@models/Posts'
 import FormatedDate from '@services/FormatedDate'
 
-const Tags = new function ()
+const Comments = new function ()
 {
     async function load()
     {
-        comments = await Http.get('api/tags');
+        comments = await Http.get('api/comments');
         
         loaded = true;
 
@@ -20,7 +20,7 @@ const Tags = new function ()
         return {
             message: response.message, 
             sender: response.sender.name,
-            date: FormatedDate.parse(response.createdAt),//'19 may 2020',
+            date: FormatedDate.parse(response.createdAt),
             id: response.id,
         }
     }
@@ -89,4 +89,4 @@ const Tags = new function ()
     load();
 }();
    
-export default Tags;
+export default Comments;
