@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TagResource; 
 
-class VideoResource extends JsonResource
+class UpdateResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -19,6 +18,10 @@ class VideoResource extends JsonResource
             'id' => $this->id,
 
             'title' => $this->title,
+
+            'description' => $this->description,  
+
+            'thumbnail' => $this->thumbnail_url
         ];
     }
 }

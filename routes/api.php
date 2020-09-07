@@ -28,11 +28,11 @@ Route::group(['namespace' => 'Api'], function() {
 
 	Route::apiResource('tags', 'TagController');
     
-    Route::apiResource('comments', 'CommentController')->except(['store', 'index']);
+    Route::apiResource('updates', 'UpdateController')->only(['index']);
     
-    Route::post('{postType}/{postId}/comments', 'CommentController@store');
-    Route::get('{postType}/{postId}/comments', 'CommentController@index');
-
+    Route::apiResource('comments', 'CommentController')->only(['update', 'destroy', 'show']);
+    
+    Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
 });
 
 Route::match(['head', 'get'], 'profile', 'UserController@index');

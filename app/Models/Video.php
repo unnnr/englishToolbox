@@ -34,7 +34,7 @@ class Video extends Model
         return [
             'title' => $this->title,
             'description' => $this->description,
-            'thumbnail_url' => 'some'
+            'thumbnail_url' => "https://i.ytimg.com/vi/{$this->videoID}/sddefault.jpg"
         ];
     }
 

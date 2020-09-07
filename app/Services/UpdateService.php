@@ -3,10 +3,11 @@
 namespace App\Services;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Update;
+use App\Http\Resources\UpdateResource;
 
 class UpdateService
 {
-    protected $updateLimit  = 30; 
+    public const LIMIT  = 3; 
 
     public function create(Model $post)
     {
@@ -14,21 +15,14 @@ class UpdateService
             $post->convertToUpdate()
         );
 
-        return $post;
+        return new UpdateResource($post);
     }
 
     public function get(Model $post)
     {
         $update = $post->updateInsatace;
 
-        return $update;
-    }
-
-    public function all()
-    {
-        $all = Update::all();
-
-        return $all;
+        return new UpdateResource($post);
     }
 
     public function update(Model $post)
@@ -37,11 +31,18 @@ class UpdateService
             $post->convertToUpdate()
         );
 
-        return $post;
+        return new UpdateResource($post);
     }
 
-    public function delete()
+    public function delete(Model $post)
     {
         $post->updateInstance()->delete();
+    }
+
+    public function all()
+    {
+        $all = Update::all();
+
+        return UpdateResource::collection($all);
     }
 }
