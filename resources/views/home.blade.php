@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="{{ asset("css/home.css") }}">
 @endsection
 
+@section('js')
+ <script type="text/javascript" src=" {{ asset('js/home.js') }}"></script>
+@endsection
+
 @section('content')
 
 <section class="banner container">

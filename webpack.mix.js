@@ -17,6 +17,7 @@ mix.webpackConfig({
             '@models': path.resolve(__dirname, 'resources/js/models/'),
             '@services': path.resolve(__dirname, 'resources/js/services/'),
             
+            
             '@pages': path.resolve(__dirname, 'resources/js/vue/pages/'),
             '@mixins': path.resolve(__dirname, 'resources/js/vue/mixins/'),
             '@states': path.resolve(__dirname, 'resources/js/vue/states/'),
@@ -30,7 +31,9 @@ mix.webpackConfig({
 //.js('resources/js/videos.js', 'public/js')
 //.js('resources/js/login.js', 'public/js')
 //.js('resources/js/register.js', 'public/js')
-.js('resources/js/profile.js', 'public/js')
+//.js('resources/js/profile.js', 'public/js')
+.js('resources/js/home.js', 'public/js')
+
 
 // .browserSync({
 // proxy: 'englishToolbox:80',
