@@ -778,6 +778,22 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
         id: 3
       }, {
         id: 4
+      }, {
+        id: 5
+      }, {
+        id: 6
+      }, {
+        id: 7
+      }, {
+        id: 8
+      }, {
+        id: 9
+      }, {
+        id: 10
+      }, {
+        id: 11
+      }, {
+        id: 12
       }],
       swiperOptions: {
         slidesPerView: 'auto'
@@ -785,11 +801,9 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
     };
   },
   beforeMount: function beforeMount() {
-    var _this = this;
-
-    _models_Updates__WEBPACK_IMPORTED_MODULE_1__["default"].onload(function () {
-      _this.updates = _models_Updates__WEBPACK_IMPORTED_MODULE_1__["default"].all();
-    });
+    /* Updates.onload(() => {
+        this.updates = Updates.all();  
+    }); */
   },
   methods: {}
 });
