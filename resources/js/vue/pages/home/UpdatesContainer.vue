@@ -7,7 +7,6 @@
                 ref="swiper"
                 :options="swiperOptions"
                 :style="{
-                    'overflow': 'visible',
                     'width': '100%',
                     'background-color': 'none'}">
 
@@ -19,9 +18,7 @@
                             :title="card.title"
                             :description="card.description"
                             :created-at="card.createdAt"
-                            :imageUrl="card.thumbnail"
-                            :style="{
-                                'width': '400px'}"
+                            :imageUrl="card.thumbnail">
 
                         square-form
                         margined/>

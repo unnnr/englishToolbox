@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Update;
+use App\Models\Comment;
 
 class Audio extends Model
 {
@@ -18,8 +20,15 @@ class Audio extends Model
 
     public function comments()
     {
-        return $this->morphMany('App\Comment', 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
+
+    
+    public function updateInstance()
+    {
+        return $this->morphOne(Update::class, 'updatetable');
+    }
+
 
     public function convertToUpdate()
     {

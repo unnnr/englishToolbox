@@ -22,7 +22,9 @@
             :mainTag="card.mainTag"
             
             :selected="card.selected"
-            :editable="canCreateContent"/>
+            :editable="canCreateContent"
+            
+            rectangle-form/>
     </transition-group>
 </template>
 

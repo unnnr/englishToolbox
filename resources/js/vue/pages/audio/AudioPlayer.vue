@@ -10,8 +10,7 @@
                 :class="{ 'player__image--blurred': image.blured }">
             </div>
             <transition name="fade">
-
-                <!-- <div 
+                <div 
                     class="player__overlay"
                     v-if="overlay.shown">
 
@@ -19,7 +18,7 @@
                         type="image/svg+xml"
                         :data="overlay.url">
                     </object>
-                </div> -->
+                </div>
             </transition>
             <div class="audio">
                 <div class="audio__player">
@@ -111,7 +110,6 @@ export default {
             },
 
             player: new Audio(),
-
         }
     },
     
@@ -147,7 +145,7 @@ export default {
 
     watch: {
         'audio.volume': function(value){
-            this.player.audio = value;
+            this.player.volume = value;
         },  
 
         'audio.url' : function(url) {
@@ -178,7 +176,6 @@ export default {
 		bus.listen('post-selected', event => {
 
             let audio = event.post;
-            console.log(audio);
 
             this.clear();
 
@@ -199,6 +196,8 @@ export default {
 
             this.clear();
 
+            this.audio.currentTime = 1000;
+
             this.audio.url = audio.audio;
             this.image.url = audio.image;
 
@@ -207,7 +206,7 @@ export default {
 
 		bus.listen('editor-image-changed', event => {
 
-            this.image.url = event.image;
+            this.image.url = event.imageUrl;
 
             if (this.audio.url && this.image.url)
 			    this.overlay.shown = false;
@@ -215,7 +214,7 @@ export default {
         
         bus.listen('editor-audio-changed', event => {	
             
-            this.audio.url = event.audio;
+            this.audio.url = event.audioUrl;
             
 			if (this.audio.url && this.image.url)
 			    this.overlay.shown = false;
@@ -321,6 +320,9 @@ export default {
         },
 
         getAudioDuration() {
+            if (isNaN(this.player.duration))
+                return 100;
+
             return this.player.duration * 1000;
         },
 

@@ -496,8 +496,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
+var SQUARE_CLASS = 'card--square';
+var RECTANGLE_CLASS = 'card--rectangle';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'card',
   components: {
@@ -518,7 +524,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     tags: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [];
+      }
     },
     mainTag: {
       type: Object,
@@ -535,6 +543,18 @@ __webpack_require__.r(__webpack_exports__);
     createdAt: {
       type: String,
       "default": 'Jul 20 2020'
+    },
+    margined: {
+      type: Boolean,
+      "default": false
+    },
+    squareForm: {
+      type: Boolean,
+      "default": false
+    },
+    rectangleForm: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
@@ -550,6 +570,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       }]
     };
+  },
+  computed: {
+    isSquare: function isSquare() {
+      if (this.squareForm || !!!this.squareForm && !!!this.rectangleForm) return true;
+    },
+    isRecatangle: function isRecatangle() {
+      if (!!!this.squareForm && this.rectangleForm) return true;
+    }
   },
   methods: {
     select: function select() {
@@ -659,6 +687,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
 //
 //
 //
@@ -2110,14 +2140,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
-/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
-/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
-/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/vue/components/tags/TagEditor.vue");
-/* harmony import */ var _states_video_editing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @states/video/editing */ "./resources/js/vue/states/video/editing.js");
-/* harmony import */ var _states_video_creation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @states/video/creation */ "./resources/js/vue/states/video/creation.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-youtube-id */ "./node_modules/get-youtube-id/index.js");
+/* harmony import */ var get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(get_youtube_id__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @models/Tags */ "./resources/js/models/Tags.js");
+/* harmony import */ var _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @components/tags/TagEditor */ "./resources/js/vue/components/tags/TagEditor.vue");
+/* harmony import */ var _states_video_editing__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @states/video/editing */ "./resources/js/vue/states/video/editing.js");
+/* harmony import */ var _states_video_creation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @states/video/creation */ "./resources/js/vue/states/video/creation.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2178,7 +2216,7 @@ var MAX_URL_LENGTH = 180;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'video-editor',
   components: {
-    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_4__["default"]
+    TagEditor: _components_tags_TagEditor__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
     target: {
@@ -2191,7 +2229,8 @@ var MAX_URL_LENGTH = 180;
       url: '',
       urlError: '',
       description: '',
-      descriptionError: ''
+      descriptionError: '',
+      state: null
     };
   },
   computed: {
@@ -2201,18 +2240,17 @@ var MAX_URL_LENGTH = 180;
     descriptionMaxLength: function descriptionMaxLength() {
       return MAX_DESCRIPTION_LENGTH;
     },
-    title: function title() {
-      if (this.state) return this.state.getTitle();
-      return '';
+    formTitle: function formTitle() {
+      return this.state ? this.state.getTitle() : '';
     }
   },
   watch: {
     target: function target(value) {
-      if (value) this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_5__["default"](this, value);else this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_6__["default"](this);
+      if (value) this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_6__["default"](this, value);else this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_7__["default"](this);
     }
   },
   mounted: function mounted() {
-    if (this.target) this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_5__["default"](this, this.target);else this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_6__["default"](this);
+    if (this.target) this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_6__["default"](this, this.target);else this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_7__["default"](this);
   },
   beforeDestroy: function beforeDestroy() {
     this.clear();
@@ -2231,7 +2269,7 @@ var MAX_URL_LENGTH = 180;
       tags.clear();
     },
     validateVideo: function validateVideo() {
-      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_0___default()(this.url);
+      var videoID = get_youtube_id__WEBPACK_IMPORTED_MODULE_1___default()(this.url);
 
       if (!!!videoID) {
         this.urlError = 'Incorrect youtube link';
@@ -2245,40 +2283,61 @@ var MAX_URL_LENGTH = 180;
       if (this.url.length === 0 || this.$options.previousUrl === this.url) return;
       this.$options.previousUrl = this.url;
       var videoID = this.validateVideo();
-      if (videoID) _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('editor-link-changed', {
+      if (videoID) _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('editor-link-changed', {
         url: this.url,
         videoID: videoID
       });
     },
     stateCreate: function stateCreate() {
-      this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_6__["default"](this);
+      this.state = new _states_video_creation__WEBPACK_IMPORTED_MODULE_7__["default"](this);
     },
     stateEdit: function stateEdit(event) {
-      this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_5__["default"](this, event.post);
+      this.state = new _states_video_editing__WEBPACK_IMPORTED_MODULE_6__["default"](this, event.post);
     },
     onServerError: function onServerError() {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('alert-error', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('alert-error', {
         message: "An unexpected error has occurred on \n                                                    the server. Please try again later"
       });
     },
     onVideoCreated: function onVideoCreated(post) {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-created', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-created', {
         post: post
       });
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
         post: post
       });
     },
     onVideoEdited: function onVideoEdited(post) {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-edited', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
         post: post
       });
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
+      _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selecting', {
         post: post
       });
     },
     submit: function submit() {
-      if (this.state) this.state.submit();
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!_this.state) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return _this.state.submit();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -5581,8 +5640,13 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "card card--rectangle card--margined",
-      class: { "card--selected": _vm.selected }
+      staticClass: "card",
+      class: {
+        "card--selected": _vm.selected,
+        "card--margined": _vm.margined,
+        "card--square": _vm.isSquare,
+        "card--rectangle": _vm.isRecatangle
+      }
     },
     [
       _c(
@@ -5783,7 +5847,8 @@ var render = function() {
             tags: card.tags,
             mainTag: card.mainTag,
             selected: card.selected,
-            editable: _vm.canCreateContent
+            editable: _vm.canCreateContent,
+            "rectangle-form": ""
           }
         })
       })
@@ -6164,7 +6229,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "description__footer" }, [
-      _c("time", { staticClass: "description__createdAt" }, [
+      _c("time", { staticClass: "description__date" }, [
         _vm._v(_vm._s(_vm.data.createdAt))
       ]),
       _vm._v(" "),
@@ -6639,7 +6704,7 @@ var render = function() {
       [
         _c("div", { staticClass: "editor__header" }, [
           _c("h5", { staticClass: "editor__title text-third" }, [
-            _vm._v(_vm._s(_vm.title))
+            _vm._v(_vm._s(_vm.formTitle))
           ])
         ]),
         _vm._v(" "),
@@ -19136,7 +19201,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var Tags = new function () {
+var Comments = new function () {
   function load() {
     return _load.apply(this, arguments);
   }
@@ -19149,11 +19214,6 @@ var Tags = new function () {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('api/tags');
-
-            case 2:
-              comments = _context4.sent;
               loaded = true;
               _iterator3 = _createForOfIteratorHelper(callbacks);
 
@@ -19168,7 +19228,7 @@ var Tags = new function () {
                 _iterator3.f();
               }
 
-            case 6:
+            case 3:
             case "end":
               return _context4.stop();
           }
@@ -19183,7 +19243,6 @@ var Tags = new function () {
       message: response.message,
       sender: response.sender.name,
       date: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(response.createdAt),
-      //'19 may 2020',
       id: response.id
     };
   }
@@ -19313,7 +19372,7 @@ var Tags = new function () {
   var callbacks = [];
   load();
 }();
-/* harmony default export */ __webpack_exports__["default"] = (Tags);
+/* harmony default export */ __webpack_exports__["default"] = (Comments);
 
 /***/ }),
 
@@ -19333,6 +19392,7 @@ var Wrapper = new Proxy({}, {
 });
 var Posts = new function () {
   this.track = function (newTarget) {
+    console.log(newTarget);
     target = newTarget;
   };
 }();
@@ -19539,6 +19599,8 @@ var Videos = new function () {
 
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _iterator4, _step4, callback;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -19548,26 +19610,21 @@ var Videos = new function () {
 
             case 2:
               videos = _context4.sent;
-              setTimeout(function () {
-                if (!!!Array.isArray(videos)) console.error('500 error');
-                isLoaded = true;
+              isLoaded = true;
+              _iterator4 = _createForOfIteratorHelper(callbackCollection);
 
-                var _iterator4 = _createForOfIteratorHelper(callbackCollection),
-                    _step4;
-
-                try {
-                  for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                    var callback = _step4.value;
-                    callback();
-                  }
-                } catch (err) {
-                  _iterator4.e(err);
-                } finally {
-                  _iterator4.f();
+              try {
+                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                  callback = _step4.value;
+                  callback();
                 }
-              }, 1000);
+              } catch (err) {
+                _iterator4.e(err);
+              } finally {
+                _iterator4.f();
+              }
 
-            case 4:
+            case 6:
             case "end":
               return _context4.stop();
           }
@@ -19666,7 +19723,8 @@ var Videos = new function () {
                 title: response.title,
                 mainTag: response.mainTag,
                 videoID: response.videoID,
-                description: response.description
+                description: response.description,
+                createdAt: response.createdAt
               };
               videos.push(newvideo);
               return _context.abrupt("return", createCopy(newvideo));
@@ -19871,26 +19929,31 @@ var Auth = new function () {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.remove('auth');
   }
 
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
+  }
+
   function init() {
     return _init.apply(this, arguments);
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var _iterator, _step, callback;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
                 'Authorization': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
               }];
-              _context3.next = 3;
+              _context4.next = 3;
               return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/profile')["catch"](function () {});
 
             case 3:
-              user = _context3.sent;
+              user = _context4.sent;
               loaded = true;
               _iterator = _createForOfIteratorHelper(callbacks);
 
@@ -19907,10 +19970,10 @@ var Auth = new function () {
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _init.apply(this, arguments);
   }
@@ -19999,6 +20062,53 @@ var Auth = new function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
   };
+
+  this.edit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+      var name, email, newPassword, confirmation, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              name = data.get('name');
+              if (name === user.name) data["delete"]('name');
+              email = data.get('email');
+              if (email === user.email) data["delete"]('email');
+              newPassword = data.get('newPassword');
+              if (typeof newPassword === 'string' && !!!newPassword.length) data["delete"]('newPassword');
+              confirmation = data.get('confirmation');
+              if (typeof confirmation === 'string' && !!!confirmation.length) data["delete"]('confirmation');
+
+              if (!isFormDataEmpty(data)) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 10:
+              _context3.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].patch('api/profile', data);
+
+            case 12:
+              response = _context3.sent;
+              user.name = response.name;
+              user.email = response.email;
+              user.verified = response.verified;
+              return _context3.abrupt("return", response);
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 
   this.check = function () {
     return Boolean(user);
@@ -20242,22 +20352,19 @@ var Http = new function () {
   };
 
   this.put = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this.patch = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this["delete"] = function (path) {
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new FormData();
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'DELETE');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this.defaultHeaders = [];
@@ -21992,7 +22099,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _states_video_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @states/video/helpers */ "./resources/js/vue/states/video/helpers.js");
-/* harmony import */ var _models_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Posts */ "./resources/js/models/Posts.js");
+/* harmony import */ var _models_Videos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @models/Videos */ "./resources/js/models/Videos.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -22035,21 +22142,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             _context.prev = 0;
             data = getFormData();
             _context.next = 4;
-            return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].create(data);
+            return _models_Videos__WEBPACK_IMPORTED_MODULE_2__["default"].create(data);
 
           case 4:
             post = _context.sent;
             vue.onVideoCreated(post);
-            _context.next = 11;
+            _context.next = 12;
             break;
 
           case 8:
             _context.prev = 8;
             _context.t0 = _context["catch"](0);
+            console.log(2);
 
             _this.hadleError(_context.t0);
 
-          case 11:
+          case 12:
           case "end":
             return _context.stop();
         }

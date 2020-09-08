@@ -6,7 +6,7 @@
             @submit.prevent='submit' >
             
             <div class="editor__header">
-                <h5 class="editor__title text-third">{{ title }}</h5>
+                <h5 class="editor__title text-third">{{ formTitle }}</h5>
             </div>
             <div class="editor__body" action="">
                 <label class="editor__label text-fourth" for="">
@@ -79,12 +79,13 @@ export default {
             urlError: '',
             
             description: '',
-            descriptionError: ''
+            descriptionError: '',
+
+            state: null
         }
     },
 
     computed: {
-
         descriptionCounter() {
             return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
         },
@@ -93,10 +94,8 @@ export default {
             return MAX_DESCRIPTION_LENGTH;
         },
 
-        title() {
-            if (this.state)
-                return this.state.getTitle();
-            return '';
+        formTitle() {
+            return this.state ? this.state.getTitle() : ''; 
         }
     },
 
@@ -124,7 +123,6 @@ export default {
     },
 
     methods: {
-
         clear() {
             let form = this.$refs.form;
 
@@ -145,7 +143,6 @@ export default {
         },
 
         validateVideo() {
-    
             let videoID = getYouTubeID(this.url)
             if (!!!videoID)
             {
@@ -196,10 +193,9 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
-        submit () {
-            
+        async submit () {
             if (this.state)
-                this.state.submit();
+                await this.state.submit();
         }
     }
 }

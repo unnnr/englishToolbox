@@ -14,9 +14,9 @@ class TagService
 
     public function create(Request $request)
     {
-        $newTag = Tag::create([
+        $newTag = Tag::create(
             $request->validated()
-        ]);
+        );
 
         return new TagResource($newTag);
     }

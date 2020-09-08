@@ -1,8 +1,5 @@
-
 import {appendTagsData, appendMainTagData} from '@states/video/helpers'
-import Posts from '@models/Posts'
-
-
+import Video from '@models/Videos'
 
 export default function(vueInstance)
 {
@@ -39,11 +36,12 @@ export default function(vueInstance)
     {
         try { 
             let data = getFormData();
-            let post = await Posts.create(data);
+            let post = await Video.create(data);
             
             vue.onVideoCreated(post);
         }
         catch(erorr) {
+            console.log(2);
             this.hadleError(erorr);
         }
     }

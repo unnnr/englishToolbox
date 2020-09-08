@@ -28,7 +28,9 @@ class VideoResource extends JsonResource
 
             'mainTag' => new TagResource($this->mainTag()),
 
-            'tags' => TagResource::collection($this->tags)
+            'tags' => TagResource::collection($this->tags),
+
+            'createdAt' => $this->created_at
         ];
     }
 }

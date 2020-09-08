@@ -31,7 +31,7 @@ const Videos = new function ()
         for (let tag of video.tags)
             tagsCopy.push({  ...tag });
         
-        let videoCopy= {
+        let videoCopy = {
             id: video.id, 
             
             title: video.title,
@@ -82,7 +82,8 @@ const Videos = new function ()
             title: response.title,
             mainTag: response.mainTag,
             videoID: response.videoID,
-            description: response.description
+            description: response.description,
+            createdAt: response.createdAt
         };
 
         videos.push(newvideo);

@@ -7,7 +7,7 @@ const Comments = new function ()
 {
     async function load()
     {
-        comments = await Http.get('api/comments');
+  
         
         loaded = true;
 

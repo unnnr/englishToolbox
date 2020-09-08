@@ -593,8 +593,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
+var SQUARE_CLASS = 'card--square';
+var RECTANGLE_CLASS = 'card--rectangle';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'card',
   components: {
@@ -615,7 +621,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     tags: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [];
+      }
     },
     mainTag: {
       type: Object,
@@ -632,6 +640,18 @@ __webpack_require__.r(__webpack_exports__);
     createdAt: {
       type: String,
       "default": 'Jul 20 2020'
+    },
+    margined: {
+      type: Boolean,
+      "default": false
+    },
+    squareForm: {
+      type: Boolean,
+      "default": false
+    },
+    rectangleForm: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
@@ -647,6 +667,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       }]
     };
+  },
+  computed: {
+    isSquare: function isSquare() {
+      if (this.squareForm || !!!this.squareForm && !!!this.rectangleForm) return true;
+    },
+    isRecatangle: function isRecatangle() {
+      if (!!!this.squareForm && this.rectangleForm) return true;
+    }
   },
   methods: {
     select: function select() {
@@ -756,6 +784,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
 //
 //
 //
@@ -2555,7 +2585,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2607,7 +2636,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     'audio.volume': function audioVolume(value) {
-      this.player.audio = value;
+      this.player.volume = value;
     },
     'audio.url': function audioUrl(url) {
       var _this = this;
@@ -2636,7 +2665,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       var audio = event.post;
-      console.log(audio);
 
       _this2.clear();
 
@@ -2653,16 +2681,17 @@ __webpack_require__.r(__webpack_exports__);
 
       _this2.clear();
 
+      _this2.audio.currentTime = 1000;
       _this2.audio.url = audio.audio;
       _this2.image.url = audio.image;
       _this2.overlay.shown = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-image-changed', function (event) {
-      _this2.image.url = event.image;
+      _this2.image.url = event.imageUrl;
       if (_this2.audio.url && _this2.image.url) _this2.overlay.shown = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('editor-audio-changed', function (event) {
-      _this2.audio.url = event.audio;
+      _this2.audio.url = event.audioUrl;
       if (_this2.audio.url && _this2.image.url) _this2.overlay.shown = false;
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-deleted', function (event) {});
@@ -2725,6 +2754,7 @@ __webpack_require__.r(__webpack_exports__);
       this.player.pause();
     },
     getAudioDuration: function getAudioDuration() {
+      if (isNaN(this.player.duration)) return 100;
       return this.player.duration * 1000;
     },
     getAudioMaxVolume: function getAudioMaxVolume() {
@@ -6001,8 +6031,13 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "card card--rectangle card--margined",
-      class: { "card--selected": _vm.selected }
+      staticClass: "card",
+      class: {
+        "card--selected": _vm.selected,
+        "card--margined": _vm.margined,
+        "card--square": _vm.isSquare,
+        "card--rectangle": _vm.isRecatangle
+      }
     },
     [
       _c(
@@ -6203,7 +6238,8 @@ var render = function() {
             tags: card.tags,
             mainTag: card.mainTag,
             selected: card.selected,
-            editable: _vm.canCreateContent
+            editable: _vm.canCreateContent,
+            "rectangle-form": ""
           }
         })
       })
@@ -6584,7 +6620,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "description__footer" }, [
-      _c("time", { staticClass: "description__createdAt" }, [
+      _c("time", { staticClass: "description__date" }, [
         _vm._v(_vm._s(_vm.data.createdAt))
       ]),
       _vm._v(" "),
@@ -7274,7 +7310,16 @@ var render = function() {
           style: { "background-image": _vm.backgroundImage }
         }),
         _vm._v(" "),
-        _c("transition", { attrs: { name: "fade" } }),
+        _c("transition", { attrs: { name: "fade" } }, [
+          _vm.overlay.shown
+            ? _c("div", { staticClass: "player__overlay" }, [
+                _c("object", {
+                  staticClass: "player__overlay-image",
+                  attrs: { type: "image/svg+xml", data: _vm.overlay.url }
+                })
+              ])
+            : _vm._e()
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "audio" }, [
           _c("div", { staticClass: "audio__player" }, [
@@ -19867,22 +19912,20 @@ var Audio = new function () {
               return _context2.abrupt("return", createCopy(target));
 
             case 16:
-              console.log(12);
-              _context2.next = 19;
+              _context2.next = 18;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('api/audio/' + id, data);
 
-            case 19:
+            case 18:
               response = _context2.sent;
-              console.log(21);
 
               if (!!response) {
-                _context2.next = 23;
+                _context2.next = 21;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 23:
+            case 21:
               target.tags = response.tags;
               target.title = response.title;
               target.mainTag = response.mainTag;
@@ -19892,7 +19935,7 @@ var Audio = new function () {
               target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 31:
+            case 29:
             case "end":
               return _context2.stop();
           }
@@ -20078,7 +20121,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var Tags = new function () {
+var Comments = new function () {
   function load() {
     return _load.apply(this, arguments);
   }
@@ -20091,11 +20134,6 @@ var Tags = new function () {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
-              return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].get('api/tags');
-
-            case 2:
-              comments = _context4.sent;
               loaded = true;
               _iterator3 = _createForOfIteratorHelper(callbacks);
 
@@ -20110,7 +20148,7 @@ var Tags = new function () {
                 _iterator3.f();
               }
 
-            case 6:
+            case 3:
             case "end":
               return _context4.stop();
           }
@@ -20125,7 +20163,6 @@ var Tags = new function () {
       message: response.message,
       sender: response.sender.name,
       date: _services_FormatedDate__WEBPACK_IMPORTED_MODULE_3__["default"].parse(response.createdAt),
-      //'19 may 2020',
       id: response.id
     };
   }
@@ -20255,7 +20292,7 @@ var Tags = new function () {
   var callbacks = [];
   load();
 }();
-/* harmony default export */ __webpack_exports__["default"] = (Tags);
+/* harmony default export */ __webpack_exports__["default"] = (Comments);
 
 /***/ }),
 
@@ -20487,26 +20524,31 @@ var Auth = new function () {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.remove('auth');
   }
 
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
+  }
+
   function init() {
     return _init.apply(this, arguments);
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var _iterator, _step, callback;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
                 'Authorization': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
               }];
-              _context3.next = 3;
+              _context4.next = 3;
               return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/profile')["catch"](function () {});
 
             case 3:
-              user = _context3.sent;
+              user = _context4.sent;
               loaded = true;
               _iterator = _createForOfIteratorHelper(callbacks);
 
@@ -20523,10 +20565,10 @@ var Auth = new function () {
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _init.apply(this, arguments);
   }
@@ -20615,6 +20657,53 @@ var Auth = new function () {
     if (!!!user) return null;
     return _objectSpread({}, user);
   };
+
+  this.edit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+      var name, email, newPassword, confirmation, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              name = data.get('name');
+              if (name === user.name) data["delete"]('name');
+              email = data.get('email');
+              if (email === user.email) data["delete"]('email');
+              newPassword = data.get('newPassword');
+              if (typeof newPassword === 'string' && !!!newPassword.length) data["delete"]('newPassword');
+              confirmation = data.get('confirmation');
+              if (typeof confirmation === 'string' && !!!confirmation.length) data["delete"]('confirmation');
+
+              if (!isFormDataEmpty(data)) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 10:
+              _context3.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].patch('api/profile', data);
+
+            case 12:
+              response = _context3.sent;
+              user.name = response.name;
+              user.email = response.email;
+              user.verified = response.verified;
+              return _context3.abrupt("return", response);
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 
   this.check = function () {
     return Boolean(user);
@@ -20777,42 +20866,40 @@ var Http = new function () {
                 _iterator.f();
               }
 
-              console.log('befpasd');
               if (Array.isArray(additional.headers)) (_options$headers = options.headers).push.apply(_options$headers, _toConsumableArray(additional.headers));
               if (additional.json) options.headers['Content-Type'] = 'application/json';
-              console.log('somebsads');
-              _context.next = 11;
+              _context.next = 9;
               return fetch(window.location.origin + path ? '/' + path : '', options);
 
-            case 11:
+            case 9:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 23;
+                _context.next = 21;
                 break;
               }
 
               if (!(response.headers.get('Content-Type') === 'application/json')) {
-                _context.next = 19;
+                _context.next = 17;
                 break;
               }
 
-              _context.next = 16;
+              _context.next = 14;
               return response.json();
 
-            case 16:
+            case 14:
               body = _context.sent;
-              _context.next = 22;
+              _context.next = 20;
               break;
 
-            case 19:
-              _context.next = 21;
+            case 17:
+              _context.next = 19;
               return response.text();
 
-            case 21:
+            case 19:
               body = _context.sent;
 
-            case 22:
+            case 20:
               throw {
                 name: 'Failed request',
                 message: response.statusText,
@@ -20820,25 +20907,25 @@ var Http = new function () {
                 body: body
               };
 
-            case 23:
+            case 21:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 29;
+                _context.next = 27;
                 break;
               }
 
-              _context.next = 27;
+              _context.next = 25;
               return response.json();
 
-            case 27:
+            case 25:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 29:
+            case 27:
               return _context.abrupt("return", response.text());
 
-            case 30:
+            case 28:
             case "end":
               return _context.stop();
           }
