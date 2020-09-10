@@ -188,7 +188,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -665,15 +665,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -691,17 +682,33 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
   },
   data: function data() {
     return {
-      fistColor: null,
-      secondColor: null,
       swiperOptions: {
         slidesPerView: 1,
+        grabCursor: true,
         speed: 900,
         autoplay: {
           delay: 5000000,
           disableOnInteraction: false
         },
         loop: true
-      }
+      },
+      banners: [{
+        image: 'img/svg/videos-banner.svg',
+        label: 'Study with \n our videos',
+        action: this.createRedirect('videos')
+      }, {
+        image: 'img/svg/audios-banner.svg',
+        label: 'Study with \n our videos',
+        action: this.createRedirect('audio')
+      }, {
+        image: 'img/svg/schemas-banner.svg',
+        label: 'Study with \n our videos',
+        action: this.createRedirect('schemas')
+      }, {
+        image: 'img/svg/games-banner.svg',
+        label: 'Study with \n our videos',
+        action: this.createRedirect('games')
+      }]
     };
   },
   beforeMount: function beforeMount() {
@@ -709,8 +716,17 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
     this.secondColor = this.randomColor();
   },
   methods: {
+    createRedirect: function createRedirect(path) {
+      return function () {
+        window.location = window.origin + '/' + path;
+      };
+    },
     randomColor: function randomColor() {
       return '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0');
+    },
+    getAddClass: function getAddClass(index) {
+      if (index % 2 === 0) return 'banner__slide--right';
+      return 'banner__slide--left';
     },
     paint: function paint(event) {
       var currentIndex = event.activeIndex % 2;
@@ -877,7 +893,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.item[data-v-010afa77] {\r\n    width: 100%;\r\n    height: 100%;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.item[data-v-010afa77] {\n    width: 100%;\n    height: 100%;\n}\n\n\n", ""]);
 
 // exports
 
@@ -896,7 +912,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-wrapper {\r\n  transition-timing-function: ease !important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n.banner__text {\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -915,7 +931,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\r\n    width: auto;\n}\r\n \r\n", ""]);
+exports.push([module.i, "\n.swiper-slide {\n    width: auto;\n}\n \n", ""]);
 
 // exports
 
@@ -15873,91 +15889,41 @@ var render = function() {
           staticClass: "banner__carousel",
           attrs: { options: _vm.swiperOptions }
         },
-        [
-          _c("swiper-slide", [
-            _c("div", { staticClass: "banner__slide banner__slide--right" }, [
-              _c("object", {
-                attrs: {
-                  data: "img/svg/videos-banner.svg",
-                  type: "image/svg+xml"
-                }
-              }),
-              _vm._v(" "),
-              _c("h1", { staticClass: "banner__text heading-first" }, [
-                _vm._v("Study with "),
-                _c("br"),
-                _vm._v(" our videos")
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "banner__button heading-fourth" }, [
-                _vm._v("go on page")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("swiper-slide", [
-            _c("div", { staticClass: "banner__slide banner__slide--left" }, [
-              _c("object", {
-                attrs: {
-                  data: "img/svg/audios-banner.svg",
-                  type: "image/svg+xml"
-                }
-              }),
-              _vm._v(" "),
-              _c("h1", { staticClass: "banner__text heading-first" }, [
-                _vm._v("Study with "),
-                _c("br"),
-                _vm._v(" our audios")
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "banner__button heading-fourth" }, [
-                _vm._v("go on page")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("swiper-slide", [
-            _c("div", { staticClass: "banner__slide banner__slide--right" }, [
-              _c("object", {
-                attrs: {
-                  data: "img/svg/schemas-banner.svg",
-                  type: "image/svg+xml"
-                }
-              }),
-              _vm._v(" "),
-              _c("h1", { staticClass: "banner__text heading-first" }, [
-                _vm._v("Study with "),
-                _c("br"),
-                _vm._v(" our schemas")
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "banner__button heading-fourth" }, [
-                _vm._v("go on page")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("swiper-slide", [
-            _c("div", { staticClass: "banner__slide banner__slide--left" }, [
-              _c("object", {
-                attrs: {
-                  data: "img/svg/games-banner.svg",
-                  type: "image/svg+xml"
-                }
-              }),
-              _vm._v(" "),
-              _c("h1", { staticClass: "banner__text heading-first" }, [
-                _vm._v("Study with "),
-                _c("br"),
-                _vm._v(" our games")
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "banner__button heading-fourth" }, [
-                _vm._v("go on page")
-              ])
-            ])
+        _vm._l(_vm.banners, function(ref, index) {
+          var image = ref.image
+          var action = ref.action
+          var label = ref.label
+          return _c("swiper-slide", { key: index }, [
+            _c(
+              "div",
+              { staticClass: "banner__slide", class: _vm.getAddClass(index) },
+              [
+                _c("img", { attrs: { src: image } }),
+                _vm._v(" "),
+                _c("h1", { staticClass: "banner__text heading-first" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(label) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "banner__button heading-fourth",
+                    on: { click: action }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        \n                        go on page\n                    "
+                    )
+                  ]
+                )
+              ]
+            )
           ])
-        ],
+        }),
         1
       )
     ],
@@ -29625,7 +29591,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/home.js */"./resources/js/home.js");
 
 
 /***/ })

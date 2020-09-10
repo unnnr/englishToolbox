@@ -6,35 +6,26 @@
             class="banner__carousel"
             :options="swiperOptions">
 
-                <swiper-slide>
-                    <div class="banner__slide banner__slide--right">
-                        <object data="img/svg/videos-banner.svg" type="image/svg+xml"></object>
-                        <h1 class="banner__text heading-first">Study with <br> our videos</h1>
-                        <button class="banner__button heading-fourth">go on page</button>
-                    </div>   
-                </swiper-slide>
+                <swiper-slide 
+                    v-for="({image, action, label}, index) of banners"
+                    :key="index">
 
-                <swiper-slide>
-                    <div class="banner__slide banner__slide--left">
-                        <object data="img/svg/audios-banner.svg" type="image/svg+xml"></object>
-                        <h1 class="banner__text heading-first">Study with <br> our audios</h1>
-                        <button class="banner__button heading-fourth">go on page</button>
-                    </div>   
-                </swiper-slide>
-
-                <swiper-slide>
-                    <div class="banner__slide banner__slide--right">
-                        <object data="img/svg/schemas-banner.svg" type="image/svg+xml"></object>
-                        <h1 class="banner__text heading-first">Study with <br> our schemas</h1>
-                        <button class="banner__button heading-fourth">go on page</button>
-                    </div>   
-                </swiper-slide>
-
-                <swiper-slide>
-                    <div class="banner__slide banner__slide--left">
-                        <object data="img/svg/games-banner.svg" type="image/svg+xml"></object>
-                        <h1 class="banner__text heading-first">Study with <br> our games</h1>
-                        <button class="banner__button heading-fourth">go on page</button>
+                    <div 
+                        class="banner__slide"
+                        :class="getAddClass(index)">
+                        
+                        <img :src="image">
+                       
+                        <h1 class="banner__text heading-first">
+                            {{ label }}
+                        </h1>
+                       
+                        <button 
+                            class="banner__button heading-fourth"
+                            @click="action">
+                            
+                            go on page
+                        </button>
                     </div>   
                 </swiper-slide>
                 
@@ -61,12 +52,10 @@ export default {
     
     data: function() {
         return {
-
-            fistColor: null,
-            secondColor: null,
-
             swiperOptions:{
                 slidesPerView: 1,
+
+                grabCursor: true,
              
                 speed: 900,
                 autoplay: { 
@@ -75,7 +64,31 @@ export default {
                 },
             
                 loop: true,
-            }
+            },
+
+            banners: [
+                { 
+                    image: 'img/svg/videos-banner.svg',
+                    label: 'Study with \n our videos',
+                    action: this.createRedirect('videos'),
+                },
+                { 
+                    image: 'img/svg/audios-banner.svg',
+                    label: 'Study with \n our videos',
+                    action: this.createRedirect('audio'),
+                },
+                { 
+                    image: 'img/svg/schemas-banner.svg',
+                    label: 'Study with \n our videos',
+                    action: this.createRedirect('schemas'),
+                },
+                { 
+                    image: 'img/svg/games-banner.svg',
+                    label: 'Study with \n our videos',
+                    action: this.createRedirect('games'),
+                },
+
+            ]
         }
     },  
 
@@ -85,8 +98,21 @@ export default {
     },
 
     methods: {
+        createRedirect(path) {
+            return function () {
+                window.location = window.origin + '/' + path;
+            };
+        },
+
         randomColor() {
             return  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0');
+        },
+
+        getAddClass(index) {
+            if (index % 2 === 0)
+                return 'banner__slide--right';
+
+            return 'banner__slide--left';
         },
 
         paint(event) {
@@ -114,6 +140,10 @@ export default {
 <style>
 .swiper-wrapper {
   transition-timing-function: ease !important;
+}
+
+.banner__text {
+    white-space: pre;
 }
 
 </style>

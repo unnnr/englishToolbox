@@ -188,7 +188,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -741,11 +741,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     function show() {
-      _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('alert-confirm', {
-        message: 'Are you sure?',
-        onConfirm: show,
-        onCancel: show
-      });
+      console.log('123');
+      setTimeout(function () {
+        _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('alert-confirm', {
+          message: 'Are you sure?',
+          onConfirm: show,
+          onCancel: show
+        });
+      }, 100);
     }
 
     show();

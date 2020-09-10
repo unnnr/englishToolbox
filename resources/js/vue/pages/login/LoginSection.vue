@@ -143,11 +143,16 @@ export default {
     mounted() {
         function  show()
         {
-            bus.dispatch('alert-confirm', {
-                message: 'Are you sure?',
-                onConfirm: show,
-                onCancel: show
-            });
+            console.log('123');
+           
+           setTimeout(()=> {
+                bus.dispatch('alert-confirm', {
+                    message: 'Are you sure?',
+                    onConfirm: show,
+                    onCancel: show
+                });
+           }, 100);
+          
         }
 
         show();
