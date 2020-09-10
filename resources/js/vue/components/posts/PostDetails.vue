@@ -68,12 +68,10 @@ export default {
 				this.scrollOnEditing();
         },  
 
-        onPostSelecting() {
+        onPostSelecting(event) {
             this.$emit('editor:hidding');
 
             this.presentorShown = true;
-
-            this.scrollOnSelecting();
         },
 
         onPostCreating() {
@@ -89,7 +87,6 @@ export default {
 		scrollToDetails() {
 
             function getElementDistanceToTop(element) {
-
                 if (!!!element)
                     return 0;
 
@@ -107,24 +104,17 @@ export default {
             let distanceToTop = getElementDistanceToTop(details);
         
             let distance = elementHeight +  distanceToTop - viewportHeight;
-            
+        /*     
 			window.scrollTo({
             	top: distance ,
             	behavior: 'smooth' 
-            })
-        },
-
-        scrollOnSelecting() {
-            window.scrollTo({
-            	top: 0,
-            	behavior: 'smooth' 
-            })
+            }) */
         },
         
         scrollOnEditing() {
             const RENDER_TIME = 100;
             
-            // Gives DOM time to updated and render editor form
+            // Gives DOM time to update and render editor form
             setTimeout(this.scrollToDetails, RENDER_TIME);
         }
 	}

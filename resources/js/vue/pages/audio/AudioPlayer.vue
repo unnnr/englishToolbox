@@ -183,7 +183,7 @@ export default {
             this.image.url = audio.image;
             this.overlay.shown = false;
 
-            if (!!!event.disableScrolling)
+            if (!!!event.preventScrolling)
                 this.scrollToPlayer();
 		});
 
@@ -227,18 +227,10 @@ export default {
     
     methods: {
         scrollToPlayer() {
-            const SHIFT = 10;
-
-            let player = this.$refs.player;
-
-            let relatedTop = player.getBoundingClientRect().top;
-            let distance  = relatedTop - SHIFT;
-
-            if (relatedTop < 0)
-                window.scrollBy({
-                    top: distance ,
-                    behavior: 'smooth' 
-                })
+            window.scrollTo({
+                top: 0 ,
+                behavior: 'smooth' 
+            });
         },
 
         clear() {

@@ -18,7 +18,6 @@ export default function(vueInstance, post)
         vue.url = 'https://youtube.com/watch?v=' + target.videoID;
         vue.description = target.description || '';
 
-
         let tags = ref('tags');
         tags.clear();
         tags.selected = target.tags;

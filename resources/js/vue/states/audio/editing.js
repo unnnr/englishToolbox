@@ -36,7 +36,7 @@ export default function(vueInstance, post)
     {
         const NULLABLE_MAIN_TAG = true;
 
-        let data = new FormData(ref('form'));
+        let data =  new ref('form').getData();
 
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
@@ -64,51 +64,17 @@ export default function(vueInstance, post)
 
     this.submit = async () => 
     {
-        try { 
-            let id = target.id;
-            let data = getFormData();
-            let post = await Audio.edit(id, data);
-            
-            vue.onAudioEdited(post);
-        }
-        catch(erorr) {
-            this.hadleError(erorr);
-        }
+        let id = target.id;
+        let data = getFormData();
+        let post = await Audio.edit(id, data);
+        
+        vue.onAudioEdited(post);
     }
 
     this.isFieldsRequired = () =>
     {
         return false;
     }
-    
-    this.hadleError = (error) =>
-    {
-        if (error.status === 500)
-        {
-            vue.onServerError();
-            return;
-        }
-
-        if (error.status === 422)
-        {
-            let errors = error.body.errors;
-            
-            if (errors.title)
-                vue.errors.title += errors.title.join('. ');
-        
-            if (errors.description)
-                vue.errors.description += errors.description.join('. ');
-
-            if (errors.audioFile)
-                vue.errors.files += errors.audioFile.join('. ');
-            
-            if (errors.audioFile && errors.imageFile)
-                vue.errors.files += ' ';
-
-            if (errors.imageFile)
-                vue.errors.files += errors.imageFile.join('. ');
-        }
-    }  
     
     this.getTitle= () => 
     {

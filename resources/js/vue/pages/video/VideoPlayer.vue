@@ -42,7 +42,7 @@ export default {
 			this.videoID = event.post.videoID;
 			this.showOverlay = false;
 
-			if (!!!event.disableScrolling)
+			if (!!!event.preventScrolling)
             	this.scrollToPlayer();
 		});
 
@@ -67,15 +67,8 @@ export default {
 
 	methods: {
         scrollToPlayer() {
-            const SHIFT = 10;
-
-            let player = this.$refs.player;
-
-            let realatedTop = player.getBoundingClientRect().top;
-            let distance  = realatedTop - SHIFT;
-
-            window.scrollBy({
-                top: distance ,
+            window.scrollTo({
+                top: 0 ,
                 behavior: 'smooth' 
             })
         }

@@ -76,7 +76,7 @@ export default {
             let id = Number(firstCard.id);
             let post = Posts.get(id);
 
-            bus.dispatch('post-selecting', { post, disableScrolling: true });
+            bus.dispatch('post-selecting', { post, preventScrolling: true });
         }, 1000);
 
         Auth.onload(() => {
