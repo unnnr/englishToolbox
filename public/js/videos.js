@@ -904,7 +904,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var post = _models_Posts__WEBPACK_IMPORTED_MODULE_3__["default"].get(id);
       _services_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('post-selecting', {
         post: post,
-        disableScrolling: true
+        preventScrolling: true
       });
     }, 1000);
     _services_Auth__WEBPACK_IMPORTED_MODULE_2__["default"].onload(function () {
@@ -1547,10 +1547,9 @@ __webpack_require__.r(__webpack_exports__);
       this.presentorShown = false;
       if (!!!event.preventScrolling) this.scrollOnEditing();
     },
-    onPostSelecting: function onPostSelecting() {
+    onPostSelecting: function onPostSelecting(event) {
       this.$emit('editor:hidding');
       this.presentorShown = true;
-      this.scrollOnSelecting();
     },
     onPostCreating: function onPostCreating() {
       this.$emit('editor:showing');
@@ -1570,19 +1569,14 @@ __webpack_require__.r(__webpack_exports__);
       var viewportHeight = window.innerHeight;
       var distanceToTop = getElementDistanceToTop(details);
       var distance = elementHeight + distanceToTop - viewportHeight;
+      /*     
       window.scrollTo({
-        top: distance,
-        behavior: 'smooth'
-      });
-    },
-    scrollOnSelecting: function scrollOnSelecting() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+          	top: distance ,
+          	behavior: 'smooth' 
+          }) */
     },
     scrollOnEditing: function scrollOnEditing() {
-      var RENDER_TIME = 100; // Gives DOM time to updated and render editor form
+      var RENDER_TIME = 100; // Gives DOM time to update and render editor form
 
       setTimeout(this.scrollToDetails, RENDER_TIME);
     }
@@ -2642,7 +2636,7 @@ __webpack_require__.r(__webpack_exports__);
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-selected', function (event) {
       _this.videoID = event.post.videoID;
       _this.showOverlay = false;
-      if (!!!event.disableScrolling) _this.scrollToPlayer();
+      if (!!!event.preventScrolling) _this.scrollToPlayer();
     });
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-creating', function (event) {
       _this.showOverlay = true;
@@ -2659,12 +2653,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     scrollToPlayer: function scrollToPlayer() {
-      var SHIFT = 10;
-      var player = this.$refs.player;
-      var realatedTop = player.getBoundingClientRect().top;
-      var distance = realatedTop - SHIFT;
-      window.scrollBy({
-        top: distance,
+      window.scrollTo({
+        top: 0,
         behavior: 'smooth'
       });
     }

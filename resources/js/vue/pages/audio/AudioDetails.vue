@@ -1,31 +1,28 @@
 <template>
-    <div 
-		class="addition"
-		ref="details">
+  <post-details
+		@editor:showing="showEditor"
+		@editor:hidding="hideEditor"
+		@target:changed="setTarget">
 
-        <div class="addition__body">
-            <div class="addition__wrapper">
-                <transition name="fade">
- 					<audio-editor 
-						v-if="editing" 
-					 	:target="target"/>
-				</transition>
-                <post-presentor ref="presentor"/>
-            </div>
-        </div>
-    </div>
+        <transition name="fade">
+ 			<audio-editor 
+				v-if="editing" 
+			 	:target="target">
+ 			</audio-editor>
+		</transition>
+    </post-details>
 </template>
 
 <script>
 import bus from '@services/eventbus';
 import AudioEditor from "@pages/audio/AudioEditor.vue";
-import PostPresentor from "@components/posts/PostPresentor.vue";
+import PostDetails from '@components/posts/PostDetails'
 
 export default {
 	name: "audio-details",
 
 	components: {
-    	PostPresentor,
+    	PostDetails,
     	AudioEditor,
     },
     
@@ -36,39 +33,18 @@ export default {
 		}
 	},
 
-	mounted() {
-		bus.listen('post-editing', event => {
-			this.editing = true;
-			this.target = event.post;
-
-			if (!!!event.preventScrolling)
-				this.scrolleToDetails();
-		});
-
-		bus.listen('post-edited', event => {
-			this.target = null;
-		});
-
-		bus.listen('post-creating', event => {
-			this.editing = true;
-
-			if (!!!event.preventScrolling)
-				this.scrolleToDetails();	
-		});
-
-		bus.listen('post-selecting', event => {
-			this.editing = false;
-		});	
-	},
-
 	methods: {
-		scrolleToDetails() {
-			console.log('SCOLLING');
-            window.scrollTo({
-					top: 0,
-            	    behavior: 'smooth' 
-            })
-        }
+		setTarget(value) {
+			this.target = value;
+		},
+
+		showEditor() {
+			this.editing = true;
+		},
+
+		hideEditor() {
+			this.editing = false;
+		}
 	}
 };
 </script>

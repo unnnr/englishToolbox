@@ -1,9 +1,10 @@
 <template>
     <div class="editor">
-        <form
-            ref="form"
+        <request-form 
             class="editor__form"
-            @submit.prevent="submit">
+            ref="form"
+            :submit-callback="submit"
+            @input:incorrect="hadleErrors">
 
             <div class="editor__header">
                 <h5 class="editor__title text-third">{{ formTitle }}</h5>
@@ -70,32 +71,32 @@
                             accept="audio/*"
                             :required='isRequired'
                             @change="updateAudio">
-                            
                     </label>
                 </div>
 
                 <tag-editor ref="tags"/>
             </div>
             <div class="editor__footer">
-                <button class="editor__footer-button button-second">confirm</button>
+               <submit-button
+                    class="editor__footer-button"
+                    ref="submitButton"
+                    :loading="isLoading()">
+                </submit-button>
             </div>
-        </form>
+        </request-form>
     </div>
 </template>
 
 <script>
 
-// Modules
 import getYouTubeID from 'get-youtube-id';
-
-// Logic
 import bus from '@services/eventbus';
 import Tags from '@models/Tags'
+import RequestForm from '@components/RequestForm';
+import SubmitButton from '@components/SubmitButton';
+import TagEditor from '@components/tags/TagEditor';
 import EditingState from '@states/audio/editing';
 import CreationState from '@states/audio/creation';
-
-//Components
-import TagEditor from '@components/tags/TagEditor';
 
 const MAX_TITLE_LENGTH =  50;
 const MAX_DESCRIPTION_LENGTH = 180;
@@ -104,6 +105,8 @@ export default {
     name: 'audio-editor',
 
     components: {
+        SubmitButton,
+        RequestForm,
         TagEditor
     },
 
@@ -135,7 +138,6 @@ export default {
     },
 
     computed: {
-
         titleCounter() {
             return this.audio.title.length + '/' + MAX_TITLE_LENGTH;
         },
@@ -184,12 +186,32 @@ export default {
     },
 
     methods: {
+        hadleErrors(errors)
+        {
+            if (errors.title)
+                vue.errors.title += errors.title.join('. ');
+        
+            if (errors.description)
+                vue.errors.description += errors.description.join('. ');
+
+            if (errors.audioFile)
+                vue.errors.files += errors.audioFile.join('. ');
+            
+            if (errors.audioFile && errors.imageFile)
+                vue.errors.files += ' ';
+
+            if (errors.imageFile)
+                vue.errors.files += errors.imageFile.join('. ');
+        },
+
+        isLoading() {
+            if (this.$refs.form)
+                return this.$refs.form.loading;
+        },
 
         clear() {
-            let form = this.$refs.form;
-
-            if (form)
-                this.$refs.form.reset();
+            if (this.$refs.form)
+                this.$refs.form.clear();
 
             for (let label of ['image', 'audio'])
             {
@@ -225,11 +247,6 @@ export default {
         onAudioEdited(post) {
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
-        },
-
-        onServerError() {
-            bus.dispatch('alert-error', { message: `An unexpected error has occurred on 
-                                                    the server. Please try again later` });
         },
 
         updateAudio() {

@@ -23,7 +23,7 @@ export default function(vueInstance)
 
     function getFormData()
     {
-        let data = new FormData(ref('form'));
+        let data = ref('form').getData();
 
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
@@ -50,50 +50,15 @@ export default function(vueInstance)
 
     this.submit = async() => 
     {
-        try { 
-            let data = getFormData();
-            let post = await Audio.create(data);
+        let data = getFormData();
+        let post = await Audio.create(data);
 
-            vue.onAudioCreated(post);
-        }
-        catch(erorr) {
-            this.hadleError(erorr);
-        }
-
+        vue.onAudioCreated(post);
     }
 
     this.isFieldsRequired = () =>
     {
         return true;
-    }
-    
-    this.hadleError = (error) =>
-    {
-        if (error.status === 500)
-        {
-            vue.onServerError();
-            return;
-        }
-
-        if (error.status === 422)
-        {
-            let errors = error.body.errors;
-            
-            if (errors.title)
-                vue.errors.title += errors.title.join('. ');
-        
-            if (errors.description)
-                vue.errors.description += errors.description.join('. ');
-
-            if (errors.audioFile)
-                vue.errors.files += errors.audioFile.join('. ');
-            
-            if (errors.audioFile && errors.imageFile)
-                vue.errors.files += ' ';
-
-            if (errors.imageFile)
-                vue.errors.files += errors.imageFile.join('. ');
-        }
     }
 
     this.getTitle = () => 
