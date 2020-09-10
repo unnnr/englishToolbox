@@ -9,6 +9,7 @@
 
             <span class="alert__header text-second"></span>
                 <p class="alert__description text-fifth">{{ message }}</p>
+                <input class="alert-input input-second" type="password" placeholder="">
                 <div class="alert__buttons">
                 <button 
                     class="alert__button alert__button--cancel"

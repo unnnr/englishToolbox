@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,6 +108,7 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @services/eventbus */ "./resources/js/services/eventbus.js");
+//
 //
 //
 //
@@ -15335,6 +15336,11 @@ var render = function() {
             _vm._v(_vm._s(_vm.message))
           ]),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
               "button",
@@ -15876,11 +15882,8 @@ var render = function() {
         [
           _c("swiper-slide", [
             _c("div", { staticClass: "banner__slide banner__slide--right" }, [
-              _c("object", {
-                attrs: {
-                  data: "img/svg/videos-banner.svg",
-                  type: "image/svg+xml"
-                }
+              _c("img", {
+                attrs: { src: "img/svg/videos-banner.svg", alt: "" }
               }),
               _vm._v(" "),
               _c("h1", { staticClass: "banner__text heading-first" }, [
@@ -29618,7 +29621,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 0:
+/***/ 1:
 /*!************************************!*\
   !*** multi ./resources/js/home.js ***!
   \************************************/

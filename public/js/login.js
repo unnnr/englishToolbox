@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -880,7 +881,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 10px;\n    height: 20px;\n    width: 20px;\n    opacity: 0;\n    transition: opacity .6s;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\r\n    margin-left: 5px;\r\n    height: 20px;\r\n    width: 0;\r\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\r\n\r\n    background: url('http://englishtoolbox/img/svg/91.svg');\r\n    background-size:     cover;\r\n    background-repeat:   no-repeat;\r\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\r\n    width: 20px;\r\n    opacity: 1;\n}\r\n", ""]);
 
 // exports
 
@@ -3145,6 +3146,11 @@ var render = function() {
           _c("p", { staticClass: "alert__description text-fifth" }, [
             _vm._v(_vm._s(_vm.message))
           ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
@@ -17297,7 +17303,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/login.js */"./resources/js/login.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\login.js */"./resources/js/login.js");
 
 
 /***/ })

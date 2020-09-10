@@ -21,6 +21,10 @@
     }
   }
 
+  .alert-input {
+    display: none;
+  }
+
   .alert__buttons {
 
     .alert__button--cancel {
@@ -50,6 +54,10 @@
     }
   }
 
+  .alert-input {
+    display: none;
+  }
+
   .alert__buttons {
 
     .alert__button--cancel {
@@ -67,6 +75,9 @@
 }
 
 .alert--prompt {
+  .alert-input {
+    display: flex;
+  }
 
   .alert__header {
     color: $color-main;
@@ -119,6 +130,13 @@
   color: $text-second;
   margin-bottom: 15px;
   font-weight: $medium;
+}
+
+.alert-input {
+  margin-bottom: 15px;
+  display: flex;
+  height: 40px;
+  width: 100%;
 }
 
 .alert__buttons {

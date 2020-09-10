@@ -44,19 +44,19 @@ button
 }
 
 .loader {
-    margin-left: 10px;
+    margin-left: 5px;
     height: 20px;
-    width: 20px;
-    opacity: 0;
-    transition: opacity .6s;
+    width: 0;
+    transition: width .3s ease-in-out, opacity .3s ease-in-out;
 
-    background: url('http://etoolbox/img/svg/91.svg');
+    background: url('http://englishtoolbox/img/svg/91.svg');
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;    
 }
 
 .loader--shown {
+    width: 20px;
     opacity: 1;
 }
 </style>

@@ -1079,6 +1079,10 @@ main {
   content: "Warning!";
 }
 
+.alert--warning .alert-input {
+  display: none;
+}
+
 .alert--warning .alert__buttons .alert__button--cancel {
   display: block;
 }
@@ -1103,6 +1107,10 @@ main {
   content: "Error!";
 }
 
+.alert--error .alert-input {
+  display: none;
+}
+
 .alert--error .alert__buttons .alert__button--cancel {
   display: none;
 }
@@ -1113,6 +1121,12 @@ main {
 
 .alert--error .alert__buttons .alert__button--okay {
   display: block;
+}
+
+.alert--prompt .alert-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .alert--prompt .alert__header {
@@ -1167,6 +1181,15 @@ main {
   color: #848499;
   margin-bottom: 15px;
   font-weight: 500;
+}
+
+.alert-input {
+  margin-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  width: 100%;
 }
 
 .alert__buttons {

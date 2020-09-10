@@ -8,7 +8,7 @@
 
                 <swiper-slide>
                     <div class="banner__slide banner__slide--right">
-                        <object data="img/svg/videos-banner.svg" type="image/svg+xml"></object>
+                        <img src="img/svg/videos-banner.svg" alt="">
                         <h1 class="banner__text heading-first">Study with <br> our videos</h1>
                         <button class="banner__button heading-fourth">go on page</button>
                     </div>   
