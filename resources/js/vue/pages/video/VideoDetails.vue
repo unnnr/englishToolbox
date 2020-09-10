@@ -53,8 +53,12 @@ export default {
 </script>
 
 <style scoped>
+	.fade-leave-active {
+		position: absolute;
+	}
+	
 	.fade-enter-active, .fade-leave-active {
-	  transition: opacity 1s;
+	  transition: opacity .7s;
 	}
 	.fade-enter, .fade-leave-to {
 	  opacity: 0;

@@ -6,7 +6,9 @@
         <div class="addition__body">
             <div class="addition__wrapper" ref="wrapper">
 				<slot></slot>
-                <post-presentor ref="presentor"/>
+                <post-presentor 
+                    ref="presentor"
+                    v-if="presentorShown"/>
             </div>
         </div>
     </div>
@@ -21,6 +23,12 @@ export default {
 
 	components: {
         PostPresentor,
+    },
+
+    data: function() {
+        return {
+            presentorShown: true
+        }
     },
 
 	mounted() {
@@ -54,37 +62,71 @@ export default {
             this.$emit('target:changed', event.post);
             this.$emit('editor:showing');
 
+            this.presentorShown = false;
+
 			if (!!!event.preventScrolling)
-				this.scrolleToDetails();
+				this.scrollOnEditing();
         },  
 
         onPostSelecting() {
             this.$emit('editor:hidding');
+
+            this.presentorShown = true;
+
+            this.scrollOnSelecting();
         },
 
         onPostCreating() {
             this.$emit('editor:showing');
 
+            this.presentorShown = false;
+
 			if (!!!event.preventScrolling)
-				this.scrolleToDetails();	
+				this.scrollOnEditing();	
         },
 
         // Defaul methods
+		scrollToDetails() {
 
-		scrolleToDetails() {
+            function getElementDistanceToTop(element) {
+
+                if (!!!element)
+                    return 0;
+
+                return element.offsetTop + getElementDistanceToTop(element.offsetParent); 
+            }
+
             const SHIFT = 10;
 
             let details = this.$refs.details;
 
-            let relatedTop = details.getBoundingClientRect().top;
-            let distance = relatedTop - SHIFT;
+            let elementHeight = details.offsetHeight;
 
-			if (relatedTop < 0)
-            	window.scrollBy({
-            	    top: distance ,
-            	    behavior: 'smooth' 
-            	})
-		}
+            let viewportHeight = window.innerHeight;
+            
+            let distanceToTop = getElementDistanceToTop(details);
+        
+            let distance = elementHeight +  distanceToTop - viewportHeight;
+            
+			window.scrollTo({
+            	top: distance ,
+            	behavior: 'smooth' 
+            })
+        },
+
+        scrollOnSelecting() {
+            window.scrollTo({
+            	top: 0,
+            	behavior: 'smooth' 
+            })
+        },
+        
+        scrollOnEditing() {
+            const RENDER_TIME = 100;
+            
+            // Gives DOM time to updated and render editor form
+            setTimeout(this.scrollToDetails, RENDER_TIME);
+        }
 	}
 };
 </script>

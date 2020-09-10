@@ -1510,12 +1510,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "post-details",
   components: {
     PostPresentor: _components_posts_PostPresentor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      presentorShown: true
+    };
   },
   mounted: function mounted() {
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('post-editing', this.onPostEditing);
@@ -1537,25 +1544,47 @@ __webpack_require__.r(__webpack_exports__);
     onPostEditing: function onPostEditing(event) {
       this.$emit('target:changed', event.post);
       this.$emit('editor:showing');
-      if (!!!event.preventScrolling) this.scrolleToDetails();
+      this.presentorShown = false;
+      if (!!!event.preventScrolling) this.scrollOnEditing();
     },
     onPostSelecting: function onPostSelecting() {
       this.$emit('editor:hidding');
+      this.presentorShown = true;
+      this.scrollOnSelecting();
     },
     onPostCreating: function onPostCreating() {
       this.$emit('editor:showing');
-      if (!!!event.preventScrolling) this.scrolleToDetails();
+      this.presentorShown = false;
+      if (!!!event.preventScrolling) this.scrollOnEditing();
     },
     // Defaul methods
-    scrolleToDetails: function scrolleToDetails() {
+    scrollToDetails: function scrollToDetails() {
+      function getElementDistanceToTop(element) {
+        if (!!!element) return 0;
+        return element.offsetTop + getElementDistanceToTop(element.offsetParent);
+      }
+
       var SHIFT = 10;
       var details = this.$refs.details;
-      var relatedTop = details.getBoundingClientRect().top;
-      var distance = relatedTop - SHIFT;
-      if (relatedTop < 0) window.scrollBy({
+      var elementHeight = details.offsetHeight;
+      var viewportHeight = window.innerHeight;
+      var distanceToTop = getElementDistanceToTop(details);
+      var distance = elementHeight + distanceToTop - viewportHeight;
+      window.scrollTo({
         top: distance,
         behavior: 'smooth'
       });
+    },
+    scrollOnSelecting: function scrollOnSelecting() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    },
+    scrollOnEditing: function scrollOnEditing() {
+      var RENDER_TIME = 100; // Gives DOM time to updated and render editor form
+
+      setTimeout(this.scrollToDetails, RENDER_TIME);
     }
   }
 });
@@ -2865,7 +2894,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-c85479e6], .fade-leave-active[data-v-c85479e6] {\n  transition: opacity 1s;\n}\n.fade-enter[data-v-c85479e6], .fade-leave-to[data-v-c85479e6] {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.fade-leave-active[data-v-c85479e6] {\n\tposition: absolute;\n}\n.fade-enter-active[data-v-c85479e6], .fade-leave-active[data-v-c85479e6] {\n  transition: opacity .7s;\n}\n.fade-enter[data-v-c85479e6], .fade-leave-to[data-v-c85479e6] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -6526,7 +6555,9 @@ var render = function() {
         [
           _vm._t("default"),
           _vm._v(" "),
-          _c("post-presentor", { ref: "presentor" })
+          _vm.presentorShown
+            ? _c("post-presentor", { ref: "presentor" })
+            : _vm._e()
         ],
         2
       )
