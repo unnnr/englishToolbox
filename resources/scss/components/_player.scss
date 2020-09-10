@@ -105,6 +105,7 @@
   justify-content: center;
   margin-left: 10px;
   min-width: 125px;
+  user-select: none;
   
   i {
     margin-right: 5px;
@@ -161,6 +162,10 @@
 
   @include sm-devices {
     margin-right: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -227,6 +232,7 @@
   font-size: 14px;
   color: $text-second;
   font-weight: $semibold;
+  user-select: none;
 
   @include sm-devices {
     font-size: 10px;
@@ -237,6 +243,7 @@
   display: flex;
   align-items: center;
   margin-right: vw(25,1920);
+  user-select: none;
 
   span {
     font-size: 30px;

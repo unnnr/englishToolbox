@@ -18,7 +18,7 @@
                             :title="card.title"
                             :description="card.description"
                             :created-at="card.createdAt"
-                            :imageUrl="card.thumbnail">
+                            :imageUrl="card.thumbnail"
 
                         square-form
                         margined/>

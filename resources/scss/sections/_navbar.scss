@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 50px;
+  white-space: nowrap;
 
   @include lg-devices {
     display: none;
@@ -11,6 +12,7 @@
 .navbar-desktop__links {
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .navbar-desktop__logo {

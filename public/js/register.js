@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -426,7 +426,6 @@ __webpack_require__.r(__webpack_exports__);
     this.links = _services_Routes__WEBPACK_IMPORTED_MODULE_1__["default"].all();
     _services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].onload(function () {
       _this.profileShown = _services_Auth__WEBPACK_IMPORTED_MODULE_0__["default"].check();
-      console.log(_this.profileShown);
     });
   }
 });
@@ -16042,10 +16041,18 @@ var Auth = new function () {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.set('auth', token, {
       expires: AUTH_TOKEN_EXPIRES
     });
+    _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
+      'Authorization': 'Bearer ' + token
+    }];
   }
 
   function removeToken() {
     js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.remove('auth');
+  }
+
+  function isFormDataEmpty(data) {
+    if (data.values().next()) return false;
+    return true;
   }
 
   function init() {
@@ -16053,18 +16060,22 @@ var Auth = new function () {
   }
 
   function _init() {
-    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    _init = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var _iterator, _step, callback;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.next = 2;
+              _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].defaultHeaders = [{
+                'Authorization': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
+              }];
+              _context4.next = 3;
               return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/profile')["catch"](function () {});
 
-            case 2:
-              user = _context3.sent;
+            case 3:
+              user = _context4.sent;
+              loaded = true;
               _iterator = _createForOfIteratorHelper(callbacks);
 
               try {
@@ -16078,12 +16089,12 @@ var Auth = new function () {
                 _iterator.f();
               }
 
-            case 5:
+            case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _init.apply(this, arguments);
   }
@@ -16173,6 +16184,53 @@ var Auth = new function () {
     return _objectSpread({}, user);
   };
 
+  this.edit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+      var name, email, newPassword, confirmation, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              name = data.get('name');
+              if (name === user.name) data["delete"]('name');
+              email = data.get('email');
+              if (email === user.email) data["delete"]('email');
+              newPassword = data.get('newPassword');
+              if (typeof newPassword === 'string' && !!!newPassword.length) data["delete"]('newPassword');
+              confirmation = data.get('confirmation');
+              if (typeof confirmation === 'string' && !!!confirmation.length) data["delete"]('confirmation');
+
+              if (!isFormDataEmpty(data)) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 10:
+              _context3.next = 12;
+              return _services_Http__WEBPACK_IMPORTED_MODULE_2__["default"].patch('api/profile', data);
+
+            case 12:
+              response = _context3.sent;
+              user.name = response.name;
+              user.email = response.email;
+              user.verified = response.verified;
+              return _context3.abrupt("return", response);
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
   this.check = function () {
     return Boolean(user);
   };
@@ -16183,10 +16241,17 @@ var Auth = new function () {
   };
 
   this.getCredentials = function () {
-    return ['Accept', 'Berier ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')];
+    return {
+      'Accept': 'Bearer ' + js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('auth')
+    };
   };
 
   this.onload = function (callback) {
+    if (loaded) {
+      callback();
+      return;
+    }
+
     callbacks.push(callback);
   };
 
@@ -16204,6 +16269,7 @@ var Auth = new function () {
   };
 
   var AUTH_TOKEN_EXPIRES = 12;
+  var loaded = false;
   var user = null;
   var callbacks = [];
   init();
@@ -16229,11 +16295,13 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -16249,10 +16317,16 @@ var Http = new function () {
       var additional,
           token,
           options,
+          _iterator,
+          _step,
+          header,
+          key,
+          value,
           response,
           body,
           contentType,
           _args = arguments;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -16269,40 +16343,55 @@ var Http = new function () {
                   'Accept': 'application/json'
                 }
               };
+              _iterator = _createForOfIteratorHelper(Http.defaultHeaders);
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  header = _step.value;
+                  key = Object.keys(header)[0];
+                  value = header[key];
+                  options.headers[key] = value;
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
               if (Array.isArray(additional.headers)) (_options$headers = options.headers).push.apply(_options$headers, _toConsumableArray(additional.headers));
               if (additional.json) options.headers['Content-Type'] = 'application/json';
-              _context.next = 7;
+              _context.next = 9;
               return fetch(window.location.origin + path ? '/' + path : '', options);
 
-            case 7:
+            case 9:
               response = _context.sent;
 
               if (!!response.ok) {
-                _context.next = 19;
+                _context.next = 21;
                 break;
               }
 
               if (!(response.headers.get('Content-Type') === 'application/json')) {
-                _context.next = 15;
+                _context.next = 17;
                 break;
               }
 
-              _context.next = 12;
+              _context.next = 14;
               return response.json();
 
-            case 12:
+            case 14:
               body = _context.sent;
-              _context.next = 18;
+              _context.next = 20;
               break;
 
-            case 15:
-              _context.next = 17;
+            case 17:
+              _context.next = 19;
               return response.text();
 
-            case 17:
+            case 19:
               body = _context.sent;
 
-            case 18:
+            case 20:
               throw {
                 name: 'Failed request',
                 message: response.statusText,
@@ -16310,25 +16399,25 @@ var Http = new function () {
                 body: body
               };
 
-            case 19:
+            case 21:
               contentType = response.headers.get("Content-Type");
 
               if (!(contentType === 'application/json')) {
-                _context.next = 25;
+                _context.next = 27;
                 break;
               }
 
-              _context.next = 23;
+              _context.next = 25;
               return response.json();
 
-            case 23:
+            case 25:
               response = _context.sent;
               return _context.abrupt("return", response.data);
 
-            case 25:
+            case 27:
               return _context.abrupt("return", response.text());
 
-            case 26:
+            case 28:
             case "end":
               return _context.stop();
           }
@@ -16350,24 +16439,22 @@ var Http = new function () {
   };
 
   this.put = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this.patch = function (path, data) {
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'PUT');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
   this["delete"] = function (path) {
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new FormData();
-    var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     data.append('_method', 'DELETE');
-    return self.make('POST', path, data, json);
+    return self.make('POST', path, data);
   };
 
+  this.defaultHeaders = [];
   var self = this;
 }();
 /* harmony default export */ __webpack_exports__["default"] = (Http);
@@ -16938,14 +17025,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 0:
+/***/ 3:
 /*!****************************************!*\
   !*** multi ./resources/js/register.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/register.js */"./resources/js/register.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\register.js */"./resources/js/register.js");
 
 
 /***/ })
