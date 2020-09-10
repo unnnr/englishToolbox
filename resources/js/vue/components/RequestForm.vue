@@ -25,12 +25,6 @@ export default {
         }
     },
 
-    computed: {
-        data() {
-            return new FormData(this.$refs.form);
-        }
-    },
-
     methods: {
         handleError(error) {
 
@@ -44,6 +38,10 @@ export default {
             }
 
             throw error;
+        },
+
+        getData() {
+            return new FormData(this.$refs.form);
         },
 
         clear() {

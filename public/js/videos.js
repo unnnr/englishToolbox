@@ -472,11 +472,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       "default": function _default() {}
     }
   },
-  computed: {
-    data: function data() {
-      return new FormData(this.$refs.form);
-    }
-  },
   methods: {
     handleError: function handleError(error) {
       if (error.status == 422) {
@@ -486,6 +481,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       throw error;
+    },
+    getData: function getData() {
+      return new FormData(this.$refs.form);
     },
     clear: function clear() {
       this.$refs.form.reset();
@@ -20144,38 +20142,37 @@ var Videos = new function () {
               if (target.videoID === videoID) data["delete"]('videoUrl');
               description = data.get('description');
               if (target.description === description) data["delete"]('description');
-              console.log(22);
               mainTag = data.get('mainTag');
               if (target.mainTag.id == mainTag) data["delete"]('mainTag');
               console.log(isFormDataEmpty);
               compareDataWithTags(data, target.tags);
 
               if (!isFormDataEmpty(data)) {
-                _context2.next = 12;
+                _context2.next = 11;
                 break;
               }
 
               return _context2.abrupt("return", createCopy(target));
 
-            case 12:
-              _context2.next = 14;
+            case 11:
+              _context2.next = 13;
               return _services_Http__WEBPACK_IMPORTED_MODULE_1__["default"].patch('api/video/' + id, data);
 
-            case 14:
+            case 13:
               response = _context2.sent;
 
               if (!!response) {
-                _context2.next = 17;
+                _context2.next = 16;
                 break;
               }
 
               return _context2.abrupt("return", null);
 
-            case 17:
+            case 16:
               target.tags = response.tags, target.title = response.title, target.mainTag = response.mainTag, target.videoID = response.videoID, target.description = response.description;
               return _context2.abrupt("return", createCopy(target));
 
-            case 19:
+            case 18:
             case "end":
               return _context2.stop();
           }
@@ -22734,7 +22731,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   }
 
   function getFormData() {
-    var data = ref('form').data;
+    var data = ref('form').getData();
     var tags = ref('tags').selected;
     Object(_states_video_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags);
     var mainTag = ref('tags').main;
@@ -22812,7 +22809,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
   function getFormData() {
     var NULLABLE = true;
-    var data = new ref('form').data;
+    var data = new ref('form').getData();
     var tags = ref('tags').selected;
     Object(_states_video_helpers__WEBPACK_IMPORTED_MODULE_1__["appendTagsData"])(data, tags, NULLABLE);
     var mainTag = ref('tags').main;

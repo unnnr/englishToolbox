@@ -31,7 +31,7 @@ export default function(vueInstance, post)
     {
         const NULLABLE = true;
 
-        let data = new ref('form').data;
+        let data = new ref('form').getData();
 
         let tags = ref('tags').selected;
         appendTagsData(data, tags, NULLABLE);

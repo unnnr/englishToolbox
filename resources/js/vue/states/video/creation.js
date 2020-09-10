@@ -16,7 +16,7 @@ export default function(vueInstance)
 
     function getFormData()
     {
-        let data = ref('form').data;
+        let data = ref('form').getData();
 
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
