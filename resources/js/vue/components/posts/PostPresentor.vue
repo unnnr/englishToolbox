@@ -64,8 +64,6 @@ export default {
         {
             if (value)
                 this.detailsShown = true;
-
-            console.log('MOVILE');
         }
     },
 

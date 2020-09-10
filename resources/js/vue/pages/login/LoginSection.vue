@@ -1,11 +1,10 @@
 <template>
     <section class="login-in container">
-        <form 
-            method="POST"
+      <request-form 
             class="auth"
-            action="#"
             ref="form"
-            @submit.prevent="submit">
+            :submit-callback="submit"
+            @input:incorrect="hadleErrors">
 
             <h4 class="auth__title heading-fourth">login in</h4>
             <div
@@ -47,7 +46,12 @@
                 </button>
                 <small class="auth__input-error">{{ errors.password }}</small>
             </div>
-            <button class="auth__input-button button-main" type="submit">confirm</button>
+
+            <submit-button
+                class="auth__input-button button-main" 
+                ref="submitButton"
+                :loading="isLoading()"/>
+
             <div class="login-with">
                 <p class="login-with__text text-fourth">Or login with</p>
                 <div class="login-with__buttons">
@@ -62,7 +66,7 @@
                     Don`t have an account?
                 </a>
             </div>
-        </form>
+        </request-form>
         <div class="form__poster form__poster--login-in">
             <object 
                 class="form__img"
@@ -77,10 +81,17 @@
 
 import bus from '@services/eventbus'
 import Auth from '@services/Auth'
+import SubmitButton from '@components/SubmitButton';
+import RequestForm from '@components/RequestForm';
 import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
 export default {
     name: 'login-section',
+
+    components: {
+        SubmitButton,
+        RequestForm
+    },
     
     data: function() {
         return {
@@ -130,6 +141,11 @@ export default {
     },      
 
     methods: {
+        isLoading() {
+            if (this.$refs.form)
+                return this.$refs.form.loading;
+        },
+
         togglePreview() {
             this.isPasswordShown = !!!this.isPasswordShown;
         },
@@ -192,32 +208,24 @@ export default {
             return true;
         },
 
-        submit() {
-            let form =  this.$refs.form;
-            
-            let data = new FormData(form);
+        async submit() {
+            if (!!!this.validate())
+                return;
 
-            if (this.validate())
-                Auth.login(data)
-                .then(this.redirect)
-                .catch(this.parseErrors);
+            let form =  this.$refs.form;
+            let data = form.getData();
+
+            await Auth.login(data);
+            
+            this.redirect();
         },
 
-        parseErrors(error) { 
-            if (error.status == 422)
+        hadleErrors(errors) { 
+            for (let [label, messages] of Object.entries(errors))
             {
-                let data = error.body.errors;
-    
-                for (let [label, messages] of Object.entries(data))
-                {
-                    this.errors[label] = messages.join('. ');
-                    this.confirmed[label] = false;  
-                }
-
-                return;
+                this.errors[label] = messages.join('. ');
+                this.confirmed[label] = false;  
             }
-
-            throw error;
         }
     }
 }

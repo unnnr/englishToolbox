@@ -1,7 +1,6 @@
 <template>
     <button 
-        type="submit"
-        class="button-second">
+        type="submit">
         
         <slot> {{ defaultMessage }} </slot>
 

@@ -7,7 +7,6 @@ const ShrinkableDetailsTab = {
 
     data: function () {
         return {
-
             shrinked: false,
             
             bodyHeight: 'auto',
@@ -35,12 +34,8 @@ const ShrinkableDetailsTab = {
 
     watch: {
         shrinkable(value) {
-            if (value)
-                return;
-
-            this.open();
-
-            this.shrinked = false;
+            if (!!!value && this.shrinked)
+                toggle()
         }
     },
 

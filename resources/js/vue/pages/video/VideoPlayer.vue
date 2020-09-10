@@ -5,10 +5,10 @@
     	
 		<div class="player__rationed">
   			<iframe class="player__video"
-			  		frameborder="0"
-					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			  		:src="'https://www.youtube.com/embed/' + videoID + '?enablejsapi=1&color=white'"
-					allowfullscreen>
+			  	frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+			  	:src="'https://www.youtube.com/embed/' + videoID + '?enablejsapi=1&color=white'"
+				allowfullscreen>
 			</iframe>
 			<transition name="fade">
 				<div 

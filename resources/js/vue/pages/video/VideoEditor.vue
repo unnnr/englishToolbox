@@ -42,7 +42,7 @@
             </div>
             <div class="editor__footer">
                 <submit-button
-                    class="editor__footer-button"
+                    class="editor__footer-button button-second"
                     ref="submitButton"
                     :loading="isLoading()">
                 </submit-button>

@@ -103,7 +103,6 @@ export default {
         }
 	},
 
-
 	computed: {
 		commentsCount() {
 			return this.comments.length;

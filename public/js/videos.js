@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1763,7 +1763,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     mobileWidth: function mobileWidth(value) {
       if (value) this.detailsShown = true;
-      console.log('MOVILE');
     }
   },
   methods: {
@@ -1783,7 +1782,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     /* updateInfo(newData) {
     	let info = this.$refs.videoInfo;
-    			Object.assign(info.$data, newData)
+    		Object.assign(info.$data, newData)
     } */
 
   },
@@ -2718,7 +2717,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-36b19baa] {\r\n  transition: \r\n  transform 1s ease-in-out,\r\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-36b19baa]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-36b19baa {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-36b19baa {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-36b19baa] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-36b19baa]\n{\n   -webkit-animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-36b19baa {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-36b19baa {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -2737,7 +2736,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.comments__body[data-v-467627dc] {\r\n    overflow: hidden;\n}\n.comments__mobile-button[data-v-467627dc] {\r\n   transform-origin: 15px 15px;\n}\n.comments__mobile-button--upturned[data-v-467627dc] {\r\n    transform: rotate(180deg);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.comments__body[data-v-467627dc] {\n    overflow: hidden;\n}\n.comments__mobile-button[data-v-467627dc] {\n   transform-origin: 15px 15px;\n}\n.comments__mobile-button--upturned[data-v-467627dc] {\n    transform: rotate(180deg);\n}\n\n", ""]);
 
 // exports
 
@@ -2775,7 +2774,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-168a10a2], .fade-leave-active[data-v-168a10a2] {\r\n  transition: opacity .7s;\n}\n.fade-enter[data-v-168a10a2], .fade-leave-to[data-v-168a10a2] {\r\n  opacity: 0;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-168a10a2], .fade-leave-active[data-v-168a10a2] {\n  transition: opacity .7s;\n}\n.fade-enter[data-v-168a10a2], .fade-leave-to[data-v-168a10a2] {\n  opacity: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -2794,7 +2793,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.description__body[data-v-d8b63ae8] {\r\n    overflow: hidden;\n}\n.description__text[data-v-d8b63ae8] {\r\n    word-break: break-all;\n}\n.description__mobile-button[data-v-d8b63ae8] {\r\n   transform-origin: 15px 15px;\n}\n.description__mobile-button--upturned[data-v-d8b63ae8] {\r\n    transform: rotate(180deg);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.description__body[data-v-d8b63ae8] {\n    overflow: hidden;\n}\n.description__text[data-v-d8b63ae8] {\n    word-break: break-all;\n}\n.description__mobile-button[data-v-d8b63ae8] {\n   transform-origin: 15px 15px;\n}\n.description__mobile-button--upturned[data-v-d8b63ae8] {\n    transform: rotate(180deg);\n}\n\n", ""]);
 
 // exports
 
@@ -2813,7 +2812,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-leave-to[data-v-07cd80f0] {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-leave-to[data-v-07cd80f0] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -2832,7 +2831,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-2bdf20bc] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-2bdf20bc] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -2851,7 +2850,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-7596445a]\r\n{\r\n    transform: scale(0.5);\r\n    opacity: 0;\n}\n.tags-enter-active[data-v-7596445a]\r\n{\r\n    transition: \r\n        transform .3s ease-in-out,\r\n        opacity .4s ease-in-out;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-7596445a]\n{\n    transform: scale(0.5);\n    opacity: 0;\n}\n.tags-enter-active[data-v-7596445a]\n{\n    transition: \n        transform .3s ease-in-out,\n        opacity .4s ease-in-out;\n}\n\n", ""]);
 
 // exports
 
@@ -2870,7 +2869,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-7596445a]:before {\r\n    width: 0;\r\n    margin-right: 0;\r\n    content:'';\r\n    transform: scale(0);\r\n    transition: \r\n        transform .2s ease-in-out, \r\n        margin-right .2s ease-in-out, \r\n        width .2s ease-in-out;\n}\n.tag--main[data-v-7596445a]:before {\r\n    width: 15px;\r\n    margin-right: 5px;\r\n    content: \"star\";\r\n    transform: scale(1);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag[data-v-7596445a]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scale(0);\n    transition: \n        transform .2s ease-in-out, \n        margin-right .2s ease-in-out, \n        width .2s ease-in-out;\n}\n.tag--main[data-v-7596445a]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scale(1);\n}\n\n", ""]);
 
 // exports
 
@@ -22362,9 +22361,7 @@ var ShrinkableDetailsTab = {
   },
   watch: {
     shrinkable: function shrinkable(value) {
-      if (value) return;
-      this.open();
-      this.shrinked = false;
+      if (!!!value && this.shrinked) toggle();
     }
   },
   methods: {
@@ -22937,14 +22934,14 @@ function appendMainTagData(data, mainTag) {
 
 /***/ }),
 
-/***/ 1:
+/***/ 0:
 /*!**************************************!*\
   !*** multi ./resources/js/videos.js ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\videos.js */"./resources/js/videos.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/videos.js */"./resources/js/videos.js");
 
 
 /***/ })

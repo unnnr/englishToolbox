@@ -1,11 +1,10 @@
 <template>
     <section class="sign-up container">
-        <form 
-            method="POST"
-            class="auth"
-            action="#"
+        <request-form 
+            class="editor__form"
             ref="form"
-            @submit.prevent="submit">
+            :submit-callback="submit"
+            @input:incorrect="hadleErrors">
 
             <h4 class="auth__title heading-fourth">Sing up</h4>
             <div 
@@ -81,7 +80,12 @@
                 
                 <small class="auth__input-error"> {{ errors.confirmation }} </small>
             </div>
-            <button class="auth__input-button button-main" type="submit">confirm</button>
+
+            <submit-button
+                class="auth__input-button button-main" 
+                ref="submitButton"
+                :loading="isLoading()"/>
+
             <div class="login-with">
                 <p class="login-with__text text-fourth">Or login with</p>
                 <div class="login-with__buttons">
@@ -96,7 +100,7 @@
                     Already have an account?
                 </a>
             </div>
-        </form>
+        </request-form>
         <div class="form__poster">
             <object 
                 class="form__img"
@@ -111,10 +115,17 @@
 
 import bus from '@services/eventbus'
 import Auth from '@services/Auth'
+import SubmitButton from '@components/SubmitButton'
+import RequestForm from '@components/RequestForm'
 import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
 export default {
     name: 'register-section',
+    
+    components: {
+        SubmitButton,
+        RequestForm
+    },
     
     data: function() {
         return {
@@ -170,8 +181,12 @@ export default {
     },    
 
     methods: {
-        check(label, validator, options) {
+        isLoading() {
+            if (this.$refs.form)
+                return this.$refs.form.loading;
+        },
 
+        check(label, validator, options) {
             let validation = validator(options);
 
             if (validation.passed)
@@ -235,13 +250,16 @@ export default {
             window.location.replace(window.origin + '/home');
         },
 
-        submit() {
-            let form =  this.$refs.form;
-            
-            let data = new FormData(form);
+        async submit() {
+            if (!!!this.validate())
+                return;
 
-            if (this.validate())
-                Auth.register(data).then(this.redirect).catch(this.parseErrors);
+            let form =  this.$refs.form;
+            let data = form.getData();
+
+            await Auth.register(data);
+
+            this.redirect();
         },
 
         validate() {
@@ -261,21 +279,12 @@ export default {
             return true;
         },
 
-        parseErrors(error) { 
-            if (error.status == 422)
+        hadleErrors(errors) { 
+            for (let [label, messages] of Object.entries(data))
             {
-                let data = error.body.errors;
-    
-                for (let [label, messages] of Object.entries(data))
-                {
-                    this.errors[label] = messages.join('. ');
-                    this.confirmed[label] = false;  
-                }
-
-                return;
+                this.errors[label] = messages.join('. ');
+                this.confirmed[label] = false;  
             }
-
-            throw error;
         }
     }
 }
