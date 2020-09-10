@@ -138,10 +138,29 @@ export default {
 
             return 'password';
         }
-    },      
+    },   
+    
+    mounted() {
+        function  show()
+        {
+            bus.dispatch('alert-confirm', {
+                message: 'Are you sure?',
+                onConfirm: show,
+                onCancel: show
+            });
+        }
+
+        show();
+    },
 
     methods: {
+
         isLoading() {
+            ////  TEMPORARY
+
+            return true;
+
+            /////
             if (this.$refs.form)
                 return this.$refs.form.loading;
         },
