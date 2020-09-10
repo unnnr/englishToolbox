@@ -87,4 +87,5 @@ class AudioService extends PostService implements MustHandleFiles
         Storage::delete(self::THUMBNAIL_PATH . $imageName);
         Storage::delete(self::AUIDIO_PATH . $audioName);
     }
+
 }

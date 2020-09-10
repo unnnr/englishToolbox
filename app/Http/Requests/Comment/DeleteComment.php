@@ -24,7 +24,7 @@ class DeleteComment extends FormRequest
     public function rules()
     {
         return [
-
+            
         ];
     }
 }
