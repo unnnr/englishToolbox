@@ -1,11 +1,13 @@
 <template>
     <form
-        class="management__tab-body"
+        class="management__tab-body management__tab-body--uneditabl"
         ref="form"
         @submit.prevent="submit">
         
         <div class="management__account-header">
-            <div class="management__account-photo"></div>
+            <label class="management__account-photo" for="accountPhoto">
+                <input class="management__account-photo-input" type="file" id="accountPhoto">
+            </label>
             <div class="management__account-wrapper">
                 <h3 h3 class="management__account-name heading-third">
                     {{ data.currentName }}
@@ -14,7 +16,8 @@
             </div>
         </div>
         <label class="management__account-label heading-fifth" for="">Profile name</label>
-        <div class="management__account-input-group">
+        <div class="management__account-input-group management__account-input-group--account">
+            <small class="management__account-input-error">Your error here</small>
             <input
                 class="management__account-input input-second"
                 placeholder="Your name"
@@ -25,11 +28,11 @@
                 :minlength="rules.name.min"
                 :maxlength="rules.name.max"
                 required>
-            <span class="management__account-input-icon material-icons-round">account_circle</span>
         </div>
         <label class="management__account-label heading-fifth" for="">Email</label>
-        <div class="management__account-input-group">
-            <input 
+        <div class="management__account-input-group management__account-input-group--email">
+            <small class="management__account-input-error">Your error here</small>
+            <input
                 class="management__account-input input-second" 
                 placeholder="your-email@gmail.com"
                 type="text" 
@@ -37,57 +40,57 @@
                 :disabled="loading"
                 v-model="data.email"
                 required>
-            <span class="management__account-input-icon material-icons-round">email</span>
         </div>
-        <label class="management__account-label heading-fifth" for="">Password</label>
-        <div class="management__account-input-group management__account-input-group--margined">
-            <input 
-                class="management__account-input input-second"
-                placeholder="new password"
-                name="newPassword"
-                v-model="data.newPassword"
-                :disabled="loading"
-                :minlength="rules.password.min"
-                :maxlength="rules.password.max"
-                :type="passwordType">
-            <span class="management__account-input-icon material-icons-round">enhanced_encryption</span>
-            <button 
-                class="management__account-visibility-button"
-                @click="togglePasswordView">
-                
-            <span class="management__account-input-icon management__account-input-icon--visibility material-icons-round">
-                {{ passwordIcon }}
-            </span>
-            </button>
+        <div class="management__account-editor-group">
+            <label class="management__account-label heading-fifth" for="">Password</label>
+            <div class="management__account-input-group management__account-input-group--new-password">
+                <small class="management__account-input-error">Your error here</small>
+                <input 
+                    class="management__account-input input-second"
+                    placeholder="new password"
+                    name="newPassword"
+                    v-model="data.newPassword"
+                    :disabled="loading"
+                    :minlength="rules.password.min"
+                    :maxlength="rules.password.max"
+                    :type="passwordType">
+                <button 
+                    class="management__account-visibility-button"
+                    @click="togglePasswordView">
+                    
+                <span class="management__account-input-icon--visibility material-icons-round">
+                    {{ passwordIcon }}
+                </span>
+                </button>
+            </div>
+            <div class="management__account-input-group management__account-input-group--password">
+                <small class="management__account-input-error">Your error here</small>
+                <input 
+                    class="management__account-input input-second" 
+                    placeholder="confirm new password"
+                    name="confirmation"
+                    v-model="data.confirmation"
+                    :disabled="loading"
+                    :minlength="rules.password.min"
+                    :maxlength="rules.password.max"
+                    :type="passwordType">
+            </div>
+            <label class="management__account-label heading-fifth" for="">Confirmation</label>
+            <div class="management__account-input-group management__account-input-group--confirm-password">
+                <small class="management__account-input-error">Your error here</small>
+                <input
+                    class="management__account-input input-second"
+                    placeholder="current password"
+                    type="text"
+                    name="password"
+                    v-model="data.currentPassoword"
+                    :minlength="rules.password.min"
+                    :maxlength="rules.password.max"
+                    :disabled="loading"
+                    required>
+            </div>
+            <button class="management__account-button button-second">confirm changes</button>
         </div>
-        <div class="management__account-input-group">
-            <input 
-                class="management__account-input input-second" 
-                placeholder="confirm new password"
-                name="confirmation"
-                v-model="data.confirmation"
-                :disabled="loading"
-                :minlength="rules.password.min"
-                :maxlength="rules.password.max"
-                :type="passwordType">
-
-            <span class="management__account-input-icon material-icons-round">lock</span>
-        </div>
-        <label class="management__account-label heading-fifth" for="">Confirmation</label>
-        <div class="management__account-input-group management__account-input-group--margined">
-            <input
-                class="management__account-input input-second"
-                placeholder="current password"
-                type="text"
-                name="password"
-                v-model="data.currentPassoword"
-                :minlength="rules.password.min"
-                :maxlength="rules.password.max"
-                :disabled="loading"
-                required>
-            <span class="management__account-input-icon material-icons-round">check</span>
-        </div>
-        <button class="management__account-button button-second">confirm changes</button>
         <button class="management__account-delete-button text-fourth"><span class="material-icons-round">delete_forever</span>delete account</button>
     </form>
 </template>

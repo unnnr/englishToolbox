@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "/js/login.js": "/js/login.js"
+=======
+    "/js/profile.js": "/js/profile.js"
+>>>>>>> 4d533b42340859d2b2e3498cdf471d8cbe989109
 }

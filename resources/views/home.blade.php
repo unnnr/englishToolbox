@@ -163,7 +163,6 @@
   <button class="reviews__leave-review-button text-third">leave a review</button>
 </section>
 
-
 {{-- <section class="modal container">
   <form class="leave-review">
     <div class="leave-review__header">

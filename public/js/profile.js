@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -518,6 +518,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -3698,7 +3701,7 @@ var render = function() {
     "form",
     {
       ref: "form",
-      staticClass: "management__tab-body",
+      staticClass: "management__tab-body management__tab-body--uneditabl",
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -3708,7 +3711,7 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "management__account-header" }, [
-        _c("div", { staticClass: "management__account-photo" }),
+        _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "management__account-wrapper" }, [
           _c(
@@ -3726,7 +3729,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0)
+          _vm._m(1)
         ])
       ]),
       _vm._v(" "),
@@ -3739,45 +3742,48 @@ var render = function() {
         [_vm._v("Profile name")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "management__account-input-group" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.data.newName,
-              expression: "data.newName"
-            }
-          ],
-          staticClass: "management__account-input input-second",
-          attrs: {
-            placeholder: "Your name",
-            type: "text",
-            name: "name",
-            disabled: _vm.loading,
-            minlength: _vm.rules.name.min,
-            maxlength: _vm.rules.name.max,
-            required: ""
-          },
-          domProps: { value: _vm.data.newName },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+      _c(
+        "div",
+        {
+          staticClass:
+            "management__account-input-group management__account-input-group--account"
+        },
+        [
+          _c("small", { staticClass: "management__account-input-error" }, [
+            _vm._v("Your error here")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.data.newName,
+                expression: "data.newName"
               }
-              _vm.$set(_vm.data, "newName", $event.target.value)
+            ],
+            staticClass: "management__account-input input-second",
+            attrs: {
+              placeholder: "Your name",
+              type: "text",
+              name: "name",
+              disabled: _vm.loading,
+              minlength: _vm.rules.name.min,
+              maxlength: _vm.rules.name.max,
+              required: ""
+            },
+            domProps: { value: _vm.data.newName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.data, "newName", $event.target.value)
+              }
             }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "management__account-input-icon material-icons-round"
-          },
-          [_vm._v("account_circle")]
-        )
-      ]),
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "label",
@@ -3788,377 +3794,401 @@ var render = function() {
         [_vm._v("Email")]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "management__account-input-group" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.data.email,
-              expression: "data.email"
-            }
-          ],
-          staticClass: "management__account-input input-second",
-          attrs: {
-            placeholder: "your-email@gmail.com",
-            type: "text",
-            name: "email",
-            disabled: _vm.loading,
-            required: ""
-          },
-          domProps: { value: _vm.data.email },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.data, "email", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "management__account-input-icon material-icons-round"
-          },
-          [_vm._v("email")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "label",
-        {
-          staticClass: "management__account-label heading-fifth",
-          attrs: { for: "" }
-        },
-        [_vm._v("Password")]
-      ),
-      _vm._v(" "),
       _c(
         "div",
         {
           staticClass:
-            "management__account-input-group management__account-input-group--margined"
+            "management__account-input-group management__account-input-group--email"
         },
         [
-          _vm.passwordType === "checkbox"
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.data.newPassword,
-                    expression: "data.newPassword"
-                  }
-                ],
-                staticClass: "management__account-input input-second",
-                attrs: {
-                  placeholder: "new password",
-                  name: "newPassword",
-                  disabled: _vm.loading,
-                  minlength: _vm.rules.password.min,
-                  maxlength: _vm.rules.password.max,
-                  type: "checkbox"
-                },
-                domProps: {
-                  checked: Array.isArray(_vm.data.newPassword)
-                    ? _vm._i(_vm.data.newPassword, null) > -1
-                    : _vm.data.newPassword
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.data.newPassword,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(_vm.data, "newPassword", $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.data,
-                            "newPassword",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.data, "newPassword", $$c)
-                    }
-                  }
-                }
-              })
-            : _vm.passwordType === "radio"
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.data.newPassword,
-                    expression: "data.newPassword"
-                  }
-                ],
-                staticClass: "management__account-input input-second",
-                attrs: {
-                  placeholder: "new password",
-                  name: "newPassword",
-                  disabled: _vm.loading,
-                  minlength: _vm.rules.password.min,
-                  maxlength: _vm.rules.password.max,
-                  type: "radio"
-                },
-                domProps: { checked: _vm._q(_vm.data.newPassword, null) },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.data, "newPassword", null)
-                  }
-                }
-              })
-            : _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.data.newPassword,
-                    expression: "data.newPassword"
-                  }
-                ],
-                staticClass: "management__account-input input-second",
-                attrs: {
-                  placeholder: "new password",
-                  name: "newPassword",
-                  disabled: _vm.loading,
-                  minlength: _vm.rules.password.min,
-                  maxlength: _vm.rules.password.max,
-                  type: _vm.passwordType
-                },
-                domProps: { value: _vm.data.newPassword },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.data, "newPassword", $event.target.value)
-                  }
-                }
-              }),
+          _c("small", { staticClass: "management__account-input-error" }, [
+            _vm._v("Your error here")
+          ]),
           _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "management__account-input-icon material-icons-round"
-            },
-            [_vm._v("enhanced_encryption")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "management__account-visibility-button",
-              on: { click: _vm.togglePasswordView }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "management__account-input-icon management__account-input-icon--visibility material-icons-round"
-                },
-                [
-                  _vm._v(
-                    "\n            " + _vm._s(_vm.passwordIcon) + "\n        "
-                  )
-                ]
-              )
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "management__account-input-group" }, [
-        _vm.passwordType === "checkbox"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.data.confirmation,
-                  expression: "data.confirmation"
-                }
-              ],
-              staticClass: "management__account-input input-second",
-              attrs: {
-                placeholder: "confirm new password",
-                name: "confirmation",
-                disabled: _vm.loading,
-                minlength: _vm.rules.password.min,
-                maxlength: _vm.rules.password.max,
-                type: "checkbox"
-              },
-              domProps: {
-                checked: Array.isArray(_vm.data.confirmation)
-                  ? _vm._i(_vm.data.confirmation, null) > -1
-                  : _vm.data.confirmation
-              },
-              on: {
-                change: function($event) {
-                  var $$a = _vm.data.confirmation,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = null,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 &&
-                        _vm.$set(_vm.data, "confirmation", $$a.concat([$$v]))
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          _vm.data,
-                          "confirmation",
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
-                    }
-                  } else {
-                    _vm.$set(_vm.data, "confirmation", $$c)
-                  }
-                }
-              }
-            })
-          : _vm.passwordType === "radio"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.data.confirmation,
-                  expression: "data.confirmation"
-                }
-              ],
-              staticClass: "management__account-input input-second",
-              attrs: {
-                placeholder: "confirm new password",
-                name: "confirmation",
-                disabled: _vm.loading,
-                minlength: _vm.rules.password.min,
-                maxlength: _vm.rules.password.max,
-                type: "radio"
-              },
-              domProps: { checked: _vm._q(_vm.data.confirmation, null) },
-              on: {
-                change: function($event) {
-                  return _vm.$set(_vm.data, "confirmation", null)
-                }
-              }
-            })
-          : _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.data.confirmation,
-                  expression: "data.confirmation"
-                }
-              ],
-              staticClass: "management__account-input input-second",
-              attrs: {
-                placeholder: "confirm new password",
-                name: "confirmation",
-                disabled: _vm.loading,
-                minlength: _vm.rules.password.min,
-                maxlength: _vm.rules.password.max,
-                type: _vm.passwordType
-              },
-              domProps: { value: _vm.data.confirmation },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.data, "confirmation", $event.target.value)
-                }
-              }
-            }),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "management__account-input-icon material-icons-round"
-          },
-          [_vm._v("lock")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "label",
-        {
-          staticClass: "management__account-label heading-fifth",
-          attrs: { for: "" }
-        },
-        [_vm._v("Confirmation")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "management__account-input-group management__account-input-group--margined"
-        },
-        [
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.data.currentPassoword,
-                expression: "data.currentPassoword"
+                value: _vm.data.email,
+                expression: "data.email"
               }
             ],
             staticClass: "management__account-input input-second",
             attrs: {
-              placeholder: "current password",
+              placeholder: "your-email@gmail.com",
               type: "text",
-              name: "password",
-              minlength: _vm.rules.password.min,
-              maxlength: _vm.rules.password.max,
+              name: "email",
               disabled: _vm.loading,
               required: ""
             },
-            domProps: { value: _vm.data.currentPassoword },
+            domProps: { value: _vm.data.email },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.data, "currentPassoword", $event.target.value)
+                _vm.$set(_vm.data, "email", $event.target.value)
               }
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "management__account-input-icon material-icons-round"
-            },
-            [_vm._v("check")]
-          )
+          })
         ]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "management__account-button button-second" },
-        [_vm._v("confirm changes")]
-      ),
+      _c("div", { staticClass: "management__account-editor-group" }, [
+        _c(
+          "label",
+          {
+            staticClass: "management__account-label heading-fifth",
+            attrs: { for: "" }
+          },
+          [_vm._v("Password")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "management__account-input-group management__account-input-group--new-password"
+          },
+          [
+            _c("small", { staticClass: "management__account-input-error" }, [
+              _vm._v("Your error here")
+            ]),
+            _vm._v(" "),
+            _vm.passwordType === "checkbox"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.newPassword,
+                      expression: "data.newPassword"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "new password",
+                    name: "newPassword",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.data.newPassword)
+                      ? _vm._i(_vm.data.newPassword, null) > -1
+                      : _vm.data.newPassword
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.data.newPassword,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.data, "newPassword", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.data,
+                              "newPassword",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.data, "newPassword", $$c)
+                      }
+                    }
+                  }
+                })
+              : _vm.passwordType === "radio"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.newPassword,
+                      expression: "data.newPassword"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "new password",
+                    name: "newPassword",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: "radio"
+                  },
+                  domProps: { checked: _vm._q(_vm.data.newPassword, null) },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.data, "newPassword", null)
+                    }
+                  }
+                })
+              : _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.newPassword,
+                      expression: "data.newPassword"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "new password",
+                    name: "newPassword",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: _vm.passwordType
+                  },
+                  domProps: { value: _vm.data.newPassword },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.data, "newPassword", $event.target.value)
+                    }
+                  }
+                }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "management__account-visibility-button",
+                on: { click: _vm.togglePasswordView }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "management__account-input-icon--visibility material-icons-round"
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.passwordIcon) +
+                        "\n            "
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "management__account-input-group management__account-input-group--password"
+          },
+          [
+            _c("small", { staticClass: "management__account-input-error" }, [
+              _vm._v("Your error here")
+            ]),
+            _vm._v(" "),
+            _vm.passwordType === "checkbox"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.confirmation,
+                      expression: "data.confirmation"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "confirm new password",
+                    name: "confirmation",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.data.confirmation)
+                      ? _vm._i(_vm.data.confirmation, null) > -1
+                      : _vm.data.confirmation
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.data.confirmation,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.data,
+                              "confirmation",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.data,
+                              "confirmation",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.data, "confirmation", $$c)
+                      }
+                    }
+                  }
+                })
+              : _vm.passwordType === "radio"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.confirmation,
+                      expression: "data.confirmation"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "confirm new password",
+                    name: "confirmation",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: "radio"
+                  },
+                  domProps: { checked: _vm._q(_vm.data.confirmation, null) },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.data, "confirmation", null)
+                    }
+                  }
+                })
+              : _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.data.confirmation,
+                      expression: "data.confirmation"
+                    }
+                  ],
+                  staticClass: "management__account-input input-second",
+                  attrs: {
+                    placeholder: "confirm new password",
+                    name: "confirmation",
+                    disabled: _vm.loading,
+                    minlength: _vm.rules.password.min,
+                    maxlength: _vm.rules.password.max,
+                    type: _vm.passwordType
+                  },
+                  domProps: { value: _vm.data.confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.data, "confirmation", $event.target.value)
+                    }
+                  }
+                })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "management__account-label heading-fifth",
+            attrs: { for: "" }
+          },
+          [_vm._v("Confirmation")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "management__account-input-group management__account-input-group--confirm-password"
+          },
+          [
+            _c("small", { staticClass: "management__account-input-error" }, [
+              _vm._v("Your error here")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.currentPassoword,
+                  expression: "data.currentPassoword"
+                }
+              ],
+              staticClass: "management__account-input input-second",
+              attrs: {
+                placeholder: "current password",
+                type: "text",
+                name: "password",
+                minlength: _vm.rules.password.min,
+                maxlength: _vm.rules.password.max,
+                disabled: _vm.loading,
+                required: ""
+              },
+              domProps: { value: _vm.data.currentPassoword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "currentPassoword", $event.target.value)
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "management__account-button button-second" },
+          [_vm._v("confirm changes")]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(2)
     ]
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "management__account-photo",
+        attrs: { for: "accountPhoto" }
+      },
+      [
+        _c("input", {
+          staticClass: "management__account-photo-input",
+          attrs: { type: "file", id: "accountPhoto" }
+        })
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -17936,7 +17966,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 4:
+/***/ 0:
 /*!***************************************!*\
   !*** multi ./resources/js/profile.js ***!
   \***************************************/
