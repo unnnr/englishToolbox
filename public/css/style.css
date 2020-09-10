@@ -1150,6 +1150,31 @@ button:active {
   display: block;
 }
 
+.alert--prompt .alert__header {
+  color: #6666ff;
+}
+
+.alert--prompt .alert__header:before {
+  content: "help_outline";
+}
+
+.alert--prompt .alert__header:after {
+  content: "Are you sure?";
+}
+
+.alert--prompt .alert__buttons .alert__button--cancel {
+  display: block;
+}
+
+.alert--prompt .alert__buttons .alert__button--confirm {
+  display: block;
+  background: #6666ff;
+}
+
+.alert--prompt .alert__buttons .alert__button--okay {
+  display: none;
+}
+
 .alert__header {
   display: -webkit-box;
   display: -ms-flexbox;

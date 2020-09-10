@@ -5,6 +5,7 @@
 @import "components/tags";
 @import "components/tooltips";
 @import "sections/reviews";
+@import "components/alert";
 
 .management {
   display: flex;
@@ -36,9 +37,28 @@
   @include border-radius;
 
   @include lg-devices {
-    padding: 15px;
+    padding: 25px;
   }
 }
+
+.management__tab-body--uneditable {
+  .management__account-input-group {
+    
+    &:before {
+      left: 0;
+    }
+
+    .management__account-input {
+      border: 2px solid transparent;
+      padding-left: 30px;
+    }
+  }
+  .management__account-editor-group {
+    max-height: 0px;
+    overflow: hidden;
+  }
+}
+
 
 .management__tab-content {
   display: flex;
@@ -84,16 +104,50 @@
 }
 
 .management__account-photo {
-  height: 150px;
-  min-width: 150px;
+  height: vw(150, 1920);
+  min-width: vw(150, 1920);
   background: $text-third;
   border-radius: 100%;
   margin-right: 25px;
+  position: relative;
+  background: url(https://images.unsplash.com/photo-1599741387762-a48483a60261?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80);
+  @include background-image;
 
   @include lg-devices {
     height: 75px;
     min-width: 75px;
   }
+
+  &:hover {
+    cursor: pointer;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  &:before {
+    font-family: "Material Icons Round";
+    content: "image";
+    font-size: 40px;
+    color: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.30) 100%);
+    border-radius: 100%;
+    transition: opacity .3s ease-in-out;
+    opacity: 0;
+  }
+}
+
+.management__account-photo-input {
+  display: none;
 }
 
 .management__account-name {
@@ -115,29 +169,71 @@
   display: flex;
   position: relative;
   margin-bottom: 25px;
-}
+  max-height: 500px;
+  transition: max-height .3s ease-in-out;
 
-.management__account-input-group--margined {
-  margin-bottom: 15px;
-
-  .management__account-input  {
-    padding-right: 35px;
+  &:before {
+    font-family: "Material Icons Round";
+    font-size: 25px;
+    position: absolute;
+    align-self: center;
+    left: 10px;
+    color: $color-main;
+    z-index: $z-first;
+    transition: left .2s ease-in-out;
   }
 }
 
-.management__account-input-icon {
+.management__account-input-group--account {
+  &:before {
+    content: "account_circle";
+  }
+}
+
+.management__account-input-group--email {
+  &:before {
+    content: "email";
+  }
+}
+
+.management__account-input-group--new-password {
+  &:before {
+    content: "enhanced_encryption";
+  }
+}
+
+.management__account-input-group--password {
+  &:before {
+    content: "lock";
+  }
+}
+
+.management__account-input-group--confirm-password {
+  &:before {
+    content: "check";
+  }
+}
+
+.management__account-editor-group {
   display: flex;
-  align-self: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.management__account-input-error {
+  font-size: 12px;
+  color: $color-second;
   position: absolute;
-  font-size: 25px !important;
-  left: 0;
-  margin-left: 10px;
-  color: $color-main;
+  top: -9.5px;
+  transform: translateY(-50%);
 }
 
 .management__account-visibility-button {
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 0;
+  align-self: center;
 }
 
 .management__account-input-icon--visibility {
@@ -156,6 +252,8 @@
 .management__account-input {
   padding-left: 40px;
   width: 100%;
+  padding-right: 35px;
+  transition: padding .2s ease-in;
 }
 
 .management__account-button {
@@ -258,10 +356,6 @@
 // =================
 // reviews-managment
 // =================
-
-.reviews-management {
-
-}
 
 .reviews-management__body {
   display: flex;

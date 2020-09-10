@@ -66,6 +66,35 @@
   }
 }
 
+.alert--prompt {
+
+  .alert__header {
+    color: $color-main;
+
+    &:before {
+      content: "help_outline";
+    }
+    &:after {
+      content: "Are you sure?";
+    }
+  }
+
+  .alert__buttons {
+
+    .alert__button--cancel {
+      display: block;
+    }
+
+    .alert__button--confirm {
+      display: block;
+      background: $color-main;
+    }
+
+    .alert__button--okay {
+      display: none;
+    }
+  }
+}
 
 .alert__header {
   display: flex;
