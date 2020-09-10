@@ -4,25 +4,40 @@
         <swiper
             ref="swiper"
             class="banner__carousel"
-            :options="swiperOptions"
-            @transition-end="paint">
+            :options="swiperOptions">
 
                 <swiper-slide>
-                    <div 
-                        class="item"
-                        ref="firstSlide"
-                        :style="{'backgroundColor': fistColor}">
+                    <div class="banner__slide banner__slide--right">
+                        <object data="img/svg/videos-banner.svg" type="image/svg+xml"></object>
+                        <h1 class="banner__text heading-first">Study with <br> our videos</h1>
+                        <button class="banner__button heading-fourth">go on page</button>
+                    </div>   
+                </swiper-slide>
+
+                <swiper-slide>
+                    <div class="banner__slide banner__slide--left">
+                        <object data="img/svg/audios-banner.svg" type="image/svg+xml"></object>
+                        <h1 class="banner__text heading-first">Study with <br> our audios</h1>
+                        <button class="banner__button heading-fourth">go on page</button>
+                    </div>   
+                </swiper-slide>
+
+                <swiper-slide>
+                    <div class="banner__slide banner__slide--right">
+                        <object data="img/svg/schemas-banner.svg" type="image/svg+xml"></object>
+                        <h1 class="banner__text heading-first">Study with <br> our schemas</h1>
+                        <button class="banner__button heading-fourth">go on page</button>
+                    </div>   
+                </swiper-slide>
+
+                <swiper-slide>
+                    <div class="banner__slide banner__slide--left">
+                        <object data="img/svg/games-banner.svg" type="image/svg+xml"></object>
+                        <h1 class="banner__text heading-first">Study with <br> our games</h1>
+                        <button class="banner__button heading-fourth">go on page</button>
                     </div>   
                 </swiper-slide>
                 
-               <swiper-slide>
-                    <div 
-                        class="item"
-                        ref="secondSlide"
-                        :style="{'backgroundColor': secondColor}">
-                    </div>   
-                </swiper-slide>
-
         </swiper>
     </section>
     
@@ -55,7 +70,7 @@ export default {
              
                 speed: 900,
                 autoplay: { 
-                    delay: 5000,
+                    delay: 5000000,
                     disableOnInteraction: false
                 },
             

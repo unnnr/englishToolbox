@@ -25,9 +25,14 @@
                     <span class="card__views-count">1337</span>
                 </div>
             </div>
-            <h5 class="card__title heading-fifth">{{ title }}</h5>
+            <!-- <h5 class="card__title heading-fifth">{{ title }}</h5> -->
+            <div class="card__title">
+                <h1 class="heading-sixth">{{ title }}</h1>
+            </div>
         </div>
-        <p class="card__text text-third">{{ description }}</p>
+        <div class="card__text">
+            <p class="text-third">{{ description }}</p>
+        </div>
         <div class="card__footer">
             <div class="card__tags">
                 <div 

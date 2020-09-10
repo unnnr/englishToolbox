@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -882,67 +882,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'reviews'
 });
@@ -980,7 +919,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.register-overlay[data-v-a7398f1e]\n{\n    min-width: 100vw;\n    position: absolute;\n    z-index: 123;\n    top: 0;\n\n    background-color: white;\n}\n\n", ""]);
+exports.push([module.i, "\n.register-overlay[data-v-a7398f1e]\r\n{\r\n    min-width: 100vw;\r\n    position: absolute;\r\n    z-index: 123;\r\n    top: 0;\r\n\r\n    background-color: white;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -4331,102 +4270,22 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "reviews__card-grade" }, [
             _c("div", { staticClass: "reviews__card-stars" }, [
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ])
+              _c("div", { staticClass: "reviews__card-star" })
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "reviews__card-rating" }, [_vm._v("5.0")])
@@ -4469,102 +4328,22 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "reviews__card-grade" }, [
             _c("div", { staticClass: "reviews__card-stars" }, [
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ])
+              _c("div", { staticClass: "reviews__card-star" })
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "reviews__card-rating" }, [_vm._v("5.0")])
@@ -4607,102 +4386,22 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "reviews__card-grade" }, [
             _c("div", { staticClass: "reviews__card-stars" }, [
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ])
+              _c("div", { staticClass: "reviews__card-star" })
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "reviews__card-rating" }, [_vm._v("5.0")])
@@ -4745,102 +4444,22 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "reviews__card-grade" }, [
             _c("div", { staticClass: "reviews__card-stars" }, [
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ]),
+              _c("div", { staticClass: "reviews__card-star" }),
               _vm._v(" "),
-              _c("div", { staticClass: "reviews__card-star" }, [
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_left.svg",
-                    type: "image/svg+xml"
-                  }
-                }),
-                _vm._v(" "),
-                _c("object", {
-                  staticClass: "reviews__card-star-half",
-                  attrs: {
-                    data: "/public/img/svg/star_right.svg",
-                    type: "image/svg+xml"
-                  }
-                })
-              ])
+              _c("div", { staticClass: "reviews__card-star" })
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "reviews__card-rating" }, [_vm._v("5.0")])
@@ -18317,14 +17936,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 0:
+/***/ 4:
 /*!***************************************!*\
   !*** multi ./resources/js/profile.js ***!
   \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/profile.js */"./resources/js/profile.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\profile.js */"./resources/js/profile.js");
 
 
 /***/ })

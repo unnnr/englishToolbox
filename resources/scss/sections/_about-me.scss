@@ -31,6 +31,7 @@
 
 .abot-me__photo {
   position: relative;
+  background-color: $text-third;
   @include border-radius;
   @include background-image;
   padding-bottom: 125%;

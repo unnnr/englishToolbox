@@ -22,6 +22,7 @@
   flex-basis: 33.3%;
 
   .card__image {
+    @include border-radius;
     padding-bottom: 56.25%;
     background: $bg-fifth;
   }
@@ -29,7 +30,7 @@
 
 .card--selected {
   .card__image {
-    border: 5px solid $color-main;
+    border: solid 5px $color-main;
   }
 }
 
@@ -53,6 +54,7 @@
   box-shadow: $shadow-second;
   @include border-radius;
   @include background-image;
+  transition: border .3s ease-in-out;
   
   @include lg-devices {
     margin-bottom: 20px;
@@ -86,6 +88,10 @@
   background: $bg-fifth;
   border-radius: 100%;
   padding: 6px;
+
+  @include md-devices {
+    user-select: none;
+  }
 }
 
 .card__favorite-icon--active {
@@ -105,12 +111,20 @@
   font-size: 14px;
   font-weight: $semibold;
   color: $text-third;
+
+  @include md-devices {
+    user-select: none;
+  }
 }
 
 .card__views-icon {
   margin-right: 5px;
   font-size: 15px !important;
   color: $text-third !important;
+
+  @include md-devices {
+    user-select: none;
+  }
 }
 
 .card__title {
@@ -119,24 +133,44 @@
   transform: translateY(50%);
   display: flex;
   align-items: center;
-  justify-content: center;
   background: $bg-fifth;
   border-radius: 50px;
   height: 60px;
   width: 90%;
   box-shadow: $shadow-second;
   padding: 0 15px;
+  justify-content: center;
 
   @include lg-devices {
     height: 50px;
   }
+
+  h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include md-devices {
+      user-select: none;
+    }
+  }
 }
 
 .card__text {
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-top: 15px;
 
   @include lg-devices {
     margin-top: 10px;
+  }
+
+  @include md-devices {
+    user-select: none;
   }
 }
 
@@ -152,6 +186,10 @@
   height: max-content;
   width: max-content;
   box-shadow: $shadow-second;
+
+  @include md-devices {
+    user-select: none;
+  }
 }
 
 .card__footer {

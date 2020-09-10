@@ -500,6 +500,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 var SQUARE_CLASS = 'card--square';
@@ -654,6 +659,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -677,7 +697,7 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
         slidesPerView: 1,
         speed: 900,
         autoplay: {
-          delay: 5000,
+          delay: 5000000,
           disableOnInteraction: false
         },
         loop: true
@@ -717,9 +737,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/core */ "./node_modules/swiper/swiper.esm.js");
 /* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/swiper-bundle.css */ "./node_modules/swiper/swiper-bundle.css");
 /* harmony import */ var swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(swiper_swiper_bundle_css__WEBPACK_IMPORTED_MODULE_4__);
-//
-//
-//
 //
 //
 //
@@ -860,7 +877,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.item[data-v-010afa77] {\n    width: 100%;\n    height: 100%;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-010afa77] {\r\n    width: 100%;\r\n    height: 100%;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -879,7 +896,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.swiper-wrapper {\r\n  transition-timing-function: ease !important;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -898,7 +915,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\n    width: auto;\n}\n \n", ""]);
+exports.push([module.i, "\n.swiper-slide {\r\n    width: auto;\n}\r\n \r\n", ""]);
 
 // exports
 
@@ -15737,14 +15754,18 @@ var render = function() {
             _vm._m(0)
           ]),
           _vm._v(" "),
-          _c("h5", { staticClass: "card__title heading-fifth" }, [
-            _vm._v(_vm._s(_vm.title))
+          _c("div", { staticClass: "card__title" }, [
+            _c("h1", { staticClass: "heading-sixth" }, [
+              _vm._v(_vm._s(_vm.title))
+            ])
           ])
         ]
       ),
       _vm._v(" "),
-      _c("p", { staticClass: "card__text text-third" }, [
-        _vm._v(_vm._s(_vm.description))
+      _c("div", { staticClass: "card__text" }, [
+        _c("p", { staticClass: "text-third" }, [
+          _vm._v(_vm._s(_vm.description))
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card__footer" }, [
@@ -15850,24 +15871,91 @@ var render = function() {
         {
           ref: "swiper",
           staticClass: "banner__carousel",
-          attrs: { options: _vm.swiperOptions },
-          on: { "transition-end": _vm.paint }
+          attrs: { options: _vm.swiperOptions }
         },
         [
           _c("swiper-slide", [
-            _c("div", {
-              ref: "firstSlide",
-              staticClass: "item",
-              style: { backgroundColor: _vm.fistColor }
-            })
+            _c("div", { staticClass: "banner__slide banner__slide--right" }, [
+              _c("object", {
+                attrs: {
+                  data: "img/svg/videos-banner.svg",
+                  type: "image/svg+xml"
+                }
+              }),
+              _vm._v(" "),
+              _c("h1", { staticClass: "banner__text heading-first" }, [
+                _vm._v("Study with "),
+                _c("br"),
+                _vm._v(" our videos")
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "banner__button heading-fourth" }, [
+                _vm._v("go on page")
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("swiper-slide", [
-            _c("div", {
-              ref: "secondSlide",
-              staticClass: "item",
-              style: { backgroundColor: _vm.secondColor }
-            })
+            _c("div", { staticClass: "banner__slide banner__slide--left" }, [
+              _c("object", {
+                attrs: {
+                  data: "img/svg/audios-banner.svg",
+                  type: "image/svg+xml"
+                }
+              }),
+              _vm._v(" "),
+              _c("h1", { staticClass: "banner__text heading-first" }, [
+                _vm._v("Study with "),
+                _c("br"),
+                _vm._v(" our audios")
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "banner__button heading-fourth" }, [
+                _vm._v("go on page")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("swiper-slide", [
+            _c("div", { staticClass: "banner__slide banner__slide--right" }, [
+              _c("object", {
+                attrs: {
+                  data: "img/svg/schemas-banner.svg",
+                  type: "image/svg+xml"
+                }
+              }),
+              _vm._v(" "),
+              _c("h1", { staticClass: "banner__text heading-first" }, [
+                _vm._v("Study with "),
+                _c("br"),
+                _vm._v(" our schemas")
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "banner__button heading-fourth" }, [
+                _vm._v("go on page")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("swiper-slide", [
+            _c("div", { staticClass: "banner__slide banner__slide--left" }, [
+              _c("object", {
+                attrs: {
+                  data: "img/svg/games-banner.svg",
+                  type: "image/svg+xml"
+                }
+              }),
+              _vm._v(" "),
+              _c("h1", { staticClass: "banner__text heading-first" }, [
+                _vm._v("Study with "),
+                _c("br"),
+                _vm._v(" our games")
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "banner__button heading-fourth" }, [
+                _vm._v("go on page")
+              ])
+            ])
           ])
         ],
         1
@@ -15912,7 +16000,6 @@ var render = function() {
           {
             ref: "swiper",
             style: {
-              overflow: "visible",
               width: "100%",
               "background-color": "none"
             },
@@ -15924,9 +16011,6 @@ var render = function() {
               { key: card.id },
               [
                 _c("card", {
-                  style: {
-                    width: "400px"
-                  },
                   attrs: {
                     title: card.title,
                     description: card.description,
@@ -29541,7 +29625,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\home.js */"./resources/js/home.js");
 
 
 /***/ })

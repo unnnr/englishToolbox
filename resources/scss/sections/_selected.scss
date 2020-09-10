@@ -41,21 +41,11 @@
   height: 100%;
   margin: 0 7.5px;
   @include border-radius;
-  padding: 50px 0;
-
-  @include lg-devices {
-
-    padding: 0 250px;
-  }
+  padding: vw(150, 1920);
 
   @include lg-devices {
     margin: 0;
-    padding: 0 vw(250, 1200);
-  }
-
-  @include sm-devices {
-    margin: 0;
-    padding: 0 vw(100, 570);
+    padding: vw(200,1200) vw(300,1200);
   }
 }
 
@@ -135,6 +125,7 @@
   flex-grow: 1;
 }
 
+
 .addition__tab {
   position: absolute;
   width: 100%;
@@ -151,6 +142,7 @@
     margin-top: 15px;
   }
 }
+
 
 .addition__tab--description {
   z-index: $z-first +1;

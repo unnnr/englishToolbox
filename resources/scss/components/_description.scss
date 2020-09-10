@@ -30,12 +30,18 @@
 // description__body
 // =================
 
+
 .description__body {
+  display: flex;
+  flex-grow: 1;
+}
+
+.description__body-content {
+  padding-right: 5px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   overflow-y: auto;
-  padding-right: 5px;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -56,9 +62,16 @@
   }
 }
 
+
 .description__title {
   background: $bg-fifth;
 }
+
+.description__text {
+  word-break: normal !important;
+  white-space: break-spaces;
+}
+
 // =================
 // description__tags
 // =================

@@ -33,9 +33,14 @@
 .comments__body {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+}
+
+.comments__body-content {
   padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 6px;
