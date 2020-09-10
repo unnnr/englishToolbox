@@ -95,24 +95,19 @@ const Videos = new function ()
     {
         let target = getById(id);
         
-
         let videoID = getYouTubeID(String(data.get('videoUrl')));
         if (target.videoID === videoID)
             data.delete('videoUrl');
-        
 
         let description = data.get('description');
         if (target.description === description)
             data.delete('description');
-
-        console.log(22);
             
         let mainTag = data.get('mainTag');
         if (target.mainTag.id == mainTag)
             data.delete('mainTag');
 
-            console.log(isFormDataEmpty);
-
+        console.log(isFormDataEmpty);
 
         compareDataWithTags(data, target.tags)
 

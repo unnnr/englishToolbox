@@ -51,7 +51,7 @@
 
 <script>
 
-import Shrinkable from '@mixins/ShrinkableDetailsTag';
+import Shrinkable from '@mixins/ShrinkableDetailsTab';
 import TagList from '@components/tags/TagList';
 import bus from '@services/eventbus';
 

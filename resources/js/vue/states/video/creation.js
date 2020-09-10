@@ -16,7 +16,7 @@ export default function(vueInstance)
 
     function getFormData()
     {
-        let data = new FormData(ref('form'));
+        let data = ref('form').getData();
 
         let tags = ref('tags').selected;
         appendTagsData(data, tags);
@@ -34,36 +34,10 @@ export default function(vueInstance)
 
     this.submit = async() => 
     {
-        try { 
-            let data = getFormData();
-            let post = await Video.create(data);
-            
-            vue.onVideoCreated(post);
-        }
-        catch(erorr) {
-            console.log(2);
-            this.hadleError(erorr);
-        }
-    }
+        let data = getFormData();
+        let post = await Video.create(data);
         
-    this.hadleError = (error) =>
-    {
-        if (error.status === 500)
-        {
-            vue.onServerError();
-            return;
-        }
-
-        if (error.status === 422)
-        {
-            let errors = error.body.errors;
-            
-            if (errors.videoUrl)
-                vue.urlError += errors.videoUrl.join('. ');
-        
-            if (errors.description)
-                vue.descriptionError += errors.description.join('. ');
-        }
+        vue.onVideoCreated(post);
     }
     
     const vue = vueInstance;
