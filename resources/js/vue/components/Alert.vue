@@ -101,7 +101,7 @@ export default {
         bus.listen('alert-confirm', (event) => {
             this.message = event.message;
             this.callbacks.confirme = event.onConfirm;
-            this.callbacks.onCancel = event.onCancel;
+            this.callbacks.cancel = event.onCancel;
 
             this.warning = true;
             this.shown = true;
