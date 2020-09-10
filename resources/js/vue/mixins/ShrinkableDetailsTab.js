@@ -1,4 +1,4 @@
-const ShrinkableDetailsTag = {
+const ShrinkableDetailsTab = {
     props: {
         shrinkable: {
             type: Boolean
@@ -10,7 +10,7 @@ const ShrinkableDetailsTag = {
 
             shrinked: false,
             
-            bodyHeight: 'fit-content',
+            bodyHeight: 'auto',
 
             shrinkDuration: 700,
 
@@ -47,7 +47,7 @@ const ShrinkableDetailsTag = {
     methods: {
         transitionEnded() {
             if (!!!this.shrinked)
-                this.bodyHeight = 'fit-content';
+                this.bodyHeight = 'auto';
 
             this.animationTimer = null;
         },
@@ -86,4 +86,4 @@ const ShrinkableDetailsTag = {
     }
 };
 
-export default ShrinkableDetailsTag;
+export default ShrinkableDetailsTab;

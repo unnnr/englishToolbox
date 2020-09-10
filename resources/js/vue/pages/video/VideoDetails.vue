@@ -1,35 +1,31 @@
 <template>
-    <div 
-		class="addition"
-		ref="details">
+    <post-details
+		@editor:showing="showEditor"
+		@editor:hidding="hideEditor"
+		@target:changed="setTarget">
 
-        <div class="addition__body">
-            <div class="addition__wrapper" ref="wrapper">
-				<transition name="fade">
- 					<video-editor 
-					 	ref="editor"
-						v-show="editing" 
-						:target="target"/>
-				</transition>
-                <post-presentor ref="presentor"/>
-            </div>
-        </div>
-    </div>
+		<transition name="fade">
+ 			<video-editor 
+			 	ref="editor"
+				v-show="editing" 
+				:target="target">
+ 			</video-editor>
+		</transition>
+    </post-details>
 </template>
 
 <script>
 import bus from '@services/eventbus'
-import VideoEditor from "@pages/video/VideoEditor.vue"
-import PostPresentor from "@components/posts/PostPresentor.vue"
+import VideoEditor from "@pages/video/VideoEditor"
+import PostDetails from '@components/posts/PostDetails'
 
 export default {
 	name: "video-details",
 
 	components: {
-    	PostPresentor,
-    	VideoEditor,
+		PostDetails,
+    	VideoEditor
 	},
-
 
 	data: function () {
 		return {
@@ -38,58 +34,20 @@ export default {
 		}
 	},
 
-	mounted() {
-		bus.listen('post-editing', event => {
-			this.editing = true;	
-
-			this.target = event.post;
-
-			if (!!!event.preventScrolling)
-				this.scrolleToDetails();
-		});
-
-		bus.listen('post-edited', event => {
-			this.target = null;
-		});
-
-		bus.listen('post-creating', event => {
-			
-			this.editing = true;
-
-			if (!!!event.preventScrolling)
-				this.scrolleToDetails();	
-		});
-
-		bus.listen('post-selecting', event => {
-			this.editing = false;
-		});	
-	},
 
 	methods: {
-
-		scrolleToDetails() {
-            const SHIFT = 10;
-
-            let details = this.$refs.details;
-
-            let relatedTop = details.getBoundingClientRect().top;
-            let distance = relatedTop - SHIFT;
-
-			if (relatedTop < 0)
-            	window.scrollBy({
-            	    top: distance ,
-            	    behavior: 'smooth' 
-            	})
+		setTarget(value) {
+			this.target = value;
 		},
 
-		shrink() {
-			
+		showEditor() {
+			console.log(12);
+			this.editing = true;
 		},
 
-		open() {
-
+		hideEditor() {
+			this.editing = false;
 		}
-		
 	}
 };
 </script>

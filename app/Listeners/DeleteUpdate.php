@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\PostDeleted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Services\UpdateService;
 
 class DeleteUpdate
 {
@@ -26,7 +27,7 @@ class DeleteUpdate
      */
     public function handle(PostDeleted $event)
     {
-        $service = app(UpdateSerice::class);
+        $service = app(UpdateService::class);
         
         $service->delete($event->post);
     }

@@ -68,7 +68,7 @@
 
 <script>
 
-import Shrinkable from '@mixins/ShrinkableDetailsTag'
+import Shrinkable from '@mixins/ShrinkableDetailsTab'
 import Comments from '@models/Comments'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
@@ -78,7 +78,9 @@ const COMMENT_MARGIN_HEIGHT = 30;
 export default {
 	name: 'comments',
 	
-	mixins: [Shrinkable],
+	mixins: [
+		Shrinkable 
+	],
 	
 	data: function () {
         return {

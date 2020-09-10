@@ -62,20 +62,12 @@ export default {
 	},
 
 	methods: {
-
 		scrolleToDetails() {
-            const SHIFT = 10;
-
-            let details = this.$refs.details;
-
-            let relatedTop = details.getBoundingClientRect().top;
-            let distance  = relatedTop - SHIFT;
-
-            if (relatedTop < 0)
-            	window.scrollBy({
-            	    top: distance ,
+			console.log('SCOLLING');
+            window.scrollTo({
+					top: 0,
             	    behavior: 'smooth' 
-            	})
+            })
         }
 	}
 };

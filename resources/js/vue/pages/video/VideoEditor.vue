@@ -1,9 +1,10 @@
 <template>
     <div class="editor">
-        <form 
+        <request-form 
             class="editor__form"
             ref="form"
-            @submit.prevent='submit' >
+            :submit-callback="submit"
+            @input:incorrect="hadleErrors">
             
             <div class="editor__header">
                 <h5 class="editor__title text-third">{{ formTitle }}</h5>
@@ -40,9 +41,13 @@
                 <tag-editor ref="tags"/>
             </div>
             <div class="editor__footer">
-                <button class="editor__footer-button button-second">confirm</button>
+                <submit-button
+                    class="editor__footer-button"
+                    ref="submitButton"
+                    :loading="isLoading()">
+                </submit-button>
             </div>
-        </form>
+        </request-form>
     </div>
 </template>
 
@@ -50,8 +55,10 @@
 
 import getYouTubeID from 'get-youtube-id';
 import bus from '@services/eventbus';
-import Posts from '@models/Posts'
-import Tags from '@models/Tags'
+import Posts from '@models/Posts';
+import Tags from '@models/Tags';
+import SubmitButton from '@components/SubmitButton';
+import RequestForm from '@components/RequestForm';
 import TagEditor from '@components/tags/TagEditor';
 import EditingState from '@states/video/editing';
 import CreationState from '@states/video/creation';
@@ -63,6 +70,8 @@ export default {
     name: 'video-editor',
 
     components: {
+        SubmitButton,
+        RequestForm,
         TagEditor
     },
 
@@ -81,7 +90,7 @@ export default {
             description: '',
             descriptionError: '',
 
-            state: null
+            state: null,
         }
     },
 
@@ -96,7 +105,7 @@ export default {
 
         formTitle() {
             return this.state ? this.state.getTitle() : ''; 
-        }
+        },
     },
 
     watch: {
@@ -106,7 +115,6 @@ export default {
             else 
                 this.state = new CreationState(this);
         }
-
     },
 
     mounted() {
@@ -123,11 +131,24 @@ export default {
     },
 
     methods: {
+        hadleErrors(errors)
+        {
+            if (errors.videoUrl)
+                this.urlError += errors.videoUrl.join('. ')  
+
+            if (errors.description)
+                this.descriptionError += errors.description.join('. ');
+        },
+
+        isLoading() {
+            if (this.$refs.form)
+                return this.$refs.form.loading;
+        },
+
         clear() {
             let form = this.$refs.form;
 
-            if (form)
-                this.$refs.form.reset();
+            form.clear();
 
             this.url = '';
             this.urlError = '';
@@ -143,7 +164,8 @@ export default {
         },
 
         validateVideo() {
-            let videoID = getYouTubeID(this.url)
+            let videoID = getYouTubeID(this.url);
+            
             if (!!!videoID)
             {
                 this.urlError = 'Incorrect youtube link';
@@ -177,11 +199,6 @@ export default {
         stateEdit(event) {
             this.state = new EditingState(this, event.post);
         },
-
-        onServerError() {
-            bus.dispatch('alert-error', { message: `An unexpected error has occurred on 
-                                                    the server. Please try again later` });
-        },
         
         onVideoCreated(post) {
             bus.dispatch('post-created', { post });
@@ -193,6 +210,10 @@ export default {
             bus.dispatch('post-selecting', { post  });
         },
 
+        forceSubmit () {
+            this.$refs.submitButton.forceSubmit();
+        },
+
         async submit () {
             if (this.state)
                 await this.state.submit();
@@ -200,3 +221,5 @@ export default {
     }
 }
 </script>
+
+
