@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="recomend-card__content">
-          <input class="recomend-card__input input-second type="text" placeholder="place for your title">
+          <input class="recomend-card__input input-second" type="text" placeholder="place for your title">
           <textarea class="recomend-card__textarea textarea-second" placeholder="place for your description"></textarea>
           <div class="recomend-card__input-group">
             <input class="recomend-card__input recomend-card__input--link input-second type="text" placeholder="place for your link">

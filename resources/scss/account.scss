@@ -7,6 +7,39 @@
 @import "sections/reviews";
 @import "components/alert";
 
+.register-overlay {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparentize($color: $bg-main, $amount: 0.05);
+  justify-content: center;
+  align-items: center;
+  z-index: $z-fifth;
+}
+
+.register-overlay__image {
+  width: 600px;
+
+  @include xl-devices {
+    width: 450px;
+  }
+
+  @include md-devices {
+    width: 400px;
+  }
+  
+  @include sm-devices {
+    width: 325px;
+  }
+
+  @include xxs-devices {
+    width: 275px;
+  }
+}
+
 .management {
   display: flex;
   margin-top: 75px;
