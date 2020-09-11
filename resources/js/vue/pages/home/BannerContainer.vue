@@ -26,6 +26,10 @@
                         </button>
                     </div>   
                 </swiper-slide>
+
+                <div class="swiper-pagination" slot="pagination"></div>
+                <div class="swiper-button-prev" slot="button-prev"></div>
+                <div class="swiper-button-next" slot="button-next"></div>
                 
         </swiper>
     </section>
@@ -37,7 +41,7 @@ import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import 'swiper/swiper-bundle.css'
 
-SwiperClass.use([Pagination, Autoplay])
+SwiperClass.use([Pagination, Autoplay]);
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 export default {
@@ -59,6 +63,15 @@ export default {
                 autoplay: { 
                     delay: 5000000,
                     disableOnInteraction: false
+                },
+
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'progressbar'
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
                 },
             
                 loop: true,

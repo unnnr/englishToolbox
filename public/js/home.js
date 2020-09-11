@@ -664,6 +664,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -688,6 +692,14 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
         autoplay: {
           delay: 5000000,
           disableOnInteraction: false
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'progressbar'
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         },
         loop: true
       },
@@ -15893,38 +15905,58 @@ var render = function() {
           staticClass: "banner__carousel",
           attrs: { options: _vm.swiperOptions }
         },
-        _vm._l(_vm.banners, function(ref, index) {
-          var image = ref.image
-          var action = ref.action
-          var label = ref.label
-          return _c("swiper-slide", { key: index }, [
-            _c(
-              "div",
-              { staticClass: "banner__slide", class: _vm.getAddClass(index) },
-              [
-                _c("img", { attrs: { src: image } }),
-                _vm._v(" "),
-                _c("h1", { staticClass: "banner__text heading-first" }, [
-                  _vm._v(_vm._s(label))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "banner__button heading-fourth",
-                    on: { click: action }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        \n                        go on page\n                    "
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
-        }),
-        1
+        [
+          _vm._l(_vm.banners, function(ref, index) {
+            var image = ref.image
+            var action = ref.action
+            var label = ref.label
+            return _c("swiper-slide", { key: index }, [
+              _c(
+                "div",
+                { staticClass: "banner__slide", class: _vm.getAddClass(index) },
+                [
+                  _c("img", { attrs: { src: image } }),
+                  _vm._v(" "),
+                  _c("h1", { staticClass: "banner__text heading-first" }, [
+                    _vm._v(_vm._s(label))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "banner__button heading-fourth",
+                      on: { click: action }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        \n                        go on page\n                    "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "swiper-pagination",
+            attrs: { slot: "pagination" },
+            slot: "pagination"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "swiper-button-prev",
+            attrs: { slot: "button-prev" },
+            slot: "button-prev"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "swiper-button-next",
+            attrs: { slot: "button-next" },
+            slot: "button-next"
+          })
+        ],
+        2
       )
     ],
     1

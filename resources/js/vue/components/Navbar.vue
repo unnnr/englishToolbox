@@ -2,7 +2,7 @@
     <section class="navbar container">
         <div class="navbar-desktop">
             <nav class="navbar-desktop__links">
-                <a 
+                <a  
                     class="navbar-desktop__logo"
                     :href="homeUrl">
                     
