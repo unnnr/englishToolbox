@@ -20,7 +20,7 @@
                 'max-height': bodyHeight,
                 'transition': bodyTransition}">
 			
-			<div 
+			<div 	
 				class="comments__body-content"
                 ref='content'>
 				
@@ -57,7 +57,7 @@
 				minlength="1"
 				maxlength="500"
 				name="message"
-				v-model="newComment"
+				v-model="message"
 				required>
 			</textarea>
 			
@@ -99,7 +99,7 @@ export default {
 
 			submitting: false,
 		
-			newComment: ''
+			message: ''
         }
 	},
 
@@ -153,7 +153,7 @@ export default {
 		},
 
 		trimTextarea() {
-			this.newComment = this.newComment.trim();
+			this.message = this.message.trim();
 		},
 
 		onServerError(error)  {
@@ -172,9 +172,15 @@ export default {
 			let postId = this.$options.selectedPostId; 
 			let data = new FormData(this.$refs.form);
 			
-			let newComment = await Comments.create(postId, data).catch(this.onServerError);
+			console.log(this.message);
 
-			this.comments.push(newComment);
+
+			let message = await Comments.create(postId, data).catch(this.onServerError);
+
+			this.comments.push(message);
+
+			this.message = '';
+			console.log(this.message);
 
 			this.submitting = false;
 		}

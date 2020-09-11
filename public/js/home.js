@@ -667,11 +667,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
-swiper_core__WEBPACK_IMPORTED_MODULE_1__["Swiper"].use([swiper_core__WEBPACK_IMPORTED_MODULE_1__["Pagination"], swiper_core__WEBPACK_IMPORTED_MODULE_1__["Autoplay"]]);
+swiper_core__WEBPACK_IMPORTED_MODULE_1__["Swiper"].use([swiper_core__WEBPACK_IMPORTED_MODULE_1__["Pagination"], swiper_core__WEBPACK_IMPORTED_MODULE_1__["Autoplay"], swiper_core__WEBPACK_IMPORTED_MODULE_1__["Scrollbar"]]);
 
 var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODULE_0___default()(swiper_core__WEBPACK_IMPORTED_MODULE_1__["Swiper"]),
     Swiper = _getAwesomeSwiper.Swiper,
@@ -693,9 +692,9 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
           delay: 5000000,
           disableOnInteraction: false
         },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'progressbar'
+        scrollbar: {
+          el: '.swiper-scrollbar',
+          hide: true
         },
         navigation: {
           nextEl: '.swiper-button-next',
@@ -796,6 +795,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -817,32 +817,56 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
   data: function data() {
     return {
       updates: [{
-        id: 1
+        id: 1,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg'
       }, {
-        id: 2
+        id: 2,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
       }, {
-        id: 3
+        id: 3,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg'
       }, {
-        id: 4
+        id: 4,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg'
       }, {
-        id: 5
+        id: 5,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
       }, {
-        id: 6
+        id: 6,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg'
       }, {
-        id: 7
+        id: 7,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg'
       }, {
-        id: 8
+        id: 8,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
       }, {
-        id: 9
+        id: 9,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg'
       }, {
-        id: 10
+        id: 10,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg'
       }, {
-        id: 11
+        id: 11,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
       }, {
-        id: 12
+        id: 12,
+        title: 'Lorem impusm',
+        thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg'
       }],
       swiperOptions: {
-        slidesPerView: 'auto',
+        slidesPerView: '4',
         pagination: {
           el: '.swiper-pagination',
           dynamicBullets: true
@@ -15945,21 +15969,9 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", {
-            staticClass: "swiper-pagination",
-            attrs: { slot: "pagination" },
-            slot: "pagination"
-          }),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "swiper-button-prev",
-            attrs: { slot: "button-prev" },
-            slot: "button-prev"
-          }),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "swiper-button-next",
-            attrs: { slot: "button-next" },
-            slot: "button-next"
+            staticClass: "swiper-scrollbar",
+            attrs: { slot: "scrollbar" },
+            slot: "scrollbar"
           })
         ],
         2
@@ -16009,35 +16021,33 @@ var render = function() {
             },
             attrs: { options: _vm.swiperOptions }
           },
-          [
-            _vm._l(_vm.updates, function(card) {
-              return _c(
-                "swiper-slide",
-                { key: card.id },
-                [
-                  _c("card", {
-                    attrs: {
-                      title: card.title,
-                      description: card.description,
-                      "created-at": card.createdAt,
-                      imageUrl: card.thumbnail,
-                      "square-form": "",
-                      margined: ""
-                    }
-                  })
-                ],
-                1
-              )
-            }),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "swiper-pagination",
-              attrs: { slot: "pagination" },
-              slot: "pagination"
-            })
-          ],
-          2
-        )
+          _vm._l(_vm.updates, function(card) {
+            return _c(
+              "swiper-slide",
+              { key: card.id },
+              [
+                _c("card", {
+                  attrs: {
+                    title: card.title,
+                    description: card.description,
+                    "created-at": card.createdAt,
+                    imageUrl: card.thumbnail,
+                    "square-form": "",
+                    margined: ""
+                  }
+                })
+              ],
+              1
+            )
+          }),
+          1
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "swiper-pagination",
+          attrs: { slot: "pagination" },
+          slot: "pagination"
+        })
       ],
       1
     )
