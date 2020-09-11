@@ -14,7 +14,7 @@
 .banner__slide {
   position: relative;
 
-  object {
+  img {
     display: block;
   }
 }
@@ -65,4 +65,5 @@
   z-index: $z-first;
   top: 50%;
   transform: translateY(-50%);
+  white-space: pre-line;
 }

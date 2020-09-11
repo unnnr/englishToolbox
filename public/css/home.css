@@ -53,7 +53,7 @@ main {
   position: relative;
 }
 
-.banner__slide object {
+.banner__slide img {
   display: block;
 }
 
@@ -104,6 +104,7 @@ main {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  white-space: pre-line;
 }
 
 .about-me {
@@ -1241,10 +1242,20 @@ main {
   margin: 0 -15px;
 }
 
+.feed__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  padding: 0 15px;
+}
+
 .feed__title {
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
-  padding: 0 15px;
   margin-bottom: 30px;
 }
 

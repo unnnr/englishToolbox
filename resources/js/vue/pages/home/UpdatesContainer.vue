@@ -1,7 +1,10 @@
 <template>
     <section class="updates container">
       <div class="feed">
-        <h3 class="feed__title heading-third">Latest updates</h3>
+          <div class="feed__header">
+                <h3 class="feed__title heading-third">Latest updates</h3>
+                <div class="swiper-pagination" slot="pagination"></div>
+          </div>
 
             <swiper
                 ref="swiper"
@@ -25,7 +28,6 @@
                     </swiper-slide>
 
             </swiper>
-                    <div class="swiper-pagination" slot="pagination"></div>
 
         </div>
     </section>

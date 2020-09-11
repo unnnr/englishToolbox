@@ -13,9 +13,15 @@
   margin: 0 -15px;
 }
 
+.feed__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 15px;
+}
+
 .feed__title {
   flex-basis: 100%;
-  padding: 0 15px;
   margin-bottom: 30px;
 }
 

@@ -796,6 +796,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -934,7 +936,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.item[data-v-010afa77] {\n    width: 100%;\n    height: 100%;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-010afa77] {\r\n    width: 100%;\r\n    height: 100%;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -953,7 +955,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n.banner__text {\n    white-space: pre;\n}\n\n", ""]);
+exports.push([module.i, "\n.swiper-wrapper {\r\n  transition-timing-function: ease !important;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -972,7 +974,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\n    width: auto;\n}\n \n", ""]);
+exports.push([module.i, "\n.swiper-slide {\r\n    width: auto;\n}\r\n \r\n", ""]);
 
 // exports
 
@@ -16007,8 +16009,16 @@ var render = function() {
       "div",
       { staticClass: "feed" },
       [
-        _c("h3", { staticClass: "feed__title heading-third" }, [
-          _vm._v("Latest updates")
+        _c("div", { staticClass: "feed__header" }, [
+          _c("h3", { staticClass: "feed__title heading-third" }, [
+            _vm._v("Latest updates")
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "swiper-pagination",
+            attrs: { slot: "pagination" },
+            slot: "pagination"
+          })
         ]),
         _vm._v(" "),
         _c(
@@ -16041,13 +16051,7 @@ var render = function() {
             )
           }),
           1
-        ),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "swiper-pagination",
-          attrs: { slot: "pagination" },
-          slot: "pagination"
-        })
+        )
       ],
       1
     )
@@ -29647,7 +29651,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\home.js */"./resources/js/home.js");
 
 
 /***/ })
