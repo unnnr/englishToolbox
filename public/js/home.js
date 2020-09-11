@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -664,8 +664,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -894,7 +892,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.item[data-v-010afa77] {\r\n    width: 100%;\r\n    height: 100%;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.item[data-v-010afa77] {\n    width: 100%;\n    height: 100%;\n}\n\n\n", ""]);
 
 // exports
 
@@ -913,7 +911,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-wrapper {\r\n  transition-timing-function: ease !important;\n}\n.banner__text {\r\n    white-space: pre;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n.banner__text {\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -932,7 +930,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\r\n    width: auto;\n}\r\n \r\n", ""]);
+exports.push([module.i, "\n.swiper-slide {\n    width: auto;\n}\n \n", ""]);
 
 // exports
 
@@ -15907,11 +15905,7 @@ var render = function() {
                 _c("img", { attrs: { src: image } }),
                 _vm._v(" "),
                 _c("h1", { staticClass: "banner__text heading-first" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(label) +
-                      "\n                    "
-                  )
+                  _vm._v(_vm._s(label))
                 ]),
                 _vm._v(" "),
                 _c(
@@ -29590,14 +29584,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1:
+/***/ 0:
 /*!************************************!*\
   !*** multi ./resources/js/home.js ***!
   \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/home.js */"./resources/js/home.js");
 
 
 /***/ })

@@ -16,9 +16,7 @@
                         
                         <img :src="image">
                        
-                        <h1 class="banner__text heading-first">
-                            {{ label }}
-                        </h1>
+                        <h1 class="banner__text heading-first">{{ label }}</h1>
                        
                         <button 
                             class="banner__button heading-fourth"
