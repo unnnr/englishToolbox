@@ -794,6 +794,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -840,7 +842,11 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
         id: 12
       }],
       swiperOptions: {
-        slidesPerView: 'auto'
+        slidesPerView: 'auto',
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true
+        }
       }
     };
   },
@@ -16003,26 +16009,34 @@ var render = function() {
             },
             attrs: { options: _vm.swiperOptions }
           },
-          _vm._l(_vm.updates, function(card) {
-            return _c(
-              "swiper-slide",
-              { key: card.id },
-              [
-                _c("card", {
-                  attrs: {
-                    title: card.title,
-                    description: card.description,
-                    "created-at": card.createdAt,
-                    imageUrl: card.thumbnail,
-                    "square-form": "",
-                    margined: ""
-                  }
-                })
-              ],
-              1
-            )
-          }),
-          1
+          [
+            _vm._l(_vm.updates, function(card) {
+              return _c(
+                "swiper-slide",
+                { key: card.id },
+                [
+                  _c("card", {
+                    attrs: {
+                      title: card.title,
+                      description: card.description,
+                      "created-at": card.createdAt,
+                      imageUrl: card.thumbnail,
+                      "square-form": "",
+                      margined: ""
+                    }
+                  })
+                ],
+                1
+              )
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "swiper-pagination",
+              attrs: { slot: "pagination" },
+              slot: "pagination"
+            })
+          ],
+          2
         )
       ],
       1

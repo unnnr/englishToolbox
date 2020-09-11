@@ -23,6 +23,8 @@
                         square-form
                         margined/>
                     </swiper-slide>
+
+                    <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
     </section>
@@ -66,7 +68,12 @@ export default {
             ],
             
             swiperOptions: {
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+
+                pagination: {
+                    el: '.swiper-pagination',
+                    dynamicBullets: true
+                }
             }
         }
     },  
