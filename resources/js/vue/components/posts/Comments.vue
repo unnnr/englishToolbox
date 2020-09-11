@@ -171,9 +171,6 @@ export default {
 
 			let postId = this.$options.selectedPostId; 
 			let data = new FormData(this.$refs.form);
-			
-			console.log(this.message);
-
 
 			let message = await Comments.create(postId, data).catch(this.onServerError);
 

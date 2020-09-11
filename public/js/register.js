@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -188,7 +189,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -919,7 +920,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 10px;\n    height: 20px;\n    width: 20px;\n    opacity: 0;\n    transition: opacity .6s;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -3184,6 +3185,11 @@ var render = function() {
           _c("p", { staticClass: "alert__description text-fifth" }, [
             _vm._v(_vm._s(_vm.message))
           ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
@@ -16817,16 +16823,16 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   var links = [{
+    label: 'about me',
+    uri: 'home'
+  }, {
     label: 'videos'
   }, {
     label: 'audio'
   }, {
-    label: 'games'
-  }, {
     label: 'schemas'
   }, {
-    label: 'about me',
-    uri: 'home'
+    label: 'games'
   }, {
     label: 'i recommend',
     uri: 'recommend'

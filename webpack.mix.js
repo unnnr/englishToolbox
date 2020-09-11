@@ -27,12 +27,13 @@ mix.webpackConfig({
     }
 })
 .disableSuccessNotifications()
-//.js('resources/js/audio.js', 'public/js')
+.js('resources/js/audio.js', 'public/js')
 //.js('resources/js/videos.js', 'public/js')
 //.js('resources/js/login.js', 'public/js')
 //.js('resources/js/register.js', 'public/js')
 //.js('resources/js/profile.js', 'public/js')
-.js('resources/js/home.js', 'public/js')
+//.js('resources/js/recommend.js', 'public/js')
+//.js('resources/js/home.js', 'public/js')
 
 
 //.browserSync({

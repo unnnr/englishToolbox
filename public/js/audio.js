@@ -824,6 +824,9 @@ var RECTANGLE_CLASS = 'card--rectangle';
     };
   },
   computed: {
+    generatedView: function generatedView() {
+      return Math.floor(Math.random() * 10);
+    },
     isSquare: function isSquare() {
       if (this.squareForm || !!!this.squareForm && !!!this.rectangleForm) return true;
     },
@@ -1399,11 +1402,10 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                console.log(_this4.message);
-                _context2.next = 9;
+                _context2.next = 8;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
-              case 9:
+              case 8:
                 message = _context2.sent;
 
                 _this4.comments.push(message);
@@ -1412,7 +1414,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
                 console.log(_this4.message);
                 _this4.submitting = false;
 
-              case 14:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -6446,7 +6448,17 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "card__views" }, [
+              _c(
+                "span",
+                { staticClass: "card__views-icon material-icons-round" },
+                [_vm._v("visibility")]
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "card__views-count" }, [
+                _vm._v(_vm._s(_vm.generatedView))
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card__title" }, [
@@ -6520,20 +6532,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__views" }, [
-      _c("span", { staticClass: "card__views-icon material-icons-round" }, [
-        _vm._v("visibility")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21434,16 +21433,16 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   var links = [{
+    label: 'about me',
+    uri: 'home'
+  }, {
     label: 'videos'
   }, {
     label: 'audio'
   }, {
-    label: 'games'
-  }, {
     label: 'schemas'
   }, {
-    label: 'about me',
-    uri: 'home'
+    label: 'games'
   }, {
     label: 'i recommend',
     uri: 'recommend'
@@ -22978,7 +22977,7 @@ var ShrinkableDetailsTab = {
   data: function data() {
     return {
       shrinked: false,
-      bodyHeight: 'auto',
+      bodyHeight: 'none',
       shrinkDuration: 700,
       renderDuration: 100
     };
@@ -22995,12 +22994,14 @@ var ShrinkableDetailsTab = {
   },
   watch: {
     shrinkable: function shrinkable(value) {
-      if (!!!value && this.shrinked) toggle();
+      if (value || !!!this.shrinked) return;
+      this.bodyHeight = 'none';
+      this.shrinked = false;
     }
   },
   methods: {
     transitionEnded: function transitionEnded() {
-      if (!!!this.shrinked) this.bodyHeight = 'auto';
+      if (!!!this.shrinked) this.bodyHeight = 'none';
       this.animationTimer = null;
     },
     shrink: function shrink() {

@@ -19,9 +19,10 @@
                             :description="card.description"
                             :created-at="card.createdAt"
                             :imageUrl="card.thumbnail"
-
-                        square-form
-                        margined/>
+                            :main-tag="{label: 'video', color: '#b9cfe3'}"
+                            :tags="card.tags"
+                            square-form
+                            margined/>
                     </swiper-slide>
 
             </swiper>
@@ -54,17 +55,17 @@ export default {
     data: function() {
         return {
             updates: [
-                {id: 1, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg' },
-                {id: 2, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
-                {id: 3, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg' },
-                {id: 4, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg' },
-                {id: 5, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
-                {id: 6, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
+                {id: 1, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'lightgreen'}]},
+                {id: 2, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'cadetblue'}, {label: 'some', color: 'aliceblue'}]},
+                {id: 3, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'antiquewhite'}]},
+                {id: 4, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg', },
+                {id: 5, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'lightgreen'}]},
+                {id: 6, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg', tags: [{label: 'some', color: 'azure'}, {label: 'some', color: 'lightgreen'}]},
                 {id: 7, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg' },
-                {id: 8, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
-                {id: 9, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg' },
-                {id: 10, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg' },
-                {id: 11, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
+                {id: 8, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'cornflowerblue'}, {label: 'some', color: 'lightgreen'}]},
+                {id: 9, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg', tags: [{label: 'some', color: 'darksalmon'}, {label: 'some', color: 'cornsilk'}]},
+                {id: 10, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg', tags: [{label: 'some', color: 'gainsboro'}, {label: 'some', color: 'coral'}]},
+                {id: 11, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'cadetblue'}]},
                 {id: 12, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
 
             ],
@@ -72,10 +73,10 @@ export default {
             swiperOptions: {
                 slidesPerView: '4',
 
-                pagination: {
+                /* pagination: {
                     el: '.swiper-pagination',
                     dynamicBullets: true
-                }
+                } */
             }
         }
     },  

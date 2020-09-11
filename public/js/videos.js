@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -188,7 +189,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -563,7 +564,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'submit-button',
   computed: {
@@ -727,6 +727,9 @@ var RECTANGLE_CLASS = 'card--rectangle';
     };
   },
   computed: {
+    generatedView: function generatedView() {
+      return Math.floor(Math.random() * 10);
+    },
     isSquare: function isSquare() {
       if (this.squareForm || !!!this.squareForm && !!!this.rectangleForm) return true;
     },
@@ -1211,7 +1214,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       shrinkDuration: 800,
       showInput: false,
       submitting: false,
-      newComment: ''
+      message: ''
     };
   },
   computed: {
@@ -1273,7 +1276,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       }, this.renderDuration);
     },
     trimTextarea: function trimTextarea() {
-      this.newComment = this.newComment.trim();
+      this.message = this.message.trim();
     },
     onServerError: function onServerError(error) {
       console.log(error);
@@ -1283,7 +1286,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var postId, data, newComment;
+        var postId, data, message;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -1302,17 +1305,20 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                _context2.next = 8;
+                console.log(_this4.message);
+                _context2.next = 9;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
-              case 8:
-                newComment = _context2.sent;
+              case 9:
+                message = _context2.sent;
 
-                _this4.comments.push(newComment);
+                _this4.comments.push(message);
 
+                _this4.message = '';
+                console.log(_this4.message);
                 _this4.submitting = false;
 
-              case 11:
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -2698,7 +2704,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 10px;\n    height: 20px;\n    width: 20px;\n    opacity: 0;\n    transition: opacity .6s;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -5561,6 +5567,11 @@ var render = function() {
             _vm._v(_vm._s(_vm.message))
           ]),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
               "button",
@@ -5968,7 +5979,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "button",
-    { staticClass: "button-second", attrs: { type: "submit" } },
+    { attrs: { type: "submit" } },
     [
       _vm._t("default", [_vm._v(" " + _vm._s(_vm.defaultMessage) + " ")]),
       _vm._v(" "),
@@ -6051,7 +6062,17 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "card__views" }, [
+              _c(
+                "span",
+                { staticClass: "card__views-icon material-icons-round" },
+                [_vm._v("visibility")]
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "card__views-count" }, [
+                _vm._v(_vm._s(_vm.generatedView))
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card__title" }, [
@@ -6125,20 +6146,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__views" }, [
-      _c("span", { staticClass: "card__views-icon material-icons-round" }, [
-        _vm._v("visibility")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -6343,8 +6351,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.newComment,
-                  expression: "newComment"
+                  value: _vm.message,
+                  expression: "message"
                 }
               ],
               staticClass: "comments__textarea",
@@ -6355,13 +6363,13 @@ var render = function() {
                 name: "message",
                 required: ""
               },
-              domProps: { value: _vm.newComment },
+              domProps: { value: _vm.message },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.newComment = $event.target.value
+                  _vm.message = $event.target.value
                 }
               }
             }),
@@ -7234,7 +7242,7 @@ var render = function() {
             [
               _c("submit-button", {
                 ref: "submitButton",
-                staticClass: "editor__footer-button",
+                staticClass: "editor__footer-button button-second",
                 attrs: { loading: _vm.isLoading() }
               })
             ],
@@ -20831,16 +20839,16 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   var links = [{
+    label: 'about me',
+    uri: 'home'
+  }, {
     label: 'videos'
   }, {
     label: 'audio'
   }, {
-    label: 'games'
-  }, {
     label: 'schemas'
   }, {
-    label: 'about me',
-    uri: 'home'
+    label: 'games'
   }, {
     label: 'i recommend',
     uri: 'recommend'

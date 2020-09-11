@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -188,7 +189,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -922,7 +923,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.register-overlay[data-v-a7398f1e]\r\n{\r\n    min-width: 100vw;\r\n    position: absolute;\r\n    z-index: 123;\r\n    top: 0;\r\n\r\n    background-color: white;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.register-overlay[data-v-a7398f1e]\n{\n    min-width: 100vw;\n    position: absolute;\n    z-index: 123;\n    top: 0;\n\n    background-color: white;\n}\n\n", ""]);
 
 // exports
 
@@ -3188,6 +3189,11 @@ var render = function() {
             _vm._v(_vm._s(_vm.message))
           ]),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
               "button",
@@ -4300,7 +4306,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
@@ -4358,7 +4364,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
@@ -4416,7 +4422,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
@@ -4474,7 +4480,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", { staticClass: "reviews__card-text text-third" }, [
               _vm._v(
-                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\r\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+                " Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\n          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
               )
             ])
           ]),
@@ -17274,16 +17280,16 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   var links = [{
+    label: 'about me',
+    uri: 'home'
+  }, {
     label: 'videos'
   }, {
     label: 'audio'
   }, {
-    label: 'games'
-  }, {
     label: 'schemas'
   }, {
-    label: 'about me',
-    uri: 'home'
+    label: 'games'
   }, {
     label: 'i recommend',
     uri: 'recommend'
@@ -17973,7 +17979,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\profile.js */"./resources/js/profile.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/profile.js */"./resources/js/profile.js");
 
 
 /***/ })

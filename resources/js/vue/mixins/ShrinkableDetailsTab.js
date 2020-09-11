@@ -9,7 +9,7 @@ const ShrinkableDetailsTab = {
         return {
             shrinked: false,
             
-            bodyHeight: 'auto',
+            bodyHeight: 'none',
 
             shrinkDuration: 700,
 
@@ -34,15 +34,18 @@ const ShrinkableDetailsTab = {
 
     watch: {
         shrinkable(value) {
-            if (!!!value && this.shrinked)
-                toggle()
+            if (value || !!!this.shrinked)
+                return;
+
+            this.bodyHeight = 'none';
+            this.shrinked = false;
         }
     },
 
     methods: {
         transitionEnded() {
             if (!!!this.shrinked)
-                this.bodyHeight = 'auto';
+                this.bodyHeight = 'none';
 
             this.animationTimer = null;
         },

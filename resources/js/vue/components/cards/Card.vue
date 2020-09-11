@@ -22,7 +22,7 @@
                 </button>
                 <div class="card__views">
                     <span class="card__views-icon material-icons-round">visibility</span>
-                    <span class="card__views-count">1337</span>
+                    <span class="card__views-count">{{ generatedView }}</span>
                 </div>
             </div>
             <!-- <h5 class="card__title heading-fifth">{{ title }}</h5> -->
@@ -115,6 +115,10 @@ export default {
     },
 
     computed: {
+        generatedView() {
+            return Math.floor(Math.random() * 10);
+        },
+
         isSquare() {
             if (this.squareForm || (!!!this.squareForm &&  !!!this.rectangleForm))
                 return true;

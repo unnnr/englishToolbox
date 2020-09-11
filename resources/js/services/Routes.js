@@ -40,11 +40,11 @@ export default new function()
     } 
 
     let links =  [
+        { label: 'about me', uri:'home'},
         { label: 'videos'},
         { label: 'audio'},
-        { label: 'games',},
         { label: 'schemas'},
-        { label: 'about me', uri:'home'},
+        { label: 'games',},
         { label: 'i recommend', uri:'recommend'},
     ];
 

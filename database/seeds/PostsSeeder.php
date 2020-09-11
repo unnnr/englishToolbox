@@ -12,9 +12,6 @@ class PostsSeeder extends Seeder
      */
     public function run()
     {
-        Video::create([
-            'title' =>  'ЛЕКЦИЯ БОРИСА СЕРГЕЕВИЧА БОЯРШИНОВА ПРО ЯКУДЗА И ЯПОНСКУЮ ФИЛОСОФИИ',
-            'videoId' => 'sYrkatUgiaM'
-        ]);
+        
     }
 }

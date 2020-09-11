@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="{{ asset("css/recomend.css") }}">
 @endsection
 
+@section('js')
+  <script type="text/javascript" src=" {{ asset('js/recommend.js') }}"></script>
+@endsection
+
 @section('content')
 
   <section class="recomend container">
@@ -19,10 +23,10 @@
           </div>
         </div>
         <div class="recomend-card__content">
-          <input class="recomend-card__input input-second type="text" placeholder="place for your title">
+          <input class="recomend-card__input input-second" type="text" placeholder="place for your title">
           <textarea class="recomend-card__textarea textarea-second" placeholder="place for your description"></textarea>
           <div class="recomend-card__input-group">
-            <input class="recomend-card__input recomend-card__input--link input-second type="text" placeholder="place for your link">
+            <input class="recomend-card__input recomend-card__input--link input-second" type="text" placeholder="place for your link">
             <button class="recomend-card__button button-second" type="button">confirm</button>
           </div>
         </div>

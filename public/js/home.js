@@ -578,6 +578,9 @@ var RECTANGLE_CLASS = 'card--rectangle';
     };
   },
   computed: {
+    generatedView: function generatedView() {
+      return Math.floor(Math.random() * 10);
+    },
     isSquare: function isSquare() {
       if (this.squareForm || !!!this.squareForm && !!!this.rectangleForm) return true;
     },
@@ -796,6 +799,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -819,15 +823,36 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
       updates: [{
         id: 1,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'pink'
+        }, {
+          label: 'some',
+          color: 'lightgreen'
+        }]
       }, {
         id: 2,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'cadetblue'
+        }, {
+          label: 'some',
+          color: 'aliceblue'
+        }]
       }, {
         id: 3,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'pink'
+        }, {
+          label: 'some',
+          color: 'antiquewhite'
+        }]
       }, {
         id: 4,
         title: 'Lorem impusm',
@@ -835,11 +860,25 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
       }, {
         id: 5,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'pink'
+        }, {
+          label: 'some',
+          color: 'lightgreen'
+        }]
       }, {
         id: 6,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'azure'
+        }, {
+          label: 'some',
+          color: 'lightgreen'
+        }]
       }, {
         id: 7,
         title: 'Lorem impusm',
@@ -847,30 +886,59 @@ var _getAwesomeSwiper = vue_awesome_swiper_dist_exporter__WEBPACK_IMPORTED_MODUL
       }, {
         id: 8,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'cornflowerblue'
+        }, {
+          label: 'some',
+          color: 'lightgreen'
+        }]
       }, {
         id: 9,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'darksalmon'
+        }, {
+          label: 'some',
+          color: 'cornsilk'
+        }]
       }, {
         id: 10,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'gainsboro'
+        }, {
+          label: 'some',
+          color: 'coral'
+        }]
       }, {
         id: 11,
         title: 'Lorem impusm',
-        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg'
+        thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg',
+        tags: [{
+          label: 'some',
+          color: 'pink'
+        }, {
+          label: 'some',
+          color: 'cadetblue'
+        }]
       }, {
         id: 12,
         title: 'Lorem impusm',
         thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg'
       }],
       swiperOptions: {
-        slidesPerView: '4',
-        pagination: {
-          el: '.swiper-pagination',
-          dynamicBullets: true
-        }
+        slidesPerView: '4'
+        /* pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true
+        } */
+
       }
     };
   },
@@ -15813,7 +15881,17 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "card__views" }, [
+              _c(
+                "span",
+                { staticClass: "card__views-icon material-icons-round" },
+                [_vm._v("visibility")]
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "card__views-count" }, [
+                _vm._v(_vm._s(_vm.generatedView))
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card__title" }, [
@@ -15887,20 +15965,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card__views" }, [
-      _c("span", { staticClass: "card__views-icon material-icons-round" }, [
-        _vm._v("visibility")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "card__views-count" }, [_vm._v("1337")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -16032,6 +16097,8 @@ var render = function() {
                     description: card.description,
                     "created-at": card.createdAt,
                     imageUrl: card.thumbnail,
+                    "main-tag": { label: "video", color: "#b9cfe3" },
+                    tags: card.tags,
                     "square-form": "",
                     margined: ""
                   }
@@ -28981,16 +29048,16 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   var links = [{
+    label: 'about me',
+    uri: 'home'
+  }, {
     label: 'videos'
   }, {
     label: 'audio'
   }, {
-    label: 'games'
-  }, {
     label: 'schemas'
   }, {
-    label: 'about me',
-    uri: 'home'
+    label: 'games'
   }, {
     label: 'i recommend',
     uri: 'recommend'
