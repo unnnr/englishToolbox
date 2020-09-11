@@ -153,8 +153,5 @@ export default {
   transition-timing-function: ease !important;
 }
 
-.banner__text {
-    white-space: pre;
-}
 
 </style>

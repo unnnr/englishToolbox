@@ -800,6 +800,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1021,7 +1023,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n.banner__text {\n    white-space: pre;\n}\n\n", ""]);
+exports.push([module.i, "\n.swiper-wrapper {\n  transition-timing-function: ease !important;\n}\n\n\n", ""]);
 
 // exports
 
@@ -16072,8 +16074,16 @@ var render = function() {
       "div",
       { staticClass: "feed" },
       [
-        _c("h3", { staticClass: "feed__title heading-third" }, [
-          _vm._v("Latest updates")
+        _c("div", { staticClass: "feed__header" }, [
+          _c("h3", { staticClass: "feed__title heading-third" }, [
+            _vm._v("Latest updates")
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "swiper-pagination",
+            attrs: { slot: "pagination" },
+            slot: "pagination"
+          })
         ]),
         _vm._v(" "),
         _c(
@@ -16108,13 +16118,7 @@ var render = function() {
             )
           }),
           1
-        ),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "swiper-pagination",
-          attrs: { slot: "pagination" },
-          slot: "pagination"
-        })
+        )
       ],
       1
     )

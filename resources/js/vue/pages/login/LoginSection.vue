@@ -139,33 +139,10 @@ export default {
             return 'password';
         }
     },   
-    
-    mounted() {
-        function  show()
-        {
-            console.log('123');
-           
-           setTimeout(()=> {
-                bus.dispatch('alert-confirm', {
-                    message: 'Are you sure?',
-                    onConfirm: show,
-                    onCancel: show
-                });
-           }, 100);
-          
-        }
-
-        show();
-    },
 
     methods: {
 
         isLoading() {
-            ////  TEMPORARY
-
-            return true;
-
-            /////
             if (this.$refs.form)
                 return this.$refs.form.loading;
         },

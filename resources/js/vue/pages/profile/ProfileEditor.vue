@@ -17,7 +17,7 @@
         </div>
         <label class="management__account-label heading-fifth" for="">Profile name</label>
         <div class="management__account-input-group management__account-input-group--account">
-            <small class="management__account-input-error">Your error here</small>
+            <small class="management__account-input-error"></small>
             <input
                 class="management__account-input input-second"
                 placeholder="Your name"
@@ -31,7 +31,7 @@
         </div>
         <label class="management__account-label heading-fifth" for="">Email</label>
         <div class="management__account-input-group management__account-input-group--email">
-            <small class="management__account-input-error">Your error here</small>
+            <small class="management__account-input-error"></small>
             <input
                 class="management__account-input input-second" 
                 placeholder="your-email@gmail.com"
@@ -44,7 +44,7 @@
         <div class="management__account-editor-group">
             <label class="management__account-label heading-fifth" for="">Password</label>
             <div class="management__account-input-group management__account-input-group--new-password">
-                <small class="management__account-input-error">Your error here</small>
+                <small class="management__account-input-error"></small>
                 <input 
                     class="management__account-input input-second"
                     placeholder="new password"
@@ -64,7 +64,7 @@
                 </button>
             </div>
             <div class="management__account-input-group management__account-input-group--password">
-                <small class="management__account-input-error">Your error here</small>
+                <small class="management__account-input-error"></small>
                 <input 
                     class="management__account-input input-second" 
                     placeholder="confirm new password"
@@ -77,7 +77,7 @@
             </div>
             <label class="management__account-label heading-fifth" for="">Confirmation</label>
             <div class="management__account-input-group management__account-input-group--confirm-password">
-                <small class="management__account-input-error">Your error here</small>
+                <small class="management__account-input-error"></small>
                 <input
                     class="management__account-input input-second"
                     placeholder="current password"

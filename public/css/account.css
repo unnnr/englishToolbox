@@ -222,6 +222,10 @@ main {
       flex-basis: 25%;
 }
 
+.card--square .card__image {
+  background-size: auto;
+}
+
 .card--big {
   -ms-flex-preferred-size: 33.3%;
       flex-basis: 33.3%;
