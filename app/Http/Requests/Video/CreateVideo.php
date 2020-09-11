@@ -29,7 +29,7 @@ class CreateVideo extends FormRequest
 
         return [
              //  'unique:videos,videoID'
-            'videoUrl' => ['required', 'string', 'max:1',  new ValidYoutubeVideo],
+            'videoUrl' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
             'description' => ['max:180'],
             'mainTag' => ['numeric'],
             'tags' => ['array', 'max:4'],  

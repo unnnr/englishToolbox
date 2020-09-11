@@ -24,8 +24,9 @@
                         margined/>
                     </swiper-slide>
 
-                    <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
+                    <div class="swiper-pagination" slot="pagination"></div>
+
         </div>
     </section>
 </template>
@@ -53,22 +54,23 @@ export default {
     data: function() {
         return {
             updates: [
-                {id: 1},
-                {id: 2}, 
-                {id: 3}, 
-                {id: 4},
-                {id: 5},
-                {id: 6}, 
-                {id: 7}, 
-                {id: 8},
-                {id: 9},
-                {id: 10}, 
-                {id: 11}, 
-                {id: 12},
+                {id: 1, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg' },
+                {id: 2, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
+                {id: 3, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg' },
+                {id: 4, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg' },
+                {id: 5, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
+                {id: 6, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
+                {id: 7, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg' },
+                {id: 8, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
+                {id: 9, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg' },
+                {id: 10, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg' },
+                {id: 11, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg' },
+                {id: 12, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
+
             ],
             
             swiperOptions: {
-                slidesPerView: 'auto',
+                slidesPerView: '4',
 
                 pagination: {
                     el: '.swiper-pagination',

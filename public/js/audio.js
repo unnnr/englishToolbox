@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please try again later";
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -188,7 +189,7 @@ var DEFAULT_MESSAGE = "An unexpected error has occurred on the server. Please tr
     _services_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].listen('alert-confirm', function (event) {
       _this.message = event.message;
       _this.callbacks.confirme = event.onConfirm;
-      _this.callbacks.onCancel = event.onCancel;
+      _this.callbacks.cancel = event.onCancel;
       _this.warning = true;
       _this.shown = true;
     });
@@ -646,7 +647,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -1308,7 +1308,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       shrinkDuration: 800,
       showInput: false,
       submitting: false,
-      newComment: ''
+      message: ''
     };
   },
   computed: {
@@ -1370,7 +1370,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       }, this.renderDuration);
     },
     trimTextarea: function trimTextarea() {
-      this.newComment = this.newComment.trim();
+      this.message = this.message.trim();
     },
     onServerError: function onServerError(error) {
       console.log(error);
@@ -1380,7 +1380,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var postId, data, newComment;
+        var postId, data, message;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -1399,17 +1399,20 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                _context2.next = 8;
+                console.log(_this4.message);
+                _context2.next = 9;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
-              case 8:
-                newComment = _context2.sent;
+              case 9:
+                message = _context2.sent;
 
-                _this4.comments.push(newComment);
+                _this4.comments.push(message);
 
+                _this4.message = '';
+                console.log(_this4.message);
                 _this4.submitting = false;
 
-              case 11:
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -1860,7 +1863,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     mobileWidth: function mobileWidth(value) {
       if (value) this.detailsShown = true;
-      console.log('MOVILE');
     }
   },
   methods: {
@@ -1880,7 +1882,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     /* updateInfo(newData) {
     	let info = this.$refs.videoInfo;
-    			Object.assign(info.$data, newData)
+    		Object.assign(info.$data, newData)
     } */
 
   },
@@ -3035,7 +3037,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 10px;\n    height: 20px;\n    width: 20px;\n    opacity: 0;\n    transition: opacity .6s;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -3054,7 +3056,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.list-move[data-v-36b19baa] {\r\n  transition: \r\n  transform 1s ease-in-out,\r\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-36b19baa]\r\n{\r\n   -webkit-animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\r\n\t        animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-36b19baa {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-36b19baa {\n0% {\r\n    -webkit-transform: scale(.5);\r\n            transform: scale(.5);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 0;\n}\n100% {\r\n    -webkit-transform: scale(1);\r\n            transform: scale(1);\r\n    -webkit-transform-origin: 50% 100%;\r\n            transform-origin: 50% 100%;\r\n    opacity: 1;\n}\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.list-move[data-v-36b19baa] {\n  transition: \n  transform 1s ease-in-out,\n  opacity 1s ease-in-out;\n}\n.list-enter-active[data-v-36b19baa]\n{\n   -webkit-animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n\t        animation: scale-in-bottom-data-v-36b19baa .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n@-webkit-keyframes scale-in-bottom-data-v-36b19baa {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n@keyframes scale-in-bottom-data-v-36b19baa {\n0% {\n    -webkit-transform: scale(.5);\n            transform: scale(.5);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n    opacity: 1;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -3073,7 +3075,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.comments__body[data-v-467627dc] {\r\n    overflow: hidden;\n}\n.comments__mobile-button[data-v-467627dc] {\r\n   transform-origin: 15px 15px;\n}\n.comments__mobile-button--upturned[data-v-467627dc] {\r\n    transform: rotate(180deg);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.comments__body[data-v-467627dc] {\n    overflow: hidden;\n}\n.comments__mobile-button[data-v-467627dc] {\n   transform-origin: 15px 15px;\n}\n.comments__mobile-button--upturned[data-v-467627dc] {\n    transform: rotate(180deg);\n}\n\n", ""]);
 
 // exports
 
@@ -3111,7 +3113,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-168a10a2], .fade-leave-active[data-v-168a10a2] {\r\n  transition: opacity .7s;\n}\n.fade-enter[data-v-168a10a2], .fade-leave-to[data-v-168a10a2] {\r\n  opacity: 0;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-168a10a2], .fade-leave-active[data-v-168a10a2] {\n  transition: opacity .7s;\n}\n.fade-enter[data-v-168a10a2], .fade-leave-to[data-v-168a10a2] {\n  opacity: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -3130,7 +3132,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.description__body[data-v-d8b63ae8] {\r\n    overflow: hidden;\n}\n.description__text[data-v-d8b63ae8] {\r\n    word-break: break-all;\n}\n.description__mobile-button[data-v-d8b63ae8] {\r\n   transform-origin: 15px 15px;\n}\n.description__mobile-button--upturned[data-v-d8b63ae8] {\r\n    transform: rotate(180deg);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.description__body[data-v-d8b63ae8] {\n    overflow: hidden;\n}\n.description__text[data-v-d8b63ae8] {\n    word-break: break-all;\n}\n.description__mobile-button[data-v-d8b63ae8] {\n   transform-origin: 15px 15px;\n}\n.description__mobile-button--upturned[data-v-d8b63ae8] {\n    transform: rotate(180deg);\n}\n\n", ""]);
 
 // exports
 
@@ -3149,7 +3151,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-leave-to[data-v-07cd80f0] {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-leave-to[data-v-07cd80f0] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -3168,7 +3170,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tag__buffer[data-v-2bdf20bc] {\r\n    position: absolute;\r\n    top: -1000px;\r\n    left: -1000px;\r\n    visibility: hidden;\r\n    white-space: pre;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag__buffer[data-v-2bdf20bc] {\n    position: absolute;\n    top: -1000px;\n    left: -1000px;\n    visibility: hidden;\n    white-space: pre;\n}\n\n", ""]);
 
 // exports
 
@@ -3187,7 +3189,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tags-enter[data-v-7596445a]\r\n{\r\n    transform: scale(0.5);\r\n    opacity: 0;\n}\n.tags-enter-active[data-v-7596445a]\r\n{\r\n    transition: \r\n        transform .3s ease-in-out,\r\n        opacity .4s ease-in-out;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tags-enter[data-v-7596445a]\n{\n    transform: scale(0.5);\n    opacity: 0;\n}\n.tags-enter-active[data-v-7596445a]\n{\n    transition: \n        transform .3s ease-in-out,\n        opacity .4s ease-in-out;\n}\n\n", ""]);
 
 // exports
 
@@ -3206,7 +3208,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tag[data-v-7596445a]:before {\r\n    width: 0;\r\n    margin-right: 0;\r\n    content:'';\r\n    transform: scale(0);\r\n    transition: \r\n        transform .2s ease-in-out, \r\n        margin-right .2s ease-in-out, \r\n        width .2s ease-in-out;\n}\n.tag--main[data-v-7596445a]:before {\r\n    width: 15px;\r\n    margin-right: 5px;\r\n    content: \"star\";\r\n    transform: scale(1);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.tag[data-v-7596445a]:before {\n    width: 0;\n    margin-right: 0;\n    content:'';\n    transform: scale(0);\n    transition: \n        transform .2s ease-in-out, \n        margin-right .2s ease-in-out, \n        width .2s ease-in-out;\n}\n.tag--main[data-v-7596445a]:before {\n    width: 15px;\n    margin-right: 5px;\n    content: \"star\";\n    transform: scale(1);\n}\n\n", ""]);
 
 // exports
 
@@ -5898,6 +5900,11 @@ var render = function() {
             _vm._v(_vm._s(_vm.message))
           ]),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "alert-input input-second",
+            attrs: { type: "password", placeholder: "" }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "alert__buttons" }, [
             _c(
               "button",
@@ -6356,7 +6363,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "button",
-    { staticClass: "button-second", attrs: { type: "submit" } },
+    { attrs: { type: "submit" } },
     [
       _vm._t("default", [_vm._v(" " + _vm._s(_vm.defaultMessage) + " ")]),
       _vm._v(" "),
@@ -6731,8 +6738,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.newComment,
-                  expression: "newComment"
+                  value: _vm.message,
+                  expression: "message"
                 }
               ],
               staticClass: "comments__textarea",
@@ -6743,13 +6750,13 @@ var render = function() {
                 name: "message",
                 required: ""
               },
-              domProps: { value: _vm.newComment },
+              domProps: { value: _vm.message },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.newComment = $event.target.value
+                  _vm.message = $event.target.value
                 }
               }
             }),
@@ -7682,7 +7689,7 @@ var render = function() {
             [
               _c("submit-button", {
                 ref: "submitButton",
-                staticClass: "editor__footer-button",
+                staticClass: "editor__footer-button button-second",
                 attrs: { loading: _vm.isLoading() }
               })
             ],
@@ -22988,9 +22995,7 @@ var ShrinkableDetailsTab = {
   },
   watch: {
     shrinkable: function shrinkable(value) {
-      if (value) return;
-      this.open();
-      this.shrinked = false;
+      if (!!!value && this.shrinked) toggle();
     }
   },
   methods: {
@@ -23607,7 +23612,7 @@ function appendMainTagData(data, mainTag) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! S:\programs\OpenServer\domains\englishToolbox\resources\js\audio.js */"./resources/js/audio.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/etoolbox/resources/js/audio.js */"./resources/js/audio.js");
 
 
 /***/ })
