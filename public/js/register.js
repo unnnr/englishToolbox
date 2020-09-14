@@ -920,7 +920,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 

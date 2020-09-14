@@ -86,6 +86,8 @@ export default {
         bus.listen('post-selecting', event => {
 
             let post = event.post;
+
+            console.log(event.post)
             
             Object.assign(this.data, {
                 ...post

@@ -48,8 +48,10 @@ export default function(vueInstance, post)
 
     this.submit = async () => 
     {
+        console.log('here 12213 ');
         let id = target.id;
         let data = getFormData();
+        
         let post = await Posts.edit(id, data);
             
         vue.onVideoEdited(post);

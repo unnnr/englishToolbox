@@ -1305,11 +1305,10 @@ var COMMENT_MARGIN_HEIGHT = 30;
 
                 postId = _this4.$options.selectedPostId;
                 data = new FormData(_this4.$refs.form);
-                console.log(_this4.message);
-                _context2.next = 9;
+                _context2.next = 8;
                 return _models_Comments__WEBPACK_IMPORTED_MODULE_2__["default"].create(postId, data)["catch"](_this4.onServerError);
 
-              case 9:
+              case 8:
                 message = _context2.sent;
 
                 _this4.comments.push(message);
@@ -1318,7 +1317,7 @@ var COMMENT_MARGIN_HEIGHT = 30;
                 console.log(_this4.message);
                 _this4.submitting = false;
 
-              case 14:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -1580,11 +1579,10 @@ __webpack_require__.r(__webpack_exports__);
       var viewportHeight = window.innerHeight;
       var distanceToTop = getElementDistanceToTop(details);
       var distance = elementHeight + distanceToTop - viewportHeight;
-      /*     
       window.scrollTo({
-          	top: distance ,
-          	behavior: 'smooth' 
-          }) */
+        top: distance,
+        behavior: 'smooth'
+      });
     },
     scrollOnEditing: function scrollOnEditing() {
       var RENDER_TIME = 100; // Gives DOM time to update and render editor form
@@ -1691,6 +1689,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
       var post = event.post;
+      console.log(event.post);
       Object.assign(_this.data, _objectSpread({}, post));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
     });
@@ -2557,6 +2556,7 @@ var MAX_URL_LENGTH = 180;
       });
     },
     onVideoEdited: function onVideoEdited(post) {
+      console.log('HERERE');
       _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-edited', {
         post: post
       });
@@ -2704,7 +2704,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -6561,9 +6561,17 @@ var render = function() {
         [
           _vm._t("default"),
           _vm._v(" "),
-          _vm.presentorShown
-            ? _c("post-presentor", { ref: "presentor" })
-            : _vm._e()
+          _c("post-presentor", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.presentorShown,
+                expression: "presentorShown"
+              }
+            ],
+            ref: "presentor"
+          })
         ],
         2
       )
@@ -22352,7 +22360,7 @@ var ShrinkableDetailsTab = {
   data: function data() {
     return {
       shrinked: false,
-      bodyHeight: 'auto',
+      bodyHeight: 'none',
       shrinkDuration: 700,
       renderDuration: 100
     };
@@ -22369,12 +22377,14 @@ var ShrinkableDetailsTab = {
   },
   watch: {
     shrinkable: function shrinkable(value) {
-      if (!!!value && this.shrinked) toggle();
+      if (value || !!!this.shrinked) return;
+      this.bodyHeight = 'none';
+      this.shrinked = false;
     }
   },
   methods: {
     transitionEnded: function transitionEnded() {
-      if (!!!this.shrinked) this.bodyHeight = 'auto';
+      if (!!!this.shrinked) this.bodyHeight = 'none';
       this.animationTimer = null;
     },
     shrink: function shrink() {
@@ -22862,16 +22872,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            console.log('here 12213 ');
             id = target.id;
             data = getFormData();
-            _context.next = 4;
+            _context.next = 5;
             return _models_Posts__WEBPACK_IMPORTED_MODULE_2__["default"].edit(id, data);
 
-          case 4:
+          case 5:
             post = _context.sent;
             vue.onVideoEdited(post);
 
-          case 6:
+          case 7:
           case "end":
             return _context.stop();
         }

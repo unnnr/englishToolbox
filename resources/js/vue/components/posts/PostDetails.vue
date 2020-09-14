@@ -8,7 +8,7 @@
 				<slot></slot>
                 <post-presentor 
                     ref="presentor"
-                    v-if="presentorShown"/>
+                    v-show="presentorShown"/>
             </div>
         </div>
     </div>
@@ -104,11 +104,11 @@ export default {
             let distanceToTop = getElementDistanceToTop(details);
         
             let distance = elementHeight +  distanceToTop - viewportHeight;
-        /*     
+            
 			window.scrollTo({
             	top: distance ,
             	behavior: 'smooth' 
-            }) */
+            }) 
         },
         
         scrollOnEditing() {

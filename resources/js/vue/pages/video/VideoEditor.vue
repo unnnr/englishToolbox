@@ -206,6 +206,7 @@ export default {
         },
 
         onVideoEdited(post) {
+            console.log('HERERE');
             bus.dispatch('post-edited', { post });
             bus.dispatch('post-selecting', { post  });
         },

@@ -37,17 +37,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-.register-overlay
-{
-    min-width: 100vw;
-    position: absolute;
-    z-index: 123;
-    top: 0;
-
-    background-color: white;
-}
-
-</style>

@@ -1676,11 +1676,10 @@ __webpack_require__.r(__webpack_exports__);
       var viewportHeight = window.innerHeight;
       var distanceToTop = getElementDistanceToTop(details);
       var distance = elementHeight + distanceToTop - viewportHeight;
-      /*     
       window.scrollTo({
-          	top: distance ,
-          	behavior: 'smooth' 
-          }) */
+        top: distance,
+        behavior: 'smooth'
+      });
     },
     scrollOnEditing: function scrollOnEditing() {
       var RENDER_TIME = 100; // Gives DOM time to update and render editor form
@@ -1787,6 +1786,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].listen('post-selecting', function (event) {
       var post = event.post;
+      console.log(event.post);
       Object.assign(_this.data, _objectSpread({}, post));
       _services_eventbus__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('post-selected', event);
     });
@@ -3039,7 +3039,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://englishtoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\nbutton[data-v-de8adb68]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.loader[data-v-de8adb68] {\n    margin-left: 5px;\n    height: 20px;\n    width: 0;\n    transition: width .3s ease-in-out, opacity .3s ease-in-out;\n\n    background: url('http://etoolbox/img/svg/91.svg');\n    background-size:     cover;\n    background-repeat:   no-repeat;\n    background-position: center center;\n}\n.loader--shown[data-v-de8adb68] {\n    width: 20px;\n    opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -6947,9 +6947,17 @@ var render = function() {
         [
           _vm._t("default"),
           _vm._v(" "),
-          _vm.presentorShown
-            ? _c("post-presentor", { ref: "presentor" })
-            : _vm._e()
+          _c("post-presentor", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.presentorShown,
+                expression: "presentorShown"
+              }
+            ],
+            ref: "presentor"
+          })
         ],
         2
       )
