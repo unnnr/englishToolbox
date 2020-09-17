@@ -1,0 +1,143 @@
+.filter {
+  margin: 30px 0 15px;
+  order: 1;
+
+  @include md-devices {
+    order: 2;
+    margin: 15px 0 50px;
+  }
+}
+
+.filter__body {
+  max-height: max-content;
+  background: $bg-fifth;
+  @include border-radius;
+  box-shadow: $shadow-second;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12.5px 15px;
+  position: relative;
+
+  @include lg-devices {
+    padding-right: 15px;
+  }
+}
+
+.filter__panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter__button-group {
+  display: flex;
+}
+
+.filter__button {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 35px;
+  border-radius: 10px;
+  padding: 0 15px;
+  background: $bg-main;
+  align-self: center;
+  font-size: 14px;
+  font-weight: $medium;
+  color: $text-third;
+  position: relative;
+  margin-left: 15px;
+  
+  .material-icons-round {
+    margin-left: 5px;
+    font-size: 25px;
+    color: inherit;
+  }
+}
+
+.filter__search {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  @include sm-devices {
+    width: 100%;
+  }
+}
+
+.filter__search-button {
+  position: absolute;
+  border-radius: 100%;
+  margin-left: 10px; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  transition: margin .2s ease-in-out;
+
+  .material-icons-round {
+    font-size: 25px;
+    color: $color-main;
+  }
+}
+
+.filter__search-input {
+  height: 35px;
+  background: $bg-main;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  color: $text-main;
+  width: 425px;
+  overflow: hidden;
+  padding: 5px 15px 5px 45px;
+  transition: max-width .3s ease-in-out, padding .3s ease-in-out;
+  margin-right: 15px;
+
+  &::placeholder {
+    font-weight: $medium;
+    color: $text-third;
+  }
+
+  @include sm-devices {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.filter__dropdown {
+  position: absolute;
+  height: max-content;
+  z-index: $z-second;
+}
+
+.filter__tags {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-top: 10px;
+  max-height: max-content;
+  background: $bg-main;
+  border-radius: 10px;
+  transition: all .3s ease-in-out;
+
+  .tag {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

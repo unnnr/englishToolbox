@@ -1,0 +1,33 @@
+todo js:
+  добавить к navbar-mobile__links класс navbar-mobile__links--slide по нажатию кнопки navbar-mobile__button--show
+    добавить к navbar-mobile__overlay класс navbar-mobile__overlay--visible 
+  убрать у navbar-mobile__links класс navbar-mobile__links--slide по нажатию кнопки navbar-mobile__button--hide
+    убрать у navbar-mobile__overlay класс navbar-mobile__overlay--visible
+  убрать у navbar-mobile__links класс navbar-mobile__links--slide по нажатию вне блока
+    убрать у navbar-mobile__overlay класс navbar-mobile__overlay--visible
+
+todo php:
+  Если человек залогинен:
+
+    navbar
+      удалить:  navbar__aside-link--login-in
+                navbar__aside-link--sign-up
+      добавить: navbar__account-link
+
+    navbar-mobile
+      удалить:  navbar-mobile__footer
+      добавить: navbar-mobile__account-link
+
+  Если человек не залогинен:
+
+    navbar
+      удалить:  navbar__account-link
+      добавить: navbar__aside-link--login-in
+                navbar__aside-link--sign-up
+
+    navbar-mobile
+      удалить:  navbar-mobile__account-link
+      добавить: navbar-mobile__footer
+
+      
+
