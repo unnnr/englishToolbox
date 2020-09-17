@@ -59,6 +59,6 @@
 
 <script>
 export default {
-  name: 'basement'
+  name: 'basemenrt'
 }
 </script>

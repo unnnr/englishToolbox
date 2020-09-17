@@ -9,14 +9,11 @@
   ],
   "liveSassCompile.settings.includeItems": [
     "resources/scss/*",
-  ],
+  ],  
+
   "files.exclude": {
-    "node_modules/": true,
-    "vendor/": true,
-    // "app/": true,
-    "bootstrap/": true,
-    "config/": true,
-    "database/": true,
-    "tests/": true,
-  }
+    "app/node_modules/" : true
+  },
+
+  "liveSassCompile.settings.generateMap" : false
 }
