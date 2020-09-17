@@ -35,7 +35,6 @@ button {
 // ===================
 // style for all pages 
 // ===================
-@import "components/context";
 
 main {
   background: #fafafa;
@@ -373,19 +372,29 @@ button {
     border-color: $bg-second;
   }
 }
-// ======================
-// sections for all pages
-// ======================
 
 @import "sections/navbar";
 @import "sections/footer";
+@import "sections/about-me";
+@import "sections/auth";
+@import "sections/banner";
+@import "sections/filter";
+@import "sections/reviews";
+@import "sections/selected";
+
 @import "components/alert";
+@import "components/context";
+@import "components/card";
+@import "components/comments";
+@import "components/description";
+@import "components/editor";
+@import "components/player";
+@import "components/tags";
+@import "components/tooltips";
 
-// ===============
-// temporary style
-// ===============
+@import "register";
+@import "recomend";
+@import "login";
+@import "home";
+@import "account";
 
-.space {
-  min-height: 1000px;
-  width: 100%;
-}
