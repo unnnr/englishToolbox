@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    
+    <!-- =============== META TAGS =============== -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    
+
+    <!-- ================= FONTS ================= -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
+  
+    <!-- ============= FONT AWERSOME ============= -->
+    <script src="https://kit.fontawesome.com/6b69b7366d.js" crossorigin="anonymous"></script>
+    
+    <!-- ================== CSS ================== -->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <main id="app">
+<!--       <nav>
+        <router-link to="/about"> Got to about page</router-link>
+        <router-link to="/home"> Or got to home page </router-link>
+      </nav>
+ -->
+      <router-view></router-view>
+    </main>
+  </body>
+</html>
