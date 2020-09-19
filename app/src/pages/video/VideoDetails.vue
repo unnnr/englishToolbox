@@ -1,5 +1,6 @@
 <template>
   <post-details
+		:target="target"
 		@editor:showing="showEditor"
 		@editor:hidding="hideEditor"
 		@target:changed="setTarget">

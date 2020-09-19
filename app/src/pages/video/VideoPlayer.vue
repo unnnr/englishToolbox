@@ -23,56 +23,63 @@
 </template>
 
 <script>
-import bus from '@services/eventbus';
+
+import HandleEvents from '@mixins/HandleEvents'
 
 export default {
-	name: "video-player",
+	mixins: [ HandleEvents ],
 
 	data: function () {
 		return {
 			showOverlay: true,
-			overlayUrl: window.location.origin + '/img/svg/video-overlay.svg',
-			videoID: 'null'
+			videoID: null
 		}
 	},
 
-	mounted() {
+	computed: {
+		overlayUrl() {
+			return window.location.origin + '/img/svg/video-overlay.svg';
+		}
+	},
 
-		bus.listen('post-selected', event => {
-			this.videoID = event.post.videoID;
-			this.showOverlay = false;
+	mounted() {	
+		this.listen({
+			'post-selected': event => {
+				this.videoID = event.post.videoID;
+				this.showOverlay = false;
 
-			if (!!!event.preventScrolling)
-            	this.scrollToPlayer();
-		});
+				if (!!!event.preventScrolling)
+      	      	this.scrollToPlayer();
+			},
 
-		bus.listen('post-creating', event => {
-			this.showOverlay = true;
-		});
+			'post-creating': event => {
+				this.showOverlay = true;
+			},
 
-		bus.listen('post-editing', event => {
-			this.videoID = event.post.videoID;
-			this.showOverlay = false;
-		});
+			'post-editing': event => {
+				this.videoID = event.post.videoID;
+				this.showOverlay = false;
+			},
 
-		bus.listen('editor-link-changed', event => {		
-			this.videoID = event.videoID;
-			this.showOverlay = false;
-		})
+			'editor-link-changed': event => {		
+				this.videoID = event.videoID;
+				this.showOverlay = false;
+			},
 
-		bus.listen('post-deleted', event => {
-			
+			'post-deleted': event => {
+
+			}
 		});
 	},
 
 	methods: {
-        scrollToPlayer() {
-            window.scrollTo({
-                top: 0 ,
-                behavior: 'smooth' 
-            })
-        }
-    }
+		scrollToPlayer() {
+			window.scrollTo({
+				top: 0 ,
+				behavior: 'smooth' 
+			})
+		}
+  }
 };
 </script>
 

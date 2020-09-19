@@ -1,7 +1,7 @@
 <template>
 	<div class="description">
 		<div class="description__header">
-			<h5 class="description__title heading-fifth">{{ data.title }}</h5>
+			<h5 class="description__title heading-fifth">{{ target.title }}</h5>
 			<button
 				class="description__mobile-button"
 				:class="{'description__mobile-button--upturned': shrinked}"
@@ -25,19 +25,19 @@
 				class="description__body-content"
 				ref='content'>
 					
-				<p class="description__text text-fourth">{{ data.description }}</p>
+				<p class="description__text text-fourth">{{ target.description }}</p>
 				<tag-list 
-					:tags="data.tags"
-					:main-tag="data.mainTag"/>
+					:tags="target.tags"
+					:main-tag="target.mainTag"/>
 			</div>
 		</div>
 		
 
 		<div class="description__footer">
-				<time class="description__date">{{ data.createdAt }}</time>
+				<time class="description__date">{{ target.createdAt }}</time>
 				<div class="description__views">
 					<span class="description__views-icon material-icons-round">visibility</span>
-					<span class="description__views-count">{{ data.views }}</span>
+					<span class="description__views-count">{{ target.views }}</span>
 			</div>
 		</div>
 	</div>
@@ -53,17 +53,17 @@ import TagList from '@components/tags/TagList';
 import bus from '@services/eventbus';
 
 export default {
-	name: 'post-info',
-
 	components: {
 		TagList
 	},
 
 	mixins: [ Shrinkable, HandleEvents ],
 
-	data: function () {
-		return {
-				data: {
+	props: {
+		target: {
+			type: Object,
+			default: function() {
+				return {
 					title: 'Lorem ipsum dolor',
 					views: 1289,
 					createdAt: 'April 17 2020',
@@ -73,24 +73,9 @@ export default {
 
 					tags: [],
 					mainTag: null
-				},
-		}
-	},
-
-	mounted() {
-		this.listen({
-			'post-selecting': event => {
-				let post = event.post;
-
-				console.log(event.post)
-
-				Object.assign(this.data, {
-						...post
-				});
-
-				bus.dispatch('post-selected', event);
+				}
 			}
-		});	
+		}
 	}
 }
 </script>
