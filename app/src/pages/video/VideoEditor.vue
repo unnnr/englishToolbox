@@ -1,54 +1,57 @@
 <template>
-    <div class="editor">
-        <request-form 
-            class="editor__form"
-            ref="form"
-            :submit-callback="submit"
-            @input:incorrect="hadleErrors">
-            
-            <div class="editor__header">
-                <h5 class="editor__title text-third">{{ formTitle }}</h5>
-            </div>
-            <div class="editor__body" action="">
-                <label class="editor__label text-fourth" for="">
-                    <span>
-                        YouTube link
-                    </span> 
-                    <small class="editor__error">{{ urlError }}</small>
-                </label>
-                <input class="editor__input input-second"
-                       type="text"
-                       placeholder="https://..."
-                       name="videoUrl"
-                       required
-                       v-model="url"
-                       @keyup.enter="updateLink"
-                       @blur='updateLink'>
-                <label class="editor__label text-fourth" for="">
-                    <span>
-                        Custom description
-                        <small class="editor__counter">{{ descriptionCounter }}</small>
-                    </span> 
-                    <small class="editor__error">{{ descriptionError }}</small>
-                </label>
-                <textarea 
-                    class="editor__textarea textarea-second"
-                    placeholder="place for your description"
-                    name="description"
-                    v-model="description"
-                    :maxlength = "descriptionMaxLength">
-                </textarea>
-                <tag-editor ref="tags"/>
-            </div>
-            <div class="editor__footer">
-                <submit-button
-                    class="editor__footer-button button-second"
-                    ref="submitButton"
-                    :loading="isLoading()">
-                </submit-button>
-            </div>
-        </request-form>
-    </div>
+	<div class="editor">
+		<request-form 
+			class="editor__form"
+			ref="form"
+			:submit-callback="submit"
+			@input:incorrect="hadleErrors">
+			
+			<div class="editor__header">
+				<h5 class="editor__title text-third">{{ formTitle }}</h5>
+			</div>
+			<div class="editor__body" action="">
+				<label class="editor__label text-fourth" for="">
+					<span>
+						YouTube link
+					</span> 
+					<small class="editor__error">{{ urlError }}</small>
+				</label>
+				<input class="editor__input input-second"
+						type="text"
+						placeholder="https://..."
+						name="videoUrl"
+						required
+						v-model="url"
+						@keyup.enter="updateLink"
+						@blur='updateLink'>
+
+				<label class="editor__label text-fourth" for="">
+					<span>
+						Custom description
+						<small class="editor__counter">{{ descriptionCounter }}</small>
+					</span> 
+					<small class="editor__error">{{ descriptionError }}</small>
+				</label>
+
+				<textarea 
+					class="editor__textarea textarea-second"
+					placeholder="place for your description"
+					name="description"
+					v-model="description"
+					:maxlength = "descriptionMaxLength">
+				</textarea>
+
+				<tag-editor ref="tags"/>
+			</div>
+			<div class="editor__footer">
+				<submit-button
+					class="editor__footer-button button-second"
+					ref="submitButton"
+					:loading="isLoading()">
+				</submit-button>
+			</div>
+		</request-form>
+	</div>
 </template>
 
 <script>
@@ -67,159 +70,155 @@ const MAX_DESCRIPTION_LENGTH = 180;
 const MAX_URL_LENGTH = 180;
 
 export default {
-    name: 'video-editor',
+	components: {
+		SubmitButton,
+		RequestForm,
+		TagEditor
+	},
 
-    components: {
-        SubmitButton,
-        RequestForm,
-        TagEditor
-    },
+	props: {
+		target: {
+			type: Object,
+			default: null
+		}
+	},
 
-    props: {
-        target: {
-            type: Object,
-            default: false
-        }
-    },
+	data: function () { 
+		return {
+			url: '',
+			urlError: '',
+			
+			description: '',
+			descriptionError: '',
 
-    data: function () { 
-        return {
-            url: '',
-            urlError: '',
-            
-            description: '',
-            descriptionError: '',
+			state: null,
+		}
+	},
 
-            state: null,
-        }
-    },
+	computed: {
+		descriptionCounter() {
+			return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+		},
 
-    computed: {
-        descriptionCounter() {
-            return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
-        },
+		descriptionMaxLength() {
+			return MAX_DESCRIPTION_LENGTH;
+		},
 
-        descriptionMaxLength() {
-            return MAX_DESCRIPTION_LENGTH;
-        },
+		formTitle() {
+			return this.state ? this.state.getTitle() : ''; 
+		},
+	},
 
-        formTitle() {
-            return this.state ? this.state.getTitle() : ''; 
-        },
-    },
+	watch: {
+		target(value) {
+			if (value)
+				this.state = new EditingState(this, value);
+			else 
+				this.state = new CreationState(this);
+		}
+	},
 
-    watch: {
-        target(value) {
-            if (value)
-                this.state = new EditingState(this, value);
-            else 
-                this.state = new CreationState(this);
-        }
-    },
+	mounted() {
+		if (this.target)
+			this.state = new EditingState(this, this.target);
+		else 
+			this.state = new CreationState(this);
+	},
 
-    mounted() {
-        if (this.target)
-            this.state = new EditingState(this, this.target);
-        else 
-            this.state = new CreationState(this);
-    },
+	beforeDestroy() {
+		this.clear();
 
-    beforeDestroy() {
-        this.clear();
+		this.stateCreate();
+  },
 
-        this.stateCreate();
-    },
+	methods: {
+		hadleErrors(errors) {
+			if (errors.videoUrl)
+				this.urlError += errors.videoUrl.join('. ')  
 
-    methods: {
-        hadleErrors(errors)
-        {
-            if (errors.videoUrl)
-                this.urlError += errors.videoUrl.join('. ')  
+			if (errors.description)
+				this.descriptionError += errors.description.join('. ');
+		},
 
-            if (errors.description)
-                this.descriptionError += errors.description.join('. ');
-        },
+		isLoading() {
+			if (this.$refs.form)
+				return this.$refs.form.loading;
+		},
 
-        isLoading() {
-            if (this.$refs.form)
-                return this.$refs.form.loading;
-        },
+		clear() {
+			let form = this.$refs.form;
 
-        clear() {
-            let form = this.$refs.form;
+			form.clear();
 
-            form.clear();
+			this.url = '';
+			this.urlError = '';
+			
+			this.description = '';
+			this.descriptionError = '';
 
-            this.url = '';
-            this.urlError = '';
-            
-            this.description = '';
-            this.descriptionError = '';
+			this.$options.postID = null;
 
-            this.$options.postID = null;
+			let tags = this.$refs.tags;
 
-            let tags = this.$refs.tags;
+			tags.clear();
+		},
 
-            tags.clear();
-        },
+		validateVideo() {
+			let videoID = getYouTubeID(this.url);
+			
+			if (!!!videoID)
+			{
+				this.urlError = 'Incorrect youtube link';
+				return false;
+			}
+	
+			this.urlError = '';
 
-        validateVideo() {
-            let videoID = getYouTubeID(this.url);
-            
-            if (!!!videoID)
-            {
-                this.urlError = 'Incorrect youtube link';
-                return false;
-            }
-        
-            this.urlError = '';
+			return videoID;
+		},
 
-            return videoID;
-        },
+		updateLink () {
+			if (this.url.length === 0 || this.$options.previousUrl === this.url)
+				return;
 
-        updateLink () {
-            if (this.url.length === 0 || this.$options.previousUrl === this.url)
-                return;
+			this.$options.previousUrl = this.url;
+			
+			let videoID = this.validateVideo();
+			
+			if (videoID)
+				bus.dispatch('editor-link-changed', { 
+					url: this.url,
+					videoID: videoID
+				});
+		},
 
-            this.$options.previousUrl = this.url;
-            
-            let videoID = this.validateVideo();
-            
-            if (videoID)
-                bus.dispatch('editor-link-changed', { 
-                    url: this.url,
-                    videoID: videoID
-                });
-        },
+		stateCreate() {
+			this.state = new CreationState(this);
+		},
 
-        stateCreate() {
-            this.state = new CreationState(this);
-        },
+		stateEdit(event) {
+			this.state = new EditingState(this, event.post);
+		},
+		
+		onVideoCreated(post) {
+			bus.dispatch('post-created', { post });
+			bus.dispatch('post-selecting', { post  });
+		},
 
-        stateEdit(event) {
-            this.state = new EditingState(this, event.post);
-        },
-        
-        onVideoCreated(post) {
-            bus.dispatch('post-created', { post });
-            bus.dispatch('post-selecting', { post  });
-        },
+		onVideoEdited(post) {
+			bus.dispatch('post-edited', { post });
+			bus.dispatch('post-selecting', { post  });
+		},
 
-        onVideoEdited(post) {
-            console.log('HERERE');
-            bus.dispatch('post-edited', { post });
-            bus.dispatch('post-selecting', { post  });
-        },
+		forceSubmit () {
+			this.$refs.submitButton.forceSubmit();
+		},
 
-        forceSubmit () {
-            this.$refs.submitButton.forceSubmit();
-        },
-
-        async submit () {
-            if (this.state)
-                await this.state.submit();
-        }
-    }
+		async submit () {
+			if (this.state)
+				await this.state.submit();
+		}
+	}
 }
 </script>
 

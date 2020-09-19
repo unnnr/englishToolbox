@@ -1,122 +1,118 @@
 <template>
-    <div 
+	<div 
 		class="addition"
 		ref="details">
 
-        <div class="addition__body">
-            <div class="addition__wrapper" ref="wrapper">
-				<slot></slot>
-                <post-presentor 
-                    ref="presentor"
-                    v-show="presentorShown"/>
-            </div>
-        </div>
-    </div>
+		<div class="addition__body">
+			<div class="addition__wrapper" ref="wrapper">
+				<slot/>
+
+				<post-presentor 
+					ref="presentor"
+					v-show="presentorShown"/>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import bus from '@services/eventbus'
+
+import HandleEvents from '@mixins/HandleEvents'
 import PostPresentor from "@components/posts/PostPresentor.vue"
+import bus from '@services/eventbus'
 
 export default {
-	name: "post-details",
-
 	components: {
-        PostPresentor,
-    },
+		PostPresentor,
+	},
 
-    data: function() {
-        return {
-            presentorShown: true
-        }
-    },
+	mixins: [ HandleEvents ],
+
+	data: function() {
+		return {
+			presentorShown: true
+		}
+	},
 
 	mounted() {
-		bus.listen('post-editing', this.onPostEditing);
 
-		bus.listen('post-edited', this.onPostEdited);
+		this.listen({
+			'post-editing': this.onPostEditing,
 
-		bus.listen('post-creating', this.onPostCreating);
+			'post-edited': this.onPostEdited,
 
-		bus.listen('post-selecting', this.onPostSelecting);	
-    },
-    
-    beforeDestroy() {
-		bus.detach('post-editing', this.onPostEditing);
+			'post-creating': this.onPostCreating,
 
-		bus.detach('post-edited', this.onPostEdited);
+			'post-selecting': this.onPostSelecting
+		});
+	},
 
-		bus.detach('post-creating', this.onPostCreating);
+	methods: {
+		// Global  event lintenrs
 
-		bus.detach('post-selecting', this.onPostSelecting);	
-    },
+		onPostEdited() {
+			this.$emit('target:changed', null);
+		},
 
-    methods: {
-        // Global  event lintenrs
+		onPostEditing(event) {
+			this.$emit('target:changed', event.post);
+			this.$emit('editor:showing');
 
-        onPostEdited() {
-            this.$emit('target:changed', null);
-        },
-
-        onPostEditing(event) {
-            this.$emit('target:changed', event.post);
-            this.$emit('editor:showing');
-
-            this.presentorShown = false;
+			this.presentorShown = false;
 
 			if (!!!event.preventScrolling)
 				this.scrollOnEditing();
-        },  
+		},  
 
-        onPostSelecting(event) {
-            this.$emit('editor:hidding');
+		onPostSelecting(event) {
+			this.$emit('editor:hidding');
 
-            this.presentorShown = true;
-        },
+			this.presentorShown = true;
+		},
 
-        onPostCreating() {
-            this.$emit('editor:showing');
+		onPostCreating() {
+			this.$emit('editor:showing');
 
-            this.presentorShown = false;
+			this.presentorShown = false;
 
 			if (!!!event.preventScrolling)
 				this.scrollOnEditing();	
-        },
+		},
 
-        // Defaul methods
+		// Defaul methods
 		scrollToDetails() {
 
-            function getElementDistanceToTop(element) {
-                if (!!!element)
-                    return 0;
+			function getElementDistanceToTop(element) {
+				if (!!!element)
+					return 0;
 
-                return element.offsetTop + getElementDistanceToTop(element.offsetParent); 
-            }
+				return element.offsetTop + getElementDistanceToTop(element.offsetParent); 
+			}
 
-            const SHIFT = 10;
+			const SHIFT = 10;
 
-            let details = this.$refs.details;
+			let details = this.$refs.details;
 
-            let elementHeight = details.offsetHeight;
+			let elementHeight = details.offsetHeight;
 
-            let viewportHeight = window.innerHeight;
-            
-            let distanceToTop = getElementDistanceToTop(details);
-        
-            let distance = elementHeight +  distanceToTop - viewportHeight;
-            
+			let viewportHeight = window.innerHeight;
+			
+			let distanceToTop = getElementDistanceToTop(details);
+
+			let distance = elementHeight +  distanceToTop - viewportHeight;
+						
 			window.scrollTo({
-            	top: distance ,
-            	behavior: 'smooth' 
-            }) 
-        },
-        
-        scrollOnEditing() {
-            const RENDER_TIME = 100;
-            
-            // Gives DOM time to update and render editor form
-            setTimeout(this.scrollToDetails, RENDER_TIME);
-        }
+					top: distance ,
+					behavior: 'smooth' 
+				}) 
+			},
+			
+		scrollOnEditing() {
+			const RENDER_TIME = 100;
+			
+			// Gives DOM time to update and render editor form
+			setTimeout(this.scrollToDetails, RENDER_TIME);
+		}
 	}
 };
 </script>

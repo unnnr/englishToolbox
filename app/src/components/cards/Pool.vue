@@ -30,14 +30,14 @@
 
 <script>
 
-import bus from '@services/eventbus';
-import Auth from '@services/Auth'
+import HandleEvents from '@mixins/HandleEvents'
+import NewCard from '@components/cards/NewCard.vue';
+import Card from '@components/cards/Card.vue';
 import Posts from '@models/Posts';
 import Cards from '@models/Cards';
 import Tags from '@models/Tags';
-import Card from '@components/cards/Card.vue';
-import NewCard from '@components/cards/NewCard.vue';
-import HandleEvents from '@mixins/HandleEvents'
+import Auth from '@services/Auth'
+import bus from '@services/eventbus';
 
 
 export default {

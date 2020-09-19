@@ -1,5 +1,5 @@
 <template>
-    <post-details
+  <post-details
 		@editor:showing="showEditor"
 		@editor:hidding="hideEditor"
 		@target:changed="setTarget">
@@ -11,17 +11,15 @@
 				:target="target">
  			</video-editor>
 		</transition>
-    </post-details>
+  </post-details>
 </template>
 
 <script>
-import bus from '@services/eventbus'
+
 import VideoEditor from "@pages/video/VideoEditor"
 import PostDetails from '@components/posts/PostDetails'
 
 export default {
-	name: "video-details",
-
 	components: {
 		PostDetails,
     	VideoEditor
@@ -33,7 +31,6 @@ export default {
 			target: null
 		}
 	},
-
 
 	methods: {
 		setTarget(value) {
