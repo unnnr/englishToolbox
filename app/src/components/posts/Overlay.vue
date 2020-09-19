@@ -1,70 +1,73 @@
 <template>
-    <transition name="fade">
-        <div 
-            class="selected__overlay container"
-            v-if="shown">
+	<transition name="fade">
+		<div 
+			class="selected__overlay container"
+			v-if="shown">
 
 
-            <object 
-                class="selected__overlay-image" 
-                type="image/svg+xml"
-                v-if="empty"
-                :data="src">
-            </object>
+			<object 
+				class="selected__overlay-image" 
+				type="image/svg+xml"
+				v-if="empty"
+				:data="src">
+			</object>
 
-            <div 
-                class="selected__overlay-loading"
-                v-else>
-            </div>
-        </div>
-    </transition>
+			<div 
+				class="selected__overlay-loading"
+				v-else>
+			</div>
+		</div>
+	</transition>
 
 </template>
 
 <script>
 
-import bus from '@services/eventbus'
+import HandleEvents from '@mixins/HandleEvents'
 
 export default {
-    name: 'overlay',
+	name: 'overlay',
 
-    props: {
-        src: {
-            type: String,
-            default: ''
-        }
-    },
+	mixins: [ HandleEvents ],
 
-    data: function() {
-        return {
-            shown: true,
-            empty: false
-        }
-    },
+	props: {
+		src: {
+			type: String,
+			default: ''
+		}
+	},
 
-    mounted() {
-        bus.listen('overlay-showing', () => {
-            this.shown = true;
-            
-        })
+	data: function() {
+		return {
+			shown: true,
+			empty: false
+		}
+	},
 
-        bus.listen('overlay-showing--empty', () => {
-            this.shown = true;
-            this.empty = true;
-        })
+	mounted() {
+		this.listen({
+			'overlay-showing': () => {
+				this.shown = true;
+			},
 
-        bus.listen('overlay-hidding', () => {
-            this.shown = false;
-        })
+			'overlay-showing--empty': () => {
+				this.shown = true;
+				this.empty = true;
+			}, 
+			
+			'overlay-hidding':  () => {
+				this.shown = false;
+			}, 
 
-        bus.listen('post-selected', () => {
-            this.shown = false;
-        })
+			'post-selected': () => {
+				this.shown = false;
+			}, 
 
-        bus.listen('post-creating', () => {
-            this.shown = false;
-        });
-    }
+			'post-creating': () => {
+				this.shown = false;
+			}
+		})
+	}
 }
 </script>
 

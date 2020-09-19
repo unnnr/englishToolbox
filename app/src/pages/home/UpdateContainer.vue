@@ -69,7 +69,6 @@ export default {
                 {id: 10, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg', tags: [{label: 'some', color: 'gainsboro'}, {label: 'some', color: 'coral'}]},
                 {id: 11, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'cadetblue'}]},
                 {id: 12, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
-
             ],
             
             swiperOptions: {
