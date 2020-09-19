@@ -4,12 +4,18 @@
             class="selected__overlay container"
             v-if="shown">
 
+
             <object 
-                v-if="empty"
                 class="selected__overlay-image" 
                 type="image/svg+xml"
+                v-if="empty"
                 :data="src">
             </object>
+
+            <div 
+                class="selected__overlay-loading"
+                v-else>
+            </div>
         </div>
     </transition>
 
@@ -39,6 +45,7 @@ export default {
     mounted() {
         bus.listen('overlay-showing', () => {
             this.shown = true;
+            
         })
 
         bus.listen('overlay-showing--empty', () => {
@@ -70,7 +77,10 @@ export default {
   opacity: 0;
 }
 
-.selected__overlay {
+.selected__overlay-loading {
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
     background-color: white;
 }
 

@@ -26,30 +26,21 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <main id="app">
-<!--       <nav>
-        <router-link to="/about"> Got to about page</router-link>
-        <router-link to="/home"> Or got to home page </router-link>
-      </nav>
- -->
+    <div id="app">
       <router-view></router-view>
-    </main>
+    </div>
   </body>
 
 
   <style>
-  .app {
+  #app {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex-grow: 1;
+    min-height: 100vh;  
   }
 
   .basement {
-    justify-self: end;
+    margin-top: auto;
   }
   </style>
 </html>

@@ -1,5 +1,5 @@
 <template>
-  <div class="post-layout">
+  <main class="post-layout">
     <div class="order-wrapper">
       
       <filter-bar/>
@@ -14,7 +14,7 @@
 
     <pool/>
 
-  </div>
+  </main>
 </template>
 
 <script>

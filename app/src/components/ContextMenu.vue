@@ -63,12 +63,6 @@ export default {
 </script>
 
 <style>
-    html, main, body
-    {
-        min-height: 100vh;
-        height: auto;
-    }
-
     .context 
     {
         position: absolute;
