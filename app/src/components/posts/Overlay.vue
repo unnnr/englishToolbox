@@ -5,6 +5,7 @@
             v-if="shown">
 
             <object 
+                v-if="empty"
                 class="selected__overlay-image" 
                 type="image/svg+xml"
                 :data="src">
@@ -30,13 +31,19 @@ export default {
 
     data: function() {
         return {
-            shown: true
+            shown: true,
+            empty: false
         }
     },
 
     mounted() {
         bus.listen('overlay-showing', () => {
             this.shown = true;
+        })
+
+        bus.listen('overlay-showing--empty', () => {
+            this.shown = true;
+            this.empty = true;
         })
 
         bus.listen('overlay-hidding', () => {
@@ -61,6 +68,10 @@ export default {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.selected__overlay {
+    background-color: white;
 }
 
 </style>

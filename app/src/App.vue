@@ -1,7 +1,6 @@
 <template>
   <div id="app">
 <!--     <div id="nav">
-      <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
     
@@ -36,3 +35,18 @@ export default {
   }
 }
 </script>
+
+
+<style>
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+</style>

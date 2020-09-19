@@ -11,10 +11,10 @@
 
 					<router-link
 						class="navbar-desktop__link"
+						active-class="navbar-desktop__link--active"
 						v-for="(link, index) in links"
 						:key="index"
-						:to="link.name"
-						:class="{'navbar-desktop__link--active': link.active}">
+						:to="link.name">
 						
 						{{ link.label }}
 					</router-link>
@@ -88,10 +88,10 @@
 
 					<router-link
 						class="navbar-mobile__link"
+						active-class="navbar-desktop__link--active"
 						v-for="(link, index) in links"
 						:key="index"
-						:to="link.name"
-						:class="{'navbar-desktop__link--active': link.active}">
+						:to="link.name">
 							
 						{{ link.label }}
 					</router-link>
@@ -136,9 +136,8 @@ export default {
 			AppName: 'Etoolbox',
 
 			links: [
-				{ name: 'About', label: 'about me'},
-				{ name: 'Videos', label: 'videos'},
-				
+				{ name: 'about', label: 'about me'},
+				{ name: 'videos', label: 'videos'},
 			]
 		}
 	},
@@ -168,3 +167,15 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+
+.navbar-mobile__link {
+	transition: all .3s;
+}
+
+.navbar-desktop__link {
+	transition: all .3s;
+}
+
+</style>

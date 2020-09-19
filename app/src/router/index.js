@@ -11,7 +11,7 @@ const routes = [
 
   { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
 
-  { path: '/about', name: 'About', component: () => import('@pages/About') },
+  { path: '/about', name: 'About', component: () => import('@pages/Home') },
 
     // -> recommended 
 

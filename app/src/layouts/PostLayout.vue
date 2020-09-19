@@ -6,6 +6,7 @@
 
       <section class="selected container">
         <overlay src="img/svg/selected-overlay.svg"/> 
+       
         <slot/>
       </section>
 
