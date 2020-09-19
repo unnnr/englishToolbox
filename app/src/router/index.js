@@ -7,7 +7,7 @@ const routes = [
 
   // Main pages
 
-  { path: '/', alias: '/home', name: 'Home',component: () => import('@pages/Home') },
+  { path: '/home', alias: '/', name: 'Home',component: () => import('@pages/Home') },
 
   { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
 
@@ -19,16 +19,16 @@ const routes = [
   
   { path: '/login', name: 'Login', component: () => import('@pages/Login') },
 
-  { path: '/register', name: 'Login', component: () => import('@pages/Register') },
+  { path: '/register', name: 'Register', component: () => import('@pages/Register') },
 
 
   // Post pages
   
-  { path: '/video', name: 'Home', component: () => import('@pages/Video') },
+  { path: '/videos', name: 'Videos', component: () => import('@pages/Video') },
 
   { path: '/audio', name: 'Audio', component: () => import('@pages/Audio') },
 
-    // -> chart page
+    // -> charts page
     
 
   // Fallback pages 

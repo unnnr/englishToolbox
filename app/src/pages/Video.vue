@@ -1,7 +1,7 @@
 <template>
     <post-layout>
       <video-player/>
-      <video-addition/>
+      <video-details/>
     </post-layout>
 </template>
 
@@ -9,13 +9,13 @@
 
 import PostLayout from '@layouts/PostLayout'
 import VideoPlayer from '@pages/video/VideoPlayer'
-import VideoAddition from '@pages/video/VideoDetails'
+import VideoDetails from '@pages/video/VideoDetails'
 
 export default {
   name: 'videos',
   
   components: {
-    PostLayout, VideoPlayer, VideoAddition
+    PostLayout, VideoPlayer, VideoDetails
   }
 }
 </script>

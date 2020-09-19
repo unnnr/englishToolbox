@@ -1,5 +1,5 @@
 <template>
-    <section class="login-in container">
+    <main class="login-in container">
       <request-form 
             class="auth"
             ref="form"
@@ -74,7 +74,7 @@
                 :data="imageUrl">
             </object>
         </div>
-    </section>
+    </main>
 </template>
 
 <script>

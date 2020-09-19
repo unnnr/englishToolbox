@@ -1,5 +1,5 @@
 <template>
-    <section class="sign-up container">
+    <main class="sign-up container">
         <request-form 
             class="editor__form"
             ref="form"
@@ -108,7 +108,7 @@
                 :data="imageUrl">
             </object>
         </div>
-    </section>
+    </main>
 </template>
 
 <script>

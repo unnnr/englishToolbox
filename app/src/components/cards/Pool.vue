@@ -65,7 +65,7 @@ export default {
 
     beforeMount()
     {
-        Posts.onload(() => {
+    /*     Posts.onload(() => {
 
             this.appendCards(Cards.all());
 
@@ -81,7 +81,7 @@ export default {
 
         Auth.onload(() => {
             this.canCreateContent = Auth.isAdmin();
-        });
+        }); */
     },
     mounted()
     {

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <main class="home">
 
     <banner-container/>
 
@@ -9,7 +9,7 @@
 
     <reviews/>
 
-  </div>
+  </main>
 </template>
 
 <script>
