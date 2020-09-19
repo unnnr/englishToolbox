@@ -1,35 +1,36 @@
 <template>
-   <button 
-       type="button"
-       class="tag tag--new tag--new-active"
-       ref="wrapper"
-       :class="{
-           'tag--new-focused': inputIsFocused,
-           'tag-new-disabled': disabled
-       }"
-       @click="onWrapperClick">
+	<button 
+		type="button"
+		class="tag tag--new tag--new-active"
+		ref="wrapper"
+		:class="{
+				'tag--new-focused': inputIsFocused,
+				'tag-new-disabled': disabled
+		}"
+		@click="onWrapperClick">
 
-        <label
-            class="tag__label tag__label--new"
-            for="tn1"
-            ref="button"
-            @click="onLabelClick">
-            
-            <span class="material-icons-round">add</span>
-        </label>
-        <input 
-            id="tn1"
-            type="text"
-            class="tag__input"
-            placeholder="newTag"
-            ref="input"
-            v-model="label"
-            :disabled="disabled"
-            @blur="onInputBlur"
-            @focus="onInputFocus"
-            @keydown.enter.prevent.stop="tryToSubmit">
-        <div class="tag__buffer" ref="buffer"></div>
-    </button>
+		<label
+			class="tag__label tag__label--new"
+			for="tn1"
+			ref="button"
+			@click="onLabelClick">
+				
+			<span class="material-icons-round">add</span>
+		</label>
+		<input 
+			id="tn1"
+			type="text"
+			class="tag__input"
+			placeholder="newTag"
+			ref="input"
+			v-model="label"
+			:disabled="disabled"
+			@blur="onInputBlur"
+			@focus="onInputFocus"
+			@keydown.enter.prevent.stop="tryToSubmit">
+
+		<div class="tag__buffer" ref="buffer"></div>
+	</button>
 </template>
 
 <script>
@@ -37,109 +38,101 @@
 const BLUR_DELAY = 200;
 
 export default {
-    
-    name: 'new-tag-input',
+	props: {
+		submit: {
+			type: Function,
+			default: () => {}
+		}
+	},
 
-    props: {
-        submit: {
-            type: Function,
-            default: () => {}
-        }
-    },
+	data: function() {
+		return {
+			label: '',
+			disabled: false,
+			inputIsFocused: false
+		}
+	},
 
-    data: function() {
-        return {
-            label: '',
-            disabled: false,
-            inputIsFocused: false
-        }
-    },
+	watch: {
+			label() {
+				this.checkInput();
+				this.resizeInput();
+			}
+	},
 
-    watch: {
-        label() {
-            this.checkInput();
-            this.resizeInput();
-        }
-    },
+	methods: {
+		onWrapperClick()
+		{
+			this.inputFocus();
+		},
 
-    methods: {
-        onWrapperClick()
-        {
-            this.inputFocus();
-        },
+		async onLabelClick()
+		{
+			this.inputFocus();
 
-        async onLabelClick()
-        {
-            this.inputFocus();
+			if (this.label.length === 0 || this.disabled)
+				return;
 
-            if (this.label.length === 0 || this.disabled)
-                return;
+			this.tryToSubmit();
+		},
 
-            this.tryToSubmit();
-        },
+		onInputBlur() {
+			this.$options.delayTimer = setTimeout(() => {
+				this.inputIsFocused = false;
+				this.checkInput();
+			}, BLUR_DELAY)
+		},
 
-        onInputBlur() {
-            this.$options.delayTimer = setTimeout(() => {
-                this.inputIsFocused = false;
-                this.checkInput();
-            }, BLUR_DELAY)
-        },
+		onInputFocus() {
+			clearTimeout(this.$options.delayTimer)
+			this.inputIsFocused = true;
+		},
 
-        onInputFocus() {
+		inputFocus() {
+			this.$refs.input.focus();
+		},
 
-            clearTimeout(this.$options.delayTimer)
-            this.inputIsFocused = true;
-        },
+		checkInput() {
+			if (this.label.length === 0 && !!!this.inputIsFocused)
+				clearTimeout(this.$options.delayedTimer)
+		},
 
-        inputFocus() {
-            this.$refs.input.focus();
-        },
+		resizeInput() {
+			let buffer = this.$refs.buffer;
+			let input = this.$refs.input;
+			
+			buffer.innerHTML = this.label;
+			
+			input.style.width = buffer.clientWidth + 3 + 'px';
+		},
 
-        checkInput() {
-            
-            if (this.label.length === 0 && !!!this.inputIsFocused)
-            {
-                clearTimeout(this.$options.delayedTimer)
-            }
-        },
+		setUpInputAutoGrow() {
+					
+			let buffer = this.$refs.buffer;
+			let input = this.$refs.input;
 
-        resizeInput() {
-            let buffer = this.$refs.buffer;
-            let input = this.$refs.input;
-            
-            buffer.innerHTML = this.label;
-            
-            input.style.width = buffer.clientWidth + 3 + 'px';
-        },
+			input.addEventListener('input', function() {
+				buffer.innerHTML = this.value;
+				input.style.width = buffer.clientWidth + 3 + 'px';
+			});
+		},
 
-        setUpInputAutoGrow() {
-             
-            let buffer = this.$refs.buffer;
-            let input = this.$refs.input;
+		tryToSubmit() {
 
-            input.addEventListener('input', function() {
-                buffer.innerHTML = this.value;
-                input.style.width = buffer.clientWidth + 3 + 'px';
-            });
-        },
+			this.disabled = true;
 
-        tryToSubmit() {
-
-            this.disabled = true;
-
-            try {
-                this.submit();
-            }
-            catch {
-                console.error('There was an error in tag submitting.');
-            }
-            finally {
-                this.label = '';
-                this.disabled = false;
-            }
-        }
-
-    }
+			try {
+				this.submit();
+			}
+			catch {
+				console.error('There was an error in tag submitting.');
+			}
+			finally {
+				this.label = '';
+				this.disabled = false;
+			}
+		}
+	}
 }
 </script>
 

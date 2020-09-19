@@ -1,57 +1,57 @@
 <template>
-    <div class="comments">
-        <div class="comments__header">
-          	<h5 class="comments__title heading-fifth">Comments</h5>
-          	<button 
-			  	class="comments__mobile-button"
-				:class="{'comments__mobile-button--upturned': shrinked}"
-                :style="{'transition': buttonTransition}"
-				@click="toggle">
-				  
+	<div class="comments">
+		<div class="comments__header">
+				<h5 class="comments__title heading-fifth">Comments</h5>
+				<button 
+					class="comments__mobile-button"
+					:class="{'comments__mobile-button--upturned': shrinked}"
+					:style="{'transition': buttonTransition}"
+					@click="toggle">
+			
 				<span class="material-icons-round">arrow_drop_down</span>
 			</button>
-        </div>
+		</div>
 
-
-        <div 
+		<div 
 			class="comments__body"
-            ref="wrapper"
-            :style="{
-                'max-height': bodyHeight,
-                'transition': bodyTransition}">
-			
+			ref="wrapper"
+			:style="{ 'max-height': bodyHeight,
+							  'transition': bodyTransition}">	
+
 			<div 	
 				class="comments__body-content"
-                ref='content'>
-				
+				ref='content'>
+			
 				<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
-          		<div
-			  		class="comment"
+				<div
+					class="comment"
 					v-for="({sender, message, date, id}) in comments"
 					:key="id">
 
-            		<div class="comment__image"></div>
-            		<div class="comment__body">
-              			<p class="comment__text text-sixth">
-                			<span class="comment__name">{{ sender }}</span>
-                			<span class="comment__mention"></span>
-                			{{ message }}
-              			</p>
-              			<time class="comment__date text-sixth">{{ date }}</time>
-            		</div>
-          		</div>
+					<div class="comment__image"></div>
+					<div class="comment__body">
+							<p class="comment__text text-sixth">
+								<span class="comment__name">{{ sender }}</span>
+								<span class="comment__mention"></span>
+								{{ message }}
+							</p>
+							<time class="comment__date text-sixth">{{ date }}</time>
+					</div>
+				</div>
 			</div>
-        </div>
-        <form 
+		</div>
+
+		<form 
 			class="comments__footer"
 			ref="form"
 			v-if="showInput"
 			@submit.prevent="submit">
 
-        	<a class="comments__account-link" href="#">
+			<a class="comments__account-link" href="#">
 				<span class="material-icons-round">account_circle</span>
 			</a>
-        	<textarea 
+			
+			<textarea 
 				class="comments__textarea"
 				placeholder="your comment"
 				minlength="1"
@@ -60,10 +60,10 @@
 				v-model="message"
 				required>
 			</textarea>
-			
-        	<button class="comments__send-button" type="submit"><span class="material-icons-round">send</span></button>
-        </form>
-    </div>
+		
+			<button class="comments__send-button" type="submit"><span class="material-icons-round">send</span></button>
+		</form>
+	</div>
 </template>
 
 <script>
@@ -76,14 +76,10 @@ import bus from '@services/eventbus'
 const COMMENT_MARGIN_HEIGHT = 30;
 
 export default {
-	name: 'comments',
-	
-	mixins: [
-		Shrinkable 
-	],
+	mixins: [ Shrinkable ],
 	
 	data: function () {
-        return {
+    return {
 			comments: [
 				{ id: 1, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
 				{ id: 2, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
@@ -100,7 +96,7 @@ export default {
 			submitting: false,
 		
 			message: ''
-        }
+    }
 	},
 
 	computed: {
@@ -120,7 +116,7 @@ export default {
 		}
 	},
 
-    beforeMount() {
+  beforeMount() {
 		Auth.onload(() => {
 			this.showInput = Auth.check();
 		});
@@ -141,13 +137,13 @@ export default {
 			this.comments = await Comments.getAttached(event.post.id);	
 		},
 		
-        shrink() {
-            let content = this.$refs.content;
+		shrink() {
+			let content = this.$refs.content;
 
-            this.bodyHeight = content.offsetHeight + 'px';
-			
-            // Gives time for rendering
-            setTimeout(() => { 
+			this.bodyHeight = content.offsetHeight + 'px';
+
+			// Gives time for rendering
+			setTimeout(() => { 
 				this.bodyHeight = this.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px'; 
 			}, this.renderDuration)
 		},
@@ -162,7 +158,6 @@ export default {
 		},
 		
 		async submit() {
-
 			if (this.submitting)
 				return; 
 
@@ -181,8 +176,7 @@ export default {
 
 			this.submitting = false;
 		}
-	}
-    
+	}   
 }
 </script>
 

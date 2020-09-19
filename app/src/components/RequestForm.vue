@@ -1,71 +1,69 @@
 <template>
-    <form
-        ref="form"
-        action="#"
-        @submit.prevent="submitWrapper">
+	<form
+		ref="form"
+		action="#"
+		@submit.prevent="submitWrapper">
 
-        <slot></slot>
-    </form>
+		<slot></slot>
+	</form>
 </template>
 
 <script>
 export default {
-    name: 'request-form',
+	data: function() {
+		return {
+			loading: false
+		}
+	},
 
-    data: function() {
-        return {
-            loading: false
-        }
-    },
+	props: {
+		submitCallback: {
+			type: Function, 
+			default: () => {}
+		}
+	},
 
-    props: {
-        submitCallback: {
-            type: Function, 
-            default: () => {}
-        }
-    },
+	methods: {
+		handleError(error) {
 
-    methods: {
-        handleError(error) {
+			if (error.status == 422)
+			{
+				let errors = error.body.errors;
 
-            if (error.status == 422)
-            {
-                let errors = error.body.errors;
+				this.$emit('input:incorrect', errors);
 
-                this.$emit('input:incorrect', errors);
+				return;
+			}
 
-                return;
-            }
+			throw error;
+		},
 
-            throw error;
-        },
+		getData() {
+			return new FormData(this.$refs.form);
+		},
 
-        getData() {
-            return new FormData(this.$refs.form);
-        },
+		clear() {
+			this.$refs.form.reset();
+		},
 
-        clear() {
-            this.$refs.form.reset();
-        },
+		async submitWrapper() {
+			if (this.loading)
+				return;
+			
+			this.loading = true;
 
-        async submitWrapper() {
-            if (this.loading)
-                return;
-            
-            this.loading = true;
+			try {
+				if (this.submitCallback)
+					await this.submitCallback();
 
-            try {
-                if (this.submitCallback)
-                    await this.submitCallback();
+				this.loading = false;
+			}
+			catch (error) {
+				this.loading = false;
 
-                this.loading = false;
-            }
-            catch (error) {
-                this.loading = false;
-
-                this.handleError(error);
-            }
-        }
-    }
+				this.handleError(error);
+			}
+		}
+	}
 }
 </script>

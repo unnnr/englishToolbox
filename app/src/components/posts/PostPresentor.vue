@@ -1,40 +1,40 @@
 <template>
-   <div class="addition__info">
-        <div class="addition__header">
-        	<button 
-                class="addition__header-button text-fourth"
-                :class="{'addition__header-button--active': detailsShown}"
-                @click="showDetails">
-                
-                Description
-            </button>
-        	<button
-                class="addition__header-button text-fourth"
-                @click="hideDetails">
-                
-                Comments
-            </button>
-        </div>
-    
-        <div class="addition__tabs">
-  
-            <transition name="fade">
-                <div 
-                    class="addition__tab addition__tab--description"
-                    v-show="detailsShown">
-                    <post-info
-                        ref="videoInfo"
-                        :shrinkable="mobileWidth"/>
-                </div>
-            </transition>
-                
-            <div 
-                class="addition__tab addition__tab--comments">
-                <comments 
-                    :shrinkable="mobileWidth" />
-            </div>
-        </div>
-    </div>
+	<div class="addition__info">
+		<div class="addition__header">
+			<button 
+				class="addition__header-button text-fourth"
+				:class="{'addition__header-button--active': detailsShown}"
+				@click="showDetails">
+				
+				Description
+			</button>
+			<button
+				class="addition__header-button text-fourth"
+				@click="hideDetails">
+				
+				Comments
+			</button>
+		</div>
+
+		<div class="addition__tabs">
+
+			<transition name="fade">
+				<div 
+					class="addition__tab addition__tab--description"
+					v-show="detailsShown">
+					<post-info
+							ref="videoInfo"
+							:shrinkable="mobileWidth"/>
+				</div>
+			</transition>
+						
+			<div 
+				class="addition__tab addition__tab--comments">
+				<comments 
+						:shrinkable="mobileWidth"/>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -44,78 +44,74 @@ import PostInfo from '@components/posts/PostInfo.vue';
 import Comments from '@components/posts/Comments';
 
 export default {
-    name: 'post-presentor',
+	components: {
+		PostInfo,
+		Comments
+	},
 
-    components: {
-        PostInfo,
-        Comments
-    },
+	data: function () {
+		return {
+			detailsShown: true,
+			mobileWidth: false,
+		}
+	},
 
-    data: function () {
-        return {
-            detailsShown: true,
+	watch: {
+		mobileWidth(value)
+		{
+			if (value)
+				this.detailsShown = true;
+		}
+	},
 
-            mobileWidth: false,
-        }
-    },
+	methods: {
+		showDetails() {
+			this.detailsShown =  true;
+		},
 
-    watch: {
-        mobileWidth(value)
-        {
-            if (value)
-                this.detailsShown = true;
-        }
-    },
+		hideDetails() {
+			if (!!!this.mobileWidth)
+				this.detailsShown =  false;
+		},
 
-  	methods: {
+		updateWidth() {
+			this.windowWidth = window.innerWidth;
+		},
 
-        showDetails() {
-            this.detailsShown =  true;
-        },
+		onResize() {
+			const WINDOW_MOBILE_BOUDARY = 1200;
 
-        hideDetails() {
-            if (!!!this.mobileWidth)
-                this.detailsShown =  false;
-        },
+			let windowWidth = window.innerWidth;
 
-        updateWidth() {
-            this.windowWidth = window.innerWidth;
-        },
+			if (windowWidth <= WINDOW_MOBILE_BOUDARY)
+					this.mobileWidth = true;
+			else
+					this.mobileWidth = false;
+		},
 
-        onResize() {
-            const WINDOW_MOBILE_BOUDARY = 1200;
+	/* updateInfo(newData) {
+		let info = this.$refs.videoInfo;
 
-            let windowWidth = window.innerWidth;
+		Object.assign(info.$data, newData)
+	} */
+	},
+	
+	beforeMount() {
+		this.onResize = throttle(300, this.onResize);
+		this.onResize();
 
-            if (windowWidth <= WINDOW_MOBILE_BOUDARY)
-                this.mobileWidth = true;
-            else
-                this.mobileWidth = false;
-        },
+		window.addEventListener('resize', this.onResize);
+	},
 
-		/* updateInfo(newData) {
-			let info = this.$refs.videoInfo;
-
-			Object.assign(info.$data, newData)
-		} */
-    },
-    
-    beforeMount() {
-        this.onResize = throttle(300, this.onResize);
-        this.onResize();
-
-        window.addEventListener('resize', this.onResize);
-    },
-
-    beforeDestroy() {
-        window.removeEventListener('resize', this.onResize);
-    }
+	beforeDestroy() {
+		window.removeEventListener('resize', this.onResize);
+	}
 }
 </script>
 
 <style scoped>
 
 .fade-leave-to {
-    opacity: 0;
+	opacity: 0;
 }
 </style>

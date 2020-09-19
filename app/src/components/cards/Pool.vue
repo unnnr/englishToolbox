@@ -9,6 +9,7 @@
 			postType="video"
 			v-if="canCreateContent"
 			:key='-1'/>
+			
 		<card
 			v-for="card of reversed"
 
@@ -87,9 +88,8 @@ export default {
 
 	mounted()
 	{
+		// Creating liteners 
 		this.listen({
-			// Creating liteners 
-
 			'new-card-touched': event => {
 				if (this.selectedCard)
 					this.$set(this.selectedCard, 'selected', false);
@@ -103,10 +103,11 @@ export default {
 				let newCard = Cards.get(event.post.id);
 
 				this.cards.push(newCard);
-			},
+			}
+		});
 
-			// Selecting listeners
-
+		// Selecting listeners
+		this.listen({
 			'card-selecting': event => {
 				if (event.card === this.selectedCard)
 					return;
@@ -125,9 +126,10 @@ export default {
 				this.selectedCard = card;
 				this.$set(this.selectedCard, 'selected', true);
 			},
+		});
 
-			// Editing listeners
-
+		// Editing listeners
+		this.listen({
 			'card-editing': event => {
 				let post = Posts.get(Number(event.card.$vnode.key));
 
@@ -141,9 +143,10 @@ export default {
 
 				Object.assign(card, newCard);
 			},
+		});
 
-			// Deleting listeners
-
+		// Deleting listeners
+		this.listen({
 			'card-deleting': event => {
 				let post = Posts.get(Number(event.card.$vnode.key));
 
