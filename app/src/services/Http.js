@@ -1,99 +1,138 @@
-const Http = new function()
-{   
-    this.make = async function (method, path, data, additional = {})
+const Http = new function() 
+{
+    function prepareHeaders(headers = null) 
     {
-        //let token = document.querySelector('meta[name="csrf-token"]').content;
-        // data.set('_token', token);
-        let token = null;
+        if (!!!headers || typeof headers !== 'object')
+            headers = {};
         
-        let options = {
-            method: method, 
-            body: data,
-            headers: {
-                'X-CSRF-TOKEN': token,
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept':'application/json',
-            }
-        };
-
-        for (let header of Http.defaultHeaders)
-        {
-            let key = Object.keys(header)[0];
-            let value = header[key];
-            
-            options.headers[key] = value;
-        }
-
-        if (Array.isArray(additional.headers))
-            options.headers.push(...additional.headers);
-
-        if (additional.json)
-            options.headers['Content-Type'] = 'application/json';
-
-        let response = await fetch(window.location.origin + path ? '/' + path : '' , options);
-
-        if (!!!response.ok)
-        {
-            let body;
-
-            if (response.headers.get('Content-Type') === 'application/json')
-                body =  await response.json(); 
-            else 
-                body =  await response.text(); 
-
-            throw {
-                name: 'Failed request',
-                message: response.statusText,
-                status: response.status,
-                body: body,
-            };
-        }
-        
-        let contentType  = response.headers.get("Content-Type") 
-        if (contentType === 'application/json')
-        {   
-            response = await response.json();
-
-            return response.data;
-        }
-
-        return response.text();
+        Object.assign(headers, {
+            // 'X-CSRF-TOKEN': token,
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept':'application/json',
+        })
     }
 
-    this.get = function ()
+    function prepareRequest(options) 
     {
-        return self.make('GET', ...arguments)
+        let { uri, data, headers, method } = options;
+
+        let body = data;
+
+        let url = Http.origin + uri;
+
+        console.log(Http.origin + uri);
+        
+        prepareHeaders(headers);
+
+        return [ url , { method, headers, body }];
+    }
+
+    function sendRequest(request) {
+        return fetch(...request);
+    }
+
+
+    function parseData(response)
+    {
+        let contentType = response.headers.get('Content-Type');
+
+        if (contentType === 'application/json')
+            return response.json(); 
+        
+        return response.text();
+    } 
+
+    function parseResponse(response)
+    {
+        let data = parseData(response);
+
+        if (response.ok)
+            return data;
+        
+        throw {
+            name: 'Failed reuqest',
+
+            status: response.status,
+
+            message: response.statusText,
+
+            body: data
+        }
+    }
+
+    async function make(options) 
+    {
+        let request = prepareRequest(options);
+        
+        let response = await sendRequest(request);
+
+        let data = parseResponse(response);
+
+        return data;
+    }
+
+    function validateOptions(options)
+    {
+        if (options !== null && typeof options === 'object')
+            return;
+
+        throw {
+            name: 'Incorrect argumets',
+            message: 'options must be of the Object type'
+        };
+    }
+
+    function createCustomMethod(method) 
+    {
+        return function (options)
+        {
+            validateOptions(options);
+
+            options.method = 'POST';
+
+            let data = options.data;
+
+            if (!!!(data instanceof FormData))
+                options.data =  new FormData();
+                
+            options.data.append('_method', method);
+
+            return make(options);
+        }
+    }
+
+    this.get = function(options) 
+    {
+        validateOptions(options);
+
+
+        options.method = 'GET';
+
+        return make(options);
     }
     
-    this.post = function ()
+    this.post = function(options) 
     {
-        return self.make('POST', ...arguments)
+        validateOptions(options);
+
+
+        options.method = 'POST';
+
+        return make(options);
     }
 
-    this.put = function (path, data)
-    {
-        data.append('_method', 'PUT');
+    this.put = createCustomMethod('PUT');
 
-        return self.make('POST', path, data);
-    }
+    this.patch = createCustomMethod('PATCH');
 
-    this.patch = function (path, data)
-    {
-        data.append('_method', 'PUT');
+    this.delete = createCustomMethod('DELETE');
 
-        return self.make('POST', path, data)
-    }
 
-    this.delete = function (path, data = new FormData)
-    {
-        data.append('_method', 'DELETE');
-
-        return self.make('POST', path, data)
-    };
-
-    this.defaultHeaders = [];
-
-    let self = this;
+    this.origin = window.location.origin + '/api/';
 }();
+
+Http.origin = 'http://etoolbox/api/';
+
+window.Http = Http;
 
 export default Http;
