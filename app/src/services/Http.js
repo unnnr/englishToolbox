@@ -105,7 +105,6 @@ const Http = new function()
     {
         validateOptions(options);
 
-
         options.method = 'GET';
 
         return make(options);

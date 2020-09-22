@@ -81,10 +81,11 @@ export default {
 }
 
 .selected__overlay-loading {
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
-    background-color: white;
+  height: 100%;
+  width: 100%;
+	margin: 0 7.5px;
+  border-radius: 15px;
+  background-color: white;
 }
 
 </style>

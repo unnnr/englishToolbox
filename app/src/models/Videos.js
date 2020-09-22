@@ -2,6 +2,7 @@ import Http from '@services/Http';
 import getYouTubeID from 'get-youtube-id';
 import FormatedDate from '@services/FormatedDate'
 
+import Model from '@models/Model'; 
 
 const Videos = new function ()
 {
@@ -178,3 +179,15 @@ const Videos = new function ()
 }();
 
 export default Videos;
+
+class Videoss extends Model 
+{
+    convert_created_at(value) 
+    {
+        return FormatedDate(value);
+    }
+
+    path = 'videos';
+}
+
+window.Videos = Videoss;
