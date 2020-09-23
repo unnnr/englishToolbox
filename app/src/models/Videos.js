@@ -180,7 +180,7 @@ const Videos = new function ()
 
 export default Videos;
 
-class Videoss extends Model 
+class VideosModel extends Model 
 {
     convert_created_at(value) 
     {
@@ -190,4 +190,4 @@ class Videoss extends Model
     path = 'videos';
 }
 
-window.Videos = Videoss;
+window.Videos = new VideosModel();

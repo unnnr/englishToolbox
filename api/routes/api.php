@@ -22,7 +22,7 @@ use App\Models\Video;
 
 Route::group(['namespace' => 'Api'], function() {
 
-    Route::apiResource('video', 'VideoController');
+    Route::apiResource('videos', 'VideoController');
 
     Route::apiResource('audio', 'AudioController');
 

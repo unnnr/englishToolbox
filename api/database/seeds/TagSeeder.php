@@ -47,18 +47,5 @@ class TagSeeder extends Seeder
             'label' => 'lightblue',
             'color' => 'lightblue' 
         ]);
-
-
-        Tag::create([
-            'label' => 'video',
-            'color' => 'lightgreen', 
-            'default' => true
-        ]);
-
-        Tag::create([
-            'label' => 'audio',
-            'color' => 'paleturquoise', 
-            'default' => true
-        ]);
     }
 }

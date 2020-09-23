@@ -1,33 +1,38 @@
 const Http = new function() 
 {
-    function prepareHeaders(headers = null) 
+
+    function prepareOptions(options) 
     {
-        if (!!!headers || typeof headers !== 'object')
-            headers = {};
+        if (!!!options || typeof options !== 'object')
+            options = {};
+
+        if (!!!options.headers || typeof options.headers !== 'object')
+            options.headers = {};
         
-        Object.assign(headers, {
+        Object.assign(options.headers, {
             // 'X-CSRF-TOKEN': token,
             'X-Requested-With': 'XMLHttpRequest',
             'Accept':'application/json',
+            'Sec-Fetch-Site': 'cross-site'
         })
+
+
+        options.body = options.data;
+
+        return options;
     }
 
     function prepareRequest(options) 
     {
-        let { uri, data, headers, method } = options;
-
-        let body = data;
+        let { uri, body, headers, method } = prepareOptions(options);
 
         let url = Http.origin + uri;
 
-        console.log(Http.origin + uri);
-        
-        prepareHeaders(headers);
-
-        return [ url , { method, headers, body }];
+        return [ url , { method, body, headers }];
     }
 
     function sendRequest(request) {
+        console.log(...request);
         return fetch(...request);
     }
 
@@ -42,9 +47,9 @@ const Http = new function()
         return response.text();
     } 
 
-    function parseResponse(response)
+    async function parseResponse(response)
     {
-        let data = parseData(response);
+        let data = await parseData(response);
 
         if (response.ok)
             return data;
@@ -66,7 +71,7 @@ const Http = new function()
         
         let response = await sendRequest(request);
 
-        let data = parseResponse(response);
+        let data = await parseResponse(response);
 
         return data;
     }
@@ -93,7 +98,7 @@ const Http = new function()
             let data = options.data;
 
             if (!!!(data instanceof FormData))
-                options.data =  new FormData();
+                options.data = new FormData();
                 
             options.data.append('_method', method);
 
@@ -113,7 +118,6 @@ const Http = new function()
     this.post = function(options) 
     {
         validateOptions(options);
-
 
         options.method = 'POST';
 
