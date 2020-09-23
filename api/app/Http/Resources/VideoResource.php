@@ -20,7 +20,7 @@ class VideoResource extends JsonResource
 
             'title' => $this->title,
 
-            'videoID' => $this->videoID,
+            'youtubeId' => $this->youtube_id,
 
             'description' => $this->description,
 

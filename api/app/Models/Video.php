@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\HasTags;
 use App\Models\Traits\HasComments;
 use App\Models\Traits\HasUpdates;
+use App\Models\Traits\HasThumbnail;
+
 
 class Video extends Model
 {
-    use HasTags, HasComments;
+    use HasTags, HasComments, HasThumbnail;
 
     protected $fillable = [
-        'videoID', 'title', 'description'
+        'youtube_id', 'title', 'description'
     ];
 
     protected $defaultTag = 'video';

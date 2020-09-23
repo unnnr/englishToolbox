@@ -35,17 +35,22 @@ abstract class PostService
 
     public function create(Request $request) 
     {
-        $data = null;
+        $post = null;
 
-        if (method_exists(get_called_class(), 'beforeCreate'))
-            $data = $this->beforeCreate($request);
+        // Check for custom model creation logic 
+        if (method_exists(get_called_class(), 'creating'))
+            $post = $this->creating($request);
         
-        if (!!!$data)
-            $data = $request->validated();
+        if (!!!$post)
+            $post = $this->model::create($request->validated());
 
-        $post = $this->model::create($data);
-
+        // Attaching tags and main tag
         $this->updateTags($post, $request);
+
+        // Attaching thumbnail
+        $post->thumbnail()->create([
+            'url' => $this->getThumbnailUrl($post)
+        ]);
 
         event(new PostCreated($post));
 
@@ -58,8 +63,8 @@ abstract class PostService
 
         $post =  $this->model::findOrFail($id);
 
-        if (method_exists(get_called_class(), 'beforeUpdate'))
-            $data = $this->beforeUpdate($request, $post);
+        if (method_exists(get_called_class(), 'updating'))
+            $data = $this->updating($request, $post);
 
         if (!!!$data)
             $data = $request->validated();
@@ -78,8 +83,8 @@ abstract class PostService
     {
         $post = $this->model::findOrFail($id);
 
-        if (method_exists(get_called_class(), 'beforeDelete'))
-            $data = $this->beforeEdit($request,  $post);
+        if (method_exists(get_called_class(), 'deleting'))
+            $data = $this->deleting($request,  $post);
   
         $post->tags()->detach();
         
@@ -92,8 +97,8 @@ abstract class PostService
 
     public function get($id)
     {
-        if (method_exists(get_called_class(), 'beforeGet'))
-            $this->beforeGet($request);
+        if (method_exists(get_called_class(), 'getting'))
+            $this->getting($request);
 
         $post = $this->model::findOrFail($id);
 
@@ -102,9 +107,6 @@ abstract class PostService
 
     public function all()
     {
-        if (method_exists(get_called_class(), 'beforeAll'))
-            $this->beforeEdit($request);
-
         return $this->createCollectionResponce($this->model::all());
     }
 }
