@@ -16,6 +16,7 @@ class VideoResource extends JsonResource
     public function toArray($request)
     {
         return [
+            // Main data
             'id' => $this->id,
 
             'title' => $this->title,
@@ -26,11 +27,13 @@ class VideoResource extends JsonResource
 
             'createdAt' => $this->created_at,
 
+            // Tags
             'mainTag' => new TagResource($this->mainTag()),
 
             'tags' => TagResource::collection($this->tags),
 
-            'createdAt' => $this->created_at
+            // Additional
+            'thumbnail' => $this->thumbnail->url
         ];
     }
 }
