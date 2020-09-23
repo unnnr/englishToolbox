@@ -34,7 +34,6 @@
 import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards/NewCard.vue';
 import Card from '@components/cards/Card.vue';
-import Posts from '@models/Posts';
 import Tags from '@models/Tags';
 import Auth from '@services/Auth'
 import bus from '@services/eventbus';
@@ -72,7 +71,7 @@ export default {
 
 	beforeMount()
 	{
-		this.model.all().then( (posts) => {
+		this.model.all().then( async posts => {
 					// Appending cards with simple animation
 					this.appendCards(posts);
 
@@ -82,7 +81,7 @@ export default {
 							return;
 					
 					let id = Number(firstCard.id);
-					let post = Posts.get(id);
+					let post = await this.model.get(id);
 
 					bus.dispatch('post-selecting', { post, preventScrolling: true });
 			}
@@ -108,19 +107,18 @@ export default {
 			},
 			
 			'post-created': event => {
-				let newCard = Cards.get(event.post.id);
-
-				this.cards.push(newCard);
+				this.cards.push(event.post);
 			}
 		});
 
 		// Selecting listeners
 		this.listen({
-			'card-selecting': event => {
+			'card-selecting': async event => {
 				if (event.card === this.selectedCard)
 					return;
 
-				let post = Posts.get(Number(event.card.$vnode.key));
+				let id = Number(event.card.$vnode.key);
+				let post = await this.model.get(id);
 		
 				bus.dispatch('post-selecting', { post });
 			},
@@ -139,12 +137,16 @@ export default {
 		// Editing listeners
 		this.listen({
 			'card-editing': event => {
+				return 'Not working';
+
 				let post = Posts.get(Number(event.card.$vnode.key));
 
 				bus.dispatch('post-editing', { post });
 			},
 
 			'post-edited': event => {
+				return 'Not working';
+
 				let post = event.post;
 				let newCard = Cards.get(post.id);
 				let card = this.getCardById(post.id);
@@ -156,12 +158,16 @@ export default {
 		// Deleting listeners
 		this.listen({
 			'card-deleting': event => {
+				return 'Not working';
+
 				let post = Posts.get(Number(event.card.$vnode.key));
 
 				bus.dispatch('post-deleting', { post });
 			},
 
 			'post-deleting': async event => {
+				return 'Not working';
+
 				let post = event.post;
 
 				bus.dispatch('alert-confirm', {
@@ -176,6 +182,9 @@ export default {
 			},
 
 			'post-deleted': event => {
+
+				return 'Not working';
+
 				let card = Cards.get(event.post.id);
 
 				if (this.selectedCard == card)
@@ -187,42 +196,42 @@ export default {
 		});
 	},
 
-    methods: {
-			getCardById(id) {
-					for (const card of this.cards)
-					{
-						if (card.id == id)
-							return card;
-					}
-			},
-
-			appendCards(cards)  {
-				function appendRecursively(newCards) {
-					let card = newCards.pop();
-					
-					if (!!!card)
-					{
-						// Set the default move class when the animation has finished playing 
-						setTimeout(() => self.moveClass = 'list-move', DURATION);
-						return;
-					}
-
-					poolCards.unshift(card);
-
-					// Set the delay between animations
-					setTimeout(() => appendRecursively(cards), DELAY);
+	methods: {
+		getCardById(id) {
+				for (const card of this.cards)
+				{
+					if (card.id == id)
+						return card;
 				}
+		},
+
+		appendCards(cards)  {
+			function appendRecursively(newCards) {
+				let card = newCards.pop();
 				
-				const DELAY = 130;
-				const DURATION = 500;
+				if (!!!card)
+				{
+					// Set the default move class when the animation has finished playing 
+					setTimeout(() => self.moveClass = 'list-move', DURATION);
+					return;
+				}
 
-				const poolCards = this.cards;
-				const self = this;
+				poolCards.unshift(card);
 
-				this.moveClass = 'static';
-
-				appendRecursively(cards);
+				// Set the delay between animations
+				setTimeout(() => appendRecursively(cards), DELAY);
 			}
+			
+			const DELAY = 130;
+			const DURATION = 500;
+
+			const poolCards = this.cards;
+			const self = this;
+
+			this.moveClass = 'static';
+
+			appendRecursively(cards);
+		}
 	}
 }
 </script>
