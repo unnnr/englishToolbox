@@ -1,8 +1,6 @@
-
-import Posts from '@models/Posts'
-
-const Cards = new function()
+/* const Cards = new function()
 {
+    
     this.get = (id) =>
     {
         let post = Posts.get(id);
@@ -29,6 +27,17 @@ const Cards = new function()
 
         return cards;
     }
-}();
+}(); 
 
-export default Cards;
+
+class Cards 
+{
+    collection(posts) 
+    {
+        return [
+            posts
+        ]
+    }
+}
+
+export default Cards;*/

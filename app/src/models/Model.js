@@ -81,6 +81,7 @@ class Model
     {
         let uri = this.path;
 
+        console.log('here');
         let response = await Http.get({
             uri
         });

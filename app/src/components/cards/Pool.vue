@@ -35,7 +35,6 @@ import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards/NewCard.vue';
 import Card from '@components/cards/Card.vue';
 import Posts from '@models/Posts';
-import Cards from '@models/Cards';
 import Tags from '@models/Tags';
 import Auth from '@services/Auth'
 import bus from '@services/eventbus';
@@ -48,6 +47,12 @@ export default {
 	},
 
 	mixins: [ HandleEvents ],
+
+	props: {
+		model: {
+			type: Object,
+		}
+	},
 
 	data: function () {
 		return {
@@ -67,10 +72,11 @@ export default {
 
 	beforeMount()
 	{
-	/*     Posts.onload(() => {
+		this.model.all().then( (posts) => {
+					// Appending cards with simple animation
+					this.appendCards(posts);
 
-					this.appendCards(Cards.all());
-
+					// Selecting first card
 					let firstCard = this.cards[0];
 					if (!!!firstCard)
 							return;
@@ -79,8 +85,10 @@ export default {
 					let post = Posts.get(id);
 
 					bus.dispatch('post-selecting', { post, preventScrolling: true });
-			}, 1000);
+			}
+		);
 
+	/*
 			Auth.onload(() => {
 					this.canCreateContent = Auth.isAdmin();
 			}); */

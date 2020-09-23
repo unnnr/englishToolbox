@@ -3,7 +3,7 @@ import getYouTubeID from 'get-youtube-id';
 import FormatedDate from '@services/FormatedDate'
 
 import Model from '@models/Model'; 
-
+/* 
 const Videos = new function ()
 {
     async function init()
@@ -177,8 +177,7 @@ const Videos = new function ()
 
     init();
 }();
-
-export default Videos;
+ */
 
 class VideosModel extends Model 
 {
@@ -190,4 +189,4 @@ class VideosModel extends Model
     path = 'videos';
 }
 
-window.Videos = new VideosModel();
+export default new VideosModel();

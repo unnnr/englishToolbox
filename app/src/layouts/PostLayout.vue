@@ -12,7 +12,7 @@
 
     </div>
 
-    <pool/>
+    <pool :model="model"/>
 
   </main>
 </template>
@@ -30,6 +30,13 @@ export default {
     FilterBar,
     Overlay,
     Pool,
-  }
+  },
+
+	props: {
+		model: {
+			type: Object,
+		}
+	},
+
 }
 </script>
