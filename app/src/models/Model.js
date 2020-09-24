@@ -4,11 +4,10 @@ import Http from '@services/Http';
 class Model 
 {
     castPrefix = 'convert_';
-
     
     createInstance(data) 
     {
-        let instance = [];
+        let instance = {};
 
         for (const [key, value] of Object.entries(data))
         {

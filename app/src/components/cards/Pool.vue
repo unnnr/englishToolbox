@@ -11,7 +11,7 @@
 			:key='-1'/>
 			
 		<card
-			v-for="card of reversed"
+			v-for="card of reversePosts"
 
 			:key="card.id"
 			:title="card.title"
@@ -59,12 +59,14 @@ export default {
 
 			moveClass: 'static',
 
+			selectedPost: null,
+
 			posts: []
 		};
 	},
 
 	computed: {
-		reversed() {
+		reversePosts() {
 			return [...this.posts].reverse();
 		}
 	},
@@ -95,6 +97,8 @@ export default {
 
 	mounted()
 	{
+		window.posts = this.posts;
+
 		// Creating liteners 
 		this.listen({
 			'new-card-touched': event => {
@@ -113,12 +117,12 @@ export default {
 
 		// Selecting listeners
 		this.listen({
-			'card-selecting': async event => {
+			'card-selecting': event => {
 				if (event.card === this.selectedPost)
 					return;
 
 				let id = Number(event.card.$vnode.key);
-				let post = await this.model.get(id);
+				let post = this.getCardById(id)
 		
 				bus.dispatch('post-selecting', { post });
 			},
@@ -135,17 +139,17 @@ export default {
 		// Editing listeners
 		this.listen({
 			'card-editing': async event => {
-				let post = await this.model.get(Number(event.card.$vnode.key));
+				let id = Number(event.card.$vnode.key);
+				let post = await this.model.get(id);
 
 				bus.dispatch('post-editing', { post });
 			},
 
-			'post-edited': async event => {
-				let post = event.post;
-				let newPost = await this.model.get(post.id);
-				let card = this.getCardById(post.id);
+			'post-edited': event => {
+				//let newPost = await this.model.get(post.id);
+				let post = this.getCardById(event.post.id);
 
-				Object.assign(card, newPost);
+				Object.assign(post, event.post);
 			},
 		});
 
@@ -192,11 +196,11 @@ export default {
 
 	methods: {
 		getCardById(id) {
-				for (const card of this.posts)
-				{
-					if (card.id == id)
-						return card;
-				}
+			for (const card of this.posts)
+			{
+				if (card.id == id)
+					return card;
+			}
 		},
 
 		appendCards(cards)  {
