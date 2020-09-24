@@ -14,14 +14,14 @@
 					<span>
 						YouTube link
 					</span> 
-					<small class="editor__error">{{ urlError }}</small>
+					<small class="editor__error">{{ errors.ulr }}</small>
 				</label>
 				<input class="editor__input input-second"
 						type="text"
 						placeholder="https://..."
 						name="videoUrl"
 						required
-						v-model="url"
+						v-model="data.url"
 						@keyup.enter="updateLink"
 						@blur='updateLink'>
 
@@ -30,14 +30,14 @@
 						Custom description
 						<small class="editor__counter">{{ descriptionCounter }}</small>
 					</span> 
-					<small class="editor__error">{{ descriptionError }}</small>
+					<small class="editor__error">{{ errors.description }}</small>
 				</label>
 
 				<textarea 
 					class="editor__textarea textarea-second"
 					placeholder="place for your description"
 					name="description"
-					v-model="description"
+					v-model="data.description"
 					:maxlength = "descriptionMaxLength">
 				</textarea>
 
@@ -61,6 +61,8 @@ import bus from '@services/eventbus';
 import SubmitButton from '@components/SubmitButton';
 import RequestForm from '@components/RequestForm';
 import TagEditor from '@components/tags/TagEditor';
+import HandleTagsData from '@mixins/HandleTagsData'
+import Videos from '@models/Videos';
 
 
 const MAX_DESCRIPTION_LENGTH = 180;
@@ -73,6 +75,8 @@ export default {
 		TagEditor
 	},
 
+	mixins: [ HandleTagsData ],
+
 	props: {
 		target: {
 			type: Object,
@@ -82,19 +86,22 @@ export default {
 
 	data: function () { 
 		return {
-			url: '',
-			urlError: '',
-			
-			description: '',
-			descriptionError: '',
 
-			editing: false
+			data: {
+				url: '',
+				description: '',
+			},
+
+			errors: {
+				url: '',
+				description: ''
+			}
 		}
 	},
 
 	computed: {
 		descriptionCounter() {
-			return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+			return this.data.description.length + '/' + MAX_DESCRIPTION_LENGTH;
 		},
 
 		descriptionMaxLength() {
@@ -119,10 +126,10 @@ export default {
 	methods: {
 		hadleErrors(errors) {
 			if (errors.videoUrl)
-				this.urlError += errors.videoUrl.join('. ')  
+				this.errors.url = errors.videoUrl.join('. ')  
 
 			if (errors.description)
-				this.descriptionError += errors.description.join('. ');
+				this.errors.descriptions = errors.description.join('. ');
 		},
 
 		isLoading() {
@@ -134,12 +141,16 @@ export default {
 			let form = this.$refs.form;
 
 			form.clear();
-
-			this.url = '';
-			this.urlError = '';
 			
-			this.description = '';
-			this.descriptionError = '';
+			Object.assign(this.data, {
+				description: '',
+				url: ''
+			});
+
+			Object.assign(this.errors, {
+				description: '',
+				url: ''
+			});
 
 			this.$options.postID = null;
 
@@ -148,27 +159,27 @@ export default {
 			tags.clear();
 		},
 
-		validateVideo() {
+		convertUrl() {
 			let videoID = getYouTubeID(this.url);
 			
 			if (!!!videoID)
 			{
-				this.urlError = 'Incorrect youtube link';
+				this.errors.url = 'Incorrect youtube link';
 				return false;
 			}
 	
-			this.urlError = '';
+			this.errors.url = '';
 
 			return videoID;
 		},
 
 		updateLink () {
-			if (this.url.length === 0 || this.$options.previousUrl === this.url)
+			if (this.data.url.length === 0 || this.$options.previousUrl === this.url)
 				return;
 
 			this.$options.previousUrl = this.url;
 			
-			let videoID = this.validateVideo();
+			let videoID = this.convertUrl();
 			
 			if (videoID)
 				bus.dispatch('editor-link-changed', { 
@@ -178,13 +189,13 @@ export default {
 		},
 
     getFormData(nullable = false){
-      let data = ref('form').getData();
+      let data = this.$refs.form.getData();
 
-      let tags = ref('tags').selected;
-      appendTagsData(data, tags, nullable);
+      let tags = this.$refs.tags.selected;
+      this.appendTagsData(data, tags, nullable);
 
-      let mainTag = ref('tags').main;
-      appendMainTagData(data, mainTag, nullable);
+      let mainTag = this.$refs.tags.main;
+      this.appendMainTagData(data, mainTag, nullable);
             
       return data;
 		},
@@ -194,10 +205,12 @@ export default {
 
 			if (this.target)
 			{
-				this.url = 'https://youtube.com/watch?v=' + this.target.videoID;
-      	this.description = this.target.description || '';
+				Object.assign(this.data, {
+					url: 'https://youtube.com/watch?v=' + this.target.youtubeId,
+					description: this.target.description || ''
+				});
 
-      	let tags = this.$refs.tags;
+				let tags = this.$refs.tags;
       	tags.selected = this.target.tags;
 
       	if (!!!this.target.mainTag.default)
@@ -206,8 +219,8 @@ export default {
 		},
 
 		async createVideo() {
-			let data = getFormData();
-			let post = await Video.create(data);
+			let data = this.getFormData();
+			let post = await Videos.create(data);
 				
 			bus.dispatch('post-created', { post });
 			bus.dispatch('post-selecting', { post  });
@@ -216,15 +229,15 @@ export default {
 		async editVideo() {
 			const NULLABLE = true;
 
-			let data = getFormData(NULLABLE);
-			let post = await Video.edit(data);
+			let data = this.getFormData(NULLABLE);
+			let post = await Videos.edit(this.target.id, data);
 			
 			bus.dispatch('post-edited', { post });
-			bus.dispatch('post-selecting', { post  });
+			bus.dispatch('post-selecting', { post });
 		},
 
 		submit() {
-			if (this.editing)
+			if (this.target)
 				return this.editVideo();
 
 			return this.createVideo();
@@ -232,5 +245,3 @@ export default {
 	}
 }
 </script>
-
-

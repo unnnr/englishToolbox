@@ -59,7 +59,7 @@ class Model
     {
         let uri = this.path + '/' + id;
 
-        let response = await Http.get({
+        let response = await Http.patch({
             uri, data
         });
 
