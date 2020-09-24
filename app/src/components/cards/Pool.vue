@@ -59,13 +59,13 @@ export default {
 
 			moveClass: 'static',
 
-			cards: []
+			posts: []
 		};
 	},
 
 	computed: {
 		reversed() {
-			return [...this.cards].reverse();
+			return [...this.posts].reverse();
 		}
 	},
 
@@ -76,11 +76,11 @@ export default {
 					this.appendCards(posts);
 
 					// Selecting first card
-					let firstCard = this.cards[0];
-					if (!!!firstCard)
+					let firstPost = this.posts[0];
+					if (!!!firstPost)
 							return;
 					
-					let id = Number(firstCard.id);
+					let id = Number(firstPost.id);
 					let post = await this.model.get(id);
 
 					bus.dispatch('post-selecting', { post, preventScrolling: true });
@@ -98,23 +98,23 @@ export default {
 		// Creating liteners 
 		this.listen({
 			'new-card-touched': event => {
-				if (this.selectedCard)
-					this.$set(this.selectedCard, 'selected', false);
+				if (this.selectedPost)
+					this.$set(this.selectedPost, 'selected', false);
 
-				this.selectedCard = null;
+				this.selectedPost = null;
 
 				bus.dispatch('post-creating');
 			},
 			
 			'post-created': event => {
-				this.cards.push(event.post);
+				this.posts.push(event.post);
 			}
 		});
 
 		// Selecting listeners
 		this.listen({
 			'card-selecting': async event => {
-				if (event.card === this.selectedCard)
+				if (event.card === this.selectedPost)
 					return;
 
 				let id = Number(event.card.$vnode.key);
@@ -124,13 +124,11 @@ export default {
 			},
 
 			'post-selecting': event => {
-				let card = this.getCardById(event.post.id);
+				if (this.selectedPost)
+					this.$set(this.selectedPost, 'selected', false);
 
-				if (this.selectedCard)
-					this.$set(this.selectedCard, 'selected', false);
-
-				this.selectedCard = card;
-				this.$set(this.selectedCard, 'selected', true);
+				this.selectedPost = event.post;
+				this.$set(this.selectedPost, 'selected', true);
 			},
 		});
 
@@ -187,18 +185,18 @@ export default {
 
 				let card = Cards.get(event.post.id);
 
-				if (this.selectedCard == card)
-					bus.dispatch('post-selecting', { card: this.cards[0] });
+				if (this.selectedPost == card)
+					bus.dispatch('post-selecting', { card: this.posts[0] });
 
-				let index = this.cards.indexOf(card);
-				this.cards.splice(index, 1);
+				let index = this.posts.indexOf(card);
+				this.posts.splice(index, 1);
 			}
 		});
 	},
 
 	methods: {
 		getCardById(id) {
-				for (const card of this.cards)
+				for (const card of this.posts)
 				{
 					if (card.id == id)
 						return card;
@@ -225,7 +223,7 @@ export default {
 			const DELAY = 130;
 			const DURATION = 500;
 
-			const poolCards = this.cards;
+			const poolCards = this.posts;
 			const self = this;
 
 			this.moveClass = 'static';

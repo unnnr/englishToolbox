@@ -123,11 +123,11 @@ export default {
 	},
 
 	mounted() {
-		bus.listen('post-selecting', this.onSelect);	
+		// bus.listen('post-selecting', this.onSelect);	
 	},	
 
 	beforeDestroy() {
-		bus.detach('post-selecting', this.onSelect);	
+		 // bus.detach('post-selecting', this.onSelect);	
 	},
 	
 	methods: {

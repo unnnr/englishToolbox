@@ -5,11 +5,15 @@
 
 		<div class="addition__body">
 			<div class="addition__wrapper" ref="wrapper">
-				<slot/>
+
+				<slot 
+					v-if="editing"
+					target="target"/>
 
 				<post-presentor 
 					ref="presentor"
-					v-show="presentorShown"/>
+					v-else
+					:target="target"/>
 			</div>
 		</div>
 	</div>
@@ -26,62 +30,48 @@ export default {
 		PostPresentor,
 	},
 
-	mixins: [ HandleEvents ],
+	mixins: [ HandleEvents, HandleEvents],
 
 	data: function() {
 		return {
-			presentorShown: true
+			editing: false,
+			target: null
 		}
 	},
 
 	mounted() {
-
 		this.listen({
-			'post-editing': this.onPostEditing,
+			'post-editing': (event) => {
+				this.target = event.post;
 
-			'post-edited': this.onPostEdited,
+				this.editing = true;
 
-			'post-creating': this.onPostCreating,
+				if (!!!event.preventScrolling)
+					this.scrollOnEditing();
+			},
 
-			'post-selecting': this.onPostSelecting
+			'post-edited': (event) => {
+				this.target = null;
+			},
+
+			'post-creating': (event) => {
+				this.editing = true;
+
+				if (!!!event.preventScrolling)
+					this.scrollOnEditing();	
+			},
+
+			'post-selecting': (event) => {
+				this.editing = false;
+				this.target = event.post;
+
+				bus.dispatch('post-selected', event);
+			}
 		});
 	},
 
 	methods: {
-		// Global  event lintenrs
-
-		onPostEdited() {
-			this.$emit('target:changed', null);
-		},
-
-		onPostEditing(event) {
-			this.$emit('target:changed', event.post);
-			this.$emit('editor:showing');
-
-			this.presentorShown = false;
-
-			if (!!!event.preventScrolling)
-				this.scrollOnEditing();
-		},  
-
-		onPostSelecting(event) {
-			this.$emit('editor:hidding');
-
-			this.presentorShown = true;
-		},
-
-		onPostCreating() {
-			this.$emit('editor:showing');
-
-			this.presentorShown = false;
-
-			if (!!!event.preventScrolling)
-				this.scrollOnEditing();	
-		},
-
-		// Defaul methods
 		scrollToDetails() {
-
 			function getElementDistanceToTop(element) {
 				if (!!!element)
 					return 0;

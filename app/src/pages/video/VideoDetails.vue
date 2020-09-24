@@ -1,17 +1,17 @@
 <template>
-  <post-details
-		:target="target"
-		@editor:showing="showEditor"
-		@editor:hidding="hideEditor"
-		@target:changed="setTarget">
+  <post-details>
 
-		<transition name="fade">
- 			<video-editor 
-			 	ref="editor"
-				v-show="editing" 
-				:target="target">
- 			</video-editor>
-		</transition>
+		<template v-slot:default="data"> 
+			<transition name="fade">
+				
+				<video-editor 
+					:target="data.target" 
+		 			ref="editor">
+ 				</video-editor>
+
+			</transition>
+		</template>
+			
   </post-details>
 </template>
 
@@ -23,29 +23,7 @@ import PostDetails from '@components/posts/PostDetails'
 export default {
 	components: {
 		PostDetails,
-    	VideoEditor
-	},
-
-	data: function () {
-		return {
-			editing: false,
-			target: null
-		}
-	},
-
-	methods: {
-		setTarget(value) {
-			this.target = value;
-		},
-
-		showEditor() {
-			console.log(12);
-			this.editing = true;
-		},
-
-		hideEditor() {
-			this.editing = false;
-		}
+    VideoEditor
 	}
 };
 </script>

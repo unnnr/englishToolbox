@@ -58,8 +58,6 @@
 
 import getYouTubeID from 'get-youtube-id';
 import bus from '@services/eventbus';
-import Posts from '@models/Posts';
-import Tags from '@models/Tags';
 import SubmitButton from '@components/SubmitButton';
 import RequestForm from '@components/RequestForm';
 import TagEditor from '@components/tags/TagEditor';
@@ -119,6 +117,7 @@ export default {
 	},
 
 	mounted() {
+		console.log(this.target);
 		if (this.target)
 			this.state = new EditingState(this, this.target);
 		else 
