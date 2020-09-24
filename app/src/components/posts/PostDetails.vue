@@ -7,13 +7,13 @@
 			<div class="addition__wrapper" ref="wrapper">
 
 				<slot 
-					v-if="editing"
-					target="target"/>
+					v-if="editor.shown"
+					:target="editor.target"/>
 
 				<post-presentor 
 					ref="presentor"
 					v-else
-					:target="target"/>
+					:target="info.target"/>
 			</div>
 		</div>
 	</div>
@@ -34,36 +34,54 @@ export default {
 
 	data: function() {
 		return {
-			editing: false,
-			target: null
+			info: {
+				target: null
+			},
+
+			editor: {
+				target: null, 
+				shown: false
+			}
 		}
 	},
 
 	mounted() {
 		this.listen({
 			'post-editing': (event) => {
-				this.target = event.post;
-
-				this.editing = true;
+				console.log(event.post);
+				Object.assign(this.editor, {
+					target: event.post,
+					shown: true
+				});
 
 				if (!!!event.preventScrolling)
 					this.scrollOnEditing();
 			},
 
 			'post-edited': (event) => {
-				this.target = null;
+				Object.assign(this.editor, {
+					target: null,
+				});
 			},
 
 			'post-creating': (event) => {
-				this.editing = true;
+				Object.assign(this.editor, {
+					target: null,
+					shown: true
+				});
 
 				if (!!!event.preventScrolling)
 					this.scrollOnEditing();	
 			},
 
 			'post-selecting': (event) => {
-				this.editing = false;
-				this.target = event.post;
+				Object.assign(this.editor, {
+					shown: false
+				});
+
+				Object.assign(this.info, {
+					target: event.post
+				});
 
 				bus.dispatch('post-selected', event);
 			}

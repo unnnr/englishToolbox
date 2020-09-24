@@ -5,6 +5,7 @@
 			<transition name="fade">
 				
 				<video-editor 
+					:editing="data.editing"
 					:target="data.target" 
 		 			ref="editor">
  				</video-editor>

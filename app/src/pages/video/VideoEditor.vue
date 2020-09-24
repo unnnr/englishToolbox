@@ -61,8 +61,7 @@ import bus from '@services/eventbus';
 import SubmitButton from '@components/SubmitButton';
 import RequestForm from '@components/RequestForm';
 import TagEditor from '@components/tags/TagEditor';
-import EditingState from '@states/video/editing';
-import CreationState from '@states/video/creation';
+
 
 const MAX_DESCRIPTION_LENGTH = 180;
 const MAX_URL_LENGTH = 180;
@@ -89,7 +88,7 @@ export default {
 			description: '',
 			descriptionError: '',
 
-			state: null,
+			editing: false
 		}
 	},
 
@@ -103,32 +102,19 @@ export default {
 		},
 
 		formTitle() {
-			return this.state ? this.state.getTitle() : ''; 
+			return this.editing ? 'Edit video' : 'New video'
 		},
 	},
 
 	watch: {
 		target(value) {
-			if (value)
-				this.state = new EditingState(this, value);
-			else 
-				this.state = new CreationState(this);
+			this.initState();
 		}
 	},
 
 	mounted() {
-		console.log(this.target);
-		if (this.target)
-			this.state = new EditingState(this, this.target);
-		else 
-			this.state = new CreationState(this);
+		this.initState();
 	},
-
-	beforeDestroy() {
-		this.clear();
-
-		this.stateCreate();
-  },
 
 	methods: {
 		hadleErrors(errors) {
@@ -191,31 +177,57 @@ export default {
 				});
 		},
 
-		stateCreate() {
-			this.state = new CreationState(this);
-		},
+    getFormData(nullable = false){
+      let data = ref('form').getData();
 
-		stateEdit(event) {
-			this.state = new EditingState(this, event.post);
+      let tags = ref('tags').selected;
+      appendTagsData(data, tags, nullable);
+
+      let mainTag = ref('tags').main;
+      appendMainTagData(data, mainTag, nullable);
+            
+      return data;
 		},
 		
-		onVideoCreated(post) {
+		initState() {
+			this.clear();
+
+			if (this.target)
+			{
+				this.url = 'https://youtube.com/watch?v=' + this.target.videoID;
+      	this.description = this.target.description || '';
+
+      	let tags = this.$refs.tags;
+      	tags.selected = this.target.tags;
+
+      	if (!!!this.target.mainTag.default)
+      	    tags.main = tags.getTagById(this.target.mainTag.id);
+			}
+		},
+
+		async createVideo() {
+			let data = getFormData();
+			let post = await Video.create(data);
+				
 			bus.dispatch('post-created', { post });
 			bus.dispatch('post-selecting', { post  });
 		},
 
-		onVideoEdited(post) {
+		async editVideo() {
+			const NULLABLE = true;
+
+			let data = getFormData(NULLABLE);
+			let post = await Video.edit(data);
+			
 			bus.dispatch('post-edited', { post });
 			bus.dispatch('post-selecting', { post  });
 		},
 
-		forceSubmit () {
-			this.$refs.submitButton.forceSubmit();
-		},
+		submit() {
+			if (this.editing)
+				return this.editVideo();
 
-		async submit () {
-			if (this.state)
-				await this.state.submit();
+			return this.createVideo();
 		}
 	}
 }

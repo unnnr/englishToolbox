@@ -14,15 +14,15 @@ export default function(vueInstance)
         ref('tags').clear();
     }
 
-    function getFormData()
+    function getFormData(nullable = false)
     {
         let data = ref('form').getData();
 
         let tags = ref('tags').selected;
-        appendTagsData(data, tags);
+        appendTagsData(data, tags, nullable);
 
         let mainTag = ref('tags').main;
-        appendMainTagData(data, mainTag);
+        appendMainTagData(data, mainTag, nullable);
             
         return data;
     }

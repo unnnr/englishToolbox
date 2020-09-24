@@ -55,7 +55,7 @@ export default {
 
 	data: function () {
 		return {
-			canCreateContent: false,
+			canCreateContent: true,
 
 			moveClass: 'static',
 
@@ -72,18 +72,18 @@ export default {
 	beforeMount()
 	{
 		this.model.all().then( async posts => {
-					// Appending cards with simple animation
-					this.appendCards(posts);
+				// Appending cards with simple animation
+				this.appendCards(posts);
 
-					// Selecting first card
-					let firstPost = this.posts[0];
-					if (!!!firstPost)
+				// Selecting first card
+				let firstPost = this.posts[0];
+				if (!!!firstPost)
 							return;
 					
-					let id = Number(firstPost.id);
-					let post = await this.model.get(id);
+				let id = Number(firstPost.id);
+				let post = await this.model.get(id);
 
-					bus.dispatch('post-selecting', { post, preventScrolling: true });
+				bus.dispatch('post-selecting', { post, preventScrolling: true });
 			}
 		);
 
@@ -134,22 +134,18 @@ export default {
 
 		// Editing listeners
 		this.listen({
-			'card-editing': event => {
-				return 'Not working';
-
-				let post = Posts.get(Number(event.card.$vnode.key));
+			'card-editing': async event => {
+				let post = await this.model.get(Number(event.card.$vnode.key));
 
 				bus.dispatch('post-editing', { post });
 			},
 
-			'post-edited': event => {
-				return 'Not working';
-
+			'post-edited': async event => {
 				let post = event.post;
-				let newCard = Cards.get(post.id);
+				let newPost = await this.model.get(post.id);
 				let card = this.getCardById(post.id);
 
-				Object.assign(card, newCard);
+				Object.assign(card, newPost);
 			},
 		});
 
