@@ -59,18 +59,12 @@ abstract class PostService
 
     public function update(Request $request, int $id)
     {
-        $data = null;
-
         $post =  $this->model::findOrFail($id);
 
         if (method_exists(get_called_class(), 'updating'))
-            $data = $this->updating($request, $post);
-
-        if (!!!$data)
-            $data = $request->validated();
-
-        $post->fill($data);
-        $post->save();
+            $this->updating($request, $post);
+        else
+            $post->update($request->validated());
 
         $this->updateTags($post, $request);
 

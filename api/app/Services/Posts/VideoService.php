@@ -39,22 +39,24 @@ class VideoService extends PostService
         ]);
     }
 
-    protected function updating(Request $request)
+    protected function updating(Request $request, Video $video) : void
     {
-        $data = [];
-
         if ($request->has('videoUrl'))
         {
             $url = $request->input('videoUrl');
 
-            $data['youtubeId'] = $this->getVideoId($url);
+            $video->youtube_id = $this->getVideoId($url);
 
-            $data['title'] = $this->getVideoTitle($data['videoID']);
+            $video->title = $this->getVideoTitle($video->youtube_id);
+
+            $video->thumbnail()->update([
+                'url' => $this->getThumbnailUrl($video)
+            ]);
         }
 
         if ($request->has('description'))
-            $data['description'] = $request->input('description');
+            $video->description = $request->input('description');
 
-        return $data;
+        $video->save();
     }
 }

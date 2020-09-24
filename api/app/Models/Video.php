@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasTags;
+use App\Models\Traits\HasThumbnail;
 use App\Models\Traits\HasComments;
 use App\Models\Traits\HasUpdates;
-use App\Models\Traits\HasThumbnail;
+use App\Models\Traits\HasTags;
 
 
 class Video extends Model
