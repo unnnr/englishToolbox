@@ -2,8 +2,9 @@
 
 namespace App\Services\Posts;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Request;
 use App\Services\Traits\HandleTags;
 use App\Events\PostCreated;
 use App\Events\PostUpdated;
@@ -33,7 +34,7 @@ abstract class PostService
             throw Error('Undefined resource');
     }
 
-    public function create(Request $request) 
+    public function create(Request $request) : JsonResource
     {
         $post = null;
 
@@ -57,7 +58,17 @@ abstract class PostService
         return $this->createScalarResponce($post);
     }
 
-    public function update(Request $request, int $id)
+    public function get($id) : JsonResource
+    {
+        if (method_exists(get_called_class(), 'getting'))
+            $this->getting($request);
+
+        $post = $this->model::findOrFail($id);
+
+        return new $this->resource($post);
+    }
+
+    public function update(Request $request, int $id) : JsonResource
     {
         $post =  $this->model::findOrFail($id);
 
@@ -73,30 +84,20 @@ abstract class PostService
         return $this->createScalarResponce($post);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id) : void
     {
         $post = $this->model::findOrFail($id);
 
         if (method_exists(get_called_class(), 'deleting'))
             $data = $this->deleting($request,  $post);
-  
+
         $post->tags()->detach();
         
         $post->delete();
 
+        $post->thumbnail()->delete();
+
         event(new PostDeleted($post));
-
-        return;
-    }
-
-    public function get($id)
-    {
-        if (method_exists(get_called_class(), 'getting'))
-            $this->getting($request);
-
-        $post = $this->model::findOrFail($id);
-
-        return new $this->resource($post);
     }
 
     public function all()

@@ -3,7 +3,8 @@
 		name="list"
 		tag="section"
 		class="pool container"
-		:move-class="moveClass">
+		:move-class="moveClass"
+		@before-leave="setAbsolute">
 			
 		<new-card
 			postType="video"
@@ -14,7 +15,7 @@
 			v-for="card of reversePosts"
 
 			:key="card.id"
-			:title="card.title"
+			:title="card.id + ''"
 			:imageUrl='card.thumbnail'
 			:createdAt="card.createdAt"
 			:description="card.description"
@@ -100,10 +101,10 @@ export default {
 		// Creating liteners 
 		this.listen({
 			'new-card-touched': event => {
-				if (this.selectedPost)
-					this.$set(this.selectedPost, 'selected', false);
+				if (this.selectedCard)
+					this.$set(this.selectedCard, 'selected', false);
 
-				this.selectedPost = null;
+				this.selectedCard = null;
 
 				bus.dispatch('post-creating');
 			},
@@ -116,9 +117,9 @@ export default {
 		// Selecting listeners
 		this.listen({
 			'card-selecting': event => {
-				let selectedId = this.selectedPost.id
+				let selectedId = this.selectedCard.id
 				let newId = event.card.$vnode.key;
-				
+
 				if (newId === selectedId)
 					return;
 
@@ -129,11 +130,13 @@ export default {
 			},
 
 			'post-selecting': event => {
-				if (this.selectedPost)
-					this.$set(this.selectedPost, 'selected', false);
+				let card = this.getCardById(event.post.id);
+				
+				if (this.selectedCard)
+					this.$set(this.selectedCard, 'selected', false);
 
-				this.selectedPost = event.post;
-				this.$set(this.selectedPost, 'selected', true);
+				this.selectedCard = card;
+				this.$set(this.selectedCard, 'selected', true);
 			},
 		});
 
@@ -155,24 +158,21 @@ export default {
 
 		// Deleting listeners
 		this.listen({
-			'card-deleting': event => {
-				return 'Not working';
-
-				let post = Posts.get(Number(event.card.$vnode.key));
+			'card-deleting': async event => {
+				let id = Number(event.card.$vnode.key);
+				let post = await this.model.get(id);
 
 				bus.dispatch('post-deleting', { post });
 			},
 
 			'post-deleting': async event => {
-				return 'Not working';
-
 				let post = event.post;
 
 				bus.dispatch('alert-confirm', {
 					message: 'Are you sure you want to remove the post?',
 					
 					onConfirm: async () => {
-						await Posts.delete(post.id);
+						await this.model.delete(post.id);
 
 						bus.dispatch('post-deleted', { post });
 					}
@@ -180,21 +180,31 @@ export default {
 			},
 
 			'post-deleted': event => {
-
-				return 'Not working';
-
-				let card = Cards.get(event.post.id);
-
-				if (this.selectedPost == card)
-					bus.dispatch('post-selecting', { card: this.posts[0] });
-
+				let card = this.getCardById(event.post.id);
 				let index = this.posts.indexOf(card);
-				this.posts.splice(index, 1);
+				
+				let removedPost =  this.posts.splice(index, 1)[0];
+
+				if (this.selectedCard.id == removedPost.id)
+				{
+					let last = this.posts[this.posts.length - 1];
+					console.log(last, 'here');
+					bus.dispatch('post-selecting', { post:  last});
+				}
 			}
 		});
 	},
 
 	methods: {
+		setAbsolute(card) {
+			Object.assign(card.style, {
+				position: 'absolute',
+				width: card.offsetWidth + 'px',
+				top: card.offsetTop + 'px',
+				left: card.offsetLeft + 'px'
+			})
+		},
+
 		getCardById(id) {
 			for (const card of this.posts)
 			{
@@ -236,17 +246,54 @@ export default {
 
 <style scoped>
 
-.list-move {
-  transition: 
-  transform 1s ease-in-out,
-  opacity 1s ease-in-out;
+.pool {
+	position: relative;
+	overflow: hidden;
 }
 
+.list-move {
+  transition: transform 50s ease-in-out,
+  						opacity 1s ease-in-out;
+}
 
 .list-enter-active
 {
    -webkit-animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.list-leave-active {
+	-webkit-animation: scale-out 5.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: scale-out 5.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@-webkit-keyframes scale-out {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+		-webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+}
+@keyframes scale-out {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+		-webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes scale-in-bottom {
