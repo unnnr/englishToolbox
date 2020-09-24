@@ -45,11 +45,11 @@ export default {
 	mounted() {	
 		this.listen({
 			'post-selected': event => {
-				this.videoID = event.post.videoID;
+				this.videoID = event.post.youtubeId;
 				this.showOverlay = false;
 
 				if (!!!event.preventScrolling)
-      	      	this.scrollToPlayer();
+      	  this.scrollToPlayer();
 			},
 
 			'post-creating': event => {
@@ -57,12 +57,12 @@ export default {
 			},
 
 			'post-editing': event => {
-				this.videoID = event.post.videoID;
+				this.videoID = event.post.youtubeId;
 				this.showOverlay = false;
 			},
 
 			'editor-link-changed': event => {		
-				this.videoID = event.videoID;
+				this.videoID = event.youtubeId;
 				this.showOverlay = false;
 			},
 

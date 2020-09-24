@@ -59,8 +59,6 @@ export default {
 
 			moveClass: 'static',
 
-			selectedPost: null,
-
 			posts: []
 		};
 	},
@@ -118,7 +116,10 @@ export default {
 		// Selecting listeners
 		this.listen({
 			'card-selecting': event => {
-				if (event.card === this.selectedPost)
+				let selectedId = this.selectedPost.id
+				let newId = event.card.$vnode.key;
+				
+				if (newId === selectedId)
 					return;
 
 				let id = Number(event.card.$vnode.key);
@@ -146,7 +147,6 @@ export default {
 			},
 
 			'post-edited': event => {
-				//let newPost = await this.model.get(post.id);
 				let post = this.getCardById(event.post.id);
 
 				Object.assign(post, event.post);
