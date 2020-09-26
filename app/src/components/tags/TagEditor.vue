@@ -1,51 +1,57 @@
 <template>
-	<transition-group name="tags" class="tags" ref="tags">
-		<h4 class="editor__label tags__title text-fourth" :key="-2">
-			<span>
-					Add tags
-					<small class="editor__counter">{{ tagsCounter }}</small>
-			</span>
-			<small class="editor__error">{{ errorMessage }}</small>
-		</h4>
-				
-		<new-tag-input
-			ref="input"
-			:key="-1"
-			:submit="submit"/>
+	<request-form 
+		:submitCallback="submit"
+		@input:incorrect="handleError">
 
-		<button
-			class="tag tag--created"
-			type="button"
-			v-for="(tag) of reversedCreatedTags"
-			v-context:items="contextMenu"
-			:key="tag.id"
-			:class="{ 'tag--main': tag.main }"
-			:style="{ 'background-color': tag.selected ? tag.color : ''}"
-			@click="toggle(tag)"
-			@click.right="createContext(tag)">
+		<transition-group name="tags" class="tags" ref="tags">
+			<h4 class="editor__label tags__title text-fourth" :key="-2">
+				<span>
+						Add tags
+						<small class="editor__counter">{{ tagsCounter }}</small>
+				</span>
+				<small class="editor__error">{{ errorMessage }}</small>
+			</h4>
 
-			<span class="tag__name" for="cb2">{{ tag.label }}</span>
-		</button>
+			<new-tag-input
+				ref="input"
+				:key="-1"
+				:submit="submit"/>
 
-		<button
-			class="tag"
-			type="button"
-			v-for="(tag) of loadedTags"
-			:key="tag.id"
-			v-context:items="contextMenu"
-			:class="{ 'tag--main': tag.main }"
-			:style="{ 'background-color': tag.selected ? tag.color : ''}"
-			@click="toggle(tag)"
-			@click.right="createContext(tag)">
-				
-			<span class="tag__name" for="cb2">{{ tag.label }}</span>
-		</button>
-	</transition-group>
+			<button
+				class="tag tag--created"
+				type="button"
+				v-context:items="contextMenu"
+				v-for="(tag) of reversedCreatedTags"
+				:key="tag.id"
+				:class="{ 'tag--main': tag.main }"
+				:style="{ 'background-color': tag.selected ? tag.color : ''}"
+				@click="toggle(tag)"
+				@click.right="createContext(tag)">
+
+				<span class="tag__name" for="cb2">{{ tag.label }}</span>
+			</button>
+
+			<button
+				class="tag"
+				type="button"
+				v-context:items="contextMenu"
+				v-for="(tag) of loadedTags"
+				:key="tag.id"
+				:class="{ 'tag--main': tag.main }"
+				:style="{ 'background-color': tag.selected ? tag.color : ''}"
+				@click="toggle(tag)"
+				@click.right="createContext(tag)">
+
+				<span class="tag__name" for="cb2">{{ tag.label }}</span>
+			</button>
+		</transition-group>
+	</request-form>
 </template>
 
 <script>
 
 import NewTagInput from '@components/tags/NewTagInput'
+import RequestForm from '@components/RequestForm'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
@@ -54,6 +60,7 @@ const MAX_CREATED_TAGS_COUNT = 30;
 
 export default {
 	components: {
+		RequestForm,
 		NewTagInput
 	},
 
@@ -136,10 +143,19 @@ export default {
 	},
 
 	mounted() {
-		this.load();
+		Tags.all().then((tags) => {
+			this.clear()
+			this.loadedTags = tags;
+		});
 	},
 
 	methods: {
+		clear() {
+			this.main = null;
+			this.selectedCount = 0;
+			this.createdTags = [];
+		},
+
 		getTagById(id) {
 			for (const tag of [...this.loadedTags, ...this.createdTags])
 			{
@@ -150,103 +166,97 @@ export default {
 			return null;
 		},
 
-		load() {
-			Tags.onload(() => {
-				this.main = null;
-				this.selectedCount = 0;
-				this.createdTags = [];
-				this.loadedTags = Tags.all()
-			});
-		},
-
-		clear() {
-			this.load();
-		},
-
 		createContext(tag) {
-				const SET_AS_MAIN = 0;
-				const DELETE = 1;
+			const SET_AS_MAIN = 0;
+			const DELETE = 1;
 
-				if (tag.main)
-				{
-						this.contextMenu[SET_AS_MAIN].label = 'Make default';
-						this.contextMenu[SET_AS_MAIN].action = () => {
-								this.main = null; 
-						}
-				}
-				else
-				{
-					this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+			if (tag.main)
+			{
+					this.contextMenu[SET_AS_MAIN].label = 'Make default';
 					this.contextMenu[SET_AS_MAIN].action = () => {
-						if (tag.selected)
-						{
-							this.main = tag;
-							return;
-						}          
-
-						if (this.toggle(tag))
-							this.main = tag; 
+							this.main = null; 
 					}
-				}        
-			},
+			}
+			else
+			{
+				this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+				this.contextMenu[SET_AS_MAIN].action = () => {
 
-			toggle(tag) {
-				let currentState = tag.selected;
-
-				if (!!!currentState)
+				if (tag.selected)
 				{
-					if (this.selectedCount >= MAX_TAGS_COUNT)
-						return false;
-
-					if (!!!this.main)
-							this.main = tag;
-				}
-				else
-				{
-					if (tag.main)
-						this.main = null;
-				}
-
-
-				this.$set(tag, 'selected', !!!currentState);
-				this.selectedCount += currentState ? -1 : 1;
-				
-				return true;
-			},
-
-			remove(tag) {
-				let tagIndex = this.createdTags.indexOf(tag);
-
-				this.createdTags.splice(tagIndex, 1);
-			},
-
-			async submit(event) {
-				let label = this.$refs.input.label.trim();
-
-				if (label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT)
+					this.main = tag;
 					return;
-				
-				let data = new FormData();
-				data.append('label', label);
-				data.append('color',  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0'));
+				}          
 
-				try {
-					let newTag = await Tags.create(data)
-
-					this.errorMessage = '';
-					this.newLabel = '';
-
-					this.createdTags.push(newTag);
-
-					bus.dispatch('tag-created', { tag: newTag });
+				if (this.toggle(tag))
+					this.main = tag; 
 				}
-				catch(error) {
-						
-					console.log(error);
+			}        
+		},
 
-					if (error.status == 422 && error.body.errors.label)
-						this.errorMessage = error.body.errors.label.join('. ');
-				}
+		toggle(tag) {
+			let currentState = tag.selected;
+
+			if (!!!currentState)
+			{
+				if (this.selectedCount >= MAX_TAGS_COUNT)
+					return false;
+
+				if (!!!this.main)
+						this.main = tag;
+			}
+			else
+			{
+				if (tag.main)
+					this.main = null;
+			}
+
+			this.$set(tag, 'selected', !!!currentState);
+			this.selectedCount += currentState ? -1 : 1;
+			
+			return true;
+		},
+
+		remove(tag) {
+			let tagIndex = this.createdTags.indexOf(tag);
+
+			this.createdTags.splice(tagIndex, 1);
+		},
+
+		getFormData() {
+			let label = this.$refs.input.label.trim();
+
+			let data = new FormData();
+			let color = '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0');
+			
+			data.append('label', label);
+			data.append('color',  color);
+		
+			return data;	
+		},
+
+		handleError(errors) {
+			this.errorMessage = errors.label.join('. ');
+		},
+
+		validate() {
+			let label = this.$refs.input.label.trim();
+
+			return label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT
+		},
+
+		async submit(event) {
+			if (!!!this.validate)
+				return;
+
+			let data = this.getFormData();
+			let newTag = await Tags.create(data)
+			
+			this.newLabel = '';
+			this.errorMessage = '';
+			this.createdTags.push(newTag);
+
+			bus.dispatch('tag-created', { tag: newTag });
 		}
 	}
 }

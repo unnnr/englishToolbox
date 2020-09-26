@@ -54,7 +54,7 @@ export default {
 
 			try {
 				if (this.submitCallback)
-					await this.submitCallback();
+					await this.submitCallback(this.getData());
 
 				this.loading = false;
 			}
