@@ -1,5 +1,6 @@
 <template>
 	<request-form 
+		ref="form"
 		:submitCallback="submit"
 		@input:incorrect="handleError">
 
@@ -15,30 +16,19 @@
 			<new-tag-input
 				ref="input"
 				:key="-1"
-				:submit="submit"/>
-
-			<button
-				class="tag tag--created"
-				type="button"
-				v-context:items="contextMenu"
-				v-for="(tag) of reversedCreatedTags"
-				:key="tag.id"
-				:class="{ 'tag--main': tag.main }"
-				:style="{ 'background-color': tag.selected ? tag.color : ''}"
-				@click="toggle(tag)"
-				@click.right="createContext(tag)">
-
-				<span class="tag__name" for="cb2">{{ tag.label }}</span>
-			</button>
+				:submit="forceSubmit"/>
 
 			<button
 				class="tag"
 				type="button"
+				
 				v-context:items="contextMenu"
-				v-for="(tag) of loadedTags"
+				v-for="(tag) of sortedTags"
+
 				:key="tag.id"
-				:class="{ 'tag--main': tag.main }"
+				:class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
 				:style="{ 'background-color': tag.selected ? tag.color : ''}"
+				
 				@click="toggle(tag)"
 				@click.right="createContext(tag)">
 
@@ -69,8 +59,7 @@ export default {
 			selectedCount: 0,
 
 			main: null,
-			loadedTags: [],
-			createdTags: [],
+			tags: [],
 
 			errorMessage: '',
 
@@ -85,17 +74,29 @@ export default {
 			return this.selectedCount + '/' + MAX_TAGS_COUNT;
 		},
 
+		sortedTags() {
+			let sorted = [];
+
+			for (let tag of this.tags)
+			{
+				if (tag.created)
+					sorted.unshift(tag);
+				else
+					sorted.push(tag);
+			}
+
+			return sorted;
+		},
+
 		selected: {
 			get() {
 				let selected = [];
 
-				for (const tag of [...this.loadedTags, ...this.createdTags])
+				for (const tag of this.tags)
 				{
 					if (tag.selected && !!!tag.main)
 						selected.push(tag);
 				}
-
-				console.log('seeeleceted', selected);
 
 				return [...selected];
 			},
@@ -145,7 +146,7 @@ export default {
 	mounted() {
 		Tags.all().then((tags) => {
 			this.clear()
-			this.loadedTags = tags;
+			this.tags = tags;
 		});
 	},
 
@@ -153,11 +154,11 @@ export default {
 		clear() {
 			this.main = null;
 			this.selectedCount = 0;
-			this.createdTags = [];
+			this.tags = [];
 		},
 
 		getTagById(id) {
-			for (const tag of [...this.loadedTags, ...this.createdTags])
+			for (const tag of this.tags)
 			{
 				if (tag.id === id)
 					return tag;
@@ -224,7 +225,8 @@ export default {
 		},
 
 		getFormData() {
-			let label = this.$refs.input.label.trim();
+			let input = this.$refs.input;
+			let label = input.label.trim();
 
 			let data = new FormData();
 			let color = '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0');
@@ -245,6 +247,10 @@ export default {
 			return label.length === 0 || this.selectedCount >= MAX_CREATED_TAGS_COUNT
 		},
 
+		forceSubmit() {
+			this.$refs.form.send();
+		},
+
 		async submit(event) {
 			if (!!!this.validate)
 				return;
@@ -254,7 +260,7 @@ export default {
 			
 			this.newLabel = '';
 			this.errorMessage = '';
-			this.createdTags.push(newTag);
+			this.tags.push({ ...newTag, created: true });
 
 			bus.dispatch('tag-created', { tag: newTag });
 		}

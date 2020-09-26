@@ -119,18 +119,19 @@ export default {
 
 		tryToSubmit() {
 
+			async function assert(callback)
+			{	
+				callback();
+			}
+
 			this.disabled = true;
 
-			try {
-				this.submit();
-			}
-			catch {
-				console.error('There was an error in tag submitting.');
-			}
-			finally {
-				this.label = '';
-				this.disabled = false;
-			}
+			this.submit();
+
+			assert(this.submit)
+
+			this.label = '';
+			this.disabled = false;
 		}
 	}
 }

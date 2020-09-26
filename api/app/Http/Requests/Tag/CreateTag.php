@@ -24,8 +24,8 @@ class CreateTag extends FormRequest
     public function rules()
     {
         return [
-            'label' => 'required|string|unique:tags|max:40',
-            'color' => 'required|string|max:40',
+            'label' => ['required', 'string', 'unique:tags', 'between:2,40'],
+            'color' => ['required', 'string', 'max:40']
         ];
     }
 }

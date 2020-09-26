@@ -47,9 +47,14 @@
 
 <script>
 
+import bus from '@services/eventbus';
 import Tags from '@models/Tags';
+import HandleEvents from '@mixins/HandleEvents'
+ 
 
 export default {
+	mixins: [ HandleEvents ],
+
 	data: function() {
 		return {
 			tags: [],
@@ -67,9 +72,15 @@ export default {
 	},
 
 	mounted() {
-		Tags.onload(() => {
-			this.tags = Tags.all();
-		})
+		Tags.all().then((tags) => {
+			this.tags = tags;
+		});
+
+		this.listen({
+			'tag-created': (event) => {
+				this.tags.push(event.tag);
+			}
+		});
 	},
 
 	methods: {

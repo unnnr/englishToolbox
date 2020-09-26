@@ -30,7 +30,7 @@ export default {
 		PostPresentor,
 	},
 
-	mixins: [ HandleEvents, HandleEvents],
+	mixins: [ HandleEvents ],
 
 	data: function() {
 		return {

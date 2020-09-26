@@ -56,13 +56,13 @@
 
 <script>
 
-import getYouTubeID from 'get-youtube-id';
-import bus from '@services/eventbus';
-import SubmitButton from '@components/SubmitButton';
-import RequestForm from '@components/RequestForm';
-import TagEditor from '@components/tags/TagEditor';
+import getYouTubeID from 'get-youtube-id'
+import bus from '@services/eventbus'
+import SubmitButton from '@components/SubmitButton'
+import RequestForm from '@components/RequestForm'
+import TagEditor from '@components/tags/TagEditor'
 import HandleTagsData from '@mixins/HandleTagsData'
-import Videos from '@models/Videos';
+import Videos from '@models/Videos'
 
 
 const MAX_DESCRIPTION_LENGTH = 180;
