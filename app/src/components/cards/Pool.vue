@@ -252,7 +252,7 @@ export default {
 }
 
 .list-move {
-  transition: transform 50s ease-in-out,
+  transition: transform 1s ease-in-out,
   						opacity 1s ease-in-out;
 }
 

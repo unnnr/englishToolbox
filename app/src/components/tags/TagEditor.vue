@@ -117,10 +117,6 @@ export default {
 
 				this.selectedCount = tags.length;
 			}
-		},
-		
-		reversedCreatedTags() {
-			return [...this.createdTags].reverse();
 		}
 	},
 
