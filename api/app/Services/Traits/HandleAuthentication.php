@@ -15,14 +15,15 @@ use Illuminate\Support\Facades\Auth;
 
 trait HandleAuthentication
 {
+    protected $authTokenName = 'auth';
+
     public function register(Request $request)
     {
-        $data = $request->validated();
-        $user = User::create($data);
+        $user = User::create($request->validated());
 
-        auth()->login($user, self::REMEMBER_ME);
+        auth()->login($user);
         
-        $authToken = $user->createToken('authToken'); 
+        $authToken = $user->createToken($this->authTokenName); 
         $user->withAccessToken($authToken);
 
         event(new Registered($user));
@@ -35,21 +36,18 @@ trait HandleAuthentication
     
     public function login(Request $request)
     {
-        $data = $request->validated();
-        if (!!!Auth::attempt($data, self::REMEMBER_ME))
+        if (!!!Auth::attempt($request->validated()))
         {
             throw ValidationException::withMessages([
-                'password' => 'Password dosn`t match to email'
+                'password' => 'Password doesn`t match to email'
             ]);
         }
 
-        $user =  auth()->user();
+        $user = auth()->user();
 
-        if ($user->currentAccessToken())
-            $user->currentAccessToken()->delete();
+        $user->tokens('name', $this->authTokenName)->delete();
 
-        $authToken = $user->createToken('authToken');    
-        $user->withAccessToken($authToken);
+        $user->withAccessToken($user->createToken('authToken'));
     
         return new AuthenticatedUserResource($user);
     }

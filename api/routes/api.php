@@ -35,6 +35,14 @@ Route::group(['namespace' => 'Api'], function() {
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
 });
 
+Route::post('register', 'UserController@register');
+
+Route::post('login', 'UserController@login');
+
+Route::get('logout', 'UserController@logout');
+
+Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
+
 Route::match(['head', 'get'], 'profile', 'UserController@index');
 Route::match(['put', 'patch'], 'profile', 'UserController@update');
 Route::delete('profile', 'UserControlle@delete');
