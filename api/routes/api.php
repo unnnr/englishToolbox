@@ -33,21 +33,22 @@ Route::group(['namespace' => 'Api'], function() {
     Route::apiResource('comments', 'CommentController')->only(['update', 'destroy', 'show']);
     
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
+
+    Route::post('register', 'UserController@register');
+
+    Route::post('login', 'UserController@login');
+
+    Route::post('logout', 'UserController@logout');
+
+    Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 });
 
-Route::post('register', 'UserController@register');
-
-Route::post('login', 'UserController@login');
-
-Route::get('logout', 'UserController@logout');
-
-Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 
 Route::match(['head', 'get'], 'profile', 'UserController@index');
 Route::match(['put', 'patch'], 'profile', 'UserController@update');
 Route::delete('profile', 'UserControlle@delete');
 
 
-Route::middleware('auth:sanctum')->get('dump', function(Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('test', function() {
+    return auth()->user();
 });
