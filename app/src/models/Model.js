@@ -2,16 +2,14 @@
 import Http from '@services/Http';
 
 class Model 
-{
-    castPrefix = 'convert_';
-    
+{    
     createInstance(data) 
     {
         let instance = {};
 
         for (const [key, value] of Object.entries(data))
         {
-            let castName = this.castPrefix + key;
+            let castName = key;
 
             if (typeof this[castName] === 'function')
                 instance[key] = this[castName](value); 

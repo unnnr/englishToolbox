@@ -4,9 +4,9 @@ import FormatedDate from '@services/FormatedDate'
 
 class Videos extends Model 
 {
-    convert_created_at(value) 
+    createdAt(value) 
     {
-        return FormatedDate(value);
+        return FormatedDate.parse(value);
     }
 
     path = 'videos';
