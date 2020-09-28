@@ -5,6 +5,8 @@ class ApiRequest
 {
     origin = 'http://etoolbox/api/';
 
+    credetionals = null;
+
     withCustomMethod(method, path, data) 
     {
         if (!!!(data instanceof FormData))
@@ -20,8 +22,14 @@ class ApiRequest
     createOptions(method, uri, data = null) 
     {   
         let origin  = this.origin;
+        let headers = null;
 
-        return { uri,  method, data, origin };
+        if (this.credetionals)
+            headers = this.credetionals;
+
+        console.log(this.credetionals);
+
+        return { uri, method, headers, data, origin };
     }
 
     get(path)
@@ -52,9 +60,6 @@ class ApiRequest
     {
         return this.withCustomMethod('DELETE', path, data);
     }
-
 }
-
-window.send = new ApiRequest();
 
 export default new ApiRequest();

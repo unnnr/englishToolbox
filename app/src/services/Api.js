@@ -1,5 +1,4 @@
 
-import Http from '@services/Http'
 import PromiseQueue from '@services/PromiseQueue'
 import ApiRequest from '@services/ApiRequest'
 
@@ -10,11 +9,14 @@ class Api
         
     }
 
-    request = new ApiRequest();
-    // Allowed request
+    setCredetinals(credetionals) 
+    {
+        this.request.credetionals = credetionals;
+    }
 
-    // Requests queue
-    queue = new PromiseQueue();
+    request = ApiRequest;
+
+    queue = PromiseQueue;
 }
 
 export default new Api();

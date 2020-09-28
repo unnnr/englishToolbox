@@ -1,13 +1,17 @@
 import Cookies from 'js-cookie'
-import Http from '@services/Http'
-
 import Api from '@services/Api'
+
 
 const Auth = new function() {
 
+    function init() 
+    {
+        Api.setCredetinals(this.creationails());
+    }
+
     function saveToken(token)
     {
-        Cookies.set('auth', token, {
+        Csookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
 
@@ -19,16 +23,9 @@ const Auth = new function() {
         Cookies.remove('auth');
     }
 
-    async function init()
+    this.creationails = () =>
     {
-        // Http.defaultHeaders = [{'Authorization': 'Bearer ' + Cookies.get('auth')}];
-
-        user = await Http.get('api/profile').catch(() => {});
-    
-        loaded = true;
-
-        for (const callback of callbacks)
-            callback();
+        return  {'Authorization': 'Bearer ' + Cookies.get('auth')};
     }
 
     this.login = async (data) => 
@@ -59,68 +56,6 @@ const Auth = new function() {
         return response;
     }
 
-    this.isAdmin = () => {
-        if (!!!user)
-            return false;
-            
-        return user.admin;
-    },
-
-    this.user = async () =>
-    {
-        if (!!!user)
-            return null;
-
-        return { ...user };
-    }
-
-    this.edit = async (data) =>
-    {
-        let name = data.get('name');
-        if (name === user.name)
-            data.delete('name');
-
-        let email = data.get('email');
-        if (email ===  user.email)
-            data.delete('email');
-        
-        let newPassword = data.get('newPassword');
-        if (typeof newPassword === 'string' && !!!newPassword.length)
-            data.delete('newPassword');
-
-        let confirmation = data.get('confirmation');
-        if (typeof confirmation === 'string' && !!!confirmation.length)
-            data.delete('confirmation');
-
-        if (isFormDataEmpty(data))
-            return;
-
-        let response = await Http.patch('api/profile', data); 
-
-        user.name = response.name;
-        user.email = response.email;
-        user.verified = response.verified;
-        
-        return response;
-    }
-
-    this.check = () => {
-        return Boolean(user);
-    }
-
-    this.isVerified = () =>
-    {
-        if (user)
-            return user.verified;
-
-        return false;
-    }
-
-    this.getCredentials = () =>
-    {
-        return  {'Accept': 'Bearer ' + Cookies.get('auth')};
-    }
-
     this.rules = () =>
     {
         return {
@@ -142,7 +77,11 @@ const Auth = new function() {
     let user = null; 
     let callbacks = [];
 
-    init();
+    init.call(this);
 }();
+
+Api.request.get('videos');
+
+window.send =  Api.request;
 
 export default Auth;
