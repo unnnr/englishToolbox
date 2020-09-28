@@ -1,6 +1,5 @@
 const Http = new function() 
 {
-
     function prepareOptions(options) 
     {
         if (!!!options || typeof options !== 'object')

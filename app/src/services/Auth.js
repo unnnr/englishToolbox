@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie'
-import Http from '@services/Http';
+import Http from '@services/Http'
+
+import Api from '@services/Api'
 
 const Auth = new function() {
 
@@ -17,17 +19,9 @@ const Auth = new function() {
         Cookies.remove('auth');
     }
 
-    function isFormDataEmpty(data)
-    {
-        if (data.values().next())
-            return false;
-
-        return true;
-    }
-
     async function init()
     {
-        Http.defaultHeaders = [{'Authorization': 'Bearer ' + Cookies.get('auth')}];
+        // Http.defaultHeaders = [{'Authorization': 'Bearer ' + Cookies.get('auth')}];
 
         user = await Http.get('api/profile').catch(() => {});
     
@@ -72,7 +66,7 @@ const Auth = new function() {
         return user.admin;
     },
 
-    this.user = () =>
+    this.user = async () =>
     {
         if (!!!user)
             return null;
@@ -125,17 +119,6 @@ const Auth = new function() {
     this.getCredentials = () =>
     {
         return  {'Accept': 'Bearer ' + Cookies.get('auth')};
-    }
-    
-    this.onload = (callback) =>
-    {
-        if (loaded)
-        {
-            callback();
-            return
-        }
-
-        callbacks.push(callback);
     }
 
     this.rules = () =>
