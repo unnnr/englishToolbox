@@ -1,34 +1,20 @@
 
 import Http from '@services/Http'
+import PromiseQueue from '@services/PromiseQueue'
+import ApiRequest from '@services/ApiRequest'
 
 class Api 
 {
-    constructor() 
-    {
-        
-    }
-
-
     getCsrfToken() 
     {
         
     }
 
-
-
+    request = new ApiRequest();
     // Allowed request
-    request = [
-        'get',
-        'put',
-        'post',
-        'patch',
-        'delete',
-        'options'
-    ]
 
     // Requests queue
     queue = new PromiseQueue();
 }
 
-window.Api = new Api();
-
+export default new Api();

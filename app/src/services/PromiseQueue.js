@@ -38,20 +38,3 @@ class PromiseQueue
 
     pending = false;
 }
-
-// temp
-
-window.fire = () => 
-{
-    queue.add(async () => 
-    { 
-        await new Promise(resolve => 
-        {
-            setTimeout(resolve, 1000)
-        });
-
-        console.log(12);
-    });
-
-    queue.add(async () => console.log('second') );
-}
