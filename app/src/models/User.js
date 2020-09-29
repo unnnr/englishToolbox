@@ -1,63 +1,61 @@
-
-
 class User 
 {
-    createInstance(data) 
-    {
-        let instance = {};
-
-        for (const [key, value] of Object.entries(data))
-        {
-            let castName = key;
-
-            if (typeof this[castName] === 'function')
-                instance[key] = this[castName](value); 
-            else 
-                instance[key] = value
-        }
-
-        return instance;
-    }
+    __user;
 
     forceSet(user) 
     {
-
+        this.__user = user;
     }
 
-    get() 
+    __parseResponse(__)
+    {
+        return response.data;
+    }
+
+    __catchError(error)
+    {
+        if (error  && typeof error === 'object'
+                   && error.status === 401)
+            return null;
+    
+        throw error;
+    }
+
+    async get() 
     { 
         let uri = this.path;
 
-        return Http.get({ uri })
+        this.__user = Http.get({ uri })
         
-        .then(response => response.data)
-        
-        .catch(response => {
-            if (response 
-                && typeof response === 'object'
-                && response.status === 401)
-            {
-                return null;
-            }
-            
-            throw Error(response);
-        });
+        .then(this.__parseResponse)
+
+        .catch(__catchError);
+
+        return { ...this.__user };
     }
 
     async edit(data) 
     {
-        let response = await Http.patch({
+        this.__user = await Http.patch({
             data, uri: this.path
-        });
+        })
+  
+        .then(this.__parseResponse)
 
-        return response.data;
+        .catch(__catchError);
+
+        return { ...this.__user };
     }
 
     async delete()
     {
         let response = await Http.delete({
             uri: this.path
-        });
+        })
+
+        .then(this.__parseResponse)
+
+        .catch(__catchError);
 
         return response.data;
     }
@@ -67,4 +65,4 @@ class User
 
 window.User = new User();
 
-export default new User();
+export default window.User;
