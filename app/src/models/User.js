@@ -1,7 +1,4 @@
 
-import Model from '@models/Model'; 
-import FormatedDate from '@services/FormatedDate'
-
 
 class User 
 {
@@ -22,7 +19,8 @@ class User
         return instance;
     }
 
-    forceSet(user) {
+    forceSet(user) 
+    {
 
     }
 
@@ -48,10 +46,8 @@ class User
 
     async edit(data) 
     {
-        let uri = this.path;
-
         let response = await Http.patch({
-            uri, data
+            data, uri: this.path
         });
 
         return response.data;
@@ -59,10 +55,8 @@ class User
 
     async delete()
     {
-        let uri = this.path;
-
         let response = await Http.delete({
-            uri
+            uri: this.path
         });
 
         return response.data;

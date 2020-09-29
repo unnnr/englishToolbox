@@ -4,7 +4,7 @@ import Cache from '@models/ModelCache'
 
 class Model 
 {    
-    cache = new Cache();
+    __cache = new Cache();
 
     __parseInstance(data) 
     {
@@ -33,7 +33,7 @@ class Model
             data, uri: this.data
         });
 
-        let item = this.cache.push(response.data);
+        let item = this.__cache.push(response.data);
 
         return this.__parseInstance(item);
     }
@@ -42,7 +42,7 @@ class Model
     {
         if  (!!!notCached)
         {
-            let data = this.cache.get(id)
+            let data = this.__cache.get(id)
 
             if (data) 
                 return data
@@ -52,7 +52,7 @@ class Model
             uri: this.path + '/' + id
         });
 
-        let data = this.cache.set(response.data);
+        let data = this.__cache.set(response.data);
 
         return this.__parseInstance(data);
     }
@@ -63,7 +63,7 @@ class Model
             data, uri:  this.path + '/' + id
         });
 
-        let item = this.cache.set(response.data);
+        let item = this.__cache.set(response.data);
 
         return this.__parseInstance(item);
     }
@@ -74,7 +74,7 @@ class Model
             uri: this.path + '/' + id
         });
 
-        this.cache.remove(id);
+        this.__cache.remove(id);
 
         return response.data;
     }
@@ -83,7 +83,7 @@ class Model
     {
         if (!!!notCached)
         {
-            let data = this.cache.get();
+            let data = this.__cache.get();
 
             if (data)
                 return data;
@@ -93,11 +93,10 @@ class Model
             uri: this.path
         });
 
-        let data = this.cache.clear(response.data);
+        let data = this.__cache.clear(response.data);
         
         return this.__parseCollection(data);
     }
 }
-
 
 export default Model;
