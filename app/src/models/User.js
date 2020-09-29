@@ -22,6 +22,10 @@ class User
         return instance;
     }
 
+    forceSet(user) {
+
+    }
+
     get() 
     { 
         let uri = this.path;

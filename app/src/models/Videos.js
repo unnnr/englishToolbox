@@ -12,4 +12,6 @@ class Videos extends Model
     path = 'videos';
 }
 
+window.Videos = new Videos();
+
 export default new Videos();

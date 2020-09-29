@@ -1,89 +1,101 @@
 
 import Http from '@services/Http';
+import Cache from '@models/ModelCache'
 
 class Model 
 {    
-    createInstance(data) 
-    {
-        let instance = {};
+    cache = new Cache();
 
+    __parseInstance(data) 
+    {
         for (const [key, value] of Object.entries(data))
         {
             let castName = key;
 
             if (typeof this[castName] === 'function')
-                instance[key] = this[castName](value); 
-            else 
-                instance[key] = value
+                data[key] = this[castName](value); 
         }
 
-        return instance;
+        return data;
     }
 
-    createCollection(list) 
+    __parseCollection(list) 
     {
-        let collection = [];
-
         for (const item of list)
-            collection.push(this.createInstance(item));
+            this.__parseInstance(item);
 
-        return collection
+        return list;
     }
 
     async create(data)
     {
-        let uri = this.path;
-
         let response = await Http.post({
-            uri, data
+            data, uri: this.data
         });
 
-        return this.createInstance(response.data);
+        let item = this.cache.push(response.data);
+
+        return this.__parseInstance(item);
     }
 
-    async get(id) 
-    { 
-        let uri = this.path + '/' + id;
+    async get(id, notCached = false) 
+    {
+        if  (!!!notCached)
+        {
+            let data = this.cache.get(id)
+
+            if (data) 
+                return data
+        }
 
         let response = await Http.get({
-            uri
+            uri: this.path + '/' + id
         });
 
-        return this.createInstance(response.data);
+        let data = this.cache.set(response.data);
+
+        return this.__parseInstance(data);
     }
 
     async edit(id, data) 
     {
-        let uri = this.path + '/' + id;
-
         let response = await Http.patch({
-            uri, data
+            data, uri:  this.path + '/' + id
         });
 
-        return this.createInstance(response.data);
+        let item = this.cache.set(response.data);
+
+        return this.__parseInstance(item);
     }
 
     async delete(id)
     {
-        let uri = this.path + '/' + id;
-
         let response = await Http.delete({
-            uri
+            uri: this.path + '/' + id
         });
+
+        this.cache.remove(id);
 
         return response.data;
     }
 
-    async all()
+    async all(notCached)
     {
-        let uri = this.path;
+        if (!!!notCached)
+        {
+            let data = this.cache.get();
 
-        console.log('here');
+            if (data)
+                return data;
+        }
+
         let response = await Http.get({
-            uri
+            uri: this.path
         });
 
-        return this.createCollection(response.data);
+        let data = this.cache.clear(response.data);
+        
+        return this.__parseCollection(data);
     }
 }
 
