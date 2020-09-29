@@ -2,8 +2,9 @@
 
 namespace App\Services\Posts;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Request;
 use App\Services\Traits\HandleTags;
 use App\Events\PostCreated;
 use App\Events\PostUpdated;
@@ -33,39 +34,48 @@ abstract class PostService
             throw Error('Undefined resource');
     }
 
-    public function create(Request $request) 
+    public function create(Request $request) : JsonResource
     {
-        $data = null;
+        $post = null;
 
-        if (method_exists(get_called_class(), 'beforeCreate'))
-            $data = $this->beforeCreate($request);
+        // Check for custom model creation logic 
+        if (method_exists(get_called_class(), 'creating'))
+            $post = $this->creating($request);
         
-        if (!!!$data)
-            $data = $request->validated();
+        if (!!!$post)
+            $post = $this->model::create($request->validated());
 
-        $post = $this->model::create($data);
-
+        // Attaching tags and main tag
         $this->updateTags($post, $request);
+
+        // Attaching thumbnail
+        $post->thumbnail()->create([
+            'url' => $this->getThumbnailUrl($post)
+        ]);
 
         event(new PostCreated($post));
 
         return $this->createScalarResponce($post);
     }
 
-    public function update(Request $request, int $id)
+    public function get($id) : JsonResource
     {
-        $data = null;
+        if (method_exists(get_called_class(), 'getting'))
+            $this->getting($request);
 
+        $post = $this->model::findOrFail($id);
+
+        return new $this->resource($post);
+    }
+
+    public function update(Request $request, int $id) : JsonResource
+    {
         $post =  $this->model::findOrFail($id);
 
-        if (method_exists(get_called_class(), 'beforeUpdate'))
-            $data = $this->beforeUpdate($request, $post);
-
-        if (!!!$data)
-            $data = $request->validated();
-
-        $post->fill($data);
-        $post->save();
+        if (method_exists(get_called_class(), 'updating'))
+            $this->updating($request, $post);
+        else
+            $post->update($request->validated());
 
         $this->updateTags($post, $request);
 
@@ -74,37 +84,24 @@ abstract class PostService
         return $this->createScalarResponce($post);
     }
 
-    public function delete(int $id)
+    public function destroy(int $id) : void
     {
         $post = $this->model::findOrFail($id);
 
-        if (method_exists(get_called_class(), 'beforeDelete'))
-            $data = $this->beforeEdit($request,  $post);
-  
+        if (method_exists(get_called_class(), 'deleting'))
+            $data = $this->deleting($request,  $post);
+
         $post->tags()->detach();
         
         $post->delete();
 
+        $post->thumbnail()->delete();
+
         event(new PostDeleted($post));
-
-        return;
-    }
-
-    public function get($id)
-    {
-        if (method_exists(get_called_class(), 'beforeGet'))
-            $this->beforeGet($request);
-
-        $post = $this->model::findOrFail($id);
-
-        return new $this->resource($post);
     }
 
     public function all()
     {
-        if (method_exists(get_called_class(), 'beforeAll'))
-            $this->beforeEdit($request);
-
         return $this->createCollectionResponce($this->model::all());
     }
 }

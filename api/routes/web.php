@@ -29,13 +29,6 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('profile', 'ProfileController')->name('account');
 });
 
-Route::post('register', 'UserController@register');
-
-Route::post('login', 'UserController@login');
-
-Route::get('logout', 'UserController@logout');
-
-Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 
 // Route::get('schemas', 'SchemaController@index')->name('schemas');
 

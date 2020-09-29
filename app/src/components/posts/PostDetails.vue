@@ -5,11 +5,15 @@
 
 		<div class="addition__body">
 			<div class="addition__wrapper" ref="wrapper">
-				<slot/>
+
+				<slot 
+					v-if="editor.shown"
+					:target="editor.target"/>
 
 				<post-presentor 
 					ref="presentor"
-					v-show="presentorShown"/>
+					v-else
+					:target="info.target"/>
 			</div>
 		</div>
 	</div>
@@ -30,58 +34,62 @@ export default {
 
 	data: function() {
 		return {
-			presentorShown: true
+			info: {
+				target: null
+			},
+
+			editor: {
+				target: null, 
+				shown: false
+			}
 		}
 	},
 
 	mounted() {
-
 		this.listen({
-			'post-editing': this.onPostEditing,
+			'post-editing': (event) => {
+				console.log(event.post);
+				Object.assign(this.editor, {
+					target: event.post,
+					shown: true
+				});
 
-			'post-edited': this.onPostEdited,
+				if (!!!event.preventScrolling)
+					this.scrollOnEditing();
+			},
 
-			'post-creating': this.onPostCreating,
+			'post-edited': (event) => {
+				Object.assign(this.editor, {
+					target: null,
+				});
+			},
 
-			'post-selecting': this.onPostSelecting
+			'post-creating': (event) => {
+				Object.assign(this.editor, {
+					target: null,
+					shown: true
+				});
+
+				if (!!!event.preventScrolling)
+					this.scrollOnEditing();	
+			},
+
+			'post-selecting': (event) => {
+				Object.assign(this.editor, {
+					shown: false
+				});
+
+				Object.assign(this.info, {
+					target: event.post
+				});
+
+				bus.dispatch('post-selected', event);
+			}
 		});
 	},
 
 	methods: {
-		// Global  event lintenrs
-
-		onPostEdited() {
-			this.$emit('target:changed', null);
-		},
-
-		onPostEditing(event) {
-			this.$emit('target:changed', event.post);
-			this.$emit('editor:showing');
-
-			this.presentorShown = false;
-
-			if (!!!event.preventScrolling)
-				this.scrollOnEditing();
-		},  
-
-		onPostSelecting(event) {
-			this.$emit('editor:hidding');
-
-			this.presentorShown = true;
-		},
-
-		onPostCreating() {
-			this.$emit('editor:showing');
-
-			this.presentorShown = false;
-
-			if (!!!event.preventScrolling)
-				this.scrollOnEditing();	
-		},
-
-		// Defaul methods
 		scrollToDetails() {
-
 			function getElementDistanceToTop(element) {
 				if (!!!element)
 					return 0;

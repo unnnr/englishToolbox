@@ -1,4 +1,4 @@
-
+/* 
 import Http from '@services/Http';
 
 const Tags = new function ()
@@ -60,6 +60,15 @@ const Tags = new function ()
     let callbacks = [];
 
     load();
-}();
+}(); */
+
+import Model from '@models/Model'; 
+
+class Tags extends Model 
+{
+    path = 'tags';
+}
+
    
-export default Tags;
+export default new Tags();
+

@@ -24,6 +24,7 @@
 					v-show="detailsShown">
 					<post-info
 							ref="videoInfo"
+							:target="target"
 							:shrinkable="mobileWidth"/>
 				</div>
 			</transition>
@@ -47,6 +48,13 @@ export default {
 	components: {
 		PostInfo,
 		Comments
+	},
+
+	props: {
+		target: {
+			type: Object,
+			default: null
+		}
 	},
 
 	data: function () {

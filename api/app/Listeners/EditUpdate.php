@@ -28,6 +28,7 @@ class EditUpdate
      */
     public function handle(PostUpdated $event)
     {
+        return;
         $service = app(UpdateService::class);
         
         $service->update($event->post);

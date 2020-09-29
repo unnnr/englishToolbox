@@ -3,52 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Tag;
-use App\Models\Comment;
-use App\Models\Update;
+use App\Models\Traits\HasThumbnail;
+use App\Models\Traits\HasComments;
+use App\Models\Traits\HasUpdates;
+use App\Models\Traits\HasTags;
+
 
 class Video extends Model
 {
+    use HasTags, HasComments, HasThumbnail;
+
     protected $fillable = [
-        'videoID', 'title', 'description'
+        'youtube_id', 'title', 'description'
     ];
 
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable')
-            ->withPivot('main')->where('main');
-    }   
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }   
-
-    public function updateInstance()
-    {
-        return $this->morphOne(Update::class, 'updatetable');
-    }
-
-    public function convertToUpdate()
-    {
-        return [
-            'title' => $this->title,
-            'description' => $this->description,
-            'thumbnail_url' => "https://i.ytimg.com/vi/{$this->videoID}/sddefault.jpg"
-        ];
-    }
-
-    public function mainTag()
-    {
-        $mainTag = $this->morphToMany(Tag::class, 'taggable')
-            ->withPivot('main')
-            ->where('main', true)
-            ->first();
-
-        if (!!!$mainTag)
-            $mainTag = Tag::where(['label' => 'video', 'default' => true])
-                ->firstOrFail();
-        
-        return $mainTag; 
-    }
+    protected $defaultTag = 'video';
 }

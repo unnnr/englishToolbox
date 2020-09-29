@@ -14,14 +14,14 @@
 					<span>
 						YouTube link
 					</span> 
-					<small class="editor__error">{{ urlError }}</small>
+					<small class="editor__error">{{ errors.ulr }}</small>
 				</label>
 				<input class="editor__input input-second"
 						type="text"
 						placeholder="https://..."
 						name="videoUrl"
 						required
-						v-model="url"
+						v-model="data.url"
 						@keyup.enter="updateLink"
 						@blur='updateLink'>
 
@@ -30,14 +30,14 @@
 						Custom description
 						<small class="editor__counter">{{ descriptionCounter }}</small>
 					</span> 
-					<small class="editor__error">{{ descriptionError }}</small>
+					<small class="editor__error">{{ errors.description }}</small>
 				</label>
 
 				<textarea 
 					class="editor__textarea textarea-second"
 					placeholder="place for your description"
 					name="description"
-					v-model="description"
+					v-model="data.description"
 					:maxlength = "descriptionMaxLength">
 				</textarea>
 
@@ -56,15 +56,14 @@
 
 <script>
 
-import getYouTubeID from 'get-youtube-id';
-import bus from '@services/eventbus';
-import Posts from '@models/Posts';
-import Tags from '@models/Tags';
-import SubmitButton from '@components/SubmitButton';
-import RequestForm from '@components/RequestForm';
-import TagEditor from '@components/tags/TagEditor';
-import EditingState from '@states/video/editing';
-import CreationState from '@states/video/creation';
+import getYouTubeID from 'get-youtube-id'
+import bus from '@services/eventbus'
+import SubmitButton from '@components/SubmitButton'
+import RequestForm from '@components/RequestForm'
+import TagEditor from '@components/tags/TagEditor'
+import HandleTagsData from '@mixins/HandleTagsData'
+import Videos from '@models/Videos'
+
 
 const MAX_DESCRIPTION_LENGTH = 180;
 const MAX_URL_LENGTH = 180;
@@ -76,6 +75,8 @@ export default {
 		TagEditor
 	},
 
+	mixins: [ HandleTagsData ],
+
 	props: {
 		target: {
 			type: Object,
@@ -85,19 +86,22 @@ export default {
 
 	data: function () { 
 		return {
-			url: '',
-			urlError: '',
-			
-			description: '',
-			descriptionError: '',
 
-			state: null,
+			data: {
+				url: '',
+				description: '',
+			},
+
+			errors: {
+				url: '',
+				description: ''
+			}
 		}
 	},
 
 	computed: {
 		descriptionCounter() {
-			return this.description.length + '/' + MAX_DESCRIPTION_LENGTH;
+			return this.data.description.length + '/' + MAX_DESCRIPTION_LENGTH;
 		},
 
 		descriptionMaxLength() {
@@ -105,39 +109,27 @@ export default {
 		},
 
 		formTitle() {
-			return this.state ? this.state.getTitle() : ''; 
+			return this.editing ? 'Edit video' : 'New video'
 		},
 	},
 
 	watch: {
 		target(value) {
-			if (value)
-				this.state = new EditingState(this, value);
-			else 
-				this.state = new CreationState(this);
+			this.initState();
 		}
 	},
 
 	mounted() {
-		if (this.target)
-			this.state = new EditingState(this, this.target);
-		else 
-			this.state = new CreationState(this);
+		this.initState();
 	},
-
-	beforeDestroy() {
-		this.clear();
-
-		this.stateCreate();
-  },
 
 	methods: {
 		hadleErrors(errors) {
 			if (errors.videoUrl)
-				this.urlError += errors.videoUrl.join('. ')  
+				this.errors.url = errors.videoUrl.join('. ')  
 
 			if (errors.description)
-				this.descriptionError += errors.description.join('. ');
+				this.errors.descriptions = errors.description.join('. ');
 		},
 
 		isLoading() {
@@ -149,12 +141,16 @@ export default {
 			let form = this.$refs.form;
 
 			form.clear();
-
-			this.url = '';
-			this.urlError = '';
 			
-			this.description = '';
-			this.descriptionError = '';
+			Object.assign(this.data, {
+				description: '',
+				url: ''
+			});
+
+			Object.assign(this.errors, {
+				description: '',
+				url: ''
+			});
 
 			this.$options.postID = null;
 
@@ -163,27 +159,27 @@ export default {
 			tags.clear();
 		},
 
-		validateVideo() {
+		convertUrl() {
 			let videoID = getYouTubeID(this.url);
 			
 			if (!!!videoID)
 			{
-				this.urlError = 'Incorrect youtube link';
+				this.errors.url = 'Incorrect youtube link';
 				return false;
 			}
 	
-			this.urlError = '';
+			this.errors.url = '';
 
 			return videoID;
 		},
 
 		updateLink () {
-			if (this.url.length === 0 || this.$options.previousUrl === this.url)
+			if (this.data.url.length === 0 || this.$options.previousUrl === this.url)
 				return;
 
 			this.$options.previousUrl = this.url;
 			
-			let videoID = this.validateVideo();
+			let videoID = this.convertUrl();
 			
 			if (videoID)
 				bus.dispatch('editor-link-changed', { 
@@ -192,34 +188,60 @@ export default {
 				});
 		},
 
-		stateCreate() {
-			this.state = new CreationState(this);
-		},
+    getFormData(nullable = false){
+      let data = this.$refs.form.getData();
 
-		stateEdit(event) {
-			this.state = new EditingState(this, event.post);
+      let tags = this.$refs.tags.selected;
+      this.appendTagsData(data, tags, nullable);
+
+      let mainTag = this.$refs.tags.main;
+      this.appendMainTagData(data, mainTag, nullable);
+            
+      return data;
 		},
 		
-		onVideoCreated(post) {
+		initState() {
+			this.clear();
+
+			if (this.target)
+			{
+				Object.assign(this.data, {
+					url: 'https://youtube.com/watch?v=' + this.target.youtubeId,
+					description: this.target.description || ''
+				});
+
+				let tags = this.$refs.tags;
+      	tags.selected = this.target.tags;
+
+      	if (!!!this.target.mainTag.default)
+      	    tags.main = tags.getTagById(this.target.mainTag.id);
+			}
+		},
+
+		async createVideo() {
+			let data = this.getFormData();
+			let post = await Videos.create(data);
+				
 			bus.dispatch('post-created', { post });
 			bus.dispatch('post-selecting', { post  });
 		},
 
-		onVideoEdited(post) {
+		async editVideo() {
+			const NULLABLE = true;
+
+			let data = this.getFormData(NULLABLE);
+			let post = await Videos.edit(this.target.id, data);
+			
 			bus.dispatch('post-edited', { post });
-			bus.dispatch('post-selecting', { post  });
+			bus.dispatch('post-selecting', { post });
 		},
 
-		forceSubmit () {
-			this.$refs.submitButton.forceSubmit();
-		},
+		submit() {
+			if (this.target)
+				return this.editVideo();
 
-		async submit () {
-			if (this.state)
-				await this.state.submit();
+			return this.createVideo();
 		}
 	}
 }
 </script>
-
-

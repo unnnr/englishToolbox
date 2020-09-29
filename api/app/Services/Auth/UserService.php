@@ -18,8 +18,6 @@ class UserService implements MustHandleAuthentication
 {
     use HandleAuthentication;
 
-    const REMEMBER_ME = true;
-
     public function currentUser()
     {
         $user = auth()->user();

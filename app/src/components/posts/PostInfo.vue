@@ -1,7 +1,7 @@
 <template>
 	<div class="description">
 		<div class="description__header">
-			<h5 class="description__title heading-fifth">{{ target.title }}</h5>
+			<h5 class="description__title heading-fifth">{{ title }}</h5>
 			<button
 				class="description__mobile-button"
 				:class="{'description__mobile-button--upturned': shrinked}"
@@ -25,19 +25,19 @@
 				class="description__body-content"
 				ref='content'>
 					
-				<p class="description__text text-fourth">{{ target.description }}</p>
+				<p class="description__text text-fourth">{{ description }}</p>
 				<tag-list 
-					:tags="target.tags"
-					:main-tag="target.mainTag"/>
+					:tags="tags"
+					:main-tag="mainTag"/>
 			</div>
 		</div>
 		
 
 		<div class="description__footer">
-				<time class="description__date">{{ target.createdAt }}</time>
+				<time class="description__date">{{ createdAt }}</time>
 				<div class="description__views">
 					<span class="description__views-icon material-icons-round">visibility</span>
-					<span class="description__views-count">{{ target.views }}</span>
+					<span class="description__views-count">{{ views }}</span>
 			</div>
 		</div>
 	</div>
@@ -57,26 +57,42 @@ export default {
 		TagList
 	},
 
-	mixins: [ Shrinkable, HandleEvents ],
+	mixins: [ Shrinkable],
 
 	props: {
 		target: {
 			type: Object,
-			default: function() {
-				return {
-					title: 'Lorem ipsum dolor',
-					views: 1289,
-					createdAt: 'April 17 2020',
-					description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-											dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas
-											congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.`,
-
-					tags: [],
-					mainTag: null
-				}
-			}
+			default: null
 		}
-	}
+	},
+
+	computed: {
+		title() {
+			return this.target ? this.target.title : 'Lorem ipsum dolor';
+		},
+
+		description() {
+			return this.target ? this.target.description :  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et'
+																									 +  'dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas'
+																									 +  'congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.';
+		},
+
+		createdAt() {
+			return this.target ? this.target.createdAt : 'April 17 2020';
+		},
+
+		tags() {
+			return this.target ? this.target.tags : []
+		},
+
+		mainTag() {
+			return this.target ? this.target.mainTag : null;
+		},
+
+		views() {
+			return 123;
+		}
+	},
 }
 </script>
 

@@ -10,6 +10,8 @@ trait HandleTags
 {
     private function attachTags(Model $post, $tags)
     {
+        // REQUIRE VALIDATION
+
         $post->tags()->wherePivot('main', null)->detach();
 
         $post->tags()->attach($tags);

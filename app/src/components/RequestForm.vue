@@ -2,7 +2,7 @@
 	<form
 		ref="form"
 		action="#"
-		@submit.prevent="submitWrapper">
+		@submit.prevent="send">
 
 		<slot></slot>
 	</form>
@@ -25,13 +25,11 @@ export default {
 
 	methods: {
 		handleError(error) {
-
 			if (error.status == 422)
 			{
 				let errors = error.body.errors;
 
 				this.$emit('input:incorrect', errors);
-
 				return;
 			}
 
@@ -46,7 +44,7 @@ export default {
 			this.$refs.form.reset();
 		},
 
-		async submitWrapper() {
+		async send() {
 			if (this.loading)
 				return;
 			
@@ -54,7 +52,7 @@ export default {
 
 			try {
 				if (this.submitCallback)
-					await this.submitCallback();
+					await this.submitCallback(this.getData());
 
 				this.loading = false;
 			}

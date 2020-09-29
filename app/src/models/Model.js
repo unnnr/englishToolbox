@@ -1,41 +1,102 @@
 
 import Http from '@services/Http';
+import Cache from '@models/ModelCache'
 
 class Model 
-{
-    async create(data)
-    {
-        let uri = this.path;
+{    
+    __cache = new Cache();
 
-        return Http.post({
-            ulr, data
-        })
+    __parseInstance(data) 
+    {
+        for (const [key, value] of Object.entries(data))
+        {
+            let castName = key;
+
+            if (typeof this[castName] === 'function')
+                data[key] = this[castName](value); 
+        }
+
+        return data;
     }
 
-    async get(id) 
-    { 
-        let uri = this.path + '/' + id;
+    __parseCollection(list) 
+    {
+        for (const item of list)
+            this.__parseInstance(item);
 
-        return Http.get({
-            uri
-        })
+        return list;
+    }
+
+    async create(data)
+    {
+        let response = await Http.post({
+            data, uri: this.data
+        });
+
+        let item = this.__cache.push(response.data);
+
+        return this.__parseInstance(item);
+    }
+
+    async get(id, notCached = false) 
+    {
+        if  (!!!notCached)
+        {
+            let data = this.__cache.get(id)
+
+            if (data) 
+                return data
+        }
+
+        let response = await Http.get({
+            uri: this.path + '/' + id
+        });
+
+        let data = this.__cache.set(response.data);
+
+        return this.__parseInstance(data);
     }
 
     async edit(id, data) 
     {
-        let uri = this.path + '/' + id;
+        let response = await Http.patch({
+            data, uri:  this.path + '/' + id
+        });
 
-        return Http.get({
-            uri, data
-        })
+        let item = this.__cache.set(response.data);
+
+        return this.__parseInstance(item);
     }
 
     async delete(id)
     {
-        let uri = this.path + '/' + id;
+        let response = await Http.delete({
+            uri: this.path + '/' + id
+        });
 
-        return Http.delete({
-            uri
-            })
+        this.__cache.remove(id);
+
+        return response.data;
+    }
+
+    async all(notCached)
+    {
+        if (!!!notCached)
+        {
+            let data = this.__cache.get();
+
+            if (data)
+                return data;
+        }
+
+        let response = await Http.get({
+            uri: this.path
+        });
+
+        let data = this.__cache.clear(response.data);
+        
+        return this.__parseCollection(data);
     }
 }
+
+export default Model;

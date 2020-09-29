@@ -1,38 +1,45 @@
-const Http = new function() 
+class Http
 {
-    function prepareHeaders(headers = null) 
+    origin = 'http://etoolbox/api/';
+
+    defaultHeaders = {
+         // 'X-CSRF-TOKEN': token,
+         'X-Requested-With': 'XMLHttpRequest',
+         'Accept':'application/json',
+         'Sec-Fetch-Site': 'cross-site'
+    };
+
+    __prepareOptions(options) 
     {
-        if (!!!headers || typeof headers !== 'object')
-            headers = {};
+        if (!!!options || typeof options !== 'object')
+            options = {};
+
+        if (!!!options.headers || typeof options.headers !== 'object')
+            options.headers = {};
         
-        Object.assign(headers, {
-            // 'X-CSRF-TOKEN': token,
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept':'application/json',
-        })
+        Object.assign(options.headers, this.defaultHeaders)
+
+        options.body = options.data;
+
+        return options;
     }
 
-    function prepareRequest(options) 
+    __prepareRequest(options) 
     {
-        let { uri, data, headers, method } = options;
+        let { uri, body, headers, method } = this.__prepareOptions(options);
 
-        let body = data;
+        let url = this.origin + uri;
 
-        let url = Http.origin + uri;
-
-        console.log(Http.origin + uri);
-        
-        prepareHeaders(headers);
-
-        return [ url , { method, headers, body }];
+        return [ url , { method, body, headers }];
     }
 
-    function sendRequest(request) {
+    __sendRequest(request) {
+        console.log(...request);
         return fetch(...request);
     }
 
 
-    function parseData(response)
+    __parseData(response)
     {
         let contentType = response.headers.get('Content-Type');
 
@@ -42,9 +49,9 @@ const Http = new function()
         return response.text();
     } 
 
-    function parseResponse(response)
+    async __parseResponse(response)
     {
-        let data = parseData(response);
+        let data = await this.__parseData(response);
 
         if (response.ok)
             return data;
@@ -60,18 +67,18 @@ const Http = new function()
         }
     }
 
-    async function make(options) 
+    async __make(options) 
     {
-        let request = prepareRequest(options);
+        let request = this.__prepareRequest(options);
         
-        let response = await sendRequest(request);
+        let response = await this.__sendRequest(request);
 
-        let data = parseResponse(response);
+        let data = await this.__parseResponse(response);
 
         return data;
     }
 
-    function validateOptions(options)
+    __validateOptions(options)
     {
         if (options !== null && typeof options === 'object')
             return;
@@ -82,57 +89,50 @@ const Http = new function()
         };
     }
 
-    function createCustomMethod(method) 
+    __createCustomMethod(method) 
     {
         return function (options)
         {
-            validateOptions(options);
+            this.__validateOptions(options);
 
             options.method = 'POST';
 
             let data = options.data;
 
             if (!!!(data instanceof FormData))
-                options.data =  new FormData();
+                options.data = new FormData();
                 
             options.data.append('_method', method);
 
-            return make(options);
+            return this.__make(options);
         }
     }
 
-    this.get = function(options) 
+    get(options) 
     {
-        validateOptions(options);
-
+        this.__validateOptions(options);
 
         options.method = 'GET';
 
-        return make(options);
+        return this.__make(options);
     }
     
-    this.post = function(options) 
+    post(options) 
     {
-        validateOptions(options);
-
+        this.__validateOptions(options);
 
         options.method = 'POST';
 
-        return make(options);
+        return this.__make(options);
     }
 
-    this.put = createCustomMethod('PUT');
+    put = this.__createCustomMethod('PUT');
 
-    this.patch = createCustomMethod('PATCH');
+    patch = this.__createCustomMethod('PATCH');
 
-    this.delete = createCustomMethod('DELETE');
+    delete = this.__createCustomMethod('DELETE');
+}
 
+window.Http = new Http();
 
-    this.origin = window.location.origin + '/api/';
-}();
-
-Http.origin = 'http://etoolbox/api/';
-
-window.Http = Http;
-
-export default Http;
+export default window.Http ;
