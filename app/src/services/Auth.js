@@ -5,7 +5,15 @@ const Auth = new function() {
 
     function init() 
     {
-        Object.assign(Http.defaultHeaders, this.creationails())
+        updateHttp();
+    }
+
+    function updateHttp()
+    {
+        let creationails = getCreationails();
+
+        if (creationails)
+            Object.assign(Http.defaultHeaders, creationails);
     }
 
     function saveToken(token)
@@ -13,8 +21,6 @@ const Auth = new function() {
         Csookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
-
-        Http.defaultHeaders = [{'Authorization': 'Bearer ' + token}];
     }
     
     function removeToken() 
@@ -22,9 +28,14 @@ const Auth = new function() {
         Cookies.remove('auth');
     }
 
-    this.creationails = () =>
+    function getCreationails()
     {
-        return  {'Authorization': 'Bearer ' + Cookies.get('auth')};
+        let token = Cookies.get('auth');
+        
+        if (!!!token)
+            return null;
+        
+        return  {'Authorization': 'Bearer ' + token };
     }
 
     this.login = async (data) => 
@@ -76,7 +87,7 @@ const Auth = new function() {
     let user = null; 
     let callbacks = [];
 
-    init.call(this);
+    init();
 }();
 
 export default Auth;

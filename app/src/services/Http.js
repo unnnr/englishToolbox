@@ -135,4 +135,4 @@ class Http
 
 window.Http = new Http();
 
-export default new Http();
+export default window.Http ;
