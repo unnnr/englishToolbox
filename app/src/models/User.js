@@ -1,3 +1,5 @@
+import Http from '@services/Http'
+
 class User 
 {
     __user;
@@ -7,7 +9,7 @@ class User
         this.__user = user;
     }
 
-    __parseResponse(__)
+    __parseResponse(response)
     {
         return response.data;
     }
@@ -23,13 +25,16 @@ class User
 
     async get() 
     { 
+        if (this.__user)
+            return this.__user;
+
         let uri = this.path;
 
-        this.__user = Http.get({ uri })
+        this.__user = await Http.get({ uri })
         
         .then(this.__parseResponse)
 
-        .catch(__catchError);
+        .catch(this.__catchError);
 
         return { ...this.__user };
     }
@@ -42,7 +47,7 @@ class User
   
         .then(this.__parseResponse)
 
-        .catch(__catchError);
+        .catch(this.__catchError);
 
         return { ...this.__user };
     }
@@ -55,7 +60,7 @@ class User
 
         .then(this.__parseResponse)
 
-        .catch(__catchError);
+        .catch(this.__catchError);
 
         return response.data;
     }

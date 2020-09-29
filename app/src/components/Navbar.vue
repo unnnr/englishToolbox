@@ -123,7 +123,6 @@
 `
 <script>
 import Auth from '@services/Auth';
-import User from '@models/User';
 
 export default {
 	name: 'navbar',
@@ -161,10 +160,10 @@ export default {
 	},
 
 	beforeMount() {
-
-		Auth.onload(() => {
-			this.profileShown = Auth.check();
-		});
+		Auth.user.get().then( user => {
+			if (user)
+				this.profileShown = true;
+		})
 	},
 }
 </script>
