@@ -27,6 +27,11 @@ class Model
         return list;
     }
 
+    __clearData(data, chached) 
+    {
+        
+    }
+
     async create(data)
     {
         let response = await Http.post({
@@ -42,7 +47,7 @@ class Model
     {
         if  (!!!notCached)
         {
-            let data = this.__cache.get(id)
+            let data = this.__cache.get(id);
 
             if (data) 
                 return data
