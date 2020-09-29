@@ -27,11 +27,6 @@ class Model
         return list;
     }
 
-    __clearData(data, chached) 
-    {
-        
-    }
-
     async create(data)
     {
         let response = await Http.post({

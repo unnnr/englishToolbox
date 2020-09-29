@@ -17,26 +17,6 @@ class ModelCache
 
         return null;
     }
-
-    clearData(data, id) 
-    {
-        if (!!!(data instanceof FormData))
-            throw Error('data must have FormData type');
-            
-        let item = this.__find(id);
-
-        if (!!!item)
-            return data;
-
-        for (let [key, value] of data.entries())
-        {
-            if (!!!item.hasOwnProperty(key))
-                continue;
-
-            if (value === item[key])
-                data.delete(key);
-        }
-    }
     
     clear(withDefault = null)
     {
