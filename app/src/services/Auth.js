@@ -1,12 +1,11 @@
 import Cookies from 'js-cookie'
-import Api from '@services/Api'
-
+import Http from '@services/Http'
 
 const Auth = new function() {
 
     function init() 
     {
-        Api.setCredetinals(this.creationails());
+        Object.assign(Http.defaultHeaders, this.creationails())
     }
 
     function saveToken(token)
@@ -79,9 +78,5 @@ const Auth = new function() {
 
     init.call(this);
 }();
-
-Api.request.get('videos');
-
-window.send =  Api.request;
 
 export default Auth;
