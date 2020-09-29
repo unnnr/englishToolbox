@@ -123,6 +123,7 @@
 `
 <script>
 import Auth from '@services/Auth';
+import User from '@models/User';
 
 export default {
 	name: 'navbar',

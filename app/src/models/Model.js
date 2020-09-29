@@ -38,7 +38,7 @@ class Model
             uri, data
         });
 
-        return response.data;
+        return this.createInstance(response.data);
     }
 
     async get(id) 
@@ -49,7 +49,7 @@ class Model
             uri
         });
 
-        return response.data;
+        return this.createInstance(response.data);
     }
 
     async edit(id, data) 
@@ -60,7 +60,7 @@ class Model
             uri, data
         });
 
-        return response.data;
+        return this.createInstance(response.data);
     }
 
     async delete(id)
