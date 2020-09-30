@@ -143,6 +143,16 @@ export default {
 		}
 	},
 
+	beforeMount() {
+		Auth.check().then( authenticated => 
+			this.profileShown = authenticated
+		);
+
+		Auth.onChange( authenticated => 
+			this.profileShown = authenticated
+		)
+	},
+
 	methods: {
 		showMobileNav() {
 			this.isMobileNavShown = true;
@@ -160,11 +170,6 @@ export default {
 		}
 	},
 
-	beforeMount() {
-		Auth.check().then( authenticated => 
-			this.profileShown = authenticated
-		);
-	},
 }
 </script>
 

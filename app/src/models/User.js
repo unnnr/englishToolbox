@@ -4,11 +4,6 @@ class User
 {
     __user;
 
-    forceSet(user) 
-    {
-        this.__user = user;
-    }
-
     __parseResponse(response)
     {
         return response.data;
@@ -29,6 +24,11 @@ class User
             return this.__user;
         
         return { ...this.__user }
+    }
+
+    forceSet(user) 
+    {
+        this.__user = user;
     }
 
     async get() 

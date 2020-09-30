@@ -5,6 +5,10 @@ import User from '@models/User';
 const AUTH_TOKEN_EXPIRES = 12;
 
 class Auth {
+    
+    __callbacks = [];
+    
+    user = User;
 
     constructor() 
     {
@@ -41,6 +45,17 @@ class Auth {
         return  {'Authorization': 'Bearer ' + token };
     }
 
+    __changed(data)
+    {
+        for (let callback of this.__callbacks)
+            callback(data);
+    }
+
+    onChange(callback)
+    {
+        this.__callbacks.push(callback);
+    }
+
     async register(data)
     {
         let response = await Http.post({ uri: 'register', data }); 
@@ -49,10 +64,16 @@ class Auth {
             throw Error('Incorrect http response');
 
         this.__saveToken(response.data.auth);
+        
+        // Preventing of redundunt requests
+        delete response.data.auth;
+
+        this.user.forceSet(response.data);
+
+        this.__changed(true);
 
         return response;
     }
-
 
     async login(data) 
     {
@@ -66,7 +87,14 @@ class Auth {
             throw Error('Incorrect http response');
 
         this.__saveToken(response.data.auth);
+        
+        // Preventing of redundunt requests
+        delete response.data.auth;
 
+        this.user.forceSet(response.data);
+
+        this.__changed(true);
+        
         return response;
     }
 
@@ -79,6 +107,11 @@ class Auth {
             });
 
         this.__removeToken();
+
+         // Preventing of redundunt requests
+         this.user.forceSet(null);
+
+        this.__changed(false);
 
         return response;
     }
@@ -102,8 +135,6 @@ class Auth {
             }
         }
     }
-
-    user = User;
 }
 
 export default new Auth();

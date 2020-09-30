@@ -151,7 +151,7 @@ export default {
 		},
 
 		redirect() {
-			window.location.replace(window.origin + '/home');
+			// window.location.replace(window.origin + '/home');
 		},
 
 		getIconGroup(label) {
