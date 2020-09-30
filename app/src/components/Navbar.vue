@@ -132,7 +132,7 @@ export default {
 		return {
 			isMobileNavShown: false,
 
-			profileShown: true,
+			profileShown: false,
 
 			AppName: 'Etoolbox',
 

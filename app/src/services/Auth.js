@@ -43,9 +43,22 @@ class Auth {
         return  {'Authorization': 'Bearer ' + token };
     }
 
+    async register(data)
+    {
+        let response = await Http.post({ uri: 'register', data }); 
+
+        if (!!!response.authToken)
+            throw Error('Incorrect http response');
+
+        this.__saveToken(response.authToken);
+
+        return response;
+    }
+
+
     async login(data) 
     {
-        let response = await Http.post('login', data)
+        let response = await Http.post({ uri: 'login', data })
             .catch(error => {
                 this.__removeToken();
                 throw error;
@@ -59,14 +72,15 @@ class Auth {
         return response;
     }
 
-    async register(data)
+    async logout()
     {
-        let response = await Http.post('register', data); 
+        let response = await Http.post({uri: 'logout'})
+            .catch(error => {
+                this.__removeToken();
+                throw error;
+            });
 
-        if (!!!response.authToken)
-            throw Error('Incorrect http response');
-
-        this.__saveToken(response.authToken);
+        this.__removeToken();
 
         return response;
     }

@@ -53,10 +53,8 @@ trait HandleAuthentication
     }
 
     public function logout()
-    {
-        auth()->logout();
-        
-        $user->currentAccessToken()->delete();
+    {        
+        auth()->user()->currentAccessToken()->delete();
 
         return response('', Response::HTTP_NO_CONTENT);
     }

@@ -41,7 +41,7 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::post('login', 'UserController@login');
 
-    Route::get('logout', 'UserController@logout');
+    Route::post('logout', 'UserController@logout');
 
     Route::match(['head', 'get'], 'profile', 'UserController@index');
     Route::match(['put', 'patch'], 'profile', 'UserController@update');

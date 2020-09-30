@@ -23,6 +23,14 @@ class User
         throw error;
     }
 
+    __makeResponse()
+    {        
+        if (this.__user === null)
+            return this.__user;
+        
+        return { ...this.__user }
+    }
+
     async get() 
     { 
         if (this.__user)
@@ -36,7 +44,7 @@ class User
 
         .catch(this.__catchError);
 
-        return { ...this.__user };
+        return this.__makeResponse();
     }
 
     async edit(data) 
@@ -49,7 +57,7 @@ class User
 
         .catch(this.__catchError);
 
-        return { ...this.__user };
+        return this.__makeResponse();
     }
 
     async delete()

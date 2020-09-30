@@ -29,9 +29,12 @@ export default {
 	},
 
 	beforeMount() {
-		Auth.onload(() => {
-			this.shown = !!!Auth.isVerified();
-		});
+		Auth.logout();
+
+		Auth.check().then(authenticated => 
+				console.log()	
+			//this.shown = !!!Auth.isVerified
+		);
 	}
 }
 </script>

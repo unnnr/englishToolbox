@@ -16,7 +16,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->only([
-            'index', 'update', 'destroy'
+            'index', 'update', 'destroy', 'logout'
         ]);
     }
     
