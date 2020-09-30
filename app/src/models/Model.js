@@ -30,7 +30,7 @@ class Model
     async create(data)
     {
         let response = await Http.post({
-            data, uri: this.data
+            data, uri: this.path
         });
 
         let item = this.__cache.push(response.data);
