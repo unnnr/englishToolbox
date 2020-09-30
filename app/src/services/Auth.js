@@ -21,7 +21,7 @@ class Auth {
 
     __saveToken(token)
     {
-        Csookies.set('auth', token, {
+        Cookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
     }
@@ -33,8 +33,6 @@ class Auth {
 
     __creationails()
     {
-        return  {'Authorization': 'Bearer ' + '9|rU4WewakG9qp10q41JLQhhlUOAzEyb7idKDv4tIc3UvPzJp22KIu2ZUhOtA8HYMnesEDYnujlycx6fq7' };
-
         let token = Cookies.get('auth');
         
         if (!!!token)
@@ -47,10 +45,10 @@ class Auth {
     {
         let response = await Http.post({ uri: 'register', data }); 
 
-        if (!!!response.authToken)
+        if (!!!response.data || !!!response.data.auth)
             throw Error('Incorrect http response');
 
-        this.__saveToken(response.authToken);
+        this.__saveToken(response.data.auth);
 
         return response;
     }
@@ -64,10 +62,10 @@ class Auth {
                 throw error;
             });
 
-        if (!!!response.authToken)
+        if (!!!response.data && !!!response.data.auth)
             throw Error('Incorrect http response');
 
-        this.__saveToken(response.authToken);
+        this.__saveToken(response.data.auth);
 
         return response;
     }

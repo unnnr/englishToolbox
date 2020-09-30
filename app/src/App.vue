@@ -34,3 +34,9 @@ export default {
 }
 </script>
 
+<style>
+  #app {
+    background: #fafafa;
+  }
+</style>
+

@@ -23,7 +23,7 @@ class AuthenticatedUserResource extends JsonResource
 
             'verified' => $this->hasVerifiedEmail(),
     
-            'authToken' => $this->currentAccessToken()->plainTextToken,
+            'auth' => $this->currentAccessToken()->plainTextToken,
 
             'admin' => true
         ];

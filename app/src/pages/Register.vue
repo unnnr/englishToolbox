@@ -1,67 +1,67 @@
 <template>
 	<main class="sign-up container">
-			<request-form 
-				class="editor__form"
-				ref="form"
-				:submit-callback="submit"
-				@input:incorrect="hadleErrors">
+		<request-form 
+			class="auth"
+			ref="form"
+			:submit-callback="submit"
+			@input:incorrect="hadleErrors">
 
-				<h4 class="auth__title heading-fourth">Sing up</h4>
-				<div 
-					class="auth__input-group auth__input-group--account"
-					:class="'auth__input-group' + getIconGroup('name')">
+			<h4 class="auth__title heading-fourth">Sing up</h4>
+			<div 
+				class="auth__input-group auth__input-group--account"
+				:class="'auth__input-group' + getIconGroup('name')">
 
-					<input 
-						class="auth__input input-main" 
-						name="name" 
-						type="text" 
-						placeholder="your name" 
-						v-model="data.name"
-						:maxlength="rules.name.max"
-						:minlength="rules.name.min" 
-						@blur="checkName"
-						required>
+				<input 
+					class="auth__input input-main" 
+					name="name" 
+					type="text" 
+					placeholder="your name" 
+					v-model="data.name"
+					:maxlength="rules.name.max"
+					:minlength="rules.name.min" 
+					@blur="checkName"
+					required>
 
-					<small class="auth__input-error"> {{ errors.name }}</small>
-				</div>
-				<div 
-					class="auth__input-group auth__input-group--email"
-					:class="'auth__input-group' + getIconGroup('email')">
+				<small class="auth__input-error"> {{ errors.name }}</small>
+			</div>
+			<div 
+				class="auth__input-group auth__input-group--email"
+				:class="'auth__input-group' + getIconGroup('email')">
 
-					<input 
-						class="auth__input input-main"
-						type="email"
-						name="email" 
-						placeholder="your email" 
-						v-model="data.email"
-						@blur="checkEmail"
-						required>
+				<input 
+					class="auth__input input-main"
+					type="email"
+					name="email" 
+					placeholder="your email" 
+					v-model="data.email"
+					@blur="checkEmail"
+					required>
 
-					<small class="auth__input-error"> {{ errors.email }} </small>
-				</div>
-				<div 
-					class="auth__input-group auth__input-group--password"
-					:class="'auth__input-group' + getIconGroup('password')">
-					
-					<input 
-						class="auth__input input-main"
-						name="password" 
-						placeholder="your password" 
-						v-model="data.password"
-						:type="passwordType" 
-						:maxlength="rules.password.max"
-						:minlength="rules.password.min"
-						@blur="checkPassword"
-						required>
+				<small class="auth__input-error"> {{ errors.email }} </small>
+			</div>
+			<div 
+				class="auth__input-group auth__input-group--password"
+				:class="'auth__input-group' + getIconGroup('password')">
+				
+				<input 
+					class="auth__input input-main"
+					name="password" 
+					placeholder="your password" 
+					v-model="data.password"
+					:type="passwordType" 
+					:maxlength="rules.password.max"
+					:minlength="rules.password.min"
+					@blur="checkPassword"
+					required>
 
-					<button 
-						class="auth__input-visibility-button material-icons-round"
-						type="button"
-						@click="togglePreview">
+				<button 
+					class="auth__input-visibility-button material-icons-round"
+					type="button"
+					@click="togglePreview">
 
-						{{ previewIcon }}
-					</button>
-					<small class="auth__input-error"> {{  errors.password }} </small>
+					{{ previewIcon }}
+				</button>
+				<small class="auth__input-error"> {{  errors.password }} </small>
 			</div>
 			<div 
 				class="auth__input-group auth__input-group--password"
