@@ -2,34 +2,36 @@ import Cookies from 'js-cookie'
 import Http from '@services/Http'
 import User from '@models/User';
 
-const Auth = new function() {
+const AUTH_TOKEN_EXPIRES = 12;
 
-    function init() 
+class Auth {
+
+    constructor() 
     {
-        updateHttp();
+        this.__updateHttp();
     }
 
-    function updateHttp()
+    __updateHttp()
     {
-        let creationails = getCreationails();
+        let creationails = this.__creationails();
 
         if (creationails)
             Object.assign(Http.defaultHeaders, creationails);
     }
 
-    function saveToken(token)
+    __saveToken(token)
     {
         Csookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
     }
     
-    function removeToken() 
+    __removeToken() 
     {
         Cookies.remove('auth');
     }
 
-    function getCreationails()
+    __creationails()
     {
         return  {'Authorization': 'Bearer ' + '9|rU4WewakG9qp10q41JLQhhlUOAzEyb7idKDv4tIc3UvPzJp22KIu2ZUhOtA8HYMnesEDYnujlycx6fq7' };
 
@@ -41,39 +43,40 @@ const Auth = new function() {
         return  {'Authorization': 'Bearer ' + token };
     }
 
-    this.user = () => {
-        return User;
-    }
-
-    this.login = async (data) => 
+    async login(data) 
     {
         let response = await Http.post('login', data)
             .catch(error => {
-                removeToken();
+                this.__removeToken();
                 throw error;
             });
 
         if (!!!response.authToken)
             throw Error('Incorrect http response');
 
-        saveToken(response.authToken);
+        this.__saveToken(response.authToken);
 
         return response;
     }
 
-    this.register = async (data) =>
+    async register(data)
     {
         let response = await Http.post('register', data); 
 
         if (!!!response.authToken)
             throw Error('Incorrect http response');
 
-        saveToken(response.authToken);
+        this.__saveToken(response.authToken);
 
         return response;
     }
 
-    this.rules = () =>
+    async check() 
+    {
+        return Boolean(await this.user.get());
+    }
+
+    rules()
     {
         return {
             password: {
@@ -88,18 +91,7 @@ const Auth = new function() {
         }
     }
 
-    this.check = async () => 
-    {
-        return Boolean(await this.user().get());
-    }
+    user = User;
+}
 
-    const AUTH_TOKEN_EXPIRES = 12;
-
-    let loaded = false;
-    let user = null; 
-    let callbacks = [];
-
-    init();
-}();
-
-export default Auth;
+export default new Auth();

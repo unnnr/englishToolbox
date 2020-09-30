@@ -162,7 +162,7 @@ export default {
 
 	beforeMount() {
 		Auth.check().then( authenticated => 
-				this.profileShown = authenticated
+			this.profileShown = authenticated
 		);
 	},
 }
