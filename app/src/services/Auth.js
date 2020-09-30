@@ -88,6 +88,11 @@ const Auth = new function() {
         }
     }
 
+    this.check = async () => 
+    {
+        return Boolean(await this.user().get());
+    }
+
     const AUTH_TOKEN_EXPIRES = 12;
 
     let loaded = false;

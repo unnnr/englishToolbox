@@ -122,6 +122,7 @@
 </template>
 `
 <script>
+
 import Auth from '@services/Auth';
 
 export default {
@@ -160,10 +161,9 @@ export default {
 	},
 
 	beforeMount() {
-		Auth.user.get().then( user => {
-			if (user)
-				this.profileShown = true;
-		})
+		Auth.check().then( authenticated => 
+				this.profileShown = authenticated
+		);
 	},
 }
 </script>

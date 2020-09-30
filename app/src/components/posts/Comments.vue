@@ -117,9 +117,9 @@ export default {
 	},
 
   beforeMount() {
-		Auth.onload(() => {
-			this.showInput = Auth.check();
-		});
+		Auth.check().then(authenticated => 
+				this.showInput = authenticated
+		);
 	},
 
 	mounted() {
