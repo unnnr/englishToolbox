@@ -4,17 +4,17 @@
 			class="selected__overlay container"
 			v-if="shown">
 
-
-			<object 
-				class="selected__overlay-image" 
-				type="image/svg+xml"
-				v-if="empty"
-				:data="src">
-			</object>
-
-			<div 
-				class="selected__overlay-loading"
-				v-else>
+			<div class="selected_overlay-wrapper">
+				
+				<transition name="fade">
+					<object 
+						v-if="empty"
+						class="selected__overlay-image" 
+						type="image/svg+xml"
+						:data="src">
+					</object>
+				</transition>
+			
 			</div>
 		</div>
 	</transition>
@@ -80,12 +80,18 @@ export default {
   opacity: 0;
 }
 
-.selected__overlay-loading {
-  height: 100%;
-  width: 100%;
-	margin: 0 7.5px;
+.selected_overlay-wrapper
+{
+  margin: 0 7.5px;
+	width: 100%;
   border-radius: 15px;
-  background-color: white;
+	background: #fff;	
 }
+
+.selected__overlay-image
+{
+	background: transparent;
+}
+
 
 </style>

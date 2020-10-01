@@ -73,20 +73,27 @@ export default {
 	beforeMount()
 	{
 		this.model.all().then( async posts => {
+				if (posts.length === 0)
+				{	
+					console.log('some')
+					bus.dispatch('overlay-showing--empty');
+
+					return;
+				}
+
 				// Appending cards with simple animation
 				this.appendCards(posts);
 
 				// Selecting first card
 				let firstPost = this.posts[0];
-				if (!!!firstPost)
-							return;
-					
+				
 				let id = Number(firstPost.id);
 				let post = await this.model.get(id);
 
 				bus.dispatch('post-selecting', { post, preventScrolling: true });
 			}
-		);
+		)
+		.catch( () => bus.dispatch('overlay-showing--empty'));
 
 	/*
 			Auth.onload(() => {
@@ -185,9 +192,12 @@ export default {
 				if (this.selectedCard.id == removedPost.id)
 				{
 					let last = this.posts[this.posts.length - 1];
-					console.log(last, 'here');
+					
 					bus.dispatch('post-selecting', { post:  last});
 				}
+
+				if (this.posts.length)
+					bus.dispatch('overlay-showing--empty');
 			}
 		});
 	},
