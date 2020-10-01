@@ -10,17 +10,30 @@
 
 <script>
 export default {
+	props: {
+		submitCallback: {
+			type: Function, 
+			default: () => {}
+		},
+
+		defaults: {
+			type: Object,
+			default: () => {}
+		}
+	},
+
 	data: function() {
 		return {
 			loading: false
 		}
 	},
 
-	props: {
-		submitCallback: {
-			type: Function, 
-			default: () => {}
-		}
+	computed: {
+		data() {
+			let data = new FormData(this.$refs.form);
+
+			return this.clearData(data);
+		},
 	},
 
 	methods: {
@@ -36,8 +49,17 @@ export default {
 			throw error;
 		},
 
-		getData() {
-			return new FormData(this.$refs.form);
+		clearData(data) {
+			for (let [field, value] of data.entries())
+			{
+				console.log(this.defaults[field], value);
+
+				if (value === this.defaults[field])
+					data.delete(field)
+			}
+			
+
+			return data;
 		},
 
 		clear() {
@@ -48,11 +70,14 @@ export default {
 			if (this.loading)
 				return;
 			
-			this.loading = true;
+			//this.loading = true;
+			
+			this.data;
 
+			return;	
 			try {
 				if (this.submitCallback)
-					await this.submitCallback(this.getData());
+					await this.submitCallback(this.data);
 
 				this.loading = false;
 			}

@@ -3,9 +3,10 @@
 		<request-form 
 			class="editor__form"
 			ref="form"
+			:defaults='target'
 			:submit-callback="submit"
 			@input:incorrect="hadleErrors">
-			
+		
 			<div class="editor__header">
 				<h5 class="editor__title text-third">{{ formTitle }}</h5>
 			</div>
@@ -20,10 +21,11 @@
 						type="text"
 						placeholder="https://..."
 						name="videoUrl"
-						required
+						default="some"
 						v-model="data.url"
 						@keyup.enter="updateLink"
-						@blur='updateLink'>
+						@blur='updateLink'
+						required>
 
 				<label class="editor__label text-fourth" for="">
 					<span>
@@ -43,6 +45,7 @@
 
 				<tag-editor ref="tags"/>
 			</div>
+
 			<div class="editor__footer">
 				<submit-button
 					class="editor__footer-button button-second"
@@ -50,6 +53,7 @@
 					:loading="isLoading()">
 				</submit-button>
 			</div>
+
 		</request-form>
 	</div>
 </template>
@@ -88,7 +92,7 @@ export default {
 		return {
 
 			data: {
-				url: '',
+				url: 'someeoeoeoe',
 				description: '',
 			},
 
@@ -111,6 +115,10 @@ export default {
 		formTitle() {
 			return this.editing ? 'Edit video' : 'New video'
 		},
+
+		editing() {
+			return Boolean(this.target);
+		}
 	},
 
 	watch: {
@@ -189,7 +197,7 @@ export default {
 		},
 
     getFormData(nullable = false){
-      let data = this.$refs.form.getData();
+      let data = this.$refs.form.data;
 
       let tags = this.$refs.tags.selected;
       this.appendTagsData(data, tags, nullable);
@@ -203,7 +211,7 @@ export default {
 		initState() {
 			this.clear();
 
-			if (this.target)
+			if (this.editing)
 			{
 				Object.assign(this.data, {
 					url: 'https://youtube.com/watch?v=' + this.target.youtubeId,
@@ -237,7 +245,7 @@ export default {
 		},
 
 		submit() {
-			if (this.target)
+			if (this.editing)
 				return this.editVideo();
 
 			return this.createVideo();

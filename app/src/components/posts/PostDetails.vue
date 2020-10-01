@@ -48,7 +48,6 @@ export default {
 	mounted() {
 		this.listen({
 			'post-editing': (event) => {
-				console.log(event.post);
 				Object.assign(this.editor, {
 					target: event.post,
 					shown: true
