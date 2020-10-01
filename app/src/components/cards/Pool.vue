@@ -94,10 +94,7 @@ export default {
 			}); */
 	},
 
-	mounted()
-	{
-		window.posts = this.posts;
-
+	mounted() {
 		// Creating liteners 
 		this.listen({
 			'new-card-touched': event => {

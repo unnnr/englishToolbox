@@ -13,12 +13,14 @@ class Model
 
     __parseInstance(data) 
     {
-        for (const [key, value] of Object.entries(data))
-        {
-            let castName = key;
+        const PREFIX = 'cast';
 
-            if (typeof this[castName] === 'function')
-                data[key] = this[castName](value); 
+        for (const [name, value] of Object.entries(data))
+        {
+            let cast = this[PREFIX + this.__capitalizeFirst(name)];
+
+            if (typeof cast === 'function')
+                data[name] = cast(value); 
         }
 
         return data;
@@ -81,9 +83,9 @@ class Model
             uri: this.path + '/' + id
         });
 
-        let data = this.__cache.set(response.data);
+        let instance = this.__parseInstance(response.data);
 
-        return this.__parseInstance(data);
+        return  this.__cache.set(instance);
     }
 
     async edit(id, data) 
@@ -129,9 +131,9 @@ class Model
             uri: this.path
         });
 
-        let data = this.__cache.clear(response.data);
+        let instaces = this.__parseCollection(response.data); 
         
-        return this.__parseCollection(data);
+        return this.__cache.clear(instaces);
     }
 }
 
