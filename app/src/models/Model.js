@@ -6,6 +6,11 @@ class Model
 {    
     __cache = new Cache();
 
+    __capitalizeFirst(string)
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     __parseInstance(data) 
     {
         for (const [key, value] of Object.entries(data))
@@ -26,6 +31,30 @@ class Model
 
         return list;
     }
+
+    __clearData(data, saved) 
+    {
+        const PREFIX = 'compare';
+
+        for (let [name, value] of data.entries())
+        {
+            let compare = this[PREFIX + this.__capitalizeFirst(name)];
+
+            if (typeof compare === 'function')
+            {
+                if (compare(value, saved))
+                    data.delete(name);
+
+                break;
+            }
+            
+            if (value === saved[name])
+                data.delete(name);
+        }
+
+        return data;
+    }
+
 
     async create(data)
     {
@@ -59,6 +88,13 @@ class Model
 
     async edit(id, data) 
     {
+        // Removing redundunt fields
+        let saved = this.__cache.get(id);
+        
+        if (saved)
+            this.__clearData(data, saved);
+
+        // Sending requests
         let response = await Http.patch({
             data, uri:  this.path + '/' + id
         });

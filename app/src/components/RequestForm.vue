@@ -4,7 +4,7 @@
 		action="#"
 		@submit.prevent="send">
 
-		<slot></slot>
+		<slot @hook:mounted="test"></slot>
 	</form>
 </template>
 
@@ -13,11 +13,6 @@ export default {
 	props: {
 		submitCallback: {
 			type: Function, 
-			default: () => {}
-		},
-
-		defaults: {
-			type: Object,
 			default: () => {}
 		}
 	},
@@ -30,10 +25,8 @@ export default {
 
 	computed: {
 		data() {
-			let data = new FormData(this.$refs.form);
-
-			return this.clearData(data);
-		},
+			return new FormData(this.$refs.form);
+		}
 	},
 
 	methods: {
@@ -49,19 +42,6 @@ export default {
 			throw error;
 		},
 
-		clearData(data) {
-			for (let [field, value] of data.entries())
-			{
-				console.log(this.defaults[field], value);
-
-				if (value === this.defaults[field])
-					data.delete(field)
-			}
-			
-
-			return data;
-		},
-
 		clear() {
 			this.$refs.form.reset();
 		},
@@ -70,11 +50,8 @@ export default {
 			if (this.loading)
 				return;
 			
-			//this.loading = true;
-			
-			this.data;
+			this.loading = true;
 
-			return;	
 			try {
 				if (this.submitCallback)
 					await this.submitCallback(this.data);
