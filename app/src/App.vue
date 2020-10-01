@@ -22,6 +22,8 @@ import Basement from '@components/Basement'
 import Navbar from '@components/Navbar'
 import Alert from '@components/Alert'
 
+import bus from '@services/eventbus';
+
 Vue.use(vClickOutside);
 Vue.use(Context);
 
@@ -30,6 +32,10 @@ export default {
     Basement,
     Navbar,
     Alert
+  },
+  
+  errorCaptured(error) {
+    bus.dispatch('alert-error', error)
   }
 }
 </script>

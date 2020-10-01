@@ -43,7 +43,7 @@
 
 import bus from '@services/eventbus';
 
-const DEFAULT_MESSAGE = `An unexpected error has occurred on the server. Please try again later`;
+const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
 
 export default {
 	data: function() {
