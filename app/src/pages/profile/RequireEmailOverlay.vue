@@ -10,6 +10,7 @@
 			:data="imageUrl">
 
 		</object>
+		<button class="register-overlay__confirm-button button-second">confirm</button>
 	</section> 
 </template>
 

@@ -4,7 +4,7 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "/public/css/"
+      "savePath": "/app/public/css/"
     },
   ],
   "liveSassCompile.settings.includeItems": [

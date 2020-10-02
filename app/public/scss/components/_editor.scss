@@ -1,0 +1,158 @@
+// ======
+// editor
+// ======
+
+.editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: $bg-fifth;
+  z-index: $z-first +2;
+
+  @include lg-devices {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    position: static;
+    max-height: 450px;
+  }
+}
+
+.editor__form {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include lg-devices {
+    position: static;
+  }
+}
+
+// =============
+// editor header 
+// =============
+
+
+.editor__header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid $text-fifth;
+}
+
+.editor__title {
+  font-weight: $semibold;
+  color: $text-main;
+}
+
+// ===========
+// editor body
+// ===========
+
+.editor__body {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex-grow: 1;
+  padding-right: 5px;
+  padding-top: 15px;
+
+  @include scroll-second;
+}
+
+.editor__label {
+  color: $text-main;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.editor__counter {
+  font-size: 14px;
+  font-weight: $medium;
+  color: $text-fifth;
+  margin-left: 10px;
+  align-self: center;
+}
+
+.editor__error {
+  font-size: 12px;
+  margin-top: 2px;
+  color: $color-second;
+}
+
+.editor__input,
+.editor__textarea {
+  margin-bottom: 25px;
+}
+
+.editor__tag {
+  margin-bottom: 15px;
+}
+
+// ==============
+// editor buttons
+// ==============
+
+.editor__upload {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.editor__input-group {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 2px solid $bg-main;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  color: $color-main;
+  overflow: hidden;
+  width: 100%;
+
+  &:nth-child(1) {
+    margin-right: 7.5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:before {
+    font-family: "material icons round";
+    font-size: 25px;
+    margin-right: 7.5px;
+  }
+}
+
+.editor__input-group--image {
+  &:before {
+    content: "insert_photo";
+  }
+}
+
+.editor__input-group--audio {
+  &:before {
+    content: "audiotrack";
+  }
+}
+
+.editor__file-placeholder {
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor__file-input {
+  display: none;
+}
+
+// =============
+// editor footer
+// =============
+
+.editor__footer-button {
+  width: 100%;
+  margin-top: 10px;
+}
