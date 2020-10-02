@@ -8,7 +8,7 @@
     },
   ],
   "liveSassCompile.settings.includeItems": [
-    "resources/scss/*",
+    "app/public/scss/*",
   ],  
 
   "files.exclude": {

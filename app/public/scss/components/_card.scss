@@ -5,6 +5,50 @@
   flex-basis: 25%;
 }
 
+.empty-card {
+  position: relative;
+  overflow: hidden;
+
+  .card__views {
+    min-width: 50px;
+    height: 30px;
+  }
+
+  .card__date {
+    height: 30px;
+    min-width: 90px;
+  }
+
+  .card__tag-main {
+    min-width: 60px;
+  }
+
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 1;
+    width: 500%;
+    margin-left: -250%;
+    animation: placeholderAnimation 1s linear infinite;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 54%) 50% 50%;
+  }
+
+  @keyframes placeholderAnimation {
+    0% {
+      transform: translate3d(-30%, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(30%, 0, 0);
+    }
+  }
+
+}
+
 .card--square {
 
   .card__image {
@@ -52,7 +96,7 @@
 
 .card__image {
   position: relative;
-  background: $text-third;
+  background: $color-placeholder;
   padding-bottom: 100%;
   width: 100%;
   justify-content: center;
@@ -62,7 +106,7 @@
   @include border-radius;
   @include background-image;
   transition: border .3s ease-in-out;
-  
+
   @include lg-devices {
     margin-bottom: 20px;
   }
