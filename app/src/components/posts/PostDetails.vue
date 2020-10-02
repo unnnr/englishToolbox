@@ -74,12 +74,9 @@ export default {
 			},
 
 			'post-selecting': (event) => {
-				Object.assign(this.editor, {
-					shown: false
-				});
-
-				Object.assign(this.info, {
-					target: event.post
+				Object.assign(this, {
+					editor: { shown: false },
+					info: { target: event.post }
 				});
 
 				bus.dispatch('post-selected', event);
