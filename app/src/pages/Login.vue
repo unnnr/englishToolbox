@@ -151,7 +151,7 @@ export default {
 		},
 
 		redirect() {
-			// window.location.replace(window.origin + '/home');
+			this.$router.push({name: 'Home'});
 		},
 
 		getIconGroup(label) {
@@ -212,9 +212,8 @@ export default {
 					return;
 
 			let form =  this.$refs.form;
-			let data = form.getData();
 
-			await Auth.login(data);
+			await Auth.login(form.data);
 			
 			this.redirect();
 		},
