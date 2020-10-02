@@ -17,8 +17,11 @@
 			ref="wrapper"
 			:style="{ 'max-height': bodyHeight,
 							  'transition': bodyTransition}">	
-
-			<div class="comments__overlay"></div>
+			<!-- overlay here -->
+			<div class="comments__overlay">
+				<img src="" alt="">
+			</div>
+			<!-- overlay here -->
 			<div 	
 				class="comments__body-content"
 				ref='content'>

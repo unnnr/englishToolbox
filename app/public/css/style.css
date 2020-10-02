@@ -3084,12 +3084,14 @@ button:active {
 }
 
 .comments__overlay {
-  background: red;
+  background: #fff;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding: 30px;
+  z-index: 20;
 }
 
 .comments__body-content {
