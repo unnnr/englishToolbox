@@ -1,0 +1,175 @@
+// ===========
+// description
+// ===========
+
+.description {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include lg-devices {
+    position: static;
+  }
+}
+
+.description__header {
+  display: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+
+  @include lg-devices {
+    margin-top: 0;
+  }
+}
+
+// =================
+// description__body
+// =================
+
+
+.description__body {
+  display: flex;
+  flex-grow: 1;
+}
+
+.description__body-content {
+  padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-main;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $text-fifth;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-third;
+  }
+}
+
+
+.description__title {
+  background: $bg-fifth;
+}
+
+.description__text {
+  word-break: normal !important;
+  white-space: break-spaces;
+}
+
+// =================
+// description__tags
+// =================
+
+.description__tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.description__tags-title {
+  flex-basis: 100%;
+  margin-bottom: 15px;
+}
+
+.description__tag {
+  background: $text-third;
+  padding: 6px 10px;
+  border-radius: 25px;
+  color: $bg-fifth;
+  font-size: 12px;
+  font-weight: $semibold;
+  display: flex;
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  @include sm-devices {
+    font-size: 10px;
+  }
+}
+
+.description__tag--main {
+  &:before {
+    content: "star";
+    font-family: 'Material Icons Round';
+    font-size: 15px;
+    margin-right: 5px;
+    align-self: center;
+
+    @include sm-devices {
+      font-size: 12px;
+    }
+  }
+}
+
+// ===================
+// description__footer 
+// ===================
+
+.description__footer {
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.description__date {
+  font-size: 1.6em;
+  font-weight: $semibold;
+  color: $text-third;
+  margin-right: 25px;
+}
+
+// =====
+// views 
+// =====
+
+.description__views {
+  display: flex;
+  align-items: center;
+  color: $text-third;
+}
+
+.description__views-icon {
+  font-size: 1.6em !important;
+  margin-right: 5px;
+  display: flex;
+  align-self: center;
+}
+
+.description__views-count {
+  font-size: 1.6em;
+  font-weight: $semibold;
+}
+
+// ==================
+// description mobile 
+// ==================
+
+
+.description__mobile-button {
+  display: none;
+
+  span {
+    font-size: 30px;
+    margin-right: -10px;
+  }
+
+  @include lg-devices {
+    display: flex;
+  }
+}

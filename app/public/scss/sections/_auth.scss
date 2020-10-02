@@ -1,0 +1,275 @@
+// ====
+// auth
+// ====
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: 100%;
+  justify-content: center;
+  margin-right: 55px;
+  
+  @include xl-devices {
+    width: 100%;
+    align-items: center;
+    padding: 0 30px;
+    margin-right: 0;
+  }
+}
+
+.auth__title {
+  margin-bottom: 30px;
+}
+
+// ================
+// auth input group
+// ================
+
+.auth__input-group {
+  position: relative;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+  &::before {
+    font-family: "Material Icons Round";
+    position: absolute;
+    margin-left: 15px; 
+    font-size: 25px;
+
+    @include sm-devices {
+      font-size: 20px;
+    }
+  }
+
+  &::after {
+    font-family: "Material Icons Round";
+    position: absolute;
+    right: -40px;
+    font-size: 25px;
+
+    @include sm-devices {
+      right: -25px;
+      font-size: 20px;
+    }
+  }
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+.auth__input-group--account {
+  &::before {
+    content: "account_circle";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--email {
+  &::before {
+    content: "email";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--password {
+  &::before {
+    content: "lock";
+    color: $color-main;
+  }
+}
+
+.auth__input-group--error {
+  &::after {
+    content: "new_releases";
+    color: $color-second;
+  }
+}
+
+.auth__input-group--success {
+  &::after {
+    content: "verified";
+    color: $color-third;
+  }
+}
+
+// ==========
+// auth input
+// ==========
+
+.auth__input {
+  width: 500px;
+  padding-left: 55px;
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+.auth__input-error {
+  position: absolute;
+  bottom: -12.5px;
+  transform: translateY(+50%);
+  margin-left: 15px;
+  font-size: 12px;
+  color: $color-second;
+  font-weight: $medium;
+}
+
+.auth__input-visibility-button {
+  position: absolute;
+  right: 0;
+  font-size: 25px !important;
+  margin-right: 15px;
+  color: $text-third;
+
+  @include sm-devices {
+    font-size: 20px !important;
+  }
+}
+
+.auth__input-button {
+  width: 500px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+// ===========
+// form poster
+// ===========
+
+.form__poster {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  @include xl-devices {
+    display: none;
+  }
+}
+
+.form__poster--login-in {
+  justify-content: flex-start;
+}
+
+.form__img {
+ width: vw(725,1920);
+}
+
+// ==========
+// login with
+// ==========
+
+.login-with {
+  width: 500px;
+
+  @include xs-devices {
+    width: 100%;
+  }
+}
+
+.login-with__text {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.login-with__buttons {
+  display: flex;
+  margin: 25px 0px;
+}
+
+.login-with__button {
+  background: $bg-fifth;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  box-shadow: $shadow-second;
+  transition: box-shadow .2s;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.15);
+  }
+
+  &:active {
+    transform: scale(0.99);
+    box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.2);
+  }
+
+  &:nth-child(1) {
+    margin-right: 20px;
+
+    @include xs-devices {
+      margin-right: 10px;
+    }
+  }
+
+  &:nth-child(2) {
+    margin: 0px 10px;
+
+    @include xs-devices {
+      margin: 0px 5px;
+    }
+  }
+
+  &:nth-child(3) {
+    margin-left: 20px;
+
+    @include xs-devices {
+      margin-left: 10px;
+    }
+  }
+
+  @include xs-devices {
+    height: 60px;
+  }
+}
+
+.login-with__icon {
+  font-size: 45px;
+  transition: font-size .2s;
+
+  @include xs-devices {
+    font-size: 35px;
+  }
+}
+
+.login-with__icon--google {
+  color: #e44134;
+}
+
+.login-with__icon--facebook {
+  color: #1977f3;
+}
+
+.login-with__icon--twetter {
+  color: #1da1f2;
+}
+
+.login-with__link {
+  color: $color-main;
+  display: inline-flex;
+  text-align: center;
+  display: block;
+  transition: color .2s;
+
+  @include xs-devices {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: $color-main--hover;
+  }
+}

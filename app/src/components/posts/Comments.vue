@@ -18,6 +18,7 @@
 			:style="{ 'max-height': bodyHeight,
 							  'transition': bodyTransition}">	
 
+			<div class="comments__overlay"></div>
 			<div 	
 				class="comments__body-content"
 				ref='content'>

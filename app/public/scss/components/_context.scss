@@ -1,0 +1,24 @@
+.context {
+  position: absolute;
+  background: rgba(18, 18, 18, 0.95);
+  border-radius: 5px;
+  z-index: $z-fifth;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+.context__item {
+  color: $bg-fourth;
+  font-size: 14px;
+  padding: 5px 40px;
+  display: flex;
+  justify-content: flex-start;
+  transition: background .2s ease-in-out, color .2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background: #333333;
+    color: $bg-fifth;
+  }
+}
