@@ -144,3 +144,37 @@
     display: flex;
   }
 }
+
+.banned__body {
+  display: flex;
+  background: $bg-fifth;
+  padding: 30px;
+  @include border-radius;
+  box-shadow: $shadow-second;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.banned__button {
+  width: 100%;
+  background: $color-third;
+
+  &:hover {
+    background: darken($color: $color-third, $amount: 2);
+  }
+}
+
+.banned__comment {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 25%;
+  padding: 15px 15px;
+
+  @include lg-devices {
+    flex-basis: 33%;
+  }
+
+  .comment {
+    margin-top: 0;
+  }
+}
