@@ -14,11 +14,14 @@
 <script>
 
 import Auth from  '@services/Auth';
+import HandleEvents from '@mixins/HandleEvents'
 
 export default {
+	mixins: [ HandleEvents ],
+
 	data: function() {
 		return {
-				shown: true
+				shown: false
 		}
 	},
 
@@ -28,13 +31,12 @@ export default {
 		}
 	},
 
-	beforeMount() {
-		Auth.logout();
 
-		Auth.check().then(authenticated => 
-				console.log()	
-			//this.shown = !!!Auth.isVerified
-		);
+	mounted() {
+		this.listen({
+			'email-overlay--show': () => 
+				this.shown = true
+		})
 	}
 }
 </script>

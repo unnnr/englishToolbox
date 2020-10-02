@@ -1,6 +1,7 @@
 <template>
 	<form
 		class="management__tab-body management__tab-body--uneditabl"
+		autocomplete="false"
 		ref="form"
 		@submit.prevent="submit">
 		
@@ -21,10 +22,12 @@
 			<input
 				class="management__account-input input-second"
 				placeholder="Your name"
+				autocomplete="off"
 				type="text"
 				name="name"
 				v-model="data.newName"
-				:disabled="loading"
+				:readonly="disabled"
+				:disabled="disabled"
 				:minlength="rules.name.min"
 				:maxlength="rules.name.max"
 				required>
@@ -35,9 +38,11 @@
 			<input
 				class="management__account-input input-second" 
 				placeholder="your-email@gmail.com"
+				autocomplete="off"
 				type="text" 
 				name="email"
-				:disabled="loading"
+				:readonly="disabled"
+				:disabled="disabled"
 				v-model="data.email"
 				required>
 		</div>
@@ -48,9 +53,11 @@
 					<input 
 						class="management__account-input input-second"
 						placeholder="new password"
+						autocomplete="new-password"
 						name="newPassword"
 						v-model="data.newPassword"
-						:disabled="loading"
+						:readonly="disabled"
+						:disabled="disabled"
 						:minlength="rules.password.min"
 						:maxlength="rules.password.max"
 						:type="passwordType">
@@ -68,6 +75,7 @@
 				<input 
 					class="management__account-input input-second" 
 					placeholder="confirm new password"
+					autocomplete="new-password"
 					name="confirmation"
 					v-model="data.confirmation"
 					:disabled="loading"
@@ -81,12 +89,14 @@
 				<input
 					class="management__account-input input-second"
 					placeholder="current password"
+					autocomplete="current-password"
 					type="text"
 					name="password"
 					v-model="data.currentPassoword"
 					:minlength="rules.password.min"
 					:maxlength="rules.password.max"
-					:disabled="loading"
+					:readonly="disabled"
+					:disabled="disabled"
 					required>
 			</div>
 			<button class="management__account-button button-second">confirm changes</button>
@@ -100,7 +110,9 @@
 </template>
 
 <script>
+
 import Auth from '@services/Auth';
+import bus from '@services/eventbus';
 
 export default {
 	data: function () {
@@ -130,35 +142,41 @@ export default {
 
 			passowrdShown: false,
 
-			loading: false
+			loading: true
 		}
 	},
 
 	computed: {
 			passwordType() {
-				if (this.passowrdShown)
-					return 'text';
-
-				return 'password';
+				return this.passowrdShown ? 'text' : 'password';
 			},
 			
 			passwordIcon() {
-				if (this.isPasswordShown)
-					return 'visibility_off';
+				return this.isPasswordShown ? 'visibility_off' : 'visibility';
+			},
 
-				return 'visibility';
+			disabled() {
+				return this.loading;
 			}
+			
 	},
 
 	beforeMount() {
-		Auth.onload(() => {
-			let user = Auth.user();
+		Auth.check().then(async authenticated => {
+			if (!!!authenticated)
+			{
+				bus.dispatch('email-overlay--show');
+				return;
+			}
+
+			let user = await Auth.user.get();
 
 			this.data.email = user.email;
 			this.data.currentName = user.name;
 
 			this.data.newName = this.data.currentName;
-		});
+		})
+		.finally(() => this.loading = false);
 
 		this.rules = Auth.rules();
 	}, 
