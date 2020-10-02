@@ -1,12 +1,14 @@
 <template>
 	<section 
 		class="register-overlay"
-		v-if="shown">
+		v-if="shown"
+		@click="() => {this.shown = false}">
 
 		<object
 			class="register-overlay__image"
 			type="image/svg+xml"
 			:data="imageUrl">
+
 		</object>
 	</section> 
 </template>
@@ -30,7 +32,6 @@ export default {
 			return window.origin + '/img/svg/register-overlay.svg';
 		}
 	},
-
 
 	mounted() {
 		this.listen({

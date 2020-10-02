@@ -3,7 +3,8 @@
 		class="management__tab-body management__tab-body--uneditabl"
 		autocomplete="false"
 		ref="form"
-		:submit-callback="submit">
+		:submit-callback="submit"
+		@input:incorrect="handleError">
 		
 		<div class="management__account-header">
 			<label class="management__account-photo" for="accountPhoto">
@@ -68,7 +69,7 @@
 					</button>
 			</div>
 			<div class="management__account-input-group management__account-input-group--password">
-				<small class="management__account-input-error">{{ errors.currentPassowrd }}</small>
+				<small class="management__account-input-error">{{ errors.confirmation }}</small>
 				<input 
 					class="management__account-input input-second" 
 					placeholder="confirm new password"
@@ -82,7 +83,7 @@
 			</div>
 			<label class="management__account-label heading-fifth" for="">Confirmation</label>
 			<div class="management__account-input-group management__account-input-group--confirm-password">
-				<small class="management__account-input-error"> {{ errors.confirmation }}</small>
+				<small class="management__account-input-error"> {{ errors.currentPassword }}</small>
 				<input
 					class="management__account-input input-second"
 					placeholder="current password"
@@ -177,18 +178,20 @@ export default {
 
 	beforeMount() {
 		Auth.check().then(async authenticated => {
+
 			if (!!!authenticated)
-			{
-				bus.dispatch('email-overlay--show');
 				return;
-			}
 
 			let user = await Auth.user.get();
 
-			this.data.email = user.email;
-			this.data.currentName = user.name;
-
-			this.data.newName = this.data.currentName;
+			if (!!!user.verified)
+				return bus.dispatch('email-overlay--show');
+				
+			Object.assign(this.data, {
+				email: user.email, 
+				currentName: user.name,
+				newName: user.name
+			})
 		})
 		.finally(() => this.loadingUser = false);
 
@@ -196,6 +199,27 @@ export default {
 	}, 
 
 	methods: {
+		handleError(errors) {
+			Object.assign(this.errors, errors);
+
+			if (errors.password)
+			{
+				errors.currentPassword = errors.password;
+				delete errors.password;
+			}
+			
+			Object.assign(this.errors, errors);
+		},
+
+		clearErrors() {
+			let empty = {};
+
+			for (let key in this.errors)
+				empty[key] = '';
+
+			Object.assign(this.errors, empty);
+		},
+
 		togglePasswordView() {
 			this.passowrdShown = !!!this.passowrdShown;
 		},
@@ -203,6 +227,8 @@ export default {
 		async submit(data) {
 			if ( this.data.confirmation !== this.data.newPassword)
 				return;
+
+			this.clearErrors();
 
 			await Auth.user.edit(data);
 

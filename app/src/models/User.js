@@ -49,6 +49,15 @@ class User
 
     async edit(data) 
     {
+        if (!!!(data instanceof FormData) )
+            throw Error('data must be FormData instance');
+
+        if (data.get('newPassword') === '')
+            console.log(data.delete('newPassword'));
+
+        if (data.get('confirmation') === '')
+            console.log(data.delete('confirmation'));
+
         this.__user = await Http.patch({
             data, uri: this.path
         })

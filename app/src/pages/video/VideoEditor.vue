@@ -67,7 +67,6 @@ import TagEditor from '@components/tags/TagEditor'
 import HandleTagsData from '@mixins/HandleTagsData'
 import Videos from '@models/Videos'
 
-
 const MAX_DESCRIPTION_LENGTH = 180;
 const MAX_URL_LENGTH = 180;
 

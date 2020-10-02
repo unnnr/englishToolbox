@@ -24,8 +24,11 @@ export default {
 	},
 
 	computed: {
-		data() {
-			return new FormData(this.$refs.form);
+		data: {
+			cache: false,
+			get() {
+				return new FormData(this.$refs.form);
+			}
 		}
 	},
 
@@ -33,9 +36,13 @@ export default {
 		handleError(error) {
 			if (error.status == 422)
 			{
-				let errors = error.body.errors;
+				let errors =  error.body.errors;
+
+				for (let key in errors)
+					errors[key] = errors[key].join(', ');
 
 				this.$emit('input:incorrect', errors);
+				
 				return;
 			}
 
