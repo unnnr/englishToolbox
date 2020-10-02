@@ -4,12 +4,12 @@
 		ref="player">
     	
 		<div class="player__rationed">
-  			<iframe class="player__video"
-			  	frameborder="0"
-				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			  	:src="'https://www.youtube.com/embed/' + videoID + '?enablejsapi=1&color=white'"
-				allowfullscreen>
-			</iframe>
+				<iframe class="player__video"
+					frameborder="0"
+					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+					:src="'https://www.youtube.com/embed/' + videoID + '?enablejsapi=1&color=white'"
+					allowfullscreen>
+				</iframe>
 			<transition name="fade">
 				<div 
 					v-if="showOverlay"
@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 	.fade-enter-active, .fade-leave-active {
-	  transition: opacity 1s;
+	  transition: opacity 2s;
 	}
 	.fade-enter, .fade-leave-to {
 	  opacity: 0;
