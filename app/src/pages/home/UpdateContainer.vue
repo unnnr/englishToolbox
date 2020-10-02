@@ -13,7 +13,7 @@
 					'width': '100%',
 					'background-color': 'none'}">
 
-				<swiper-slide
+			<!-- 	<swiper-slide
 					v-for="card in updates"
 					:key="card.id">
 					
@@ -26,6 +26,17 @@
 						:tags="card.tags"
 						square-form
 						margined/>
+				</swiper-slide> -->
+
+
+					<swiper-slide
+						v-for="card in updates"
+						:key="card.id">
+					
+						<empty-card 
+							square-form
+							margined/>
+							
 				</swiper-slide>
 
 			</swiper>
@@ -36,6 +47,7 @@
 <script>
 
 import Card from '@components/cards/Card';
+import EmptyCard from '@components/cards/EmptyCard'
 import Updates from '@models/Updates';
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
@@ -48,7 +60,7 @@ export default {
 	components: {
 		SwiperSlide,
 		Swiper,
-		Card
+		EmptyCard,  
 	},
 
 	data: function() {
