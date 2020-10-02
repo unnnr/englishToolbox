@@ -1,8 +1,9 @@
 <template>
-	<form
+	<request-form
 		class="management__tab-body management__tab-body--uneditabl"
+		autocomplete="false"
 		ref="form"
-		@submit.prevent="submit">
+		:submit-callback="submit">
 		
 		<div class="management__account-header">
 			<label class="management__account-photo" for="accountPhoto">
@@ -17,43 +18,46 @@
 		</div>
 		<label class="management__account-label heading-fifth" for="">Profile name</label>
 		<div class="management__account-input-group management__account-input-group--account">
-			<small class="management__account-input-error"></small>
+			<small class="management__account-input-error">{{ errors.name }}</small>
 			<input
 				class="management__account-input input-second"
 				placeholder="Your name"
+				autocomplete="off"
 				type="text"
 				name="name"
 				v-model="data.newName"
-				:disabled="loading"
 				:minlength="rules.name.min"
 				:maxlength="rules.name.max"
+				:readonly="disabled"
 				required>
 		</div>
 		<label class="management__account-label heading-fifth" for="">Email</label>
 		<div class="management__account-input-group management__account-input-group--email">
-			<small class="management__account-input-error"></small>
+			<small class="management__account-input-error">{{ errors.email }}</small>
 			<input
 				class="management__account-input input-second" 
 				placeholder="your-email@gmail.com"
+				autocomplete="off"
 				type="text" 
 				name="email"
-				:disabled="loading"
 				v-model="data.email"
+				:readonly="disabled"
 				required>
 		</div>
 		<div class="management__account-editor-group">
 			<label class="management__account-label heading-fifth" for="">Password</label>
 			<div class="management__account-input-group management__account-input-group--new-password">
-					<small class="management__account-input-error"></small>
+					<small class="management__account-input-error">{{ errors.newPassword }}</small>
 					<input 
 						class="management__account-input input-second"
 						placeholder="new password"
+						autocomplete="new-password"
 						name="newPassword"
 						v-model="data.newPassword"
-						:disabled="loading"
 						:minlength="rules.password.min"
 						:maxlength="rules.password.max"
-						:type="passwordType">
+						:type="passwordType"
+						:readonly="disabled">
 					<button 
 						class="management__account-visibility-button"
 						@click="togglePasswordView">
@@ -64,45 +68,58 @@
 					</button>
 			</div>
 			<div class="management__account-input-group management__account-input-group--password">
-				<small class="management__account-input-error"></small>
+				<small class="management__account-input-error">{{ errors.currentPassowrd }}</small>
 				<input 
 					class="management__account-input input-second" 
 					placeholder="confirm new password"
+					autocomplete="new-password"
 					name="confirmation"
 					v-model="data.confirmation"
-					:disabled="loading"
 					:minlength="rules.password.min"
 					:maxlength="rules.password.max"
-					:type="passwordType">
+					:type="passwordType"
+					:readonly="disabled">
 			</div>
 			<label class="management__account-label heading-fifth" for="">Confirmation</label>
 			<div class="management__account-input-group management__account-input-group--confirm-password">
-				<small class="management__account-input-error"></small>
+				<small class="management__account-input-error"> {{ errors.confirmation }}</small>
 				<input
 					class="management__account-input input-second"
 					placeholder="current password"
+					autocomplete="current-password"
 					type="text"
 					name="password"
 					v-model="data.currentPassoword"
 					:minlength="rules.password.min"
 					:maxlength="rules.password.max"
-					:disabled="loading"
+					:readonly="disabled"
 					required>
 			</div>
-			<button class="management__account-button button-second">confirm changes</button>
+
+			<submit-button  class="management__account-button button-second"/>
+
 		</div>
 		<button class="management__account-delete-button text-fourth">
 			<span class="material-icons-round">delete_forever</span>
 			
 			delete account
 		</button>
-	</form>
+	</request-form>
 </template>
 
 <script>
-import Auth from '@services/Auth';
+
+import RequestForm from '@components/RequestForm'
+import SubmitButton from '@components/SubmitButton'
+import Auth from '@services/Auth'
+import bus from '@services/eventbus'
 
 export default {
+	components: { 
+		RequestForm,
+		SubmitButton
+	},
+	
 	data: function () {
 		return {
 			data: {
@@ -114,6 +131,15 @@ export default {
 				currentPassword: '',
 				newPassword: '',
 				confirmation: '',
+			},
+
+			errors: {
+				email: '',
+				name: '',
+
+				currentPassowrd: '',
+				newPassword: '',
+				confirmation: ''
 			},
 
 			rules: {
@@ -130,35 +156,41 @@ export default {
 
 			passowrdShown: false,
 
-			loading: false
+			loadingUser: true
 		}
 	},
 
 	computed: {
 			passwordType() {
-				if (this.passowrdShown)
-					return 'text';
-
-				return 'password';
+				return this.passowrdShown ? 'text' : 'password';
 			},
 			
 			passwordIcon() {
-				if (this.isPasswordShown)
-					return 'visibility_off';
+				return this.isPasswordShown ? 'visibility_off' : 'visibility';
+			},
 
-				return 'visibility';
+			disabled() {
+				console.log(this.loadingUser || (this.$refs.form && this.$refs.form.loading));
+				return this.loadingUser || (this.$refs.form && this.$refs.form.loading);
 			}
 	},
 
 	beforeMount() {
-		Auth.onload(() => {
-			let user = Auth.user();
+		Auth.check().then(async authenticated => {
+			if (!!!authenticated)
+			{
+				bus.dispatch('email-overlay--show');
+				return;
+			}
+
+			let user = await Auth.user.get();
 
 			this.data.email = user.email;
 			this.data.currentName = user.name;
 
 			this.data.newName = this.data.currentName;
-		});
+		})
+		.finally(() => this.loadingUser = false);
 
 		this.rules = Auth.rules();
 	}, 
@@ -168,21 +200,13 @@ export default {
 			this.passowrdShown = !!!this.passowrdShown;
 		},
 
-		async submit() {
-			if (this.loading)
-				return;
-
+		async submit(data) {
 			if ( this.data.confirmation !== this.data.newPassword)
 				return;
 
-			this.loading = true;
-			
-			let form = this.$refs.form;
-			await Auth.edit(new FormData(form)).catch((error) => {console.log(error)});
+			await Auth.user.edit(data);
 
 			this.currentName = this.newName;
-
-			this.loading = false;
 		}
 	}
 }

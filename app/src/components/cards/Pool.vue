@@ -121,7 +121,8 @@ export default {
 		// Selecting listeners
 		this.listen({
 			'card-selecting': event => {
-				let selectedId = this.selectedCard.id
+
+				let selectedId = this.selectedCard ? this.selectedCard.id : null;
 				let newId = event.card.$vnode.key;
 
 				if (newId === selectedId)

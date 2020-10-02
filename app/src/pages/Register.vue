@@ -243,7 +243,7 @@ export default {
 		},
 
 		redirect() {
-			window.location.replace(window.origin + '/home');
+			this.$router.push({name: 'Home'});
 		},
 
 		async submit() {
@@ -251,9 +251,8 @@ export default {
 				return;
 
 			let form =  this.$refs.form;
-			let data = form.getData();
 
-			await Auth.register(data);
+			await Auth.register(form.data);
 
 			this.redirect();
 		},
