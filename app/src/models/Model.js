@@ -64,9 +64,9 @@ class Model
             data, uri: this.path
         });
 
-        let item = this.__cache.push(response.data);
+        let item  = this.__parseInstance(response.data);
 
-        return this.__parseInstance(item);
+        return this.__cache.push(item);
     }
 
     async get(id, notCached = false) 

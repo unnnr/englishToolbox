@@ -18,7 +18,7 @@
 			class="description__body"
 			ref="wrapper"
 			:style="{
-				'max-height': bodyHeight,
+				'height': bodyHeight,
 				'transition': bodyTransition}">
 
 			<div 
@@ -47,7 +47,7 @@
 
 <script>
 
-import Shrinkable from '@mixins/ShrinkableDetailsTab';
+import Shrinkable from '@mixins/Shrinkable';
 import HandleEvents from '@mixins/HandleEvents'
 import TagList from '@components/tags/TagList';
 import bus from '@services/eventbus';
@@ -101,6 +101,7 @@ export default {
 
 .description__body {
 	overflow: hidden;
+	display: block;
 }
 
 .description__text {
@@ -111,8 +112,12 @@ export default {
 	transform-origin: 15px 15px;
 }
 
-.description__mobile-button--upturned {
-	transform: rotate(180deg);
+.description__mobile-button
+{
+	transform: rotate(0);
 }
 
+.description__mobile-button--upturned {
+	transform: rotate(-180deg);
+}
 </style>

@@ -1,4 +1,4 @@
-const ShrinkableDetailsTab = {
+const Shrinkable = {
     props: {
         shrinkable: {
             type: Boolean
@@ -9,11 +9,9 @@ const ShrinkableDetailsTab = {
         return {
             shrinked: false,
             
-            bodyHeight: 'none',
+            bodyHeight: 'auto',
 
             shrinkDuration: 700,
-
-            renderDuration: 100
         }
     },
 
@@ -27,7 +25,7 @@ const ShrinkableDetailsTab = {
         bodyTransition() {
             let duration = this.shrinkDuration;
 
-            return `max-height ${duration}ms ease-in-out`;
+            return `height ${duration}ms ease-in-out`;
         }
     },
 
@@ -36,41 +34,44 @@ const ShrinkableDetailsTab = {
         shrinkable(value) {
             if (value || !!!this.shrinked)
                 return;
-
-            this.bodyHeight = 'none';
+        
+            // force open
+            this.bodyHeight = 'auto';
             this.shrinked = false;
         }
     },
 
     methods: {
-        transitionEnded() {
-            if (!!!this.shrinked)
-                this.bodyHeight = 'none';
-
-            this.animationTimer = null;
-        },
-
         shrink() {
             let content = this.$refs.content;
 
             this.bodyHeight = content.offsetHeight + 'px';
             
             // Gives time for rendering
-            setTimeout(() => { this.bodyHeight = 0 ;}, this.renderDuration);
+            this.$nextTick(() => {
+                this.bodyHeight = 0;
+            });
         },
 
-		open() {
+        open() {
             let content = this.$refs.content;
 
+            console.log(content.offsetHeight);
             this.bodyHeight = content.offsetHeight + 'px';
+
+            // Removing explicitly setted height
+            this.$options.openingTimer = setTimeout(() => {
+                this.bodyHeight = 'auto';
+                this.$options.openingTimer = null;
+            },  this.shrinkDuration); 
         },
-        
+
         toggle() {
             if (!!!this.shrinkable)
                 return;
 
-            if (this.animationTimer) 
-                clearTimeout(this.animationTimer)
+            if (this.$options.openingTimer)
+                clearTimeout(this.$options.openingTimer);
 
             this.shrinked = !!!this.shrinked;
 
@@ -78,10 +79,8 @@ const ShrinkableDetailsTab = {
                 this.shrink();
             else 
                 this.open();
-            
-            this.animationTimer = setTimeout(this.transitionEnded,  this.shrinkDuration); 
         }
     }
 };
 
-export default ShrinkableDetailsTab;
+export default Shrinkable;

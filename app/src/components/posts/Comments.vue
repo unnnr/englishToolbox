@@ -72,7 +72,7 @@
 
 <script>
 
-import Shrinkable from '@mixins/ShrinkableDetailsTab'
+import Shrinkable from '@mixins/Shrinkable'
 import Comments from '@models/Comments'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'

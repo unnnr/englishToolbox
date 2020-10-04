@@ -271,8 +271,8 @@ export default {
 }
 
 .list-leave-active {
-	-webkit-animation: scale-out 5.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: scale-out 5.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	-webkit-animation: scale-out .5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: scale-out .5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
 
 @-webkit-keyframes scale-out {
