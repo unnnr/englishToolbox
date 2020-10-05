@@ -27,13 +27,13 @@ class VideoResource extends JsonResource
 
             'createdAt' => $this->created_at,
 
+            // Additional
+            'thumbnail' => $this->thumbnail->url,
+
             // Tags
             'mainTag' => new TagResource($this->mainTag()),
 
-            'tags' => TagResource::collection($this->tags),
-
-            // Additional
-            'thumbnail' => $this->thumbnail->url
+            'tags' => TagResource::collection($this->tags)
         ];
     }
 }

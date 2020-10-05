@@ -26,7 +26,6 @@ class AuthService
         );
 
         $user->avatar()->create([
-            'name' => 'some'
         ]);
 
         event(new Registered($user));

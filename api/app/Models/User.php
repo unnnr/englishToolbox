@@ -8,8 +8,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Notifications\VerifyEmail;
-use App\Models\Avatar;
-use App\Models\Comments;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

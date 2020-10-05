@@ -23,7 +23,9 @@ class UserResource extends JsonResource
 
             'verified' => $this->hasVerifiedEmail(),
 
-            'admin' => true
+            'admin' => true,
+
+            'avatar' => $this->avatar->url
         ];
     }
 }
