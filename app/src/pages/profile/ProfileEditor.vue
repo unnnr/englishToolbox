@@ -1,8 +1,9 @@
 <template>
 	<request-form
-		class="management__tab-body management__tab-body--uneditabl"
+		class="management__tab-body"
 		autocomplete="false"
 		ref="form"
+		:class="{'management__tab-body--uneditable': shrinked}"
 		:submit-callback="submit"
 		@input:incorrect="handleError">
 		
@@ -14,7 +15,13 @@
 				<h3 h3 class="management__account-name heading-third">
 						{{ data.currentName }}
 				</h3>
-				<button button class="management__account-edit-button text-fourth"><span class="material-icons">edit</span>edit account</button>
+				<button 
+					class="management__account-edit-button text-fourth"
+					type="button"
+					@click="toggle">
+					
+					<span class="material-icons">edit</span>edit account
+				</button>
 			</div>
 		</div>
 		<label class="management__account-label heading-fifth" for="">Profile name</label>
@@ -45,60 +52,70 @@
 				:readonly="disabled"
 				required>
 		</div>
-		<div class="management__account-editor-group">
-			<label class="management__account-label heading-fifth" for="">Password</label>
-			<div class="management__account-input-group management__account-input-group--new-password">
-					<small class="management__account-input-error">{{ errors.newPassword }}</small>
+		<div 
+			class="management__account-editor-group"
+			:style="{
+				'height': bodyHeight,
+				'transition': bodyTransition }">
+
+			<div 
+				class="management__account-editor-content"
+				ref="content">
+
+				<label class="management__account-label heading-fifth" for="">Password</label>
+				<div class="management__account-input-group management__account-input-group--new-password">
+						<small class="management__account-input-error">{{ errors.newPassword }}</small>
+						<input 
+							class="management__account-input input-second"
+							placeholder="new password"
+							autocomplete="new-password"
+							name="newPassword"
+							v-model="data.newPassword"
+							:minlength="rules.password.min"
+							:maxlength="rules.password.max"
+							:type="passwordType"
+							:readonly="disabled">
+						<button 
+							class="management__account-visibility-button"
+							@click="togglePasswordView">
+								
+							<span class="management__account-input-icon--visibility material-icons-round">
+								{{ passwordIcon }}
+							</span>
+						</button>
+				</div>
+				<div class="management__account-input-group management__account-input-group--password">
+					<small class="management__account-input-error">{{ errors.confirmation }}</small>
 					<input 
-						class="management__account-input input-second"
-						placeholder="new password"
+						class="management__account-input input-second" 
+						placeholder="confirm new password"
 						autocomplete="new-password"
-						name="newPassword"
-						v-model="data.newPassword"
+						name="confirmation"
+						v-model="data.confirmation"
 						:minlength="rules.password.min"
 						:maxlength="rules.password.max"
 						:type="passwordType"
 						:readonly="disabled">
-					<button 
-						class="management__account-visibility-button"
-						@click="togglePasswordView">
-							
-						<span class="management__account-input-icon--visibility material-icons-round">
-							{{ passwordIcon }}
-						</span>
-					</button>
-			</div>
-			<div class="management__account-input-group management__account-input-group--password">
-				<small class="management__account-input-error">{{ errors.confirmation }}</small>
-				<input 
-					class="management__account-input input-second" 
-					placeholder="confirm new password"
-					autocomplete="new-password"
-					name="confirmation"
-					v-model="data.confirmation"
-					:minlength="rules.password.min"
-					:maxlength="rules.password.max"
-					:type="passwordType"
-					:readonly="disabled">
-			</div>
-			<label class="management__account-label heading-fifth" for="">Confirmation</label>
-			<div class="management__account-input-group management__account-input-group--confirm-password">
-				<small class="management__account-input-error"> {{ errors.currentPassword }}</small>
-				<input
-					class="management__account-input input-second"
-					placeholder="current password"
-					autocomplete="current-password"
-					type="text"
-					name="password"
-					v-model="data.currentPassoword"
-					:minlength="rules.password.min"
-					:maxlength="rules.password.max"
-					:readonly="disabled"
-					required>
-			</div>
+				</div>
+				<label class="management__account-label heading-fifth" for="">Confirmation</label>
+				<div class="management__account-input-group management__account-input-group--confirm-password">
+					<small class="management__account-input-error"> {{ errors.currentPassword }}</small>
+					<input
+						class="management__account-input input-second"
+						placeholder="current password"
+						autocomplete="current-password"
+						type="text"
+						name="password"
+						v-model="data.currentPassoword"
+						:minlength="rules.password.min"
+						:maxlength="rules.password.max"
+						:readonly="disabled"
+						required>
+				</div>
+
 
 			<submit-button  class="management__account-button button-second"/>
-
+			</div>
 		</div>
 		<button class="management__account-delete-button text-fourth">
 			<span class="material-icons-round">delete_forever</span>
@@ -112,6 +129,7 @@
 
 import RequestForm from '@components/RequestForm'
 import SubmitButton from '@components/SubmitButton'
+import Shrinkable from '@mixins/Shrinkable'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
@@ -120,6 +138,8 @@ export default {
 		RequestForm,
 		SubmitButton
 	},
+
+	mixins: [ Shrinkable ],
 	
 	data: function () {
 		return {
@@ -144,15 +164,9 @@ export default {
 			},
 
 			rules: {
-				password: {
-					max: null,
-					min: null,
-				},
+				password: { max: null, min: null },
 
-				name: {
-					max: null, 
-					min: null
-				}
+				name: { max: null,  min: null }
 			},
 
 			passowrdShown: false,
@@ -171,12 +185,14 @@ export default {
 			},
 
 			disabled() {
-				console.log(this.loadingUser || (this.$refs.form && this.$refs.form.loading));
-				return this.loadingUser || (this.$refs.form && this.$refs.form.loading);
+				return this.loadingUser || this.shrinked || (this.$refs.form && this.$refs.form.loading);
 			}
 	},
 
 	beforeMount() {
+
+		this.forceShrink();
+
 		Auth.check().then(async authenticated => {
 
 			if (!!!authenticated)
@@ -237,3 +253,17 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+
+.management__account-editor-group {
+	overflow: hidden;
+	max-height: none !important; 
+}
+
+.management__account-editor-content {
+	display: flex;
+	flex-direction: column;
+}
+
+</style>

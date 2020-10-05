@@ -112,8 +112,7 @@ export default {
 	transform-origin: 15px 15px;
 }
 
-.description__mobile-button
-{
+.description__mobile-button {
 	transform: rotate(0);
 }
 

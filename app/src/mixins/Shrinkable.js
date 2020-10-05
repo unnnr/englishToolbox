@@ -1,7 +1,8 @@
 const Shrinkable = {
     props: {
         shrinkable: {
-            type: Boolean
+            type: Boolean,
+            default: true
         }
     },
 
@@ -35,13 +36,21 @@ const Shrinkable = {
             if (value || !!!this.shrinked)
                 return;
         
-            // force open
-            this.bodyHeight = 'auto';
-            this.shrinked = false;
+            this.forceOpen();
         }
     },
 
     methods: {
+        forceOpen() {
+            this.bodyHeight = 'auto';
+            this.shrinked = false;
+        },
+
+        forceShrink() {
+            this.bodyHeight = 0;
+            this.shrinked = true;
+        },
+
         shrink() {
             let content = this.$refs.content;
 
@@ -50,19 +59,28 @@ const Shrinkable = {
             // Gives time for rendering
             this.$nextTick(() => {
                 this.bodyHeight = 0;
+
+                this.$options.animationTimer = setTimeout(() => {
+                    if (typeof this.afterShrink == 'function')
+                        this.afterShrink();
+    
+                },  this.shrinkDuration); 
             });
         },
 
         open() {
             let content = this.$refs.content;
 
-            console.log(content.offsetHeight);
             this.bodyHeight = content.offsetHeight + 'px';
 
             // Removing explicitly setted height
-            this.$options.openingTimer = setTimeout(() => {
+            this.$options.animationTimer = setTimeout(() => {
                 this.bodyHeight = 'auto';
-                this.$options.openingTimer = null;
+                this.$options.animationTimer = null;
+
+                if (typeof this.afterOpen == 'function')
+                    this.afterOpen();
+
             },  this.shrinkDuration); 
         },
 
@@ -70,8 +88,8 @@ const Shrinkable = {
             if (!!!this.shrinkable)
                 return;
 
-            if (this.$options.openingTimer)
-                clearTimeout(this.$options.openingTimer);
+            if (this.$options.animationTimer)
+                clearTimeout(this.$options.animationTimer);
 
             this.shrinked = !!!this.shrinked;
 
