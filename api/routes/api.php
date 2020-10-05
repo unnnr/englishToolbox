@@ -37,11 +37,11 @@ Route::group(['namespace' => 'Api'], function() {
 
     // some
     
-    Route::post('register', 'UserController@register');
+    Route::post('register', 'AuthController@register');
 
-    Route::post('login', 'UserController@login');
+    Route::post('login', 'AuthController@login');
 
-    Route::post('logout', 'UserController@logout');
+    Route::post('logout', 'AuthController@logout');
 
     Route::match(['head', 'get'], 'profile', 'UserController@index');
     Route::match(['put', 'patch'], 'profile', 'UserController@update');

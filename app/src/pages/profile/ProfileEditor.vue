@@ -200,8 +200,8 @@ export default {
 
 			let user = await Auth.user.get();
 
-			if (!!!user.verified)
-				return bus.dispatch('email-overlay--show');
+			/* if (!!!user.verified)
+				return bus.dispatch('email-overlay--show'); */
 				
 			Object.assign(this.data, {
 				email: user.email, 

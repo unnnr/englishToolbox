@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Services\Auth\UserService;
 use App\Http\Requests\User\RegisterUser;
 use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\DeleteUser;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:sanctum')->only([
-            'index', 'update', 'destroy', 'logout'
+            'index', 'update', 'destroy'
         ]);
     }
     

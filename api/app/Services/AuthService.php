@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Traits;
+namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
@@ -13,18 +13,17 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 
-trait HandleAuthentication
+class AuthService
 {
     protected $authTokenName = 'auth';
 
     public function register(Request $request)
     {
         $user = User::create($request->validated());
-
-        auth()->login($user);
         
-        $authToken = $user->createToken($this->authTokenName); 
-        $user->withAccessToken($authToken);
+        $user->withAccessToken(
+            $user->createToken($this->authTokenName)
+        );
 
         event(new Registered($user));
 
@@ -36,18 +35,13 @@ trait HandleAuthentication
     
     public function login(Request $request)
     {
-        if (!!!Auth::attempt($request->validated()))
-        {
-            throw ValidationException::withMessages([
-                'password' => 'Password doesn`t match to email'
-            ]);
-        }
-
         $user = auth()->user();
 
         $user->tokens('name', $this->authTokenName)->delete();
 
-        $user->withAccessToken($user->createToken('authToken'));
+        $user->withAccessToken(
+            $user->createToken($this->authTokenName)
+        );
     
         return new AuthenticatedUserResource($user);
     }
