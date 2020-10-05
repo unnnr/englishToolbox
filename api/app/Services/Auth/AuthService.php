@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
@@ -24,6 +24,10 @@ class AuthService
         $user->withAccessToken(
             $user->createToken($this->authTokenName)
         );
+
+        $user->avatar()->create([
+            'name' => 'some'
+        ]);
 
         event(new Registered($user));
 

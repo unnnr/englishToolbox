@@ -221,7 +221,7 @@ export default {
 		hadleErrors(errors) { 
 			for (let [label, messages] of Object.entries(errors))
 			{
-				this.errors[label] = messages.join('. ');
+				this.errors[label] = messages;
 				this.confirmed[label] = false;  
 			}
 		}

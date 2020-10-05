@@ -8,9 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Notifications\VerifyEmail;
-
-use Illuminate\Support\Facades\Log;
-
+use App\Models\Avatar;
+use App\Models\Comments;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -56,6 +55,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comments::class);
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class);
     }
 }

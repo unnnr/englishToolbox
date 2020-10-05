@@ -171,7 +171,7 @@ export default {
 
 			passowrdShown: false,
 
-			loadingUser: true
+			loadingUser: true,
 		}
 	},
 

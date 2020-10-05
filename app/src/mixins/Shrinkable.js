@@ -52,20 +52,22 @@ const Shrinkable = {
         },
 
         shrink() {
+            const RENDER_DURATION = 100;
+
             let content = this.$refs.content;
 
             this.bodyHeight = content.offsetHeight + 'px';
             
             // Gives time for rendering
-            this.$nextTick(() => {
-                this.bodyHeight = 0;
-
+            setTimeout(() => {
+                this.bodyHeight = 0 + 'px';
+                
                 this.$options.animationTimer = setTimeout(() => {
                     if (typeof this.afterShrink == 'function')
                         this.afterShrink();
     
                 },  this.shrinkDuration); 
-            });
+            }, RENDER_DURATION);
         },
 
         open() {
