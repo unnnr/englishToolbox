@@ -1,7 +1,12 @@
 import Http from '@services/Http'
+import Avatar from '@models/Avatar';
 
 class User 
 {
+    avatar = Avatar;
+
+    path = 'profile';
+
     __user;
 
     __parseResponse(response)
@@ -36,9 +41,7 @@ class User
         if (this.__user)
             return this.__user;
 
-        let uri = this.path;
-
-        this.__user = await Http.get({ uri })
+        this.__user = await Http.get({ uri: this.path })
         
         .then(this.__parseResponse)
 
@@ -53,10 +56,10 @@ class User
             throw Error('data must be FormData instance');
 
         if (data.get('newPassword') === '')
-            console.log(data.delete('newPassword'));
+            data.delete('newPassword');
 
         if (data.get('confirmation') === '')
-            console.log(data.delete('confirmation'));
+           data.delete('confirmation');
 
         this.__user = await Http.patch({
             data, uri: this.path
@@ -79,10 +82,8 @@ class User
 
         .catch(this.__catchError);
 
-        return response.data;
+        return response;
     }
-
-    path = 'profile';
 }
 
 window.User = new User();

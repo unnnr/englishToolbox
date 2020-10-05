@@ -32,4 +32,4 @@ Route::group(['namespace' => 'Web'], function() {
 
 // Route::get('schemas', 'SchemaController@index')->name('schemas');
 
-Route::get('recommend', function(){ return view("recomend");})->name('recommend');
+// Route::get('recommend', function(){ return view("recomend");})->name('recommend');

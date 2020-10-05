@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\SchemaService;
 use App\Services\TagService;
+use App\Services\AvatarService;
 use App\Services\Auth\UserService;
 use App\Services\Auth\VerificationService;
 use App\Services\CommentService;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         TagService::class => TagService::class,
 
         UserService::class => UserService::class,
+        AvatarService::class => AvatarService::class,
         VerificationService::class => VerificationService::class
     ];
 }

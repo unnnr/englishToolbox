@@ -6,7 +6,8 @@ class Http
          // 'X-CSRF-TOKEN': token,
          'X-Requested-With': 'XMLHttpRequest',
          'Accept':'application/json',
-         'Sec-Fetch-Site': 'cross-site'
+         'Sec-Fetch-Site': 'cross-site',
+         'Access-Control-Allow-Origin':  'no-cors'
     };
 
     __prepareOptions(options) 

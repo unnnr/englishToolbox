@@ -29,13 +29,11 @@ Route::group(['namespace' => 'Api'], function() {
 	Route::apiResource('tags', 'TagController');
     
     Route::apiResource('updates', 'UpdateController')->only(['index']);
-    
+
     Route::apiResource('comments', 'CommentController')->only(['update', 'destroy', 'show']);
     
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
 
-
-    // some
     
     Route::post('register', 'AuthController@register');
 
@@ -43,17 +41,20 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::post('logout', 'AuthController@logout');
 
+    Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
+    Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');
+
     Route::match(['head', 'get'], 'profile', 'UserController@index');
     Route::match(['put', 'patch'], 'profile', 'UserController@update');
-    Route::delete('profile', 'UserControlle@delete');
+    Route::delete('profile', 'UserController@delete');
 
 
-    Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
+    // Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
 });
 
 
 
-
+/* 
 Route::middleware('auth:sanctum')->get('test', function() {
     return auth()->user();
-});
+}); */
