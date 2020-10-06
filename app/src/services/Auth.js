@@ -70,6 +70,8 @@ class Auth {
 
         this.user.forceSet(response.data);
 
+        this.user.avatar.get(true);
+        
         this.__changed(true);
 
         return response;
@@ -92,6 +94,8 @@ class Auth {
         delete response.data.auth;
 
         this.user.forceSet(response.data);
+
+        this.user.avatar.get(true);
 
         this.__changed(true);
         

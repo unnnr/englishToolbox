@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 import Auth from '@services/Auth'
 
 export default {

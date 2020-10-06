@@ -26,9 +26,9 @@ class Avatar
         return this.__avatar;
     }
 
-    async get() 
+    async get(preventCaching = false) 
     {
-        if (this.__avatar)
+        if (this.__avatar && !!!preventCaching)
             return this.__avatar;
 
         this.__avatar = await Http.get({ uri: this.path })
