@@ -16,7 +16,7 @@ class AvatarService
 
     public function update(Request $request)
     {
-        $path = $request->file('avatar')->store('avatars');
+        $path = $request->file('avatar')->store(self::AVATARS_PATH);
 
         $user = auth()->user();
 
