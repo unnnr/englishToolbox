@@ -1,5 +1,10 @@
 <template>
-  <label for="accountPhoto">
+  <label 
+    for="accountPhoto"
+    :style="{
+      'background':  `url(${image})`,
+    }">
+
   <input
     class="management__account-photo-input"
     id="accountPhoto" 
@@ -17,11 +22,20 @@ import Auth from '@services/Auth'
 export default {
   data: function() {
     return {
-      loading: false
+      loading: false,
+      image: 'someeeeeee'
     }
   },
 
+  beforeMount() {
+    this.loadAvatar();
+  },
+
   methods: {
+    async loadAvatar() {
+      this.image = await Auth.user.avatar.get();
+    },
+
     changeAvatar(event) {
       if (event.target.value.length === 0)
         return;
@@ -43,7 +57,9 @@ export default {
 	    let data = new FormData();
 			data.append('avatar', file);
 
-      Auth.user.avatar.edit(data).finally(() => this.loading = false);
+      Auth.user.avatar.edit(data)
+      .then(this.loadAvatar)
+      .finally(() => this.loading = false);
     }
   }
 }
