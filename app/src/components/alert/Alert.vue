@@ -7,8 +7,9 @@
     <p class="alert__description text-fifth">{{ message }}</p>
 
     <input
-      v-if="prompt"
       class="alert-input input-second"
+      v-if="prompt"
+      v-model="input"
       :type="promptDotten ? 'password' : false"
       placeholder="">
 
@@ -46,6 +47,12 @@
 const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
 
 export default {
+  data: function() {
+		return {
+      input: ''
+		}   
+  },
+  
   props: {
     warning: {
       type: Boolean,
