@@ -117,7 +117,9 @@
 			<submit-button  class="management__account-button button-second"/>
 			</div>
 		</div>
-		<button class="management__account-delete-button text-fourth">
+		<button 
+			class="management__account-delete-button text-fourth"
+			@click="deleteProfile">
 			<span class="material-icons-round">delete_forever</span>
 			
 			delete account
@@ -216,6 +218,10 @@ export default {
 	}, 
 
 	methods: {
+		deleteProfile() {
+			bus.dispatch('alert-prompt', {});
+		},
+
 		handleError(errors) {
 			Object.assign(this.errors, errors);
 

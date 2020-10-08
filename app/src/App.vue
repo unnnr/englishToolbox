@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <alert/>
+    <popup/>
 
     <context-menu/>
 
@@ -22,7 +22,7 @@ import vClickOutside from 'v-click-outside'
 
 import Basement from '@components/Basement'
 import Navbar from '@components/Navbar'
-import Alert from '@components/Alert'
+import Popup from '@components/alert/Popup'
 
 import bus from '@services/eventbus';
 
@@ -33,7 +33,7 @@ export default {
   components: {
     Basement,
     Navbar,
-    Alert
+    Popup
   },
   
   errorCaptured(error) {
