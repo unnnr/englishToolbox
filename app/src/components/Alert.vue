@@ -7,12 +7,16 @@
 			v-if="shown">
 
 			<div
-				class="alert"
+				class="alert alert--prompt"
 				:class="alertType">
 
 				<span class="alert__header text-second"></span>
 				<p class="alert__description text-fifth">{{ message }}</p>
-				<input class="alert-input input-second" type="password" placeholder="">
+				<input
+					v-if="prompt"
+					class="alert-input input-second"
+					type="password"
+					placeholder="">
 
 				<div class="alert__buttons">
 					<button 
@@ -41,17 +45,24 @@
 
 <script>
 
-import bus from '@services/eventbus';
+import HandleEvents from '@mixins/HandleEvents'
+import bus from '@services/eventbus'
 
 const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
 
 export default {
+
+	mixins: [ HandleEvents ],
+
 	data: function() {
 		return {
+			shown: true,
+
+			warning: false,
 			message: '',
-			shown: false,
-			warning: true,
-			alertShown: false
+
+			prompt: true,
+			input: ''
 		}   
 	},
 
@@ -59,27 +70,48 @@ export default {
 		alertType() {
 			if (this.warning)
 				return 'alert--warning';
+
+			if (this.prompt)
+				return 'alert--prompt';
+
 			return 'alert--error';
 		}
 	},
 
 	mounted() {
-		bus.listen('alert-error', (event) => {
-			this.message = event.message || DEFAULT_MESSAGE;
-			this.warning = false;
-			this.shown = true;
+
+		this.listen({
+			'alert-error': event => {
+				Object.assign(this, {
+					message: event.message || DEFAULT_MESSAGE,
+					warning: false,
+					shown: true
+				});
+			},
+			
+			'alert-confirm': event => {
+				Object.assign(this, {
+					message: event.message || DEFAULT_MESSAGE,
+					warning: true,
+					shown: true,
+
+					$options: {
+						confirm: event.onConfirm,
+						cancel: event.onCancel
+					}
+				});
+			},
+
+			'alert-prompt': event => {
+				Object.assign(this, {
+					
+				})
+			}
+
 		});
+		bus.listen();
 
-		bus.listen('alert-confirm', (event) => {
-			this.message = event.message;
-			this.callbacks.confirme = event.onConfirm;
-			this.callbacks.cancel = event.onCancel;
-
-			this.warning = true;
-			this.shown = true;
-		});
-
-		this.callbacks = [];
+		bus.listen();
 	},
 
 	methods: {
@@ -87,10 +119,12 @@ export default {
 			if (!!!this.warning)
 				return;
 
-			if (this.callbacks.cancel)
-				this.callbacks.cancel();
+			if (this.$options.cancel)
+			{
+				this.$options.cancel();
+				this.$options.cancel = null;
+			}
 			
-			this.callbacks.cancel = null;
 			this.shown = false;
 		},
 
@@ -98,10 +132,12 @@ export default {
 			if (!!!this.warning)
 				return;
 
-			if (this.callbacks.confirme)
-				this.callbacks.confirme();
+			if (this.$options.confirm)
+			{	
+				this.$options.confirm();
+				this.$options.confirm = null;
+			}
 			
-			this.callbacks.confirme = null;
 			this.shown = false;
 		},
 
