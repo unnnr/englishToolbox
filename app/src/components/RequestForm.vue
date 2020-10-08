@@ -34,7 +34,7 @@ export default {
 
 	methods: {
 		handleError(error) {
-			if (error.status == 422)
+			if (error && typeof error == 'object' && error.status == 422)
 			{
 				let errors =  error.body.errors;
 
@@ -67,7 +67,7 @@ export default {
 			}
 			catch (error) {
 				this.loading = false;
-
+			
 				this.handleError(error);
 			}
 		}

@@ -29,7 +29,6 @@ class UpdateUser extends FormRequest
             'newPassword' => 'string|between:5,64',
             'confirmation' => 'string|same:newPassword',
             'password' => 'required|string',
-            'avatar' => [ 'required', 'max:10240', 'image' ]
         ];
     }
 }

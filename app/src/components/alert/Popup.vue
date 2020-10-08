@@ -31,13 +31,12 @@ export default {
 
 	data: function() {
 		return {
-			shown: true,
+			shown: false,
 
 			message: '',
 
-			prompt: true,
+			prompt: false,
 			warning: false,
-
 		}   
 	},
 
@@ -50,11 +49,11 @@ export default {
 					prompt: false,
 					warning: false,
 
-					message: event.message || DEFAULT_MESSAGE,
+					message:  event.message,
+				});
 
-					$options: {
-						okay: event.onOkay,
-					}
+				Object.assign(this.$options, {
+					okay: event.onOkay,
 				});
 			},
 			
@@ -65,16 +64,16 @@ export default {
 					warning: true,
 					prompt: false,
 
-					message: event.message || DEFAULT_MESSAGE,
+					message: event.message,
+				});
 
-					$options: {
-						confirm: event.onConfirm,
-						cancel: event.onCancel
-					}
+				Object.assign(this.$options, {
+					confirm: event.onConfirm,
+					cancel: event.onCancel
 				});
 			},
 
-			'alert-prompt': event => {
+			'alert-prompt': event => {	
 				Object.assign(this, {
 					shown: true,
 
@@ -82,12 +81,12 @@ export default {
 					warning:false,
 
 					message: event.message,
-
-					$options: {
-						confirm: event.onConfirm,
-						cancel: event.onCancel
-					}
-				})
+				}),
+				
+				Object.assign(this.$options, {
+					confirm: event.onConfirm,
+					cancel: event.onCancel
+				});
 			},
 		});
 	}, 

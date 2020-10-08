@@ -1,6 +1,6 @@
 <template>
   <div
-    class="alert alert--prompt"
+    class="alert"
     :class="alertType">
 
     <span class="alert__header text-second"></span>
@@ -17,7 +17,7 @@
      
       <button 
         class="alert__button alert__button--okay"
-        v-if="errorType"
+        v-if="oneButton"
         @click="okay">
 
         got it
@@ -86,7 +86,7 @@ export default {
 			return 'alert--error';
     },
     
-    errorType() {
+    oneButton() {
       return !!!this.warning && !!!this.prompt;
     }
   },
