@@ -13,29 +13,71 @@ class Auth
 
     constructor() 
     {
-        this.__updateHttp();
+        Object.assign(Http.defaultHeaders, this.__creationails());
 
         this.__wrappUser();
     }
 
     __wrappUser() 
     {
-        let initial = this.user.edit.bind(this.user);
-
-        this.user.edit = async (...args) =>
+        function dispatchIfChanged(response)
         {
-            let response = await initial(...args);
+            if (response !== null)
+            {
+                previousResponseNotNull = true;
+                return;
+            }
+            
+            if (previousResponseNotNull)
+            {
+                previousResponseNotNull = false;
 
-            console.log(response);
-        };
-    }
+                this.__changed(false);
+                this.__removeToken();
+            }
+        }
 
-    __updateHttp()
-    {
-        let creationails = this.__creationails();
+        let target = this.user;
+        let previousResponseNotNull = false;
 
-        if (creationails)
-            Object.assign(Http.defaultHeaders, creationails);
+        this.user = {
+            get: async (...args) =>
+            {
+                let user = await target.get(...args);
+
+                dispatchIfChanged(user);
+
+                return user;
+            },
+
+            delete: async (...args) => {
+                let user = await target.edit(...args);
+
+                dispatchIfChanged(user);
+
+                return user;
+            },
+
+            edit: async (...args)=> 
+            {
+                let response = await target.edit(...args);
+
+                dispatchIfChanged(response);
+
+                // Handling token
+                this.__saveToken(response.auth);
+                delete response.auth;
+
+                return response;
+            },
+
+
+            forceSet: target.forceSet.bind(target),
+
+            avatar: target.avatar,
+
+            target: target
+        }
     }
 
     __saveToken(token)
@@ -43,11 +85,15 @@ class Auth
         Cookies.set('auth', token, {
             expires:AUTH_TOKEN_EXPIRES 
         });
+
+        Object.assign(Http.defaultHeaders, this.__creationails());
     }
     
     __removeToken() 
     {
         Cookies.remove('auth');
+
+        delete Http.defaultHeaders['Authorization'];
     }
 
     __creationails()
@@ -74,7 +120,7 @@ class Auth
     async register(data)
     {
         let response = await Http.post({ uri: 'register', data }); 
-
+        
         if (!!!response.data || !!!response.data.auth)
             throw Error('Incorrect http response');
 

@@ -7,8 +7,8 @@ class User
 
     path = 'profile';
 
-    __user;
-
+    __user = null;
+    
     __parseResponse(response)
     {
         return response.data;
@@ -64,8 +64,6 @@ class User
         })
         .then(this.__parseResponse)
         .catch(this.__catchError);
-
-        console.log(this.__user);
 
         return this.__makeResponse();
     }

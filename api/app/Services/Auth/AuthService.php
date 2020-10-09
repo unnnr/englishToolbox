@@ -43,11 +43,12 @@ class AuthService
         if (!!!auth()->attempt($credionals))
         {
             throw ValidationException::withMessages([
-                $this->username() => [trans('auth.failed')]
+                'email' => [trans('auth.failed')]
             ]);
         }
 
         $user = auth()->user();
+        
         $user->tokens('name', $this->authTokenName)->delete();
         $user->withAccessToken(
             $user->createToken($this->authTokenName)
