@@ -7,7 +7,7 @@
 
 <script>
 
-import PostLayout from '@layouts/PostLayout'
+import PostLayout from '@components/layout/PostLayout'
 import VideoPlayer from '@pages/video/VideoPlayer'
 import VideoDetails from '@pages/video/VideoDetails'
 import Videos from '@models/Videos';

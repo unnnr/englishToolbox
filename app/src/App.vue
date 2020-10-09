@@ -20,8 +20,8 @@ import Vue from 'vue';
 import Context from '@plugins/ContextMenu'
 import vClickOutside from 'v-click-outside'
 
-import Basement from '@components/Basement'
-import Navbar from '@components/Navbar'
+import Basement from '@components/layout/Basement'
+import Navbar from '@components/layout/Navbar'
 import Popup from '@components/alert/Popup'
 
 import bus from '@services/eventbus';

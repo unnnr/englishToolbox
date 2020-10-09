@@ -13,9 +13,6 @@ module.exports = {
                 // Vue plugins
                 '@plugins': path.resolve(__dirname, 'src/plugins'),
 
-                // Vue wireframe for components
-                '@layouts': path.resolve(__dirname, 'src/layouts'),
-
                 // Vue reusable logic for components
                 '@mixins': path.resolve(__dirname, 'src/mixins'),
     
