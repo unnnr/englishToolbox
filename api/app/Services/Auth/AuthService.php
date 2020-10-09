@@ -38,10 +38,17 @@ class AuthService
     
     public function login(Request $request)
     {
+        $credionals = $request->only('email', 'password');
+
+        if (!!!auth()->attempt($credionals))
+        {
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')]
+            ]);
+        }
+
         $user = auth()->user();
-
         $user->tokens('name', $this->authTokenName)->delete();
-
         $user->withAccessToken(
             $user->createToken($this->authTokenName)
         );

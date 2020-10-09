@@ -4,7 +4,8 @@ import User from '@models/User';
 
 const AUTH_TOKEN_EXPIRES = 12;
 
-class Auth {
+class Auth 
+{
     
     __callbacks = [];
     
@@ -13,6 +14,20 @@ class Auth {
     constructor() 
     {
         this.__updateHttp();
+
+        this.__wrappUser();
+    }
+
+    __wrappUser() 
+    {
+        let initial = this.user.edit.bind(this.user);
+
+        this.user.edit = async (...args) =>
+        {
+            let response = await initial(...args);
+
+            console.log(response);
+        };
     }
 
     __updateHttp()
@@ -63,15 +78,15 @@ class Auth {
         if (!!!response.data || !!!response.data.auth)
             throw Error('Incorrect http response');
 
+        // Handling token
         this.__saveToken(response.data.auth);
-        
-        // Preventing of redundunt requests
         delete response.data.auth;
 
+        // Caching response
         this.user.forceSet(response.data);
-
         this.user.avatar.get(true);
-        
+
+        // Calling callbacks
         this.__changed(true);
 
         return response;
@@ -88,16 +103,16 @@ class Auth {
         if (!!!response.data && !!!response.data.auth)
             throw Error('Incorrect http response');
 
+        // Handling token
         this.__saveToken(response.data.auth);
-        
-        // Preventing of redundunt requests
         delete response.data.auth;
 
+        // Caching response
         this.user.forceSet(response.data);
-
         this.user.avatar.get(true);
 
-        this.__changed(true);
+        // Calling callbacks
+        this.__changed(true);   
         
         return response;
     }
@@ -110,11 +125,13 @@ class Auth {
                 throw error;
             });
 
+        // Handling token
         this.__removeToken();
 
-         // Preventing of redundunt requests
-         this.user.forceSet(null);
+        // Caching response
+        this.user.forceSet(null);
 
+        // Calling callbacks
         this.__changed(false);
 
         return response;

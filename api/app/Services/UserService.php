@@ -52,16 +52,15 @@ class UserService
             $user->email = $request->input('email');
             $user->email_verified_at = null;
             
-            event(new EmailChanged($user));
+            // event(new EmailChanged($user));
         }
 
         $user->save();
 
-        //$user->currentAccessToken()->delete();
-        // $authToken = $user->createToken('authToken'); 
-        // $user->withAccessToken($authToken);
+        $user->currentAccessToken()->delete();
+        $user->withAccessToken($user->createToken('authToken'));
 
-        // return new AuthenticatedUserResource($user);
+        return new AuthenticatedUserResource($user);
     }
 
     public function destroy()

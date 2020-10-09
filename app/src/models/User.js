@@ -42,9 +42,7 @@ class User
             return this.__user;
 
         this.__user = await Http.get({ uri: this.path })
-        
         .then(this.__parseResponse)
-
         .catch(this.__catchError);
 
         return this.__makeResponse();
@@ -64,10 +62,10 @@ class User
         this.__user = await Http.patch({
             data, uri: this.path
         })
-  
         .then(this.__parseResponse)
-
         .catch(this.__catchError);
+
+        console.log(this.__user);
 
         return this.__makeResponse();
     }
@@ -77,9 +75,7 @@ class User
         let response = await Http.delete({
             uri: this.path
         })
-
         .then(this.__parseResponse)
-
         .catch(this.__catchError);
 
         return response;
