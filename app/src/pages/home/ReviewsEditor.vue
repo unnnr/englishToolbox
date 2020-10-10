@@ -11,31 +11,8 @@
       <label class="leave-review__label text-fourth" for="">Text of your review</label>
       <textarea class="leave-review__textarea textarea-second" placeholder="your review"></textarea>
       <label class="leave-review__label text-fourth" for="">Grade</label>
-      <div class="leave-review__grade">
-        <div class="leave-review__stars">
-          <button class="leave-review__star leave-review__star--full">
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-          </button>
-          <button class="leave-review__star leave-review__star--full">
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-          </button>
-          <button class="leave-review__star leave-review__star--full">
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-          </button>
-          <button class="leave-review__star leave-review__star--half">
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-          </button>
-          <button class="leave-review__star leave-review__star">
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-            <object class="leave-review__half-star" data="img/svg/halfstar.svg" type=""></object>
-          </button>
-        </div>
-        <span class="leave-review__rating">4.5</span>
-      </div>
+
+      <rate-stars/>
     </div>
     <div class="leave-review__footer">
       <button class="leave-review__button button-second">Confirm</button>
@@ -45,7 +22,10 @@
 </template>
 
 <script>
+import RateStars from '@components/RateStars'
 export default {
-    
+  components: {
+    RateStars
+  }
 }
 </script>
