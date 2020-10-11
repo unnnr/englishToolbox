@@ -88,7 +88,6 @@ export default {
 
 	data: function () { 
 		return {
-
 			data: {
 				url: 'someeoeoeoe',
 				description: '',

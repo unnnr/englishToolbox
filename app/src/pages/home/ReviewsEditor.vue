@@ -1,31 +1,72 @@
 <template>
   <section class="modal container">
-  <form class="leave-review">
+  <request-form 
+    class="leave-review"
+    ref="form"
+    :submit-callback="submit">
+
     <div class="leave-review__header">
       <h5 class="heading-fifth">Leave your review</h5>
       <button class="leave-review__close-button" type="button"></button>
     </div>
     <div class="leave-review__body">
       <label class="leave-review__label text-fourth" for="">Title of review</label>
-      <input class="leave-review__input input-second" type="text" placeholder="your title">
-      <label class="leave-review__label text-fourth" for="">Text of your review</label>
-      <textarea class="leave-review__textarea textarea-second" placeholder="your review"></textarea>
-      <label class="leave-review__label text-fourth" for="">Grade</label>
+      <input 
+        class="leave-review__input input-second"
+        placeholder="your title"
+        name="title"
+        type="text"/>
 
-      <rate-stars/>
+      <label class="leave-review__label text-fourth" for="">Text of your review</label>
+      <textarea 
+        class="leave-review__textarea textarea-second" 
+        placeholder="your review"
+        name="text"/>
+     
+      <label class="leave-review__label text-fourth" for="">Grade</label>
+      <rate-stars name="grade"/>
     </div>
     <div class="leave-review__footer">
-      <button class="leave-review__button button-second">Confirm</button>
+      <submit-button 
+        class="leave-review__button button-second"
+        :loading="isLoading()">
+        Confirm
+      </submit-button> 
     </div>
-  </form>
+  </request-form>
 </section>
 </template>
 
 <script>
+
 import RateStars from '@components/RateStars'
+import RequestForm from '@components/RequestForm'
+import SubmitButton from '@components/SubmitButton'
+
 export default {
   components: {
+    SubmitButton,
+    RequestForm,
     RateStars
+  },
+  
+  data: function ()
+  {
+    return {
+      grade: 0
+    }
+  },
+
+  methods: {
+    isLoading() {
+			if (this.$refs.form)
+				return this.$refs.form.loading;
+    },
+    
+    submit(data) {
+      for (let some of data.entries())
+        console.log(some);
+    }
   }
 }
 </script>

@@ -23,15 +23,27 @@
       </button>
     </div>
     <span class="leave-review__rating">{{ rate }}</span>
+    <input
+      v-if="name"
+      type="hidden"
+      :name="name"
+      :value="rate">
+
   </div>
 </template>
 
 <script>
 
 const STARS_COUNT = 5;
-const ANIMATION_DELAY = 3125;
+const ANIMATION_DELAY = 125;
 
 export default {
+  props: {
+    name: {
+      type: String, 
+    }
+  },
+
   data: function() {
     return {
       stars: [],
