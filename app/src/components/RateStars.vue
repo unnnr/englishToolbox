@@ -29,7 +29,7 @@
 <script>
 
 const STARS_COUNT = 5;
-const ANIMATION_DELAY = 125;
+const ANIMATION_DELAY = 3125;
 
 export default {
   data: function() {
@@ -47,21 +47,29 @@ export default {
         value: i
       });
     }
+
+    this.$options.queue = {
+      list: [],
+      pending: false
+    }
   },
 
   methods: {
     queue(callback) {
-      this.$options.lastTask = callback;
+      async function fire() {
+        this.pending = true;
 
-      if (!!!this.$options.currentTask)
-      {
-        this.$options.lastTask = callback;
-        this.$options.lastTask();
-        return;
+        let task;
+        while(task = this.list.shift())
+          await task() && console.log(task);
+
+        this.pending = false;
       }
-      
-      let newTask = this.$options.lastTask.then(callback);
-      this.$options.lastTask = newTask;
+
+      this.$options.queue.list.push(callback);
+
+      if (!!!this.$options.queue.pending)
+        fire.call(this.$options.queue);
     },
 
     sleep(ms) {
@@ -102,9 +110,11 @@ export default {
 
       // Moving selection from previos to selected star
       if (currentIndex > selectedIndex)
-        this.descendSelection(currentIndex, selectedIndex);
+        this.queue(
+          this.descendSelection.bind(this, currentIndex, selectedIndex));
       else
-        this.ascendSelection(currentIndex, selectedIndex);
+        this.queue(
+          this.ascendSelection.bind(this, currentIndex, selectedIndex));
     },
   }
 }
