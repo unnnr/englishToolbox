@@ -72,7 +72,8 @@ class ModelCache
 
     concut(array)
     {
-        this.data = data.concut(this.__createCopy(array));
+        for (let item of array)
+            this.set(item);
 
         return this.__createCopy(this.data);
     }

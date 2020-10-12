@@ -29,94 +29,31 @@
           <button class="reviews__card-button reviews__card-button--apply button-second">apply</button>
         </div>
       </div>
-      <div class="reviews__card">
-        <div class="reviews__card-person">
-          <div class="reviews__card-photo"></div>
-          <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-        </div>
-        <div class="reviews__card-content">
-          <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-          <p class="reviews__card-text text-third">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          </p>
-        </div>
-        <div class="reviews__card-grade">
-          <div class="reviews__card-stars">
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-          </div>
-          <span class="reviews__card-rating">5.0</span>
-        </div>
-        <div class="reviews__card-button-group">
-          <button class="reviews__card-button reviews__card-button--delete button-second">delete</button>
-          <button class="reviews__card-button reviews__card-button--apply button-second">apply</button>
-        </div>
-      </div>
-
-      <div class="reviews__card">
-        <div class="reviews__card-person">
-          <div class="reviews__card-photo"></div>
-          <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-        </div>
-        <div class="reviews__card-content">
-          <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-          <p class="reviews__card-text text-third">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          </p>
-        </div>
-        <div class="reviews__card-grade">
-          <div class="reviews__card-stars">
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-          </div>
-          <span class="reviews__card-rating">5.0</span>
-        </div>
-        <div class="reviews__card-button-group">
-          <button class="reviews__card-button reviews__card-button--delete button-second">delete</button>
-          <button class="reviews__card-button reviews__card-button--apply button-second">apply</button>
-        </div>
-      </div>
-
-      <div class="reviews__card">
-        <div class="reviews__card-person">
-          <div class="reviews__card-photo"></div>
-          <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-        </div>
-        <div class="reviews__card-content">
-          <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-          <p class="reviews__card-text text-third">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          </p>
-        </div>
-        <div class="reviews__card-grade">
-          <div class="reviews__card-stars">
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-            <div class="reviews__card-star"></div>
-          </div>
-          <span class="reviews__card-rating">5.0</span>
-        </div>
-        <div class="reviews__card-button-group">
-          <button class="reviews__card-button reviews__card-button--delete button-second">delete</button>
-          <button class="reviews__card-button reviews__card-button--apply button-second">apply</button>
-        </div>
-      </div>
     </div>
   </section>
 </template>
 
 <script>
+
+import Reviews from '@models/Reviews'
+
 export default {
+  data: function () {
+    return {
+      reviews: []
+    }
+  },
+  
+  beforeMount() {
+    this.load();
+  },
+
+  methods: {
+    async load() {
+      this.reviews = await Reviews.pending();
+
+      console.log(await Reviews.pending());
+    }
+  }
 };
 </script>
