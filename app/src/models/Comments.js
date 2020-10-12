@@ -1,11 +1,10 @@
 
 import Http from '@services/Http';
-import Posts from '@models/Posts'
 import FormatedDate from '@services/FormatedDate'
 
 const Comments = new function ()
 {
-    async function load()
+   /*  async function load()
     {
   
         
@@ -86,7 +85,7 @@ const Comments = new function ()
     let loaded  = false;
     let callbacks = [];
 
-    load();
+    load(); */
 }();
    
 export default Comments;

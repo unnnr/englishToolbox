@@ -31,17 +31,19 @@ Route::group(['namespace' => 'Api'], function() {
     Route::apiResource('updates', 'UpdateController')->only(['index']);
 
     Route::apiResource('comments', 'CommentController')->only(['update', 'destroy', 'show']);
-    
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
 
-    Route::apiResource('reviews', 'ReviewController');
+    Route::apiResource('reviews', 'ReviewController')->only(['index', 'update', 'destroy']);
+    Route::get('reviews/verified', 'ReviewController@verified');
+    Route::get('reviews/pending', 'ReviewController@pending');
 
-    
+
     Route::post('register', 'AuthController@register');
 
     Route::post('login', 'AuthController@login');
 
     Route::post('logout', 'AuthController@logout');
+
 
 
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');

@@ -4,7 +4,7 @@ import FormatedDate from '@services/FormatedDate'
 
 const Updates = new function ()
 {
-    async function load()
+   /*  async function load()
     {
         updates = await Http.get('api/updates');
         
@@ -54,7 +54,7 @@ const Updates = new function ()
     let loaded  = false;
     let callbacks = [];
 
-    load();
+    load(); */
 }();
    
 export default Updates;
