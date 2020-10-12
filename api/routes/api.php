@@ -34,12 +34,15 @@ Route::group(['namespace' => 'Api'], function() {
     
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')->only(['store', 'index']);
 
+    Route::apiResource('reviews', 'ReviewController');
+
     
     Route::post('register', 'AuthController@register');
 
     Route::post('login', 'AuthController@login');
 
     Route::post('logout', 'AuthController@logout');
+
 
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
     Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');

@@ -1,6 +1,5 @@
 
 import Http from '@services/Http';
-import Posts from '@models/Posts'
 import FormatedDate from '@services/FormatedDate'
 
 const Updates = new function ()
