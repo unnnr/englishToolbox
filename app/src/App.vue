@@ -43,9 +43,6 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  background: #fafafa;
-}
 
 .slide-right-enter-active,
 .slide-right-leave-active {

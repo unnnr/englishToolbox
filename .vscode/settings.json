@@ -9,6 +9,7 @@
   ],
   "liveSassCompile.settings.includeItems": [
     "app/public/scss/*",
+    "app/public/sass/*",
   ],  
 
   "files.exclude": {

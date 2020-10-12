@@ -1,0 +1,111 @@
+// =========
+// functions 
+// =========
+ 
+@function vw($pixels, $width)
+  @return $pixels / $width * 100 + vw
+
+// =============
+// media queries
+// =============
+
+@mixin min-custom-devices($custom-min-width) // custom min width
+  @media (min-width: $custom-min-width)
+    @content
+
+@mixin max-custom-devices($custom-max-width) // custom max width
+  @media (max-width: $custom-max-width)
+    @content 
+
+@mixin xxl-devices  
+  @media (min-width: $xxl-min-width) // more than 1400px
+    @content
+
+@mixin xl-devices 
+  @media (max-width: $xl-max-width) // less than 1400px
+    @content
+
+@mixin lg-devices
+  @media (max-width: $lg-max-width) // less than 1200px
+    @content
+
+@mixin md-devices
+  @media (max-width: $md-max-width) // less than 1000px
+    @content
+
+@mixin sm-devices
+  @media (max-width: $sm-max-width) // less than 770px
+    @content
+
+@mixin xs-devices
+  @media (max-width: $xs-max-width) // less than 576px
+    @content
+
+@mixin xxs-devices
+  @media (max-width: $xxs-max-width) // less than 370px
+    @content;
+
+// ==========
+// containers
+// ==========
+
+@mixin container 
+  @include xxl-devices() // more than 1400px
+    padding-left: vw(150,1920)
+    padding-right: vw(150,1920)
+
+  @include xl-devices()  // less than 1400px
+    padding-left: vw(75,1400) 
+    padding-right: vw(75,1400) 
+
+  @include lg-devices()  // less than 1200px
+    padding-left: vw(50,1200)
+    padding-right: vw(50,1200)
+
+  @include md-devices()  // less than 1000px
+    padding-left: 25px
+    padding-right: 25px
+
+  @include sm-devices()  // less than 770px
+    padding-left: 10px
+    padding-right: 10px
+
+  @include xs-devices()  // less than 576px 
+    padding-left: 10px
+    padding-right: 10px
+
+// =================
+// background images
+// =================
+
+// background image 
+@mixin background-image 
+  background-position: center
+  background-repeat: no-repeat
+  background-size: cover
+
+// background image with url
+@mixin background-image-url($url)
+  background-image: url($url)
+  background-position-x: center
+  background-repeat: no-repeat
+  background-size: cover
+
+// ===========
+// scroll-bars
+// ===========
+
+@mixin scroll-primary
+  &::-webkit-scrollbar
+    width: 6px
+
+  &::-webkit-scrollbar-track
+    background: $bg-main
+    border-radius: 20px
+
+  &::-webkit-scrollbar-thumb
+    background: $text-fifth
+    border-radius: 20px
+
+  &::-webkit-scrollbar-thumb:hover
+    background: $text-third

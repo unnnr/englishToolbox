@@ -1,45 +1,45 @@
 @import "presets/import";
 
-// ==========
-// font style 
-// ==========
+// // ==========
+// // font style 
+// // ==========
 
-body,
-textarea,
-input,
-button {
-  font-family: 'Montserrat', sans-serif;
-}
+// body,
+// textarea,
+// input,
+// button {
+//   font-family: 'Montserrat', sans-serif;
+// }
 
-// =========
-// font size 
-// =========
+// // =========
+// // font size 
+// // =========
 
-body,
-button {
-  font-size: 10px;
+// body,
+// button {
+//   font-size: 10px;
 
-  @include custom-devices(1500px) {
-    font-size: 9px;
-  }
+//   @include custom-devices(1500px) {
+//     font-size: 9px;
+//   }
 
-  @include xl-devices {
-    font-size: 8px;
-  }
+//   @include xl-devices {
+//     font-size: 8px;
+//   }
 
-  @include lg-devices {
-    font-size: 7.5px;
-  }
-}
+//   @include lg-devices {
+//     font-size: 7.5px;
+//   }
+// }
 
-// ===================
-// style for all pages 
-// ===================
+// // ===================
+// // style for all pages 
+// // ===================
 
-main {
-  background: #fafafa;
-  overflow-x: hidden;
-}
+// main {
+//   background: #fafafa;
+//   overflow-x: hidden;
+// }
 
 .modal {
   position: fixed;
