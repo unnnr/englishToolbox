@@ -13,9 +13,19 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ReviewService $service)
+    public function index(ReviewService $service, Request $request)
     {
         return $service->all();
+    }
+
+    public function pending(ReviewService $service, Request $request)
+    {
+        return $service->pending();
+    }
+
+    public function verified(ReviewService $service)
+    {
+        return $service->verified();
     }
 
     /**

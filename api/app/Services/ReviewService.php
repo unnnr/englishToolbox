@@ -11,6 +11,16 @@ class ReviewService
         return Review::all();
     }
 
+    public function verified()
+    {
+        return Review::where('verified', true)->get();
+    }
+
+    public function pending()
+    {
+        return Review::where('verified', false)->get();
+    }
+
     public function create()
     { 
 
