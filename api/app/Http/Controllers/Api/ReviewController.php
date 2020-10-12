@@ -5,9 +5,16 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReviewService;
+use App\Http\Requests\Review\CreateReview;
 
 class ReviewController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['verified']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,9 +41,9 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReviewService $service, Request $request)
+    public function store(ReviewService $service, CreateReview $request)
     {
-        //
+        return $service->create($request);
     }
 
     /**

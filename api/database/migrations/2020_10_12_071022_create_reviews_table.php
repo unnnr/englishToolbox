@@ -16,7 +16,7 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->integer('grade');
-            $table->boolean('verified');
+            $table->boolean('verified')->default(false);
             $table->foreignId('user_id');
             $table->string('title');
             $table->string('text');

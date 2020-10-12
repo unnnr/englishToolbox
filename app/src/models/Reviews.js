@@ -1,5 +1,5 @@
 
-import Model from '@models/Models'
+import Model from '@models/Model'
 
 class Reviews extends Model 
 {

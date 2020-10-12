@@ -39,6 +39,7 @@
 
 <script>
 
+import Reviews from '@models/Reviews'
 import RateStars from '@components/RateStars'
 import RequestForm from '@components/RequestForm'
 import SubmitButton from '@components/SubmitButton'
@@ -63,9 +64,8 @@ export default {
 				return this.$refs.form.loading;
     },
     
-    submit(data) {
-      for (let some of data.entries())
-        console.log(some);
+    async submit(data) {
+      await Reviews.create(data)
     }
   }
 }
