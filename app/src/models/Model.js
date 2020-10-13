@@ -101,6 +101,9 @@ class Model
             data, uri:  this.path + '/' + id
         });
 
+        if (!!!response.data)
+            return;
+            
         let item = this.__cache.set(response.data);
 
         return this.__parseInstance(item);

@@ -43,9 +43,11 @@ class ReviewService
         return new ReviewResource($review);
     }
 
-    public function update()
+    public function verify(Review $review)
     {
+        $review->verified = true;
 
+        $review->save();
     }
 
     public function delete(Review $model)

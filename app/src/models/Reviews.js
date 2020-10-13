@@ -26,6 +26,15 @@ class Reviews extends Model
         
         return this.__cache.concut(instaces);
     }
+
+    verify(id) 
+    {
+        let data = new FormData();
+
+        data.append('verified', true);
+
+        return this.edit(id, data)
+    }
 }
 
 export default new Reviews();

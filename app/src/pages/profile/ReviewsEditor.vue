@@ -19,7 +19,7 @@
             <div class="reviews__card-photo"></div>
             <h5 class="reviews__card-name heading-fifth">Person Name</h5>
           </div>
-          
+
           <div class="reviews__card-content">
             <h5 class="reviews__card-title heading-fifth">
               {{ review.title }}
@@ -71,16 +71,15 @@
 <script>
 
 import 'swiper/swiper-bundle.css'
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass, Pagination, Autoplay, Scrollbar } from 'swiper/core'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import SubmitButton from '@components/SubmitButton'
+import RequestForm from '@components/RequestForm'
+import Reviews from '@models/Reviews'
 
 SwiperClass.use([Pagination, Autoplay, Scrollbar]);
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
-
-import SubmitButton from '@components/SubmitButton'
-import RequestForm from '@components/RequestForm'
-import Reviews from '@models/Reviews'
 
 export default {
   components: { 
@@ -150,19 +149,24 @@ export default {
 
     async decline(review) {
       review.declining = true;
-      await Reviews.delete(review.id);
-      review.declining = false;
+
+      await Reviews.delete(review.id).finally(() => 
+        review.declining = false
+      );
 
       this.removeFromList(review);
     },
 
     async verify(review) {
-       review.verifying = true;
-      // await Reviews.delete(review.id);
+      review.verifying = true;
+      
+      await Reviews.verify(review.id).finally(() => 
+        review.verifying = false
+      );
 
-      await new Promise((resolve) => setTimeout(resolve, 4000));
+      console.log(review);
 
-      review.verifying = false;
+      this.removeFromList(review);
     },
 
     async submit() {
