@@ -32,8 +32,19 @@
           <span class="reviews__card-rating">5.0</span>
         </div>
         <div class="reviews__card-button-group">
-          <button class="reviews__card-button reviews__card-button--delete button-second">delete</button>
-          <button class="reviews__card-button reviews__card-button--apply button-second">apply</button>
+          <button
+            class="reviews__card-button reviews__card-button--delete button-second"
+            @click="decline(review.id)">
+            
+            delete
+          </button>
+
+          <button
+            class="reviews__card-button reviews__card-button--apply button-second"
+            @click="verify(review.id)">
+            
+            apply
+          </button>
         </div>
       </div>
     </div>
@@ -47,7 +58,9 @@ import Reviews from '@models/Reviews'
 export default {
   data: function () {
     return {
-      reviews: []
+      reviews: [],
+
+      loading: false
     }
   },
   
@@ -56,6 +69,18 @@ export default {
   },
 
   methods: {
+    async decline(id) {
+      if (this.loading)
+        return;
+
+      await Reviews.delete(id);
+    },
+
+    async vefify(id) {
+      loading = true;
+
+    },
+
     async load() {
       this.reviews = await Reviews.pending();
 

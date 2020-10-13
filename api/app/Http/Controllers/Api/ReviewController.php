@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReviewService;
 use App\Http\Requests\Review\CreateReview;
+use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -54,6 +55,6 @@ class ReviewController extends Controller
      */
     public function destroy(ReviewService $service, Review $review)
     {
-        //
+        return $service->delete($review);
     }
 }

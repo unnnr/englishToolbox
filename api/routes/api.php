@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Api'], function() {
     Route::delete('profile', 'UserController@delete');
 
 
-    Route::get('verify/{id}/{hash}', 'VerificationController@verifyMail')->name('verify');
+    Route::get('verify/{id}/{hash}', 'UserController@verifyMail')->name('verify');
 });
 
 

@@ -48,8 +48,8 @@ class ReviewService
 
     }
 
-    public function delete()
+    public function delete(Review $model)
     {
-
+        $model->delete();
     }
 }
