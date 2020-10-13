@@ -33,3 +33,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .basement {
+    background-color: black;
+  }
+</style>

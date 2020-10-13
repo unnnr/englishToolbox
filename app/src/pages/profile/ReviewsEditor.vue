@@ -1,12 +1,16 @@
 <template>
   <section class="reviews-management container">
     <h3 class="heading-third">Reviews manage</h3>
-    <div class="reviews-management__body">
+    <request-form
+      class="reviews-management__body"
+      ref="form"
+      :submit-callback="submit">
       
       <div
         v-for="(review, key) in reviews"
         class="reviews__card"
         :key="key">
+
         <div class="reviews__card-person">
           <div class="reviews__card-photo"></div>
           <h5 class="reviews__card-name heading-fifth">Person Name</h5>
@@ -32,35 +36,54 @@
           <span class="reviews__card-rating">5.0</span>
         </div>
         <div class="reviews__card-button-group">
-          <button
+          <submit-button
             class="reviews__card-button reviews__card-button--delete button-second"
-            @click="decline(review.id)">
+            type="button"
+            :loading="review.declining"
+            @click.native="onDeclineClick(review)">
             
             delete
-          </button>
+          </submit-button>
 
-          <button
+          <submit-button
             class="reviews__card-button reviews__card-button--apply button-second"
-            @click="verify(review.id)">
+            type="button"
+            :loading="review.verifying"
+            @click.native="onVerifyClick(review)">
             
             apply
-          </button>
+          </submit-button>
         </div>
       </div>
-    </div>
+    </request-form>
   </section>
 </template>
 
 <script>
 
+import SubmitButton from '@components/SubmitButton'
+import RequestForm from '@components/RequestForm'
 import Reviews from '@models/Reviews'
 
 export default {
+  components: { 
+    SubmitButton,
+    RequestForm,
+  },
+
   data: function () {
     return {
       reviews: [],
+    }
+  },
 
-      loading: false
+  computed: {
+    sending: {
+      cache: false,
+
+      get() {
+				return this.$refs.form && this.$refs.form.loading;
+      }
     }
   },
   
@@ -69,23 +92,65 @@ export default {
   },
 
   methods: {
-    async decline(id) {
-      if (this.loading)
-        return;
+    onDeclineClick(review) {
+      // defining callback for submit function 
+      this.$options.submitCallback = () =>
+        this.decline(review);
 
-      await Reviews.delete(id);
+      // mannualy send request 
+      let form = this.$refs.form;
+
+      form.send();
     },
 
-    async vefify(id) {
-      loading = true;
+    onVerifyClick(review) {
+      // defining callback for submit function 
+      this.$options.submitCallback = () =>
+        this.verify(review);
 
+      // mannualy send request 
+      let form = this.$refs.form;
+
+      form.send();
+    },
+
+    async decline(review) {
+      review.declining = true;
+      // await Reviews.delete(review.id);
+
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+
+      review.declining = false;
+    },
+
+    async verify(review) {
+       review.verifying = true;
+      // await Reviews.delete(review.id);
+
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+
+      review.verifying = false;
+    },
+
+    async submit() {
+      if (!!!this.$options.submitCallback)
+        return;
+
+      await this.$options.submitCallback();
     },
 
     async load() {
-      this.reviews = await Reviews.pending();
+      for (let review of await Reviews.pending())
+      {
+        Object.assign(review,  {
+          verifying: false,
+          declining: false
+        });
 
-      console.log(await Reviews.pending());
+        this.reviews.push(review);
+      }
     }
+
   }
 };
 </script>
