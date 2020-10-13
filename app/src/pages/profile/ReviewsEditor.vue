@@ -7,13 +7,13 @@
       
       <transition-group 
         class="reviews-management__body"
-        name="list"
+		    name="list"
         @before-leave="setAbsolute">
 
         <div
-          v-for="(review, key) in reviews"
+          v-for="review in reviews"
           class="reviews__card"
-          :key="key">
+          :key="review.id">
 
           <div class="reviews__card-person">
             <div class="reviews__card-photo"></div>
@@ -98,11 +98,6 @@ export default {
   
   beforeMount() {
     this.load();
-
-    window.add = () => 
-    {
-      this.reviews.unshift({});
-    }
   },
 
   methods: {
