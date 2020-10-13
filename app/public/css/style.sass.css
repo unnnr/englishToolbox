@@ -521,3 +521,134 @@ button:active {
   z-index: 40;
   opacity: 0.5;
 }
+
+.footer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (max-content)[2];
+      grid-template-columns: repeat(2, -webkit-max-content);
+      grid-template-columns: repeat(2, max-content);
+  grid-column-gap: 150px;
+  grid-row-gap: 30px;
+  background: whitesmoke;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    -ms-grid-columns: max-content;
+        grid-template-columns: -webkit-max-content;
+        grid-template-columns: max-content;
+  }
+}
+
+@media (max-width: 1200px) {
+  .footer__contacts {
+    -ms-grid-row: 2;
+        grid-row-start: 2;
+  }
+}
+
+.footer__links,
+.footer__contacts {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (max-content)[2];
+      grid-template-columns: repeat(2, -webkit-max-content);
+      grid-template-columns: repeat(2, max-content);
+  grid-column-gap: 5.20833vw;
+  grid-row-gap: 15px;
+}
+
+@media (max-width: 576px) {
+  .footer__links,
+  .footer__contacts {
+    -ms-grid-columns: max-content;
+        grid-template-columns: -webkit-max-content;
+        grid-template-columns: max-content;
+  }
+}
+
+.footer__contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer__contact:before {
+  font-family: "Font Awesome 5 Brands";
+  font-size: 25px;
+  color: #848499;
+  margin-right: 10px;
+}
+
+.footer__contact--youtube:before {
+  content: "\f167";
+}
+
+.footer__contact--twetter:before {
+  content: "\f099";
+}
+
+.footer__contact--facebook:before {
+  content: "\f09a";
+}
+
+.footer__contact--mail:before {
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 600;
+  content: "\f0e0";
+}
+
+.footer__contact--discord:before {
+  content: "\f392";
+}
+
+.footer__contact--skype:before {
+  content: "\f17e";
+}
+
+.copyright {
+  height: 50px;
+  background: #f0f0f0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.copyright__text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #a1a1b1;
+}
+
+@media (max-width: 1200px) {
+  .copyright__text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .copyright__text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 770px) {
+  .copyright__text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .copyright__text {
+    font-size: 11px;
+  }
+}
