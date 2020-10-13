@@ -5,70 +5,77 @@
       ref="form"
       :submit-callback="submit">
       
-      <transition-group 
+      <swiper
         class="reviews-management__body"
-		    name="list"
-        @before-leave="setAbsolute">
-
-        <div
-          v-for="review in reviews"
+				ref="swiper"
+				:options="swiperOptions">
+				
+        <swiper-slide 
           class="reviews__card"
+          v-for="review in reviews"
           :key="review.id">
-
-          <div class="reviews__card-person">
-            <div class="reviews__card-photo"></div>
-            <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-          </div>
-          <div class="reviews__card-content">
-            <h5 class="reviews__card-title heading-fifth">
-              {{ review.title }}
-            </h5>
-            <p class="reviews__card-text text-third">
-              {{ review.text }}
-            </p>
-          </div>
-          <div class="reviews__card-grade">
-            <div class="reviews__card-stars">
-              <div 
-                v-for="id in 5"
-                class="reviews__card-star"
-                :key="id"
-                :class="{
-                  'reviews__card-star--full': id <= review.grade 
-                }">
-              </div>
+          
+            <div class="reviews__card-person">
+              <div class="reviews__card-photo"></div>
+              <h5 class="reviews__card-name heading-fifth">Person Name</h5>
             </div>
-            <span class="reviews__card-rating">5.0</span>
-          </div>
-          <div class="reviews__card-button-group">
-            <submit-button
-              class="reviews__card-button reviews__card-button--delete button-second"
-              type="button"
-              :loading="review.declining"
-              :disabled="loading"
-              @click.native="onDeclineClick(review)">
-              
-              delete
-            </submit-button>
+            <div class="reviews__card-content">
+              <h5 class="reviews__card-title heading-fifth">
+                {{ review.title }}
+              </h5>
+              <p class="reviews__card-text text-third">
+                {{ review.text }}
+              </p>
+            </div>
+            <div class="reviews__card-grade">
+              <div class="reviews__card-stars">
+                <div 
+                  v-for="id in 5"
+                  class="reviews__card-star"
+                  :key="id"
+                  :class="{
+                    'reviews__card-star--full': id <= review.grade 
+                  }">
+                </div>
+              </div>
+              <span class="reviews__card-rating">5.0</span>
+            </div>
+            <div class="reviews__card-button-group">
+              <submit-button
+                class="reviews__card-button reviews__card-button--delete button-second"
+                type="button"
+                :loading="review.declining"
+                :disabled="loading"
+                @click.native="onDeclineClick(review)">
+                
+                delete
+              </submit-button>
 
-            <submit-button
-              class="reviews__card-button reviews__card-button--apply button-second"
-              type="button"
-              :loading="review.verifying"
-              :disabled="loading"
-              @click.native="onVerifyClick(review)">
-              
-              apply
-            </submit-button>
-          </div>
-        </div>
-      </transition-group>
-   
+              <submit-button
+                class="reviews__card-button reviews__card-button--apply button-second"
+                type="button"
+                :loading="review.verifying"
+                :disabled="loading"
+                @click.native="onVerifyClick(review)">
+                
+                apply
+              </submit-button>
+            </div>
+          </swiper-slide>
+      </swiper>
     </request-form>
   </section>
 </template>
 
 <script>
+
+import 'swiper/swiper-bundle.css'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import { Swiper as SwiperClass, Pagination, Autoplay, Scrollbar } from 'swiper/core'
+
+SwiperClass.use([Pagination, Autoplay, Scrollbar]);
+
+const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 import SubmitButton from '@components/SubmitButton'
 import RequestForm from '@components/RequestForm'
@@ -78,10 +85,16 @@ export default {
   components: { 
     SubmitButton,
     RequestForm,
+		SwiperSlide,
+    Swiper
   },
 
   data: function () {
     return {
+      swiperOptions:{
+				slidesPerView: 'auto',
+      },
+
       reviews: [],
     }
   },
@@ -89,7 +102,6 @@ export default {
   computed: {
     loading: {
       cache: false,
-
       get() {
 				return this.$refs.form && this.$refs.form.loading;
       }
@@ -101,14 +113,6 @@ export default {
   },
 
   methods: {
-    setAbsolute(review) {
-			Object.assign(review.style, {
-				position: 'absolute',
-				width: review.offsetWidth + 'px',
-				top: review.offsetTop + 'px',
-				left: review.offsetLeft + 'px'
-			})
-		},
     onDeclineClick(review) {
       // defining callback for submit function 
       this.$options.submitCallback = () =>
@@ -183,6 +187,7 @@ export default {
 </script>
 
 <style scoped>
+
 .reviews-management__body {
   position: relative;
 }

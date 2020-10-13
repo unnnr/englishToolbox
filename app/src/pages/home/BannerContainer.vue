@@ -33,18 +33,20 @@
 </template>
 
 <script>
+
+import 'swiper/swiper-bundle.css'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass, Pagination, Autoplay, Scrollbar } from 'swiper/core'
-import 'swiper/swiper-bundle.css'
 
 SwiperClass.use([Pagination, Autoplay, Scrollbar]);
+
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 export default {
-    components: {
-			Swiper,
-			SwiperSlide
-    },
+  components: {
+		Swiper,
+		SwiperSlide
+  },
     
 	data: function() {
 		return {
