@@ -28,3 +28,11 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  .footer
+    background: darken($color-almost-white, 4)
+
+  .copyright
+    background: darken($color-almost-white, 6)
+</style>

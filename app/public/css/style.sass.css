@@ -41,7 +41,7 @@ button {
   font-size: 10px;
 }
 
-@media (min-width: 1500px) {
+@media (max-width: 1500px) {
   body,
   button {
     font-size: 9px;
@@ -540,6 +540,15 @@ button:active {
     -ms-grid-columns: max-content;
         grid-template-columns: -webkit-max-content;
         grid-template-columns: max-content;
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 
@@ -550,8 +559,8 @@ button:active {
   }
 }
 
-.footer__links,
-.footer__contacts {
+.footer__contacts,
+.footer__links {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (max-content)[2];
@@ -562,8 +571,8 @@ button:active {
 }
 
 @media (max-width: 576px) {
-  .footer__links,
-  .footer__contacts {
+  .footer__contacts,
+  .footer__links {
     -ms-grid-columns: max-content;
         grid-template-columns: -webkit-max-content;
         grid-template-columns: max-content;
@@ -582,8 +591,22 @@ button:active {
 .footer__contact:before {
   font-family: "Font Awesome 5 Brands";
   font-size: 25px;
-  color: #848499;
+  font-weight: 500;
+  color: inherit;
   margin-right: 10px;
+}
+
+.footer__contact,
+.footer__link {
+  font-weight: 600;
+  color: #a1a1b1;
+  -webkit-transition: color .2s;
+  transition: color .2s;
+}
+
+.footer__contact:hover,
+.footer__link:hover {
+  color: #77778e;
 }
 
 .footer__contact--youtube:before {
@@ -624,31 +647,7 @@ button:active {
 }
 
 .copyright__text {
-  font-size: 18px;
+  font-size: 1.6em;
   font-weight: 500;
   color: #a1a1b1;
-}
-
-@media (max-width: 1200px) {
-  .copyright__text {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .copyright__text {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 770px) {
-  .copyright__text {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 576px) {
-  .copyright__text {
-    font-size: 11px;
-  }
 }

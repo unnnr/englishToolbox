@@ -8,14 +8,18 @@
   padding-bottom: 100px
   @include lg-devices
     grid-template-columns: max-content
+    padding-top: 75px
+    padding-bottom: 75px
+  @include xs-devices
+    padding-top: 50px
+    padding-bottom: 50px
 
 .footer__contacts
   @include lg-devices
     grid-row-start: 2
 
-
-.footer__links,
-.footer__contacts
+.footer__contacts,
+.footer__links
   display: grid
   grid-template-columns: repeat(2, max-content)
   grid-column-gap: vw(100, 1920)
@@ -29,8 +33,17 @@
   &:before
     font-family: "Font Awesome 5 Brands"
     font-size: 25px
-    color: $color-gray
+    font-weight: $medium
+    color: inherit
     margin-right: 10px
+
+.footer__contact,
+.footer__link
+  font-weight: $semibold 
+  color: $color-semigray
+  transition: color .2s
+  &:hover
+    color: darken($color-semigray, 15)
 
 .footer__contact--youtube
   &:before
@@ -65,18 +78,6 @@
   align-items: center
 
 .copyright__text
-  font-size: 18px
+  font-size: 1.6em
   font-weight: $medium
   color: $color-semigray
-
-  @include lg-devices
-    font-size: 16px
-
-  @include md-devices
-    font-size: 14px
-
-  @include sm-devices
-    font-size: 12px
-
-  @include xs-devices
-    font-size: 11px
