@@ -72,6 +72,7 @@
 
 <script>
 
+import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import SubmitButton from '@components/SubmitButton'
