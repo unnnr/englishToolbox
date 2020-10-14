@@ -68,7 +68,7 @@ export default {
     return {
       grade: 0,
 
-      shown: true
+      shown: false
     }
   },
 

@@ -70,14 +70,13 @@
 
 <script>
 
-import 'swiper/swiper-bundle.css'
-import { Swiper as SwiperClass, Pagination, Autoplay, Scrollbar } from 'swiper/core'
+import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import SubmitButton from '@components/SubmitButton'
 import RequestForm from '@components/RequestForm'
 import Reviews from '@models/Reviews'
 
-SwiperClass.use([Pagination, Autoplay, Scrollbar]);
+SwiperClass.use([Pagination]);
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
