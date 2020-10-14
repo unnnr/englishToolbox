@@ -30,8 +30,8 @@
 
 
 					<swiper-slide
-						v-for="card in updates"
-						:key="card.id">
+						v-for="index in 4"
+						:key="index">
 					
 						<empty-card 
 							square-form
@@ -92,9 +92,6 @@ export default {
 	},  
 
 	beforeMount() {
-		Updates.onload(() => {
-			//this.updates = Updates.all();  
-		}); 
 
 		console.log('mouted');
 	},

@@ -83,6 +83,24 @@
       </div>
     </div>
   </div>
-  <button class="reviews__leave-review-button text-third">leave a review</button>
+  <button 
+    class="reviews__leave-review-button text-third"
+    @click="showEditor">
+
+    leave a review
+  </button>
 </section>
 </template>
+
+<script>
+
+import bus from '@services/eventbus'
+
+export default {
+  methods: {
+    showEditor() {
+      bus.dispatch('reviews-editor-showing');
+    }
+  }
+}
+</script>
