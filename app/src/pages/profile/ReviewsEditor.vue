@@ -17,7 +17,9 @@
           
           <div class="reviews__card-person">
             <div class="reviews__card-photo"></div>
-            <h5 class="reviews__card-name heading-fifth">Person Name</h5>
+            <h5 class="reviews__card-name heading-fifth">
+              {{ review.user.name }}
+            </h5>
           </div>
 
           <div class="reviews__card-content">
