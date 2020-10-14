@@ -15,8 +15,12 @@
         <h5 class="reviews__card-name heading-fifth">Person Name</h5>
       </div>
       <div class="reviews__card-content">
-        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+        <h5 class="reviews__card-title heading-fifth">
+          {{ review.title }}
+        </h5>
+        <p class="reviews__card-text text-third"> 
+          {{ review.text }}
+        </p>
       </div>
       <div class="reviews__card-grade">
         <div class="reviews__card-stars">
