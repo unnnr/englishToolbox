@@ -22,7 +22,7 @@
     </footer>
     <div class="copyright container">
       <p class="copyright__text">
-        © Copyright 2020 *namehere* − All Rights Reserved
+        © Copyright 2020 englishnerd − All Rights Reserved
       </p>
     </div>
   </section>

@@ -199,7 +199,13 @@ button:active {
 }
 
 .navbar {
-  padding-top: 50px;
+  margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    margin-top: 30px;
+  }
 }
 
 .navbar-desktop {
@@ -407,7 +413,6 @@ button:active {
   transition: max-width .3s ease-in-out, box-shadow .3s ease-in-out;
   transition: max-width .3s ease-in-out, box-shadow .3s ease-in-out, -webkit-box-shadow .3s ease-in-out;
   white-space: nowrap;
-  padding: 50px 0;
   overflow-y: auto;
 }
 
@@ -421,8 +426,8 @@ button:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 5px;
-  padding: 0 35px;
+  margin-top: 30px;
+  padding: 0 30px;
 }
 
 .navbar-mobile__account-link span {
@@ -650,4 +655,9 @@ button:active {
   font-size: 1.6em;
   font-weight: 500;
   color: #a1a1b1;
+}
+
+.banner {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

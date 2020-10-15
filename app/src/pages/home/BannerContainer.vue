@@ -14,8 +14,14 @@
 						class="banner__slide"
 						:class="getAddClass(index)">
 						
-						<img :src="image">
-						
+						<!-- <img :src="image"> -->
+
+						<picture>
+							<source srcset="imageTMobile.svg" media="(max-width: 570px)">
+							<source srcset="imageTablet.svg" media="(max-width: 1000px)">
+							<img src="imageDesktop.svg" alt="#">
+						</picture>
+	
 						<h1 class="banner__text heading-first">{{ label }}</h1>
 						
 						<button 

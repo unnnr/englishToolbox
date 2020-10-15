@@ -1083,11 +1083,6 @@ button:active {
   color: #5353ff;
 }
 
-.banner {
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
 .banner__carousel {
   width: 100%;
   border-radius: 15px;
