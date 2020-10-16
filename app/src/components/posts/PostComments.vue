@@ -15,7 +15,7 @@
 		<div 
 			class="comments__body"
 			ref="wrapper"
-			:style="{'max-height': bodyHeight,
+			:style="{'height': bodyHeight,
 							 'transition': bodyTransition}">	
 		
 			<transition name="fade">
@@ -23,6 +23,7 @@
 					class="comments__overlay"
 					v-if="loading">
 				</div>
+
 				<div 	
 					class="comments__body-content"
 					ref='content'
@@ -99,7 +100,7 @@ export default {
 	
 	data: function () {
     return {
-			comments: null,
+			comments: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 
 			shrinkDuration: 800,
 
@@ -112,23 +113,27 @@ export default {
 	},
 
 	computed: {
+		firstCommentHeight() {
+				const MARGIN_OFFSET = 30;
+
+				if (this.comments.length === 0)
+					return 0;
+
+				let content =  this.$refs.content;
+				let comment = content.children[1];
+				return comment.offsetHeight + MARGIN_OFFSET;
+			},
+
+		shrinkTo() {
+      return this.firstCommentHeight + 'px';
+		},
+		
 		loading() {
 			return this.comments === null
 		},
 
 		commentsCount() {
 			return this.comments.length;
-		},
-
-		firstCommentHeight() {
-			let content =  this.$refs.content;
-
-			if (content.children.length < 2)
-				return null;
-
-			let comment = content.children[1];
-
-			return comment.offsetHeight;
 		}
 	},
 
@@ -143,24 +148,12 @@ export default {
 			'post-selecting': async event => {
 				this.$options.selectedPostId = event.post.id;
 
-				console.log(this.model);
-				this.comments = await this.model.comments(event.post.id);	
+				// this.comments = await this.model.comments(event.post.id)
 			}
 		})
 	},	
 	
 	methods: {
-		shrink() {
-			let content = this.$refs.content;
-
-			this.bodyHeight = content.offsetHeight + 'px';
-
-			// Gives time for rendering
-			setTimeout(() => { 
-				this.bodyHeight = this.firstCommentHeight + COMMENT_MARGIN_HEIGHT + 'px'; 
-			}, this.renderDuration)
-		},
-
 		trimTextarea() {
 			this.message = this.message.trim();
 		},

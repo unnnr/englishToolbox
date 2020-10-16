@@ -17,6 +17,16 @@ const Shrinkable = {
     },
 
     computed: {
+        shrinkTo() {
+            return 0 + 'px';
+        },
+
+        contentHeight() {
+            let content = this.$refs.content;
+
+            return content.offsetHeight + 'px';
+        },
+
         buttonTransition() {
             let duration = this.shrinkDuration;
             
@@ -54,14 +64,12 @@ const Shrinkable = {
         shrink() {
             const RENDER_DURATION = 100;
 
-            let content = this.$refs.content;
-
-            this.bodyHeight = content.offsetHeight + 'px';
+            this.bodyHeight = this.contentHeight;
             
             // Gives time for rendering
             setTimeout(() => {
-                this.bodyHeight = 0 + 'px';
-                
+                this.bodyHeight = this.shrinkTo;
+
                 this.$options.animationTimer = setTimeout(() => {
                     if (typeof this.afterShrink == 'function')
                         this.afterShrink();
@@ -71,9 +79,7 @@ const Shrinkable = {
         },
 
         open() {
-            let content = this.$refs.content;
-
-            this.bodyHeight = content.offsetHeight + 'px';
+            this.bodyHeight = this.contentHeight;
 
             // Removing explicitly setted height
             this.$options.animationTimer = setTimeout(() => {
