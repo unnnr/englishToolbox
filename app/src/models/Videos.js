@@ -17,6 +17,13 @@ class Videos extends Model
         return true;
     }
 
+    async comments(videoId)
+    {
+        return await Http.get({
+            uri: `${this.path}/${videoId}/comments`
+        });
+    }
+
     path = 'videos';
 }
 
