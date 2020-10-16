@@ -49,10 +49,10 @@
 			</transition>
 		</div>
 
-		<form 
+		<request-form 
 			class="comments__footer"
-			ref="form"
 			v-if="showInput"
+			:submit-callback="submit"
 			@submit.prevent="submit">
 
 			<a class="comments__account-link" href="#">
@@ -72,13 +72,14 @@
 			<button class="comments__send-button" type="submit">
 				<span class="material-icons-round">send</span>
 			</button>
-		</form>
+		</request-form>
 	</div>
 </template>
 
 <script>
 
 import HandleEvents from '@mixins/HandleEvents'
+import RequestForm from '@components/RequestForm'
 import Shrinkable from '@mixins/Shrinkable'
 import Comments from '@models/Comments'
 import Auth from '@services/Auth'
@@ -87,6 +88,10 @@ import bus from '@services/eventbus'
 const COMMENT_MARGIN_HEIGHT = 30;
 
 export default {
+	components: {
+		RequestForm
+	},
+	
 	mixins: [ 
 		HandleEvents,
 		Shrinkable
@@ -148,7 +153,7 @@ export default {
 			'post-selecting': async event => {
 				this.$options.selectedPostId = event.post.id;
 
-				// this.comments = await this.model.comments(event.post.id)
+				this.comments = await this.model.comments.get(event.post.id);
 			}
 		})
 	},	
@@ -157,29 +162,16 @@ export default {
 		trimTextarea() {
 			this.message = this.message.trim();
 		},
-
-		onServerError(error)  {
-			console.log(error);
-			this.submitting = false;
-		},
 		
-		async submit() {
-			if (this.submitting)
-				return; 
-
-			this.submitting = true;
+		async submit(data) {
 			this.trimTextarea();
 
 			let postId = this.$options.selectedPostId; 
-			let data = new FormData(this.$refs.form);
-
-			let message = await Comments.create(postId, data).catch(this.onServerError);
+			let message = await Comments.create(postId, data);
 
 			this.comments.push(message);
 
 			this.message = '';
-
-			this.submitting = false;
 		}
 	}   
 }
