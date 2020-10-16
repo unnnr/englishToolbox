@@ -7,22 +7,27 @@
 				:options="swiperOptions">
 
 				<swiper-slide 
-					v-for="({image, action, label}, index) of banners"
+					v-for="({name, action, additionalClass}, index) of banners"
 					:key="index">
 
 					<div 
 						class="banner__slide"
-						:class="getAddClass(index)">
+						:class="additionalClass">
 						
-						<!-- <img :src="image"> -->
-
 						<picture>
-							<source srcset="imageTMobile.svg" media="(max-width: 570px)">
-							<source srcset="imageTablet.svg" media="(max-width: 1000px)">
-							<img src="imageDesktop.svg" alt="#">
+							<source 
+								media="(max-width: 570px)"
+								:srcset="mobileUrl(name)">
+
+							<source
+								media="(max-width: 1000px)"
+							 	:srcset="tabletUrl(name)">
+
+							<img 
+								alt="#"
+								:src="desktopUrl(name)">
 						</picture>
-	
-						<h1 class="banner__text heading-first">{{ label }}</h1>
+
 						
 						<button 
 							class="banner__button heading-fourth"
@@ -47,10 +52,10 @@ SwiperClass.use([Pagination, Autoplay, Scrollbar]);
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 export default {
-    components: {
-			Swiper,
-			SwiperSlide
-    },
+	components: {
+		Swiper,
+		SwiperSlide
+	},
     
 	data: function() {
 		return {
@@ -80,60 +85,46 @@ export default {
 
 			banners: [
 				{ 
-					image: 'img/svg/videos-banner.svg',
-					label: 'Study with \n our videos',
+					name: 'videos-banner',
 					action: this.createRedirect('videos'),
 				},
 				{ 
-					image: 'img/svg/audios-banner.svg',
-					label: 'Study with \n our videos',
-					action: this.createRedirect('audio'),
+					name: 'videos-banner',
+					additionalClass: 'some-special-class', 
+					action: this.createRedirect('videos'),
 				},
 				{ 
-					image: 'img/svg/schemas-banner.svg',
-					label: 'Study with \n our videos',
-					action: this.createRedirect('schemas'),
-				},
-				{ 
-					image: 'img/svg/games-banner.svg',
-					label: 'Study with \n our videos',
-					action: this.createRedirect('games'),
+					name: 'videos-banner',
+					action: this.createRedirect('videos'),
 				},
 			]
 		}
 	},  
 
-	beforeMount() {
-		this.fistColor = this.randomColor();
-		this.secondColor = this.randomColor();
+	computed: {
+		path() {
+			return 'img/svg/';
+		}
 	},
 
 	methods: {
+		desktopUrl(fileName) {
+			return this.path + fileName + '-desktop.svg';
+		},
+
+		tabletUrl(fileName) {
+			return this.path + fileName + '-tablet.svg';
+		},
+
+		mobileUrl(fileName) {
+			return this.path + fileName + '-mobile.svg';
+		},
+
 		createRedirect(path) {
 			return function () {
 				window.location = window.origin + '/' + path;
 			};
 		},
-
-		randomColor() {
-			return  '#' + Math.floor(Math.random()  * Math.pow(16, 6)).toString(16).padStart(6, '0');
-		},
-
-		getAddClass(index) {
-			if (index % 2 === 0)
-				return 'banner__slide--right';
-
-			return 'banner__slide--left';
-		},
-
-		paint(event) {
-			let currentIndex = event.activeIndex % 2;
-
-			if (currentIndex == 0)
-				this.fistColor = this.randomColor();
-			else 
-				this.secondColor = this.randomColor();
-		}
 	}
 }
 </script>
