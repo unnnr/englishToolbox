@@ -23,16 +23,27 @@ class Videos extends Model
             let response = await Http.get({
                 uri: `videos/${videoId}/comments`
             });
+            
+            let comments = [];
+
+            for (let comment of response.data)
+            {
+                comment.createdAt = FormatedDate.parse(comment.createdAt);
+                comments.push(comment); 
+            }
     
-            return response.data;
+            return comments;
         },
 
-        async create(data)
+        async create(videoId, data)
         {
             let response = await Http.post({
                 data, uri: `videos/${videoId}/comments`
             }); 
 
+            let comment = response.data;
+            comment.createdAt = FormatedDate.parse(comment.createdAt);
+            
             return response.data;
         }
     }

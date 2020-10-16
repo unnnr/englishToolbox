@@ -140,7 +140,6 @@ export default {
 	},   
 
 	methods: {
-
 		isLoading() {
 			if (this.$refs.form)
 				return this.$refs.form.loading;

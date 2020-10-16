@@ -32,17 +32,17 @@
 					<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
 					<div
 						class="comment"
-						v-for="({sender, message, date, id}) in comments"
+						v-for="({user, message, createdAt, id}) in comments"
 						:key="id">
 
 						<div class="comment__image"></div>
 						<div class="comment__body">
 								<p class="comment__text text-sixth">
-									<span class="comment__name">{{ sender }}</span>
+									<span class="comment__name">{{ user.name }}</span>
 								<!-- 	<span class="comment__mention"></span> -->
 									{{ message }}
 								</p>
-								<time class="comment__date text-sixth">{{ date }}</time>
+								<time class="comment__date text-sixth">{{ createdAt }}</time>
 						</div>
 					</div>
 				</div>
@@ -66,6 +66,7 @@
 				minlength="1"
 				name="message"
 				v-model="message"
+				:disabled="sending"
 				required>
 			</textarea>
 		
@@ -105,7 +106,7 @@ export default {
 	
 	data: function () {
     return {
-			comments: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+			comments: null,
 
 			shrinkDuration: 800,
 
@@ -119,15 +120,20 @@ export default {
 
 	computed: {
 		firstCommentHeight() {
-				const MARGIN_OFFSET = 30;
+			const MARGIN_OFFSET = 30;
 
-				if (this.comments.length === 0)
-					return 0;
+			if (this.comments.length === 0)
+				return 0;
 
-				let content =  this.$refs.content;
-				let comment = content.children[1];
-				return comment.offsetHeight + MARGIN_OFFSET;
-			},
+			let content =  this.$refs.content;
+			let comment = content.children[1];
+
+			return comment.offsetHeight + MARGIN_OFFSET;
+		},
+
+		sending() {
+			return this.$refs.form && this.$refs.form.loading;
+		},
 
 		shrinkTo() {
       return this.firstCommentHeight + 'px';
@@ -167,9 +173,9 @@ export default {
 			this.trimTextarea();
 
 			let postId = this.$options.selectedPostId; 
-			let message = await Comments.create(postId, data);
+			let newComment = await this.model.comments.create(postId, data);
 
-			this.comments.push(message);
+			this.comments.push(newComment);
 
 			this.message = '';
 		}
