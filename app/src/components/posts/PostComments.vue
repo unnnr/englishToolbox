@@ -15,34 +15,37 @@
 		<div 
 			class="comments__body"
 			ref="wrapper"
-			:style="{ 'max-height': bodyHeight,
-							  'transition': bodyTransition}">	
+			:style="{'max-height': bodyHeight,
+							 'transition': bodyTransition}">	
 		
-			<div class="comments__overlay">
-				<img src="" alt="">
-			</div>
+			<transition name="fade">
+				<div 
+					class="comments__overlay"
+					v-if="loading">
+				</div>
+				<div 	
+					class="comments__body-content"
+					ref='content'
+					v-else>
+				
+					<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
+					<div
+						class="comment"
+						v-for="({sender, message, date, id}) in comments"
+						:key="id">
 
-			<div 	
-				class="comments__body-content"
-				ref='content'>
-			
-				<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
-				<div
-					class="comment"
-					v-for="({sender, message, date, id}) in comments"
-					:key="id">
-
-					<div class="comment__image"></div>
-					<div class="comment__body">
-							<p class="comment__text text-sixth">
-								<span class="comment__name">{{ sender }}</span>
-							<!-- 	<span class="comment__mention"></span> -->
-								{{ message }}
-							</p>
-							<time class="comment__date text-sixth">{{ date }}</time>
+						<div class="comment__image"></div>
+						<div class="comment__body">
+								<p class="comment__text text-sixth">
+									<span class="comment__name">{{ sender }}</span>
+								<!-- 	<span class="comment__mention"></span> -->
+									{{ message }}
+								</p>
+								<time class="comment__date text-sixth">{{ date }}</time>
+						</div>
 					</div>
 				</div>
-			</div>
+			</transition>
 		</div>
 
 		<form 
@@ -65,7 +68,9 @@
 				required>
 			</textarea>
 		
-			<button class="comments__send-button" type="submit"><span class="material-icons-round">send</span></button>
+			<button class="comments__send-button" type="submit">
+				<span class="material-icons-round">send</span>
+			</button>
 		</form>
 	</div>
 </template>
@@ -94,26 +99,23 @@ export default {
 	
 	data: function () {
     return {
-			comments: [
-				{ id: 1, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ id: 2, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ id: 3, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ id: 4, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ id: 5, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-				{ id: 6, sender: 'IamSENDER', date: '19 may 2020', message: 'Sit amet justo donec enim diam vulputate ut. Egestas pretium aenean pharetra magna ac. Id eu nisl nunc mi ipsum faucibus vitae.'},
-			],
+			comments: null,
 
 			shrinkDuration: 800,
 
 			showInput: false,
 
 			submitting: false,
-		
+
 			message: ''
     }
 	},
 
 	computed: {
+		loading() {
+			return this.comments === null
+		},
+
 		commentsCount() {
 			return this.comments.length;
 		},
@@ -141,7 +143,8 @@ export default {
 			'post-selecting': async event => {
 				this.$options.selectedPostId = event.post.id;
 
-				// this.comments = await model.comments(event.post.id);	
+				console.log(this.model);
+				this.comments = await this.model.comments(event.post.id);	
 			}
 		})
 	},	

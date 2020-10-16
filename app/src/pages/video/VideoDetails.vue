@@ -20,7 +20,7 @@
 
 import PostDetails from '@components/posts/PostDetails'
 import VideoEditor from '@pages/video/VideoEditor'
-import Video from '@models/Videos'
+import Videos from '@models/Videos'
 
 export default {
 	components: {
@@ -29,7 +29,7 @@ export default {
 	},
 
 	computed: {
-		model: () => Video
+		model: () => Videos
 	}
 };
 </script>

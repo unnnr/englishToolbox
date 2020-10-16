@@ -10,7 +10,8 @@
 				<post-presentor 
 					ref="presentor"
 					v-else
-					:target="info.target"/>
+					:target="info.target"
+					:model="model"/>
 			</div>
 		</div>
 	</div>
@@ -28,6 +29,12 @@ export default {
 	},
 
 	mixins: [ HandleEvents ],
+
+	props: {
+		model: {
+			type: Object
+		}
+	},
 
 	data: function() {
 		return {
