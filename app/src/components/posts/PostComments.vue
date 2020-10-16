@@ -195,8 +195,12 @@ export default {
    transform-origin: 15px 15px;
 }
 
+.comments__mobile-button {
+	transform: rotate(0);
+}
+
 .comments__mobile-button--upturned {
-    transform: rotate(180deg);
+	transform: rotate(-180deg);
 }
 
 </style>
