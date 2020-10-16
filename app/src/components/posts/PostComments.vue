@@ -17,11 +17,11 @@
 			ref="wrapper"
 			:style="{ 'max-height': bodyHeight,
 							  'transition': bodyTransition}">	
-			<!-- overlay here -->
+		
 			<div class="comments__overlay">
 				<img src="" alt="">
 			</div>
-			<!-- overlay here -->
+
 			<div 	
 				class="comments__body-content"
 				ref='content'>
@@ -36,7 +36,7 @@
 					<div class="comment__body">
 							<p class="comment__text text-sixth">
 								<span class="comment__name">{{ sender }}</span>
-								<span class="comment__mention"></span>
+							<!-- 	<span class="comment__mention"></span> -->
 								{{ message }}
 							</p>
 							<time class="comment__date text-sixth">{{ date }}</time>
@@ -58,8 +58,8 @@
 			<textarea 
 				class="comments__textarea"
 				placeholder="your comment"
-				minlength="1"
 				maxlength="500"
+				minlength="1"
 				name="message"
 				v-model="message"
 				required>
@@ -72,6 +72,7 @@
 
 <script>
 
+import HandleEvents from '@mixins/HandleEvents'
 import Shrinkable from '@mixins/Shrinkable'
 import Comments from '@models/Comments'
 import Auth from '@services/Auth'
@@ -80,7 +81,16 @@ import bus from '@services/eventbus'
 const COMMENT_MARGIN_HEIGHT = 30;
 
 export default {
-	mixins: [ Shrinkable ],
+	mixins: [ 
+		HandleEvents,
+		Shrinkable
+	],
+
+	props: {
+		model: {
+			type: Object
+		}
+	},
 	
 	data: function () {
     return {
@@ -127,20 +137,16 @@ export default {
 	},
 
 	mounted() {
-		// bus.listen('post-selecting', this.onSelect);	
-	},	
+		this.listen({
+			'post-selecting': async event => {
+				this.$options.selectedPostId = event.post.id;
 
-	beforeDestroy() {
-		 // bus.detach('post-selecting', this.onSelect);	
-	},
+				// this.comments = await model.comments(event.post.id);	
+			}
+		})
+	},	
 	
 	methods: {
-		async onSelect(event) {
-			this.$options.selectedPostId = event.post.id;
-
-			this.comments = await Comments.getAttached(event.post.id);	
-		},
-		
 		shrink() {
 			let content = this.$refs.content;
 
@@ -176,7 +182,6 @@ export default {
 			this.comments.push(message);
 
 			this.message = '';
-			console.log(this.message);
 
 			this.submitting = false;
 		}

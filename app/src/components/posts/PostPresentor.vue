@@ -29,31 +29,36 @@
 				</div>
 			</transition>
 						
-			<div 
-				class="addition__tab addition__tab--comments">
-				<comments 
-						:shrinkable="mobileWidth"/>
+			<div class="addition__tab addition__tab--comments">
+				<post-comments 
+					:shrinkable="mobileWidth"
+					:model="model"/>
 			</div>
+			
 		</div>
 	</div>
 </template>
 
 <script>
-import { throttle } from 'throttle-debounce';
 
-import PostInfo from '@components/posts/PostInfo.vue';
-import Comments from '@components/posts/Comments';
+import { throttle } from 'throttle-debounce'
+import PostInfo from '@components/posts/PostInfo.vue'
+import PostComments from '@components/posts/PostComments'
 
 export default {
 	components: {
-		PostInfo,
-		Comments
+		PostComments,
+		PostInfo
 	},
 
 	props: {
 		target: {
 			type: Object,
 			default: null
+		},
+
+		model: {
+			type: Object
 		}
 	},
 
@@ -65,8 +70,7 @@ export default {
 	},
 
 	watch: {
-		mobileWidth(value)
-		{
+		mobileWidth(value) {
 			if (value)
 				this.detailsShown = true;
 		}
@@ -95,13 +99,7 @@ export default {
 					this.mobileWidth = true;
 			else
 					this.mobileWidth = false;
-		},
-
-	/* updateInfo(newData) {
-		let info = this.$refs.videoInfo;
-
-		Object.assign(info.$data, newData)
-	} */
+		}
 	},
 	
 	beforeMount() {

@@ -1,8 +1,5 @@
 <template>
-	<div 
-		class="addition"
-		ref="details">
-
+	<div class="addition" ref="details">
 		<div class="addition__body">
 			<div class="addition__wrapper" ref="wrapper">
 

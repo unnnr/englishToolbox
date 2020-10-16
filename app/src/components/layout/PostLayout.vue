@@ -13,7 +13,7 @@
     </div>
 
     <pool :model="model"/>
-
+  
   </main>
 </template>
 
