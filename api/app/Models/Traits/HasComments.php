@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits;
 
-use App\Models\Comments;
+use App\Models\Comment;
 
 trait HasComments 
 {

@@ -13,20 +13,18 @@ use App\Models\Comment;
 
 class CommentService
 {
-
     private $commentable = [
-        Audio::class,
-        Video::class
+        'audio' => Audio::class,
+        'videos' => Video::class
     ];
 
     private function getPostClass(string $postType)
     {
-        foreach ($this->commentable as $class)
+        foreach ($this->commentable as $link => $class)
         {   
-            if (Str::endsWith($class, ucfirst($postType)))
+            if ($link === $postType)
                 return $class;
         }
-
         return null;
     }
 
@@ -87,7 +85,7 @@ class CommentService
 
         if (is_null($postClass))
             return response(null, Response::HTTP_BAD_REQUEST);
-
+    
         $post = $postClass::findOrFail($postId);
         
         $comments = $post->comments;
