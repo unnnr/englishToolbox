@@ -78,6 +78,16 @@ class User
 
         return response;
     }
+
+    async comments()
+    {
+        let response = await Http({
+            uri: this.path + '/comments'
+        })
+        .catch(this.__catchError);
+
+        return response.data;
+    }
 }
 
 window.User = new User();

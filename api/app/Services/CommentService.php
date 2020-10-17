@@ -92,4 +92,11 @@ class CommentService
 
         return CommentResource::collection( $comments);
     }
+
+    public function attachedToUser() 
+    {
+        $comments = auth()->user()->comments;
+
+        return CommentResource::collection($comments);
+    }
 }

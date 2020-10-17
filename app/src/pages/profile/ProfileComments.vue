@@ -1,8 +1,8 @@
 <template>
     <div class="management__tab-body">
-  <div class="management__account-overlay">
+  <!-- <div class="management__account-overlay">
     <object class="management__account-overlay-image" data="/img/svg/comments-overlay.svg" type="image/svg+xml"></object>
-  </div>
+  </div> -->
   <button class="management__comments-delete-button text-fourth"><span class="material-icons-round">delete_forever</span>delete all</button>
   <div class="management__tab-content">
     <div class="management__tab-scrollable">

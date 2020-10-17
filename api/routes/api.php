@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Api'], function() {
     Route::post('logout', 'AuthController@logout');
 
 
+    Route::get('profile/comments', 'CommentController@attachedToUser');
 
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
     Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');
