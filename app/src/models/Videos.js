@@ -24,15 +24,10 @@ class Videos extends Model
                 uri: `videos/${videoId}/comments`
             });
             
-            let comments = [];
-
             for (let comment of response.data)
-            {
                 comment.createdAt = FormatedDate.parse(comment.createdAt);
-                comments.push(comment); 
-            }
     
-            return comments;
+            return response.data;
         },
 
         async create(videoId, data)

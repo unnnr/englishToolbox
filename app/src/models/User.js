@@ -1,5 +1,7 @@
 import Http from '@services/Http'
 import Avatar from '@models/Avatar';
+import FormatedDate from '@services/FormatedDate'
+
 
 class User 
 {
@@ -81,11 +83,14 @@ class User
 
     async comments()
     {
-        let response = await Http({
+        let response = await Http.get({
             uri: this.path + '/comments'
         })
         .catch(this.__catchError);
-
+        
+        for (let comment of response.data)
+            comment.createdAt = FormatedDate.parse(comment.createdAt);
+            
         return response.data;
     }
 }
