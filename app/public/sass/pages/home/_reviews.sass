@@ -1,0 +1,184 @@
+.reviews
+  padding-bottom: 150px
+  background: darken($color-almost-white, 2)
+
+.reviews__title
+  margin-bottom: 75px
+  text-align: center
+
+.reviews__swiper
+  // temporary
+  display: flex
+
+.reviews__card
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+  padding: 75px 30px
+  display: flex
+  flex-direction: column
+  // temporary
+  flex-basis: 25%
+
+.reviews__card-photo
+  height: 75px
+  width: 75px
+  border-radius: 100%
+  margin-right: 15px
+  background: $color-semigray
+  box-shadow: $box-shadow-primary
+  @include background-image
+
+.reviews__card-person
+  display: flex
+  align-items: center
+  margin-bottom: 35px
+
+.reviews__card-title
+  margin-bottom: 15px
+
+.reviews__card-text
+  margin-bottom: 30px
+
+.reviews__card-grade
+  display: flex
+  height: 100%
+  align-items: flex-end
+  justify-content: space-between
+
+.reviews__card-stars
+  display: flex
+
+.reviews__card-star
+  display: flex
+  margin-right: 15px
+
+  &:before
+    font-family: "Font Awesome 5 Free"
+    content: "\f005"
+    font-weight: $bold
+    color: $color-goldish
+    max-height: 30px
+    max-width: 30px
+    font-size: 28px
+    opacity: 0.25
+
+.reviews__card-star--selected 
+  &:before
+    opacity: 1
+
+.reviews__card-rating
+  font-size: 25px
+  background: $color-goldish
+  color: $color-white
+  font-weight: $semibold
+  border-radius: 30px
+  width: 50px
+  height: 30px
+  display: flex
+  justify-content: center
+
+.reviews__leave-review-button
+  display: flex
+  align-items: center
+  width: max-content
+  margin-top: 30px
+  color: $color-semigray
+
+  &:before
+    font-family: "Material Icons Round"
+    content: "maps_ugc"
+    margin-right: 5px
+
+// // leave review 
+
+// .leave-review
+//   max-width: 500px
+//   width: 500px
+//   height: max-content
+//   margin-top: 30px
+//   padding: 20px
+//   background: $bg-fifth
+//   @include border-radius
+//   overflow: auto
+
+// .leave-review__header
+//   display: flex
+//   justify-content: space-between
+//   align-items: center
+//   border-bottom: 1px solid $text-fifth
+//   padding-bottom: 10px
+//   margin-bottom: 15px
+
+// .leave-review__close-button
+  
+//   &:before
+//     font-family: "Material Icons Round"
+//     content: "clear"
+//     color: $text-third
+//     font-size: 25px
+
+// .leave-review__body
+//   display: flex
+//   flex-direction: column
+
+// .leave-review__label
+//   margin-bottom: 10px
+//   color: $text-main
+
+// .leave-review__input
+//   display: flex
+//   width: 100%
+//   margin-bottom: 10px
+
+// .leave-review__textarea
+//   display: flex
+//   width: 100%
+//   margin-bottom: 10px
+
+// .leave-review__grade
+//   display: flex
+//   justify-content: space-between
+
+// .leave-review__stars
+//   display: flex
+
+// .leave-review__star
+//   width: 30px
+//   display: flex
+//   margin-right: 15px
+
+// .leave-review__star--full
+
+//   .leave-review__half-star 
+//     opacity: 1
+
+// .leave-review__star--half
+
+//   .leave-review__half-star
+
+//     &:nth-child(1)
+//       opacity: 1
+
+// .leave-review__half-star
+//   height: 30px
+//   width: 15px
+//   opacity: 0.25
+
+//   &:nth-child(2)
+//     transform: scale(-1,1)
+
+// .leave-review__rating
+//   padding: 0px 15px
+//   font-size: 25px
+//   background: #ffdd6e
+//   color: #fff
+//   font-weight: 600
+//   border-radius: 30px
+//   height: 30px
+
+// .leave-review__footer 
+//   margin-top: 30px
+
+// .leave-review__button 
+//   width: 100%
