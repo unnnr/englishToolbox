@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Api'], function() {
 
 
     Route::get('profile/comments', 'CommentController@attachedToUser');
+    Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
     Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');

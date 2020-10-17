@@ -19,21 +19,6 @@ class UserController extends Controller
             'index', 'update', 'destroy'
         ]);
     }
-    
-    public function register(UserService $service, RegisterUser $request)
-    {
-        return $service->register($request);
-    }
-
-    public function login(UserService $service, LoginUser $request)
-    {
-        return $service->login($request);
-    }
-
-    public function logout(UserService $service)
-    {
-        return $service->logout();
-    }
 
     public function index(UserService $service)
     {
@@ -49,5 +34,4 @@ class UserController extends Controller
     {
         return $service->update($request);
     }
-
 }

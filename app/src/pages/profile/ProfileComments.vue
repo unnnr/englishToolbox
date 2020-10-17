@@ -11,7 +11,8 @@
 
     <button 
       class="management__comments-delete-button text-fourth"
-      :disabled="sending">
+      :disabled="sending"
+      @click="removeAll">
 
       <span class="material-icons-round">delete_forever</span>delete all
     </button>
@@ -104,12 +105,20 @@ export default {
       this.comments =  await User.comments();
     },
 
+    async removeAll() {
+      this.sending = true;
+
+      await User.deleteComments()
+      .finally(() => this.sending = false);
+
+      this.comments = [];
+    },
+
     async remove(comment) {
       this.sending = true;
    
       await Comments.delete(comment.id)
       .finally(() => this.sending = false);
-
          
       let index = this.comments.indexOf(comment);
       this.comments.splice(index, 1);

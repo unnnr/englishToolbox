@@ -93,6 +93,16 @@ class User
             
         return response.data;
     }
+
+    async deleteComments()
+    {
+        let response = await Http.delete({
+            uri: this.path + '/comments'
+        })
+        .catch(this.__catchError);
+            
+        return response.data;
+    }
 }
 
 window.User = new User();

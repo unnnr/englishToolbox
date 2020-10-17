@@ -99,4 +99,9 @@ class CommentService
 
         return CommentResource::collection($comments);
     }
+
+    public function deleteAttachedToUser()
+    {
+        $comments = auth()->user()->comments()->delete();
+    }
 }

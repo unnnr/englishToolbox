@@ -78,4 +78,9 @@ class CommentController extends Controller
     {
         return $service->attachedToUser();
     }
+
+    public function deleteAttachedToUser(CommentService $service)
+    {
+        return $service->deleteAttachedToUser();
+    }
 }
