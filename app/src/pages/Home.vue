@@ -9,12 +9,15 @@
 
     <reviews/>
 
+    <reviews-editor/>
+
   </main>
 </template>
 
 <script>
 import BannerContainer from '@pages/home/BannerContainer'
 // import UpdateContainer from '@pages/home/UpdateContainer'
+import ReviewsEditor from '@pages/home/ReviewsEditor'
 import AboutMe from '@pages/home/AboutMe'
 import Reviews from '@pages/home/Reviews'
 
@@ -23,6 +26,7 @@ export default {
   components: {
     BannerContainer,
     // UpdateContainer,
+    ReviewsEditor,
     AboutMe,
     Reviews
   }
