@@ -9,7 +9,10 @@
       </div>
     </transition>
 
-    <button class="management__comments-delete-button text-fourth">
+    <button 
+      class="management__comments-delete-button text-fourth"
+      :disabled="sending">
+
       <span class="material-icons-round">delete_forever</span>delete all
     </button>
     
@@ -24,9 +27,15 @@
           <div class="managment__comment-wrapper">
             <div class="managment__comment-header">
               <h6 class="heading-sixth">{{ comment.post.title }}</h6>
-              <button class="management__comment-delete-button">
+
+              <button 
+                class="management__comment-delete-button"
+                :disabled="sending"
+                @click="remove(comment)">
+
                 <span class="material-icons-round">delete_forever</span>
               </button>
+
             </div>
             <div class="comment">
               <div class="comment__body">
@@ -42,6 +51,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -53,7 +63,9 @@ import User from '@models/User'
 export default {
   data: function () {
     return {
-      comments: null
+      comments: null,
+
+      sending: false
     }
   },
 
@@ -73,7 +85,14 @@ export default {
 
   methods: {
     async load() {
-      this.comments = await User.comments();
+      this.comments =  await User.comments();
+    },
+
+    async remove(comment) {
+      this.sending = true;
+
+      await Comments.delete(comment.id)
+      .finally(() => this.sending = false)
     }
   }
 }

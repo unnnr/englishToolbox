@@ -62,7 +62,7 @@ class CommentService
 
         $comment->delete();
 
-        response('', Response::HTTP_NO_CONTENT);
+        // response('', Response::HTTP_NO_CONTENT);
     }
 
     public function get(int $id)

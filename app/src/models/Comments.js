@@ -1,13 +1,9 @@
 
-import Http from '@services/Http';
-import FormatedDate from '@services/FormatedDate'
+import Model from '@models/Model' 
 
-class Comments 
+class Comments extends Model
 {
-    create(type, id)
-    {
-
-    }
+    path = "comments"
 }
 
 export default new Comments();
