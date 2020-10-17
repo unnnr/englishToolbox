@@ -14,7 +14,7 @@
         <div class="management__comment-image"></div>
         <div class="managment__comment-wrapper">
           <div class="managment__comment-header">
-            <h6 class="heading-sixth">Lorem ipsum dolor sit amet</h6>
+            <h6 class="heading-sixth">{{ comment.post.title }}</h6>
             <button class="management__comment-delete-button">
               <span class="material-icons-round">delete_forever</span>
             </button>
@@ -24,7 +24,7 @@
               <p class="comment__text text-sixth">
                 <span class="comment__name">{{ comment.user.name }}</span>
                 <!-- <span class="comment__mention">{{}}</span> -->
-                 comment.message
+                {{ comment.message }}
               </p>
               <time class="comment__date text-sixth">{{ comment.createdAt }}</time>
             </div>
