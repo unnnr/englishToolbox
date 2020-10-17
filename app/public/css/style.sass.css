@@ -661,3 +661,68 @@ button:active {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+.banner__swiper {
+  overflow: hidden;
+  -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+          box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  border-radius: 15px;
+}
+
+.banner__slide {
+  position: relative;
+}
+
+.banner__slide img {
+  width: 100%;
+  display: block;
+}
+
+.banner__button {
+  position: absolute;
+  bottom: 3.90625vw;
+  left: 5.20833vw;
+  font-size: 1.5625vw;
+  color: #2f2e44;
+  font-weight: 600;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .banner__button {
+    font-size: 2.5vw;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner__button {
+    font-size: 4.34028vw;
+    bottom: 8.68056vw;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+}
+
+.banner__button:after {
+  font-family: "Material Icons Round";
+  content: "arrow_right_alt";
+  font-size: inherit;
+  margin-left: 0.52083vw;
+  padding-top: 0.26042vw;
+}
+
+@media (max-width: 1000px) {
+  .swiper-scrollbar {
+    width: 94% !important;
+    left: 3% !important;
+    bottom: 8px !important;
+  }
+}

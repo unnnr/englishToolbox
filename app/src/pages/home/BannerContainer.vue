@@ -1,42 +1,41 @@
 <template>
 	<section class="banner container">
-		<div ></div>
-			<swiper
-				ref="swiper"
-				class="banner__carousel"
-				:options="swiperOptions">
+		<swiper
+			ref="swiper"
+			class="banner__swiper"
+			:options="swiperOptions">
 
-				<swiper-slide 
-					v-for="({name, action, additionalClass}, index) of banners"
-					:key="index">
+			<swiper-slide 
+				v-for="({name, action, additionalClass}, index) of banners"
+				:key="index">
 
-					<div 
-						class="banner__slide"
-						:class="additionalClass">
+				<div 
+					class="banner__slide"
+					:class="additionalClass">
+					
+					<picture>
+						<source 
+							media="(max-width: 576px)"
+							:srcset="mobileUrl(name)">
+
+						<source
+							media="(max-width: 1000px)"
+							:srcset="tabletUrl(name)">
+
+						<img 
+							alt="#"
+							:src="desktopUrl(name)">
+					</picture>
+
+					
+					<button 
+						class="banner__button"
+						@click="action">
 						
-						<picture>
-							<source 
-								media="(max-width: 570px)"
-								:srcset="mobileUrl(name)">
-
-							<source
-								media="(max-width: 1000px)"
-							 	:srcset="tabletUrl(name)">
-
-							<img 
-								alt="#"
-								:src="desktopUrl(name)">
-						</picture>
-
-						
-						<button 
-							class="banner__button heading-fourth"
-							@click="action">
-							
-							go on page
-						</button>
-					</div>   
-				</swiper-slide>
+						go on page
+					</button>
+				</div>   
+			</swiper-slide>
 
 			<div class="swiper-scrollbar" slot="scrollbar"></div>
 		</swiper>
@@ -61,7 +60,6 @@ export default {
 		return {
 			swiperOptions:{
 				slidesPerView: 1,
-
 				grabCursor: true,
 			
 				speed: 900,
@@ -85,17 +83,20 @@ export default {
 
 			banners: [
 				{ 
-					name: 'videos-banner',
+					name: 'banner-videos',
 					action: this.createRedirect('videos'),
 				},
 				{ 
-					name: 'videos-banner',
-					additionalClass: 'some-special-class', 
-					action: this.createRedirect('videos'),
+					name: 'banner-audios',
+					// action: this.createRedirect('videos'),
 				},
 				{ 
-					name: 'videos-banner',
-					action: this.createRedirect('videos'),
+					name: 'banner-charts',
+					// action: this.createRedirect('videos'),
+				},
+				{ 
+					name: 'banner-games',
+					// action: this.createRedirect('videos'),
 				},
 			]
 		}
@@ -143,6 +144,5 @@ export default {
 .swiper-wrapper {
   transition-timing-function: ease !important;
 }
-
 
 </style>

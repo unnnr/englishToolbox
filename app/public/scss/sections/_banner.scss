@@ -3,67 +3,42 @@
 //   padding-bottom: 50px;
 // }
 
-.banner__carousel {
-  width: 100%;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: $shadow-second;
-  @include border-radius;
-}
+// .banner__carousel {
+//   width: 100%;
+//   border-radius: 15px;
+//   overflow: hidden;
+//   box-shadow: $shadow-second;
+//   @include border-radius;
+// }
 
-.banner__slide {
-  position: relative;
+// .banner__slide {
+//   position: relative;
 
-  img {
-    display: block;
-  }
-}
+//   img {
+//     display: block;
+//   }
+// }
 
-.banner__slide--left {
+// .banner__slide--left {
 
-  .banner__button {
-    left: vw(150, 1920);
-  }
+//   .banner__button {
+//     left: vw(150, 1920);
+//   }
 
-  .banner__text {
-    left: vw(150, 1920);
-  }
-}
+//   .banner__text {
+//     left: vw(150, 1920);
+//   }
+// }
 
-.banner__slide--right {
+// .banner__slide--right {
 
-  .banner__button {
-    right: vw(150, 1920);
-  }
+//   .banner__button {
+//     right: vw(150, 1920);
+//   }
 
-  .banner__text {
-    text-align: end;
-    right: vw(150, 1920);
-  }
-}
+//   .banner__text {
+//     text-align: end;
+//     right: vw(150, 1920);
+//   }
+// }
 
-.banner__button {
-  position: absolute;
-  color: #333333;
-  bottom: vw(100, 1920);
-  z-index: $z-first;
-  display: flex;
-  align-items: center;
-
-  &:after {
-    font-family: "Material Icons Round";
-    content: "arrow_right_alt";
-    font-size: 25px;
-    align-self: center;
-    margin-left: 5px;
-    padding-top: 2px;
-  }
-}
-
-.banner__text {
-  position: absolute;
-  z-index: $z-first;
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: pre-line;
-}
