@@ -1,0 +1,105 @@
+.about-me
+  padding-top: 150px
+  padding-bottom: 150px
+  background: darken($color-almost-white, 2)
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  grid-row-gap: vw(50, 1920)
+  grid-column-gap: vw(50, 1920)
+  @include md-devices
+    grid-template-columns: 1fr
+    grid-row-gap: 50px
+    padding-top: 75px
+    padding-bottom: 75px
+
+.about-me__person 
+  @include md-devices
+    width: 50%
+    justify-self: center
+  @include sm-devices
+    width: 70%
+  @include xs-devices
+    width: 90%
+
+.abot-me__photo
+  background-color: $color-semigray
+  border-radius: $border-radius-primary
+  box-shadow: $box-shadow-primary
+  padding-bottom: 125%
+  margin-bottom: 37.5px
+  position: relative
+  @include background-image
+
+.about-me__name
+  position: absolute
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  border-radius: 100px
+  height: 75px
+  width: 90%
+  display: flex
+  justify-content: center
+  align-items: center
+  left: 0
+  right: 0
+  margin: 0 auto
+  bottom: 0
+  transform: translateY(50%)
+  @include lg-devices
+    height: 60px
+
+.about-me__paragraph 
+  grid-column-start: span 2
+  align-self: center
+  justify-self: center
+  width: 90%
+  @include md-devices
+    grid-column-start: span 1
+  @include xxs-devices
+    width: 100%
+
+.about-me__title
+  text-align: center
+  margin-bottom: vw(50, 1920)
+
+.about-me__merit
+  width: 90%
+  justify-self: center
+  @include md-devices
+    width: 60%
+  @include sm-devices
+    width: 70%
+  @include xs-devices
+    width: 90%
+
+.about-me__merit-picture 
+  width: 90%
+  padding-bottom: 75%
+  background: $color-semigray
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+  position: relative
+  margin: 0 auto 27.5px auto
+  @include md-devices
+    width: 80%
+  @include xs-devices
+    width: 90%
+
+.about-me__merit-title
+  position: absolute
+  bottom: 0
+  transform: translateY(50%)
+  left: 0
+  right: 0
+  margin: 0 auto
+  display: flex
+  align-items: center
+  justify-content: center
+  background: $color-white
+  border-radius: 70px
+  height: 55px
+  width: 90%
+  box-shadow: $box-shadow-primary
+
+.about-me__merit-text
+  padding-top: 25px

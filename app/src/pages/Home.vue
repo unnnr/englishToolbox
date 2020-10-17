@@ -3,28 +3,28 @@
 
     <banner-container/>
 
-    <update-container/>
+    <!-- <update-container/> -->
 
     <about-me/>
 
-    <reviews/>
+    <!-- <reviews/> -->
 
   </main>
 </template>
 
 <script>
 import BannerContainer from '@pages/home/BannerContainer'
-import UpdateContainer from '@pages/home/UpdateContainer'
+// import UpdateContainer from '@pages/home/UpdateContainer'
 import AboutMe from '@pages/home/AboutMe'
-import Reviews from '@pages/home/Reviews'
+// import Reviews from '@pages/home/Reviews'
 
 
 export default {
   components: {
     BannerContainer,
-    UpdateContainer,
+    // UpdateContainer,
     AboutMe,
-    Reviews
+    // Reviews
   }
 }
 </script>

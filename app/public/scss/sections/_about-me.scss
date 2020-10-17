@@ -1,189 +1,190 @@
-.about-me {
-  padding-top: 150px;
-  padding-bottom: 150px;
-  background: $bg-second;
+// .about-me {
+//   padding-top: 150px;
+//   padding-bottom: 150px;
+//   background: $bg-second;
 
-  @include md-devices {
-    padding-top: 75px;
-    padding-bottom: 75px;
-  }
-}
+//   @include md-devices {
+//     padding-top: 75px;
+//     padding-bottom: 75px;
+//   }
+// }
 
-.about-me__content {
-  display: flex;
-  align-items: center;
+// .about-me__content {
+//   display: flex;
+//   align-items: center;
 
-  @include md-devices {
-    flex-direction: column;
-  }
-}
+//   @include md-devices {
+//     flex-direction: column;
+//   }
+// }
 
-.about-me__person {
-  flex-basis: 33.3%;
-  width: 100%;
-  position: relative;
-  margin-bottom: 37.5px;
+// .about-me__person {
+//   flex-basis: 33.3%;
+//   width: 100%;
+//   position: relative;
+//   margin-bottom: 37.5px;
 
-  @include md-devices {
-    width: 75%;
-  }
-}
+//   @include md-devices {
+//     width: 75%;
+//   }
+// }
 
-.abot-me__photo {
-  position: relative;
-  background-color: $text-third;
-  @include border-radius;
-  @include background-image;
-  padding-bottom: 125%;
-  box-shadow: $shadow-second;
-  display: flex;
-  justify-content: center;
-}
+// .abot-me__photo {
+//   position: relative;
+//   background-color: $text-third;
+//   @include border-radius;
+//   @include background-image;
+//   padding-bottom: 125%;
+//   box-shadow: $shadow-second;
+//   display: flex;
+//   justify-content: center;
+//   margin-bottom: 37.5px;
+// }
 
-.about-me__name {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $bg-fifth;
-  border-radius: 70px;
-  height: 75px;
-  width: 90%;
-  bottom: 0;
-  transform: translateY(50%);
-  box-shadow: $shadow-second;
+// .about-me__name {
+//   position: absolute;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: $bg-fifth;
+//   border-radius: 70px;
+//   height: 75px;
+//   width: 90%;
+//   bottom: 0;
+//   transform: translateY(50%);
+//   box-shadow: $shadow-second;
 
-  @include lg-devices {
-    height: 60px;
-  }
-}
+//   @include lg-devices {
+//     height: 60px;
+//   }
+// }
 
-.about-me__paragraph {
-  padding: 0px vw(100,1920);
-  flex-basis: 66.6%;
+// .about-me__paragraph {
+//   padding: 0px vw(100,1920);
+//   align-self: center;
 
-  @include custom-devices(1500px) {
-    padding-left: vw(75,1500);
-    padding-right: 0;
-  }
+//   @include custom-devices(1500px) {
+//     padding-left: vw(75,1500);
+//     padding-right: 0;
+//   }
 
-  @include md-devices {
-    margin-top: vw(50,1000);
-    padding: 0;
-  }
+//   @include md-devices {
+//     margin-top: vw(50,1000);
+//     padding: 0;
+//   }
 
-  @include sm-devices {
-    margin-top: 25px;
-  }
-}
+//   @include sm-devices {
+//     margin-top: 25px;
+//   }
+// }
 
-.about-me__title {
-  margin-bottom: vw(50,1920);
-  text-align: center;
+// .about-me__title {
+//   margin-bottom: vw(50,1920);
+//   text-align: center;
 
-  @include md-devices {
-    margin-bottom: 30px;
-  }
+//   @include md-devices {
+//     margin-bottom: 30px;
+//   }
 
-  @include sm-devices {
-    margin-top: 20px;
-  }
-}
+//   @include sm-devices {
+//     margin-top: 20px;
+//   }
+// }
 
-.about-me__merits {
-  display: flex;
-  margin-top: 100px;
+// .about-me__merits {
+//   display: flex;
+//   margin-top: 100px;
 
-  @include md-devices {
-    align-items: center;
-    flex-direction: column;
-    margin-top: 50px;
-  }
-}
+//   @include md-devices {
+//     align-items: center;
+//     flex-direction: column;
+//     margin-top: 50px;
+//   }
+// }
 
-.about-me__card {
-  flex-basis: 33.3%;
-  width: 100%;
-  padding: 0 vw(25,1920);
+// .about-me__card {
+//   flex-basis: 33.3%;
+//   width: 100%;
+//   padding: 0 vw(25,1920);
 
-  @include md-devices {
-    width: 70%;
-    padding: 0;
-  }
-  @include sm-devices {
-    width: 85%;
-  }
-}
+//   @include md-devices {
+//     width: 70%;
+//     padding: 0;
+//   }
+//   @include sm-devices {
+//     width: 85%;
+//   }
+// }
  
-.about-me__card--second {
+// .about-me__card--second {
 
-  @include md-devices {
-    margin: 50px 0;
-  }
-}
+//   @include md-devices {
+//     margin: 50px 0;
+//   }
+// }
 
-.about-me__wrapper {
-  padding: 0 vw(50,1920);
+// .about-me__wrapper {
+//   padding: 0 vw(50,1920);
 
-  @include custom-devices(1500px) {
-    padding: 0 40px;
-  }
+//   @include custom-devices(1500px) {
+//     padding: 0 40px;
+//   }
 
-  @include xl-devices {
-    padding: 0 vw(30,1400);
-  }
+//   @include xl-devices {
+//     padding: 0 vw(30,1400);
+//   }
 
-  @include md-devices {
-    padding: 0 vw(75,1000);
-  }
-}
+//   @include md-devices {
+//     padding: 0 vw(75,1000);
+//   }
+// }
 
-.about-me__picture {
-  width: 100%;
-  padding-bottom: 75%;
-  background: $text-third;
-  @include border-radius;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 27.5px;
-  box-shadow: $shadow-second;
-}
+// .about-me__picture {
+//   width: 100%;
+//   padding-bottom: 75%;
+//   background: $text-third;
+//   @include border-radius;
+//   display: flex;
+//   justify-content: center;
+//   position: relative;
+//   margin-bottom: 27.5px;
+//   box-shadow: $shadow-second;
+// }
 
-.about-me__picture--first {
-  @include background-image;
-}
+// .about-me__picture--first {
+//   @include background-image;
+// }
 
-.about-me__picture--second {
-  @include background-image;
-}
+// .about-me__picture--second {
+//   @include background-image;
+// }
 
-.about-me__picture--third {
-  @include background-image;
-}
+// .about-me__picture--third {
+//   @include background-image;
+// }
 
-.about-me__merit {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $bg-fifth;
-  border-radius: 70px;
-  height: 55px;
-  width: 90%;
-  bottom: 0;
-  transform: translateY(50%);
-  box-shadow: $shadow-second;
+// .about-me__merit {
+//   position: absolute;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: $bg-fifth;
+//   border-radius: 70px;
+//   height: 55px;
+//   width: 90%;
+//   bottom: 0;
+//   transform: translateY(50%);
+//   box-shadow: $shadow-second;
 
-  @include md-devices {
-    height: 50px;
-  }
-}
+//   @include md-devices {
+//     height: 50px;
+//   }
+// }
 
-.about-me__merit-text {
-  padding-top: 25px;
+// .about-me__merit-text {
+//   padding-top: 25px;
 
-  @include md-devices {
-    padding-top: 20px;
-  }
-}
+//   @include md-devices {
+//     padding-top: 20px;
+//   }
+// }
