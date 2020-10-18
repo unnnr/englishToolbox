@@ -13,11 +13,17 @@
 					'width': '100%',
 					'background-color': 'none'}">
 
-			<!-- 	<swiper-slide
-					v-for="card in updates"
+				<swiper-slide
+					v-for="card in slides"
 					:key="card.id">
 					
+					<empty-card 
+						v-if="loading"
+						square-form
+						margined/>
+					
 					<card 
+						v-else
 						:title="card.title"
 						:description="card.description"
 						:created-at="card.createdAt"
@@ -26,19 +32,8 @@
 						:tags="card.tags"
 						square-form
 						margined/>
-				</swiper-slide> -->
-
-
-					<swiper-slide
-						v-for="index in 4"
-						:key="index">
 					
-						<empty-card 
-							square-form
-							margined/>
-							
 				</swiper-slide>
-
 			</swiper>
 		</div>
 	</section>
@@ -46,12 +41,12 @@
 
 <script>
 
-import Card from '@components/cards/Card';
-import EmptyCard from '@components/cards/EmptyCard'
-import Updates from '@models/Updates';
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import 'swiper/swiper-bundle.css'
+import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import EmptyCard from '@components/cards/EmptyCard'
+import Card from '@components/cards/Card';
+import Updates from '@models/Updates';
 
 SwiperClass.use([Pagination, Autoplay])
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
@@ -60,25 +55,13 @@ export default {
 	components: {
 		SwiperSlide,
 		Swiper,
-		EmptyCard,  
+		EmptyCard, 
+		Card
 	},
 
 	data: function() {
 		return {
-			updates: [
-				{id: 1, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'lightgreen'}]},
-				{id: 2, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'cadetblue'}, {label: 'some', color: 'aliceblue'}]},
-				{id: 3, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'antiquewhite'}]},
-				{id: 4, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg', },
-				{id: 5, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'lightgreen'}]},
-				{id: 6, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg', tags: [{label: 'some', color: 'azure'}, {label: 'some', color: 'lightgreen'}]},
-				{id: 7, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5qap5aO4i9A/sddefault.jpg' },
-				{id: 8, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'cornflowerblue'}, {label: 'some', color: 'lightgreen'}]},
-				{id: 9, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/bQzIQa5YKvw/sddefault.jpg', tags: [{label: 'some', color: 'darksalmon'}, {label: 'some', color: 'cornsilk'}]},
-				{id: 10, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/5yx6BWlEVcY/sddefault.jpg', tags: [{label: 'some', color: 'gainsboro'}, {label: 'some', color: 'coral'}]},
-				{id: 11, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/7NOSDKb0HlU/sddefault.jpg', tags: [{label: 'some', color: 'pink'}, {label: 'some', color: 'cadetblue'}]},
-				{id: 12, title: 'Lorem impusm', thumbnail: 'https://i.ytimg.com/vi/IcUy2wur1kU/sddefault.jpg' },
-			],
+			updates: null,
 				
 			swiperOptions: {
 				slidesPerView: '4',
@@ -91,13 +74,28 @@ export default {
 		}
 	},  
 
-	beforeMount() {
+	computed: {
+		loading() {
+			return this.updates === null;
+		},
 
-		console.log('mouted');
+		defaultUpdates() {
+			return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 } ]
+		},
+
+		slides() {
+			return this.loading ? this.defaultUpdates : this.updates;
+		}
+	},
+
+	beforeMount() {
+		this.load();
 	},
 
 	methods: {
-
+		async load() {
+			this.updates = await Updates.all();
+		}
 	}
 }
 </script>

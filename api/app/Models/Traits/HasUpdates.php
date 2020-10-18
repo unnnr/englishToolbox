@@ -8,6 +8,6 @@ trait HasUpdates
 {
     public function updateInstance()
     {
-        return $this->morphOne(Update::class, 'updatetable');
+        return $this->morphOne(Update::class, 'updatable');
     }
 }   

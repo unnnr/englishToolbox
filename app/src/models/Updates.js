@@ -1,60 +1,15 @@
 
-import Http from '@services/Http';
+import Model from '@models/Model'
 import FormatedDate from '@services/FormatedDate'
 
-const Updates = new function ()
+class Updates extends Model 
 {
-   /*  async function load()
+    castCreatedAt(value) 
     {
-        updates = await Http.get('api/updates');
-        
-        loaded = true;
-
-        for (const callback of callbacks)
-            callback();
-    } 
-
-    function createInstance(response)
-    {        
-        return {
-            id: response.id,
-            title: response.title, 
-            description: response.description,
-            date: FormatedDate.parse(response.createdAt),
-            thumbnail: response.thumbnail
-        }
+        return FormatedDate.parse(value);
     }
 
-    this.all = () =>
-    {
-        let selectedComments = [];
-    
-        for (const update of updates)
-        {
-            selectedComments.push(
-                createInstance(update)
-            );              
-        }
-        
-        return selectedComments;
-    }
+    path = 'updates'
+}
 
-    this.onload = (callback) =>
-    {
-        if (loaded)
-        {
-            callback();
-            return;
-        }
-
-        callbacks.push(callback);
-    }
-
-    let updates = [];
-    let loaded  = false;
-    let callbacks = [];
-
-    load(); */
-}();
-   
-export default Updates;
+export default new Updates();
