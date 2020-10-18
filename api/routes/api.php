@@ -44,7 +44,7 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::post('logout', 'AuthController@logout');
 
-
+    
     Route::get('profile/comments', 'CommentController@attachedToUser');
     Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 

@@ -27,8 +27,6 @@ class DeleteUpdate
      */
     public function handle(PostDeleted $event)
     {
-        return;
-        
         $service = app(UpdateService::class);
         
         $service->delete($event->post);

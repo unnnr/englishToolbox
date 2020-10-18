@@ -17,11 +17,11 @@ class UpdateResource extends JsonResource
         return [
             'id' => $this->id,
 
-            'title' => $this->title,
+            'title' => $this->updatable->title,
 
-            'description' => $this->description,  
+            'description' => $this->updatable->description,  
 
-            'thumbnail' => $this->thumbnail_url,
+            'thumbnail' => $this->Updatable->thumbnail->url,
 
             'createdAt' => $this->created_at
         ];

@@ -10,8 +10,8 @@ class Update extends Model
         'title', 'description', 'thumbnail_url'
     ];
 
-    public function updatetable() 
+    public function updatable() 
     {
-        return $this->moprhTo();
+        return $this->morphTo();
     }
 }

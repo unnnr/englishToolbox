@@ -15,10 +15,7 @@ class CreateUpdatesTable extends Migration
     {
         Schema::create('updates', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description')->nullable();
-            $table->string('thumbnail_url');
-            $table->morphs('updatetable');
+            $table->morphs('updatable');
             $table->timestamps();
         });
     }

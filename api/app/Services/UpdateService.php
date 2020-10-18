@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Update;
 use App\Http\Resources\UpdateResource;
@@ -11,25 +12,14 @@ class UpdateService
 
     public function create(Model $post)
     {
-        $update = $post->updateInstance()->create(
-            $post->convertToUpdate()
-        );
+        $update = $post->updateInstance()->create();
 
-        return new UpdateResource($post);
+        return new UpdateResource($update);
     }
 
     public function get(Model $post)
     {
-        $update = $post->updateInsatace;
-
-        return new UpdateResource($post);
-    }
-
-    public function update(Model $post)
-    {
-        $post->updateInstance()->update(
-            $post->convertToUpdate()
-        );
+        $update = $post->updateInstace;
 
         return new UpdateResource($post);
     }

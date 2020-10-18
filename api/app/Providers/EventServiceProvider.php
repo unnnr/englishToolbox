@@ -35,10 +35,6 @@ class EventServiceProvider extends ServiceProvider
             CreateUpdate::class
         ],
 
-        PostUpdated::class => [
-            EditUpdate::class
-        ],
-
         PostDeleted::class => [
             DeleteUpdate::class
         ]

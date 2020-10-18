@@ -11,7 +11,7 @@ use App\Models\Traits\HasTags;
 
 class Video extends Model
 {
-    use HasTags, HasComments, HasThumbnail;
+    use HasTags, HasComments, HasThumbnail, HasUpdates;
 
     protected $fillable = [
         'youtube_id', 'title', 'description'

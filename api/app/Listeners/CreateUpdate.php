@@ -27,7 +27,6 @@ class CreateUpdate
      */
     public function handle(PostCreated $event)
     {
-        return;
         $service = app(UpdateService::class);
         
         $service->create($event->post);
