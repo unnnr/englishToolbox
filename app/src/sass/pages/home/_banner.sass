@@ -1,0 +1,54 @@
+.banner
+  margin-top: 50px
+  margin-bottom: 50px
+
+.banner__swiper
+  overflow: hidden
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+
+.banner__slide
+  position: relative
+
+  img
+    width: 100%
+    display: block
+
+.banner__button
+  position: absolute
+  bottom: vw(75, 1920)
+  left: vw(100, 1920)
+  font-size: vw(30, 1920)
+  color: $color-dark
+  font-weight: $semibold
+  z-index: $z-first
+  display: flex
+  align-items: center
+
+  @include md-devices 
+    font-size: vw(25, 1000)
+
+  @include xs-devices 
+    font-size: vw(25, 576)
+    bottom: vw(50, 576)
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+  &:after
+    font-family: "Material Icons Round"
+    content: "arrow_right_alt"
+    font-size: inherit
+    margin-left: vw(10, 1920)
+    padding-top: vw(5, 1920)
+
+// ====================
+// swiper custom styles
+// ==================== 
+
+.swiper-scrollbar 
+  @include md-devices 
+    width: 94% !important
+    left: 3% !important
+    bottom: 8px !important

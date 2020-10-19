@@ -1,6 +1,14 @@
 const path = require('path');
 
 module.exports = {
+    css: {
+        loaderOptions: {
+            sass: {
+                additionalData: '@import public/sass/presets/variables'
+            }
+        }
+    },
+
     configureWebpack: {
         resolve: {
             alias: {
