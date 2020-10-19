@@ -5,11 +5,11 @@
       class="modal container">
 
       <request-form 
-        class="leave-review"
+        class="modal__content leave-review"
         ref="form"
         :submit-callback="submit">
 
-        <div class="leave-review__header">
+        <div class="modal__header">
           <h5 class="heading-fifth">Leave your review</h5>
           <button 
             class="leave-review__close-button"
@@ -18,7 +18,7 @@
           </button>
         </div>
 
-        <div class="leave-review__body">
+        <div class="modal__body">
           <label class="leave-review__label text-fourth" for="">Title of review</label>
           <input 
             class="leave-review__input input-second"
@@ -37,7 +37,7 @@
           <!-- <rate-stars name="grade"/> -->
           
         </div>
-        <div class="leave-review__footer">
+        <div class="modal__footer">
           <submit-button 
             class="leave-review__button button-second"
             :loading="isLoading()">

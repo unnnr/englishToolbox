@@ -92,93 +92,67 @@
 
 // // leave review 
 
-// .leave-review
-//   max-width: 500px
-//   width: 500px
-//   height: max-content
-//   margin-top: 30px
-//   padding: 20px
-//   background: $bg-fifth
-//   @include border-radius
-//   overflow: auto
+.leave-review__close-button
+  &:before
+    font-family: "Material Icons Round"
+    content: "clear"
+    color: $color-semigray
+    font-size: 25px
 
-// .leave-review__header
-//   display: flex
-//   justify-content: space-between
-//   align-items: center
-//   border-bottom: 1px solid $text-fifth
-//   padding-bottom: 10px
-//   margin-bottom: 15px
+.leave-review__label
+  margin-bottom: 10px
+  color: $color-dark
 
-// .leave-review__close-button
-  
-//   &:before
-//     font-family: "Material Icons Round"
-//     content: "clear"
-//     color: $text-third
-//     font-size: 25px
+.leave-review__input
+  display: flex
+  width: 100%
+  margin-bottom: 10px
 
-// .leave-review__body
-//   display: flex
-//   flex-direction: column
+.leave-review__textarea
+  display: flex
+  width: 100%
+  margin-bottom: 10px
 
-// .leave-review__label
-//   margin-bottom: 10px
-//   color: $text-main
+.leave-review__grade
+  display: flex
+  justify-content: space-between
 
-// .leave-review__input
-//   display: flex
-//   width: 100%
-//   margin-bottom: 10px
+.leave-review__stars
+  display: flex
 
-// .leave-review__textarea
-//   display: flex
-//   width: 100%
-//   margin-bottom: 10px
+.leave-review__star
+  width: 30px
+  display: flex
+  margin-right: 15px
 
-// .leave-review__grade
-//   display: flex
-//   justify-content: space-between
+.leave-review__star--full
 
-// .leave-review__stars
-//   display: flex
+  .leave-review__half-star 
+    opacity: 1
 
-// .leave-review__star
-//   width: 30px
-//   display: flex
-//   margin-right: 15px
+.leave-review__star--half
 
-// .leave-review__star--full
+  .leave-review__half-star
 
-//   .leave-review__half-star 
-//     opacity: 1
+    &:nth-child(1)
+      opacity: 1
 
-// .leave-review__star--half
+.leave-review__half-star
+  height: 30px
+  width: 15px
+  opacity: 0.25
 
-//   .leave-review__half-star
+  &:nth-child(2)
+    transform: scale(-1,1)
 
-//     &:nth-child(1)
-//       opacity: 1
+.leave-review__rating
+  padding: 0px 15px
+  font-size: 25px
+  background: $color-goldish
+  color: #fff
+  font-weight: 600
+  border-radius: 30px
+  height: 30px
 
-// .leave-review__half-star
-//   height: 30px
-//   width: 15px
-//   opacity: 0.25
-
-//   &:nth-child(2)
-//     transform: scale(-1,1)
-
-// .leave-review__rating
-//   padding: 0px 15px
-//   font-size: 25px
-//   background: #ffdd6e
-//   color: #fff
-//   font-weight: 600
-//   border-radius: 30px
-//   height: 30px
-
-// .leave-review__footer 
-//   margin-top: 30px
-
-// .leave-review__button 
-//   width: 100%
+.leave-review__button 
+  width: 100%
