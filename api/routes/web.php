@@ -13,23 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Web'], function() {
-
-    Route::get('/',  'HomeController');
-    Route::get('/home', 'HomeController')->name('home');
-
-    Route::get('videos', 'VideoController')->name('videos');
-
-    Route::get('audio', 'AudioController')->name('audio');
-
-    Route::get('login', 'LoginController')->name('login');
-
-    Route::get('register', 'RegisterController')->name('register');
-    
-    Route::get('profile', 'ProfileController')->name('account');
-});
-
-
-// Route::get('schemas', 'SchemaController@index')->name('schemas');
-
-// Route::get('recommend', function(){ return view("recomend");})->name('recommend');
