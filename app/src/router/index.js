@@ -34,6 +34,9 @@ const routes = [
   // Fallback pages 
 
   { path: '*', name: 'NotFound', component: () => import('@pages/NotFound') },
+
+
+  { path: '/inputs', name: 'inputs', component: () => import('@pages/Inputs') },
 ]
 
 const router = new VueRouter({
