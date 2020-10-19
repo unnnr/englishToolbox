@@ -4,7 +4,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                additionalData: '@import public/sass/presets/variables'
+                additionalData: '@import src/sass/presets/variables'
             }
         }
     },
