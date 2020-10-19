@@ -1,9 +1,24 @@
 <template>
   <main> 
     <validating-input 
-      type="password"
       placeholder="some plc"
-      label="My title"/>
+      label="Password"
+      type="password"/>
+
+    <div style="height: 20px"></div> 
+
+    <validating-input 
+      placeholder="some plc"
+      label="Email"
+      type="email"/>
+
+    <div style="height: 20px"></div> 
+
+    <validating-input 
+      placeholder="some plc" 
+      label="Without icon"
+      type="empty"/>
+
   </main>
 </template>
 
@@ -17,3 +32,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  
+main
+  padding: 20px 100px
+
+</style>
