@@ -2,10 +2,7 @@
   <v-input
     :submitting="submitting"
     :label="label"
-    :icon="icon"
-    :min="min"
-    :max="max"
-    visibility-buttoned/>
+    :icon="icon"/>
 </template>
 
 <script>
@@ -19,8 +16,8 @@ export default {
 
   data: function () {
     return {
-      placeholder: 'some placeholder',
-      label: 'Your password',
+      placeholder: 'aasd',
+      label: 'Password confirmation',
       icon: 'password',
 
       min: 5,
@@ -29,7 +26,7 @@ export default {
   },
 
   methods: {
-    submitting() {
+    submitting(data) {
       
     }
   }

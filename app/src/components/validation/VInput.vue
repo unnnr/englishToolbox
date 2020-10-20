@@ -37,7 +37,7 @@
     </div>
 
     <button
-      v-if="isPassword" 
+      v-if="visibilityButtoned" 
       :class="{'input-group__visibility': this.entryHidden, 
                'input-group__visibility_off': !!!this.entryHidden}"
       @click.stop="toggleVisibility">
@@ -68,6 +68,8 @@ export default {
     // Booleans 
     counting: { type: Boolean, default: false },
 
+    visibilityButtoned: { type: Boolean, default: false },
+
     required: { type: Boolean, default: false }
   },
 
@@ -88,7 +90,7 @@ export default {
     },
 
     counterShown() {
-      return this.counting || this.max !== null || this.mix !== null ;
+      return this.counting || this.max !== null;
     },
 
     active() {

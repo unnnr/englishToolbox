@@ -1,16 +1,13 @@
 <template>
   <main> 
-    <v-input 
-      placeholder="some plc"
-      label="Password"
-      icon="password"/>
+
+ 
+
+    <password-input />
 
     <div style="height: 20px"></div> 
 
-    <v-input 
-      placeholder="some plc"
-      label="Email"
-      icon="email"/>
+    <email-input />
 
     <div style="height: 20px"></div> 
 
@@ -18,21 +15,21 @@
       placeholder="some plc" 
       label="Without icon"/>
 
-    <password-input />
-
   </main>
 </template>
 
 <script>
 
 import PasswordInput from '@components/validation/PasswordInput'
+import EmailInput from '@components/validation/EmailInput'
 import VInput from '@components/validation/VInput'
 
 
 export default {
   components: {
+    PasswordInput,
+    EmailInput,
     VInput,
-    PasswordInput
   }
 }
 </script>
