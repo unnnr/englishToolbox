@@ -1,33 +1,38 @@
 <template>
   <main> 
-    <validating-input 
+    <v-input 
       placeholder="some plc"
       label="Password"
       icon="password"/>
 
     <div style="height: 20px"></div> 
 
-    <validating-input 
+    <v-input 
       placeholder="some plc"
       label="Email"
       icon="email"/>
 
     <div style="height: 20px"></div> 
 
-    <validating-input 
+    <v-input 
       placeholder="some plc" 
       label="Without icon"/>
+
+    <password-input />
 
   </main>
 </template>
 
 <script>
 
-import ValidatingInput from '@components/validation/VInput'
+import PasswordInput from '@components/validation/PasswordInput'
+import VInput from '@components/validation/VInput'
+
 
 export default {
   components: {
-    ValidatingInput
+    VInput,
+    PasswordInput
   }
 }
 </script>

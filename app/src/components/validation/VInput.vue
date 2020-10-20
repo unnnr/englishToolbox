@@ -74,11 +74,9 @@ export default {
   data: function () {
     return {
       entry: '',
-
-      focused: false,
-      
       errors: [],
 
+      focused: false,
       entryHidden: false
     }
   },
@@ -86,7 +84,7 @@ export default {
   computed: {
     counter() {
       return Number.isInteger(this.max) ? 
-        this.entry.length + ':' + this.max : this.entry.length;
+        this.entry.length + '/' + this.max : this.entry.length;
     },
 
     counterShown() {
