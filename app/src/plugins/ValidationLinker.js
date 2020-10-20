@@ -34,13 +34,9 @@ const Linker = new class
         if (!!!form)
             return;
 
-        for (let key in form.inputs)
-        {
-            if (form.inputs[key] !== component)
-                return;
-            
-            delete form.inputs[key];
-        }
+        let index = form.inputs.indexOf(component);
+        if (index > -1)
+            form.inputs.splice(index, 1);
     }
 
     // Anchor
@@ -109,7 +105,7 @@ const Linker = new class
             return;
 
         // Removing confirmation
-        delete form.binddings[key];
+        delete form.watchers[key];
 
         // Updating target
         component.target = null;
@@ -131,6 +127,7 @@ export default {
 
         Vue.directive('confirm', {
             inserted: Linker.bindComfirm.bind(Linker),
+            unbind: Linker.unbindConfirm.bind(Linker)
         });
     }
 }
