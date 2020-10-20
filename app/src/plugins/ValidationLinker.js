@@ -24,8 +24,6 @@ const Linker = new class
 
         if (form)
             form.inputs.push(component);
-
-        console.log(form, 'here');
     }
 
     unbindInput(el, binding, vnode)
@@ -53,17 +51,32 @@ const Linker = new class
         let form = this.inputBelongsTo(component);
         let key = binding.value;
 
-        if (form && typeof key === 'string' && key.length > 0)
-            form.anchors[key] = component;
+        if (!!!form || typeof key !== 'string' || !!!key.length)
+            return;
+
+        // Saving anchor
+        form.anchors[key] = component;
+
+        // Updating watcher
+        if (form.watchers[key])
+            form.watchers[key].target = component;
     }
 
     unbindAnchor(el, binding, vnode)
     {
-        let form = this.inputBelongsTo(vnode.componentInstance);
+        let component = vnode.componentInstance;
+        let form = this.inputBelongsTo(component);
         let key = binding.value;
 
-        if (form && form.anchors[key])
-            delete form.anchors[key];
+        if (!!!form)
+            return;
+
+        // Removing anchor
+        delete form.anchors[key];
+        
+        // Updating watcher
+        if (form.watchers[key])
+            form.watchers[key].target = null;
     }
 
     // Confirm
@@ -74,18 +87,34 @@ const Linker = new class
         let form = this.inputBelongsTo(component);
         let key = binding.value;
         
-        console.log( key, form.anchors[key]);
-
-        if (!!!form || !!!form.anchors[key])
+        if (!!!form || typeof key !== 'string' || !!!key.length)
             return;
 
-        component.target = form.anchors[key];
+        // Saving confirmation
+        form.watchers[key] = component;
+    
+        // Updating watcher
+        let target = form.anchors[key];
+        if (target)
+            component.target = target;
     }
 
+    unbindConfirm(el, binding, vnode)
+    {
+        let component = vnode.componentInstance;
+        let form = this.inputBelongsTo(component);
+        let key = binding.value;
+        
+        if (!!!form)
+            return;
+
+        // Removing confirmation
+        delete form.binddings[key];
+
+        // Updating target
+        component.target = null;
+    }
 }();
-
-
-
 
 export default {
     install: function (Vue)

@@ -1,19 +1,25 @@
 <template>
   <main> 
     <v-form>
-      <email-input v-validate/>
-      <div style="height: 20px"></div> 
-
       <password-input  v-if="show" v-name="'password'" v-validate/>
-
       <div style="height: 20px"></div> 
 
 
-      <confirmation-input v-confirm="'password'"/>
+      <confirmation-input v-if="showB" v-confirm="'password'"/>
+      <div style="height: 20px"></div> 
+
+
+      <password-input  v-if="show" v-name="'not a password'" v-validate/>
+      <div style="height: 20px"></div> 
+
+      <confirmation-input v-if="showB" v-confirm="'some'"/>
 
     </v-form>
 
     <button style="background-color: blue; padding: 20px;" @click="toggle">
+    </button>
+
+      <button style="background-color: maroon; padding: 20px;" @click="toggleB">
     </button>
 
   </main>
@@ -31,7 +37,7 @@ export default {
   components: {
     PasswordInput,
     ConfirmationInput,
-    EmailInput,
+    //EmailInput,
     VForm,
     //VInput,
   },
@@ -39,7 +45,7 @@ export default {
   data() {
     return {
       show: true,
-      someee: false
+      showB: true
     }
   },
 
@@ -49,10 +55,10 @@ export default {
   methods: {
     toggle() {
       this.show = !!!this.show;
-      if (this.show)
-        this.someee = 'false'
-      else  
-      this.someee ='true';
+    },
+
+    toggleB() {
+      this.showB  = !!!this.showB;
     }
   }
 }

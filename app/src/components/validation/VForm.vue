@@ -13,7 +13,8 @@ export default {
     return {
       handleValidation: true,
       inputs: [],
-      anchors: {}
+      anchors: {},
+      watchers: {}
     }
   },
 
