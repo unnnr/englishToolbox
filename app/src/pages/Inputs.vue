@@ -18,12 +18,14 @@
 
     </v-form>
 
+    <button style="background-color: blue; padding: 20px;" @click="show = false">
+    </button>
+
   </main>
 </template>
 
 <script>
 
-import HandleFomrs from '@mixins/HandleForms'
 import PasswordInput from '@components/validation/PasswordInput'
 import ConfirmationInput from '@components/validation/ConfirmationInput'
 import EmailInput from '@components/validation/EmailInput'
@@ -39,64 +41,10 @@ export default {
     //VInput,
   },
 
-  mixins: [ HandleFomrs ],
-
-  directives: {
-    /* validate: {
-      bind(el, binding, vnode) {
-        let data = vnode.context;
-
-        data.inputs.push(vnode);
-      },
-      
-      unbind(el, binding, vnode) {
-        let data = vnode.context;
-
-        for (let key in data.inputs)
-        {
-          if (data.inputs[key] === vnode)
-            delete data.inputs[key];
-        }
-      }
-    }, */
-
-  /*   name: {
-      bind(el, binding, vnode) {
-        let data = vnode.context;
-        let key = binding.value;
-
-        data.anchors[key] = vnode;
-      },
-
-      unbind(el, binding, vnode) {
-        let data = vnode.context;
-
-        for (let anchor in data.anchors)
-        {
-          if (data.anchors[anchor] === vnode)
-            delete data.anchors[anchor];
-        }
-      }
-    }, */
-
-    /* confirm: {
-      bind(el, binding, vnode) {
-
-        return;
-        let data = vnode.context;
-        let key = binding.value;
-
-        console.log(vnode);
-
-        Object.assign(vnode.componentInstance, {
-          target: data.anchors[key] ? data.anchors[key].componentInstance : null
-        });
-      },
-
-      unbind(el, binding, vnode) {
-        
-      }
-    } */
+  data() {
+    return {
+      show: true
+    }
   },
 
   mounted() {

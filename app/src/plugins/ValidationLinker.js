@@ -1,8 +1,9 @@
+
 const Linker = new class  
 {
     inputBelongsTo(vcomponent) 
     {
-        let current = vcomponent.$parent;
+        let current = vcomponent;
 
         while(current = current.$parent)
         {
@@ -16,13 +17,16 @@ const Linker = new class
 
     // Input
 
-    bindInput(el, binding, vnode) 
+    async bindInput(el, binding, vnode) 
     {
+        
         let component = vnode.componentInstance;
         let form = this.inputBelongsTo(component);
-        
+
         if (form)
             form.inputs.push(component);
+
+        console.log(form, 'here');
     }
 
     unbindInput(el, binding, vnode)
@@ -83,6 +87,15 @@ const Linker = new class
         
         if (!!!form)
             return;
+
+        component.target = {
+            some: 's'
+        }
+    }
+
+    bindComfirm(el, binding, vnode)
+    {
+        let component = vnode.componentInstance;
 
         component.target = {
             some: 's'
