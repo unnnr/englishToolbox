@@ -4,12 +4,7 @@
       <email-input v-validate/>
       <div style="height: 20px"></div> 
 
-
-      <password-input v-validate/>
-      <div style="height: 20px"></div> 
-
-
-      <password-input v-name="'password'" v-validate/>
+      <password-input  v-if="show" v-name="'password'" v-validate/>
 
       <div style="height: 20px"></div> 
 
@@ -18,7 +13,7 @@
 
     </v-form>
 
-    <button style="background-color: blue; padding: 20px;" @click="show = false">
+    <button style="background-color: blue; padding: 20px;" @click="toggle">
     </button>
 
   </main>
@@ -43,11 +38,22 @@ export default {
 
   data() {
     return {
-      show: true
+      show: true,
+      someee: false
     }
   },
 
   mounted() {
+  },
+
+  methods: {
+    toggle() {
+      this.show = !!!this.show;
+      if (this.show)
+        this.someee = 'false'
+      else  
+      this.someee ='true';
+    }
   }
 }
 </script>

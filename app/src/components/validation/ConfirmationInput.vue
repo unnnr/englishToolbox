@@ -17,12 +17,16 @@ export default {
   },
 
   computed: {
+    placeholder() {
+      return this.target ? this.target.placeholder : null;
+    },
+
     label() {
       return this.target ? this.target.label : null;
     },
 
-    placeholder() {
-      return this.target ? this.target.placeholder : null;
+    icon() {
+      return this.target ? this.target.icon : null
     },
 
     min() {
@@ -31,10 +35,6 @@ export default {
 
     max() {
       return this.target ? this.target.max : null;
-    },
-
-    icon() {
-      return this.target ? this.target.max : null
     }
   },
 

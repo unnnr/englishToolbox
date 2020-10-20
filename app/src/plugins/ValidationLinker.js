@@ -19,7 +19,6 @@ const Linker = new class
 
     async bindInput(el, binding, vnode) 
     {
-        
         let component = vnode.componentInstance;
         let form = this.inputBelongsTo(component);
 
@@ -60,46 +59,27 @@ const Linker = new class
 
     unbindAnchor(el, binding, vnode)
     {
-        let component = vnode.componentInstance;
-        let form = this.inputBelongsTo(component);
+        let form = this.inputBelongsTo(vnode.componentInstance);
+        let key = binding.value;
 
-        if (!!!form)
-            return;
-
-        console.log(binding);
-
-        for (let key of this.anchors)
-        {
-            if (this.anchors[key] !== component)
-                return;
-
-            delete this.anchors[key]
-        }
+        if (form && form.anchors[key])
+            delete form.anchors[key];
     }
 
     // Confirm
 
     bindComfirm(el, binding, vnode)
     {
-
         let component = vnode.componentInstance;
         let form = this.inputBelongsTo(component);
+        let key = binding.value;
         
-        if (!!!form)
+        console.log( key, form.anchors[key]);
+
+        if (!!!form || !!!form.anchors[key])
             return;
 
-        component.target = {
-            some: 's'
-        }
-    }
-
-    bindComfirm(el, binding, vnode)
-    {
-        let component = vnode.componentInstance;
-
-        component.target = {
-            some: 's'
-        }
+        component.target = form.anchors[key];
     }
 
 }();
