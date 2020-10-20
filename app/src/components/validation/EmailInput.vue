@@ -16,9 +16,9 @@ export default {
 
   data: function () {
     return {
-      placeholder: 'aasd',
-      label: 'Password confirmation',
-      icon: 'password',
+      placeholder: 'some@email.com',
+      label: 'Your email',
+      icon: 'email',
 
       min: 5,
       max: 64

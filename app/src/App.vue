@@ -18,6 +18,7 @@
 
 import Vue from 'vue';
 import Context from '@plugins/ContextMenu'
+import ValidationLinker from '@plugins/ValidationLinker'
 import vClickOutside from 'v-click-outside'
 
 import Basement from '@components/layout/Basement'
@@ -27,6 +28,7 @@ import Popup from '@components/alert/Popup'
 import bus from '@services/eventbus';
 
 Vue.use(vClickOutside);
+Vue.use(ValidationLinker);
 Vue.use(Context);
 
 export default {
