@@ -49,17 +49,26 @@
 <script>
 export default {
   props: {
+    // Properties 
     placeholder: { type: String,  default: null},
     
     label: { type: String, default: null },
 
-    type: { type: String, default: null},
+    icon: { type: String, default: null},
 
     max: { type: Number, default: null },
 
     min: { type: Number, default: null },
 
-    counting: { type: Boolean, default: false }
+    // Callback
+    submiting: { type: Function, default: null },
+
+    validate: { type: Function, default: null },
+
+    // Booleans 
+    counting: { type: Boolean, default: false },
+
+    required: { type: Boolean, default: false }
   },
 
   data: function () {
@@ -85,7 +94,6 @@ export default {
     },
 
     active() {
-      console.log(this.focused || this.entry.length !== 0);
       return this.focused || this.entry.length !== 0;
     },
 
@@ -94,11 +102,11 @@ export default {
     },
 
     isPassword() {
-      return this.type === 'password'
+      return this.icon === 'password'
     },
 
     isEmail() {
-      return this.type === 'email'
+      return this.icon === 'email'
     }
   },
 
@@ -125,7 +133,18 @@ export default {
     },
 
     onKeyDown(event) {
+      let options = {
+        key: event.key,
+        keyCode: event.keyCode,
+        currentEntry: this.entry 
+      };
 
+      if (this.validate && this.validate(options))
+        this.event.prevendDefault()
+    },
+
+    submit() {
+      return this.submiting ? this.submiting() : true;
     }
   }
 }

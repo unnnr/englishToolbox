@@ -3,28 +3,27 @@
     <validating-input 
       placeholder="some plc"
       label="Password"
-      type="password"/>
+      icon="password"/>
 
     <div style="height: 20px"></div> 
 
     <validating-input 
       placeholder="some plc"
       label="Email"
-      type="email"/>
+      icon="email"/>
 
     <div style="height: 20px"></div> 
 
     <validating-input 
       placeholder="some plc" 
-      label="Without icon"
-      type="empty"/>
+      label="Without icon"/>
 
   </main>
 </template>
 
 <script>
 
-import ValidatingInput from '@components/ValidatingInput'
+import ValidatingInput from '@components/validation/VInput'
 
 export default {
   components: {
