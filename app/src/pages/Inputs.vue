@@ -1,18 +1,12 @@
 <template>
   <main> 
     <v-form>
-      <password-input  v-if="show" v-name="'password'" v-validate/>
+      <password-input  v-if="show"/>
       <div style="height: 20px"></div> 
 
 
       <confirmation-input v-if="showB" v-confirm="'password'"/>
       <div style="height: 20px"></div> 
-
-
-      <password-input  v-if="show" v-name="'not a password'" v-validate/>
-      <div style="height: 20px"></div> 
-
-      <confirmation-input v-if="showB" v-confirm="'some'"/>
 
     </v-form>
 

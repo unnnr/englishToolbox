@@ -1,5 +1,8 @@
 <template>
   <v-input
+    v-name="'password'"
+    v-validate
+    
     :submitting="submitting"
     :label="label"
     :icon="icon"

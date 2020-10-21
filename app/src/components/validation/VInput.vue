@@ -24,7 +24,7 @@
         ref="input"
         v-model="entry"
         
-        :type=" this.entryHidden ? 'password' : ''"
+        :type=" hidden ? 'password' : ''"
         :placeholder="placeholder"
         :minlength="min"
         :maxlength="max"
@@ -38,6 +38,7 @@
 
     <button
       v-if="visibilityButtoned" 
+      :disabled="forceHidden"
       :class="{'input-group__visibility': this.entryHidden, 
                'input-group__visibility_off': !!!this.entryHidden}"
       @click.stop="toggleVisibility">
@@ -70,6 +71,8 @@ export default {
 
     visibilityButtoned: { type: Boolean, default: false },
 
+    forceHidden: { type: Boolean, default: false },
+
     required: { type: Boolean, default: false }
   },
 
@@ -88,7 +91,7 @@ export default {
       return Number.isInteger(this.max) ? 
         this.entry.length + '/' + this.max : this.entry.length;
     },
-
+    
     counterShown() {
       return this.counting || this.max !== null;
     },
@@ -107,6 +110,19 @@ export default {
 
     isEmail() {
       return this.icon === 'email'
+    },
+
+    hidden() {
+      return this.forceHidden || this.entryHidden;
+    }
+  },
+
+  watch: {
+    forceHidden(value) {
+      if (value)
+        this.$emit('input:hidden');
+      else 
+        this.$emit('input:shown')
     }
   },
 
@@ -118,6 +134,11 @@ export default {
   methods: {
     toggleVisibility() {
       this.entryHidden = !!!this.entryHidden;
+
+      if (this.entryHidden)
+        this.$emit('input:hidden');
+      else 
+        this.$emit('input:shown')
     },
     
     onClick() {
