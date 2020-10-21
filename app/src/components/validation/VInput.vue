@@ -2,7 +2,8 @@
    <div 
       class="input-group"
       ref="wraper"
-      :class="{'input-group--succes': false,
+      :class="{'input-group--success': success,
+               'input-group--error' : incorrect,
                'input-group--active': active,
                'input-group--password': isPassword,
                'input-group--email': isEmail}"
@@ -26,8 +27,8 @@
         
         :type=" hidden ? 'password' : ''"
         :placeholder="placeholder"
-        :minlength="min"
         :maxlength="max"
+        :minlength="min"
 
         @keydown="onKeyDown"
         @focus="onFocuse"
@@ -57,6 +58,8 @@ export default {
 
     icon: { type: String, default: null},
 
+    name: { type: String, default: 'this field'},
+
     max: { type: Number, default: null },
 
     min: { type: Number, default: null },
@@ -66,6 +69,8 @@ export default {
 
     validate: { type: Function, default: null },
 
+    inputing: { type: Function, default: null },
+
     // Booleans 
     counting: { type: Boolean, default: false },
 
@@ -73,20 +78,25 @@ export default {
 
     forceHidden: { type: Boolean, default: false },
 
-    required: { type: Boolean, default: false }
+    required: { type: Boolean, default: true }
   },
 
   data: function () {
     return {
-      entry: '',
-      errors: [],
-
+      entryHidden: false,
       focused: false,
-      entryHidden: false
+      success: false,
+      
+      entry: '',
+      errors: []
     }
   },
 
   computed: {
+    message() {
+      return this.incorrect ? this.errors[0] : this.label;
+    },
+
     counter() {
       return Number.isInteger(this.max) ? 
         this.entry.length + '/' + this.max : this.entry.length;
@@ -96,12 +106,12 @@ export default {
       return this.counting || this.max !== null;
     },
 
-    active() {
-      return this.focused || this.entry.length !== 0;
+    incorrect() {
+      return Boolean(this.errors.length);
     },
 
-    message() {
-      return this.errors.length ? this.errors[1] : this.label;
+    active() {
+      return this.focused || this.entry.length !== 0;
     },
 
     isPassword() {
@@ -145,14 +155,6 @@ export default {
       this.$refs.input.focus();
     },
 
-    onFocuse() {
-      this.focused = true;
-    },
-
-    onBlur() {
-      this.focused = false;
-    },
-
     onKeyDown(event) {
       let options = {
         key: event.key,
@@ -160,8 +162,44 @@ export default {
         currentEntry: this.entry 
       };
 
-      if (this.validate && this.validate(options))
+      if (this.inputing && this.inputing(options))
         this.event.prevendDefault()
+    },
+
+    onFocuse() {
+      this.focused = true;
+    },
+
+    onBlur() {
+      this.focused = false;
+
+      if (this.errors.submitting)
+        this.collectSubmittingErrors();
+
+      this.errors = this.collectErrors();
+    },
+
+    collectErrors() {
+      let errors = [];
+      
+      // Empty field can have only 'required error'
+      if (!!!this.entry.length)
+      {
+        if (this.required)
+          errors.push(this.name + ' cant bee empty');
+
+        return errors;
+      }
+        
+      // Default validation rules
+      if (this.min !== null && this.entry.length < this.min)
+        errors.push(this.name + ' must be longer than ' + this.min + ' characters')
+
+      // Custom validation rules
+      if (this.validate)
+        this.validate(errors, this.entry);
+
+      return errors;
     },
 
     submit() {

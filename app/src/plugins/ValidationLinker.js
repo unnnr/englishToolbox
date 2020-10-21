@@ -93,8 +93,6 @@ const Linker = new class
         let target = form.anchors[key];
         if (target)
             component.target = target;
-        
-        console.log(target, component.target);
     }
 
     unbindConfirm(el, binding, vnode)

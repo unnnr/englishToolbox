@@ -2,11 +2,12 @@
   <v-input
     v-validate
     :submitting="submitting"
+    :validate="validate"
+    :force-hidden="hidden"
     :label="label"
     :icon="icon"
     :min="min"
-    :max="max"
-    :force-hidden="hidden"/>
+    :max="max"/>
 </template>
 
 <script>
@@ -76,9 +77,13 @@ export default {
     },
 
     hideInput() {
-      console.log(2);
-
       this.hidden = true;
+    },
+
+    validate(errors, entry) {
+      console.log(this.target.entry, entry);
+      if (this.target && entry !== this.target.entry)
+        errors.push('Confirmation doesnt match');
     },
 
     submitting() {
