@@ -13,12 +13,14 @@
     <div class="input-group__inner">
 
       <span class="input-group__title">{{ message }}
-        <small 
-          v-if="counterShown"
-          class="input-group__counter">
+        <transition name="fade">
+          <small 
+            v-if="counterShown"
+            class="input-group__counter">
 
-          {{ counter }}
-        </small>
+            {{ counter }}
+          </small>
+        </transition>
       </span>
 
       <input 
@@ -109,8 +111,21 @@ export default {
       return Number.isInteger(this.max) ? 
         this.entry.length + '/' + this.max : this.entry.length;
     },
-    
+
+    entryNearMax() {
+      if (this.max === null && this.max)
+        return false;
+
+      const BOUNDARY = 70;
+      let fillingPercent = this.entry.length * 100 / this.max;
+
+      return fillingPercent >= BOUNDARY;
+    },
+
     counterShown() {
+      if (!!!this.entryNearMax)
+        return false;
+
       return this.counting || this.max !== null;
     },
 
@@ -218,6 +233,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
+.fade-enter-active, .fade-leave-active 
+  transition: opacity .5s;
+
+.fade-enter, .fade-leave-to
+  opacity: 0;
 
 .input-group__visibility_off::before
   content: "visibility_off"
