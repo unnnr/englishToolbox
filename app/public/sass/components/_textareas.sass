@@ -1,0 +1,85 @@
+// =============
+// common styles
+// =============  
+
+.textarea-group-primary,
+.textarea-group-secondary
+  display: flex
+  flex-direction: column
+  color: $color-semigray
+  font-weight: $medium
+
+  &:hover
+    cursor: text
+
+  .textarea-group__title
+    user-select: none
+
+  .textarea-group__textarea
+    flex-grow: 1
+    font-weight: $medium
+    color: $color-dark
+
+    &::placeholder
+      font-weight: inherit
+      color: $color-semigray
+
+// common disabled styles
+
+.textarea-group--disabled
+  opacity: 0.5
+
+// ================
+// textarea primary
+// ================
+
+.textarea-group-primary
+  min-height: 90px
+  padding: 15px
+  background: $color-white
+  border-radius: $border-radius-primary
+  box-shadow: $box-shadow-primary
+  transition: box-shadow .2s ease-in-out
+
+  .textarea-group__title
+    font-size: 12px
+    margin-bottom: 3px
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  .textarea-group__textarea
+    font-size: 16px 
+
+// textarea primary focus
+
+.textarea-group-primary.textarea-group--focus
+  box-shadow: $box-shadow-focus
+
+// ==================
+// textarea secondary
+// ==================
+
+.textarea-group-secondary 
+  padding: 10px
+  min-height: 80px
+  background: $color-white
+  border-radius: $border-radius-secondary
+  border: 2px solid darken($color-almost-white, 6)
+  transition: background .2s ease-in-out, border .2s ease-in-out
+
+  .textarea-group__title
+    font-size: 10px
+    margin-bottom: 3px
+    display: flex
+    justify-content: space-between
+    align-items: center
+  
+  .textarea-group__textarea
+    font-size: 14px 
+
+// textarea secondary focus
+
+.textarea-group-secondary.textarea-group--focus
+  background: $color-almost-white
+  border-color: darken($color-almost-white, 12)
