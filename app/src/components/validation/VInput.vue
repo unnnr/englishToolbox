@@ -2,9 +2,14 @@
    <div 
       class="input-group"
       ref="wraper"
-      :class="{'input-group--success': success,
-               'input-group--error' : incorrect,
+      :class="{'input-group-primary': primary, 
+               'input-group-secondary': secondary,
+
                'input-group--active': active,
+               'input-group--focus': focused,
+
+               'input-group--success': success,
+               'input-group--error' : incorrect,
 
                'input-group--email': isEmail,
                'input-group--password': isPassword}"
@@ -81,6 +86,8 @@ export default {
 
     forceHidden: { type: Boolean, default: false },
 
+    secondary: {type: Boolean, defult: false},
+
     optional: { type: Boolean, default: false }
   },
 
@@ -135,6 +142,10 @@ export default {
 
     active() {
       return this.focused || this.entry.length !== 0;
+    },
+
+    primary() {
+      return !!!this.secondary;
     },
 
     isPassword() {
