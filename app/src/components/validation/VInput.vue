@@ -5,8 +5,9 @@
       :class="{'input-group--success': success,
                'input-group--error' : incorrect,
                'input-group--active': active,
-               'input-group--password': isPassword,
-               'input-group--email': isEmail}"
+
+               'input-group--email': isEmail,
+               'input-group--password': isPassword}"
       @click.stop="onClick">
 
     <div class="input-group__inner">
@@ -78,7 +79,7 @@ export default {
 
     forceHidden: { type: Boolean, default: false },
 
-    required: { type: Boolean, default: true }
+    optional: { type: Boolean, default: false }
   },
 
   data: function () {
@@ -94,7 +95,14 @@ export default {
 
   computed: {
     message() {
-      return this.incorrect ? this.errors[0] : this.label;
+      let message = this.incorrect ? 
+        this.errors[0] : this.label;
+
+      // capitalizing first
+      let capitalized = 
+        message.charAt(0).toUpperCase() + message.slice(1);
+
+      return capitalized;
     },
 
     counter() {
@@ -185,8 +193,8 @@ export default {
       // Empty field can have only 'required error'
       if (!!!this.entry.length)
       {
-        if (this.required)
-          errors.push(this.name + ' cant bee empty');
+        if (!!!this.optional)
+          errors.push(this.name + ' cant be empty');
 
         return errors;
       }

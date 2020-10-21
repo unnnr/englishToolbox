@@ -8,6 +8,7 @@
     :icon="icon"
     :min="min"
     :max="max"
+    :name="name"
     visibility-buttoned/>
 </template>
 
@@ -25,6 +26,7 @@ export default {
       placeholder: 'some placeholder',
       label: 'Your password',
       icon: 'password',
+      name: 'password',
 
       min: 5,
       max: 64

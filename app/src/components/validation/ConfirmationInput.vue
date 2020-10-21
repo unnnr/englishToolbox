@@ -50,16 +50,19 @@ export default {
 
   watch: {
     target(current, previos) {
-      current.$on('input:shown', this.showInput);
-      current.$on('input:hidden', this.hideInput);
+      if (current)
+      {
+        current.$on('input:shown', this.showInput);
+        current.$on('input:hidden', this.hideInput);
 
-      this.hidden = current.hidden;
+        this.hidden = current.hidden;
+      }
 
-      if (!!!previos)
-        return;
-
-      previos.$off('input:shown', this.showInput);
-      previos.$off('input:hidden', this.hideInput);
+      if (previos)
+      {
+        previos.$off('input:shown', this.showInput);
+        previos.$off('input:hidden', this.hideInput);
+      }
     },
   },
 
@@ -81,7 +84,6 @@ export default {
     },
 
     validate(errors, entry) {
-      console.log(this.target.entry, entry);
       if (this.target && entry !== this.target.entry)
         errors.push('Confirmation doesnt match');
     },
