@@ -163,32 +163,20 @@ body
   font-weight: $medium
   font-size: 1.4em  // 14px
 
-// =======
-// buttons 
-// =======
-
-button
-  transition: transform .1s ease-in-out
-  
-  &:hover
-    cursor: pointer
-
-  &:active
-    transform: scale(0.98)
-  
-// ======================
-// sections for all pages
-// ======================
-
-@import sections/navbar
-@import sections/basement
-
 // ========================
 // components for all pages
 // ========================
 
 @import components/inputs
 @import components/textareas
+@import components/buttons
+
+// ======================
+// sections for all pages
+// ======================
+
+@import sections/navbar
+@import sections/basement
 
 // =========
 // home page

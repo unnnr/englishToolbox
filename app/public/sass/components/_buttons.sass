@@ -1,0 +1,75 @@
+// =============
+// common styles
+// ============= 
+
+button
+  transition: transform .1s ease-in-out
+  
+  &:hover
+    cursor: pointer
+
+  &:active
+    transform: scale(0.98)
+
+.button-primary,
+.button-secondary
+  display: flex
+  justify-content: center
+  align-items: center
+  color: $color-white
+  font-weight: $medium
+  background: $color-primary
+  box-shadow: $box-shadow-primary
+  transition: transform .1s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out
+
+  &:hover
+    background: darken($color-primary, 5)
+    box-shadow: $box-shadow-primary-core transparentize($color-primary, 0.85)
+
+  &:active
+    background: darken($color-primary, 5)
+    box-shadow: $box-shadow-focus-core transparentize($color-primary, 0.80)
+
+  &:after
+    content: ""
+    overflow: hidden
+    width: 0
+    opacity: 0
+    margin-left: 0
+    transition: margin-left .3s ease-in-out, width .3s ease-in-out, opacity .4s ease-in-out
+
+  &:disabled
+    opacity: 0.5
+  
+    &:hover
+      background: $color-primary
+      cursor: not-allowed
+    
+
+// button loading
+
+.button--loading
+  &:after
+    content: url("/app/public/img/svg/spinner.svg")
+    margin-left: 10px
+    opacity: 1
+    width: 25px
+    height: 25px
+
+// ==============
+// button primary 
+// ==============
+
+.button-primary 
+  min-height: 60px
+  font-size: 18px
+  border-radius: $border-radius-primary
+
+// ================
+// button secondary 
+// ================
+
+.button-secondary
+  min-height: 50px
+  font-size: 16px
+  border-radius: $border-radius-secondary
