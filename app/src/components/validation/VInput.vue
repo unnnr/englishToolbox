@@ -50,7 +50,7 @@
       v-if="visibilityButtoned" 
       :disabled="forceHidden"
       :class="{'input-group__visibility': this.entryHidden, 
-               'input-group__visibility_off': !!!this.entryHidden}"
+               'input-group__visibility-off': !!!this.entryHidden}"
       @click.stop="toggleVisibility">
     </button>
 
@@ -97,8 +97,8 @@ export default {
   data: function () {
     return {
       entryHidden: false,
-      focused: false,
       validated: false,
+      focused: false,
       
       entry: '',
       errors: []
@@ -179,15 +179,19 @@ export default {
   },
 
   methods: {
+
+    // Changes input visibility 
     toggleVisibility() {
       this.entryHidden = !!!this.entryHidden;
 
-      if (this.entryHidden)
+      if (this.entryHidden) 
         this.$emit('input:hidden');
-      else 
+      else  
         this.$emit('input:shown')
     },
     
+    // EventsHandler
+
     onClick() {
       this.$refs.input.focus();
     },
@@ -218,6 +222,7 @@ export default {
       this.validated = !!!this.incorrect;
     },
 
+    // Validates input
     collectErrors() {
       let errors = [];
       
@@ -241,25 +246,11 @@ export default {
       return errors;
     },
 
-    submit() {
-      return this.submiting ? this.submiting() : true;
+    // Collect data
+    submit(data) {
+      if (this.submiting)
+        this.submiting(data);
     }
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .5s;
-
-.fade-enter, .fade-leave-to
-  opacity: 0;
-
-.input-group__visibility_off::before
-  content: "visibility_off"
-  font-family: "material icons round"
-  font-size: 25px
-  color: #a1a1b1
-
-</style>>
