@@ -69,7 +69,7 @@ export default {
     
     label: { type: String, default: null },
 
-    name: { type: String, default: 'this field'},
+    name: { type: String, default: null},
 
     icon: { type: String, default: null},
 
@@ -143,6 +143,10 @@ export default {
       return this.counting || this.max !== null;
     },
 
+    formatedName() {
+      return this.name || 'this field';
+    },
+
     incorrect() {
       return Boolean(this.errors.length);
     },
@@ -208,7 +212,8 @@ export default {
 
         return;
       }
-
+      
+      // Invoking validate callback
       let options = {
         key: event.key,
         keyCode: event.keyCode,
@@ -258,14 +263,14 @@ export default {
       if (!!!this.entry.length)
       {
         if (!!!this.optional)
-          errors.push(this.name + ' cant be empty');
+          errors.push(this.formatedName + ' cant be empty');
 
         return errors;
       }
         
       // Default validation rules
       if (this.min !== null && this.entry.length < this.min)
-        errors.push(this.name + ' must be longer than ' + this.min + ' characters')
+        errors.push(this.formatedName + ' must be longer than ' + this.min + ' characters')
 
       // Custom validation rules
       if (this.validating)
@@ -278,6 +283,7 @@ export default {
     submit(data) {
       if (this.submitting)
         return this.submitting(data);
+
 
       if (!!!this.name)
         return;

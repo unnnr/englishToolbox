@@ -1,13 +1,21 @@
 <template>
   <v-input
-    v-validate
+    ref="input"
+    
     :submitting="submitting"
     :validating="validating"
+
     :force-hidden="hidden"
+    :optional="optional"
+    :disabled="optional"
+
     :label="label"
     :icon="icon"
+
     :min="min"
-    :max="max"/>
+    :max="max"
+    
+    v-validate/>
 </template>
 
 <script>
@@ -41,6 +49,10 @@ export default {
 
     max() {
       return this.target ? this.target.max : null;
+    },
+
+    optional() {
+      return !!!this.target;
     },
 
     label() {
@@ -88,8 +100,13 @@ export default {
         errors.push('Confirmation doesnt match');
     },
 
-    submitting() {
-      
+    submitting(data) {
+      if (!!!this.target)
+        return;
+
+      let entry = this.$refs.input.entry;
+
+      data.append(this.target.name, entry);
     }
   }
 }

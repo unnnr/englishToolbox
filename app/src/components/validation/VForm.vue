@@ -31,14 +31,21 @@ export default {
       return allAreValid;
     },
 
+    TEMP_showData(data) {
+      for (let field of data.entries())
+        console.log(field);
+    },  
+
     submit() {
       if (!!!this.validateInputs())
         return;
 
-      console.log('all is correct');
-      return;
+      let data = new FormData();
+      
       for (let input of this.inputs)
-        console.log(input);
+        input.submit(data);
+
+      this.TEMP_showData(data);
     }
   }
 }

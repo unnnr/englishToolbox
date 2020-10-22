@@ -10,7 +10,6 @@
     :min="min"
     :max="max"
 
-    :submitting="submitting"
     :optional="optional"
     :secondary="secondary"
     :force-hidden="forceHidden"
