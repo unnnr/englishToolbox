@@ -54,7 +54,7 @@
       :disabled="forceHidden"
       :class="{'input-group__visibility': this.entryHidden, 
                'input-group__visibility-off': !!!this.entryHidden}"
-      @click.stop="toggleVisibility">
+      @click.self.prevent="toggleVisibility">
     </button>
 
   </div>

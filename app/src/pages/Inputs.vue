@@ -1,21 +1,15 @@
 <template>
   <main> 
     <v-form>
-      <password-input  v-if="show" secondary/>
+      <password-input secondary/>
       <div style="height: 20px"></div> 
 
 
-      <confirmation-input v-if="showB" v-confirm="'password'"/>
+      <confirmation-input v-confirm="'password'"/>
       <div style="height: 20px"></div> 
 
+      <button style="background-color: blue; padding: 20px;"/>
     </v-form>
-
-    <button style="background-color: blue; padding: 20px;" @click="toggle">
-    </button>
-
-      <button style="background-color: maroon; padding: 20px;" @click="toggleB">
-    </button>
-
   </main>
 </template>
 
@@ -38,21 +32,7 @@ export default {
 
   data() {
     return {
-      show: true,
-      showB: true
-    }
-  },
 
-  mounted() {
-  },
-
-  methods: {
-    toggle() {
-      this.show = !!!this.show;
-    },
-
-    toggleB() {
-      this.showB  = !!!this.showB;
     }
   }
 }
