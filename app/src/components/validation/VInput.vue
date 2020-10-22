@@ -2,19 +2,21 @@
    <div 
       class="input-group"
       ref="wraper"
-      :class="{'input-group-primary': primary, 
-               'input-group-secondary': secondary,
+      :class="{
+        'input-group-primary': primary, 
+        'input-group-secondary': secondary,
 
-               'input-group--disabled': disabled,
-               'input-group--active': active,
-               'input-group--focus': focused,
+        'input-group--disabled': disabled,
+        'input-group--active': active,
+        'input-group--focus': focused,
 
-               'input-group--success': validated,
-               'input-group--error' : incorrect,
+        'input-group--success': validated,
+        'input-group--error' : incorrect,
 
-               'input-group--email': isEmail,
-               'input-group--password': isPassword}"
-      @click.stop="onClick">
+        'input-group--email': isEmail,
+        'input-group--password': isPassword
+      }"
+      @click="onClick">
 
     <div class="input-group__inner">
 
@@ -42,6 +44,7 @@
         @keydown="onKeyDown"
         @focus="onFocuse"
         @blur="onBlur"
+        @click="onClick"
         novalidate>
 
     </div>
@@ -74,9 +77,9 @@ export default {
     min: { type: Number, default: null },
 
     // Callback
-    submiting: { type: Function, default: null },
+    submitting: { type: Function, default: null },
 
-    validate: { type: Function, default: null },
+    validating: { type: Function, default: null },
 
     inputing: { type: Function, default: null },
 
@@ -179,7 +182,6 @@ export default {
   },
 
   methods: {
-
     // Changes input visibility 
     toggleVisibility() {
       this.entryHidden = !!!this.entryHidden;
@@ -192,7 +194,7 @@ export default {
     
     // EventsHandler
 
-    onClick() {
+    onClick(event) {
       this.$refs.input.focus();
     },
 
@@ -204,22 +206,38 @@ export default {
       };
 
       if (this.inputing && this.inputing(options))
-        this.event.prevendDefault()
+        this.event.preventDefault()
     },
 
     onFocuse() {
+      if (this.$options.focusing)
+        clearTimeout(this.$options.focusing);
+
       this.focused = true;
     },
 
     onBlur() {
-      this.focused = false;
+      const DELAY = 170;
+      
+      if (this.$options.focusing)
+        clearTimeout(this.$options.focusing);
 
-      if (this.errors.submitting)
-        this.collectSubmittingErrors();
+      // Preventing redundant events
+      this.$options.focusing =
+        setTimeout(() => {
+          this.focused = false;
+          this.$options.focusing = null;
 
+          this.validate();
+        }, DELAY);
+    },
+
+    validate() {
       this.errors = this.collectErrors();
 
       this.validated = !!!this.incorrect;
+
+      return this.validated;
     },
 
     // Validates input
@@ -240,16 +258,21 @@ export default {
         errors.push(this.name + ' must be longer than ' + this.min + ' characters')
 
       // Custom validation rules
-      if (this.validate)
-        this.validate(errors, this.entry);
+      if (this.validating)
+        this.validating(errors, this.entry);
 
       return errors;
     },
 
     // Collect data
     submit(data) {
-      if (this.submiting)
-        this.submiting(data);
+      if (this.submitting)
+        return this.submitting(data);
+
+      if (!!!this.name)
+        return;
+
+      data.append(this.name, this.entry);
     }
   }
 }

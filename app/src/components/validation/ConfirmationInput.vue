@@ -2,7 +2,7 @@
   <v-input
     v-validate
     :submitting="submitting"
-    :validate="validate"
+    :validating="validating"
     :force-hidden="hidden"
     :label="label"
     :icon="icon"
@@ -83,7 +83,7 @@ export default {
       this.hidden = true;
     },
 
-    validate(errors, entry) {
+    validating(errors, entry) {
       if (this.target && entry !== this.target.entry)
         errors.push('Confirmation doesnt match');
     },
