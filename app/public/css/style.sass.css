@@ -1539,11 +1539,13 @@ button:active {
 .reviews {
   padding-bottom: 150px;
   background: whitesmoke;
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
 }
 
 .reviews__title {
   margin-bottom: 75px;
-  text-align: center;
 }
 
 .reviews__swiper {
