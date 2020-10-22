@@ -5,10 +5,11 @@
       :class="{'input-group-primary': primary, 
                'input-group-secondary': secondary,
 
+               'input-group--disabled': disabled,
                'input-group--active': active,
                'input-group--focus': focused,
 
-               'input-group--success': success,
+               'input-group--success': validated,
                'input-group--error' : incorrect,
 
                'input-group--email': isEmail,
@@ -36,7 +37,7 @@
         :type=" hidden ? 'password' : ''"
         :placeholder="placeholder"
         :maxlength="max"
-        :minlength="min"
+        :disabled="disabled"
 
         @keydown="onKeyDown"
         @focus="onFocuse"
@@ -64,9 +65,9 @@ export default {
     
     label: { type: String, default: null },
 
-    icon: { type: String, default: null},
-
     name: { type: String, default: 'this field'},
+
+    icon: { type: String, default: null},
 
     max: { type: Number, default: null },
 
@@ -82,20 +83,22 @@ export default {
     // Booleans 
     counting: { type: Boolean, default: false },
 
-    visibilityButtoned: { type: Boolean, default: false },
+    optional: { type: Boolean, default: false },
 
-    forceHidden: { type: Boolean, default: false },
+    disabled: { type: Boolean, default:false },
 
     secondary: {type: Boolean, defult: false},
 
-    optional: { type: Boolean, default: false }
+    forceHidden: { type: Boolean, default: false },
+
+    visibilityButtoned: { type: Boolean, default: false },
   },
 
   data: function () {
     return {
       entryHidden: false,
       focused: false,
-      success: false,
+      validated: false,
       
       entry: '',
       errors: []
@@ -211,6 +214,8 @@ export default {
         this.collectSubmittingErrors();
 
       this.errors = this.collectErrors();
+
+      this.validated = !!!this.incorrect;
     },
 
     collectErrors() {
