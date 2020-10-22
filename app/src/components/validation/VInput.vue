@@ -87,7 +87,7 @@ export default {
 
     disabled: { type: Boolean, default:false },
 
-    secondary: {type: Boolean, defult: false},
+    secondary: {type: Boolean, default: false},
 
     forceHidden: { type: Boolean, default: false },
 

@@ -1,7 +1,7 @@
 <template>
   <main> 
     <v-form>
-      <password-input  v-if="show"/>
+      <password-input  v-if="show" secondary/>
       <div style="height: 20px"></div> 
 
 

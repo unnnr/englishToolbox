@@ -3,12 +3,18 @@
     v-name="'password'"
     v-validate
     
-    :submitting="submitting"
     :label="label"
     :icon="icon"
+    :name="name"
+
     :min="min"
     :max="max"
-    :name="name"
+
+    :submitting="submitting"
+    :optional="optional"
+    :secondary="secondary"
+    :force-hidden="forceHidden"
+    
     visibility-buttoned/>
 </template>
 
@@ -21,7 +27,17 @@ export default {
     VInput
   },
 
-  data: function () {
+  props: {
+    optional: { type: Boolean, default: false },
+
+    // disabled: { type: Boolean, default:false },
+
+    secondary: {type: Boolean, default: false},
+
+    forceHidden: { type: Boolean, default: false },
+  },
+
+  data() {
     return {
       placeholder: 'some placeholder',
       label: 'Your password',
