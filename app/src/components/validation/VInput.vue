@@ -36,7 +36,7 @@
         ref="input"
         v-model="entry"
         
-        :type=" hidden ? 'password' : ''"
+        :type=" hidden ? 'password' : null"
         :placeholder="placeholder"
         :maxlength="max"
         :disabled="disabled"
@@ -51,10 +51,11 @@
 
     <button
       v-if="visibilityButtoned" 
+      type="button"
       :disabled="forceHidden"
       :class="{'input-group__visibility': this.entryHidden, 
                'input-group__visibility-off': !!!this.entryHidden}"
-      @click.self.prevent="toggleVisibility">
+      @click.self="toggleVisibility">
     </button>
 
   </div>
@@ -199,6 +200,15 @@ export default {
     },
 
     onKeyDown(event) {
+      // Preventing form submittin on enter 
+      if (event.key === 'Enter')
+      { 
+        this.$refs.input.blur();
+        event.preventDefault();
+
+        return;
+      }
+
       let options = {
         key: event.key,
         keyCode: event.keyCode,
