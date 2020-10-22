@@ -124,7 +124,7 @@
   padding: 0 10px
   height: 50px
   background: $color-white
-  border: 2px solid darken($color-almost-white, 6)
+  border: 2px solid $color-almost-white
   border-radius: $border-radius-secondary
   transition: border .2s ease-in-out, background .2s ease-in-out
   
@@ -156,9 +156,8 @@
 // input secondary focus
 
 .input-group-secondary.input-group--focus
-  background: $color-almost-white
-  border-color: darken($color-almost-white, 12)
-
+  background: darken($color-white, 1)
+  border-color: darken($color-almost-white, 5)
 // ===========
 // input types
 // ===========

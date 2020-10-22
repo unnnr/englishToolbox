@@ -40,16 +40,16 @@
 .reviews__card-text
   margin-bottom: 30px
 
-.reviews__card-grade
+.review__grade
   display: flex
   height: 100%
   align-items: flex-end
   justify-content: space-between
 
-.reviews__card-stars
+.review__stars
   display: flex
 
-.reviews__card-star
+.review__star
   display: flex
   margin-right: 15px
 
@@ -63,11 +63,11 @@
     font-size: 28px
     opacity: 0.25
 
-.reviews__card-star--selected 
+.review__star--selected 
   &:before
     opacity: 1
 
-.reviews__card-rating
+.review__rating
   font-size: 25px
   background: $color-goldish
   color: $color-white
@@ -90,69 +90,11 @@
     content: "maps_ugc"
     margin-right: 5px
 
-// // leave review 
+// leave review 
 
-.leave-review__close-button
-  &:before
-    font-family: "Material Icons Round"
-    content: "clear"
-    color: $color-semigray
-    font-size: 25px
+.leave-review__body 
+  display: grid
+  grid-row-gap: 15px
 
-.leave-review__label
-  margin-bottom: 10px
-  color: $color-dark
-
-.leave-review__input
-  display: flex
-  width: 100%
-  margin-bottom: 10px
-
-.leave-review__textarea
-  display: flex
-  width: 100%
-  margin-bottom: 10px
-
-.leave-review__grade
-  display: flex
-  justify-content: space-between
-
-.leave-review__stars
-  display: flex
-
-.leave-review__star
-  width: 30px
-  display: flex
-  margin-right: 15px
-
-.leave-review__star--full
-
-  .leave-review__half-star 
-    opacity: 1
-
-.leave-review__star--half
-
-  .leave-review__half-star
-
-    &:nth-child(1)
-      opacity: 1
-
-.leave-review__half-star
-  height: 30px
-  width: 15px
-  opacity: 0.25
-
-  &:nth-child(2)
-    transform: scale(-1,1)
-
-.leave-review__rating
-  padding: 0px 15px
-  font-size: 25px
-  background: $color-goldish
-  color: #fff
-  font-weight: 600
-  border-radius: 30px
-  height: 30px
-
-.leave-review__button 
+.leave-review__button
   width: 100%

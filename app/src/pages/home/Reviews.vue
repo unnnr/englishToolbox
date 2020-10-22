@@ -11,13 +11,15 @@
         </div>
         <h5 class="reviews__card-title heading-fifth">Title of review</h5>
         <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        <div class="reviews__card-grade">
-          <div class="reviews__card-star reviews__card-star--selected"></div>
-          <div class="reviews__card-star reviews__card-star--selected"></div>
-          <div class="reviews__card-star reviews__card-star--selected"></div>
-          <div class="reviews__card-star reviews__card-star--selected"></div>
-          <div class="reviews__card-star reviews__card-star--selected"></div>
-          <span class="reviews__card-rating">5</span>
+        <div class="review__grade">
+          <div class="review__stars">
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+          </div>
+          <span class="review__rating">5</span>
         </div>
       </div>
 
