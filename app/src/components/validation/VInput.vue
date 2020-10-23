@@ -1,10 +1,9 @@
 <template>
    <div 
       class="input-group"
-      ref="wraper"
       :class="{
-        'input-group-primary': primary, 
         'input-group-secondary': secondary,
+        'input-group-primary': primary, 
 
         'input-group--disabled': disabled,
         'input-group--disabled': loading,
@@ -14,8 +13,8 @@
         'input-group--success': validated,
         'input-group--error' : incorrect,
 
+        'input-group--password': isPassword,
         'input-group--email': isEmail,
-        'input-group--password': isPassword
       }"
       @click="onClick">
 
@@ -43,7 +42,7 @@
         :disabled="disabled || loading"
 
         @keydown="onKeyDown"
-        @focus="onFocuse"
+        @focus="onFocus"
         @blur="onBlur"
         @click="onClick"
         novalidate>
@@ -139,7 +138,7 @@ export default {
     },
 
     counterShown() {
-      if (!!!this.entryNearMax)
+      if (this.max !== null && !!!this.entryNearMax)
         return false;
 
       return this.counting || this.max !== null;
@@ -199,8 +198,6 @@ export default {
         this.$emit('input:shown')
     },
     
-    // EventsHandler
-
     onClick(event) {
       this.$refs.input.focus();
     },
@@ -226,7 +223,7 @@ export default {
         this.event.preventDefault()
     },
 
-    onFocuse() {
+    onFocus() {
       if (this.$options.focusing)
         clearTimeout(this.$options.focusing);
 
@@ -286,7 +283,6 @@ export default {
       if (this.submitting)
         return this.submitting(data);
 
-
       if (!!!this.name)
         return;
 
@@ -295,3 +291,12 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.fade-enter-active, .fade-leave-active 
+  transition: opacity .5s;
+
+.fade-enter, .fade-leave-to
+  opacity: 0;
+
+</style>

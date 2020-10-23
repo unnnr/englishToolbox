@@ -46,31 +46,6 @@ const Bus = new function ()
 
 let listeners = []
 
+window.bus = Bus;
+
 export default Bus;
-
-
-
-let pcounter = null;
-
-function Log() 
-{
-
-    let counter = 0;
-    for (let [key, value] of Object.entries(listeners))
-        counter += value.length;
-
-    if (pcounter === counter)
-        return;
-
-    pcounter = counter;
-
-
-    console.log('<===================================>');
-
-    for (let [key, value] of Object.entries(listeners))
-        console.log(key, ": ", value.length)
-
-    console.log('<----------->');
-    console.log('count: ', counter);
-}
-setInterval( Log, 100);

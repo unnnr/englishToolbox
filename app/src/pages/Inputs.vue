@@ -8,6 +8,9 @@
       <confirmation-input v-confirm="'password'"/>
       <div style="height: 20px"></div> 
 
+      <div style="height: 20px"></div> 
+      <v-textarea /> 
+
       <button style="background-color: blue; padding: 20px;"/>
     </v-form>
   </main>
@@ -18,6 +21,7 @@
 import PasswordInput from '@components/validation/PasswordInput'
 import ConfirmationInput from '@components/validation/ConfirmationInput'
 import EmailInput from '@components/validation/EmailInput'
+import VTextarea from '@components/validation/VTextarea'
 import VInput from '@components/validation/VInput'
 import VForm from '@components/validation/VForm'
 
@@ -28,6 +32,7 @@ export default {
     //EmailInput,
     VForm,
     //VInput,
+    VTextarea
   },
 
   data() {

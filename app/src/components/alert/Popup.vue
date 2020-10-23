@@ -7,7 +7,7 @@
 			v-if="shown">
 
 			<alert 
-        :warnign="warning"
+        :warning="warning"
         :prompt="prompt"
 				@confirm-prompt="confirmInput"
 				@confirm="confirm"
@@ -57,7 +57,7 @@ export default {
 				});
 			},
 			
-			'alert-confirm': event => {
+			'alert-warning': event => {
 				Object.assign(this, {
 					shown: true,
 					
