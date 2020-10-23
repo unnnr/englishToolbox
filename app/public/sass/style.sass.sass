@@ -41,52 +41,6 @@ body
   background: $color-almost-white
   overflow-x: hidden
 
-// =====
-// modal
-// =====
-
-.modal
-  position: fixed
-  top: 0
-  left: 0
-  height: 100%
-  width: 100%
-  background: rgba(0, 0, 0, 0.5)
-  display: flex
-  justify-content: center
-  z-index: $z-fifth
-
-.modal__content
-  max-width: 500px
-  width: 500px
-  height: max-content
-  margin-top: 30px
-  margin-bottom: 30px
-  padding: 20px
-  background: $color-white
-  border-radius: $border-radius-primary
-  overflow: auto
-
-.modal__header
-  display: flex
-  justify-content: space-between
-  align-items: center
-  margin-bottom: 30px
-
-.modal__close-button
-  &:before
-    font-family: "Material Icons Round"
-    content: "clear"
-    color: $color-semigray
-    font-size: 25px
-
-.modal__body
-  display: flex
-  flex-direction: column
-
-.modal__footer
-  margin-top: 30px
-
 // ==========
 // containers 
 // ==========
@@ -182,6 +136,8 @@ body
 
 @import sections/navbar
 @import sections/basement
+@import sections/modal
+@import sections/alert
 
 // =========
 // home page

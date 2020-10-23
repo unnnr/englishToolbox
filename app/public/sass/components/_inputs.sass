@@ -140,6 +140,10 @@
 
   .input-group__input
     font-size: 14px
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover
+      box-shadow: 0 0 0 1000px inset $color-white
   
   .input-group__visibility,
   .input-group__visibility-off
@@ -158,6 +162,11 @@
 .input-group-secondary.input-group--focus
   background: darken($color-white, 1)
   border-color: darken($color-almost-white, 5)
+  
+  .input-group-secondary
+    &:-webkit-autofill:focus
+      box-shadow: 0 0 0 1000px inset darken($color-white, 1)
+
 // ===========
 // input types
 // ===========
