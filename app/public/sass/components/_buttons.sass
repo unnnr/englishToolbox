@@ -73,3 +73,56 @@ button
   min-height: 50px
   font-size: 16px
   border-radius: $border-radius-secondary
+
+// =============
+// button states
+// =============
+
+.button--skeleton
+  background: transparent
+  border: 2px solid $color-semigray
+  color: $color-semigray
+  
+  &:hover
+    box-shadow: none
+    background: transparent
+    border-color: darken($color-semigray, 5)
+
+  &:focus
+    box-shadow: none
+    background: transparent
+    border-color: darken($color-semigray, 5)
+
+
+.button--yellowish
+  background: $color-yellowish
+
+  &:hover
+    background: darken($color-yellowish, 5)
+    box-shadow: $box-shadow-primary-core transparentize($color-yellowish, 0.85)
+
+  &:active
+    background: darken($color-yellowish, 5)
+    box-shadow: $box-shadow-focus-core transparentize($color-yellowish, 0.80)
+
+.button--greenish
+  background: $color-greenish
+
+  &:hover
+    background: darken($color-greenish, 5)
+    box-shadow: $box-shadow-primary-core transparentize($color-greenish, 0.85)
+
+  &:active
+    background: darken($color-greenish, 5)
+    box-shadow: $box-shadow-focus-core transparentize($color-greenish, 0.80)
+
+.button--reddish 
+  background: $color-reddish
+
+  &:hover
+    background: darken($color-reddish, 5)
+    box-shadow: $box-shadow-primary-core transparentize($color-reddish, 0.85)
+
+  &:active
+    background: darken($color-reddish, 5)
+    box-shadow: $box-shadow-focus-core transparentize($color-reddish, 0.80)

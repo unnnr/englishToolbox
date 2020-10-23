@@ -1,0 +1,51 @@
+// =====
+// alert
+// =====
+  
+.alert 
+  grid-row-gap: 15px
+  
+.alert__title
+  color: inherit
+  display: flex
+  align-items: center
+
+  &:before
+    font-family: "Material Icons Round"
+    font-weight: $medium
+    margin-right: 5px
+    font-size: 30px
+
+.alert__buttons
+  display: flex
+
+.alert__button
+  width: 100%
+
+  &:nth-child(2)
+    margin-left: 15px
+
+// ===========
+// alert state
+// ===========
+
+.alert--error
+  color: $color-reddish
+  
+  .alert__title
+    &:before
+      content: "highlight_off"
+
+.alert--warning
+  color: $color-yellowish
+
+  .alert__title
+    &:before
+      content: "error_outline"
+
+.alert--prompt
+  color: $color-primary
+
+  .alert__title
+    &:before
+      content: "help_outline"

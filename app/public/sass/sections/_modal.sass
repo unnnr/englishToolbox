@@ -15,21 +15,20 @@
   backdrop-filter: saturate(180%) blur(10px)
 
 .modal__content
-  max-width: 500px
-  width: 500px
-  height: max-content
-  margin-top: 30px
-  margin-bottom: 30px
+  margin: 30px 0
   padding: 20px
+  width: 500px
+  max-width: 500px
+  height: max-content
   background: $color-white
   border-radius: $border-radius-primary
-  overflow: auto
+  display: grid
+  grid-row-gap: 30px
 
 .modal__header
   display: flex
   justify-content: space-between
   align-items: center
-  margin-bottom: 30px
 
 .modal__close-button
   &:before
@@ -37,6 +36,3 @@
     content: "clear"
     color: $color-semigray
     font-size: 25px
-
-.modal__footer
-  margin-top: 30px
