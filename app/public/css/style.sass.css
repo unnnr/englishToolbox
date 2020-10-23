@@ -32,8 +32,7 @@ input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px inset #fff;
-          box-shadow: 0 0 0 1000px inset #fff;
+  -webkit-background-clip: text;
 }
 
 input,
@@ -357,11 +356,6 @@ body {
   font-size: 16px;
 }
 
-.input-group-primary .input-group__input:-webkit-autofill, .input-group-primary .input-group__input:-webkit-autofill:hover, .input-group-primary .input-group__input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px inset #fff;
-          box-shadow: 0 0 0 1000px inset #fff;
-}
-
 .input-group-primary .input-group__visibility,
 .input-group-primary .input-group__visibility-off {
   font-size: 25px;
@@ -383,8 +377,8 @@ body {
   background: #fff;
   border: 2px solid #fafafa;
   border-radius: 10px;
-  -webkit-transition: border .2s ease-in-out;
-  transition: border .2s ease-in-out;
+  -webkit-transition: border .2s ease-in-out, background .2s ease-in-out;
+  transition: border .2s ease-in-out, background .2s ease-in-out;
 }
 
 .input-group-secondary:before, .input-group-secondary:after {
@@ -403,11 +397,6 @@ body {
   font-size: 14px;
 }
 
-.input-group-secondary .input-group__input:-webkit-autofill, .input-group-secondary .input-group__input:-webkit-autofill:hover, .input-group-secondary .input-group__input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px inset #fff;
-          box-shadow: 0 0 0 1000px inset #fff;
-}
-
 .input-group-secondary .input-group__visibility,
 .input-group-secondary .input-group__visibility-off {
   font-size: 20px;
@@ -420,6 +409,7 @@ body {
 
 .input-group-secondary.input-group--focus {
   border-color: #ededed;
+  background: #fcfcfc;
 }
 
 .input-group--upload {
@@ -615,11 +605,6 @@ body {
   font-size: 16px;
 }
 
-.textarea-group-primary .textarea-group__textarea:-webkit-autofill, .textarea-group-primary .textarea-group__textarea:-webkit-autofill:hover, .textarea-group-primary .textarea-group__textarea:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px inset #fff;
-          box-shadow: 0 0 0 1000px inset #fff;
-}
-
 .textarea-group-primary.textarea-group--active .textarea-group__title {
   font-size: 12px;
   margin-bottom: 3px;
@@ -636,8 +621,8 @@ body {
   background: #fff;
   border-radius: 10px;
   border: 2px solid #fafafa;
-  -webkit-transition: border .2s ease-in-out;
-  transition: border .2s ease-in-out;
+  -webkit-transition: border .2s ease-in-out, background .2s ease-in-out;
+  transition: border .2s ease-in-out, background .2s ease-in-out;
 }
 
 .textarea-group-secondary .textarea-group__title {
@@ -658,11 +643,6 @@ body {
   font-size: 14px;
 }
 
-.textarea-group-secondary .textarea-group__textarea:-webkit-autofill, .textarea-group-secondary .textarea-group__textarea:-webkit-autofill:hover, .textarea-group-secondary .textarea-group__textarea:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px inset #fff;
-          box-shadow: 0 0 0 1000px inset #fff;
-}
-
 .textarea-group-secondary.textarea-group--active .textarea-group__title {
   font-size: 10px;
   margin-bottom: 3px;
@@ -670,6 +650,7 @@ body {
 
 .textarea-group-secondary.textarea-group--focus {
   border-color: #ededed;
+  background: #fcfcfc;
 }
 
 button {

@@ -98,11 +98,6 @@
 
   .input-group__input
     font-size: 16px
-
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus
-      box-shadow: 0 0 0 1000px inset $color-white
   
   .input-group__visibility,
   .input-group__visibility-off
@@ -131,7 +126,7 @@
   background: $color-white
   border: 2px solid $color-almost-white
   border-radius: $border-radius-secondary
-  transition: border .2s ease-in-out
+  transition: border .2s ease-in-out, background .2s ease-in-out
   
   &:before,
   &:after
@@ -145,11 +140,6 @@
 
   .input-group__input
     font-size: 14px
-
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus
-      box-shadow: 0 0 0 1000px inset $color-white
   
   .input-group__visibility,
   .input-group__visibility-off
@@ -167,6 +157,7 @@
 
 .input-group-secondary.input-group--focus
   border-color: darken($color-almost-white, 5)
+  background: darken($color-white, 1)
 
 // ===========
 // input types
