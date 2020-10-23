@@ -74,6 +74,11 @@
   .textarea-group__textarea
     font-size: 16px 
 
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus
+      box-shadow: 0 0 0 1000px inset $color-white
+
 // textarea primary active 
 
 .textarea-group-primary.textarea-group--active
@@ -97,7 +102,7 @@
   background: $color-white
   border-radius: $border-radius-secondary
   border: 2px solid $color-almost-white
-  transition: background .2s ease-in-out, border .2s ease-in-out
+  transition: border .2s ease-in-out
 
   .textarea-group__title
     font-size: 14px
@@ -108,6 +113,11 @@
   
   .textarea-group__textarea
     font-size: 14px 
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus
+      box-shadow: 0 0 0 1000px inset $color-white
   
 // textarea secondary active 
 
@@ -120,5 +130,4 @@
 // textarea secondary focus
 
 .textarea-group-secondary.textarea-group--focus
-  background: darken($color-white, 1)
   border-color: darken($color-almost-white, 5)
