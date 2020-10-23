@@ -1,6 +1,6 @@
 <template>
   <main> 
-    <v-form>
+    <v-form :request="send">
       <password-input secondary/>
       <div style="height: 20px"></div> 
 
@@ -33,6 +33,13 @@ export default {
   data() {
     return {
 
+    }
+  },
+
+  methods: {
+    send() {
+      console.log('here');
+      return new Promise(resolve => setTimeout(resolve, 3000));
     }
   }
 }

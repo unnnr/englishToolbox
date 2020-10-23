@@ -7,6 +7,7 @@
         'input-group-secondary': secondary,
 
         'input-group--disabled': disabled,
+        'input-group--disabled': loading,
         'input-group--active': active,
         'input-group--focus': focused,
 
@@ -39,7 +40,7 @@
         :type=" hidden ? 'password' : null"
         :placeholder="placeholder"
         :maxlength="max"
-        :disabled="disabled"
+        :disabled="disabled || loading"
 
         @keydown="onKeyDown"
         @focus="onFocuse"
@@ -103,6 +104,7 @@ export default {
       entryHidden: false,
       validated: false,
       focused: false,
+      loading: false,
       
       entry: '',
       errors: []
