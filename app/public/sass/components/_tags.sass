@@ -1,0 +1,78 @@
+.tags 
+  display: flex
+  flex-wrap: wrap
+
+  .tag
+    margin-right: 10px
+    margin-bottom: 10px
+
+.tags__title
+  flex-basis: 100%
+  margin-bottom: 15px
+  color: $color-dark
+
+.tag
+  transition: background .2s ease-in-out
+  background: $color-semigray
+  color: $color-white
+  font-weight: $semibold
+  font-size: 12px
+  padding: 7px 10px
+  border-radius: 50px
+  min-height: 30px
+  align-items: center
+  height: max-content
+  display: flex
+  transition: color .3s
+  
+  &:hover 
+    cursor: pointer
+
+.tag--circle
+  height: 30px
+  min-width: 30px
+  border-radius: 100%
+  margin-right: -10px
+  position: relative
+
+.tag--new
+  background: none
+  box-shadow: inset 0px 0px 0px 2px $color-semigray
+  color: $color-semigray
+  flex-basis: 100%
+  max-width: max-content
+  padding: 7px 10px
+  transition: max-width .3s ease-in-out, min-width .3s ease-in-out, padding .3s ease-in-out, color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out
+
+  .tag__label
+    height: 15px
+    display: flex
+    align-items: center
+    color: inherit
+    margin-right: 5px
+
+    span
+      color: inherit
+      font-size: 19px
+
+.tag__input
+  font-size: 12px
+  font-weight: $semibold
+  color: inherit
+  min-width: 55px
+  width: 55px
+
+  &::placeholder
+    font-weight: $semibold
+    color: inherit
+
+.tag--main
+  z-index: $z-first
+
+  &:before
+    font-family: "Material Icons Round"
+    content: "star"
+    font-size: 15px
+    max-width: 15px
+    margin-right: 5px
+    align-self: center

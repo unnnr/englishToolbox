@@ -50,7 +50,7 @@
         </div>
         <div class="modal__footer">
           <submit-button 
-            class="leave-review__button button-second"
+            class="leave-review__button button-secondary"
             :loading="isLoading()">
             Confirm
           </submit-button> 

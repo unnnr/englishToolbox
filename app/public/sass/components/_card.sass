@@ -1,0 +1,156 @@
+.card
+  display: grid
+  grid-row-gap: 15px
+
+.card--rectangle  
+  .card__image
+    border: 5px solid $color-white
+    padding-bottom: 55%
+
+.card--add
+  .card__image
+    padding-bottom: 55%
+    background: $color-white
+    height: max-content
+
+    &:before
+      font-family: "material icons round"
+      content: "add"
+      color: $color-primary
+      font-size: 75px
+      width: 75px
+      height: 75px
+      position: absolute
+      left: 0
+      right: 0
+      top: 0
+      bottom: 0
+      margin: auto auto
+
+.card--selected
+  .card__image
+    border-color: $color-primary
+
+.card__image
+  position: relative
+  width: 100%
+  padding-bottom: 100%
+  background: $color-semigray
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+  @include background-image
+  margin-bottom: 30px
+  transition: border .3s ease-in-out
+
+.card__header
+  position: absolute
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 10px
+  user-select: none
+
+.card__favorite-button
+  height: 35px
+  min-width: 35px
+  border-radius: 100%
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &:before
+    font-family: "material icons round"
+    content: "favorite"
+    color: $color-semigray
+    font-size: 22px
+
+.card__favorite-button--active
+  &:before
+    color: $color-reddish
+
+.card__views 
+  padding: 0 14px
+  height: 30px
+  border-radius: 50px
+  font-size: 14px
+  font-weight: $semibold
+  color: $color-semigray
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &:before
+    font-family: "material icons round"
+    content: "visibility"
+    font-weight: $medium
+    margin-right: 5px
+
+.card__title
+  position: absolute
+  left: 0 
+  right: 0
+  margin: 0 auto
+  bottom: 0
+  transform: translateY(50%)
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 90%
+  height: 60px
+  padding: 0 15px
+  border-radius: 50px
+  background: $color-white
+  box-shadow: $box-shadow-primary
+
+  h6
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+    @include md-devices
+      user-select: none
+
+.card__text
+  max-width: 100%
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+
+  @include md-devices
+    user-select: none
+
+.card__date
+  padding: 0 14px
+  height: 30px
+  border-radius: 50px
+  font-size: 14px
+  font-weight: $semibold
+  color: $color-semigray
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  display: flex
+  justify-content: center
+  align-items: center
+
+  @include md-devices
+    user-select: none
+
+.card__footer
+  display: flex
+  justify-content: space-between
+
+.card__tags 
+  display: flex
+
+  .tag 
+    box-shadow: 0px 0px 0px 3px $color-almost-white
+    
+
+

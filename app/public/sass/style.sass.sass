@@ -122,6 +122,23 @@ body
   font-weight: $medium
   font-size: 1.4em  // 14px
 
+// ====
+// pool
+// ====
+
+.pool
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  grid-column-gap: 15px
+  grid-row-gap: 30px
+
+  @include lg-devices
+    grid-template-columns: 1fr 1fr
+
+  @include sm-devices
+    grid-template-columns: 1fr
+
+
 // ======================
 // sections for all pages
 // ======================
@@ -138,6 +155,8 @@ body
 @import components/textareas
 @import components/buttons
 @import components/alert
+@import components/card
+@import components/tags
 
 // =========
 // home page
@@ -158,4 +177,8 @@ body
   grid-template-columns: 500px
   grid-row-gap: 30px
 
+
+.pe
+  padding-top: 150px 
+  padding-bottom: 150px
 

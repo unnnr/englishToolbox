@@ -4,7 +4,6 @@
 		class="card__image"
 	 	@click="onClick">
 
-	<span class="card__add-icon material-icons-round">add</span>
 	<div class="card__title heading-fifth">Add new {{ postType }}</div>
 		</button>
 	</div>

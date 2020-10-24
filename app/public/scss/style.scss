@@ -53,65 +53,65 @@
   z-index: $z-fifth;
 }
 
-.pool {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -15px;
-  padding-top: 50px;
+// .pool {
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin: 0 -15px;
+//   padding-top: 50px;
 
-  .card {
-    margin-bottom: 75px;
+//   .card {
+//     margin-bottom: 75px;
 
-    @include xl-devices {
-      flex-basis: 50%;
-      padding: 0 7.5px;
-    }
+//     @include xl-devices {
+//       flex-basis: 50%;
+//       padding: 0 7.5px;
+//     }
 
-    @include md-devices {
-      flex-basis: 100%;
-      padding: 0;
-      margin-bottom: 50px;
-    }
-  }
+//     @include md-devices {
+//       flex-basis: 100%;
+//       padding: 0;
+//       margin-bottom: 50px;
+//     }
+//   }
 
-  @include xl-devices {
-    margin: 0 -7.5px;
-  }
+//   @include xl-devices {
+//     margin: 0 -7.5px;
+//   }
 
-  @include md-devices {
-    margin: 0;
-  }
-}
+//   @include md-devices {
+//     margin: 0;
+//   }
+// }
 
-.pool--three-columns {
+// .pool--three-columns {
 
-  .card {
-    @include xl-devices {
-      flex-basis: 50%;
-    }
+//   .card {
+//     @include xl-devices {
+//       flex-basis: 50%;
+//     }
   
-    @include md-devices {
-      flex-basis: 100%;
-    }
-  }
-}
+//     @include md-devices {
+//       flex-basis: 100%;
+//     }
+//   }
+// }
 
-.pool--four-columns {
+// .pool--four-columns {
 
-  .card {
-    @include xl-devices {
-      flex-basis: 33.3%;
-    }
+//   .card {
+//     @include xl-devices {
+//       flex-basis: 33.3%;
+//     }
   
-    @include lg-devices {
-      flex-basis: 50%;
-    }
+//     @include lg-devices {
+//       flex-basis: 50%;
+//     }
 
-    @include md-devices {
-      flex-basis: 100%;
-    }
-  }
-}
+//     @include md-devices {
+//       flex-basis: 100%;
+//     }
+//   }
+// }
 
 .order-wrapper {
   display: flex;
@@ -380,7 +380,7 @@ button {
 
 @import "components/alert";
 @import "components/context";
-@import "components/card";
+// @import "components/card";
 @import "components/comment";
 @import "components/comments";
 @import "components/description";

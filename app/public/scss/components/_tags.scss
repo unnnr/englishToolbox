@@ -176,120 +176,120 @@
 // ==============
 
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
+// .tags {
+//   display: flex;
+//   flex-wrap: wrap;
 
-  .tag {
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-}
+//   .tag {
+//     margin-right: 10px;
+//     margin-bottom: 10px;
+//   }
+// }
 
-.tags__title {
-  flex-basis: 100%;
-  margin-bottom: 15px;
-  color: $text-main;
-}
+// .tags__title {
+//   flex-basis: 100%;
+//   margin-bottom: 15px;
+//   color: $text-main;
+// }
 
-.tag {
-  transition: background .2s ease-in-out;
-  background: $text-third;
-  color: $text-fourth;
-  font-weight: $semibold;
-  font-size: 12px;
-  padding: 7px 10px;
-  border-radius: 50px;
-  min-height: 30px;
-  align-items: center;
-  height: max-content;
-  display: flex;
-  transition: color .3s;
-}
+// .tag {
+//   transition: background .2s ease-in-out;
+//   background: $text-third;
+//   color: $text-fourth;
+//   font-weight: $semibold;
+//   font-size: 12px;
+//   padding: 7px 10px;
+//   border-radius: 50px;
+//   min-height: 30px;
+//   align-items: center;
+//   height: max-content;
+//   display: flex;
+//   transition: color .3s;
+// }
 
-.tag--circle {
-  height: 30px;
-  min-width: 30px;
-  border-radius: 100%;
-  margin-right: -10px;
-  position: relative;
-  z-index: $z-first;
-}
+// .tag--circle {
+//   height: 30px;
+//   min-width: 30px;
+//   border-radius: 100%;
+//   margin-right: -10px;
+//   position: relative;
+//   z-index: $z-first;
+// }
 
-.tag--new {
-  background: none;
-  box-shadow: inset 0px 0px 0px 2px $text-third;
-  color: $text-third;
-  flex-basis: 100%;
-  max-width: max-content;
-  padding: 7px 10px;
-  transition:
-    max-width .3s ease-in-out,
-    min-width .3s ease-in-out,
-    padding .3s ease-in-out,
-    color .3s ease-in-out,
-    background .3s ease-in-out,
-    box-shadow .3s ease-in-out;
+// .tag--new {
+//   background: none;
+//   box-shadow: inset 0px 0px 0px 2px $text-third;
+//   color: $text-third;
+//   flex-basis: 100%;
+//   max-width: max-content;
+//   padding: 7px 10px;
+//   transition:
+//     max-width .3s ease-in-out,
+//     min-width .3s ease-in-out,
+//     padding .3s ease-in-out,
+//     color .3s ease-in-out,
+//     background .3s ease-in-out,
+//     box-shadow .3s ease-in-out;
 
-  .tag__label {
-    height: 15px;
-    display: flex;
-    align-items: center;
-    color: inherit;
-    margin-right: 5px;
+//   .tag__label {
+//     height: 15px;
+//     display: flex;
+//     align-items: center;
+//     color: inherit;
+//     margin-right: 5px;
 
-    span {
-      color: inherit;
-      font-size: 19px;
-    }
-  }
-}
+//     span {
+//       color: inherit;
+//       font-size: 19px;
+//     }
+//   }
+// }
 
-.tag__input {
-  font-size: 12px;
-  font-weight: $semibold;
-  color: inherit;
-  min-width: 55px;
-  width: 55px;
+// .tag__input {
+//   font-size: 12px;
+//   font-weight: $semibold;
+//   color: inherit;
+//   min-width: 55px;
+//   width: 55px;
 
-  &::placeholder {
-    font-weight: $semibold;
-    color: inherit;
-  }
+//   &::placeholder {
+//     font-weight: $semibold;
+//     color: inherit;
+//   }
 
-  &:hover {
-    cursor: pointer;
-  }
-}
+//   &:hover {
+//     cursor: pointer;
+//   }
+// }
 
-.tag--checkbox {
-  &:before {
-    font-family: "Material Icons Round";
-    content: "star";
-    font-size: 15px;
-    max-width: 0;
-    overflow: hidden;
-    transition: max-width .1s;
-  }
-}
+// .tag--checkbox {
+//   &:before {
+//     font-family: "Material Icons Round";
+//     content: "star";
+//     font-size: 15px;
+//     max-width: 0;
+//     overflow: hidden;
+//     transition: max-width .1s;
+//   }
+// }
 
-.tag--main {
-  &:before {
-    font-family: "Material Icons Round";
-    content: "star";
-    font-size: 15px;
-    max-width: 15px;
-    margin-right: 5px;
-    align-self: center;
-  }
-}
+// .tag--main {
+//   &:before {
+//     font-family: "Material Icons Round";
+//     content: "star";
+//     font-size: 15px;
+//     max-width: 15px;
+//     margin-right: 5px;
+//     align-self: center;
+//   }
+// }
 
-.tag__checkbox {
-  display: none;
-}
+// .tag__checkbox {
+//   display: none;
+// }
 
-.tag__label {
-  &:hover {
-    cursor: pointer;
-  }
-}
+// .tag__label {
+//   &:hover {
+//     cursor: pointer;
+//   }
+// }

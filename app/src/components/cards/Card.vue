@@ -17,13 +17,8 @@
 				<button 
 					class="card__favorite-button"
 					@click.stop="">
-
-						<span class="card__favorite-icon material-icons-round">favorite</span>
 				</button>
-				<div class="card__views">
-					<span class="card__views-icon material-icons-round">visibility</span>
-					<span class="card__views-count">{{ generatedView }}</span>
-				</div>
+				<div class="card__views">{{ generatedView }}</div>
 			</div>
 			<!-- <h5 class="card__title heading-fifth">{{ title }}</h5> -->
 			<div class="card__title">
@@ -37,14 +32,9 @@
 				<div class="card__tags">
 					<div 
 						class="card__tag-secondary card__tag tag tag--circle"
-						v-for="({label, color}, index) in tags"
+						v-for="({color}, index) in tags"
 						:key="index"
 						:style="{'background-color': color}">
-							
-						<div class="card__tag-tooltip tooltip">
-							<div class="tooltip__arrow"></div>
-							<span class="tag__name" for="cb2">{{ label }}</span>
-						</div>
 					</div>
 					<button 
 						class="card__tag-main tag tag--main"
