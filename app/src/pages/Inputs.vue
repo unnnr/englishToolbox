@@ -1,15 +1,17 @@
 <template>
   <main> 
     <v-form :request="send">
-      <password-input secondary/>
+      <password-input optional secondary/>
       <div style="height: 20px"></div> 
 
 
-      <confirmation-input v-confirm="'password'"/>
+      <confirmation-input v-confirm="'passwords'"/>
       <div style="height: 20px"></div> 
 
       <div style="height: 20px"></div> 
       <v-textarea /> 
+
+      <v-file/>
 
       <button style="background-color: blue; padding: 20px;"/>
     </v-form>
@@ -24,6 +26,7 @@ import EmailInput from '@components/validation/EmailInput'
 import VTextarea from '@components/validation/VTextarea'
 import VInput from '@components/validation/VInput'
 import VForm from '@components/validation/VForm'
+import VFile from '@components/validation/VFile'
 
 export default {
   components: {
@@ -32,7 +35,8 @@ export default {
     //EmailInput,
     VForm,
     //VInput,
-    VTextarea
+    VTextarea,
+    VFile
   },
 
   data() {
@@ -43,8 +47,7 @@ export default {
 
   methods: {
     send() {
-      console.log('here');
-      return new Promise(resolve => setTimeout(resolve, 3000));
+      return new Promise(resolve => setTimeout(() => {console.log(12); resolve()}, 3000));
     }
   }
 }

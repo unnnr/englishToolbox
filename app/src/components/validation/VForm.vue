@@ -27,6 +27,12 @@ export default {
     }
   },
 
+  provide() {
+    return {
+      secondary: this.secondary,
+    }
+  },
+
   methods: {
     validateInputs() {
       let allAreValid = true;

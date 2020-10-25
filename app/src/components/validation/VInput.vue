@@ -91,19 +91,19 @@ export default {
 
     disabled: { type: Boolean, default:false },
 
-    secondary: {type: Boolean, default: false},
-
     forceHidden: { type: Boolean, default: false },
 
     visibilityButtoned: { type: Boolean, default: false },
   },
 
+  inject: [ 'secondary' ],
+
   data: function () {
     return {
+      loading: false,
       entryHidden: false,
       validated: false,
       focused: false,
-      loading: false,
       
       entry: '',
       errors: []
