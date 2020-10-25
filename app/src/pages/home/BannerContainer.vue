@@ -1,8 +1,8 @@
 <template>
 	<section class="banner container">
 		<swiper
-			ref="swiper"
 			class="banner__swiper"
+			ref="swiper"
 			:options="swiperOptions">
 
 			<swiper-slide 
@@ -122,9 +122,8 @@ export default {
 		},
 
 		createRedirect(path) {
-			return function () {
-				window.location = window.origin + '/' + path;
-			};
+			return () => 
+				this.$router.push(path) 
 		},
 	}
 }
