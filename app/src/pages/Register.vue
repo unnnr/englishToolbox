@@ -14,63 +14,7 @@
 
 			<confirmation-input v-confirm="'password'"/>
 
-			<div 
-				class="auth__input-group auth__input-group--email"
-				:class="'auth__input-group' + getIconGroup('email')">
-
-				<input 
-					class="auth__input input-main"
-					type="email"
-					name="email" 
-					placeholder="your email" 
-					v-model="data.email"
-					@blur="checkEmail"
-					required>
-
-				<small class="auth__input-error"> {{ errors.email }} </small>
-			</div>
-			<div 
-				class="auth__input-group auth__input-group--password"
-				:class="'auth__input-group' + getIconGroup('password')">
-				
-				<input 
-					class="auth__input input-main"
-					name="password" 
-					placeholder="your password" 
-					v-model="data.password"
-					:type="passwordType" 
-					:maxlength="rules.password.max"
-					:minlength="rules.password.min"
-					@blur="checkPassword"
-					required>
-
-				<button 
-					class="auth__input-visibility-button material-icons-round"
-					type="button"
-					@click="togglePreview">
-
-					{{ previewIcon }}
-				</button>
-				<small class="auth__input-error"> {{  errors.password }} </small>
-			</div>
-			<div 
-				class="auth__input-group auth__input-group--password"
-				:class="'auth__input-group' + getIconGroup('confirmation')">
-					
-					<input 
-						class="auth__input input-main" 
-						name="confirmation" 
-						placeholder="repeat password" 
-						v-model="data.confirmation"
-						:type="passwordType" 
-						:maxlength="rules.password.max"
-						:minlength="rules.password.min" 
-						@blur="checkConfirmation"
-						required>
-					
-					<small class="auth__input-error"> {{ errors.confirmation }} </small>
-			</div>
-
+		
 			<submit-button
 				class="auth__input-button button-main" 
 				ref="submitButton"
