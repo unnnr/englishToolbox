@@ -1,7 +1,10 @@
 <template>
-	<main class="login-in container">
+	<main class="auth auth--login container">
+
+		<img class="auth__poster" :src="imageUrl">
+
 		<v-form 
-			class="auth"
+			class="auth__form"
 			ref="form"
 			@input:incorrect="hadleErrors">
 
@@ -12,34 +15,34 @@
 			<password-input />
 		
 			<submit-button
-				class="auth__input-button button-main" 
+				class="button-primary" 
 				ref="submitButton"
 				:loading="isLoading()"/>
 
-			<div class="login-with">
-				<p class="login-with__text text-fourth">Or login with</p>
-				<div class="login-with__buttons">
-					<button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--google fab fa-google"></i></button>
-					<button class="login-with__button " type="button"><i class="login-with__icon login-with__icon--facebook fab fa-facebook"></i></button>
-					<button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--twetter fab fa-twitter"></i></button>
-				</div>
-				
+			<p class="auth__subtitle text-fourth">Or login with</p>
+
+			<div class="auth__buttons">
+				<button class="auth__button auth__button--google" type="button"></button>
+				<button class="auth__button auth__button--facebook" type="button"></button>
+				<button class="auth__button auth__button--twitter" type="button"></button>
+			</div>
+
+			<div class="auth__links">
 				<a 
-					class="login-with__link text-fourth"
+					class="auth__link text-fifth"
 					:href="registerUrl">
-					
-					Don`t have an account?
+					Don't have an account?
+				</a>
+				<a 
+					class="auth__link text-fifth"
+					href="#">
+					Forgot your password?
 				</a>
 			</div>
+
 		</v-form>
 
-		<div class="form__poster form__poster--login-in">
-			<object 
-				class="form__img"
-				type="image/svg+xml"
-				:data="imageUrl">
-			</object>
-		</div>
+
 	</main>
 </template>
 

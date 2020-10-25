@@ -1,0 +1,38 @@
+// =====
+// modal
+// =====
+
+.modal
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background: rgba(0, 0, 0, 0.5)
+  display: flex
+  justify-content: center
+  z-index: $z-fifth
+  backdrop-filter: saturate(180%) blur(10px)
+
+.modal__content
+  margin: 30px 0
+  padding: 20px
+  width: 500px
+  max-width: 500px
+  height: max-content
+  background: $color-white
+  border-radius: $border-radius-primary
+  display: grid
+  grid-row-gap: 30px
+
+.modal__header
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.modal__close-button
+  &:before
+    font-family: "Material Icons Round"
+    content: "clear"
+    color: $color-semigray
+    font-size: 25px

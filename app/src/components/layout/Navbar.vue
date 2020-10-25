@@ -19,16 +19,16 @@
 						{{ link.label }}
 					</router-link>
 			</nav>
-			<div class="navbar-desktop__aside">
+			<aside class="navbar-desktop__aside">
 					<router-link v-if="!!!profileShown"
-						class="navbar-desktop__aside-link navbar-desktop__aside-link--login-in"
+						class="navbar-desktop__aside-login-in"
 						to="Login">
 							
 						login in
 					</router-link>
 
 					<router-link v-if="!!!profileShown"
-						class="navbar-desktop__aside-link navbar-desktop__aside-link--sign-up"
+						class="navbar-desktop__aside-sign-up"
 						to="Register"> 
 							
 						sing up
@@ -42,15 +42,13 @@
 						<span class="material-icons-round">account_circle</span>
 					</router-link>
 
-			</div>
+			</aside>	
 		</div>
 
 		<div class="navbar-mobile">
 			<button  
 				class="navbar-mobile__button navbar-mobile__button--show"
 				@click="showMobileNav">
-					
-					<span class="material-icons-round">menu</span>
 			</button>
 			<router-link
 				class="navbar-mobile__logo"
@@ -69,14 +67,11 @@
 						class="navbar-mobile__account-link"
 						v-if="profileShown"
 						to="Profile">
-
-						<span class="material-icons-round">account_circle</span>
 					</router-link>
 						<button
 							class="navbar-mobile__button navbar-mobile__button--hide"
 							@click="hideMobileNav">
 							
-							<span class="material-icons-round">clear</span>
 						</button>
 				</div>
 					<router-link
@@ -120,7 +115,6 @@
 		</div>
 	</section>
 </template>
-`
 <script>
 
 import Auth from '@services/Auth';

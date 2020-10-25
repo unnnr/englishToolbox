@@ -1,7 +1,7 @@
 <template>
-	<main class="sign-up container">
+	<main class="auth auth--register container">
 		<v-form 
-			class="auth"
+			class="auth__form"
 			ref="form">
 
 			<h4 class="auth__title heading-fourth">Sing up</h4>
@@ -16,33 +16,30 @@
 
 		
 			<submit-button
-				class="auth__input-button button-main" 
+				class="button-primary" 
 				ref="submitButton"
 				:loading="isLoading()"/>
 
-			<div class="login-with">
-				<p class="login-with__text text-fourth">Or login with</p>
-				<div class="login-with__buttons">
-					<button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--google fab fa-google"></i></button>
-					<button class="login-with__button " type="button"><i class="login-with__icon login-with__icon--facebook fab fa-facebook"></i></button>
-					<button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--twetter fab fa-twitter"></i></button>
-				</div>
+			<p class="auth__subtitle text-fourth">Or login with</p>
+
+			<div class="auth__buttons">
+				<button class="auth__button auth__button--google" type="button"></button>
+				<button class="auth__button auth__button--facebook" type="button"></button>
+				<button class="auth__button auth__button--twitter" type="button"></button>
+			</div>
+
+			<div class="auth__links">
 				<a 
-					class="login-with__link text-fourth"
-					:href="loginUrl">
-					
+					class="auth__link text-fifth"
+					:href="registerUrl">
 					Already have an account?
 				</a>
 			</div>
 			
 		</v-form>
-		<div class="form__poster">
-				<object 
-					class="form__img"
-					type="image/svg+xml"
-					:data="imageUrl">
-				</object>
-		</div>
+
+		<img class="auth__poster" :src="imageUrl">
+
 	</main>
 </template>
 

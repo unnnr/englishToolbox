@@ -4,11 +4,12 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "/app/public/css/"
+      "savePath": "/app/public/css/",
     },
   ],
   "liveSassCompile.settings.includeItems": [
-    "app/public/scss/*",
+    "app/src/scss/*",
+    "app/src/sass/*",
   ],  
 
   "files.exclude": {

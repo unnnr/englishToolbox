@@ -9,20 +9,32 @@
   outline: none
   box-sizing: border-box
   text-decoration: none
- 
-textarea 
-  resize: none
 
 textarea,
 input,
-select
+select,
+button
   border: none
   background: transparent
 
-button
-  background: none
+textarea 
+  resize: none
 
 html,
-body,
-main
+body
   min-height: 100vh
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus
+  -webkit-background-clip: text
+
+input,
+textarea,
+button,
+select,
+a
+  -webkit-tap-highlight-color: transparent
