@@ -3,7 +3,7 @@ const HandleTextValidation = {
 		// Properties 
 		placeholder: { type: String,  default: null},
 
-		label: { type: String, default: 'Your text'},
+		label: { type: String, default: 'Your text' },
 
 		name: { type: String, default: null },
 

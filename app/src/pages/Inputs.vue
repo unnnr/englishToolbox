@@ -11,7 +11,7 @@
       <div style="height: 20px"></div> 
       <v-textarea /> 
 
-      <v-file/>
+      <v-file icon="audio"/>
 
       <button style="background-color: blue; padding: 20px;"/>
     </v-form>
