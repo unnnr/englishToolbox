@@ -30,12 +30,17 @@
     <textarea 
       class="textarea-group__textarea"
       ref="input" 
+
       v-model="entry"
 
       :placeholder="placeholder"
       :maxlength="max"
+      :style="{ 
+        'height': this.height
+      }"
 
       @focus="onFocus"
+      @input="onInput"
       @blur="onBlur">
     </textarea>
   </div>
@@ -50,17 +55,32 @@ export default {
 
   data() {
     return {
-      counting: true
+      counting: true,
+      height: 0
+    }
+  },
+  
+  methods: {
+    async onInput() {
+      this.height = 'auto';
+      
+      await this.$nextTick();
+
+      this.height = this.$refs.input.scrollHeight + 1 + 'px';
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+
 .fade-enter-active, .fade-leave-active 
   transition: opacity .5s;
 
 .fade-enter, .fade-leave-to
   opacity: 0;
+
+.textarea-group__textarea
+  max-height: 200px
 
 </style>
