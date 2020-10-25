@@ -1,20 +1,20 @@
 <template>
   <v-input
+    placeholder="Some placeholder"
+    label="Your passowrd"
+    icon="password"
+    name="password"
+
     v-name="'password'"
-    v-validate
-    
-    :label="label"
-    :icon="icon"
-    :name="name"
 
-    :min="min"
-    :max="max"
+    :min="5"
+    :max="64"
 
-    :optional="optional"
-    :secondary="secondary"
+    :disabled="disabled"
     :force-hidden="forceHidden"
     
-    visibility-buttoned/>
+    visibility-buttoned
+    v-validate/>
 </template>
 
 <script>
@@ -27,31 +27,9 @@ export default {
   },
 
   props: {
-    optional: { type: Boolean, default: false },
-
-    // disabled: { type: Boolean, default:false },
-
-    secondary: {type: Boolean, default: false},
+    disabled: { type: Boolean, default:false },
 
     forceHidden: { type: Boolean, default: false },
-  },
-
-  data() {
-    return {
-      placeholder: 'some placeholder',
-      label: 'Your password',
-      icon: 'password',
-      name: 'password',
-
-      min: 5,
-      max: 64
-    }
-  },
-
-  methods: {
-    submitting() {
-      
-    }
   }
 }
 </script>

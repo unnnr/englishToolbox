@@ -1,8 +1,10 @@
 <template>
   <v-input
-    :submitting="submitting"
-    :label="label"
-    :icon="icon"/>
+    placeholder="some@email.com"
+    label="Your email"
+    icon="email"
+    
+    :validating="validating"/>
 </template>
 
 <script>
@@ -26,7 +28,7 @@ export default {
   },
 
   methods: {
-    submitting(data) {
+    validating(data) {
       
     }
   }

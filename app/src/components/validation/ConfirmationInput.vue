@@ -6,7 +6,6 @@
     :validating="validating"
 
     :force-hidden="hidden"
-    :optional="optional"
     :disabled="optional"
 
     :label="label"
