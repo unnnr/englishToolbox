@@ -62,51 +62,26 @@
 </template>
 
 <script>
+
+import HandleTextValidation from '@mixins/HandleTextValidation'
+
 export default {
+
+  mixins: [ HandleTextValidation ],
+
   props: {
-    // Properties 
-    placeholder: { type: String,  default: null},
-    
-    label: { type: String, default: null },
-
-    name: { type: String, default: null},
-
     icon: { type: String, default: null},
 
-    max: { type: Number, default: null },
-
-    min: { type: Number, default: null },
-
-    // Callback
-    submitting: { type: Function, default: null },
-
-    validating: { type: Function, default: null },
-
-    inputing: { type: Function, default: null },
-
-    // Booleans 
     counting: { type: Boolean, default: false },
-
-    optional: { type: Boolean, default: false },
-
-    disabled: { type: Boolean, default:false },
 
     forceHidden: { type: Boolean, default: false },
 
     visibilityButtoned: { type: Boolean, default: false },
   },
 
-  inject: [ 'secondary' ],
-
   data: function () {
     return {
-      loading: false,
       entryHidden: false,
-      validated: false,
-      focused: false,
-      
-      entry: '',
-      errors: []
     }
   },
 

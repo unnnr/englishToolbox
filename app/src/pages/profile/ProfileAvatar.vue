@@ -24,7 +24,7 @@ export default {
   data: function() {
     return {
       loading: false,
-      image: 'someeeeeee'
+      image: '#'
     }
   },
 
