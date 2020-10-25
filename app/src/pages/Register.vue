@@ -1,29 +1,19 @@
 <template>
 	<main class="sign-up container">
-		<request-form 
+		<v-form 
 			class="auth"
-			ref="form"
-			:submit-callback="submit"
-			@input:incorrect="hadleErrors">
+			ref="form">
 
 			<h4 class="auth__title heading-fourth">Sing up</h4>
-			<div 
-				class="auth__input-group auth__input-group--account"
-				:class="'auth__input-group' + getIconGroup('name')">
 
-				<input 
-					class="auth__input input-main" 
-					name="name" 
-					type="text" 
-					placeholder="your name" 
-					v-model="data.name"
-					:maxlength="rules.name.max"
-					:minlength="rules.name.min" 
-					@blur="checkName"
-					required>
+			<name-input />
 
-				<small class="auth__input-error"> {{ errors.name }}</small>
-			</div>
+			<email-input />
+
+			<password-input />
+
+			<confirmation-input v-confirm="'password'"/>
+
 			<div 
 				class="auth__input-group auth__input-group--email"
 				:class="'auth__input-group' + getIconGroup('email')">
@@ -100,7 +90,8 @@
 					Already have an account?
 				</a>
 			</div>
-		</request-form>
+			
+		</v-form>
 		<div class="form__poster">
 				<object 
 					class="form__img"
@@ -119,10 +110,22 @@ import SubmitButton from '@components/SubmitButton'
 import RequestForm from '@components/RequestForm'
 import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
+
+import ConfirmationInput from '@components/validation/ConfirmationInput'
+import PasswordInput from '@components/validation/PasswordInput'
+import EmailInput from '@components/validation/EmailInput'
+import NameInput from '@components/validation/NameInput'
+import VForm from '@components/validation/VForm'
+
+
 export default {
     components: {
+			ConfirmationInput,
+			PasswordInput,
 			SubmitButton,
-			RequestForm
+			EmailInput,
+			NameInput,
+			VForm
     },
     
 	data: function() {

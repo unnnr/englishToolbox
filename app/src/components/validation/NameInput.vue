@@ -1,6 +1,6 @@
 <template>
   <v-input
-    placeholder="Brikus"
+    placeholder="Brikys"
     label="Your name"
     icon="profile"
     
