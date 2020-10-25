@@ -66,7 +66,6 @@
 import HandleTextValidation from '@mixins/HandleTextValidation'
 
 export default {
-
   mixins: [ HandleTextValidation ],
 
   props: {
@@ -79,62 +78,13 @@ export default {
     visibilityButtoned: { type: Boolean, default: false },
   },
 
-  data: function () {
+  data() {
     return {
       entryHidden: false,
     }
   },
 
   computed: {
-    message() {
-      let message = this.incorrect ? 
-        this.errors[0] : this.label;
-
-      // capitalizing first
-      let capitalized = 
-        message.charAt(0).toUpperCase() + message.slice(1);
-
-      return capitalized;
-    },
-
-    counter() {
-      return Number.isInteger(this.max) ? 
-        this.entry.length + '/' + this.max : this.entry.length;
-    },
-
-    entryNearMax() {
-      if (this.max === null && this.max)
-        return false;
-
-      const BOUNDARY = 70;
-      let fillingPercent = this.entry.length * 100 / this.max;
-
-      return fillingPercent >= BOUNDARY;
-    },
-
-    counterShown() {
-      if (this.max !== null && !!!this.entryNearMax)
-        return false;
-
-      return this.counting || this.max !== null;
-    },
-
-    formatedName() {
-      return this.name || 'this field';
-    },
-
-    incorrect() {
-      return Boolean(this.errors.length);
-    },
-
-    active() {
-      return this.focused || this.entry.length !== 0;
-    },
-
-    primary() {
-      return !!!this.secondary;
-    },
-
     isPassword() {
       return this.icon === 'password'
     },
@@ -171,97 +121,6 @@ export default {
         this.$emit('input:hidden');
       else  
         this.$emit('input:shown')
-    },
-    
-    onClick(event) {
-      this.$refs.input.focus();
-    },
-
-    onKeyDown(event) {
-      // Preventing form submittin on enter 
-      if (event.key === 'Enter')
-      { 
-        this.$refs.input.blur();
-        event.preventDefault();
-
-        return;
-      }
-      
-      // Invoking validate callback
-      let options = {
-        key: event.key,
-        keyCode: event.keyCode,
-        currentEntry: this.entry 
-      };
-
-      if (this.inputing && this.inputing(options))
-        this.event.preventDefault()
-    },
-
-    onFocus() {
-      if (this.$options.focusing)
-        clearTimeout(this.$options.focusing);
-
-      this.focused = true;
-    },
-
-    onBlur() {
-      const DELAY = 170;
-      
-      if (this.$options.focusing)
-        clearTimeout(this.$options.focusing);
-
-      // Preventing redundant events
-      this.$options.focusing =
-        setTimeout(() => {
-          this.focused = false;
-          this.$options.focusing = null;
-
-          this.validate();
-        }, DELAY);
-    },
-
-    validate() {
-      this.errors = this.collectErrors();
-
-      this.validated = !!!this.incorrect;
-
-      return this.validated;
-    },
-
-    // Validates input
-    collectErrors() {
-      let errors = [];
-      
-      // Empty field can have only 'required error'
-      if (!!!this.entry.length)
-      {
-        if (!!!this.optional)
-          errors.push(this.formatedName + ' cant be empty');
-
-        return errors;
-      }
-        
-      // Default validation rules
-      if (this.min !== null && this.entry.length < this.min)
-        errors.push(this.formatedName + ' must be longer than ' + this.min + ' characters')
-
-      // Custom validation rules
-      if (this.validating)
-        this.validating(errors, this.entry);
-
-      return errors;
-    },
-
-    // Collect data
-    submit(data) {
-      if (this.submitting)
-        return this.submitting(data);
-
-      if (!!!this.name)
-        return;
-
-      data.append(this.name, this.entry);
     }
   }
 }
