@@ -106,7 +106,7 @@ export default {
 
       let entry = this.$refs.input.entry;
 
-      data.append(this.target.name, entry);
+      data.append(this.target.name + '_confirmation', entry);
     }
   }
 }

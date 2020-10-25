@@ -1,17 +1,18 @@
 <template>
   <main> 
     <v-form :request="send">
+      
       <password-input optional secondary/>
       <div style="height: 20px"></div> 
 
-
-      <confirmation-input v-confirm="'passwords'"/>
+      <confirmation-input v-confirm="'password'"/>
       <div style="height: 20px"></div> 
 
+      <v-textarea name="not" v-validate/> 
       <div style="height: 20px"></div> 
-      <v-textarea /> 
 
-      <v-file icon="audio"/>
+      <v-file name="some" icon="audio"  v-validate/>
+      <div style="height: 20px"></div> 
 
       <button style="background-color: blue; padding: 20px;"/>
     </v-form>
@@ -46,8 +47,8 @@ export default {
   },
 
   methods: {
-    send() {
-      return new Promise(resolve => setTimeout(() => {console.log(12); resolve()}, 3000));
+    send(data) {
+      return new Promise(resolve => setTimeout(() =>  resolve(), 3000));
     }
   }
 }

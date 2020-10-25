@@ -110,8 +110,7 @@ export default {
 
     collectErrors() {
       let errors = [];
-      
-      // Empty field can have only 'required error'
+
       if (!!!this.file)
       {
         if (!!!this.optional)
@@ -120,7 +119,8 @@ export default {
         return errors;
       }
 
-      // max rules
+      if (this.max !== null && this.file.size > this.max)
+        errors.push('File is too large');
 
       return errors;
 		},
