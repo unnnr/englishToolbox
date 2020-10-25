@@ -1,52 +1,16 @@
 <template>
 	<main class="login-in container">
-		<request-form 
+		<v-form 
 			class="auth"
 			ref="form"
-			:submit-callback="submit"
 			@input:incorrect="hadleErrors">
 
 			<h4 class="auth__title heading-fourth">login in</h4>
-			<div
-					class="auth__input-group auth__input-group--account"
-					:class="'auth__input-group' + getIconGroup('email')">
+			
+			<email-input /> 
 
-					<input 
-						class="auth__input input-main"
-						placeholder="your email"
-						type="text" 
-						name="email"
-						v-model="data.email"
-						@blur="checkEmail" 
-						required>
-
-				<small class="auth__input-error">{{ errors.email }}</small>
-			</div>
-			<div 
-				class="auth__input-group auth__input-group--password"
-				:class="'auth__input-group' + getIconGroup('password')">
-				
-				<input
-					class="auth__input input-main"
-					placeholder="your password"
-					name="password" 
-					v-model="data.password"
-					:type="passwordType" 
-					:maxlength="rules.password.max"
-					:minlength="rules.password.min" 
-					@blur="checkPassword"
-					required>
-
-					<button
-						class="auth__input-visibility-button material-icons-round"
-						type="button"
-						@click="togglePreview">
-				
-						{{ previewIcon }}
-					</button>
-					<small class="auth__input-error">{{ errors.password }}</small>
-			</div>
-
+			<password-input />
+		
 			<submit-button
 				class="auth__input-button button-main" 
 				ref="submitButton"
@@ -59,6 +23,7 @@
 					<button class="login-with__button " type="button"><i class="login-with__icon login-with__icon--facebook fab fa-facebook"></i></button>
 					<button class="login-with__button" type="button"><i class="login-with__icon login-with__icon--twetter fab fa-twitter"></i></button>
 				</div>
+				
 				<a 
 					class="login-with__link text-fourth"
 					:href="registerUrl">
@@ -66,7 +31,7 @@
 					Don`t have an account?
 				</a>
 			</div>
-		</request-form>
+		</v-form>
 
 		<div class="form__poster form__poster--login-in">
 			<object 
@@ -84,12 +49,18 @@ import bus from '@services/eventbus'
 import Auth from '@services/Auth'
 import SubmitButton from '@components/SubmitButton';
 import RequestForm from '@components/RequestForm';
-import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
+// import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
+
+import PasswordInput from '@components/validation/PasswordInput'
+import EmailInput from '@components/validation/EmailInput'
+import VForm from '@components/validation/VForm'
 
 export default {
 	components: {
+		PasswordInput,
 		SubmitButton,
-		RequestForm
+		EmailInput,
+		VForm
 	},
     
 	data: function() {

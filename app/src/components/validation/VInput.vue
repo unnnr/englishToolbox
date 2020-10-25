@@ -14,6 +14,7 @@
         'input-group--error' : incorrect,
 
         'input-group--password': isPassword,
+        'input-group--profile': isProfile,
         'input-group--email': isEmail,
       }"
       @click="onClick">
@@ -91,6 +92,10 @@ export default {
 
     isEmail() {
       return this.icon === 'email'
+    },
+
+    isProfile() {
+      return this.profile === 'profile'
     },
 
     hidden() {
