@@ -14,7 +14,7 @@
       <v-file name="some" icon="audio"  v-validate/>
       <div style="height: 20px"></div> 
 
-      <button style="background-color: blue; padding: 20px;"/>
+      <button style="backg  round-color: blue; padding: 20px;"/>
     </v-form>
   </main>
 </template>
