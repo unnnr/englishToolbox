@@ -7,11 +7,11 @@
 
     v-name="'password'"
 
-    :min="5"
     :max="64"
+    :min="5"
 
-    :disabled="disabled"
     :force-hidden="forceHidden"
+    :disabled="disabled"
     
     visibility-buttoned
     v-validate/>

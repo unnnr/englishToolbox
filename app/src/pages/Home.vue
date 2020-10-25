@@ -15,13 +15,12 @@
 </template>
 
 <script>
+
 import BannerContainer from '@pages/home/BannerContainer'
 import UpdateContainer from '@pages/home/UpdateContainer'
 import ReviewsEditor from '@pages/home/ReviewsEditor'
 import Reviews from '@pages/home/Reviews'
 import AboutMe from '@pages/home/AboutMe'
-
-
 
 export default {
   components: {
@@ -34,8 +33,10 @@ export default {
 }
 </script>
 
-<style>
-  .basement {
-    background-color: black;
-  }
+<style lang="sass">
+  .footer
+    background: darken($color-almost-white, 4)
+
+  .copyright
+    background: darken($color-almost-white, 6)
 </style>
