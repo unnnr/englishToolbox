@@ -3,6 +3,7 @@
     placeholder="some@email.com"
     label="Your email"
     icon="email"
+    name="email"
     
     :validating="validating"/>
 </template>

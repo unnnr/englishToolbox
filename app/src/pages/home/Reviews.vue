@@ -2,15 +2,15 @@
   <section class="reviews container">
     <h2 class="reviews__title heading-second">Student reviews</h2>
     <swiper 
-      class="reviews__cards" 
+      class="reviews__swiper"
       :options="swiperOptions">
 
       <swiper-slide 
         class="reviews__card"
-        v-for="review in reviews" 
+        v-for="review in 10" 
         :key="review.id">
         
-        <div class="reviews__card-person">
+     <!--    <div class="reviews__card-person">
           <div class="reviews__card-photo"></div>
           <h5 class="reviews__card-name heading-fifth">
             {{ review.user.name }}
@@ -38,7 +38,25 @@
           <span class="reviews__card-rating">
             {{ review.grade }}
           </span>
+        </div> -->
+
+      <div class="reviews__card-person">
+        <div class="reviews__card-photo"></div>
+          <h5 class="reviews__card-name heading-fifth">Person Name</h5>
         </div>
+        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
+        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+        <div class="review__grade">
+          <div class="review__stars">
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+            <div class="review__star review__star--selected"></div>
+          </div>
+          <span class="review__rating">5</span>
+        </div>
+
       </swiper-slide>
     </swiper>
   <button 
