@@ -1,11 +1,6 @@
 
 /* selected */
 
-.container 
-  padding: 50px 150px
-  @include xs-devices
-    padding: 50px 10px
-
 .selected
   position: relative
   display: grid
@@ -34,6 +29,13 @@
   border-radius: $border-radius-primary
   box-shadow: $box-shadow-primary
   padding-bottom: 56.25%
+
+  iframe
+    position: absolute
+    height: 100%
+    width: 100%
+    left: 0
+    top: 0
 
 .player__overlay 
   position: absolute

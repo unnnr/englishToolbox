@@ -2394,16 +2394,6 @@ button:active {
 }
 
 /* selected */
-.container {
-  padding: 50px 150px;
-}
-
-@media (max-width: 576px) {
-  .container {
-    padding: 50px 10px;
-  }
-}
-
 .selected {
   position: relative;
   display: -ms-grid;
@@ -2442,6 +2432,14 @@ button:active {
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
   padding-bottom: 56.25%;
+}
+
+.player iframe {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
 }
 
 .player__overlay {
