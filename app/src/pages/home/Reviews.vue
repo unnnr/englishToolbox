@@ -7,25 +7,23 @@
 
       <swiper-slide 
         class="reviews__card"
-        v-for="review in 10" 
+        v-for="review in reviews" 
         :key="review.id">
         
-     <!--    <div class="reviews__card-person">
-          <div class="reviews__card-photo"></div>
+      <div class="reviews__card-person">
+        <div class="reviews__card-photo"></div>
           <h5 class="reviews__card-name heading-fifth">
             {{ review.user.name }}
           </h5>
         </div>
-        <div class="reviews__card-content">
-          <h5 class="reviews__card-title heading-fifth">
-            {{ review.title }}
-          </h5>
-          <p class="reviews__card-text text-third"> 
-            {{ review.text }}
-          </p>
-        </div>
-        <div class="reviews__card-grade">
-          <div class="reviews__card-stars">
+        <h5 class="reviews__card-title heading-fifth">
+          {{ review.title }}
+        </h5>
+        <p class="reviews__card-text text-third"> 
+          {{ review.text }}
+        </p>
+        <div class="review__grade">
+          <div class="review__stars">
             <div 
               v-for="id in 5"
               class="reviews__card-star"
@@ -34,25 +32,6 @@
                 'reviews__card-star--full': id <= review.grade 
               }">
             </div>
-          </div>
-          <span class="reviews__card-rating">
-            {{ review.grade }}
-          </span>
-        </div> -->
-
-      <div class="reviews__card-person">
-        <div class="reviews__card-photo"></div>
-          <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-        </div>
-        <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-        <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        <div class="review__grade">
-          <div class="review__stars">
-            <div class="review__star review__star--selected"></div>
-            <div class="review__star review__star--selected"></div>
-            <div class="review__star review__star--selected"></div>
-            <div class="review__star review__star--selected"></div>
-            <div class="review__star review__star--selected"></div>
           </div>
           <span class="review__rating">5</span>
         </div>
@@ -91,7 +70,11 @@ export default {
   data: function() {
     return {
       swiperOptions:{
-				slidesPerView: 'auto',
+        slidesPerView: 'auto',
+        
+        
+        spaceBetween: 30
+
       },
 
       reviews: [],
