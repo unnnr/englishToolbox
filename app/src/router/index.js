@@ -36,7 +36,9 @@ const routes = [
   { path: '*', name: 'NotFound', component: () => import('@pages/NotFound') },
 
 
+  // temp -> 
   { path: '/inputs', name: 'inputs', component: () => import('@pages/Inputs') },
+  { path: '/posts', name: 'inputs', component: () => import('@pages/Post') },
 ]
 
 const router = new VueRouter({
