@@ -1,95 +1,30 @@
 <template>
   <section class="selected container">
 
-    <div class="selected__overlay container">
-      <div class="selected__overlay-body"></div>
-    </div>
+    <post-selected-overlay/>
 
-    <div class="player">
-      <div class="player__overlay"></div>
-    </div>
+    <post-player>
+      <slot name="player"/>
+    </post-player>
 
-    <div class="addition">
-
-      <div class="addition__header">
-        <button>Description</button>
-        <button>Comments</button>
-        <button>Editor</button>
-      </div>
-
-      <div class="addition__tabs">
-
-        <div class="addition__tab description">
-          <div class="addition__tab-header">
-            <h5>Description title</h5>
-          </div>
-          <div class="addition__tab-body">
-            <p class="description__text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum. Vestibulum mattis ullamcorper
-              velit sed ullamcorper morbi tincidunt ornare massa. Id venenatis a condimentum vitae sapien. Tincidunt
-              tortor aliquam nulla facilisi cras. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor
-              aliquam nulla. Dolor morbi non arcu risus quis varius quam quisque. Cras semper auctor neque vitae. Enim
-              ut tellus elementum sagittis vitae et leo duis. Adipiscing vitae proin sagittis nisl rhoncus. Nec
-              ultrices dui sapien eget. Vitae ultricies leo integer malesuada.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum. Vestibulum mattis ullamcorper
-              velit sed ullamcorper morbi tincidunt ornare massa. Id venenatis a condimentum vitae sapien. Tincidunt
-              tortor aliquam nulla facilisi cras. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor
-              aliquam nulla. Dolor morbi non arcu risus quis varius quam quisque. Cras semper auctor neque vitae. Enim
-              ut tellus elementum sagittis vitae et leo duis. Adipiscing vitae proin sagittis nisl rhoncus. Nec
-              ultrices dui sapien eget. Vitae ultricies leo integer malesuada.
-            </p>
-          </div>
-          <div class="addition__tab-footer">
-            <date class="description__date">Oct 7 2020</date>
-            <span class="description__views">123</span>
-          </div>
-        </div>
-
-        <div class="addition__tab comments">
-          <div class="addition__tab-header">
-            <h5>Comments</h5>
-          </div>
-          <div class="addition__tab-body">
-            <small class="comments__count">6 comments</small>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-            <div class="comment"></div>
-          </div>
-          <div class="addition__tab-footer">
-            <div class="area"></div>
-          </div>
-        </div>
-
-        <div class="addition__tab editor">
-          <div class="addition__tab-header">
-            <h5>Video editing</h5>
-          </div>
-          <div class="addition__tab-body">
-            <p class="description__text"></p>
-          </div>
-          <div class="addition__tab-footer">
-            <button>Confirm</button>
-          </div>
-        </div>
-
-      </div>
-
-
-    </div>
+    <post-addition> 
+      <slot name="editor"/>
+    </post-addition>
 
   </section>
 </template>
 
 <script>
 
+import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
+import PostAddition from '@components/posts_new/PostAddition'
+import PostPlayer from '@components/posts_new/PostPlayer'
+
 export default {
-  
+  components: {
+    PostSelectedOverlay,
+    PostAddition,
+    PostPlayer
+  }
 }
 </script>

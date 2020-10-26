@@ -1,6 +1,13 @@
 <template>
   <main>
-    <post-selected />
+    <post-selected>
+
+      <template #player>
+        <img src="asdasdasdas">
+
+      </template> 
+
+    </post-selected>
 
     <div class="space"></div>
   </main>

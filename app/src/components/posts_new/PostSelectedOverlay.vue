@@ -1,5 +1,7 @@
 <template>
-  <div class="player__overlay"></div>
+    <div class="selected__overlay container">
+      <div class="selected__overlay-body"></div>
+    </div>
 </template>
 
 <script>
