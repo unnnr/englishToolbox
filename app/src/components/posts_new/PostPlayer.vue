@@ -1,12 +1,12 @@
 <template>
-  <div class="player">
-    
+  <div class="player">    
     <transition name="fade">
+
       <post-player-overlay v-if="overlayShown"/>
   
       <slot v-else/>
-    </transition>
 
+    </transition>
   </div>
 </template>
 

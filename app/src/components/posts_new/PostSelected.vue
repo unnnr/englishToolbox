@@ -1,16 +1,16 @@
 <template>
   <section class="selected container">
-
-    <post-selected-overlay v-if="overlayShown"/>
+    <transition name="fade">
+      <post-selected-overlay v-if="overlayShown"/>
+    </transition>
 
     <post-player>
       <slot name="player"/>
     </post-player>
-
+    
     <post-details> 
       <slot name="editor"/>
     </post-details>
-
   </section>
 </template>
 
@@ -41,9 +41,9 @@ export default {
     }
   },
 
-  computed: {
-    overlayShown() {
-      return false;
+  data() {
+    return {
+      overlayShown: true
     }
   }
 }
