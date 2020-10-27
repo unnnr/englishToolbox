@@ -77,11 +77,11 @@ export default {
 
 
 <style lang="sass">
+
 .fade-enter-active, .fade-leave-active 
-  transition: opacity .5s;
+  transition: opacity .5s !important
 
 .fade-enter, .fade-leave-to
-  opacity: 0;
-  position: absolute;
+  opacity: 0 !important
 
 </style>

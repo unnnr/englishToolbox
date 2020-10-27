@@ -14,7 +14,7 @@
       {{ description }}
     </p>
     
-    <div 
+   <!--  <div 
       class="alert__input input-group-secondary"
       v-if="prompt">
 
@@ -22,8 +22,19 @@
         <span class="input-group__title">Your input<small class="input-group__counter">0/100</small></span>
         <input class="input-group__input" placeholder="" type="text">
       </div>
+
         
-    </div>
+    </div> -->
+
+    <v-input 
+      v-model="entry"
+      label="Your confirmation"
+
+      :max="64"
+      :forceHidden="promptDotten"
+
+      colorless/>
+
 
     <div class="alert__buttons">
       <button 
@@ -60,10 +71,19 @@
 </template>
 
 <script>
-
-const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
+import VInput from '@components/validation/VInput'
 
 export default {
+  components: {
+    VInput
+  },
+
+  provide() {
+    return {
+      secondary: true
+    }
+  },
+
   data() {
 		return {
       entry: ''

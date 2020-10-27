@@ -10,8 +10,8 @@
         'input-group--active': active,
         'input-group--focus': focused,
 
-        'input-group--success': validated,
-        'input-group--error' : incorrect,
+        'input-group--success': validated && !!!colorless,
+        'input-group--error' : incorrect && !!!colorless,
 
         'input-group--password': isPassword,
         'input-group--profile': isProfile,
@@ -74,6 +74,8 @@ export default {
 
     counting: { type: Boolean, default: false },
 
+    colorless: { type: Boolean, default: false},
+
     forceHidden: { type: Boolean, default: false },
 
     visibilityButtoned: { type: Boolean, default: false },
@@ -130,12 +132,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .5s;
-
-.fade-enter, .fade-leave-to
-  opacity: 0;
-
-</style>

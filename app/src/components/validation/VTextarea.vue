@@ -74,12 +74,6 @@ export default {
 
 <style lang="sass" scoped>
 
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .5s;
-
-.fade-enter, .fade-leave-to
-  opacity: 0;
-
 .textarea-group__textarea
   max-height: 200px
 

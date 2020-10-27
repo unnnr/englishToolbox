@@ -26,3 +26,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+  .fade-enter, .fade-leave-to 
+    position: absolute
+    
+</style>
