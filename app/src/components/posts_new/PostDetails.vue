@@ -50,8 +50,6 @@ export default {
 
   computed: {
     infoSelected() {
-      console.log(this.$slots);
-      
       return this.activeTab === 'info';
     },
 
