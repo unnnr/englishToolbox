@@ -58,18 +58,21 @@
     </div>
 
     <div class="addition__tabs">
+      <transition name="fade">
 
-      <post-info v-if="infoSelected"/>
+        <post-info v-if="infoSelected"/>
 
-      <post-comments v-if="commentsSelected"/>
-      
-      <slot  v-if="editorShown && editorSelected"/>
+        <post-comments v-if="commentsSelected"/>
+        
+        <slot  v-if="editorShown && editorSelected"/>
 
-      <temp-video v-if="activeTab === 'video'"/>
-      
-      <temp-chart v-if="activeTab === 'chart'"/>
+        <temp-video v-if="activeTab === 'video'"/>
+        
+        <temp-chart v-if="activeTab === 'chart'"/>
 
-      <temp-audio v-if="activeTab === 'audio'"/>
+        <temp-audio v-if="activeTab === 'audio'"/>
+
+      </transition>
     </div>
   </div>
 </template>
@@ -128,8 +131,6 @@ export default {
     },
 
     selectEditor() {
-      console.log(this.$slots);
-
       this.activeTab = 'editor';
     }
   }
