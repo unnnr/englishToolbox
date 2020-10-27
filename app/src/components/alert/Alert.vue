@@ -13,20 +13,9 @@
     <p class="alert__description text-fourth">
       {{ description }}
     </p>
-    
-   <!--  <div 
-      class="alert__input input-group-secondary"
-      v-if="prompt">
-
-      <div class="input-group__inner">
-        <span class="input-group__title">Your input<small class="input-group__counter">0/100</small></span>
-        <input class="input-group__input" placeholder="" type="text">
-      </div>
-
-        
-    </div> -->
 
     <v-input 
+      v-if="prompt"
       v-model="entry"
       label="Your confirmation"
 
@@ -34,7 +23,6 @@
       :forceHidden="promptDotten"
 
       colorless/>
-
 
     <div class="alert__buttons">
       <button 

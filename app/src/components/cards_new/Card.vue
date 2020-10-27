@@ -1,5 +1,8 @@
 <template>
-  <div class="card">
+  <div 
+    class="card"
+    :class="{'card--rectangle': rectangular}">
+
     <div 
       class="card__image"
       :style="{'background': src}">
@@ -41,7 +44,9 @@ export default {
 
     views: { type: Number, default: 0 },
 
-    tags: { type: Array, default: () => [] }
+    tags: { type: Array, default: () => [] },
+
+    rectangular: { type: Boolean, default: false }
   },
 
   computed: {

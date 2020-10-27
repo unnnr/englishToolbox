@@ -7,7 +7,8 @@
       :title="generateTitle()"
       :description="generateDescription()"
       :views="generateViews()"
-      :createdAt="generateData()"/>
+      :createdAt="generateData()"
+      rectangular/>
   </div>
 </template>
 
