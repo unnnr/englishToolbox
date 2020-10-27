@@ -30,11 +30,11 @@ export default {
   props: {
     title: { type: String, default: '' },
 
-    views: { type: String, default: '' },
-
     createdAt: { type: String, default: '' },
 
     description: { type: String, default: '' },
+
+    views: { type: Number, default: 0 },
 
     tags: { type: Array, default: () => [] }
   }

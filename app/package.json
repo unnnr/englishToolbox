@@ -11,6 +11,7 @@
     "@babel/plugin-proposal-private-methods": "^7.10.4",
     "core-js": "^3.6.5",
     "eslint-plugin-class-property": "^1.1.0",
+    "faker": "^5.1.0",
     "get-youtube-id": "^1.0.1",
     "js-cookie": "^2.2.1",
     "swiper": "^6.2.0",
