@@ -1,10 +1,12 @@
 <template>
-  <div class="player">
-    <post-player-overlay/> 
+  <div class="player">    
+    <transition name="fade">
 
-      <iframe class="player__content" src="https://www.youtube.com/embed/yY7iGa4t9-I" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <post-player-overlay v-if="overlayShown"/>
+  
+      <slot v-else/>
 
-    <slot/>
+    </transition>
   </div>
 </template>
 
@@ -15,6 +17,19 @@ import PostPlayerOverlay from '@components/posts_new/PostPlayerOverlay'
 export default {
   components: {
     PostPlayerOverlay
+  },
+  
+  data() {
+    return {
+      overlayShown: false
+    };
   }
 }
 </script>
+
+<style lang="sass">
+
+  .fade-enter, .fade-leave-to 
+    position: absolute
+    
+</style>

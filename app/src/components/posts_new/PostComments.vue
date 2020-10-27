@@ -87,3 +87,31 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  inject: [ '$target' ],
+
+  computed: {
+    target() {
+      return this.$target();
+    },
+
+    comments() {
+      return this.target ? this.target.comments : [
+        { message: 'some' },
+        { message: 'some' },
+        { message: 'some' },
+        { message: 'some' },
+        { message: 'some' },
+        { message: 'some' },
+        { message: 'some' },
+      ];
+    },
+
+    counter() {
+      return this.comments.length + ' comments';
+    }
+  }
+}
+</script>

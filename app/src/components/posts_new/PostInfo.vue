@@ -28,3 +28,35 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  inject: [ '$target' ],
+
+  computed: {
+    target() {
+      return this.$target();
+    },
+
+    title() {
+      return this.target ? this.target.title : 'Something went wrong';
+    },
+
+    description() {
+      return this.target ? this.target.description : `Obviously, you're not allowed to see it, but... `;
+    },
+
+    tags() {
+      return this.target ? this.target.tags : [];
+    },
+
+    createdAt() {
+      return this.target ? this.target.createdAt : '';
+    },
+
+    views() {
+      return this.target ? this.target.views : '';
+    },
+  }
+}
+</script>

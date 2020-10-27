@@ -3,22 +3,31 @@
     <post-selected>
 
       <template #player>
-
       </template> 
+
+      <template #editor>
+        <post-editor/>
+      </template>
 
     </post-selected>
 
-    <div class="space"></div>
+
+    <pool/>
+    
   </main>
 </template>
 
 <script>
 
 import PostSelected from '@components/posts_new/PostSelected'
+import PostEditor from '@components/posts_new/PostEditor_TEMP'
+import Pool from '@components/cards_new/Pool'
 
 export default {
   components: {
-    PostSelected
+    PostSelected,
+    PostEditor,
+    Pool
   }
 }
 </script>

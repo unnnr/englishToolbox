@@ -1,55 +1,92 @@
 <template>
-  <div
-    class="alert"
-    :class="alertType">
+  <div class="modal__content alert"
+    :class="{
+      'alert--error': error,
+      'alert--warning': warning,
+      'alert--prompt': prompt,
+    }">
 
-    <span class="alert__header text-second"></span>
-    <p class="alert__description text-fifth">{{ message }}</p>
+    <span class="alert__title heading-fifth">
+      {{ title }}
+    </span>
 
-    <input
-      class="alert-input input-second"
-      v-if="prompt"
-      v-model="input"
-      :type="promptDotten ? 'password' : false"
-      placeholder="">
+    <p class="alert__description text-fourth">
+      {{ description }}
+    </p>
+    
+   <!--  <div 
+      class="alert__input input-group-secondary"
+      v-if="prompt">
+
+      <div class="input-group__inner">
+        <span class="input-group__title">Your input<small class="input-group__counter">0/100</small></span>
+        <input class="input-group__input" placeholder="" type="text">
+      </div>
+
+        
+    </div> -->
+
+    <v-input 
+      v-model="entry"
+      label="Your confirmation"
+
+      :max="64"
+      :forceHidden="promptDotten"
+
+      colorless/>
+
 
     <div class="alert__buttons">
-     
       <button 
-        class="alert__button alert__button--okay"
-        v-if="oneButton"
-        @click="okay">
-
-        got it
+        class="alert__button button--skeleton button-secondary"
+        v-if="cancelShown"
+        @click="cancel">
+        
+        Cancel
       </button>
 
-      <template v-else>
-        <button 
-          class="alert__button alert__button--cancel"
-          @click="cancel">
+      <button 
+        v-if="okShown"
+        class="alert__button button-secondary"
+        :class="{
+          'button--yellowish': warning,
+          'button--reddish': error,
+        }"
+        @click="okay">
+        
+        Ok
+      </button>
 
-          cancel
-        </button>
-        <button
-          class="alert__button alert__button--confirm"
-          @click="confirm">
-
-          Confirm
-        </button>
-      </template>
-     
+      <button 
+        class="alert__button button--bluish button-secondary"
+        v-if="confirmShown"
+        @click="confirm">
+      
+        
+        Confirm
+      </button>
     </div>
+    
   </div> 
 </template>
 
 <script>
-
-const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
+import VInput from '@components/validation/VInput'
 
 export default {
-  data: function() {
+  components: {
+    VInput
+  },
+
+  provide() {
+    return {
+      secondary: true
+    }
+  },
+
+  data() {
 		return {
-      input: ''
+      entry: ''
 		}   
   },
   
@@ -76,18 +113,40 @@ export default {
   },
 
   computed: {
-		alertType() {
-			if (this.warning)
-				return 'alert--warning';
+    title() {
+      if (this.warning)
+        return 'Are you sure?'
 
-			if (this.prompt)
-				return 'alert--prompt';
+      if (this.prompt)
+        return 'Enter confirmation here'
 
-			return 'alert--error';
+      return 'Something went wrong';
+    },
+
+    description() {
+      if (this.message.length > 0)
+        return this.message;
+
+      if (this.error)
+        return 'Please try again';
+
+      return '';
+    },
+
+    error() {
+     return !!!this.warning && !!!this.prompt;
     },
     
-    oneButton() {
-      return !!!this.warning && !!!this.prompt;
+    cancelShown() {
+      return this.warning || this.prompt;
+    },
+
+    okShown() {
+      return this.warning || this.error;
+    },
+
+    confirmShown() {
+      return this.prompt;
     }
   },
   
@@ -102,7 +161,7 @@ export default {
 
 		confirm() {
       if (this.prompt)
-        this.$emit('confirm-prompt', { input: this.input });
+        this.$emit('confirm-prompt', { entry: this.entry });
       else
         this.$emit('confirm');
 		}

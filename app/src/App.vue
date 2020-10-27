@@ -17,9 +17,9 @@
 <script>
 
 import Vue from 'vue';
+import vClickOutside from 'v-click-outside'
 import Context from '@plugins/ContextMenu'
 import ValidationLinker from '@plugins/ValidationLinker'
-import vClickOutside from 'v-click-outside'
 
 import Basement from '@components/layout/Basement'
 import Navbar from '@components/layout/Navbar'
@@ -75,3 +75,13 @@ export default {
 }
 </style>
 
+
+<style lang="sass">
+
+.fade-enter-active, .fade-leave-active 
+  transition: opacity .5s !important
+
+.fade-enter, .fade-leave-to
+  opacity: 0 !important
+
+</style>

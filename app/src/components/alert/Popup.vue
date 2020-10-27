@@ -1,20 +1,21 @@
 <template>
-	<transition 
-		name="fade">
-		
+	<transition  name="fade">
 		<section 
-			class="modal modal-alert container"
-			v-if="shown">
-
+			class="modal container"
+			v-if="shown" >
+     
 			<alert 
         :warning="warning"
         :prompt="prompt"
+				:message="message"
+				
 				@confirm-prompt="confirmInput"
 				@confirm="confirm"
 				@cancel="cancel"
 				@okay="okay"
 				prompt-dotten/>
-		</section>
+
+  	</section> 
 	</transition>
 </template>
 
@@ -29,26 +30,31 @@ export default {
 
 	mixins: [ HandleEvents ],
 
-	data: function() {
+	data() {
 		return {
 			shown: false,
-
+			type: 'error',
 			message: '',
-
-			prompt: false,
-			warning: false,
 		}   
+	},
+
+	computed: {
+		prompt() {
+			return this.type === 'prompt';
+		},
+
+		warning() {
+			return this.type === 'warning';
+		}
 	},
 
 	mounted() {
 		this.listen({
 			'alert-error': event => {
 				Object.assign(this, {
+					type: 'error',
 					shown: true,
-
-					prompt: false,
-					warning: false,
-
+					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
 					message:  event.message,
 				});
 
@@ -59,11 +65,9 @@ export default {
 			
 			'alert-warning': event => {
 				Object.assign(this, {
+					type: 'warning',
 					shown: true,
-					
-					warning: true,
-					prompt: false,
-
+					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
 					message: event.message,
 				});
 
@@ -75,11 +79,9 @@ export default {
 
 			'alert-prompt': event => {	
 				Object.assign(this, {
+					type: 'prompt',
 					shown: true,
-
-					prompt: true, 
-					warning:false,
-
+					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
 					message: event.message,
 				}),
 				
@@ -126,7 +128,7 @@ export default {
 			console.log(event);
 			if (this.$options.confirm)
 			{
-				this.$options.confirm(event.input);
+				this.$options.confirm(event.entry);
 				this.$options.confirm = null;
 			}
 				
@@ -135,11 +137,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}	
-
-</style>
