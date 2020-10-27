@@ -7,9 +7,9 @@
       <slot name="player"/>
     </post-player>
 
-    <post-addition> 
+    <post-details> 
       <slot name="editor"/>
-    </post-addition>
+    </post-details>
 
   </section>
 </template>
@@ -17,22 +17,34 @@
 <script>
 
 import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
-import PostAddition from '@components/posts_new/PostAddition'
+import PostDetails from '@components/posts_new/PostDetails'
 import PostPlayer from '@components/posts_new/PostPlayer'
 
 export default {
   components: {
     PostSelectedOverlay,
-    PostAddition,
+    PostDetails,
     PostPlayer
+  },
+
+  data() {
+    return {
+      target: null
+    }
+  },
+
+  provide() {
+    const _this = this;
+
+    return {
+      $target: () => _this.target
+    }
   },
 
   computed: {
     overlayShown() {
-      console.log(this.$slots);
       return false;
     }
   }
-
 }
 </script>

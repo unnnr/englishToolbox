@@ -10,8 +10,8 @@
         Comments
       </button>
 
-      <!-- The editor can be hidden when the -->
-      <!-- user doesn't have appropriate rights -->
+      <!-- The editor can be hidden when the user -->
+      <!-- doesn't have appropriate permissions   -->
       <button 
         v-if="editorShown"
         @click="selectEditor">
@@ -26,7 +26,7 @@
 
       <post-comments v-if="commentsSelected"/>
       
-      <slot  v-if="editorShown && editorShown"/>
+      <slot  v-if="editorShown && editorSelected"/>
     </div>
   </div>
 </template>

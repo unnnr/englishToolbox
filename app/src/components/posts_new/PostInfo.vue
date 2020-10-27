@@ -1,29 +1,46 @@
 <template>
   <div class="addition__tab description">
     <div class="addition__tab-header">
-      <h5>Description title</h5>
+      <h5>{{ title }}</h5>
     </div>
     <div class="addition__tab-body">
-      <p class="description__text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum. Vestibulum mattis ullamcorper
-        velit sed ullamcorper morbi tincidunt ornare massa. Id venenatis a condimentum vitae sapien. Tincidunt
-        tortor aliquam nulla facilisi cras. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor
-        aliquam nulla. Dolor morbi non arcu risus quis varius quam quisque. Cras semper auctor neque vitae. Enim
-        ut tellus elementum sagittis vitae et leo duis. Adipiscing vitae proin sagittis nisl rhoncus. Nec
-        ultrices dui sapien eget. Vitae ultricies leo integer malesuada.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum. Vestibulum mattis ullamcorper
-        velit sed ullamcorper morbi tincidunt ornare massa. Id venenatis a condimentum vitae sapien. Tincidunt
-        tortor aliquam nulla facilisi cras. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor
-        aliquam nulla. Dolor morbi non arcu risus quis varius quam quisque. Cras semper auctor neque vitae. Enim
-        ut tellus elementum sagittis vitae et leo duis. Adipiscing vitae proin sagittis nisl rhoncus. Nec
-        ultrices dui sapien eget. Vitae ultricies leo integer malesuada.
-      </p>
+      <p class="description__text">{{ description }}</p>
     </div>
     <div class="addition__tab-footer">
-      <time class="description__date">Oct 7 2020</time>
-      <span class="description__views">123</span>
+      <time class="description__date"> {{ createdAt }}</time>
+      <span class="description__views">{{ views }}</span>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  inject: [ '$target' ],
+
+  computed: {
+    target() {
+      return this.$target();
+    },
+
+    title() {
+      return this.target ? this.target.title : 'Something went wrong';
+    },
+
+    description() {
+      return this.target ? this.target.description : `Obviously, you're not allowed to see it, but... `;
+    },
+
+    tags() {
+      return this.target ? this.target.tags : [];
+    },
+
+    createdAt() {
+      return this.target ? this.target.createdAt : '';
+    },
+
+    views() {
+      return this.target ? this.target.views : '';
+    },
+  }
+}
+</script>
