@@ -1,46 +1,4 @@
 <template>
-  <!-- <div
-    class="alert"
-    :class="alertType">
-
-    <span class="alert__header text-second"></span>
-    <p class="alert__description text-fifth">{{ message }}</p>
-
-    <input
-      class="alert-input input-second"
-      v-if="prompt"
-      v-model="input"
-      :type="promptDotten ? 'password' : false"
-      placeholder="">
-
-    <div class="alert__buttons">
-     
-      <button 
-        class="alert__button alert__button--okay"
-        v-if="oneButton"
-        @click="okay">
-
-        got it
-      </button>
-
-      <template v-else>
-        <button 
-          class="alert__button alert__button--cancel"
-          @click="cancel">
-
-          cancel
-        </button>
-        <button
-          class="alert__button alert__button--confirm"
-          @click="confirm">
-
-          Confirm
-        </button>
-      </template>
-     
-    </div>
-  </div>  -->
-
   <div class="modal__content alert"
     :class="{
       'alert--error': error,
@@ -64,6 +22,7 @@
         <span class="input-group__title">Your input<small class="input-group__counter">0/100</small></span>
         <input class="input-group__input" placeholder="" type="text">
       </div>
+        
     </div>
 
     <div class="alert__buttons">
@@ -88,7 +47,7 @@
       </button>
 
       <button 
-        class="alert__button button--yellowish button-secondary"
+        class="alert__button button--bluish button-secondary"
         v-if="confirmShown"
         @click="confirm">
       
@@ -105,9 +64,9 @@
 const DEFAULT_MESSAGE = `An unexpected error has occurred. Please try again later`;
 
 export default {
-  data: function() {
+  data() {
 		return {
-      input: ''
+      entry: ''
 		}   
   },
   
@@ -182,7 +141,7 @@ export default {
 
 		confirm() {
       if (this.prompt)
-        this.$emit('confirm-prompt', { input: this.input });
+        this.$emit('confirm-prompt', { entry: this.entry });
       else
         this.$emit('confirm');
 		}
