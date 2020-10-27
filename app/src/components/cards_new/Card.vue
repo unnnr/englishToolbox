@@ -1,6 +1,9 @@
 <template>
   <div class="card">
-    <div class="card__image">
+    <div 
+      class="card__image"
+      :style="{'background': src}">
+
       <div class="card__header">
         <button class="card__favorite-button card__favorite-button--active"></button>
         <span class="card__views">{{ views }}</span>
@@ -28,6 +31,8 @@
 <script>
 export default {
   props: {
+    img: { type: String, default: '' },
+
     title: { type: String, default: '' },
 
     createdAt: { type: String, default: '' },
@@ -37,6 +42,12 @@ export default {
     views: { type: Number, default: 0 },
 
     tags: { type: Array, default: () => [] }
+  },
+
+  computed: {
+    src() {
+      return 'url(' + this.img + ')';
+    }
   }
 }
 </script>

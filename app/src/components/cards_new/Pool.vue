@@ -1,6 +1,9 @@
 <template>
   <div class="pool container pe"> 
     <card 
+      v-for="index in 10"
+      :key="index"
+      :img="generateImage()"
       :title="generateTitle()"
       :description="generateDescription()"
       :views="generateViews()"
@@ -20,6 +23,10 @@ export default {
   },
 
   methods: {
+    generateImage() {
+    return Faker.image.image();
+    },
+
     generateTitle() {
       return Faker.lorem.sentence();
     },
