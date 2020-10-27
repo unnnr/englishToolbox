@@ -27,9 +27,10 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style scoped>
 
-  .fade-enter, .fade-leave-to 
-    position: absolute
-    
+.fade-enter, .fade-leave-to {
+  position: absolute !important
+}
+
 </style>
