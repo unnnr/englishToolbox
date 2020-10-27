@@ -3,7 +3,6 @@
     <post-selected>
 
       <template #player>
-        <img src="asdasdasdas">
 
       </template> 
 

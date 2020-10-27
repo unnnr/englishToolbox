@@ -2,9 +2,9 @@
   <div class="addition">
 
     <div class="addition__header">
-      <button>Description</button>
-      <button>Comments</button>
-      <button>Editor</button>
+      <button class="addition__button addition__button--active text-fifth">Description</button>
+      <button class="addition__button text-fifth">Comments</button>
+      <button class="addition__button text-fifth">Editor</button>
     </div>
 
     <div class="addition__tabs">
@@ -14,7 +14,9 @@
       <post-comments/>
 
       <post-editor/>
+
     </div>
+    
   </div>
 </template>
 

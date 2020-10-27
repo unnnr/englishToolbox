@@ -1,0 +1,26 @@
+.description__body 
+  display: flex
+  flex-direction: column
+  gap: 15px
+
+.description__tags
+  display: flex
+  flex-wrap: wrap
+  gap: 5px
+  padding-bottom: 5px
+
+.description__date,
+.description__views
+  color: $color-semigray
+  font-weight: $semibold
+
+.description__views
+  display: flex
+
+  &:before
+    font-family: "material icons round"
+    content: "visibility"
+    font-weight: $medium
+    font-size: inherit
+    align-self: center
+    margin-right: 5px

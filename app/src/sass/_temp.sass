@@ -1,132 +1,16 @@
 
 /* selected */
 
-.selected
-  position: relative
-  display: grid
-  grid-template-columns: 2.333fr 1fr
-  grid-column-gap: 15px
-  @include xs-devices
-    grid-template-columns: 1fr
-    grid-row-gap: 10px
+.comments 
+  display: none
 
-.selected__overlay
-  position: absolute
-  height: 100%
-  width: 100%
-  z-index: 2
-
-.selected__overlay-body
-  height: 100%
-  width: 100%
-  background: red
-  border-radius: $border-radius-primary
+.editor
+  display: none
 
 
-.player
-  position: relative
-  background: $color-white
-  border-radius: $border-radius-primary
-  box-shadow: $box-shadow-primary
-  padding-bottom: 56.25%
-
-  iframe
-    position: absolute
-    height: 100%
-    width: 100%
-    left: 0
-    top: 0
-
-.player__overlay 
-  position: absolute
-  height: 100%
-  width: 100%
-  z-index: 1
-  background: blue
-  border-radius: $border-radius-primary
-
-
-.addition
-  background: $color-white
-  border-radius: $border-radius-primary
-  box-shadow: $box-shadow-primary
-  padding: 25px
-  display: grid
-  grid-template-rows: max-content 1fr
-  @include xs-devices
-    padding: 0 
-    background: none
-    border-radius: unset
-    box-shadow: none
-
-.addition__header 
-  padding-bottom: 15px
-  margin-bottom: 15px
-  border-bottom: 1px solid black
-  @include xs-devices
-    display: none
-
-.addition__tabs 
-  position: relative
-  height: 100%
-  @include xs-devices
-    display: grid
-    grid-row-gap: 10px
-
-.addition__tab
-  position: absolute
-  height: 100%
-  width: 100%
-  display: grid
-  grid-template-rows: max-content 1fr max-content
-  background: $color-white
-  @include xs-devices
-    position: static
-    max-height: 400px
-    padding: 25px
-    border-radius: $border-radius-primary
-    box-shadow: $box-shadow-primary
-
-.addition__tab-header
-  margin-bottom: 15px
-  background: $color-white
-
-.addition__tab-body 
-  position: relative
-  overflow: auto
-  margin-bottom: 15px
-  @include xs-devices
-
-.addition__tab-footer 
-  display: flex
-  justify-content: space-between
-  
-.comments__count 
-  margin-bottom: 15px
-  display: block
-
-.comment 
-  height: 65px
-  width: 100%
-  background: gray
-  border-radius: $border-radius-primary
-  margin-bottom: 15px
-
-.area 
-  height: 45px
-  width: 100%
-  background: #f5f5f5
-  border-radius: $border-radius-primary
+// description
 
 .space
   height: 1000px
 
-.nav 
-  position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  height: 50px
-  background: rgba(34, 34, 34, 0.95)
-  backdrop-filter: blur(4px) saturate(150%)
-  z-index: 10
+
