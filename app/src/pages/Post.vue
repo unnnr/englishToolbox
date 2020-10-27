@@ -3,7 +3,8 @@
     <post-selected>
 
       <template #player>
-        <img src="some player, can be even iframe">
+        <div style="padding: 30px; background: red">
+        </div>
       </template> 
 
       <template #editor>

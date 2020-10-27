@@ -1,8 +1,12 @@
 <template>
   <div class="player">
-    <post-player-overlay v-if="overlayShown"/> 
+    
+    <transition name="fade">
+      <post-player-overlay v-if="overlayShown"/>
+  
+      <slot v-else/>
+    </transition>
 
-    <slot v-else/>
   </div>
 </template>
 
@@ -14,11 +18,11 @@ export default {
   components: {
     PostPlayerOverlay
   },
-
-  computed: {
-    overlayShown() {
-      return false;
-    }
+  
+  data() {
+    return {
+      overlayShown: false
+    };
   }
 }
 </script>
