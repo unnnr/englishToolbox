@@ -1,5 +1,5 @@
 <template>
-	<transition 
+	<!-- <transition 
 		name="fade">
 		
 		<section 
@@ -15,7 +15,27 @@
 				@okay="okay"
 				prompt-dotten/>
 		</section>
+	</transition> -->
+
+	<transition  name="fade">
+		<section 
+			class="modal container"
+			v-if="shown" >
+     
+			<alert 
+        :warning="warning"
+        :prompt="prompt"
+				:message="message"
+				
+				@confirm-prompt="confirmInput"
+				@confirm="confirm"
+				@cancel="cancel"
+				@okay="okay"
+				prompt-dotten/>
+
+  	</section> 
 	</transition>
+
 </template>
 
 <script>
@@ -135,11 +155,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}	
-
-</style>
