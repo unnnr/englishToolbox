@@ -1,0 +1,91 @@
+.addition
+  background: $color-white
+  border-radius: $border-radius-primary
+  box-shadow: $box-shadow-primary
+  padding: 25px
+  display: grid
+  grid-template-rows: max-content 1fr
+  grid-row-gap: 15px
+
+  @include lg-devices
+    padding: 0 
+    background: none
+    border-radius: unset
+    box-shadow: none
+
+.addition__header 
+  padding-bottom: 15px
+  border-bottom: 2px solid $color-almost-white
+
+  @include lg-devices
+    display: none
+
+.addition__button  
+  font-weight: $semibold
+  transition: color .2s ease-in-out
+
+  &:not(:last-child)
+    margin-right: 25px    
+
+  &:hover
+    color: darken($color-gray, 15)
+
+.addition__button--active 
+  color: $color-dark  
+
+.addition__tabs 
+  position: relative
+  height: 100%
+  @include lg-devices
+    display: grid
+    grid-row-gap: 10px
+
+.addition__tab
+  position: absolute
+  height: 100%
+  width: 100%
+  display: grid
+  grid-template-rows: max-content 1fr max-content
+  grid-row-gap: 15px
+  background: $color-white
+  @include lg-devices
+    position: static
+    max-height: 400px
+    padding: 25px
+    border-radius: $border-radius-primary
+    box-shadow: $box-shadow-primary
+
+.addition__tab-header
+  background: $color-white
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.addition__tab-shrink-button
+  display: none
+
+  @include lg-devices
+    display: flex
+
+  &:before
+    font-family: "material icons round"
+    content: "arrow_drop_down"
+    color: $color-dark
+    width: 15px
+    height: 20px
+    font-size: 35px
+    display: flex
+    overflow: hidden
+    align-items: center
+    justify-content: center
+
+.addition__tab-body 
+  position: relative
+  overflow: auto
+  padding-right: 10px
+  @include scroll-primary
+
+.addition__tab-footer 
+  display: flex
+  justify-content: space-between
+  

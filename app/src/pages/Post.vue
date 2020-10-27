@@ -3,8 +3,6 @@
     <post-selected>
 
       <template #player>
-        <div style="padding: 30px; background: red">
-        </div>
       </template> 
 
       <template #editor>

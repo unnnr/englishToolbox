@@ -2,17 +2,18 @@
   <div class="addition">
 
     <div class="addition__header">
-      <button @click="selectInfo">
+      <button class="addition__button addition__button--active text-fifth" @click="selectInfo">
         Description
       </button>
 
-      <button @click="selectComments">
+      <button class="addition__button text-fifth" @click="selectComments">
         Comments
       </button>
 
       <!-- The editor can be hidden when the user -->
       <!-- doesn't have appropriate permissions   -->
       <button 
+        class="addition__button text-fifth"
         v-if="editorShown"
         @click="selectEditor">
 

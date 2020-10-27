@@ -152,13 +152,14 @@ body
 // ========================
 
 @import components/inputs
-@import components/textareas
 @import components/buttons
+@import components/textareas
 @import components/alert
-@import components/card
-@import components/tags
-@import components/tooltips
 @import components/context
+@import components/tooltips
+@import components/tags
+@import components/card
+@import components/comment
 
 // =========
 // home page
@@ -174,11 +175,18 @@ body
 
 @import pages/auth/auth
 
+// ============
+//  posts pages
+// ============
+@import pages/posts/selected
+@import pages/posts/addition
+@import pages/posts/editor
+@import pages/posts/comments
+@import pages/posts/description
+
 // ===========
 // temp styles
 // ===========
-
-@import temp
 
 .grid 
   background: $color-white

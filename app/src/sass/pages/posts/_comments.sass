@@ -1,0 +1,37 @@
+.comments__body
+  display: flex
+  flex-direction: column
+  gap: 20px
+  
+.comments__footer 
+  column-gap: 7.5px
+  
+.comments__profile-button 
+  &:before
+    font-family: "material icons round"
+    content: "account_circle"
+    color: $color-primary
+    font-size: 40px
+
+.comments__send-button 
+  height: 40px
+  min-width: 40px
+  border-radius: 100%
+  background: $color-primary
+
+  &:before
+    font-family: "material icons round"
+    content: "send"
+    color: $color-white
+    font-size: 20px
+
+.comments__textarea
+  width: 100%
+  padding: 10px
+  max-height: 40px
+  background: $color-almost-white
+  border-radius: $border-radius-secondary
+
+  &::placeholder
+    font-weight: $medium
+    color: $color-semigray
