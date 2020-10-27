@@ -24,7 +24,7 @@ export default {
   components: {
     PostSelectedOverlay,
     PostDetails,
-    PostPlayer
+    PostPlayer,
   },
 
   data() {
@@ -43,7 +43,7 @@ export default {
 
   data() {
     return {
-      overlayShown: true
+      overlayShown: false
     }
   }
 }

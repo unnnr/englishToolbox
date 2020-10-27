@@ -13,7 +13,9 @@
 
     </post-selected>
 
-    <div class="space"></div>
+
+    <pool/>
+    
   </main>
 </template>
 
@@ -21,11 +23,13 @@
 
 import PostSelected from '@components/posts_new/PostSelected'
 import PostEditor from '@components/posts_new/PostEditor_TEMP'
+import Pool from '@components/cards_new/Pool'
 
 export default {
   components: {
     PostSelected,
-    PostEditor
+    PostEditor,
+    Pool
   }
 }
 </script>
