@@ -1,8 +1,8 @@
 <template>
   <div class="player">
-    <post-player-overlay/> 
+    <post-player-overlay v-if="overlayShown"/> 
 
-    <slot/>
+    <slot v-else/>
   </div>
 </template>
 
@@ -13,6 +13,12 @@ import PostPlayerOverlay from '@components/posts_new/PostPlayerOverlay'
 export default {
   components: {
     PostPlayerOverlay
+  },
+
+  computed: {
+    overlayShown() {
+      return false;
+    }
   }
 }
 </script>

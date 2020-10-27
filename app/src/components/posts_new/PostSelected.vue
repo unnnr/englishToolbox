@@ -1,7 +1,7 @@
 <template>
   <section class="selected container">
 
-    <post-selected-overlay/>
+    <post-selected-overlay v-if="overlayShown"/>
 
     <post-player>
       <slot name="player"/>
@@ -25,6 +25,14 @@ export default {
     PostSelectedOverlay,
     PostAddition,
     PostPlayer
+  },
+
+  computed: {
+    overlayShown() {
+      console.log(this.$slots);
+      return false;
+    }
   }
+
 }
 </script>
