@@ -40,6 +40,7 @@
     color: $color-dark
     opacity: 0
     max-height: 0
+    width: 100%
     transition: opacity .3s ease-in-out, max-height .3s ease-in-out
 
     &:hover
@@ -167,6 +168,8 @@
   color: $color-primary
 
   &::after
+    margin-right: 0
+    margin-left: 5px
     content: "publish"
     
 
@@ -215,17 +218,20 @@
 .input-group--error
   color: $color-reddish
   
-  &:before
+  &:before,
+  &:after
     color: inherit
 
 .input-group--warning
   color: $color-yellowish
   
-  &:before
+  &:before,
+  &:after
     color: inherit
 
 .input-group--success
   color: $color-greenish
   
-  &:before
+  &:before,
+  &:after
     color: inherit
