@@ -2,13 +2,18 @@
 	<transition name="fade">
 		<div v-if="shown"
 			class="context"
-			:style="{'top': marginTop + 'px', 'left': marginLeft + 'px'}">
+			:style="{
+				'top': marginTop,
+				'left': marginLeft
+			}">
 
 			<button 
 				class="context__item"
+				
 				v-for="({label, action}, index) of items"
-				v-click-outside="hide"
 				:key="index"
+
+				v-click-outside="hide"
 				@click="callAction(action)">
 
 				{{ label }}
@@ -27,9 +32,20 @@ export default {
 			return {
 				items: [],
 				shown: false,
-				marginTop: 0,
-				marginLeft: 0
+
+				top: 0,
+				left: 0,
 			}
+	},
+
+	computed: {
+		marginLeft() {
+			return this.left + 'px';
+		},
+
+		marginTop() {
+			return this.top + 'px';
+		},
 	},
 
 	mounted() {
@@ -44,7 +60,11 @@ export default {
 					this.shown = false;
 		},
 
-		show() {
+		async show() {
+			this.hide();
+			
+			await this.$nextTick();
+
 			this.shown = true;
 		},
 
@@ -63,16 +83,6 @@ export default {
 	{
 		position: absolute;
 		z-index: 122;
-	}
-
-	.fade-leave-active, .fade-enter-active
-	{
-		transition: opacity .3s;    
-	}
-
-	.fade-enter, .fade-leave-to  
-	{
-		opacity: 0;
 	}
 
 </style>

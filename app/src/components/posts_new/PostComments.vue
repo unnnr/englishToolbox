@@ -1,7 +1,9 @@
 <template>
   <div class="addition__tab comments">
     <div class="addition__tab-header">
-      <h6 class="heading-sixth">6 comments</h6>
+      <h6 class="heading-sixth">
+        {{ counter }}
+      </h6>
       <button class="addition__tab-shrink-button"></button>
     </div>
 
@@ -11,59 +13,43 @@
         <img src="img/svg/overlay-comments.svg" alt="#">
       </div>
 
-      <!-- <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div> -->
-
+      <comment 
+        class="comment"
+        v-for="({message, createdAt, user}, id) of comments"
+        :key="id"
+        :created-at="createdAt"
+        :message="message"
+        :image="user.avatar"
+        :author="user.name"/>
 
     </div>
-    <div class="addition__tab-footer comments__footer">
-      <button class="comments__profile-button"></button>
-      <textarea class="comments__textarea" placeholder="Your comment" maxlength="256"></textarea>
-      <button class="comments__send-button"></button>
-    </div>
+
+    <comment-input v-if="inputShown"/>
+    
   </div>
 </template>
 
 <script>
+import CommentInput from '@components/comments/CommentInput'
+import Comment from '@components/comments/Comment'
+
+import FormatedDate from '@services/FormatedDate'
+import Faker from 'faker/locale/ja'
+
+
 export default {
+  components: {
+    CommentInput,
+    Comment
+  },
+
   inject: [ '$target' ],
+
+  data() {
+    return {
+      inputShown: true
+    }
+  },
 
   computed: {
     target() {
@@ -71,20 +57,36 @@ export default {
     },
 
     comments() {
-      return this.target ? this.target.comments : [
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-      ];
+      return this.target ?
+        this.target.comments : this.TEMP_createComments();
     },
 
     counter() {
       return this.comments.length + ' comments';
     }
+  },
+
+  methods: {
+    TEMP_createComments() {
+      let comments = [];
+      let count = Faker.random.number(15);
+
+      for (let i = 0; i < count; i++)
+      {
+        comments.push({ 
+          message: Faker.lorem.sentence(),
+
+          createdAt: FormatedDate.parse(Faker.date.past()),
+
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        })
+      }
+
+      return comments;
+    },
   }
 }
 </script>

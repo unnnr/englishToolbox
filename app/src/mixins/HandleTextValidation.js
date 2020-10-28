@@ -93,7 +93,11 @@ const HandleTextValidation = {
 	},
 	
 	methods: {
-		onClick(event) {
+    onInput() {
+      this.$emit('input', this.entry);
+    },
+    
+		onClick() {
       this.$refs.input.focus();
     },
 

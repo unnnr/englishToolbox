@@ -42,6 +42,7 @@
         :maxlength="max"
         :disabled="disabled || loading"
 
+        @input="onInput"
         @keydown="onKeyDown"
         @focus="onFocus"
         @blur="onBlur"

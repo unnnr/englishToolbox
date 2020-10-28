@@ -5,6 +5,7 @@
     name="description"
     
     :disabled="disabled"
+    :optional="optional"
     :max="123"
 
     v-validate/> 
@@ -18,7 +19,9 @@ export default {
   components: { VTextarea },
 
   props: {
-    disabled: { type: Boolean, default:false },
+    optional: { type: Boolean, default: true },
+
+    disabled: { type: Boolean, default: false },
   }
 }
 </script>
