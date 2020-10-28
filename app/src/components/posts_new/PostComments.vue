@@ -1,83 +1,21 @@
 <template>
   <div class="addition__tab comments">
     <div class="addition__tab-header">
-      <h6 class="heading-sixth">6 comments</h6>
+      <h6 class="heading-sixth">
+        {{ counter }}
+      </h6>
       <button class="addition__tab-shrink-button"></button>
     </div>
     <div class="addition__tab-body comments__body">
 
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
-      <div class="comment">
-        <div class="comment__image"></div>
-        <p class="comment__text text-sixth">
-          <span class="comment__name">davi2020gj</span>
-          <span class="comment__mention">MorryEz874</span>
-          Ultrices dui sapien eget mi. Et ligula ullamcorper malesuada proin libero nunc consequat interdum varius. Velit scelerisque in dictum non consectetur a erat.
-        </p>
-				<time class="comment__date text-sixth">0.24.2563</time>
-			</div>
+      <comment 
+        class="comment"
+        v-for="({message, createdAt, user}, id) of comments"
+        :key="id"
+        :created-at="createdAt"
+        :message="message"
+        :image="user.avatar"
+        :author="user.name"/>
 
     </div>
     <div class="addition__tab-footer comments__footer">
@@ -89,7 +27,17 @@
 </template>
 
 <script>
+import Comment from '@components/Comment'
+
+import FormatedDate from '@services/FormatedDate'
+import Faker from 'faker/locale/ja'
+
+
 export default {
+  components: {
+    Comment
+  },
+
   inject: [ '$target' ],
 
   computed: {
@@ -99,13 +47,46 @@ export default {
 
     comments() {
       return this.target ? this.target.comments : [
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
-        { message: 'some' },
+        { 
+          message: Faker.lorem.sentence(),
+          createdAt: FormatedDate.parse(Faker.date.past()),
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        },
+        { 
+          message: Faker.lorem.sentence(),
+          createdAt: FormatedDate.parse(Faker.date.past()),
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        },
+        { 
+          message: Faker.lorem.sentence(),
+          createdAt: FormatedDate.parse(Faker.date.past()),
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        },
+        { 
+          message: Faker.lorem.sentence(),
+          createdAt: FormatedDate.parse(Faker.date.past()),
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        },
+        { 
+          message: Faker.lorem.sentence(),
+          createdAt: FormatedDate.parse(Faker.date.past()),
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        },
       ];
     },
 

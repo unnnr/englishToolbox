@@ -25,7 +25,7 @@ export default {
 
   methods: {
     generateImage() {
-    return Faker.image.image();
+      return Faker.image.image();
     },
 
     generateTitle() {
