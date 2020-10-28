@@ -2,19 +2,19 @@
   <main> 
     <v-form :request="send">
 
-      <password-input optional secondary/>
+      <password-input optional/>
       <div style="height: 20px"></div> 
 
-      <confirmation-input v-confirm="'password'"/>
+      <confirmation-input v-confirm="'password'" optional/>
       <div style="height: 20px"></div> 
 
-      <description-input name="not" v-validate/> 
+      <description-input name="not" /> 
       <div style="height: 20px"></div> 
 
-      <v-file name="some" icon="audio"  v-validate/>
+      <v-file name="some" icon="audio"  v-validate optional/>
       <div style="height: 20px"></div> 
 
-      <button style="backg  round-color: blue; padding: 20px;"/>
+      <v-button v-validate/>
     </v-form>
   </main>
 </template>
@@ -25,6 +25,7 @@ import ConfirmationInput from '@components/validation/ConfirmationInput'
 import DescriptionInput from '@components/validation/DescriptionInput'
 import PasswordInput from '@components/validation/PasswordInput'
 import EmailInput from '@components/validation/EmailInput'
+import VButton from '@components/validation/VButton'
 import VInput from '@components/validation/VInput'
 import VForm from '@components/validation/VForm'
 import VFile from '@components/validation/VFile'
@@ -34,16 +35,15 @@ export default {
   components: {
     PasswordInput,
     ConfirmationInput,
-    //EmailInput,
-    VForm,
-    //VInput,
     DescriptionInput,
-    VFile
+    VButton,
+    VFile,
+    VForm,
   },
 
   data() {
     return {
-
+      
     }
   },
 

@@ -40,7 +40,7 @@ export default {
     },
 
     description() {
-      return this.target ? this.target.description : `Obviously, you're not allowed to see it, but... `;
+      return this.target ? this.target.description : `Obviously, you aren't allowed to see it, but... `;
     },
 
     tags() {

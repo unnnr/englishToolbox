@@ -10,7 +10,9 @@
 <script>
 export default {
   props: {
-    request: { type: Function, default: null }
+    request: { type: Function, default: null },
+
+    secondary: { type: Boolean, default: false }
   },
 
   data() {
@@ -39,7 +41,7 @@ export default {
 
       for (let input of this.inputs)
       {
-        if (!!!input.validate())
+        if (typeof input.validate === 'function' && !!!input.validate())
           allAreValid = false;
       }
 
@@ -55,7 +57,10 @@ export default {
       let data = new FormData();
       
       for (let input of this.inputs)
-        input.submit(data);
+      {
+        if (typeof input.submit === 'function')
+          input.submit(data);
+      }
 
       //
       this.TEMP_showData(data);
