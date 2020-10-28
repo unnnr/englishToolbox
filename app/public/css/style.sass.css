@@ -1639,6 +1639,7 @@ button:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 30px;
+  cursor: pointer;
   -webkit-transition: border .3s ease-in-out;
   transition: border .3s ease-in-out;
 }
@@ -1743,21 +1744,13 @@ button:active {
   background: #fff;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  cursor: text;
 }
 
 .card__title h6 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-@media (max-width: 1000px) {
-  .card__title h6 {
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-  }
 }
 
 .card__text {
@@ -1829,13 +1822,10 @@ button:active {
 }
 
 .comment {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: max-content 1fr;
-      grid-template-columns: -webkit-max-content 1fr;
-      grid-template-columns: max-content 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
 }
 
 .comment__image {
@@ -1862,8 +1852,8 @@ button:active {
 }
 
 .comment__date {
-  -ms-grid-column: 2;
-      grid-column-start: 2;
+  display: block;
+  margin-top: 5px;
   color: #a1a1b1;
 }
 
@@ -2425,6 +2415,99 @@ button:active {
   }
 }
 
+.filter__body {
+  background: #fff;
+  -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+          box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  border-radius: 15px;
+  padding: 15px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: minmax(0px, 400px) 1fr;
+      grid-template-columns: minmax(0px, 400px) 1fr;
+  -ms-grid-rows: max-content max-content;
+      grid-template-rows: -webkit-max-content -webkit-max-content;
+      grid-template-rows: max-content max-content;
+      grid-template-areas: "search button" "tags tags";
+  grid-column-gap: 10px;
+}
+
+.filter__tags {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: tags;
+  margin-top: 10px;
+  overflow: hidden;
+  -webkit-transition: max-height .3s ease-in-out, margin-top .3s ease-in-out;
+  transition: max-height .3s ease-in-out, margin-top .3s ease-in-out;
+}
+
+.filter__tags .tags {
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 10px;
+}
+
+.filter__shrink-button {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: button;
+  justify-self: end;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 15px;
+  color: #a1a1b1;
+  background: #fafafa;
+  font-weight: 500;
+  padding: 0 15px;
+  height: 35px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filter__shrink-button:after {
+  font-family: "material icons round";
+  content: "filter_list";
+  margin-left: 5px;
+  font-size: 25px;
+}
+
+.filter__search {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: search;
+  padding: 0 10px;
+  height: 35px;
+  background: #fafafa;
+  border-radius: 10px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filter__search:before {
+  font-family: "material icons round";
+  content: "search";
+  margin-right: 5px;
+  font-size: 25px;
+  color: #a1a1b1;
+}
+
+.filter__search input {
+  width: 100%;
+}
+
 .selected {
   position: relative;
   display: -ms-grid;
@@ -2535,6 +2618,10 @@ button:active {
 
 .addition__button--active {
   color: #2f2e44;
+}
+
+.addition__button--active:hover {
+  color: #1a1926;
 }
 
 .addition__tabs {
@@ -2736,6 +2823,10 @@ button:active {
           column-gap: 7.5px;
 }
 
+.comments__profile-button {
+  height: 40px;
+}
+
 .comments__profile-button:before {
   font-family: "material icons round";
   content: "account_circle";
@@ -2760,7 +2851,8 @@ button:active {
 .comments__textarea {
   width: 100%;
   padding: 10px;
-  max-height: 40px;
+  min-height: 40px;
+  color: #2f2e44;
   background: #fafafa;
   border-radius: 10px;
 }

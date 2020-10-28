@@ -1,0 +1,61 @@
+.filter__body
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+  padding: 15px
+  display: grid
+  grid-template-columns: minmax(0px, 400px) 1fr
+  grid-template-rows: max-content max-content
+  grid-template-areas: "search button" "tags tags"
+  grid-column-gap: 10px
+
+.filter__tags
+  grid-area: tags
+  margin-top: 10px
+  overflow: hidden
+  transition: max-height .3s ease-in-out, margin-top .3s ease-in-out
+  
+  .tags
+    padding: 10px
+    background: $color-almost-white
+    border-radius: $border-radius-secondary
+    
+.filter__shrink-button
+  grid-area: button
+  justify-self: end
+  width: max-content
+  font-size: 15px
+  color: $color-semigray
+  background: $color-almost-white
+  font-weight: $medium
+  padding: 0 15px
+  height: 35px
+  border-radius: $border-radius-secondary
+  display: flex
+  align-items: center
+
+  &:after
+    font-family: "material icons round"
+    content: "filter_list" 
+    margin-left: 5px
+    font-size: 25px
+
+.filter__search
+  grid-area: search
+  padding: 0 10px
+  height: 35px
+  background: $color-almost-white
+  border-radius: $border-radius-secondary
+  width: 100%
+  display: flex
+  align-items: center
+
+  &:before
+    font-family: "material icons round"
+    content: "search" 
+    margin-right: 5px
+    font-size: 25px
+    color: $color-semigray
+
+  input
+    width: 100%
