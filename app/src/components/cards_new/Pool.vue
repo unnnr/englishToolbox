@@ -1,5 +1,8 @@
 <template>
   <div class="pool container pe"> 
+    
+    <new-card :key="-1"/>
+
     <card 
       v-for="index in 10"
       :key="index"
@@ -9,6 +12,7 @@
       :views="generateViews()"
       :createdAt="generateData()"
       rectangular/>
+      
   </div>
 </template>
 
@@ -16,10 +20,12 @@
 import Faker from 'faker/locale/ja'
 import FormatedDate from '@services/FormatedDate'
 import Card from '@components/cards_new/Card'
+import NewCard from '@components/cards_new/NewCard'
 
 
 export default {
   components: {
+    NewCard,
     Card
   },
 
