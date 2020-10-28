@@ -2639,6 +2639,29 @@ button:active {
   width: 100%;
 }
 
+.comments__overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  z-index: 10;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comments__overlay img {
+  width: 75%;
+  height: 75%;
+}
+
 .comments__body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2648,6 +2671,7 @@ button:active {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
 .comments__footer {
