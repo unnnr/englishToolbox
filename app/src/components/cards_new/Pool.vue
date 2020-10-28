@@ -1,19 +1,25 @@
 <template>
-  <div class="pool container pe"> 
-    
+  <transition-group 
+    class="pool container pe"
+		tag="section"
+  	name="list"
+    @before-leave="setAbsolute">
+
     <new-card :key="-1"/>
 
     <card 
-      v-for="index in 10"
-      :key="index"
-      :img="generateImage()"
-      :title="generateTitle()"
-      :description="generateDescription()"
-      :views="generateViews()"
-      :createdAt="generateData()"
-      rectangular/>
+      v-for="post in posts"
+      :key="post.id"
       
-  </div>
+      :img="post.thumbnail"
+      :title="post.title"
+      :description="post.description"
+      :views="post.views"
+      :createdAt="post.createdAt"
+
+      rectangular/>
+
+  </transition-group>
 </template>
 
 <script>
@@ -29,7 +35,71 @@ export default {
     Card
   },
 
+  data() {
+    return {
+      posts: [
+        {
+          id: 0,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+        {
+          id: 1,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+        {
+          id: 2,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+        {
+          id: 3,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+        {
+          id: 4,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+        {
+          id: 5,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        },
+      ]
+    }
+  },
+
   methods: {
+    setAbsolute(target) {
+			Object.assign(target.style, {
+				position: 'absolute',
+				width: target.offsetWidth + 'px',
+				top: target.offsetTop + 'px',
+				left: target.offsetLeft + 'px'
+			})
+		},
+
     generateImage() {
       return Faker.image.image();
     },
@@ -46,9 +116,98 @@ export default {
       return Faker.random.number(10);
     },
 
-    generateData() {
+    generateDate() {
       return FormatedDate.parse(Faker.date.past());
     }
   }
 }
 </script>
+
+
+<style>
+
+.pool {
+	position: relative;
+	overflow: hidden;
+}
+
+.list-move {
+  transition: transform 1s ease-in-out,
+  						opacity 1s ease-in-out;
+}
+
+.list-enter-active
+{
+   -webkit-animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.list-leave-active {
+	-webkit-animation: scale-out .5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: scale-out .5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@-webkit-keyframes scale-out {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+		-webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+}
+@keyframes scale-out {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+		-webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes scale-in-bottom {
+  0% {
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in-bottom {
+  0% {
+    -webkit-transform: scale(.5);
+            transform: scale(.5);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+}
+
+</style>
