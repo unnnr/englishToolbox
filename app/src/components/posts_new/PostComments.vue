@@ -46,53 +46,35 @@ export default {
     },
 
     comments() {
-      return this.target ? this.target.comments : [
-        { 
-          message: Faker.lorem.sentence(),
-          createdAt: FormatedDate.parse(Faker.date.past()),
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        },
-        { 
-          message: Faker.lorem.sentence(),
-          createdAt: FormatedDate.parse(Faker.date.past()),
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        },
-        { 
-          message: Faker.lorem.sentence(),
-          createdAt: FormatedDate.parse(Faker.date.past()),
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        },
-        { 
-          message: Faker.lorem.sentence(),
-          createdAt: FormatedDate.parse(Faker.date.past()),
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        },
-        { 
-          message: Faker.lorem.sentence(),
-          createdAt: FormatedDate.parse(Faker.date.past()),
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        },
-      ];
+      return this.target ?
+        this.target.comments : this.TEMP_createComments();
     },
 
     counter() {
       return this.comments.length + ' comments';
     }
+  },
+
+  methods: {
+    TEMP_createComments() {
+      let comments = [];
+
+      for (let i = 0; i < Faker.random.number(15); i++)
+      {
+        comments.push({ 
+          message: Faker.lorem.sentence(),
+
+          createdAt: FormatedDate.parse(Faker.date.past()),
+
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        })
+      }
+
+      return comments;
+    },
   }
 }
 </script>
