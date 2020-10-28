@@ -64,8 +64,9 @@ export default {
   methods: {
     TEMP_createComments() {
       let comments = [];
+      let count = Faker.random.number(15);
 
-      for (let i = 0; i < Faker.random.number(15); i++)
+      for (let i = 0; i < count; i++)
       {
         comments.push({ 
           message: Faker.lorem.sentence(),

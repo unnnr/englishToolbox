@@ -37,57 +37,12 @@ export default {
 
   data() {
     return {
-      posts: [
-        {
-          id: 0,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-        {
-          id: 1,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-        {
-          id: 2,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-        {
-          id: 3,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-        {
-          id: 4,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-        {
-          id: 5,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        },
-      ]
+      posts: []
     }
+  },
+
+  mounted() {
+    this.posts = this.generatePosts();
   },
 
   methods: {
@@ -98,7 +53,7 @@ export default {
 				top: target.offsetTop + 'px',
 				left: target.offsetLeft + 'px'
 			})
-		},
+    },
 
     generateImage() {
       return Faker.image.image();
@@ -118,7 +73,26 @@ export default {
 
     generateDate() {
       return FormatedDate.parse(Faker.date.past());
-    }
+    },
+
+    generatePosts() {
+      let posts = [];
+      let count =  Faker.random.number(10);
+
+      for (let i = 0; i < count; i++)
+      {
+        posts.push({
+          id: i,
+          thumbnail: this.generateImage(),
+          title: this.generateTitle(),
+          description: this.generateDescription(),
+          views: this.generateViews(),
+          createdAt: this.generateDate()
+        });
+      }
+
+      return posts;
+    },
   }
 }
 </script>
