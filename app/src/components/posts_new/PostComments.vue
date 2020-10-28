@@ -18,16 +18,15 @@
         :author="user.name"/>
 
     </div>
-    <div class="addition__tab-footer comments__footer">
-      <button class="comments__profile-button"></button>
-      <textarea class="comments__textarea" placeholder="Your comment" maxlength="256"></textarea>
-      <button class="comments__send-button"></button>
-    </div>
+
+    <comment-input v-if="inputShown"/>
+    
   </div>
 </template>
 
 <script>
-import Comment from '@components/Comment'
+import CommentInput from '@components/comments/CommentInput'
+import Comment from '@components/comments/Comment'
 
 import FormatedDate from '@services/FormatedDate'
 import Faker from 'faker/locale/ja'
@@ -35,10 +34,17 @@ import Faker from 'faker/locale/ja'
 
 export default {
   components: {
+    CommentInput,
     Comment
   },
 
   inject: [ '$target' ],
+
+  data() {
+    return {
+      inputShown: true
+    }
+  },
 
   computed: {
     target() {

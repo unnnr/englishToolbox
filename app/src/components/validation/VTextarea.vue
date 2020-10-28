@@ -56,6 +56,8 @@ export default {
   data() {
     return {
       counting: true,
+
+      /// can be 'auto'
       height: 0
     }
   },
