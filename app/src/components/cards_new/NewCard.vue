@@ -1,5 +1,5 @@
 <template>
-   <div class="card card--add">
+   <button class="card card--add">
     <div 
       class="card__image"
       @click="onClick">
@@ -11,7 +11,7 @@
     <div class="card__text">
       <p class="text-third"></p>
     </div>
-  </div>
+  </button>
 </template>
 
 <script>

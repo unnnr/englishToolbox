@@ -1,46 +1,34 @@
 <template>
 	<section class="filter container">
 		<div class="filter__body">
-
-			<div class="filter__panel">
-				<div class="filter__search">
-					<button class="filter__search-button">
-						<span class="material-icons-round">search</span>
-					</button>
-					<input class="filter__search-input" type="text" placeholder="search">
-				</div>
-				<button 
-					v-if="toggleButtonShown"
-					class="filter__button"
-					@click="toggleFilters">
-
-					tags
-					<span class="material-icons-round">filter_list</span>
-				</button>
+			
+			<div class="filter__search">
+				<input type="text" placeholder="search">
 			</div>
 
-			<div 
-				class="filter__tags-wrapper"
-				ref="tagsWrapper"
-				:style="{'height': wrapperHeight}"
-				:class="{'filter__tags-wrapper--active': tagsShown}">
+			<button 
+				v-if="toggleButtonShown"
+				class="filter__shrink-button"
+				@click="toggleFilters">
+				tags
+			</button>
 
+			<div class="filter__tags">
 				<div 
-					class="filter__tags"
+					class="tags"
 					ref="tagsBody">
-					<!-- :class="{'filter__tags--active': true}" -->
 
 					<button 
 						class="tag"
 						type="button"
 						v-for="({label}, index) of tags"
 						:key="index">
-
-						<span class="tag__name" for="cb2">{{ label }}</span>
+						{{ label }}
 					</button>
 					
 				</div>
 			</div>
+
 		</div>
 	</section>
 </template>

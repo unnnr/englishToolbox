@@ -3,10 +3,8 @@
 // =======
   
 .comment
-  display: grid
-  grid-template-columns: max-content 1fr
-  grid-column-gap: 10px
-  grid-row-gap: 5px
+  display: flex
+  gap: 10px
 
 .comment__image
   min-width: 35px
@@ -27,5 +25,6 @@
   color: $color-primary
 
 .comment__date
-  grid-column-start: 2
+  display: block
+  margin-top: 5px
   color: $color-semigray
