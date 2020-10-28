@@ -54,8 +54,8 @@ import SubmitButton from '@components/SubmitButton';
 import RequestForm from '@components/RequestForm';
 // import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
-import PasswordInput from '@components/validation/PasswordInput'
-import EmailInput from '@components/validation/EmailInput'
+import PasswordInput from '@components/inputs/PasswordInput'
+import EmailInput from '@components/inputs/EmailInput'
 import VForm from '@components/validation/VForm'
 
 export default {

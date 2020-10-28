@@ -52,10 +52,10 @@ import RequestForm from '@components/RequestForm'
 import {isEmail, isPassword, isName, isConfirmation} from '@services/Validations';
 
 
-import ConfirmationInput from '@components/validation/ConfirmationInput'
-import PasswordInput from '@components/validation/PasswordInput'
-import EmailInput from '@components/validation/EmailInput'
-import NameInput from '@components/validation/NameInput'
+import ConfirmationInput from '@components/inputs/ConfirmationInput'
+import PasswordInput from '@components/inputs/PasswordInput'
+import EmailInput from '@components/inputs/EmailInput'
+import NameInput from '@components/inputs/NameInput'
 import VForm from '@components/validation/VForm'
 
 

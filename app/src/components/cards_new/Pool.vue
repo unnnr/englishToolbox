@@ -10,25 +10,32 @@
     <card 
       v-for="post in posts"
       :key="post.id"
+      :class="{'card--selected': post.selected }"
       
-      :img="post.thumbnail"
-      :title="post.title"
       :description="post.description"
-      :views="post.views"
       :createdAt="post.createdAt"
+      :title="post.title"
+      :views="post.views"
+      :img="post.thumbnail"
 
-      v-context:items="createContext"
 
-      rectangular/>
+      @select="select(post)"
+
+      rectangular/>a
+      
+      <!-- v-context:items="createContext" -->
+
 
   </transition-group>
 </template>
 
 <script>
-import Faker from 'faker/locale/ja'
-import FormatedDate from '@services/FormatedDate'
-import Card from '@components/cards_new/Card'
+import HandlePostSelection from '@mixins/HandlePostSelection'
 import NewCard from '@components/cards_new/NewCard'
+import Card from '@components/cards_new/Card'
+
+import FormatedDate from '@services/FormatedDate'
+import Faker from 'faker/locale/ja'
 
 
 export default {
@@ -36,6 +43,8 @@ export default {
     NewCard,
     Card
   },
+
+  mixins: [ HandlePostSelection ],
 
   data() {
     return {
