@@ -12,11 +12,12 @@
         </span>
 
         {{ message }}
+
+        <time class="comment__date">
+          {{ createdAt}}
+        </time>
       </p>
-		  
-      <time class="comment__date text-sixth">
-        {{ createdAt}}
-      </time>
+
 	</div>
 </template>
 

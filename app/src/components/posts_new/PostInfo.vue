@@ -7,7 +7,7 @@
     <div class="addition__tab-body description__body">
       <p class="description__text text-fourth">{{ description }}</p>
       <h6 class="heading-sixth">Tag list</h6>
-      <div class="description__tags">
+      <div class="tags">
         <button type="button" class="tag">consectetur</button>
         <button type="button" class="tag">adipiscing</button>
         <button type="button" class="tag">petronat</button>

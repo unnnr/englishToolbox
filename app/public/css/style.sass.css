@@ -862,7 +862,7 @@ body {
 
 .input-group-primary {
   padding: 0 15px;
-  height: 60px;
+  min-height: 60px;
   background: #fff;
   border-radius: 15px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
@@ -906,7 +906,7 @@ body {
 
 .input-group-secondary {
   padding: 0 10px;
-  height: 50px;
+  min-height: 50px;
   background: #fff;
   border: 2px solid #fafafa;
   border-radius: 10px;
@@ -1464,6 +1464,16 @@ button:active {
   position: absolute;
 }
 
+.tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+
 .tag {
   -webkit-transition: background .2s ease-in-out;
   transition: background .2s ease-in-out;
@@ -1831,6 +1841,9 @@ button:active {
   height: 35px;
   border-radius: 100%;
   background: #848499;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .comment__name {
@@ -2605,7 +2618,6 @@ button:active {
 .addition__tab-body {
   position: relative;
   overflow: auto;
-  padding-right: 10px;
 }
 
 .addition__tab-body::-webkit-scrollbar {
@@ -2635,8 +2647,42 @@ button:active {
           justify-content: space-between;
 }
 
-.editor__button {
+.editor__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
+.editor__tag-counter {
+  font-size: 0.8em;
+  font-weight: 500;
+  color: #a1a1b1;
+  margin-left: 10px;
+}
+
+.editor__delete-button {
+  min-width: 40px;
+}
+
+.editor__delete-button:before {
+  font-family: "material icons round";
+  content: "delete_forever";
+  font-weight: 500;
+  color: #fff;
+  font-size: 20px;
+}
+
+.editor__confirm-button {
   width: 100%;
+}
+
+.editor__footer {
+  gap: 7.5px;
 }
 
 .comments__overlay {
@@ -2655,6 +2701,7 @@ button:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: none;
 }
 
 .comments__overlay img {
@@ -2737,16 +2784,6 @@ button:active {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 15px;
-}
-
-.description__tags {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: 5px;
-  padding-bottom: 5px;
 }
 
 .description__date,
