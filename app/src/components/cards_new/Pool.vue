@@ -33,6 +33,7 @@
 import HandlePostSelection from '@mixins/HandlePostSelection'
 import HandlePostCreation from '@mixins/HandlePostCreation'
 import HandlePostDeletion from '@mixins/HandlePostDeletion'
+import HandlePostEditing from '@mixins/HandlePostEditing'
 import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
@@ -51,6 +52,7 @@ export default {
     HandlePostSelection,
     HandlePostDeletion,
     HandlePostCreation,
+    HandlePostEditing,
     HandleEvents
   ],
 
@@ -68,13 +70,14 @@ export default {
 
   mounted() {
     window.createPost = 
-    () => this.TEMP_createPost();
+      () => this.TEMP_createPost();
 
     this.posts = this.TEMP_generatePosts();
 
     this.listen({
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
+      'post-edited': this.onEdited,
     })
   },
 
