@@ -21,10 +21,10 @@
 
 <script>
 
-import ConfirmationInput from '@components/validation/ConfirmationInput'
-import DescriptionInput from '@components/validation/DescriptionInput'
-import PasswordInput from '@components/validation/PasswordInput'
-import EmailInput from '@components/validation/EmailInput'
+import ConfirmationInput from '@components/inputs/ConfirmationInput'
+import DescriptionInput from '@components/inputs/DescriptionInput'
+import PasswordInput from '@components/inputs/PasswordInput'
+import EmailInput from '@components/inputs/EmailInput'
 import VButton from '@components/validation/VButton'
 import VInput from '@components/validation/VInput'
 import VForm from '@components/validation/VForm'

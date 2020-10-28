@@ -5,7 +5,8 @@
 
     <div 
       class="card__image"
-      :style="{'background': src}">
+      :style="{'background': src}"
+      @click="select">
 
       <div class="card__header">
         <button class="card__favorite-button card__favorite-button--active"></button>
@@ -52,6 +53,12 @@ export default {
   computed: {
     src() {
       return 'url(' + this.img + ')';
+    }
+  },
+
+  methods: {
+    select() {
+      this.$emit('select');
     }
   }
 }

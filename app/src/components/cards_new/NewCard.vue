@@ -23,10 +23,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" >
-
-.card--add .card__image
-  cursor: pointer
-
-</style>

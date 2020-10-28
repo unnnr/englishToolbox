@@ -79,6 +79,7 @@ export default {
 </script>
 
 <style>
+
 	.context 
 	{
 		position: absolute;
