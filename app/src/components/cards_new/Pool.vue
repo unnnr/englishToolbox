@@ -17,6 +17,8 @@
       :views="post.views"
       :createdAt="post.createdAt"
 
+      v-context:items="createContext"
+
       rectangular/>
 
   </transition-group>
@@ -53,6 +55,14 @@ export default {
 				top: target.offsetTop + 'px',
 				left: target.offsetLeft + 'px'
 			})
+    },
+
+    createContext() {
+      return [	{   
+					label: 'Open',
+					action: () => 
+						bus.dispatch('card-selecting', { card: this })
+				}]
     },
 
     generateImage() {

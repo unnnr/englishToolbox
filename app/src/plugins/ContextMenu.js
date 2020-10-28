@@ -4,11 +4,16 @@ const Context = new function ()
 {
     function onRightClick(event, items, vnode, el) {
 
-        menu.marginTop = event.pageY;
-        menu.marginLeft = event.pageX;
+        menu.top = event.pageY;
+        menu.left = event.pageX;
 
         menu.target = el;
-        menu.items = items;
+
+        if (typeof items === 'function')
+            menu.items = items();
+        else 
+            menu.items = items;
+        
         menu.show();
     }
 
