@@ -3,7 +3,7 @@
 
     <div 
       class="comment__image"
-      :style="{'background': src}">
+      :style="{'background-image': src}">
     </div>
 
       <p class="comment__text text-sixth">

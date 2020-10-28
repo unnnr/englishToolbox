@@ -5,7 +5,7 @@
 
     <div 
       class="card__image"
-      :style="{'background': src}"
+      :style="{'background-image': src}"
       @click="select">
 
       <div class="card__header">

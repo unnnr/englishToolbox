@@ -31,6 +31,8 @@
 
 <script>
 import HandlePostSelection from '@mixins/HandlePostSelection'
+import HandlePostCreation from '@mixins/HandlePostCreation'
+import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
 
@@ -44,7 +46,11 @@ export default {
     Card
   },
 
-  mixins: [ HandlePostSelection ],
+  mixins: [ 
+    HandlePostSelection,
+    HandlePostCreation,
+    HandleEvents
+  ],
 
   data() {
     return {
@@ -53,7 +59,14 @@ export default {
   },
 
   mounted() {
-    this.posts = this.generatePosts();
+    window.createPost = 
+    () => this.TEMP_createPost();
+
+    this.posts = this.TEMP_generatePosts();
+
+    this.listen({
+      'post-created': this.onCreated
+    })
   },
 
   methods: {
@@ -74,44 +87,46 @@ export default {
 				}]
     },
 
-    generateImage() {
+    TEMP_generateImage() {
       return Faker.image.image();
     },
 
-    generateTitle() {
+    TEMP_generateTitle() {
       return Faker.lorem.sentence();
     },
 
-    generateDescription() {
+    TEMP_generateDescription() {
       return Faker.lorem.paragraph();
     },
 
-    generateViews() {
+    TEMP_generateViews() {
       return Faker.random.number(10);
     },
 
-    generateDate() {
+    TEMP_generateDate() {
       return FormatedDate.parse(Faker.date.past());
     },
 
-    generatePosts() {
+    TEMP_generatePosts() {
       let posts = [];
       let count =  Faker.random.number(10);
 
       for (let i = 0; i < count; i++)
-      {
-        posts.push({
-          id: i,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        });
-      }
+        posts.push(this.TEMP_createPost());
 
       return posts;
     },
+
+    TEMP_createPost() {
+      return {
+        id: Faker.random.number(1000),
+        thumbnail: this.TEMP_generateImage(),
+        title: this.TEMP_generateTitle(),
+        description: this.TEMP_generateDescription(),
+        views: this.TEMP_generateViews(),
+        createdAt: this.TEMP_generateDate()
+      };
+    }
   }
 }
 </script>
