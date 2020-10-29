@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { throttle } from 'throttle-debounce';
+
 export default {
   data() {
     return {
@@ -34,16 +36,25 @@ export default {
 
   mounted() {
     this.onInput()
+
+    this.$options.eventHandler = throttle(100, this.onInput);
+
+    window.addEventListener('resize', 
+			this.$options.eventHandler, true);
   },
+
+	beforeDestroy() {
+		window.removeEventListener('resize',
+			this.$options.eventHandler);
+	},
 
   methods: {
     async onInput(event) {
-      this.height = '0';
+      this.height = 'auto';
       
-      await this.$nextTick();
-
-      this.height = this.$refs.textarea.scrollHeight + 1 + 'px';
+      this.height = this.$refs.textarea.scrollHeight + 'px';
     },
+    
 
     send() {
 
@@ -51,10 +62,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-.comments__textarea 
-  max-height: 300px
-
-</style>

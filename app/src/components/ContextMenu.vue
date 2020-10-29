@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 import { throttle } from 'throttle-debounce';
 
 export default {
@@ -53,12 +52,20 @@ export default {
 	},
 
 	mounted() {
+
+		this.$options.eventHandler = throttle(100, this.hide);
+
 		window.addEventListener('scroll', 
-			throttle(100, this.hide), true);
+			this.$options.eventHandler, true);
 		
 		this.$el.dispatchEvent(
 			new CustomEvent('context:mouted', { detail: this })
 		);
+	},
+
+	beforeDestroy() {
+		window.removeEventListener('scroll',
+			this.$options.eventHandler);
 	},
 
 	methods: {

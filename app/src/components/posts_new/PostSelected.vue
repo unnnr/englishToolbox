@@ -16,6 +16,7 @@
 
 <script>
 
+import HandleEvents from '@mixins/HandleEvents';
 import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
 import PostDetails from '@components/posts_new/PostDetails'
 import PostPlayer from '@components/posts_new/PostPlayer'
@@ -27,11 +28,7 @@ export default {
     PostPlayer,
   },
 
-  data() {
-    return {
-      target: null
-    }
-  },
+  mixins: [ HandleEvents ],
 
   provide() {
     const _this = this;
@@ -43,7 +40,20 @@ export default {
 
   data() {
     return {
-      overlayShown: false
+      overlayShown: false,
+      target: null,
+    }
+  },
+
+  mounted() {
+    this.listen({
+      'post-selecting': this.select
+    });
+  },
+
+  methods: {
+    select(event) {
+      this.target = event.post;
     }
   }
 }

@@ -22,7 +22,7 @@ export default {
 	},
 
 	methods: {
-		onClick () {
+		onClick () {	
 			bus.dispatch('new-card-touched', { card: this });
 		}
 	}

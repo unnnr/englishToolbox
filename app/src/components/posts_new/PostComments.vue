@@ -57,8 +57,10 @@ export default {
     },
 
     comments() {
-      return this.target ?
-        this.target.comments : this.TEMP_createComments();
+      if (!!!this.target || !!!this.target.comments)
+        return  this.TEMP_createComments();
+
+      return this.target.comments;
     },
 
     counter() {

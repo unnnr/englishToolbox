@@ -140,7 +140,7 @@ export default {
 			this.$set(post, 'selected', true)
 
 			// Emitting event
-			bus.dispatch('post-selectiong');
+			bus.dispatch('post-selecting', { post });
     },
 
     // Events
@@ -205,6 +205,27 @@ export default {
       return FormatedDate.parse(Faker.date.past());
     },
 
+    TEMP_generateTags() {
+      let tags = [];
+      let tagsCount = Math.floor(Math.random() * 5);
+      
+      for (let i = 0; i < tagsCount; i++)
+      {
+        tags.push({
+          color: Faker.internet .color(),
+          label: Faker.lorem.word
+        })
+      }
+
+      tags.push({
+        color: Faker.internet.color(),
+        label: Faker.lorem.word(),
+        main: true
+      });
+
+      return tags;
+    },
+
     TEMP_generatePosts() {
       let posts = [];
       let count =  Faker.random.number(10);
@@ -228,7 +249,8 @@ export default {
         title: this.TEMP_generateTitle(),
         description: this.TEMP_generateDescription(),
         views: this.TEMP_generateViews(),
-        createdAt: this.TEMP_generateDate()
+        createdAt: this.TEMP_generateDate(),
+        tags: this.TEMP_generateTags()
       };
     }
   }
