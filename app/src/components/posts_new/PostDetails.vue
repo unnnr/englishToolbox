@@ -64,7 +64,7 @@
 
         <post-comments v-if="commentsSelected"/>
         
-        <slot  v-if="editorShown && editorSelected"/>
+        <slot v-if="editorShown && editorSelected"/>
 
         <temp-video v-if="activeTab === 'video'"/>
         

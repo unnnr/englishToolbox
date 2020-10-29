@@ -62,16 +62,15 @@ export default {
   },
 
   mounted() {
-    window.createPost = 
-      () => this.TEMP_createPost();
-
     this.posts = this.TEMP_generatePosts();
 
     this.listen({
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
-    })
+    });
+
+    this.select(this.firstPost);
   },
 
   methods: {
@@ -90,15 +89,20 @@ export default {
           'Open': () => 
              this.select(post),
 
-          'Delete' : () => 
-            bus.dispatch('post-deleted', { post }),
-
           'Edit': () =>  {
             let newPost = this.TEMP_createPost('');
             newPost.id = post.id
 
             bus.dispatch('post-edited', { post: newPost });
-          }
+          },
+
+          'Delete' : () =>  {
+            bus.dispatch('alert-warning', { 
+              okay: () => 
+                bus.dispatch('post-deleted', { post })
+            })
+          },
+
         }
       }
     },
@@ -198,7 +202,7 @@ export default {
     },
 
     TEMP_generateViews() {
-      return Faker.random.number(10);
+      return Faker.random.number(3333);
     },
 
     TEMP_generateDate() {
@@ -268,11 +272,24 @@ export default {
       return comments;
     },
 
-    TEMP_createPost() {
-      return {
-        id: Faker.random.number(1000),
+    TEMP_generateVideoId() {
+      let videos = [ 
+        'eZe4Q_58UTU','BOa0zQBRs_M','Et7O5-CzJZg',
+        'ynLpZGegiJE','JB0A8Me8EKk','Vg1mpD1BICI',
+        'uMnGzVPUEB4','ww-LFK1-GRg','3raVUTPAd-w',
+        '2uQ58Xwx1V4','2f8Q70JZM9w','Mckcmh-OU5M',
+        'YF3pj_3mdMc','gaGrHUekGrc','dcEiFOLXy0c',
+        'fh3EdeGNKus','QpepXSfYEBk','yKvu63qXSp8',
+        'adQPQwXG6AM','KLLVXw335u4'];
 
-        thumbnail: this.TEMP_generateImage(),
+      let index = Math.floor(Math.random() * videos.length);
+      
+      return videos[index]; 
+    },
+
+    TEMP_createPost() {
+      let post  = {
+        id: Faker.random.number(1000),
 
         title: this.TEMP_generateTitle(),
 
@@ -287,7 +304,13 @@ export default {
         mainTag: this.TEMP_generateMainTag(),
 
         comments: this.TEMP_createComments(),
+
+        videoId: this.TEMP_generateVideoId()
       };
+
+      post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
+
+      return post;
     }
   }
 }

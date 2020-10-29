@@ -49,7 +49,6 @@
         class="alert__button button--bluish button-secondary"
         v-if="confirmShown"
         @click="confirm">
-      
         
         Confirm
       </button>
