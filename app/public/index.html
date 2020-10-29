@@ -27,21 +27,8 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app">
+    <div class="root" id="app">
       <router-view></router-view>
     </div>
   </body>
-
-
-  <style>
-  #app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;  
-  }
-
-  .basement {
-    margin-top: auto;
-  }
-  </style>
 </html>

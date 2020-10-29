@@ -1,6 +1,5 @@
 <template>
-  <main class="post-layout">
-    <div class="order-wrapper">
+  <main class="posts">
       
       <filter-bar/>
 
@@ -10,7 +9,6 @@
         <slot/>
       </section>
 
-    </div>
 
     <pool :model="model"/>
   
