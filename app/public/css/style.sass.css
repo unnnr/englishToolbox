@@ -23,7 +23,6 @@ textarea {
 html,
 body {
   min-height: 100vh;
-  min-width: 100vw;
 }
 
 input:-webkit-autofill,
@@ -237,8 +236,8 @@ body {
   min-height: 100vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100vw;
-      grid-template-columns: 100vw;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
       grid-template-areas: "navbar" "main" "basement";
   -ms-grid-rows: max-content 1fr max-content;
       grid-template-rows: -webkit-max-content 1fr -webkit-max-content;
@@ -248,8 +247,8 @@ body {
 .posts {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100vw;
-      grid-template-columns: 100vw;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
       grid-template-areas: "filter" "selected" "pool";
 }
 
@@ -1891,12 +1890,6 @@ button:active {
   margin-right: 5px;
   font-weight: 600;
   color: #2f2e44;
-}
-
-.comment__mention {
-  margin-right: 5px;
-  font-weight: 600;
-  color: #6666ff;
 }
 
 .comment__date {
