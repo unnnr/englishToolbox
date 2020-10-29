@@ -19,7 +19,7 @@
 
             {{ color }}
           </div>
-        </div>e
+        </div>
       </template> 
 
       <template #editor>
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-
 import PostSelected from '@components/posts_new/PostSelected'
 import PostEditor from '@components/posts_new/PostEditor_TEMP'
 import Pool from '@components/cards_new/Pool'

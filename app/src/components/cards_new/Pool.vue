@@ -268,6 +268,21 @@ export default {
       return comments;
     },
 
+    TEMP_generateVideoId() {
+      let videos = [ 
+        'eZe4Q_58UTU','BOa0zQBRs_M','Et7O5-CzJZg',
+        'ynLpZGegiJE','JB0A8Me8EKk','Vg1mpD1BICI',
+        'uMnGzVPUEB4','ww-LFK1-GRg','3raVUTPAd-w',
+        '2uQ58Xwx1V4','2f8Q70JZM9w','Mckcmh-OU5M',
+        'YF3pj_3mdMc','gaGrHUekGrc','dcEiFOLXy0c',
+        'fh3EdeGNKus','QpepXSfYEBk','yKvu63qXSp8',
+        'adQPQwXG6AM','KLLVXw335u4'];
+
+      let index = Math.floor(Math.random() * videos.length);
+      
+      return videos[index]; 
+    },
+
     TEMP_createPost() {
       return {
         id: Faker.random.number(1000),
@@ -287,6 +302,8 @@ export default {
         mainTag: this.TEMP_generateMainTag(),
 
         comments: this.TEMP_createComments(),
+
+        videoId: this.TEMP_generateVideoId()
       };
     }
   }

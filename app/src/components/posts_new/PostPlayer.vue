@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 import PostPlayerOverlay from '@components/posts_new/PostPlayerOverlay'
 
 export default {
