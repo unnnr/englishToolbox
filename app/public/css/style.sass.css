@@ -23,6 +23,7 @@ textarea {
 html,
 body {
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 input:-webkit-autofill,
@@ -208,9 +209,11 @@ body {
 }
 
 .pool {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: pool;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 15px;
   grid-row-gap: 30px;
@@ -230,7 +233,36 @@ body {
   }
 }
 
+.root {
+  min-height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100vw;
+      grid-template-columns: 100vw;
+      grid-template-areas: "navbar" "main" "basement";
+  -ms-grid-rows: max-content 1fr max-content;
+      grid-template-rows: -webkit-max-content 1fr -webkit-max-content;
+      grid-template-rows: max-content 1fr max-content;
+}
+
+.posts {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100vw;
+      grid-template-columns: 100vw;
+      grid-template-areas: "filter" "selected" "pool";
+}
+
+@media (max-width: 1200px) {
+  .posts {
+        grid-template-areas: "selected" "filter" "pool";
+  }
+}
+
 .navbar {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: navbar;
   margin-top: 50px;
 }
 
@@ -557,6 +589,12 @@ body {
 .navbar-mobile__overlay--visible {
   z-index: 40;
   opacity: 0.5;
+}
+
+.basement {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: basement;
 }
 
 .footer {
@@ -1600,6 +1638,16 @@ button:active {
   padding-bottom: 55%;
 }
 
+.card--add {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.card--add .card__title {
+  cursor: pointer;
+}
+
 .card--add .card__image {
   padding-bottom: 55%;
   background: #fff;
@@ -2415,6 +2463,14 @@ button:active {
   }
 }
 
+.filter {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: filter;
+}
+
 .filter__body {
   background: #fff;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
@@ -2509,6 +2565,9 @@ button:active {
 }
 
 .selected {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: selected;
   position: relative;
   display: -ms-grid;
   display: grid;

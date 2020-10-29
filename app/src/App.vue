@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="root" id="app">
     <popup/>
 
     <context-menu/>
