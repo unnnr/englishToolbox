@@ -247,16 +247,46 @@ export default {
       return this.posts[index].id;
     },
 
+    TEMP_createComments() {
+      let comments = [];
+      let count = Faker.random.number(15);
+
+      for (let i = 0; i < count; i++)
+      {
+        comments.push({ 
+          message: Faker.lorem.sentence(),
+
+          createdAt: FormatedDate.parse(Faker.date.past()),
+
+          user: {
+            name: Faker.name.firstName(), 
+            avatar: Faker.image.avatar()
+          }
+        })
+      }
+
+      return comments;
+    },
+
     TEMP_createPost() {
       return {
         id: Faker.random.number(1000),
+
         thumbnail: this.TEMP_generateImage(),
+
         title: this.TEMP_generateTitle(),
+
         description: this.TEMP_generateDescription(),
+
         views: this.TEMP_generateViews(),
+        
         createdAt: this.TEMP_generateDate(),
+
         tags: this.TEMP_generateTags(),
-        mainTag: this.TEMP_generateMainTag()
+
+        mainTag: this.TEMP_generateMainTag(),
+
+        comments: this.TEMP_createComments(),
       };
     }
   }

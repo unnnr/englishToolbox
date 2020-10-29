@@ -9,9 +9,14 @@
 
     <div class="addition__tab-body comments__body">
       
-      <div class="comments__overlay">
-        <img src="img/svg/overlay-comments.svg" alt="#">
-      </div>
+      <transition name="fade">
+        <div 
+          class="comments__overlay"
+          v-if="overlayShown">
+
+          <img src="img/svg/overlay-comments.svg" alt="#">
+        </div>
+      </transition>
 
       <comment 
         v-for="({message, createdAt, user}, id) of comments"
@@ -57,9 +62,13 @@ export default {
       return this.$target();
     },
 
+    overlayShown() {
+      return !!!this.comments.length;
+    },
+
     comments() {
       if (!!!this.target || !!!this.target.comments)
-        return  this.TEMP_createComments();
+        return [];
 
       return this.target.comments;
     },
@@ -67,29 +76,13 @@ export default {
     counter() {
       return this.comments.length + ' comments';
     }
-  },
-
-  methods: {
-    TEMP_createComments() {
-      let comments = [];
-      let count = Faker.random.number(15);
-
-      for (let i = 0; i < count; i++)
-      {
-        comments.push({ 
-          message: Faker.lorem.sentence(),
-
-          createdAt: FormatedDate.parse(Faker.date.past()),
-
-          user: {
-            name: Faker.name.firstName(), 
-            avatar: Faker.image.avatar()
-          }
-        })
-      }
-
-      return comments;
-    },
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.comments__overlay
+  display: flex
+
+</style>
