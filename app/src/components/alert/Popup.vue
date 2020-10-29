@@ -59,7 +59,7 @@ export default {
 				});
 
 				Object.assign(this.$options, {
-					okay: event.onOkay,
+					okay: event.okay,
 				});
 			},
 			
@@ -70,10 +70,10 @@ export default {
 					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
 					message: event.message,
 				});
-
+				
 				Object.assign(this.$options, {
-					confirm: event.onConfirm,
-					cancel: event.onCancel
+					okay: event.okay,
+					cancel: event.cancel
 				});
 			},
 
@@ -86,8 +86,8 @@ export default {
 				}),
 				
 				Object.assign(this.$options, {
-					confirm: event.onConfirm,
-					cancel: event.onCancel
+					confirm: event.confirm,
+					cancel: event.cancel
 				});
 			},
 		});
@@ -98,7 +98,7 @@ export default {
 			if (this.$options.okay)
 			{
 				this.$options.okay();
-				this.$options = null;
+				this.$options.okay = null;
 			}
 
 			this.shown = false;
@@ -108,7 +108,7 @@ export default {
 			if (this.$options.cancel)
 			{
 				this.$options.cancel();
-				this.$options = null;
+				this.$options.cancel = null;
 			}
 
 			this.shown = false;

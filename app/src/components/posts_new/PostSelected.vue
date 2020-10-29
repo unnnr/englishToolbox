@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 import HandleEvents from '@mixins/HandleEvents';
 import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
 import PostDetails from '@components/posts_new/PostDetails'

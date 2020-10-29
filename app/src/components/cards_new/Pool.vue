@@ -62,16 +62,15 @@ export default {
   },
 
   mounted() {
-    window.createPost = 
-      () => this.TEMP_createPost();
-
     this.posts = this.TEMP_generatePosts();
 
     this.listen({
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
-    })
+    });
+
+    this.select(this.firstPost);
   },
 
   methods: {
@@ -90,15 +89,20 @@ export default {
           'Open': () => 
              this.select(post),
 
-          'Delete' : () => 
-            bus.dispatch('post-deleted', { post }),
-
           'Edit': () =>  {
             let newPost = this.TEMP_createPost('');
             newPost.id = post.id
 
             bus.dispatch('post-edited', { post: newPost });
-          }
+          },
+
+          'Delete' : () =>  {
+            bus.dispatch('alert-warning', { 
+              okay: () => 
+                bus.dispatch('post-deleted', { post })
+            })
+          },
+
         }
       }
     },
@@ -198,7 +202,7 @@ export default {
     },
 
     TEMP_generateViews() {
-      return Faker.random.number(10);
+      return Faker.random.number(3333);
     },
 
     TEMP_generateDate() {
@@ -284,10 +288,8 @@ export default {
     },
 
     TEMP_createPost() {
-      return {
+      let post  = {
         id: Faker.random.number(1000),
-
-        thumbnail: this.TEMP_generateImage(),
 
         title: this.TEMP_generateTitle(),
 
@@ -305,6 +307,10 @@ export default {
 
         videoId: this.TEMP_generateVideoId()
       };
+
+      post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
+
+      return post;
     }
   }
 }
