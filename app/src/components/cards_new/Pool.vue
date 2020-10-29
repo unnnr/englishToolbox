@@ -30,16 +30,15 @@
 </template>
 
 <script>
-import HandlePostSelection from '@mixins/HandlePostSelection'
-import HandlePostCreation from '@mixins/HandlePostCreation'
-import HandlePostDeletion from '@mixins/HandlePostDeletion'
-import HandlePostEditing from '@mixins/HandlePostEditing'
 import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
+import bus from '@services/eventbus'
+
 
 import FormatedDate from '@services/FormatedDate'
 import Faker from 'faker/locale/ja'
+
 
 
 export default {
@@ -98,6 +97,79 @@ export default {
 						bus.dispatch('card-selecting', { card: this })
 				}]
     },
+
+		getPostIndex(id) {
+			for (let i = 0; i < this.posts.length; i++)
+			{
+				let post = this.posts[i];
+
+				if (post.id ===  id)
+					return i
+			}
+
+			return null;
+    },
+
+
+		findById(id) {
+			for (let post of this.posts)
+			{
+				if (post.id ===  id)
+					return post
+			}
+
+			return null;
+    },
+    
+    select(post) {
+			// Unselecting previos post
+			if (this.$options.selectedPost)
+				this.$set(this.$options.selectedPost, 'selected', false)
+
+			// Selecting current post
+			this.$options.selectedPost = post;
+			this.$set(post, 'selected', true)
+
+			// Emitting event
+			bus.dispatch('post-selectiong');
+    },
+    
+    async onCreated(event) {
+			let post = event.post;
+
+      this.posts.push(post);
+      
+			this.select(post);
+    },
+    
+    async onEdited(event) {
+			let target = event.post;
+			let post = this.findById(target.id);
+				
+			if (post === null)
+				return;
+			
+			Object.assign(post, target);
+
+			this.select(post);
+		},
+    
+    async onDeleted(event) {
+			let deletedPost = event.post;
+			let index = this.getPostIndex(deletedPost.id);
+				
+			if (index === null)
+				return;
+			
+			// If removed post was selected, we need select another
+			let removedPost = this.posts.splice(index, 1)[0];
+
+			if (this.$options.selectedPost 
+					&& removedPost.id === this.$options.selectedPost.id)
+				this.select(this.firstPost);
+    },
+    
+    // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
 
     TEMP_generateImage() {
       return Faker.image.image();
