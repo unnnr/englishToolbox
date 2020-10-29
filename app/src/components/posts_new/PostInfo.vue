@@ -51,7 +51,6 @@ export default {
     },
 
     tags() {
-      console.log('1', this.target.tags);
       return this.target ? this.target.tags : [];
     },
 

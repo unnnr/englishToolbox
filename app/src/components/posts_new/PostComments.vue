@@ -14,13 +14,14 @@
       </div>
 
       <comment 
-        class="comment"
         v-for="({message, createdAt, user}, id) of comments"
         :key="id"
-        :created-at="createdAt"
-        :message="message"
+        
         :image="user.avatar"
-        :author="user.name"/>
+        :author="user.name"
+
+        :created-at="createdAt"
+        :message="message"/>
 
     </div>
 

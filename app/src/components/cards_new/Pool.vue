@@ -205,6 +205,10 @@ export default {
       return FormatedDate.parse(Faker.date.past());
     },
 
+    TEMP_generateColor() {
+      return '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0');
+    },
+
     TEMP_generateTags() {
       let tags = [];
       let tagsCount = Math.floor(Math.random() * 5);
@@ -212,7 +216,7 @@ export default {
       for (let i = 0; i < tagsCount; i++)
       {
         tags.push({
-          color: Faker.internet .color(),
+          color: this.TEMP_generateColor(),
           label: Faker.lorem.word()
         })
       }
@@ -222,7 +226,7 @@ export default {
 
     TEMP_generateMainTag() {
       return {
-        color: Faker.internet.color(),
+        color: this.TEMP_generateColor(),
         label: Faker.lorem.word(),
       }
     },
