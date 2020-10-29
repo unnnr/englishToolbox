@@ -86,7 +86,6 @@ import TempVideo from '@pages/video/VideoEditor'
 import TempAudio from '@pages/audio/AudioEditor'
 import TempChart from '@pages/chart/ChartEditor'
 
-
 export default {
   components: {
     PostComments,

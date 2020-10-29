@@ -8,7 +8,10 @@
       :style="{'background-image': src}"
       @click.self="select">
 
-      <div class="card__header">
+      <div 
+        class="card__header"
+        @click.self="select">
+
         <button class="card__favorite-button card__favorite-button--active"></button>
         <span class="card__views">{{ views }}</span>
       </div>
@@ -16,24 +19,28 @@
         <h6 class="heading-sixth">{{ title }}</h6>
       </div>
     </div>
+
     <div class="card__text">
       <p class="text-third">{{ description }}</p>
     </div>
     <div class="card__footer">
-        <div class="card__tags">
-          <div class="card__tag tag tag--circle"></div>
-          <div class="card__tag tag tag--circle"></div>
-          <div class="card__tag tag tag--circle"></div>
-          <div class="card__tag tag tag--circle"></div>
-          <button class="card__tag-main tag tag--main">mainTag</button>
-        </div>
+        <card-tags
+          :main-tag="mainTag"
+          :tags="tags"/>
+
         <time class="card__date">{{ createdAt }}</time>
     </div>
   </div>
 </template>
 
 <script>
+import CardTags from '@components/tags/CardTags'
+
 export default {
+  components: {
+    CardTags
+  },
+
   props: {
     img: { type: String, default: '' },
 
@@ -46,6 +53,8 @@ export default {
     views: { type: Number, default: 0 },
 
     tags: { type: Array, default: () => [] },
+
+    mainTag: { type: Object, default: null },
 
     rectangular: { type: Boolean, default: false }
   },

@@ -75,7 +75,6 @@ export default {
 		this.model.all().then( async posts => {
 				if (posts.length === 0)
 				{	
-					console.log('some')
 					bus.dispatch('overlay-showing--empty');
 
 					return;

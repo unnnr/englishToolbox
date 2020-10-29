@@ -15,18 +15,18 @@
       :class="{'card--selected': post.selected }"
       
       :description="post.description"
-      :createdAt="post.createdAt"
+      :created-at="post.createdAt"
       :title="post.title"
       :views="post.views"
       :img="post.thumbnail"
 
+      :main-tag="post.mainTag"
+      :tags="post.tags"
 
       @select="select(post)"
       v-context:items="createContext(post)"
 
       rectangular/>a
-      
-
 
   </transition-group>
 </template>
@@ -213,17 +213,18 @@ export default {
       {
         tags.push({
           color: Faker.internet .color(),
-          label: Faker.lorem.word
+          label: Faker.lorem.word()
         })
       }
 
-      tags.push({
+      return tags;
+    },
+
+    TEMP_generateMainTag() {
+      return {
         color: Faker.internet.color(),
         label: Faker.lorem.word(),
-        main: true
-      });
-
-      return tags;
+      }
     },
 
     TEMP_generatePosts() {
@@ -250,7 +251,8 @@ export default {
         description: this.TEMP_generateDescription(),
         views: this.TEMP_generateViews(),
         createdAt: this.TEMP_generateDate(),
-        tags: this.TEMP_generateTags()
+        tags: this.TEMP_generateTags(),
+        mainTag: this.TEMP_generateMainTag()
       };
     }
   }
