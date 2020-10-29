@@ -5,7 +5,9 @@
   	name="list"
     @before-leave="setAbsolute">
 
-    <new-card :key="-1"/>
+    <new-card 
+      :key="-1"
+      @click="createNew"/>
 
     <card 
       v-for="post in posts"
@@ -20,10 +22,10 @@
 
 
       @select="select(post)"
+      v-context:items="createContext(post)"
 
       rectangular/>a
       
-      <!-- v-context:items="createContext" -->
 
 
   </transition-group>
@@ -39,21 +41,13 @@ import bus from '@services/eventbus'
 import FormatedDate from '@services/FormatedDate'
 import Faker from 'faker/locale/ja'
 
-
-
 export default {
   components: {
     NewCard,
     Card
   },
 
-  mixins: [ 
-    HandlePostSelection,
-    HandlePostDeletion,
-    HandlePostCreation,
-    HandlePostEditing,
-    HandleEvents
-  ],
+  mixins: [ HandleEvents ],
 
   data() {
     return {
@@ -90,12 +84,23 @@ export default {
 			})
     },
 
-    createContext() {
-      return [	{   
-					label: 'Open',
-					action: () => 
-						bus.dispatch('card-selecting', { card: this })
-				}]
+    createContext(post) {
+      return () => {
+        return {
+          'Open': () => 
+             this.select(post),
+
+          'Delete' : () => 
+            bus.dispatch('post-deleted', { post }),
+
+          'Edit': () =>  {
+            let newPost = this.TEMP_createPost('');
+            newPost.id = post.id
+
+            bus.dispatch('post-edited', { post: newPost });
+          }
+        }
+      }
     },
 
 		getPostIndex(id) {
@@ -110,7 +115,6 @@ export default {
 			return null;
     },
 
-
 		findById(id) {
 			for (let post of this.posts)
 			{
@@ -122,6 +126,11 @@ export default {
     },
     
     select(post) {
+			// Preventing redundunt requests
+      if (this.$options.selectedPost 
+        && this.$options.selectedPost.id === post.id)
+        return;
+
 			// Unselecting previos post
 			if (this.$options.selectedPost)
 				this.$set(this.$options.selectedPost, 'selected', false)
@@ -133,7 +142,13 @@ export default {
 			// Emitting event
 			bus.dispatch('post-selectiong');
     },
+
+    // Events
     
+    createNew() {
+      bus.dispatch('post-created',{ post: this.TEMP_createPost()});
+    },
+
     async onCreated(event) {
 			let post = event.post;
 
@@ -150,7 +165,6 @@ export default {
 				return;
 			
 			Object.assign(post, target);
-
 			this.select(post);
 		},
     
@@ -199,6 +213,12 @@ export default {
         posts.push(this.TEMP_createPost());
 
       return posts;
+    },
+
+    TEMP_getRandomId() {
+      let index = Math.floor(Math.random(this.posts.length));
+      
+      return this.posts[index].id;
     },
 
     TEMP_createPost() {

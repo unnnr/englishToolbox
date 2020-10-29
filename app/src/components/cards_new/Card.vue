@@ -6,7 +6,7 @@
     <div 
       class="card__image"
       :style="{'background-image': src}"
-      @click="select">
+      @click.self="select">
 
       <div class="card__header">
         <button class="card__favorite-button card__favorite-button--active"></button>

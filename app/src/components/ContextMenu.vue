@@ -10,7 +10,7 @@
 			<button 
 				class="context__item"
 				
-				v-for="({label, action}, index) of items"
+				v-for="([label, action], index) of menuFields"
 				:key="index"
 
 				v-click-outside="hide"
@@ -29,13 +29,13 @@ import { throttle } from 'throttle-debounce';
 export default {
 	data: function() 
 	{
-			return {
-				items: [],
-				shown: false,
+		return {
+			items: [],
+			shown: false,
 
-				top: 0,
-				left: 0,
-			}
+			top: 0,
+			left: 0,
+		}
 	},
 
 	computed: {
@@ -46,12 +46,19 @@ export default {
 		marginTop() {
 			return this.top + 'px';
 		},
+
+		menuFields() {
+			return Object.entries(this.items);
+		}
 	},
 
 	mounted() {
-		window.addEventListener('scroll', throttle(100, this.hide), true);
+		window.addEventListener('scroll', 
+			throttle(100, this.hide), true);
 		
-		this.$el.dispatchEvent(new CustomEvent('context:mouted', { detail: this }));
+		this.$el.dispatchEvent(
+			new CustomEvent('context:mouted', { detail: this })
+		);
 	},
 
 	methods: {
