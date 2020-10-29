@@ -2,11 +2,11 @@
 	<div class="card card--add card--margined">
 	<button 
 		class="card__image"
-	 	@click="onClick">
+		@click.self="onClick">
 
-	<span class="card__add-icon material-icons-round">add</span>
-	<div class="card__title heading-fifth">Add new {{ postType }}</div>
-		</button>
+		<span class="card__add-icon material-icons-round">add</span>
+		<div class="card__title heading-fifth">Add new {{ postType }}</div>
+	</button>
 	</div>
 </template>
 

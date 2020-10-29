@@ -5,7 +5,9 @@
   	name="list"
     @before-leave="setAbsolute">
 
-    <new-card :key="-1"/>
+    <new-card 
+      :key="-1"
+      @click="createNew"/>
 
     <card 
       v-for="post in posts"
@@ -20,23 +22,24 @@
 
 
       @select="select(post)"
+      v-context:items="createContext(post)"
 
       rectangular/>a
       
-      <!-- v-context:items="createContext" -->
 
 
   </transition-group>
 </template>
 
 <script>
-import HandlePostSelection from '@mixins/HandlePostSelection'
+import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
+import bus from '@services/eventbus'
+
 
 import FormatedDate from '@services/FormatedDate'
 import Faker from 'faker/locale/ja'
-
 
 export default {
   components: {
@@ -44,7 +47,7 @@ export default {
     Card
   },
 
-  mixins: [ HandlePostSelection ],
+  mixins: [ HandleEvents ],
 
   data() {
     return {
@@ -52,8 +55,23 @@ export default {
     }
   },
 
+  computed: {
+    firstPost() {
+      return this.posts[0];
+    }
+  },
+
   mounted() {
-    this.posts = this.generatePosts();
+    window.createPost = 
+      () => this.TEMP_createPost();
+
+    this.posts = this.TEMP_generatePosts();
+
+    this.listen({
+      'post-created': this.onCreated,
+      'post-deleted': this.onDeleted,
+      'post-edited': this.onEdited,
+    })
   },
 
   methods: {
@@ -66,52 +84,153 @@ export default {
 			})
     },
 
-    createContext() {
-      return [	{   
-					label: 'Open',
-					action: () => 
-						bus.dispatch('card-selecting', { card: this })
-				}]
+    createContext(post) {
+      return () => {
+        return {
+          'Open': () => 
+             this.select(post),
+
+          'Delete' : () => 
+            bus.dispatch('post-deleted', { post }),
+
+          'Edit': () =>  {
+            let newPost = this.TEMP_createPost('');
+            newPost.id = post.id
+
+            bus.dispatch('post-edited', { post: newPost });
+          }
+        }
+      }
     },
 
-    generateImage() {
+		getPostIndex(id) {
+			for (let i = 0; i < this.posts.length; i++)
+			{
+				let post = this.posts[i];
+
+				if (post.id ===  id)
+					return i
+			}
+
+			return null;
+    },
+
+		findById(id) {
+			for (let post of this.posts)
+			{
+				if (post.id ===  id)
+					return post
+			}
+
+			return null;
+    },
+    
+    select(post) {
+			// Preventing redundunt requests
+      if (this.$options.selectedPost 
+        && this.$options.selectedPost.id === post.id)
+        return;
+
+			// Unselecting previos post
+			if (this.$options.selectedPost)
+				this.$set(this.$options.selectedPost, 'selected', false)
+
+			// Selecting current post
+			this.$options.selectedPost = post;
+			this.$set(post, 'selected', true)
+
+			// Emitting event
+			bus.dispatch('post-selectiong');
+    },
+
+    // Events
+    
+    createNew() {
+      bus.dispatch('post-created',{ post: this.TEMP_createPost()});
+    },
+
+    async onCreated(event) {
+			let post = event.post;
+
+      this.posts.push(post);
+      
+			this.select(post);
+    },
+    
+    async onEdited(event) {
+			let target = event.post;
+			let post = this.findById(target.id);
+				
+			if (post === null)
+				return;
+			
+			Object.assign(post, target);
+			this.select(post);
+		},
+    
+    async onDeleted(event) {
+			let deletedPost = event.post;
+			let index = this.getPostIndex(deletedPost.id);
+				
+			if (index === null)
+				return;
+			
+			// If removed post was selected, we need select another
+			let removedPost = this.posts.splice(index, 1)[0];
+
+			if (this.$options.selectedPost 
+					&& removedPost.id === this.$options.selectedPost.id)
+				this.select(this.firstPost);
+    },
+    
+    // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+
+    TEMP_generateImage() {
       return Faker.image.image();
     },
 
-    generateTitle() {
+    TEMP_generateTitle() {
       return Faker.lorem.sentence();
     },
 
-    generateDescription() {
+    TEMP_generateDescription() {
       return Faker.lorem.paragraph();
     },
 
-    generateViews() {
+    TEMP_generateViews() {
       return Faker.random.number(10);
     },
 
-    generateDate() {
+    TEMP_generateDate() {
       return FormatedDate.parse(Faker.date.past());
     },
 
-    generatePosts() {
+    TEMP_generatePosts() {
       let posts = [];
       let count =  Faker.random.number(10);
 
       for (let i = 0; i < count; i++)
-      {
-        posts.push({
-          id: i,
-          thumbnail: this.generateImage(),
-          title: this.generateTitle(),
-          description: this.generateDescription(),
-          views: this.generateViews(),
-          createdAt: this.generateDate()
-        });
-      }
+        posts.push(this.TEMP_createPost());
 
       return posts;
     },
+
+    TEMP_getRandomId() {
+      let index = Math.floor(Math.random(this.posts.length));
+      
+      return this.posts[index].id;
+    },
+
+    TEMP_createPost() {
+      return {
+        id: Faker.random.number(1000),
+        thumbnail: this.TEMP_generateImage(),
+        title: this.TEMP_generateTitle(),
+        description: this.TEMP_generateDescription(),
+        views: this.TEMP_generateViews(),
+        createdAt: this.TEMP_generateDate()
+      };
+    }
   }
 }
 </script>

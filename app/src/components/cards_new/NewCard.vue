@@ -2,7 +2,7 @@
    <button class="card card--add">
     <div 
       class="card__image"
-      @click="onClick">
+      @click.self="onClick">
 
       <div class="card__title">
         <h6 class="heading-sixth">Upload new post</h6>
@@ -18,6 +18,7 @@
 export default {
   methods: {
     onClick() {
+      console.log('click');
       this.$emit('click');
     }
   }
