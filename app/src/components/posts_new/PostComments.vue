@@ -7,16 +7,18 @@
       <button class="addition__tab-shrink-button"></button>
     </div>
 
-    <div class="addition__tab-body comments__body">
+    <div 
+      class="addition__tab-body comments__body"
+      :class="{'comments__body--empty': overlayShown}">
       
-      <transition name="fade">
+     <!--  <transition name="fade">
         <div 
           class="comments__overlay"
           v-if="overlayShown">
 
           <img src="img/svg/overlay-comments.svg" alt="#">
         </div>
-      </transition>
+      </transition> -->
 
       <comment 
         v-for="({message, createdAt, user}, id) of comments"

@@ -26,7 +26,7 @@
       @select="select(post)"
       v-context:items="createContext(post)"
 
-      rectangular/>a
+      rectangular/>
 
   </transition-group>
 </template>
