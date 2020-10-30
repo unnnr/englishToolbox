@@ -34,10 +34,11 @@
 
     </div>
     <div class="addition__tab-footer editor__footer">
-      <delete-button  class="editor__delete-button"/>
+      <delete-button  
+        class="editor__delete-button"
+        v-if="editing"/>
+        
       <confirm-button class="editor__confirm-button"/>
-     <!--  <button class="editor__delete-button button-secondary"></button>
-      <button class="editor__confirm-button button-secondary">Confirm</button> -->
     </div>
   </v-form>
 </template>
@@ -52,6 +53,10 @@ export default {
     ConfirmButton,
     DeleteButton,
     VForm
+  },
+
+  props: {
+    editing: { type: Boolean, default: false }
   }
 }
 </script>

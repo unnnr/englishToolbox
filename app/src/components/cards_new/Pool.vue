@@ -98,8 +98,7 @@ export default {
 
           'Delete' : () =>  {
             bus.dispatch('alert-warning', { 
-              okay: () => 
-                bus.dispatch('post-deleted', { post })
+              okay: () => bus.dispatch('post-deleted', { post })
             })
           },
 
@@ -150,14 +149,13 @@ export default {
     // Events
     
     createNew() {
-      bus.dispatch('post-created',{ post: this.TEMP_createPost()});
+      bus.dispatch('post-creating');
     },
 
     async onCreated(event) {
 			let post = event.post;
 
       this.posts.push(post);
-      
 			this.select(post);
     },
     

@@ -27,8 +27,6 @@ const HandleEvents = {
         },
 
         detach() {
-            console.log('here');
-
             for (let {name, hadnler} of this.listeners)
                 bus.detach(name, hadnler);
             

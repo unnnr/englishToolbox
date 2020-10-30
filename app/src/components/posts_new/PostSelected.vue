@@ -8,7 +8,9 @@
       <slot name="player"/>
     </post-player>
     
-    <post-details> 
+    <post-details 
+      :only-editor="creating"> 
+      
       <slot 
         v-if="editing"
         name="editor"/>
@@ -48,25 +50,34 @@ export default {
       target: null,
 
       overlayShown: false,
-      editing: false,
+      creating: false,
     }
   },
 
   computed: {
-    creating () {
-      return !!!this.editing;
+    editing () {
+      return !!!this.creating;
     }
   },
 
   mounted() {
     this.listen({
-      'post-selecting': this.select
+      'post-selecting': (event) => {
+        this.target = event.post;
+        this.creating = false;
+      },
+
+      'post-creating': () => {
+        this.target = null;
+        this.creating = true;
+      }
     });
   },
 
   methods: {
     select(event) {
       this.target = event.post;
+      this.creating = false;
     }
   }
 }

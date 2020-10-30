@@ -1,5 +1,5 @@
 <template>
-  <video-processor/>
+  <video-processor editing/>
 </template>
 
 <script>

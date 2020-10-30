@@ -5,6 +5,7 @@
       <button 
         class="addition__button  text-fifth"
         :class="{'addition__button--active': infoSelected}"
+        :disabled="onlyEditor"
         @click="selectInfo">
 
         Description
@@ -13,6 +14,7 @@
       <button 
         class="addition__button text-fifth" 
         :class="{'addition__button--active': commentsSelected}"
+        :disabled="onlyEditor"
         @click="selectComments">
 
         Comments
@@ -55,6 +57,10 @@ export default {
     PostInfo, 
   },
 
+  props: {
+    onlyEditor: { type: Boolean, default: false }
+  },
+
   data() {
     return {
       activeTab: 'info'
@@ -63,15 +69,15 @@ export default {
 
   computed: {
     infoSelected() {
-      return this.activeTab === 'info';
+      return !!!this.onlyEditor && this.activeTab === 'info';
     },
 
     commentsSelected() {
-      return this.activeTab === 'comments';
+      return  !!!this.onlyEditor && this.activeTab === 'comments';
     },
 
     editorSelected() {
-      return this.activeTab === 'editor';
+      return this.onlyEditor || this.activeTab === 'editor';
     },
     
     editorShown() {
