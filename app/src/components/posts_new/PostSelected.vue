@@ -9,7 +9,13 @@
     </post-player>
     
     <post-details> 
-      <slot name="editor"/>
+      <slot 
+        v-if="editing"
+        name="editor"/>
+
+      <slot 
+        v-if="creating"
+        name="creator"/>
     </post-details>
   </section>
 </template>
@@ -39,8 +45,16 @@ export default {
 
   data() {
     return {
-      overlayShown: false,
       target: null,
+
+      overlayShown: false,
+      editing: false,
+    }
+  },
+
+  computed: {
+    creating () {
+      return !!!this.editing;
     }
   },
 

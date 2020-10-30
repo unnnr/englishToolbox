@@ -39,12 +39,6 @@
         
         <slot v-if="editorShown && editorSelected"/>
 
-        <temp-video v-if="activeTab === 'video'"/>
-        
-        <temp-chart v-if="activeTab === 'chart'"/>
-
-        <temp-audio v-if="activeTab === 'audio'"/>
-
       </transition>
     </div>
   </div>
@@ -58,7 +52,7 @@ import PostInfo from '@components/posts_new/PostInfo'
 export default {
   components: {
     PostComments,
-    PostInfo,
+    PostInfo, 
   },
 
   data() {

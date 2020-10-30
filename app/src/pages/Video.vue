@@ -7,7 +7,11 @@
       </template> 
 
       <template #editor>
-        <post-editor/>
+        <video-editor/>
+      </template>
+
+       <template #creator>
+        <video-editor/>
       </template>
 
     </post-selected>
@@ -19,16 +23,16 @@
 
 <script>
 import PostSelected from '@components/posts_new/PostSelected'
-import PostEditor from '@components/posts_new/PostEditor_TEMP'
+import VideoEditor from '@pages/video/VideoEditor'
+import VideoPlayer from '@pages/video/VideoPlayer'
 import Pool from '@components/cards_new/Pool'
 
-import VideoPlayer from '@pages/video/VideoPlayer'
 
 export default {
   components: {
-    VideoPlayer,
     PostSelected,
-    PostEditor,
+    VideoEditor,
+    VideoPlayer,
     Pool
   }
 }
