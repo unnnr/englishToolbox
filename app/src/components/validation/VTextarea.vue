@@ -33,7 +33,6 @@
 
       v-model="entry"
 
-      :placeholder="placeholder"
       :maxlength="max"
       :style="{ 
         'height': this.height

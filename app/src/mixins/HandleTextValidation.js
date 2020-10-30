@@ -3,7 +3,9 @@ const HandleTextValidation = {
 		// Properties 
 		placeholder: { type: String,  default: null},
 
-		label: { type: String, default: 'Your text' },
+    label: { type: String, default: 'Your text' },
+    
+    value: { type: String, default: '' },
 
 		name: { type: String, default: null },
 
@@ -22,7 +24,7 @@ const HandleTextValidation = {
 		optional: { type: Boolean, default: false },
 
 		disabled: { type: Boolean, default: false}
-	},
+  },
 
   inject: [ 'secondary' ],
 
@@ -90,7 +92,21 @@ const HandleTextValidation = {
 		primary() {
       return !!!this.secondary;
     },
-	},
+  },
+  
+  watch: {
+    value: {
+      handler(newValue) {
+        if (typeof newValue !== 'string' || this.entry === newValue)
+          return;
+
+        this.entry = newValue;
+        this.validate();
+      },
+  
+      immediate: true
+    }
+  },
 	
 	methods: {
     onInput() {

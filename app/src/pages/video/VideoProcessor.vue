@@ -9,9 +9,9 @@
     </div>
     <div class="addition__tab-body editor__body">
       
-      <youtube-url-input/>
+      <youtube-url-input :value="link"/>
 
-      <description-input/>
+      <description-input :value="description"/>
 
       <h6 class="editor__tag-title heading-sixth">Add tags<span class="editor__tag-counter">0/5</span></h6>
 
@@ -57,6 +57,27 @@ export default {
 
   props: {
     editing: { type: Boolean, default: false }
+  },
+
+  inject: [ '$target' ],
+
+  computed: {
+    target() {
+      return this.$target();
+    },
+
+    withDefault() {
+      return this.target && this.editing;
+    },
+
+    link() {
+      return this.withDefault ?  
+        'https://youtube.com/watch?v=' + this.target.videoId : '';
+    },
+
+    description() {
+      return this.withDefault ? this.target.description : '';
+    }
   },
 
   methods: {

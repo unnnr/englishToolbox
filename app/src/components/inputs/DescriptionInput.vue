@@ -1,9 +1,9 @@
 <template>
   <v-textarea 
-    placeholder="Some placeholder"
     label="Post description"
     name="description"
     
+    :value="value"
     :disabled="disabled"
     :optional="optional"
     :max="180"
@@ -20,6 +20,8 @@ export default {
 
   props: {
     optional: { type: Boolean, default: true },
+
+    value: { type: String, default: '' },
 
     disabled: { type: Boolean, default: false },
   }
