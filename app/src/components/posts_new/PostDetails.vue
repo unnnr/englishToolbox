@@ -28,33 +28,6 @@
 
         Editor
       </button>
-
-      <!-- TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP  -->
-      <button 
-        class="addition__button text-fifth" 
-        :class="{'addition__button--active': activeTab === 'video'}"
-        @click="activeTab = 'video'">
-        
-        __Video
-      </button>
-
-      <button 
-        class="addition__button text-fifth" 
-         :class="{'addition__button--active': activeTab === 'chart'}"
-        @click="activeTab = 'chart'">
-
-        __Chart
-      </button>
-
-      <button 
-        class="addition__button text-fifth" 
-        :class="{'addition__button--active': activeTab === 'audio'}"
-        @click="activeTab = 'audio'">
-        
-        __Auido
-      </button>
-
-
     </div>
 
     <div class="addition__tabs">
@@ -82,18 +55,10 @@
 import PostComments from '@components/posts_new/PostComments'
 import PostInfo from '@components/posts_new/PostInfo'
 
-import TempVideo from '@pages/video/VideoEditor'
-import TempAudio from '@pages/audio/AudioEditor'
-import TempChart from '@pages/chart/ChartEditor'
-
 export default {
   components: {
     PostComments,
     PostInfo,
-
-    TempVideo,
-    TempAudio,
-    TempChart
   },
 
   data() {
