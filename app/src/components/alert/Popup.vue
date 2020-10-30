@@ -94,44 +94,31 @@ export default {
 	}, 
 
 	methods: {
-		okay() {
-			if (this.$options.okay)
-			{
-				this.$options.okay();
-				this.$options.okay = null;
-			}
+		fire(eventName, args) {
+			if (typeof this.$options[eventName] !== 'function')
+					return;
 
+			this.$options[eventName](args);
+			this.$options[eventName] = null;
+		},
+
+		okay() {
+			this.fire('okay');
 			this.shown = false;
 		},
 
 		cancel() {
-			if (this.$options.cancel)
-			{
-				this.$options.cancel();
-				this.$options.cancel = null;
-			}
-
+			this.fire('cancel');
 			this.shown = false;
 		},
 		
-		confirm(some) {
-			if (this.$options.confirm)
-			{	
-				this.$options.confirm();
-				this.$options.confirm = null;
-			}
-
+		confirm() {
+			this.fire('confirm');
 			this.shown = false;
 		},
 
 		confirmInput(event) {
-			console.log(event);
-			if (this.$options.confirm)
-			{
-				this.$options.confirm(event.entry);
-				this.$options.confirm = null;
-			}
-				
+			this.fire('confirm', event.entry)
 			this.shown = false;
 		}
 	}
