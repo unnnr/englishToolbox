@@ -19,6 +19,8 @@ export default {
   props: {
     mesasge: { type: String, default: 'Confirm'},
 
+    withoutLabel: { type: Boolean, default: false },
+
     disabled: { type: Boolean, default: false },
   },
 
@@ -34,6 +36,9 @@ export default {
     },
 
     label() {
+      if (this.withoutLabel)
+        return;
+        
       if (this.loading)
         return 'Loading';
 

@@ -14,7 +14,7 @@
       <v-file name="some" icon="audio"  v-validate optional/>
       <div style="height: 20px"></div> 
 
-      <v-button v-validate/>
+      <confirm-button/>
     </v-form>
   </main>
 </template>
@@ -25,7 +25,7 @@ import ConfirmationInput from '@components/inputs/ConfirmationInput'
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
-import VButton from '@components/validation/VButton'
+import ConfirmButton from '@components/buttons/DeleteButton'
 import VInput from '@components/validation/VInput'
 import VForm from '@components/validation/VForm'
 import VFile from '@components/validation/VFile'
@@ -36,7 +36,7 @@ export default {
     PasswordInput,
     ConfirmationInput,
     DescriptionInput,
-    VButton,
+    ConfirmButton,
     VFile,
     VForm,
   },

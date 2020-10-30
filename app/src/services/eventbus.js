@@ -15,8 +15,6 @@ const Bus = new function ()
 
     this.dispatch  = (event, options = {}) =>
     {
-        console.log(event, options);
-
         if (typeof event !== 'string')
             return false;
 

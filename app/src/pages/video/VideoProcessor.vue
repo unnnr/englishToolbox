@@ -1,5 +1,5 @@
 <template>
-   <div class="addition__tab editor">
+   <v-form class="addition__tab editor" secondary>
     <div class="addition__tab-header">
       <h6 class="heading-sixth">Video editor</h6>
     </div>
@@ -34,8 +34,24 @@
 
     </div>
     <div class="addition__tab-footer editor__footer">
-      <button class="editor__delete-button button-secondary button--reddish"></button>
-      <button class="editor__confirm-button button-secondary">Confirm</button>
+      <delete-button  class="editor__delete-button"/>
+      <confirm-button class="editor__confirm-button"/>
+     <!--  <button class="editor__delete-button button-secondary"></button>
+      <button class="editor__confirm-button button-secondary">Confirm</button> -->
     </div>
-  </div>
+  </v-form>
 </template>
+
+<script>
+import ConfirmButton from '@components/buttons/ConfirmButton'
+import DeleteButton from '@components/buttons/DeleteButton'
+import VForm from '@components/validation/VForm';
+
+export default {
+  components: {
+    ConfirmButton,
+    DeleteButton,
+    VForm
+  }
+}
+</script>

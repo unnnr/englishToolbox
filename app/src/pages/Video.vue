@@ -10,8 +10,8 @@
         <video-editor/>
       </template>
 
-       <template #creator>
-        <video-editor/>
+      <template #creator>
+        <video-creator/>
       </template>
 
     </post-selected>
@@ -23,14 +23,15 @@
 
 <script>
 import PostSelected from '@components/posts_new/PostSelected'
+import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'
 import Pool from '@components/cards_new/Pool'
 
-
 export default {
   components: {
     PostSelected,
+    VideoCreator,
     VideoEditor,
     VideoPlayer,
     Pool
