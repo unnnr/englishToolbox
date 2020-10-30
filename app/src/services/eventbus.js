@@ -40,7 +40,6 @@ const Bus = new function ()
         listeners[event].splice(index, 1);
 
         return true;
-
     }
 }();
 

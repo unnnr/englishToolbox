@@ -56,7 +56,9 @@ export default {
   },
 
   props: {
-    editing: { type: Boolean, default: false }
+    editing: { type: Boolean, default: false },
+
+    request: { type: Function, default: null }
   },
 
   inject: [ '$target' ],
@@ -77,12 +79,6 @@ export default {
 
     description() {
       return this.withDefault ? this.target.description : '';
-    }
-  },
-
-  methods: {
-    request(data) {
-      console.log('sending....');
     }
   }
 }

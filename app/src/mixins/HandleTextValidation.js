@@ -78,7 +78,14 @@ const HandleTextValidation = {
 		},
 		
 		formatedName() {
-      return this.name || 'this field';
+      if (!!!this.name)
+        return 'this field';
+
+      let parsed = this.name.replace(/[A-Z]/g, entrie => {
+        return ' ' + entrie.toLowerCase();
+      });
+
+      return parsed;
 		},
 
     active() {

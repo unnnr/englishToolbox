@@ -2,9 +2,12 @@
   <v-input
     placeholder="https://youtube.com/..."
     label="Youtube link"
+    name="videoUrl"
+
     :value="value"
-    @validating="validating"
-    v-validate/>
+    v-validate
+
+    @validating="validating"/>
 </template>
 
 <script>

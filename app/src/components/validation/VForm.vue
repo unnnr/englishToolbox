@@ -22,7 +22,7 @@ export default {
       // Anchor for Linker  
       handleValidation: true,
       
-      // Data sendded by linker
+      // Data setted by linker
       inputs: [],
       anchors: {},
       watchers: {}
@@ -49,8 +49,8 @@ export default {
     },
 
     TEMP_showData(data) {
-      for (let field of data.entries())
-        console.log(field);
+      for (let [field, value] of data.entries())
+        console.log(field + ': ' + value);
     },  
 
     collectData() {
