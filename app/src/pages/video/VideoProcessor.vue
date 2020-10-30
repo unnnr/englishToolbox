@@ -1,21 +1,17 @@
 <template>
-   <v-form class="addition__tab editor" secondary>
+   <v-form 
+    class="addition__tab editor"
+    :request="request"
+    secondary>
+
     <div class="addition__tab-header">
       <h6 class="heading-sixth">Video editor</h6>
     </div>
     <div class="addition__tab-body editor__body">
       
-      <div class="input-group-secondary">  
-        <div class="input-group__inner">
-          <span class="input-group__title">Youtube link<small class="input-group__counter">0/0</small></span>
-          <input class="input-group__input" placeholder="https://www.youtube.com" type="text">
-        </div>
-      </div>
+      <youtube-url-input/>
 
-      <div class="textarea-group-secondary">  
-        <span class="textarea-group__title">Custom description<small class="textarea-group__counter">0/180</small></span>
-        <textarea class="textarea-group__textarea"></textarea>
-      </div>
+      <description-input/>
 
       <h6 class="editor__tag-title heading-sixth">Add tags<span class="editor__tag-counter">0/5</span></h6>
 
@@ -44,12 +40,16 @@
 </template>
 
 <script>
+import DescriptionInput from '@components/inputs/DescriptionInput'
+import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
 import VForm from '@components/validation/VForm';
 
 export default {
   components: {
+    DescriptionInput,
+    YoutubeUrlInput,
     ConfirmButton,
     DeleteButton,
     VForm
@@ -57,6 +57,12 @@ export default {
 
   props: {
     editing: { type: Boolean, default: false }
+  },
+
+  methods: {
+    request(data) {
+      console.log('sending....');
+    }
   }
 }
 </script>

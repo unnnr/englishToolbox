@@ -1,11 +1,9 @@
 <template>
   <v-input
-    placeholder="Brikys"
-    label="Your name"
-    icon="name"
-    
-    :max="40"
-    :min="3"/>
+    placeholder="https://youtube.com/..."
+    label="Youtube link"
+    @validating="validating"
+    v-validate/>
 </template>
 
 <script>

@@ -65,8 +65,6 @@ export default {
   methods: {
     async onInput() {
       this.height = 'auto';
-      
-      await this.$nextTick();
 
       this.height = this.$refs.input.scrollHeight + 1 + 'px';
     }

@@ -84,9 +84,8 @@ export default {
       this.loading = false;
     },
 
-    send(data) {
-      if (this.request)
-        return this.request().catch(() => false);
+    async send(data) {
+      await this.request();
     },
 
     async submit() {
@@ -96,9 +95,7 @@ export default {
       this.lock();
 
       let data = this.collectData();
-      await this.send(data);
-
-      this.unlock();
+      this.send(data).finally(this.unlock);
     }
   }
 }

@@ -6,7 +6,7 @@
     
     :disabled="disabled"
     :optional="optional"
-    :max="123"
+    :max="180"
 
     v-validate/> 
 </template>
