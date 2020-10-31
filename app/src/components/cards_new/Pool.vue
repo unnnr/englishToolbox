@@ -67,6 +67,7 @@ export default {
     this.posts = FakeData.generatePosts();
 
     this.listen({
+      'post-creating': this.onCreating,
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
@@ -161,8 +162,11 @@ export default {
     },
 
     createNew() {
+      bus.dispatch('post-start-creating');
+    },
+
+    onCreating() {
       this.select(null);
-      bus.dispatch('post-creating');
     },
 
     async onCreated(event) {

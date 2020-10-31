@@ -95,14 +95,14 @@ export default {
         this.showAlert(() =>
           this.onSelecting(event)
         );
-        
       },
 
-      'post-creating': () => {
+      'post-start-creating': () => {
         if (this.requireWarning)
           return this.showAlert(this.onCreating);
         
         this.onCreating();
+        bus.dispatch('post-creating');
       }
     });
   },
