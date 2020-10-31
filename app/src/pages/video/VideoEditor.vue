@@ -9,12 +9,20 @@ import VideoProcessor from '@pages/video/VideoProcessor'
 import bus from '@services/eventbus';
 
 import TEMP_getYouTubeID from 'get-youtube-id'
-import Faker from 'faker/locale/ja'
-
+import FakeData from '@services/FakeData';
+import getYouTubeID from 'get-youtube-id'
 
 export default {
   components: {
     VideoProcessor
+  },
+
+  inject: [ '$target' ],
+
+  computed: {
+    TEMP_target() {
+      return this.$target();
+    },
   },
 
   methods: {
@@ -22,8 +30,15 @@ export default {
 
       // sending data to API
 
+      let url = data.get('videoUrl');
+      let description = data.get('description');
 
-      bus.dispatch('post-created', { post });
+      let post = this.TEMP_target;
+      post.description = description;
+      post.videoId = getYouTubeID(url);
+      post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
+      
+      bus.dispatch('post-edited', { post });
     }
   }
 }

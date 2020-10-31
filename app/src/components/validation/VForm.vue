@@ -85,16 +85,17 @@ export default {
     },
 
     async send(data) {
-      await this.request();
+      await this.request(data);
     },
 
-    async submit() {
+    submit() {
       if (!!!this.validateInputs() || !!!this.request)
         return;
       
       this.lock();
 
       let data = this.collectData();
+
       this.send(data).finally(this.unlock);
     }
   }

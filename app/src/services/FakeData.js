@@ -55,25 +55,7 @@ class FakeData {
           label: Faker.lorem.word(),
         }
     }
-    
-     generatePosts() 
-    {
-        let posts = [];
-        let count =  Faker.random.number(10);
-    
-        for (let i = 0; i < count; i++)
-          posts.push(this.createPost());
-    
-        return posts;
-    }
-    
-    getRandomId() 
-    {
-        let index = Math.floor(Math.random(this.posts.length));
-        
-        return this.posts[index].id;
-    }
-    
+
     createComments()
     {
         let comments = [];
@@ -112,8 +94,15 @@ class FakeData {
         return videos[index]; 
     }
     
-    createPost() 
+    createPost(videoId) 
     {
+        let youtubeID;
+
+        if (videoId)
+            youtubeID = videoId;
+        else
+            youtubeID = this.generateVideoId();
+
         let post  = {
           id: Faker.random.number(1000),
     
@@ -131,12 +120,23 @@ class FakeData {
     
           comments: this.createComments(),
     
-          videoId: this.generateVideoId()
+          videoId: youtubeID
         };
     
         post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
     
         return post;
+    }
+
+    generatePosts() 
+    {
+        let posts = [];
+        let count =  1 + Faker.random.number(10);
+    
+        for (let i = 0; i < count; i++)
+          posts.push(this.createPost());
+    
+        return posts;
     }
 }
 

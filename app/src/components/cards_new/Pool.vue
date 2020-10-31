@@ -160,10 +160,10 @@ export default {
     async onEdited(event) {
 			let target = event.post;
 			let post = this.findById(target.id);
-				
+      
 			if (post === null)
-				return;
-			
+        return;
+        
 			Object.assign(post, target);
 			this.select(post);
 		},
