@@ -23,7 +23,7 @@
       :main-tag="post.mainTag"
       :tags="post.tags"
 
-      @select="select(post)"
+      @select="selecting(post)"
       v-context:items="createContext(post)"
 
       rectangular/>
@@ -55,7 +55,7 @@ export default {
 
   computed: {
     firstPost() {
-      return this.posts[0];
+      return this.reversedPosts[0];
     },
 
     reversedPosts() {
@@ -70,9 +70,10 @@ export default {
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
+      'post-selected': this.onSelected
     });
 
-    this.select(this.firstPost);
+    this.selecting(this.firstPost);
   },
 
   methods: {
@@ -89,7 +90,7 @@ export default {
       return () => {
         return {
           'Open': () => 
-             this.select(post),
+             this.selecting(post),
 
           'Edit': () =>  {
             let newPost = FakeData.createPost('');
@@ -131,25 +132,32 @@ export default {
     },
     
     select(post) {
+
 			// Preventing redundunt requests
       if (this.$options.selectedPost 
         && this.$options.selectedPost.id === post.id)
         return;
 
+      // Selecting current post
+      this.$set(post, 'selected', true);
+
 			// Unselecting previos post
 			if (this.$options.selectedPost)
 				this.$set(this.$options.selectedPost, 'selected', false)
+      
+      this.$options.selectedPost = post;
+    },
 
-			// Selecting current post
-			this.$options.selectedPost = post;
-			this.$set(post, 'selected', true)
-
-			// Emitting event
-			bus.dispatch('post-selecting', { post });
+    selecting(post) {
+      bus.dispatch('post-selecting', { post });
     },
 
     // Events
     
+    onSelected(event) {
+      this.select(event.post);
+    },
+
     createNew() {
       bus.dispatch('post-creating');
     },
@@ -158,7 +166,7 @@ export default {
 			let post = event.post;
 
       this.posts.push(post);
-			this.select(post);
+			this.selecting(post);
     },
     
     async onEdited(event) {
@@ -169,7 +177,7 @@ export default {
         return;
         
 			Object.assign(post, target);
-			this.select(post);
+			this.selecting(post);
 		},
     
     async onDeleted(event) {
@@ -184,7 +192,7 @@ export default {
 
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				this.select(this.firstPost);
+				this.selecting(this.firstPost);
     }
   }
 }

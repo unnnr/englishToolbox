@@ -27,6 +27,7 @@ import HandleEvents from '@mixins/HandleEvents';
 import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
 import PostDetails from '@components/posts_new/PostDetails'
 import PostPlayer from '@components/posts_new/PostPlayer'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -63,8 +64,11 @@ export default {
   mounted() {
     this.listen({
       'post-selecting': (event) => {
-        this.target = event.post;
+        
+        bus.dispatch('post-selected', event);
+
         this.creating = false;
+        this.target = event.post;  
       },
 
       'post-creating': () => {
