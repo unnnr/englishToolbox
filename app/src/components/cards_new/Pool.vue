@@ -132,20 +132,22 @@ export default {
     },
     
     select(post) {
-
 			// Preventing redundunt requests
-      if (this.$options.selectedPost 
+      if (post
+        && this.$options.selectedPost 
         && this.$options.selectedPost.id === post.id)
         return;
-
-      // Selecting current post
-      this.$set(post, 'selected', true);
 
 			// Unselecting previos post
 			if (this.$options.selectedPost)
 				this.$set(this.$options.selectedPost, 'selected', false)
       
+      if (!!!post)
+        return;
+
+      // Selecting current post
       this.$options.selectedPost = post;
+      this.$set(post, 'selected', true);
     },
 
     selecting(post) {
@@ -159,6 +161,7 @@ export default {
     },
 
     createNew() {
+      this.select(null);
       bus.dispatch('post-creating');
     },
 

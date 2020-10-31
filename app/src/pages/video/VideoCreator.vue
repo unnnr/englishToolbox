@@ -1,5 +1,6 @@
 <template>
   <video-processor 
+    ref="processor"
     :request="submit"/>
 </template>
 
@@ -15,6 +16,12 @@ export default {
   },
 
   methods: {
+    hasChanges() {
+      let processor = this.$refs.processor;
+
+      return processor.hasChanges();
+    },
+    
     submit(data) {
       let url = data.get('videoUrl');
       let description = data.get('description');

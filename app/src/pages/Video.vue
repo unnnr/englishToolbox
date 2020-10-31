@@ -8,14 +8,6 @@
         <video-player/>
       </template> 
 
-      <!-- <template #editor>
-        <video-editor/>
-      </template>
-
-      <template #creator>
-        <video-creator/>
-      </template>
- -->
     </post-selected>
 
     <pool/>
@@ -33,8 +25,6 @@ import Pool from '@components/cards_new/Pool'
 export default {
   components: {
     PostSelected,
-    // VideoCreator,
-    // VideoEditor,
     VideoPlayer,
     Pool
   },

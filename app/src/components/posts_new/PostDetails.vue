@@ -79,7 +79,7 @@ export default {
 
         return editor 
           && typeof editor.hasChanges === 'function' 
-          && editor.hasChangeseditor.hasChanges();
+          && editor.hasChanges();
       },
 
       cache: false
