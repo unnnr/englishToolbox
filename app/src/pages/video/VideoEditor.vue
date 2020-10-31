@@ -1,5 +1,6 @@
 <template>
   <video-processor 
+    ref="processor"
     :request="submit"
     editing/>
 </template>
@@ -25,6 +26,12 @@ export default {
   },
 
   methods: {
+    hasChanges() {
+      let processor = this.$refs.processor;
+
+      return processor.hasChanges();
+    },
+
     submit(data) {
 
       // sending data to API

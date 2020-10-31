@@ -1,19 +1,21 @@
 <template>
  <main class="posts">
-    <post-selected>
+    <post-selected
+      :editor-component="videoEditor"
+      :creator-component="videoCreator">
 
       <template #player>
         <video-player/>
       </template> 
 
-      <template #editor>
+      <!-- <template #editor>
         <video-editor/>
       </template>
 
       <template #creator>
         <video-creator/>
       </template>
-
+ -->
     </post-selected>
 
     <pool/>
@@ -31,10 +33,17 @@ import Pool from '@components/cards_new/Pool'
 export default {
   components: {
     PostSelected,
-    VideoCreator,
-    VideoEditor,
+    // VideoCreator,
+    // VideoEditor,
     VideoPlayer,
     Pool
+  },
+
+  data() {
+    return {
+      videoCreator: VideoCreator,
+      videoEditor: VideoEditor
+    }
   }
 }
 </script>

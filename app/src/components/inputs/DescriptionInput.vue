@@ -3,7 +3,7 @@
     label="Post description"
     name="description"
     
-    :value="value"
+    :value="defaultValue"
     :disabled="disabled"
     :optional="optional"
     :max="180"
@@ -21,7 +21,7 @@ export default {
   props: {
     optional: { type: Boolean, default: true },
 
-    value: { type: String, default: '' },
+    defaultValue: { type: String, default: '' },
 
     disabled: { type: Boolean, default: false },
   }

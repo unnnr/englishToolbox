@@ -1,6 +1,5 @@
 <template>
   <div class="addition">
-
     <div class="addition__header">
       <button 
         class="addition__button  text-fifth"
@@ -39,7 +38,10 @@
 
         <post-comments v-if="commentsSelected"/>
         
-        <slot v-if="editorShown && editorSelected"/>
+        <component 
+          v-if="editorShown && editorSelected"
+          ref="editor"
+          :is="editorComponent"/> 
 
       </transition>
     </div>
@@ -50,6 +52,7 @@
 
 import PostComments from '@components/posts_new/PostComments'
 import PostInfo from '@components/posts_new/PostInfo'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -58,16 +61,30 @@ export default {
   },
 
   props: {
-    onlyEditor: { type: Boolean, default: false }
+    onlyEditor: { type: Boolean, default: false },
+
+    editorComponent: { type: Object }
   },
 
   data() {
     return {
-      activeTab: 'info'
+      activeTab: 'info',
     }
   },
 
   computed: {
+    requireWarning: {
+      get(){
+        let editor = this.$refs.editor;
+
+        return editor 
+          && typeof editor.hasChanges === 'function' 
+          && editor.hasChangeseditor.hasChanges();
+      },
+
+      cache: false
+    },
+
     infoSelected() {
       return !!!this.onlyEditor && this.activeTab === 'info';
     },
@@ -86,12 +103,31 @@ export default {
   },
 
   methods: {
+    showAlert(callback) {
+      bus.dispatch('alert-warning', { 
+        message: 'You have unsaved changes. All of them will be lost',
+        okay: callback
+      });
+    },
+
+    switchWithAlert(type) {
+      this.showAlert(() => 
+        this.activeTab = type
+      );
+    },
+
     selectInfo() {
-      this.activeTab = 'info';
+      if (!!!this.requireWarning)
+        return this.activeTab = 'info';
+
+      this.switchWithAlert('info');
     },
 
     selectComments() {
-      this.activeTab = 'comments';
+      if (!!!this.requireWarning)
+        return this.activeTab = 'comments';
+
+      this.switchWithAlert('comments');
     },
 
     selectEditor() {

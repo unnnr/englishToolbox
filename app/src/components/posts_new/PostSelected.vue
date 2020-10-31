@@ -9,15 +9,17 @@
     </post-player>
     
     <post-details 
-      :only-editor="creating"> 
+      ref="postDetails"
+      :only-editor="creating"
+      :editor-component="currentComponent"> 
       
-      <slot 
+     <!--  <slot 
         v-if="editing"
-        name="editor"/>
+        name='editor'/>
 
       <slot 
         v-if="creating"
-        name="creator"/>
+        name="creator"/> -->
     </post-details>
   </section>
 </template>
@@ -38,6 +40,12 @@ export default {
 
   mixins: [ HandleEvents ],
 
+  props: {
+    editorComponent: { type: Object },
+
+    creatorComponent: { type: Object }
+  },
+
   provide() {
     const _this = this;
 
@@ -56,6 +64,23 @@ export default {
   },
 
   computed: {
+    currentComponent() {
+      return this.editing ?
+        this.editorComponent : 
+        this.creatorComponent;
+    },
+
+    requireWarning:{ 
+      get() {
+        let postDetails = this.$refs.postDetails;
+
+        return postDetails.requireWarning
+      },
+
+      cache:false
+    },
+  
+
     editing () {
       return !!!this.creating;
     }
@@ -64,21 +89,44 @@ export default {
   mounted() {
     this.listen({
       'post-selecting': (event) => {
-        
-        bus.dispatch('post-selected', event);
+        if (!!!this.requireWarning)
+          return this.onSelecting(event);
 
-        this.creating = false;
-        this.target = event.post;  
+        this.showAlert(() =>
+          this.onSelecting(event)
+        );
+        
       },
 
       'post-creating': () => {
-        this.target = null;
-        this.creating = true;
+        if (this.requireWarning)
+          return this.showAlert(this.onCreating);
+        
+        this.onCreating();
       }
     });
   },
 
   methods: {
+    onSelecting(event) {
+      bus.dispatch('post-selected', event);
+
+      this.creating = false;
+      this.target = event.post;  
+    },
+
+    onCreating(){
+      this.target = null;
+      this.creating = true;
+    },
+    
+    showAlert(callback) {
+      bus.dispatch('alert-warning', { 
+        message: 'You have unsaved changes. All of them will be lost',
+        okay: callback
+      });
+    },
+
     select(event) {
       this.target = event.post;
       this.creating = false;

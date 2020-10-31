@@ -4,14 +4,16 @@ const HandleTextValidation = {
 		placeholder: { type: String,  default: null},
 
     label: { type: String, default: 'Your text' },
-    
-    value: { type: String, default: '' },
 
 		name: { type: String, default: null },
 
 		max: { type: Number, default: null },
 
     min: { type: Number, default: null },
+
+    // Default value, but for v-model supporting 
+    // 'default' prefix is removed
+    value: { type: String, default: '' },
 
 		// Callback
 		submitting: { type: Function, default: null },
@@ -108,7 +110,6 @@ const HandleTextValidation = {
           return;
 
         this.entry = newValue;
-        this.validate();
       },
   
       immediate: true
@@ -116,6 +117,10 @@ const HandleTextValidation = {
   },
 	
 	methods: {
+    hasChanges() {
+      return this.entry !== this.value;
+    },
+
     onInput() {
       this.$emit('input', this.entry);
     },
@@ -191,7 +196,7 @@ const HandleTextValidation = {
       return errors;
 		},
 		
-		validate() {
+		validate() {    
       this.errors = this.collectErrors();
 
       this.validated = !!!this.incorrect;

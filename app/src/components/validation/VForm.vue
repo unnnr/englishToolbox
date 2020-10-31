@@ -36,6 +36,17 @@ export default {
   },
 
   methods: {
+    hasChanges() {
+      for (let input of this.inputs)
+      {
+        if (typeof input.hasChanges === 'function'
+            && input.hasChanges())
+          return true;
+      }
+
+      return false;
+    },
+
     validateInputs() {
       let allAreValid = true;
 

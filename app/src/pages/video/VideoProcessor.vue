@@ -1,6 +1,7 @@
 <template>
    <v-form 
     class="addition__tab editor"
+    ref="form"
     :request="request"
     secondary>
 
@@ -9,9 +10,9 @@
     </div>
     <div class="addition__tab-body editor__body">
       
-      <youtube-url-input :value="link"/>
+      <youtube-url-input :default-value="link"/>
 
-      <description-input :value="description"/>
+      <description-input :default-value="description"/>
 
       <h6 class="editor__tag-title heading-sixth">Add tags<span class="editor__tag-counter">0/5</span></h6>
 
@@ -79,6 +80,14 @@ export default {
 
     description() {
       return this.withDefault ? this.target.description : '';
+    }
+  },
+
+  methods: {
+    hasChanges() {
+      let form = this.$refs.form;
+
+      return form.hasChanges();
     }
   }
 }

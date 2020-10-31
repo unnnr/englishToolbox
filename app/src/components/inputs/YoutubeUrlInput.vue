@@ -1,10 +1,12 @@
 <template>
   <v-input
+    ref="input"
+
     placeholder="https://youtube.com/..."
     label="Youtube link"
     name="videoUrl"
 
-    :value="value"
+    :value="defaultValue"
     :validating="validating"
 
     v-validate/>
@@ -22,7 +24,7 @@ export default {
   },
 
   props: {
-    value: { type: String, default: '' }
+    defaultValue: { type: String, default: '' }
   },
 
   methods: {
