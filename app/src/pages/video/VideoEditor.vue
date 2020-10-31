@@ -6,6 +6,11 @@
 
 <script>
 import VideoProcessor from '@pages/video/VideoProcessor'
+import bus from '@services/eventbus';
+
+import TEMP_getYouTubeID from 'get-youtube-id'
+import Faker from 'faker/locale/ja'
+
 
 export default {
   components: {
@@ -13,8 +18,12 @@ export default {
   },
 
   methods: {
-    submit() {
-      console.log('Editing');
+    submit(data) {
+
+      // sending data to API
+
+
+      bus.dispatch('post-created', { post });
     }
   }
 }

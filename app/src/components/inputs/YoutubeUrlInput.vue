@@ -5,14 +5,16 @@
     name="videoUrl"
 
     :value="value"
-    v-validate
+    :validating="validating"
 
-    @validating="validating"/>
+    v-validate/>
+
 </template>
 
 <script>
 
 import VInput from '@components/validation/VInput'
+import getYouTubeID from 'get-youtube-id'
 
 export default {
   components: {
@@ -24,8 +26,12 @@ export default {
   },
 
   methods: {
-    validating(data) {
-      
+    validating(errors, entry) {
+      if (getYouTubeID(entry))
+        return true;
+
+      errors.push('Incorrect youtube link');
+      return false
     }
   }
 }
