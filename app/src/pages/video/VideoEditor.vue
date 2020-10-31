@@ -8,9 +8,8 @@
 import VideoProcessor from '@pages/video/VideoProcessor'
 import bus from '@services/eventbus';
 
-import TEMP_getYouTubeID from 'get-youtube-id'
-import FakeData from '@services/FakeData';
 import getYouTubeID from 'get-youtube-id'
+import FakeData from '@services/FakeData';
 
 export default {
   components: {

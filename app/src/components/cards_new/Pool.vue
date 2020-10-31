@@ -10,7 +10,7 @@
       @click="createNew"/>
 
     <card 
-      v-for="post in posts"
+      v-for="post in reversedPosts"
       :key="post.id"
       :class="{'card--selected': post.selected }"
       
@@ -56,7 +56,11 @@ export default {
   computed: {
     firstPost() {
       return this.posts[0];
-    }
+    },
+
+    reversedPosts() {
+			return [...this.posts].reverse();
+		}
   },
 
   mounted() {
