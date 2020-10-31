@@ -73,18 +73,6 @@ export default {
   },
 
   computed: {
-    requireWarning: {
-      get(){
-        let editor = this.$refs.editor;
-
-        return editor 
-          && typeof editor.hasChanges === 'function' 
-          && editor.hasChanges();
-      },
-
-      cache: false
-    },
-
     infoSelected() {
       return !!!this.onlyEditor && this.activeTab === 'info';
     },
@@ -103,31 +91,32 @@ export default {
   },
 
   methods: {
-    showAlert(callback) {
-      bus.dispatch('alert-warning', { 
-        message: 'You have unsaved changes. All of them will be lost',
-        okay: callback
-      });
+    requireWarning() {
+      let editor = this.$refs.editor;
+
+      return editor 
+        && typeof editor.hasChanges === 'function' 
+        && editor.hasChanges();
     },
 
-    switchWithAlert(type) {
-      this.showAlert(() => 
-        this.activeTab = type
+    emitEvent(type) {
+      this.$emit('switching-locked-tab', 
+        () => this.activeTab = type
       );
     },
 
     selectInfo() {
-      if (!!!this.requireWarning)
+      if (!!!this.requireWarning())
         return this.activeTab = 'info';
 
-      this.switchWithAlert('info');
+      this.emitEvent('info');
     },
 
     selectComments() {
-      if (!!!this.requireWarning)
+      if (!!!this.requireWarning())
         return this.activeTab = 'comments';
 
-      this.switchWithAlert('comments');
+      this.emitEvent('comments');
     },
 
     selectEditor() {

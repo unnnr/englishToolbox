@@ -11,16 +11,10 @@
     <post-details 
       ref="postDetails"
       :only-editor="creating"
-      :editor-component="currentComponent"> 
-      
-     <!--  <slot 
-        v-if="editing"
-        name='editor'/>
-
-      <slot 
-        v-if="creating"
-        name="creator"/> -->
+      :editor-component="currentComponent"
+      @switching-locked-tab="showAlert"> 
     </post-details>
+    
   </section>
 </template>
 
@@ -70,17 +64,6 @@ export default {
         this.creatorComponent;
     },
 
-    requireWarning:{ 
-      get() {
-        let postDetails = this.$refs.postDetails;
-
-        return postDetails.requireWarning
-      },
-
-      cache:false
-    },
-  
-
     editing () {
       return !!!this.creating;
     }
@@ -89,17 +72,21 @@ export default {
   mounted() {
     this.listen({
       'post-selecting': (event) => {
-        if (!!!this.requireWarning)
-          return this.onSelecting(event);
+        if (this.requireWarning()) {
+          this.showAlert(() => this.onSelecting(event));
 
-        this.showAlert(() =>
-          this.onSelecting(event)
-        );
+          return;
+        }
+
+        this.onSelecting(event);
       },
 
       'post-start-creating': () => {
-        if (this.requireWarning)
-          return this.showAlert(this.onCreating);
+        if (this.requireWarning()) {
+          this.showAlert(this.onCreating)
+
+          return;
+        }
         
         this.onCreating();
         bus.dispatch('post-creating');
@@ -108,6 +95,12 @@ export default {
   },
 
   methods: {
+    requireWarning() { 
+      let postDetails = this.$refs.postDetails;
+
+      return postDetails.requireWarning()
+    },
+
     onSelecting(event) {
       bus.dispatch('post-selected', event);
 
