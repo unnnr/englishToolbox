@@ -2,7 +2,9 @@
   <div class="player">    
     <transition name="fade">
 
-      <post-player-overlay v-if="overlayShown"/>
+      <post-player-overlay 
+        v-if="overlayShown"
+        :editing="editing"/>
   
       <slot v-else/>
 
@@ -17,10 +19,15 @@ export default {
   components: {
     PostPlayerOverlay
   },
+
+  props: {
+    // editing: { type: Boolean, default: false }
+  },
   
   data() {
     return {
-      overlayShown: false
+      overlayShown: true,
+      editing: true
     };
   }
 }
