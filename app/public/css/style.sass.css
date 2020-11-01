@@ -1521,7 +1521,7 @@ button:active {
   color: #fff;
   font-weight: 600;
   font-size: 12px;
-  padding: 7px 10px;
+  padding: 0 10px;
   border-radius: 50px;
   min-height: 30px;
   -webkit-box-align: center;
@@ -2678,6 +2678,14 @@ button:active {
   color: #1a1926;
 }
 
+.addition__button--disabled {
+  opacity: 0.25;
+}
+
+.addition__button--disabled:hover {
+  color: #848499;
+}
+
 .addition__tabs {
   position: relative;
   height: 100%;
@@ -2845,6 +2853,10 @@ button:active {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 20px;
+}
+
+.comments__body--empty {
+  overflow: hidden;
 }
 
 .comments__body-overlay {
