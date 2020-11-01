@@ -1,15 +1,9 @@
 <template>
   <transition name="fade">
     <img 
-      v-if ="editing" 
       class="player__overlay"
-      src="img/svg/overlay-videos.svg"/>
-
-    <img 
-      v-if ="empty" 
-      class="player__overlay" 
-      src="img/svg/overlay-selected.svg"/>
-
+      :key="key"
+      :src="link"/>
   </transition>
 </template>
 
@@ -17,17 +11,31 @@
 export default {
   data() {
     return {
-      img: '#'
     }
   },
 
   props: {
-    editing: { type: Boolean, default: false }
+    editing: { type: Boolean, default: false },
   },
 
   computed: {
     empty() {
       return !!!this.editing;
+    },
+
+    key() {
+      if (this.editing)
+        return 0;
+      
+      return 1;
+    },
+
+
+    link() {
+      if (this.editing)
+        return 'img/svg/overlay-videos.svg';
+
+      return 'img/svg/overlay-selected.svg';
     }
   }
 }
