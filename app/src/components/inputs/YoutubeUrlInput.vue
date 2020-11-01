@@ -8,13 +8,10 @@
 
     :value="defaultValue"
     :validating="validating"
-
     v-validate/>
-
 </template>
 
 <script>
-
 import VInput from '@components/validation/VInput'
 import getYouTubeID from 'get-youtube-id'
 
@@ -28,11 +25,26 @@ export default {
   },
 
   methods: {
+    emitEvent(value) {
+      this.$emit
+    },
+
     validating(errors, entry) {
-      if (getYouTubeID(entry))
+      this.videoId = getYouTubeID(entry);
+
+      let options = { 
+        viodeId: this.videoId,
+        entry: entry
+      };
+
+      if (this.videoId)
+      {
+        this.$emit('changed' , options);
         return true;
+      }
 
       errors.push('Incorrect youtube link');
+      this.$emit('changed' , options);
       return false
     }
   }

@@ -10,7 +10,9 @@
     </div>
     <div class="addition__tab-body editor__body">
       
-      <youtube-url-input :default-value="link"/>
+      <youtube-url-input 
+        :default-value="link"
+        @changed="updatedLink"/>
 
       <description-input :default-value="description"/>
 
@@ -64,6 +66,12 @@ export default {
 
   inject: [ '$target' ],
 
+  data() {
+    return {
+      link: ''
+    }
+  },
+
   computed: {
     target() {
       return this.$target();
@@ -73,17 +81,23 @@ export default {
       return this.target && this.editing;
     },
 
-    link() {
-      return this.withDefault ?  
-        'https://youtube.com/watch?v=' + this.target.videoId : '';
-    },
-
     description() {
       return this.withDefault ? this.target.description : '';
     }
   },
 
+  mounted() {
+    this.link = this.withDefault ?  
+      'https://youtube.com/watch?v=' + this.target.videoId : '';
+  },
+
   methods: {
+    updatedLink(event) {
+      let videoId = event.videoID || null;
+    
+      this.$set(this.target, 'videoId', videoId);
+    },
+
     hasChanges() {
       let form = this.$refs.form;
 
