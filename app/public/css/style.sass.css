@@ -2847,6 +2847,10 @@ button:active {
   gap: 20px;
 }
 
+.comments__body--empty {
+  overflow: hidden;
+}
+
 .comments__body-overlay {
   background-color: #fff;
   background-image: url(http://localhost:8080/img/svg/comments-overlay.svg);
