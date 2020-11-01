@@ -1521,7 +1521,7 @@ button:active {
   color: #fff;
   font-weight: 600;
   font-size: 12px;
-  padding: 7px 10px;
+  padding: 0 10px;
   border-radius: 50px;
   min-height: 30px;
   -webkit-box-align: center;
@@ -2676,6 +2676,14 @@ button:active {
 
 .addition__button--active:hover {
   color: #1a1926;
+}
+
+.addition__button--disabled {
+  opacity: 0.25;
+}
+
+.addition__button--disabled:hover {
+  color: #848499;
 }
 
 .addition__tabs {
