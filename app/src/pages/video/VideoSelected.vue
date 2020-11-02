@@ -11,20 +11,27 @@
     <post-details 
       ref="postDetails"
       :only-editor="creating"
-      @switching-locked-tab="showAlert"> 
+      @switching="trySwitch"> 
+
+      <video-creator v-if="creating" ref="creator"/>
+      
+      <video-editor v-if="editing" ref="editor"/> 
 
     </post-details>
   </section>
 </template>
 
 <script>
-import HandleEvents from '@mixins/HandleEvents';
-import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
-import PostDetails from '@components/posts_new/PostDetails'
-import PostPlayer from '@components/posts_new/PostPlayer'
-import bus from '@services/eventbus'
+import VideoCreator from '@pages/video/VideoCreator'
+import VideoEditor from '@pages/video/VideoEditor'
+import HandlePost from '@mixins/HandlePost'
 
 export default {
-  
+  components: {
+    VideoCreator,
+    VideoEditor
+  },
+
+  mixins: [HandlePost]
 }
 </script>

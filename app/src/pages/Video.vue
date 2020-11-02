@@ -1,6 +1,6 @@
 <template>
  <main class="posts">
-    <post-selected
+   <!--  <post-selected
       :editor-component="videoEditor"
       :creator-component="videoCreator">
 
@@ -8,7 +8,9 @@
         <video-player/>
       </template> 
 
-    </post-selected>
+    </post-selected> -->
+
+    <video-selected/>
 
     <pool/>
 
@@ -16,7 +18,7 @@
 </template>
 
 <script>
-import PostSelected from '@components/posts_new/PostSelected'
+import VideoSelected from '@pages/video/VideoSelected'
 import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'
@@ -24,8 +26,8 @@ import Pool from '@components/cards_new/Pool'
 
 export default {
   components: {
-    PostSelected,
-    VideoPlayer,
+    VideoSelected,
+    // VideoPlayer,
     Pool
   },
 

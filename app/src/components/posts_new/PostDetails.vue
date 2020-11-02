@@ -38,10 +38,7 @@
 
         <post-comments v-if="commentsSelected"/>
         
-        <component 
-          v-if="editorShown && editorSelected"
-          ref="editor"
-          :is="editorComponent"/> 
+        <slot v-if="editorShown && editorSelected" ref="editor"/>
 
       </transition>
     </div>
@@ -62,8 +59,6 @@ export default {
 
   props: {
     onlyEditor: { type: Boolean, default: false },
-
-    editorComponent: { type: Object }
   },
 
   data() {
@@ -91,36 +86,29 @@ export default {
   },
 
   methods: {
-    requireWarning() {
-      let editor = this.$refs.editor;
+    select(tabName) {
+      let _this = this;
 
-      return editor 
-        && typeof editor.hasChanges === 'function' 
-        && editor.hasChanges();
-    },
-
-    emitEvent(type) {
-      this.$emit('switching-locked-tab', 
-        () => this.activeTab = type
-      );
+      this.$emit('switching', {
+        from: this.activeTab,
+        to: tabName,
+        
+        switch() {
+          _this.activeTab = tabName
+        }
+      });
     },
 
     selectInfo() {
-      if (!!!this.requireWarning())
-        return this.activeTab = 'info';
-
-      this.emitEvent('info');
+      this.select('info');
     },
 
     selectComments() {
-      if (!!!this.requireWarning())
-        return this.activeTab = 'comments';
-
-      this.emitEvent('comments');
+      this.select('comments');
     },
 
     selectEditor() {
-      this.activeTab = 'editor';
+      this.select('editor');
     }
   }
 }
