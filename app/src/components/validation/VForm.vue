@@ -95,11 +95,21 @@ export default {
       this.loading = false;
     },
 
+    handleError() {
+      bus.dispatch('alert-error');
+
+      for (let input of this.inputs)
+      {
+        if (typeof input.handleError === 'function')
+          input.handleError();
+      }
+    },
+
     async send(data) {
       await this.request(data);
     },
 
-    submit() {
+    async submit() {
       if (!!!this.validateInputs() || !!!this.request)
         return;
       
@@ -107,7 +117,15 @@ export default {
 
       let data = this.collectData();
 
-      this.send(data).finally(this.unlock);
+      try {
+        await this.send(data);
+      }
+      catch(error) {
+        this.handleError();
+      }
+      finally {
+        this.unlock();
+      }
     }
   }
 }

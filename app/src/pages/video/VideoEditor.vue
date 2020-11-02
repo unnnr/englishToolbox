@@ -34,16 +34,17 @@ export default {
 
     submit(data) {
 
+      throw {};
       // sending data to API
 
       let url = data.get('videoUrl');
       let description = data.get('description');
-
+      
       let post = this.TEMP_target;
       post.description = description;
       post.videoId = getYouTubeID(url);
       post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
-      
+
       bus.dispatch('post-edited', { post });
     }
   }

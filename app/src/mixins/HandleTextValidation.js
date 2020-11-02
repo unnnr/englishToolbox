@@ -110,6 +110,7 @@ const HandleTextValidation = {
           return;
 
         this.entry = newValue;
+        this.$options.defaultValue = newValue;
       },
   
       immediate: true
@@ -118,7 +119,7 @@ const HandleTextValidation = {
 	
 	methods: {
     hasChanges() {
-      return this.entry !== this.value;
+      return this.entry !== this.$options.defaultValue;
     },
 
     onInput() {
@@ -210,8 +211,17 @@ const HandleTextValidation = {
 
       if (!!!this.name)
         return;
+      
+      // Changing default value
+      this.$options.previousValue = this.$options.defaultValue;
+      this.$options.defaultValue = this.entry;
 
       data.append(this.name, this.entry);
+    },
+
+    handleError() {
+      this.$options.defaultValue = 
+        this.$options.previousValue;
     }
 	}
 }

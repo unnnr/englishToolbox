@@ -25,7 +25,7 @@
 
 <script>
 import HandlePost from'@mixins/HandlePost'
-import PostSelected from '@components/posts/PostSelected'
+import PostSelected from '@components/posts_new/PostSelected'
 import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'

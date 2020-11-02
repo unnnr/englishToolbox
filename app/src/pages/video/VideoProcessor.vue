@@ -61,7 +61,7 @@ export default {
   props: {
     editing: { type: Boolean, default: false },
 
-    request: { type: Function, default: null }
+    request: { type: Function, default: null },
   },
 
   inject: [ '$target' ],
