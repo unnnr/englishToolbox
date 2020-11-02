@@ -65,7 +65,7 @@ const HandlePost = {
     this.listen({
       'post-selecting': (event) => {
         if (this.requireWarning) {
-          this.showAlert(() => this.onSelecting(event));
+          this.showAlert(this.onSelecting.bind(this, event));
 
           return;
         }
@@ -99,6 +99,10 @@ const HandlePost = {
 
       this.creating = false;
       this.target = event.post;  
+      
+      // Switching tab to 'Post info'
+      if (this.$refs.postDetails)
+        this.$refs.postDetails.select('info')
     },
 
     onCreating(){

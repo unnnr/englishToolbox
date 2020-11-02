@@ -1,15 +1,5 @@
 <template>
  <main class="posts">
-   <!--  <post-selected
-      :editor-component="videoEditor"
-      :creator-component="videoCreator">
-
-      <template #player>
-        <video-player/>
-      </template> 
-
-    </post-selected> -->
-
     <video-selected/>
 
     <pool/>
@@ -29,13 +19,6 @@ export default {
     VideoSelected,
     // VideoPlayer,
     Pool
-  },
-
-  data() {
-    return {
-      videoCreator: VideoCreator,
-      videoEditor: VideoEditor
-    }
   }
 }
 </script>

@@ -86,7 +86,7 @@ export default {
   },
 
   methods: {
-    select(tabName) {
+    pendSelection(tabName) {
       let _this = this;
 
       this.$emit('switching', {
@@ -99,16 +99,23 @@ export default {
       });
     },
 
+    select(tabName, forced = true) {
+      if (forced)
+        return this.activeTab = tabName;;
+      
+      this.pendSelection(tabName);
+    },
+
     selectInfo() {
-      this.select('info');
+      this.select('info', false);
     },
 
     selectComments() {
-      this.select('comments');
+      this.select('comments', false);
     },
 
     selectEditor() {
-      this.select('editor');
+      this.select('editor', false);
     }
   }
 }
