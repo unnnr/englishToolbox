@@ -1,5 +1,6 @@
 <template>
   <section class="selected container">
+    
     <transition name="fade">
       <post-selected-overlay v-if="overlayShown"/>
     </transition>
