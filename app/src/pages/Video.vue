@@ -1,5 +1,8 @@
 <template>
  <main class="posts">
+
+   <filter-bar/>
+
     <post-selected
       :editor-has-changes="editorHasChanges"
       :creator-has-changes="creatorHasChanges">
@@ -26,6 +29,7 @@
 <script>
 import HandlePost from'@mixins/HandlePost'
 import PostSelected from '@components/posts_new/PostSelected'
+import FilterBar from '@components/layout/FilterBar'
 import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'
@@ -37,6 +41,7 @@ export default {
     VideoCreator,
     VideoPlayer,
     VideoEditor,
+    FilterBar,
     Pool
   },
 

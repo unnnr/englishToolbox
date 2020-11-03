@@ -2,7 +2,7 @@
     <div class="selected__overlay container">
       <img 
         class="selected__overlay-body"
-        src="img/svg/overlay-selected.svg"/>
+        :style="{'background-image': url}">
     </div>
 </template>
 
@@ -10,7 +10,13 @@
 export default {
   data() {
     return {
-      img: '#'
+      img: 'img/svg/overlay-selected.svg'
+    }
+  },
+
+  computed: {
+    url() {
+      return 'url(' + this.img + ')';
     }
   }
 }
