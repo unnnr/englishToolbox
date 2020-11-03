@@ -88,5 +88,4 @@ export default {
 
 .comments__overlay
   display: flex
-
 </style>
