@@ -1,6 +1,6 @@
 <template>
   <transition-group 
-    class="pool container pe"
+    class="pool container"
 		tag="section"
   	name="list"
     @before-leave="setAbsolute">

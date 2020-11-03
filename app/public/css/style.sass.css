@@ -40,6 +40,7 @@ button,
 select,
 a {
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 body,
@@ -216,6 +217,7 @@ body {
       grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 15px;
   grid-row-gap: 30px;
+  margin-bottom: 100px;
 }
 
 @media (max-width: 1200px) {
@@ -1535,6 +1537,10 @@ button:active {
   display: flex;
   -webkit-transition: color .3s;
   transition: color .3s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .tag:hover {
@@ -1691,6 +1697,7 @@ button:active {
   cursor: pointer;
   -webkit-transition: border .3s ease-in-out;
   transition: border .3s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .card__header {
@@ -1800,6 +1807,15 @@ button:active {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media (max-width: 1200px) {
+  .card__title h6 {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
 }
 
 .card__text {
@@ -2464,6 +2480,15 @@ button:active {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: filter;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 1200px) {
+  .filter {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
 }
 
 .filter__body {
@@ -2569,7 +2594,7 @@ button:active {
   -ms-grid-columns: 2.333fr 1fr;
       grid-template-columns: 2.333fr 1fr;
   grid-column-gap: 15px;
-  padding-top: 50px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 1200px) {
@@ -2577,6 +2602,8 @@ button:active {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     grid-row-gap: 10px;
+    margin-bottom: 0;
+    margin-top: 30px;
   }
 }
 
@@ -2585,14 +2612,16 @@ button:active {
   height: 100%;
   width: 100%;
   z-index: 2;
-  display: none;
 }
 
 .selected__overlay-body {
   height: 100%;
   width: 100%;
-  background: red;
   border-radius: 15px;
+  background-color: #fff;
+  background-position: center;
+  background-size: auto 60%;
+  background-repeat: no-repeat;
 }
 
 .player {
@@ -2610,9 +2639,11 @@ button:active {
   height: 100%;
   width: 100%;
   z-index: 1;
-  background: blue;
   border-radius: 15px;
-  display: none;
+  background-color: #fff;
+  background-position: center;
+  background-size: 60% auto;
+  background-repeat: no-repeat;
 }
 
 .player__content {
@@ -2642,18 +2673,13 @@ button:active {
     border-radius: unset;
     -webkit-box-shadow: none;
             box-shadow: none;
+    grid-row-gap: 0;
   }
 }
 
 .addition__header {
   padding-bottom: 15px;
   border-bottom: 2px solid #fafafa;
-}
-
-@media (max-width: 1200px) {
-  .addition__header {
-    display: none;
-  }
 }
 
 .addition__button {
@@ -2738,6 +2764,7 @@ button:active {
 
 .addition__tab-shrink-button {
   display: none;
+  margin-left: 10px;
 }
 
 @media (max-width: 1200px) {

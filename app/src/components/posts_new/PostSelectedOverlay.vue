@@ -1,8 +1,8 @@
 <template>
     <div class="selected__overlay container">
-      <img 
+      <div 
         class="selected__overlay-body"
-        :style="{'background-image': url}">
+        :style="{'background-image': url}"> </div>
     </div>
 </template>
 

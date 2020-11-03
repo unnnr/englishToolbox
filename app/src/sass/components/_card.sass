@@ -47,6 +47,7 @@
   margin-bottom: 30px
   cursor: pointer
   transition: border .3s ease-in-out
+  -webkit-tap-highlight-color: transparent
 
 .card__header
   position: absolute
@@ -118,6 +119,8 @@
     white-space: nowrap
     overflow: hidden
     text-overflow: ellipsis
+    @include lg-devices
+      user-select: none
 
 .card__text
   max-width: 100%
