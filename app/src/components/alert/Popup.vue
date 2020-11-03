@@ -51,11 +51,14 @@ export default {
 	mounted() {
 		this.listen({
 			'alert-error': event => {
+				let message = 
+					typeof event.message === 'string' && event.message;
+
 				Object.assign(this, {
 					type: 'error',
 					shown: true,
 					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
-					message:  event.message,
+					message,
 				});
 
 				Object.assign(this.$options, {
@@ -64,11 +67,14 @@ export default {
 			},
 			
 			'alert-warning': event => {
+				let message = 
+					typeof event.message === 'string' && event.message;
+
 				Object.assign(this, {
 					type: 'warning',
 					shown: true,
 					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
-					message: event.message,
+					message,
 				});
 				
 				Object.assign(this.$options, {
@@ -77,12 +83,15 @@ export default {
 				});
 			},
 
-			'alert-prompt': event => {	
+			'alert-prompt': event => {
+				let message = 
+					typeof event.message === 'string' && event.message;
+
 				Object.assign(this, {
 					type: 'prompt',
 					shown: true,
 					// TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP 
-					message: event.message,
+					message,
 				}),
 				
 				Object.assign(this.$options, {
