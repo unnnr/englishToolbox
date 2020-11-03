@@ -4,12 +4,12 @@
   display: grid
   grid-template-columns: 2.333fr 1fr
   grid-column-gap: 15px
+  margin-bottom: 30px
   @include lg-devices
     grid-template-columns: 1fr
     grid-row-gap: 10px
-
-  // temp
-  padding-top: 50px
+    margin-bottom: 0
+    margin-top: 30px
 
 .selected__overlay
   position: absolute
@@ -17,15 +17,14 @@
   width: 100%
   z-index: 2
 
-  // temp
-  display: none
-
 .selected__overlay-body
   height: 100%
   width: 100%
-  background: red
   border-radius: $border-radius-primary
-
+  background-color: $color-white
+  background-position: center
+  background-size: auto 60% 
+  background-repeat: no-repeat
 
 .player
   position: relative
@@ -40,11 +39,11 @@
   height: 100%
   width: 100%
   z-index: 1
-  background: blue
   border-radius: $border-radius-primary
-  
-  // temp
-  display: none
+  background-color: $color-white
+  background-position: center
+  background-size: 60% auto 
+  background-repeat: no-repeat
 
 .player__content
   position: absolute

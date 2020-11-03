@@ -2,10 +2,10 @@
   <div class="player">    
     <transition name="fade">
 
-    <img 
+    <div 
       v-if="overlayShown"
       class="player__overlay"
-      :style="{'background-image': imageUrl}">
+      :style="{'background-image': imageUrl}"></div>
 
     <iframe 
       v-else
