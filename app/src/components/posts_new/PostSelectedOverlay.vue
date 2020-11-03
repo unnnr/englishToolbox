@@ -1,6 +1,8 @@
 <template>
     <div class="selected__overlay container">
-      <div class="selected__overlay-body"></div>
+      <img 
+        class="selected__overlay-body"
+        src="img/svg/overlay-selected.svg"/>
     </div>
 </template>
 
@@ -13,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.selected__overlay
+  display: block
+
+</style>

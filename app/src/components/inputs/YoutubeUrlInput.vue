@@ -33,12 +33,11 @@ export default {
       this.videoId = getYouTubeID(entry);
 
       let options = { 
-        viodeId: this.videoId,
+        videoId: this.videoId,
         entry: entry
       };
 
-      if (this.videoId)
-      {
+      if (this.videoId) {
         this.$emit('changed' , options);
         return true;
       }

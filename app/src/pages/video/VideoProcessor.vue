@@ -93,9 +93,10 @@ export default {
 
   methods: {
     updatedLink(event) {
-      let videoId = event.videoID || null;
-    
-      this.$set(this.target, 'videoId', videoId);
+      let videoId = event.videoId || null;
+      
+      if (typeof this.target === 'object')
+        this.$set(this.target, 'videoId', videoId) 
     },
 
     hasChanges() {

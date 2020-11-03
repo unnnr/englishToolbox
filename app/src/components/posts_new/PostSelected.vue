@@ -5,9 +5,7 @@
       <post-selected-overlay v-if="overlayShown"/>
     </transition>
 
-    <post-player>
-      <slot name="player"/>
-    </post-player>
+    <slot name="player"/>
     
     <post-details 
       ref="postDetails"
@@ -26,14 +24,12 @@
 import HandleEvents from '@mixins/HandleEvents';
 import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
 import PostDetails from '@components/posts_new/PostDetails'
-import PostPlayer from '@components/posts_new/PostPlayer'
 import bus from '@services/eventbus'
 
 export default {
   components: {
     PostSelectedOverlay,
     PostDetails,
-    PostPlayer,
   },
 
   mixins: [ HandleEvents ],
@@ -56,12 +52,15 @@ export default {
     return {
       target: null,
 
-      overlayShown: false,
       creating: false,
     }
   },
 
   computed: {
+    overlayShown() {
+      return !!!this.target && !!!this.creating;
+    },
+
     editing () {
       return !!!this.creating;
     },
@@ -126,7 +125,7 @@ export default {
     },
 
     onCreating(){
-      this.target = null;
+      this.target = {};
       this.creating = true;
     },
     
