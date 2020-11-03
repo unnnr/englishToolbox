@@ -96,6 +96,28 @@ export default {
   },
 
   methods: {
+    wrapEvent(callback) {
+      function prepareCallback() {
+        // default data
+        let data = {
+          target: {},
+          editing: false,
+          creating: false
+        };
+
+        callback(data, ...arguments);
+        
+        Object.assign(this, data);
+      }
+
+      return (event) => {
+        if (!!!this.requireWarning)
+          return prepareCallback.call(this, event);
+
+        this.showAlert(prepareCallback.call(this, event))
+      }
+    },
+
     trySwitch(event) {
       if (event.from === 'editor' && this.requireWarning)
         return this.showAlert(event.switch);
@@ -103,22 +125,11 @@ export default {
       event.switch();
     },
 
-    wrapEvent(callback) {
-      return (event) => {
-        if (!!!this.requireWarning)
-          return callback(event);
-
-        this.showAlert(callback.bind(this, event))
-      }
-    },
-
-    onSelecting(event) {
+    onSelecting(data, event) {
       bus.dispatch('post-selected', event);
 
-      this.target = event.post;  
-      this.creating = false;
-      this.editing = false;
-      
+      data.target = event.post;  
+      Object.assign(this, data);
 
       // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
       return;
@@ -127,15 +138,13 @@ export default {
         this.$refs.postDetails.select('info')
     },
 
-    onEditing() {
-      this.creating = false;
-      this.editing = true;
+    onEditing(data, event) {
+      data.target = event.target;
+      data.creating = true;
     },
 
-    onStartCreating() {
-      this.target = {};
-      this.creating = true;
-      this.editing = false;
+    onStartCreating(data) {
+      data.creating = true;
       
       bus.dispatch('post-creating');
     },
