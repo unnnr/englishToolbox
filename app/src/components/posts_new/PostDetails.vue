@@ -2,6 +2,7 @@
   <post-details-mobile 
     v-if="mobile" 
     :onlyEditor="onlyEditor">
+
     <slot/>
   </post-details-mobile>
     
@@ -10,6 +11,7 @@
     v-else
     :onlyEditor="onlyEditor"
     @switching="event => $emit('switching', event)">
+
     <slot/>
   </post-details-desktop>
 </template>

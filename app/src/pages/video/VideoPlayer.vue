@@ -39,7 +39,7 @@ export default {
     },
 
     videoLink() {
-      let path =  'https://www.youtube.com/embed/';
+      let path = 'https://www.youtube.com/embed/';
       let query = '?enablejsapi=1&color=white';
 
       return this.videoId && path + this.videoId + query;

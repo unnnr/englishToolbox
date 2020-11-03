@@ -11,7 +11,10 @@
       class="addition__tab-body comments__body"
       :class="{'comments__body--empty': overlayShown}">
 
-      <div class="comments__body-overlay"></div>
+      <div 
+        class="comments__body-overlay"
+        :style="{'background-image': imageUrl}">
+      </div>
       
      <!--  <transition name="fade">
         <div 

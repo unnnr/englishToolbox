@@ -9,12 +9,17 @@
     
     <post-details 
       ref="postDetails"
-      :only-editor="creating"
+      :creating="creating"
+      :editing="editing"
       @switching="trySwitch"> 
 
-      <slot v-if="creating" name="creator"/>
+      <slot
+        v-if="creating"
+        name="creator"/>
       
-      <slot v-if="editing" name="editor"/> 
+      <slot 
+        v-if="editing"
+        name="editor"/> 
 
     </post-details>
   </section>
@@ -53,6 +58,7 @@ export default {
       target: null,
 
       creating: false,
+      editing: false
     }
   },
 
@@ -61,10 +67,6 @@ export default {
       return !!!this.target && !!!this.creating;
     },
 
-    editing () {
-      return !!!this.creating;
-    },
-    
     requireWarning: {
       get() { 
         if (this.editing && this.editorHasChanges)
@@ -82,26 +84,14 @@ export default {
 
   mounted() {
     this.listen({
-      'post-selecting': (event) => {
-        if (this.requireWarning) {
-          this.showAlert(this.onSelecting.bind(this, event));
+      'post-selecting': 
+        this.wrapEvent(this.onSelecting),
 
-          return;
-        }
+      'post-start-creating': 
+        this.wrapEvent(this.onStartCreating),
 
-        this.onSelecting(event);
-      },
-
-      'post-start-creating': () => {
-        if (this.requireWarning) {
-          this.showAlert(this.onCreating)
-
-          return;
-        }
-        
-        this.onCreating();
-        bus.dispatch('post-creating');
-      }
+      'post-editing':
+        this.wrapEvent(this.onEditing)
     });
   },
 
@@ -113,11 +103,21 @@ export default {
       event.switch();
     },
 
+    wrapEvent(callback) {
+      return (event) => {
+        if (!!!this.requireWarning)
+          return callback(event);
+
+        this.showAlert(callback.bind(this, event))
+      }
+    },
+
     onSelecting(event) {
       bus.dispatch('post-selected', event);
 
-      this.creating = false;
       this.target = event.post;  
+      this.creating = false;
+      this.editing = false;
       
 
       // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
@@ -127,9 +127,17 @@ export default {
         this.$refs.postDetails.select('info')
     },
 
-    onCreating(){
+    onEditing() {
+      this.creating = false;
+      this.editing = true;
+    },
+
+    onStartCreating() {
       this.target = {};
       this.creating = true;
+      this.editing = false;
+      
+      bus.dispatch('post-creating');
     },
     
     showAlert(callback) {
@@ -137,11 +145,6 @@ export default {
         message: 'You have unsaved changes. All of them will be lost',
         okay: callback
       });
-    },
-
-    select(event) {
-      this.target = event.post;
-      this.creating = false;
     }
   }
 }

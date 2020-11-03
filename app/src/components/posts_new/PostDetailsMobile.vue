@@ -1,11 +1,11 @@
 <template>
   <div class="addition">
     <div class="addition__tabs">
-      <post-info v-if="!!!editing"/>
+      <post-info v-if="!!!onlyEditor"/>
 
-      <post-comments v-if="!!!editing"/>
+      <post-comments v-if="!!!onlyEditor"/>
         
-      <slot v-if="editing"/>
+      <slot v-if="onlyEditor"/>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   },
 
   props: {
-    editing: { type: Boolean, default: false }
+    onlyEditor: { type: Boolean, default: false }
   },
 
   methods: {

@@ -8,8 +8,8 @@
 					:target="editor.target"/>
 
 				<post-presentor 
-					ref="presentor"
 					v-else
+					ref="presentor"
 					:target="info.target"
 					:model="model"/>
 			</div>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
 import HandleEvents from '@mixins/HandleEvents'
 import PostPresentor from "@components/posts/PostPresentor.vue"
 import bus from '@services/eventbus'
