@@ -119,6 +119,9 @@ export default {
       this.creating = false;
       this.target = event.post;  
       
+
+      // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
+      return;
       // Switching tab to 'Post info'
       if (this.$refs.postDetails)
         this.$refs.postDetails.select('info')

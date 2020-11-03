@@ -52,7 +52,6 @@ export default {
 	},
 
 	mounted() {
-
 		this.$options.eventHandler = throttle(100, this.hide);
 
 		window.addEventListener('scroll', 

@@ -1,60 +1,29 @@
 <template>
-  <div class="addition">
-    <div class="addition__header">
-      <button 
-        class="addition__button  text-fifth"
-        :class="{'addition__button--active': infoSelected}"
-        :disabled="onlyEditor"
-        @click="selectInfo">
+  <post-details-mobile 
+    v-if="mobile" 
+    :onlyEditor="onlyEditor">
+    <slot/>
+  </post-details-mobile>
+    
 
-        Description
-      </button>
-
-      <button 
-        class="addition__button text-fifth" 
-        :class="{'addition__button--active': commentsSelected}"
-        :disabled="onlyEditor"
-        @click="selectComments">
-
-        Comments
-      </button>
-
-      <!-- The editor can be hidden when the user -->
-      <!-- doesn't have appropriate permissions   -->
-      <button 
-        class="addition__button text-fifth"
-        v-if="editorShown"
-        :class="{'addition__button--active': editorSelected}"
-        @click="selectEditor">
-
-        Editor
-      </button>
-    </div>
-
-    <div class="addition__tabs">
-      <transition name="fade">
-
-        <post-info v-if="infoSelected"/>
-
-        <post-comments v-if="commentsSelected"/>
-        
-        <slot v-if="editorShown && editorSelected" ref="editor"/>
-
-      </transition>
-    </div>
-  </div>
+  <post-details-desktop 
+    v-else
+    :onlyEditor="onlyEditor"
+    @switching="event => $emit('switching', event)">
+    <slot/>
+  </post-details-desktop>
 </template>
 
 <script>
-
-import PostComments from '@components/posts_new/PostComments'
-import PostInfo from '@components/posts_new/PostInfo'
-import bus from '@services/eventbus'
+import { debounce } from 'throttle-debounce';
 
 export default {
   components: {
-    PostComments,
-    PostInfo, 
+    PostDetailsDesktop: 
+      () => import('@components/posts_new/PostDetailsDesktop'),
+
+    PostDetailsMobile: 
+      () => import('@components/posts_new/PostDetailsMobile')
   },
 
   props: {
@@ -63,59 +32,35 @@ export default {
 
   data() {
     return {
-      activeTab: 'info',
+      mobile: false,
+      mobileBorder: 1200
     }
   },
 
-  computed: {
-    infoSelected() {
-      return !!!this.onlyEditor && this.activeTab === 'info';
-    },
+  mounted() {
+    this.check();
 
-    commentsSelected() {
-      return  !!!this.onlyEditor && this.activeTab === 'comments';
-    },
-
-    editorSelected() {
-      return this.onlyEditor || this.activeTab === 'editor';
-    },
-    
-    editorShown() {
-      return true;
-    }
+		this.$options.eventHandler = debounce(500, this.check);
+    window.addEventListener('resize', 
+      this.$options.eventHandler);
   },
+
+	beforeDestroy() {
+		window.removeEventListener('resizeresize',
+			this.$options.eventHandler);
+	},
 
   methods: {
-    pendSelection(tabName) {
-      let _this = this;
+    check() {
+      if (this.mobile && window.innerWidth > this.mobileBorder)
+        this.mobile = false;
 
-      this.$emit('switching', {
-        from: this.activeTab,
-        to: tabName,
-        
-        switch() {
-          _this.activeTab = tabName
-        }
-      });
+      else if (!!!this.mobile && window.innerWidth <= this.mobileBorder)
+        this.mobile = true;
     },
 
-    select(tabName, forced = true) {
-      if (forced)
-        return this.activeTab = tabName;;
-      
-      this.pendSelection(tabName);
-    },
+    select() {
 
-    selectInfo() {
-      this.select('info', false);
-    },
-
-    selectComments() {
-      this.select('comments', false);
-    },
-
-    selectEditor() {
-      this.select('editor', false);
     }
   }
 }

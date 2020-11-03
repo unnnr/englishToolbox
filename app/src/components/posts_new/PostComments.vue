@@ -18,7 +18,7 @@
           class="comments__overlay"
           v-if="overlayShown">
 
-          <img src="img/svg/overlay-comments.svg" alt="#">
+          <img  :style="{'background-image': imageUrl}">
         </div>
       </transition> -->
 
@@ -57,6 +57,7 @@ export default {
 
   data() {
     return {
+      img: 'img/svg/overlay-comments.svg',
       inputShown: true
     }
   },
@@ -64,6 +65,10 @@ export default {
   computed: {
     target() {
       return this.$target();
+    },
+
+    imageUrl(){
+      return 'url(' + this.img + ')';
     },
 
     overlayShown() {
@@ -88,5 +93,4 @@ export default {
 
 .comments__overlay
   display: flex
-
 </style>

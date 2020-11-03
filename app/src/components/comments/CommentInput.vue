@@ -40,16 +40,16 @@ export default {
     this.$options.eventHandler = throttle(100, this.onInput);
 
     window.addEventListener('resize', 
-			this.$options.eventHandler, true);
+			this.$options.eventHandler);
   },
 
 	beforeDestroy() {
 		window.removeEventListener('resize',
-			this.$options.eventHandler);
+     this.$options.eventHandler);
 	},
 
   methods: {
-    async onInput(event) {
+    onInput(event) {
       this.height = 'auto';
       
       this.height = this.$refs.textarea.scrollHeight + 'px';
