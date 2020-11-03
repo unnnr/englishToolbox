@@ -1,7 +1,8 @@
 <template>
   <post-details-mobile 
     v-if="mobile" 
-    :onlyEditor="onlyEditor">
+    :editing="editing"
+    :creating="creating">
 
     <slot/>
   </post-details-mobile>
@@ -9,7 +10,8 @@
 
   <post-details-desktop 
     v-else
-    :onlyEditor="onlyEditor"
+    :editing="editing"
+    :creating="creating"
     @switching="event => $emit('switching', event)">
 
     <slot/>
@@ -28,8 +30,10 @@ export default {
       () => import('@components/posts_new/PostDetailsMobile')
   },
 
-  props: {
-    onlyEditor: { type: Boolean, default: false },
+   props: {
+    creating: { type: Boolean, default: false },
+
+    editing: { type: Boolean, default: false }
   },
 
   data() {

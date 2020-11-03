@@ -106,7 +106,7 @@ export default {
         };
 
         callback(data, ...arguments);
-        
+
         Object.assign(this, data);
       }
 
@@ -121,6 +121,8 @@ export default {
     trySwitch(event) {
       if (event.from === 'editor' && this.requireWarning)
         return this.showAlert(event.switch);
+      
+      this.editing = false; 
 
       event.switch();
     },
@@ -133,19 +135,17 @@ export default {
 
       // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
       return;
-      // Switching tab to 'Post info'
       if (this.$refs.postDetails)
-        this.$refs.postDetails.select('info')
+        this.$refs.postDetails.showInfo();
     },
 
     onEditing(data, event) {
-      data.target = event.target;
-      data.creating = true;
+      data.target = event.post;
+      data.editing = true;
     },
 
     onStartCreating(data) {
       data.creating = true;
-      
       bus.dispatch('post-creating');
     },
     

@@ -3,10 +3,10 @@
     <div class="addition__header">
       <button 
         class="addition__button  text-fifth"
-        :disabled="onlyEditor"
+        :disabled="creating"
         :class="{
           'addition__button--active': infoSelected,
-          'addition__button--disabled': onlyEditor}"
+          'addition__button--disabled': creating}"
         @click="selectInfo">
 
         Description
@@ -14,10 +14,10 @@
 
       <button 
         class="addition__button text-fifth" 
-        :disabled="onlyEditor"
+        :disabled="creating"
         :class="{
           'addition__button--active': commentsSelected,
-          'addition__button--disabled': onlyEditor}"
+          'addition__button--disabled': creating}"
         @click="selectComments">
 
         Comments
@@ -61,8 +61,12 @@ export default {
   },
 
   props: {
-    onlyEditor: { type: Boolean, default: false },
+    creating: { type: Boolean, default: false },
+
+    editing: { type: Boolean, default: false }
   },
+
+  inject: [ '$target' ],
 
   data() {
     return {
@@ -71,29 +75,32 @@ export default {
   },
 
   computed: {
+    target() {
+      return this.$target();
+    },
+
     infoSelected() {
-      return !!!this.onlyEditor && this.activeTab === 'info';
+      return !!!this.creating && !!!this.editing
+        && this.activeTab === 'info';
     },
 
     commentsSelected() {
-      return  !!!this.onlyEditor && this.activeTab === 'comments';
+      return !!!this.creating && !!!this.editing
+        && this.activeTab === 'comments';
     },
 
     editorSelected() {
-      return this.onlyEditor || this.activeTab === 'editor';
+      return this.creating || this.editing;
     },
     
     editorShown() {
       return true;
-    }
-  },
+    },
 
-  mounted() {
-    // window.addEventListener('resize', )
   },
 
   methods: {
-    pendSelection(tabName) {
+    select(tabName) {
       let _this = this;
 
       this.$emit('switching', {
@@ -105,25 +112,24 @@ export default {
         }
       });
     },
-
-    select(tabName, forced = true) {
-      if (forced)
-        return this.activeTab = tabName;;
-      
-      this.pendSelection(tabName);
-    },
-
+    
     selectInfo() {
-      this.select('info', false);
+      this.select('info');
     },
 
     selectComments() {
-      this.select('comments', false);
+      this.select('comments');
     },
 
     selectEditor() {
-      this.select('editor', false);
-    } 
+      bus.dispatch('post-editing' , { 
+        post: this.target
+      });
+    },
+
+    showInfo() {
+      this.activeTab = 'info';
+    }
   }
 }
 </script>
