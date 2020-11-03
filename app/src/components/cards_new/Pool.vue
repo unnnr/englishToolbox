@@ -91,13 +91,11 @@ export default {
       return () => {
         return {
           'Open': () => 
-             this.selecting(post),
+            selecting(post),
 
-          'Edit': () =>  {
-            let newPost = FakeData.createPost('');
-            newPost.id = post.id
-
-            bus.dispatch('post-edited', { post: newPost });
+          'Edit': () => {
+            bus.dispatch('post-editing', { post }),
+            this.onSelected({ post });
           },
 
           'Delete' : () =>  {

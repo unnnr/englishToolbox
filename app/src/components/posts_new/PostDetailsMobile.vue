@@ -1,11 +1,17 @@
 <template>
   <div class="addition">
     <div class="addition__tabs">
-      <post-info v-if="!!!onlyEditor"/>
+      <transition name="fade">
+        <post-info v-if="!!!editorShown"/>
+      </transition>
 
-      <post-comments v-if="!!!onlyEditor"/>
-        
-      <slot v-if="onlyEditor"/>
+      <transition name="fade">
+        <post-comments v-if="!!!editorShown"/>
+      </transition>
+      
+      <transition name="fade">
+        <slot v-if="editorShown"/>
+      </transition>
     </div>
   </div>
 </template>
@@ -22,29 +28,22 @@ export default {
   },
 
   props: {
-    onlyEditor: { type: Boolean, default: false }
+    editing: { type: Boolean, default: false },
+
+    creating: {type: Boolean, default: false }
   },
 
-  methods: {
-    pendSelection(tabName) {
-      let _this = this;
-
-      this.$emit('switching', {
-        from: this.activeTab,
-        to: tabName,
-        
-        switch() {
-          _this.activeTab = tabName
-        }
-      });
-    },
-
-    select(tabName, forced = true) {
-      if (forced)
-        return this.activeTab = tabName;;
-      
-      this.pendSelection(tabName);
+  computed: {
+    editorShown() {
+      return this.editing || this.creating;
     }
   }
 }
 </script>
+
+<style lang="sass">
+
+.fade-enter-active.editor, .fade-leave-active.editor
+  position: absolute !important
+
+</style>

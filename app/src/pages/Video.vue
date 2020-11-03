@@ -1,7 +1,7 @@
 <template>
  <main class="posts">
 
-   <filter-bar/>
+    <filter-bar/>
 
     <post-selected
       :editor-has-changes="editorHasChanges"
