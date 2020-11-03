@@ -1,11 +1,17 @@
 <template>
   <post-details-mobile 
     v-if="mobile" 
-    :onlyEditor="onlyEditor"/>
+    :onlyEditor="onlyEditor">
+    <slot/>
+  </post-details-mobile>
+    
 
   <post-details-desktop 
+    v-else
     :onlyEditor="onlyEditor"
-    v-else/>
+    @switching="event => $emit('switching', event)">
+    <slot/>
+  </post-details-desktop>
 </template>
 
 <script>
@@ -32,8 +38,9 @@ export default {
   },
 
   mounted() {
-		this.$options.eventHandler = debounce(500, this.check);
+    this.check();
 
+		this.$options.eventHandler = debounce(500, this.check);
     window.addEventListener('resize', 
       this.$options.eventHandler);
   },
@@ -45,11 +52,11 @@ export default {
 
   methods: {
     check() {
-      if (!!!this.mobile && window.innerWidth > this.mobileBorder)
-        this.mobile = true;
-
-      else if (this.mobile && window.innerWidth <= this.mobileBorder)
+      if (this.mobile && window.innerWidth > this.mobileBorder)
         this.mobile = false;
+
+      else if (!!!this.mobile && window.innerWidth <= this.mobileBorder)
+        this.mobile = true;
     },
 
     select() {
