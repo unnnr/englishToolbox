@@ -4,14 +4,18 @@
       <h6 class="heading-sixth">{{ title }}</h6>
       <button class="addition__tab-shrink-button"></button>
     </div>
-    <div class="addition__tab-body description__body">
-      <p class="description__text text-fourth">{{ description }}</p>
-      <h6 class="heading-sixth">Tag list</h6>
-      
-      <post-tags 
-        :main-tag="mainTag"
-        :tags="tags"/>
-    </div>
+    
+    <shrinkable>
+      <div class="addition__tab-body description__body">
+        <p class="description__text text-fourth">{{ description }}</p>
+        <h6 class="heading-sixth">Tag list</h6>
+        
+        <post-tags 
+          :main-tag="mainTag"
+          :tags="tags"/>
+      </div>
+    </shrinkable>
+
     <div class="addition__tab-footer">
       <time class="description__date text-fifth">{{ createdAt }}</time>
       <span class="description__views text-fifth">{{ views }}</span>
@@ -20,10 +24,12 @@
 </template>
 
 <script>
+import Shrinkable from '@components/Shrinkable'
 import PostTags from '@components/tags/PostTags'
 
 export default {
   components: {
+    Shrinkable,
     PostTags
   },
 

@@ -52,7 +52,7 @@ export default {
 		this.listen({
 			'alert-error': event => {
 				let message = 
-					typeof event.message === 'string' && event.message;
+					typeof event.message === 'string' ? event.message : '';
 
 				Object.assign(this, {
 					type: 'error',
