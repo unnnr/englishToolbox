@@ -26,8 +26,7 @@ export default {
 
       height: 'auto',
 
-      // Px per second
-      speed: 330, 
+      speed: 1, 
 
       duration: 500,
     }
@@ -110,7 +109,7 @@ export default {
       if (!!!this.rawHeight)
           return 500;
 
-      return this.rawHeight / this.speed * 1000;
+      return Math.pow(Math.log(this.rawHeight) / Math.log(1.1), 1.57 * this.speed);
     },
 
     open() {

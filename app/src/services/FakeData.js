@@ -61,7 +61,7 @@ class FakeData {
         let comments = [];
         let count = Faker.random.number(15);
     
-        for (let i = 0; i < count; i++)
+        for (let i = 0; i < 20 + count; i++)
         {
           comments.push({ 
             message: Faker.lorem.sentence(),
