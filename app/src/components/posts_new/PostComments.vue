@@ -13,32 +13,31 @@
       </shrink-button>
     </div>
 
-    <div 
+
+    <shrinkable 
       class="addition__tab-body comments__body"
-      :class="{'comments__body--empty': empty}">
+      ref="shrinkable"
+      :max-height="230">
 
-      <shrinkable ref="shrinkable">
+      <transition name="fade">
+        <div 
+          v-if="empty"
+          class="comments__body-overlay"
+          :style="{'background-image': imageUrl}">
+        </div>
+      </transition>
 
-        <transition name="fade">
-          <div 
-            v-if="empty"
-            class="comments__body-overlay"
-            :style="{'background-image': imageUrl}">
-          </div>
-        </transition>
+      <comment 
+        v-for="({message, createdAt, user}, id) of comments"
+        :key="id"
+        
+        :image="user.avatar"
+        :author="user.name"
 
-        <comment 
-          v-for="({message, createdAt, user}, id) of comments"
-          :key="id"
-          
-          :image="user.avatar"
-          :author="user.name"
+        :created-at="createdAt"
+        :message="message"/>
 
-          :created-at="createdAt"
-          :message="message"/>
-
-      </shrinkable>
-    </div>
+    </shrinkable>
 
     <comment-input v-if="inputShown"/>
     
@@ -100,7 +99,8 @@ export default {
 
 <style lang="sass" scoped>
 
-.comments__overlay
-  display: flex
+.comments__body
+  max-height: 300px 
+  overflow-y: scroll
 
 </style>

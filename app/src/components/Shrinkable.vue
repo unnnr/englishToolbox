@@ -4,6 +4,7 @@
     ref="wrapper"
     :style="{
       'transition-duration': this.transitionDuration,
+      'max-height': maxHeight + 'px',
       'height': height}">
 
     <slot/>
@@ -18,17 +19,16 @@ export default {
     from: { default: 'auto' },
 
     to: { default: '0' },
+
+    maxHeight: { type: Number, default: -1 }
   },
 
   data() {
     return {
-      shrinked: false,
-
-      height: 'auto',
-
       speed: 1, 
-
+      height: 'auto',
       duration: 500,
+      shrinked: false,
     }
   },
 
@@ -56,6 +56,8 @@ export default {
         height += 
             parseInt(computedStyle.paddingBottom, 10);
 
+        if (this.maxHeight > -1 && height > this.maxHeight)
+          return this.maxHeight;
 
         return height;
       },
@@ -109,6 +111,7 @@ export default {
       if (!!!this.rawHeight)
           return 500;
 
+
       return Math.pow(Math.log(this.rawHeight) / Math.log(1.1), 1.57 * this.speed);
     },
 
@@ -138,7 +141,7 @@ export default {
         clearTimeout(this.$options.animation);
 
       this.shrinked = true; 
-      this.height = this.contentHeight;
+      this.height = this.$refs.wrapper.offsetHeight + 'px';
       this.duration = this.computeDuration();
       
       // Vue rendering time + DOM rendering time
