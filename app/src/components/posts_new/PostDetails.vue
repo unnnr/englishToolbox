@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { debounce } from 'throttle-debounce';
+import { throttle } from 'throttle-debounce';
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
   mounted() {
     this.check();
 
-		this.$options.eventHandler = debounce(500, this.check);
+		this.$options.eventHandler = throttle(200, this.check);
     window.addEventListener('resize', 
       this.$options.eventHandler);
   },
