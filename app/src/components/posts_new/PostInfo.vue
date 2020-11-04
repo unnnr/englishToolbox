@@ -30,23 +30,17 @@
 </template>
 
 <script>
-import Shrinkable from '@components/Shrinkable'
+import Shrinkable from '@mixins/Shrinkable'
 import PostTags from '@components/tags/PostTags'
 
 export default {
   components: {
-    Shrinkable,
     PostTags
   },
 
-  inject: [ '$target' ],
+  mixins: [ Shrinkable ],
 
-  data() {
-    return {
-      shrinked: false,
-      togglerAngle: 0
-    }
-  },
+  inject: [ '$target' ],
 
   computed: {
     target() {
@@ -75,23 +69,6 @@ export default {
 
     mainTag() {
       return this.target ? this.target.mainTag : null;
-    },
-
-    rotateProperty() {
-      let angle = this.shrinked ? 0 : -180;
-
-      return 'rotate(' + angle + 'deg)';
-    }
-  },
-
-  methods: {
-    toggle() {
-      let shrinkable = this.$refs.shrinkable;
-
-      if (shrinkable)
-        this.shrinked = shrinkable.toggle();
-
-      
     }
   }
 }
@@ -100,7 +77,6 @@ export default {
 <style lang="sass">
 
 .addition__tab-shrink-button
-  transform: rotate(0)
   transition: transform .5s ease-in-out
 
 </style>
