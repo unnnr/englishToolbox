@@ -1,14 +1,16 @@
 import ShrinkableWrapper from '@components/Shrinkable'
+import ShrinkButton from '@components/buttons/ShrinkButton'
+
 
 const Shrinkable = {
 	components: {
-		Shrinkable: ShrinkableWrapper
+    Shrinkable: ShrinkableWrapper,
+    ShrinkButton
 	},
 
   data() {
     return {
       shrinked: false,
-      togglerAngle: 0
     }
   },
 

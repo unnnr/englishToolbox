@@ -4,14 +4,13 @@
       <h6 class="heading-sixth">
         {{ counter }}
       </h6>
-      <button 
-        v-if="!!!empty"
+
+      <shrink-button 
         class="addition__tab-shrink-button"
-        :style="{'transform': rotateProperty}"
-        :class="{
-          'addition__tab-shrink-button--upturned': this.shrinked}"
-        @click="toggle">
-      </button>
+        :disabled="empty"
+        :shrinked="shrinked"
+        @click.native="toggle">
+      </shrink-button>
     </div>
 
     <div 
@@ -104,4 +103,5 @@ export default {
 
 .comments__overlay
   display: flex
+
 </style>

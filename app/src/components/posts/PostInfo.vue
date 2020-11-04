@@ -2,16 +2,14 @@
 	<div class="description">
 		<div class="description__header">
 			<h5 class="description__title heading-fifth">{{ title }}</h5>
-			<button
+			<shrink-button
 				class="description__mobile-button"
-				:class="{'description__mobile-button--upturned': shrinked}"
-				:style="{'transition': buttonTransition}"
-				@click="toggle">
+				@click.native="toggle">
 
 				<span class="material-icons-round">
 					arrow_drop_down
 				</span>
-			</button>
+			</shrink-button>
 		</div>
 
 		<div

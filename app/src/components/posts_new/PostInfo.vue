@@ -2,13 +2,12 @@
   <div class="addition__tab description">
     <div class="addition__tab-header">
       <h6 class="heading-sixth">{{ title }}</h6>
-      <button 
+
+      <shrink-button 
         class="addition__tab-shrink-button"
-        :style="{'transform': rotateProperty}"
-        :class="{
-          'addition__tab-shrink-button--upturned': this.shrinked}"
-        @click="toggle">
-      </button>
+        :shrinked="shrinked"
+        @click.native="toggle">
+      </shrink-button>
     </div>
     
     <shrinkable ref="shrinkable">
@@ -73,10 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.addition__tab-shrink-button
-  transition: transform .5s ease-in-out
-
-</style>
