@@ -10,15 +10,13 @@
       </shrink-button>
     </div>
     
-    <shrinkable ref="shrinkable">
-      <div class="addition__tab-body description__body">
-        <p class="description__text text-fourth">{{ description }}</p>
-        <h6 class="heading-sixth">Tag list</h6>
-        
-        <post-tags 
-          :main-tag="mainTag"
-          :tags="tags"/>
-      </div>
+    <shrinkable ref="shrinkable" class="addition__tab-body description__body">
+      <p class="description__text text-fourth">{{ description }}</p>
+      <h6 class="heading-sixth">Tag list</h6>
+      
+      <post-tags 
+        :main-tag="mainTag"
+        :tags="tags"/>
     </shrinkable>
 
     <div class="addition__tab-footer">

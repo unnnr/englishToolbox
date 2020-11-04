@@ -14,14 +14,6 @@ const Shrinkable = {
     }
   },
 
-	computed: {
-		rotateProperty() {
-      let angle = this.shrinked ? 0 : -180;
-
-      return 'rotate(' + angle + 'deg)';
-    }
-	},
-
 	methods: {
     toggle() {
       let shrinkable = this.$refs.shrinkable;

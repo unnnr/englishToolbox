@@ -88,7 +88,6 @@ export default {
       if (!!!this.target || !!!this.target.comments)
         return [];
 
-      return [];
       return this.target.comments;
     },
 

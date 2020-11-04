@@ -1,6 +1,7 @@
 <template>
   <div class="addition">
-    <div class="addition__tabs">
+    <shrinkable class="addition__tabs" ref="shrinkable">
+
       <transition name="fade">
         <post-info v-if="!!!editorShown"/>
       </transition>
@@ -12,7 +13,8 @@
       <transition name="fade">
         <slot v-if="editorShown"/>
       </transition>
-    </div>
+
+    </shrinkable>
   </div>
 </template>
 
@@ -20,9 +22,11 @@
 import PostComments from '@components/posts_new/PostComments'
 import PostInfo from '@components/posts_new/PostInfo'
 import bus from '@services/eventbus'
+import Shrinkable from '@components/Shrinkable'
 
 export default {
   components: {
+    Shrinkable,
     PostComments,
     PostInfo, 
   },
@@ -34,8 +38,25 @@ export default {
   },
 
   computed: {
+    shrinkTo() {
+      this.$refs.shrinkable;
+
+      return 123;
+    },
+    
     editorShown() {
       return this.editing || this.creating;
+    }
+  },
+
+  methods: {
+    fixHeight() {
+      let shrinkable = this.$refs.shrinkable;
+
+      if (!!!shrinkable)
+        return;
+
+      shrinkable.height = shrinkable.contentHeight;
     }
   }
 }

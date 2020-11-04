@@ -13,7 +13,7 @@
 <script>
 export default {
   props: {
-    duration: { type: Number, default: 500 },
+    // duration: { type: Number, default: 500 },
     
     from: { default: 'auto' },
 
@@ -24,11 +24,54 @@ export default {
     return {
       shrinked: false,
 
-      height: 'auto'
+      height: 'auto',
+
+      // Px per second
+      speed: 330, 
+
+      duration: 500,
     }
   },
 
   computed: {
+    rawHeight: {
+      get() {
+        let wrapper = this.$refs.wrapper;
+        if (!!!wrapper)
+          return '0';
+
+        let lastChild = wrapper.lastChild;
+        if (!!!lastChild)
+          return '0';
+
+        let height = 
+          wrapper.lastChild.offsetTop +  wrapper.lastChild.offsetHeight;
+
+        // Countnig last element margin
+        let computedStyle = window.getComputedStyle(lastChild); 
+        height += 
+            parseInt(computedStyle.marginBottom, 10);
+        
+        // Countnign wrapper margin
+        computedStyle = window.getComputedStyle(wrapper); 
+        height += 
+            parseInt(computedStyle.paddingBottom, 10);
+
+
+        return height;
+      },
+
+      cache: false
+    },
+
+    contentHeight: {
+      get() {
+        return this.rawHeight + 'px';
+      },
+
+      cache: false
+    },
+
     transitionDuration() {
       return this.duration + 'ms'
     },
@@ -40,20 +83,6 @@ export default {
     closed() {
       return this.shrinked;
     },
-
-    contentHeight: {
-      get() {
-        let wrapper = this.$refs.wrapper;
-        let height = 0;
-
-        for (let child of wrapper.children)
-          height += child.offsetHeight;
-
-        return height + 'px';
-      },
-
-      cache: false
-    }
   },
 
   beforeMount() {
@@ -77,6 +106,13 @@ export default {
       }
     },
 
+    computeDuration() {
+      if (!!!this.rawHeight)
+          return 500;
+
+      return this.rawHeight / this.speed * 1000;
+    },
+
     open() {
       if (this.opened)
           return;
@@ -86,6 +122,7 @@ export default {
 
       this.shrinked = false; 
       this.height = this.contentHeight;
+      this.duration = this.computeDuration();
 
       // Waiting for animation
       this.$options.animation = setTimeout(() => {
@@ -103,6 +140,7 @@ export default {
 
       this.shrinked = true; 
       this.height = this.contentHeight;
+      this.duration = this.computeDuration();
       
       // Vue rendering time + DOM rendering time
       const RENDER_TIME = 100;
