@@ -126,6 +126,13 @@ export default {
 
       event.switch();
     },
+    
+    scrollToTop() {
+      window.scrollTo({ 
+        behavior: 'smooth',
+        top: 0, 
+      });
+    },
 
     onSelecting(data, event) {
       bus.dispatch('post-selected', event);
@@ -133,6 +140,7 @@ export default {
       data.target = event.post;  
       Object.assign(this, data);
 
+      this.scrollToTop();
       // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
       return;
       if (this.$refs.postDetails)
@@ -142,11 +150,15 @@ export default {
     onEditing(data, event) {
       data.target = event.post;
       data.editing = true;
+
+      this.scrollToTop();
     },
 
     onStartCreating(data) {
       data.creating = true;
       bus.dispatch('post-creating');
+
+      this.scrollToTop();
     },
     
     showAlert(callback) {

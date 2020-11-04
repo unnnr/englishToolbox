@@ -4,7 +4,6 @@
     ref="wrapper"
     :style="{
       'transition-duration': this.transitionDuration,
-      'max-height': maxHeight + 'px',
       'height': height}">
 
     <slot/>
