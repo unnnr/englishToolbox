@@ -7,7 +7,7 @@
 			</div>
 
 			<button 
-				v-if="toggleButtonShown"
+				:disabled="toggleButtonShown"
 				class="filter__shrink-button"
 				@click="toggleFilters">
 				tags

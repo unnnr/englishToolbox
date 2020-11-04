@@ -48,15 +48,7 @@ export default {
 
   computed: {
     editorHeight() {
-      let shrinkable = this.$refs.shrinkable;
-      if (!!!shrinkable)
-        return 0;
-
-      let editor = shrinkable.$el.children[0];
-      if (!!!editor)
-        return 0;
-
-      return editor.offsetHeight;
+      return '400px';
     }
   },
 
@@ -72,7 +64,7 @@ export default {
 
   methods: {
     shrinkTo() {
-      return this.editorHeight + 'px';
+      return this.editorHeight;
     },
     
     async editorToggle(value) {

@@ -7,7 +7,6 @@
     <slot/>
   </post-details-mobile>
     
-
   <post-details-desktop 
     v-else
     :editing="editing"
