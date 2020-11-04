@@ -4,37 +4,41 @@
       <h6 class="heading-sixth">
         {{ counter }}
       </h6>
-      <button class="addition__tab-shrink-button"></button>
+      <button 
+        v-if="!!!empty"
+        class="addition__tab-shrink-button"
+        :style="{'transform': rotateProperty}"
+        :class="{
+          'addition__tab-shrink-button--upturned': this.shrinked}"
+        @click="toggle">
+      </button>
     </div>
 
     <div 
       class="addition__tab-body comments__body"
-      :class="{'comments__body--empty': overlayShown}">
+      :class="{'comments__body--empty': empty}">
 
-      <div 
-        class="comments__body-overlay"
-        :style="{'background-image': imageUrl}">
-      </div>
-      
-     <!--  <transition name="fade">
-        <div 
-          class="comments__overlay"
-          v-if="overlayShown">
+      <shrinkable ref="shrinkable">
 
-          <img  :style="{'background-image': imageUrl}">
-        </div>
-      </transition> -->
+        <transition name="fade">
+          <div 
+            v-if="empty"
+            class="comments__body-overlay"
+            :style="{'background-image': imageUrl}">
+          </div>
+        </transition>
 
-      <comment 
-        v-for="({message, createdAt, user}, id) of comments"
-        :key="id"
-        
-        :image="user.avatar"
-        :author="user.name"
+        <comment 
+          v-for="({message, createdAt, user}, id) of comments"
+          :key="id"
+          
+          :image="user.avatar"
+          :author="user.name"
 
-        :created-at="createdAt"
-        :message="message"/>
+          :created-at="createdAt"
+          :message="message"/>
 
+      </shrinkable>
     </div>
 
     <comment-input v-if="inputShown"/>
@@ -43,6 +47,7 @@
 </template>
 
 <script>
+import Shrinkable from '@mixins/Shrinkable'
 import CommentInput from '@components/comments/CommentInput'
 import Comment from '@components/comments/Comment'
 
@@ -55,6 +60,8 @@ export default {
     CommentInput,
     Comment
   },
+
+  mixins: [ Shrinkable ],
 
   inject: [ '$target' ],
 
@@ -74,7 +81,7 @@ export default {
       return 'url(' + this.img + ')';
     },
 
-    overlayShown() {
+    empty() {
       return !!!this.comments.length;
     },
 
@@ -82,6 +89,7 @@ export default {
       if (!!!this.target || !!!this.target.comments)
         return [];
 
+      return [];
       return this.target.comments;
     },
 
