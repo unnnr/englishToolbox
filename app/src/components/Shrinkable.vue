@@ -33,41 +33,9 @@ export default {
   },
 
   computed: {
-    rawHeight: {
-      get() {
-        let wrapper = this.$refs.wrapper;
-        if (!!!wrapper)
-          return '0';
-
-        let lastChild = wrapper.lastChild;
-        if (!!!lastChild)
-          return '0';
-
-        let height = 
-          wrapper.lastChild.offsetTop +  wrapper.lastChild.offsetHeight;
-
-        // Countnig last element margin
-        let computedStyle = window.getComputedStyle(lastChild); 
-        height += 
-            parseInt(computedStyle.marginBottom, 10);
-        
-        // Countnign wrapper margin
-        computedStyle = window.getComputedStyle(wrapper); 
-        height += 
-            parseInt(computedStyle.paddingBottom, 10);
-
-        if (this.maxHeight > -1 && height > this.maxHeight)
-          return this.maxHeight;
-
-        return height;
-      },
-
-      cache: false
-    },
-
     contentHeight: {
       get() {
-        return this.rawHeight + 'px';
+        return this.getRawHeight() + 'px';
       },
 
       cache: false
@@ -91,6 +59,34 @@ export default {
   },
   
   methods: {
+    getRawHeight() {
+      let wrapper = this.$refs.wrapper;
+      if (!!!wrapper)
+        return '0';
+
+      let lastChild = wrapper.lastElementChild;
+      if (!!!lastChild)
+        return '0';
+
+      let height = 
+        lastChild.offsetTop + lastChild.offsetHeight;
+
+      // Countnig last element margin
+      let computedStyle = window.getComputedStyle(lastChild); 
+      height += 
+          parseInt(computedStyle.marginBottom, 10);
+      
+      // Countnign wrapper margin
+      computedStyle = window.getComputedStyle(wrapper); 
+      height += 
+          parseInt(computedStyle.paddingBottom, 10);
+
+      if (this.maxHeight > -1 && height > this.maxHeight)
+        return this.maxHeight;
+
+      return height;
+    },
+
     computeValue(value) {
       switch(typeof value) {
         case 'function' : 
@@ -108,11 +104,12 @@ export default {
     },
 
     computeDuration() {
-      if (!!!this.rawHeight)
+      let height = this.getRawHeight();
+
+      if (!!!height)
           return 500;
 
-
-      return Math.pow(Math.log(this.rawHeight) / Math.log(1.1), 1.57 * this.speed);
+      return Math.pow(Math.log(height) / Math.log(1.1), 1.57 * this.speed);
     },
 
     open() {

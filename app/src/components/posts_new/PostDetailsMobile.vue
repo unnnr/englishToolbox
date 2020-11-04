@@ -1,6 +1,13 @@
 <template>
   <div class="addition">
-    <shrinkable class="addition__tabs" ref="shrinkable">
+    <shrinkable 
+      class="addition__tabs"
+      ref="shrinkable"
+      :to="shrinkTo">
+
+      <transition name="fade">
+        <slot v-if="editorShown"/>
+      </transition>
 
       <transition name="fade">
         <post-info v-if="!!!editorShown"/>
@@ -8,10 +15,6 @@
 
       <transition name="fade">
         <post-comments v-if="!!!editorShown"/>
-      </transition>
-      
-      <transition name="fade">
-        <slot v-if="editorShown"/>
       </transition>
 
     </shrinkable>
@@ -37,26 +40,60 @@ export default {
     creating: {type: Boolean, default: false }
   },
 
-  computed: {
-    shrinkTo() {
-      this.$refs.shrinkable;
-
-      return 123;
-    },
-    
-    editorShown() {
-      return this.editing || this.creating;
+  data() {
+    return {
+      editorShown: false
     }
   },
 
-  methods: {
-    fixHeight() {
+  computed: {
+    editorHeight() {
       let shrinkable = this.$refs.shrinkable;
-
       if (!!!shrinkable)
-        return;
+        return 0;
 
-      shrinkable.height = shrinkable.contentHeight;
+      let editor = shrinkable.$el.children[0];
+      if (!!!editor)
+        return 0;
+
+      return editor.offsetHeight;
+    }
+  },
+
+  watch: {
+    editing(value) {
+      this.editorToggle(value);
+    },   
+    
+    creating(value) {
+      this.editorToggle(value);
+    },
+  },
+
+  methods: {
+    shrinkTo() {
+      return this.editorHeight + 'px';
+    },
+    
+    async editorToggle(value) {
+      let shrinkable = this.$refs.shrinkable;
+       if (!!!shrinkable)
+        return;
+      
+      // Showing editor
+      if (value) {
+        this.editorShown = true;
+        await this.$nextTick();
+
+        this.$refs.shrinkable.close();
+      }
+      // Hiding editor
+      else {
+        this.editorShown = false;
+        await this.$nextTick();
+
+        shrinkable.open();
+      }
     }
   }
 }
