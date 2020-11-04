@@ -2,10 +2,16 @@
   <div class="addition__tab description">
     <div class="addition__tab-header">
       <h6 class="heading-sixth">{{ title }}</h6>
-      <button class="addition__tab-shrink-button"></button>
+      <button 
+        class="addition__tab-shrink-button"
+        :style="{'transform': rotateProperty}"
+        :class="{
+          'addition__tab-shrink-button--upturned': this.shrinked}"
+        @click="toggle">
+      </button>
     </div>
     
-    <shrinkable>
+    <shrinkable ref="shrinkable">
       <div class="addition__tab-body description__body">
         <p class="description__text text-fourth">{{ description }}</p>
         <h6 class="heading-sixth">Tag list</h6>
@@ -35,6 +41,13 @@ export default {
 
   inject: [ '$target' ],
 
+  data() {
+    return {
+      shrinked: false,
+      togglerAngle: 0
+    }
+  },
+
   computed: {
     target() {
       return this.$target();
@@ -62,7 +75,32 @@ export default {
 
     mainTag() {
       return this.target ? this.target.mainTag : null;
+    },
+
+    rotateProperty() {
+      let angle = this.shrinked ? 0 : -180;
+
+      return 'rotate(' + angle + 'deg)';
+    }
+  },
+
+  methods: {
+    toggle() {
+      let shrinkable = this.$refs.shrinkable;
+
+      if (shrinkable)
+        this.shrinked = shrinkable.toggle();
+
+      
     }
   }
 }
 </script>
+
+<style lang="sass">
+
+.addition__tab-shrink-button
+  transform: rotate(0)
+  transition: transform .5s ease-in-out
+
+</style>

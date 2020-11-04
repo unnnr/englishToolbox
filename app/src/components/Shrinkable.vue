@@ -3,7 +3,7 @@
     class="shrinkable"
     ref="wrapper"
     :style="{
-      'transition-duration': this.transtionDuration,
+      'transition-duration': this.transitionDuration,
       'height': height}">
 
     <slot/>
@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    transtionDuration() {
+    transitionDuration() {
       return this.duration + 'ms'
     },
     
@@ -86,7 +86,8 @@ export default {
 
       this.shrinked = false; 
       this.height = this.contentHeight;
-      
+
+      // Waiting for animation
       this.$options.animation = setTimeout(() => {
         this.height = this.computeValue(this.from);
         this.$emit('opened');
@@ -105,9 +106,12 @@ export default {
       
       // Vue rendering time + DOM rendering time
       const RENDER_TIME = 100;
+      
+      // Waiting for rendering
       this.$options.animation = setTimeout(() => {
         this.height = this.computeValue(this.to);
 
+      // Waiting for animation
         this.$options.animation = setTimeout(() => 
           this.$emit('closed'), this.duration);
       }, RENDER_TIME)
@@ -115,7 +119,12 @@ export default {
     },
 
     toggle() {
-      
+      if (this.closed)
+        this.open()
+      else
+        this.close();
+
+      return this.shrinked;
     }
   }
 }
