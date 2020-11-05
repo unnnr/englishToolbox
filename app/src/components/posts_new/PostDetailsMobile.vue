@@ -89,10 +89,17 @@ export default {
       return this.commentsInfoHeight + 'px';
     },
 
+    getShrinkable() {
+      return [
+        this.$refs.info,
+        this.$refs.editor,
+        this.$refs.comments,
+      ];
+    },
+
     hideEditor() {
-      let info = this.$refs.info;
-      let editor = this.$refs.editor;
-      let comments = this.$refs.comments;
+      let [info, editor, comments] = this.getShrinkable();
+
       let editorShowing = 
         this.$options.editorShowing;
 
@@ -112,9 +119,8 @@ export default {
     },
 
     showEditor() {
-      let info = this.$refs.info;
-      let editor = this.$refs.editor;
-      let comments = this.$refs.comments;
+      let [info, editor, comments] = this.getShrinkable();
+
       let presentorShowing = 
         this.$options.presentorShowing;
 
