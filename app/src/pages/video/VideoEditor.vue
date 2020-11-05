@@ -34,7 +34,6 @@ export default {
 
     submit(data) {
 
-      throw {};
       // sending data to API
 
       let url = data.get('videoUrl');

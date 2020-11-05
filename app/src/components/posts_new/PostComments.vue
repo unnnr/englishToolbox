@@ -17,7 +17,8 @@
     <shrinkable 
       class="addition__tab-body comments__body"
       ref="shrinkable"
-      :max-height="230">
+      :max-height="230"
+      :shrinked-by-default="mobile">
 
       <transition name="fade">
         <div 
@@ -62,6 +63,10 @@ export default {
   mixins: [ Shrinkable ],
 
   inject: [ '$target' ],
+
+  props: {
+    mobile: { type: Boolean, default: false }
+  },
 
   data() {
     return {

@@ -4,29 +4,29 @@
     ref="wrapper"
     :style="{
       'transition-duration': this.transitionDuration,
-      'max-height': maxHeight + 'px',
       'height': height}">
 
-    <slot/>
+      <div class="shrinkable__content" ref="content">
+        <slot/>
+      </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    // duration: { type: Number, default: 500 },
-    
-    from: { default: 'auto' },
-
+  props: {    
     to: { default: '0' },
 
-    maxHeight: { type: Number, default: -1 }
+    speed: { type: Number, default: 1 },
+
+    maxHeight: { type: Number, default: -1 },
+
+    shrinkedByDefault: { type: Boolean, default: false}
   },
 
   data() {
     return {
-      speed: 1, 
-      height: 'auto',
+      height: null,
       duration: 500,
       shrinked: false,
     }
@@ -55,36 +55,18 @@ export default {
   },
 
   beforeMount() {
-    this.height = this.computeValue(this.from)
+    if (!!!this.shrinkedByDefault) 
+      return this.height = null;
+    
+    this.height = this.computeValue(this.to);
+    this.shrinked = true;
   },
   
   methods: {
     getRawHeight() {
-      let wrapper = this.$refs.wrapper;
-      if (!!!wrapper)
-        return '0';
+      let content = this.$refs.content;
 
-      let lastChild = wrapper.lastElementChild;
-      if (!!!lastChild)
-        return '0';
-
-      let height = 
-        lastChild.offsetTop + lastChild.offsetHeight;
-
-      // Countnig last element margin
-      let computedStyle = window.getComputedStyle(lastChild); 
-      height += 
-          parseInt(computedStyle.marginBottom, 10);
-      
-      // Countnign wrapper margin
-      computedStyle = window.getComputedStyle(wrapper); 
-      height += 
-          parseInt(computedStyle.paddingBottom, 10);
-
-      if (this.maxHeight > -1 && height > this.maxHeight)
-        return this.maxHeight;
-
-      return height;
+      return content.offsetHeight;
     },
 
     computeValue(value) {
@@ -109,7 +91,10 @@ export default {
       if (!!!height)
           return 500;
 
-      return Math.pow(Math.log(height) / Math.log(1.1), 1.57 * this.speed);
+      if (this.speed <= 0)
+        return 0;
+
+      return Math.pow(Math.log(height) / Math.log(1.1), 1.57 ) / this.speed;
     },
 
     open() {
@@ -120,12 +105,12 @@ export default {
         clearTimeout(this.$options.animation);
 
       this.shrinked = false; 
-      this.height = this.contentHeight;
       this.duration = this.computeDuration();
+      this.height = this.contentHeight
 
       // Waiting for animation
       this.$options.animation = setTimeout(() => {
-        this.height = this.computeValue(this.from);
+        this.height = null;
         this.$emit('opened');
       }, this.duration);
     },
@@ -138,8 +123,8 @@ export default {
         clearTimeout(this.$options.animation);
 
       this.shrinked = true; 
-      this.height = this.$refs.wrapper.offsetHeight + 'px';
       this.duration = this.computeDuration();
+      this.height = this.$refs.wrapper.offsetHeight + 'px';
       
       // Vue rendering time + DOM rendering time
       const RENDER_TIME = 100;

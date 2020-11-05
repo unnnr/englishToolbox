@@ -1,23 +1,35 @@
 <template>
   <div class="addition">
-    <shrinkable 
+    <div 
       class="addition__tabs"
-      ref="shrinkable"
-      :to="shrinkTo">
+      ref="shrinkable">
 
-      <transition name="fade">
-        <slot v-if="editorShown"/>
-      </transition>
+      <shrinkable  
+        class="addition__tab-wrapper"
+        ref="info" 
+        :speed=".7">
 
-      <transition name="fade">
-        <post-info v-if="!!!editorShown"/>
-      </transition>
+        <post-info  :mobile="true"/>
+      </shrinkable>
 
-      <transition name="fade">
-        <post-comments v-if="!!!editorShown"/>
-      </transition>
+      <shrinkable 
+        class="addition__tab-wrapper"
+        ref="comments"  
+        :speed=".7">
 
-    </shrinkable>
+        <post-comments  :mobile="true"/>
+      </shrinkable>
+
+      <shrinkable 
+        class="addition__tab-wrapper"
+        ref="editor"
+        :speed=".7"
+        shrinked-by-default>
+         
+        <slot/>
+      </shrinkable>
+
+    </div>
   </div>
 </template>
 
@@ -37,26 +49,37 @@ export default {
   props: {
     editing: { type: Boolean, default: false },
 
-    creating: {type: Boolean, default: false }
+    creating: {type: Boolean, default: false },
   },
 
   data() {
     return {
-      editorShown: false
+      asd_editorShown: false
     }
   },
 
   computed: {
     editorHeight() {
-      let shrinkable = this.$refs.shrinkable;
-      if (!!!shrinkable)
-        return 0;
-
-      let editor = shrinkable.$el.children[0];
+      let editor = this.$refs.editor;
       if (!!!editor)
-        return 0;
+        return;
+
+      console.log('tp', editor.offsetHeight);
 
       return editor.offsetHeight;
+    },
+
+    commentsInfoHeight() {
+      let presentor = this.$refs.presentor;
+      if (!!!presentor)
+        return;
+
+      console.log('from', presentor.offsetHeight);
+      return presentor.offsetHeight;
+    },
+
+    editorShown() {
+      return this.creating || this.editing;
     }
   },
 
@@ -74,26 +97,67 @@ export default {
     shrinkTo() {
       return this.editorHeight + 'px';
     },
+
+    shrinkFrom() {
+      return this.commentsInfoHeight + 'px';
+    },
+
+    getShrinkable() {
+      return [
+        this.$refs.info,
+        this.$refs.editor,
+        this.$refs.comments,
+      ];
+    },
+
+    hideEditor() {
+      let [info, editor, comments] = this.getShrinkable();
+
+      let editorShowing = 
+        this.$options.editorShowing;
+
+      // Closing editor
+      if (editorShowing !== null)
+        clearTimeout(editorShowing)
+      else
+        editor.close();
+
+      this.$options.presentorShowing = setTimeout(() => {
+        // Resetting Timeout
+        this.$options.presentorShowing = null;
+
+        comments.open();
+        info.open();
+      }, 500);
+    },
+
+    showEditor() {
+      let [info, editor, comments] = this.getShrinkable();
+
+      let presentorShowing = 
+        this.$options.presentorShowing;
+
+      // Closing comments and info
+      if (presentorShowing)
+        clearTimeout(presentorShowing);
+      else {
+        comments.close();
+        info.close();
+      }
+      
+      this.$options.editorShowing = setTimeout(() => {
+        // Resetting Timeout
+        this.$options.editorShowing = null;
+
+        editor.open();
+      }, 500);
+    },
     
     async editorToggle(value) {
-      let shrinkable = this.$refs.shrinkable;
-       if (!!!shrinkable)
-        return;
-      
-      // Showing editor
-      if (value) {
-        this.editorShown = true;
-        await this.$nextTick();
-
-        this.$refs.shrinkable.close();
-      }
-      // Hiding editor
-      else {
-        this.editorShown = false;
-        await this.$nextTick();
-
-        shrinkable.open();
-      }
+      if (value)      
+        this.showEditor();
+      else  
+        this.hideEditor();
     }
   }
 }
@@ -104,4 +168,16 @@ export default {
 .fade-enter-active.editor, .fade-leave-active.editor
   position: absolute !important
 
+</style>
+
+
+<style lang="sass">
+
+.addition__tab
+  height: auto
+
+.addition__tab-wrapper
+  webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
+  box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
+  
 </style>

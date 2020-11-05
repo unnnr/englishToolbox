@@ -7,7 +7,6 @@
     <slot/>
   </post-details-mobile>
     
-
   <post-details-desktop 
     v-else
     :editing="editing"
@@ -63,10 +62,6 @@ export default {
 
       else if (!!!this.mobile && window.innerWidth <= this.mobileBorder)
         this.mobile = true;
-    },
-
-    select() {
-
     }
   }
 }

@@ -6,11 +6,26 @@ const Shrinkable = {
 	components: {
     Shrinkable: ShrinkableWrapper,
     ShrinkButton
-	},
+  },
+    
+  props: {
+    mobile: { type: Boolean, default: false }
+  },
 
   data() {
     return {
       shrinked: false,
+    }
+  },
+  
+
+  watch: {
+    target() {
+      if (!!!this.mobile)
+        return;
+      
+      this.shrink();
+      this.shrinked = true;
     }
   },
 
@@ -20,7 +35,19 @@ const Shrinkable = {
 
       if (shrinkable)
         this.shrinked = shrinkable.toggle();
-    }
+    },
+
+    shrink() {
+      if (this.shrinked)
+        return
+      
+      let shrinkable = this.$refs.shrinkable;
+      
+      if (!!!shrinkable)
+        return;
+
+      shrinkable.close();
+    },
   }
 };
 

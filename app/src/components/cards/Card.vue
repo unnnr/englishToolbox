@@ -8,7 +8,7 @@
 			'card--rectangle': isRecatangle}">
 
 		<div 
-			class="card__image" 
+			class="card__image disable-select " 
 			v-context:items="contextItems"
 			:style="{ 'background-image': 'url(\'' + imageUrl + '\')' }"
 			@click="select">
