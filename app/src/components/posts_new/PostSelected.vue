@@ -18,7 +18,7 @@
         name="creator"/>
       
       <slot 
-        v-if="editing"
+        v-else
         name="editor"/> 
 
     </post-details>
@@ -128,6 +128,7 @@ export default {
     },
     
     scrollToTop() {
+      return;
       window.scrollTo({ 
         behavior: 'smooth',
         top: 0, 

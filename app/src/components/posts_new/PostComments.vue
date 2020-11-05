@@ -18,7 +18,7 @@
       class="addition__tab-body comments__body"
       ref="shrinkable"
       :max-height="230"
-      shrinkedByDefault>
+      :shrinked-by-default="mobile">
 
       <transition name="fade">
         <div 
@@ -64,6 +64,10 @@ export default {
 
   inject: [ '$target' ],
 
+  props: {
+    mobile: { type: Boolean, default: false }
+  },
+
   data() {
     return {
       img: 'img/svg/overlay-comments.svg',
@@ -93,19 +97,7 @@ export default {
 
     counter() {
       return this.comments.length + ' comments';
-    },
-
-/*     shrink() {
-      if (this.shrinked)
-        return
-      
-      let shrinkable = this.$refs.shrinkable;
-      
-      if (!!!shrinkable)
-        return;
-
-      shrinkable.close();
-    } */
+    }
   }
 }
 </script>

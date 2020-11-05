@@ -1,23 +1,24 @@
 <template>
   <div class="addition">
-    <shrinkable 
+    <div 
       class="addition__tabs"
       ref="shrinkable"
-      :to="shrinkTo">
+      :to="shrinkTo"
+      :from="shrinkFrom">
 
-      <transition name="fade">
-        <slot v-if="editorShown"/>
-      </transition>
+      <shrinkable :speed=".7" ref="info"> 
+        <post-info  :mobile="true"/>
+      </shrinkable>
 
-      <transition name="fade">
-        <post-info v-if="!!!editorShown"/>
-      </transition>
+      <shrinkable :speed=".7" ref="comments" > 
+        <post-comments  :mobile="true"/>
+      </shrinkable>
 
-      <transition name="fade">
-        <post-comments v-if="!!!editorShown"/>
-      </transition>
+      <shrinkable :speed=".7"  ref="editor" shrinked-by-default> 
+        <slot/>
+      </shrinkable>
 
-    </shrinkable>
+    </div>
   </div>
 </template>
 
@@ -37,18 +38,37 @@ export default {
   props: {
     editing: { type: Boolean, default: false },
 
-    creating: {type: Boolean, default: false }
+    creating: {type: Boolean, default: false },
   },
 
   data() {
     return {
-      editorShown: false
+      asd_editorShown: false
     }
   },
 
   computed: {
     editorHeight() {
-      return '400px';
+      let editor = this.$refs.editor;
+      if (!!!editor)
+        return;
+
+      console.log('tp', editor.offsetHeight);
+
+      return editor.offsetHeight;
+    },
+
+    commentsInfoHeight() {
+      let presentor = this.$refs.presentor;
+      if (!!!presentor)
+        return;
+
+      console.log('from', presentor.offsetHeight);
+      return presentor.offsetHeight;
+    },
+
+    editorShown() {
+      return this.creating || this.editing;
     }
   },
 
@@ -64,16 +84,78 @@ export default {
 
   methods: {
     shrinkTo() {
-      return this.editorHeight;
+      return this.editorHeight + 'px';
+    },
+
+    shrinkFrom() {
+      return this.commentsInfoHeight + 'px';
+    },
+
+    hideEditor() {
+      let editor = this.$refs.editor;
+      let comments = this.$refs.comments;
+      let info = this.$refs.infor;
+
+      if (!!!editor || !!!comments || !!!info)
+        return;
+
+     
+      comments.close();
+      info.close();
+
+      setTimeout(editor.open, 4000);
+    },
+
+    showEditor() {
+      let editor = this.$refs.editor;
+      let comments = this.$refs.comments;
+      let info = this.$refs.infor;
+
+      if (!!!editor || !!!comments || !!!info)
+        return;
+
+      comments.open();
+      info.open();
+
+      setTimeout(editor.close, 1000);
     },
     
     async editorToggle(value) {
+      let editor = this.$refs.editor;
+      let comments = this.$refs.comments;
+      let info = this.$refs.info;
+
+      if (!!!editor || !!!comments || !!!info)
+        return;
+      
+      await this.$nextTick();
+
+
+      // showing editor
+      if (value) {        
+        comments.close();
+        info.close()
+
+        setTimeout(editor.open, 1000);
+      }
+      // hidding editor
+      else  {
+        editor.close();
+
+        setTimeout(comments.open, 1000);
+        setTimeout(info.open, 1000);
+
+      }
+
+      return;
       let shrinkable = this.$refs.shrinkable;
-       if (!!!shrinkable)
+      if (!!!shrinkable)
         return;
       
       // Showing editor
       if (value) {
+
+      console.log('showing');
         this.editorShown = true;
         await this.$nextTick();
 
@@ -81,6 +163,9 @@ export default {
       }
       // Hiding editor
       else {
+
+      console.log('hidding');
+        
         this.editorShown = false;
         await this.$nextTick();
 
@@ -96,4 +181,12 @@ export default {
 .fade-enter-active.editor, .fade-leave-active.editor
   position: absolute !important
 
+</style>
+
+
+<style lang="sass">
+
+.addition__tab
+  height: auto
+  
 </style>

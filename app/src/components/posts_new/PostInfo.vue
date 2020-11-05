@@ -13,7 +13,7 @@
     <shrinkable 
       class="addition__tab-body description__body"
       ref="shrinkable"
-      shrinkedByDefault>
+      :srinked-by-default="mobile">
       
       <p class="description__text text-fourth">{{ description }}</p>
       <h6 class="heading-sixth">Tag list</h6>
