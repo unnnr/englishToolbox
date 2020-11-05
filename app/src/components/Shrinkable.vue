@@ -15,8 +15,6 @@
 <script>
 export default {
   props: {    
-    from: { default: null },
-
     to: { default: '0' },
 
     speed: { type: Number, default: 1 },
@@ -108,8 +106,7 @@ export default {
 
       this.shrinked = false; 
       this.duration = this.computeDuration();
-      this.height = this.from ?  
-        this.computeValue(this.from) : this.contentHeight;
+      this.height = this.contentHeight
 
       // Waiting for animation
       this.$options.animation = setTimeout(() => {

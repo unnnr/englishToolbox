@@ -21,16 +21,11 @@ const Shrinkable = {
 
   watch: {
     target() {
-      if (this.mobile)
-        this.shrink();
-        
-      return;
-      let shrinkable = this.$refs.shrinkable;
-      if (!!!shrinkable)
-        return
-
-      shrinkable.height = shrinkable.computeValue(this.to);
-      shrinkable.shrinked = true;
+      if (!!!this.mobile)
+        return;
+      
+      this.shrink();
+      this.shrinked = true;
     }
   },
 

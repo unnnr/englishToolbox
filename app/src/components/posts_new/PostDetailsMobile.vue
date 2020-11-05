@@ -4,15 +4,28 @@
       class="addition__tabs"
       ref="shrinkable">
 
-      <shrinkable :speed=".7" ref="info"> 
+      <shrinkable  
+        class="addition__tab-wrapper"
+        ref="info" 
+        :speed=".7">
+
         <post-info  :mobile="true"/>
       </shrinkable>
 
-      <shrinkable :speed=".7" ref="comments" > 
+      <shrinkable 
+        class="addition__tab-wrapper"
+        ref="comments"  
+        :speed=".7">
+
         <post-comments  :mobile="true"/>
       </shrinkable>
 
-      <shrinkable :speed=".7"  ref="editor" shrinked-by-default> 
+      <shrinkable 
+        class="addition__tab-wrapper"
+        ref="editor"
+        :speed=".7"
+        shrinked-by-default>
+         
         <slot/>
       </shrinkable>
 
@@ -162,5 +175,9 @@ export default {
 
 .addition__tab
   height: auto
+
+.addition__tab-wrapper
+  webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
+  box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
   
 </style>
