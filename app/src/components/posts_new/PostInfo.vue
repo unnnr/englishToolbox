@@ -10,7 +10,11 @@
       </shrink-button>
     </div>
     
-    <shrinkable ref="shrinkable" class="addition__tab-body description__body">
+    <shrinkable 
+      class="addition__tab-body description__body"
+      ref="shrinkable"
+      shrinkedByDefault>
+      
       <p class="description__text text-fourth">{{ description }}</p>
       <h6 class="heading-sixth">Tag list</h6>
       

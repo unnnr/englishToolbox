@@ -19,7 +19,9 @@ export default {
 
     to: { default: '0' },
 
-    maxHeight: { type: Number, default: -1 }
+    maxHeight: { type: Number, default: -1 },
+
+    shrinkedByDefault: { type: Boolean, default: false}
   },
 
   data() {
@@ -54,7 +56,11 @@ export default {
   },
 
   beforeMount() {
-    this.height = this.computeValue(this.from)
+    if (!!!this.shrinkedByDefault) 
+      return this.height = this.computeValue(this.from);
+    
+    this.height = this.computeValue(this.to);
+    this.shrinked = true;
   },
   
   methods: {

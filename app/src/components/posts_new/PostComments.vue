@@ -17,7 +17,8 @@
     <shrinkable 
       class="addition__tab-body comments__body"
       ref="shrinkable"
-      :max-height="230">
+      :max-height="230"
+      shrinkedByDefault>
 
       <transition name="fade">
         <div 
@@ -92,7 +93,19 @@ export default {
 
     counter() {
       return this.comments.length + ' comments';
-    }
+    },
+
+/*     shrink() {
+      if (this.shrinked)
+        return
+      
+      let shrinkable = this.$refs.shrinkable;
+      
+      if (!!!shrinkable)
+        return;
+
+      shrinkable.close();
+    } */
   }
 }
 </script>
