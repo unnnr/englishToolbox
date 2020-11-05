@@ -62,10 +62,6 @@ export default {
 
       else if (!!!this.mobile && window.innerWidth <= this.mobileBorder)
         this.mobile = true;
-    },
-
-    select() {
-
     }
   }
 }

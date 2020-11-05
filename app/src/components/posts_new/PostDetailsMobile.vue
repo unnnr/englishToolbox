@@ -2,9 +2,7 @@
   <div class="addition">
     <div 
       class="addition__tabs"
-      ref="shrinkable"
-      :to="shrinkTo"
-      :from="shrinkFrom">
+      ref="shrinkable">
 
       <shrinkable :speed=".7" ref="info"> 
         <post-info  :mobile="true"/>
@@ -92,85 +90,55 @@ export default {
     },
 
     hideEditor() {
+      let info = this.$refs.info;
       let editor = this.$refs.editor;
       let comments = this.$refs.comments;
-      let info = this.$refs.infor;
+      let editorShowing = 
+        this.$options.editorShowing;
 
-      if (!!!editor || !!!comments || !!!info)
-        return;
+      // Closing editor
+      if (editorShowing !== null)
+        clearTimeout(editorShowing)
+      else
+        editor.close();
 
-     
-      comments.close();
-      info.close();
+      this.$options.presentorShowing = setTimeout(() => {
+        // Resetting Timeout
+        this.$options.presentorShowing = null;
 
-      setTimeout(editor.open, 4000);
+        comments.open();
+        info.open();
+      }, 500);
     },
 
     showEditor() {
+      let info = this.$refs.info;
       let editor = this.$refs.editor;
       let comments = this.$refs.comments;
-      let info = this.$refs.infor;
+      let presentorShowing = 
+        this.$options.presentorShowing;
 
-      if (!!!editor || !!!comments || !!!info)
-        return;
+      // Closing comments and info
+      if (presentorShowing)
+        clearTimeout(presentorShowing);
+      else {
+        comments.close();
+        info.close();
+      }
+      
+      this.$options.editorShowing = setTimeout(() => {
+        // Resetting Timeout
+        this.$options.editorShowing = null;
 
-      comments.open();
-      info.open();
-
-      setTimeout(editor.close, 1000);
+        editor.open();
+      }, 500);
     },
     
     async editorToggle(value) {
-      let editor = this.$refs.editor;
-      let comments = this.$refs.comments;
-      let info = this.$refs.info;
-
-      if (!!!editor || !!!comments || !!!info)
-        return;
-      
-      await this.$nextTick();
-
-
-      // showing editor
-      if (value) {        
-        comments.close();
-        info.close()
-
-        setTimeout(editor.open, 1000);
-      }
-      // hidding editor
-      else  {
-        editor.close();
-
-        setTimeout(comments.open, 1000);
-        setTimeout(info.open, 1000);
-
-      }
-
-      return;
-      let shrinkable = this.$refs.shrinkable;
-      if (!!!shrinkable)
-        return;
-      
-      // Showing editor
-      if (value) {
-
-      console.log('showing');
-        this.editorShown = true;
-        await this.$nextTick();
-
-        this.$refs.shrinkable.close();
-      }
-      // Hiding editor
-      else {
-
-      console.log('hidding');
-        
-        this.editorShown = false;
-        await this.$nextTick();
-
-        shrinkable.open();
-      }
+      if (value)      
+        this.showEditor();
+      else  
+        this.hideEditor();
     }
   }
 }

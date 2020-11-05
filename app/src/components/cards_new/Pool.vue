@@ -139,14 +139,17 @@ export default {
 
 			// Unselecting previos post
 			if (this.$options.selectedPost)
-				this.$set(this.$options.selectedPost, 'selected', false)
+			{
+        this.$set(this.$options.selectedPost, 'selected', false);
+        this.$options.selectedPost = null
+      }
       
-      if (!!!post)
-        return;
-
-      // Selecting current post
-      this.$options.selectedPost = post;
-      this.$set(post, 'selected', true);
+       // Selecting current post
+      if (post)
+      {
+        this.$options.selectedPost = post;
+        this.$set(post, 'selected', true);
+      }
     },
 
     selecting(post) {

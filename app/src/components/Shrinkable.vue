@@ -69,31 +69,6 @@ export default {
       let content = this.$refs.content;
 
       return content.offsetHeight;
-      let wrapper = this.$refs.wrapper;
-      if (!!!wrapper)
-        return '0';
-
-      let lastChild = wrapper.lastElementChild;
-      if (!!!lastChild)
-        return '0';
-
-      let height = 
-        lastChild.offsetTop + lastChild.offsetHeight;
-
-      // Countnig last element margin
-      let computedStyle = window.getComputedStyle(lastChild); 
-      height += 
-          parseInt(computedStyle.marginBottom, 10);
-      
-      // Countnign wrapper margin
-      computedStyle = window.getComputedStyle(wrapper); 
-      height += 
-          parseInt(computedStyle.paddingBottom, 10);
-
-      if (this.maxHeight > -1 && height > this.maxHeight)
-        return this.maxHeight;
-
-      return height;
     },
 
     computeValue(value) {

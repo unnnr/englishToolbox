@@ -56,7 +56,6 @@ export default {
   data() {
     return {
       target: null,
-
       creating: false,
       editing: false
     }
@@ -142,10 +141,6 @@ export default {
       Object.assign(this, data);
 
       this.scrollToTop();
-      // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEPM TEMP TEMP 
-      return;
-      if (this.$refs.postDetails)
-        this.$refs.postDetails.showInfo();
     },
 
     onEditing(data, event) {
