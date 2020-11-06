@@ -22,10 +22,9 @@
         class="tag"
         type="button"
         
-        v-context:items="createContext(tag)"
         v-for="(tag) of sortedTags"
-
         :key="tag.id"
+
         :class="{ 
           'tag--created': tag.created,
           'tag--main': tag.main
@@ -34,6 +33,7 @@
           'background-color': tag.selected ? tag.color : '' 
         }"
         
+        v-context:items="createContext(tag)"
         @click="toggle(tag)">
 
         <span class="tag__name" for="cb2">{{ tag.label }}</span>

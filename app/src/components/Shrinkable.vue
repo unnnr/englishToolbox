@@ -6,8 +6,10 @@
       'transition-duration': this.transitionDuration,
       'height': height}"
     :class="{
+      'shrinkable--opened': opened,
       'shrinkable--closed': closed,
-      'shrinkable--opened': opened}">
+      'shrinkable--opening': opening,
+      'shrinkable--closing': closing,}">
 
       <div 
         class="shrinkable__content"
@@ -37,6 +39,7 @@ export default {
   data() {
     return {
       height: null,
+      animation: null,
       duration: 500,
       shrinked: false,
     }
@@ -56,12 +59,20 @@ export default {
     },
     
     opened() {
-      return !!!this.shrinked
+      return !!!this.shrinked && this.animation === null
+    },
+    
+    opening() {
+      return !!!this.shrinked && this.animation !== null;
     },
 
     closed() {
-      return this.shrinked;
+      return this.shrinked && this.animation === null;
     },
+
+    closing() {
+      return this.shrinked && this.animation !== null;
+    }
   },
 
   beforeMount() {
@@ -108,29 +119,32 @@ export default {
     },
 
     open() {
-      if (this.opened)
+      if (!!!this.shrinked)
           return;
           
-      if (this.$options.animation !== null)
-        clearTimeout(this.$options.animation);
+      if (this.animation !== null)
+        clearTimeout(this.animation);
 
       this.shrinked = false; 
       this.duration = this.computeDuration();
       this.height = this.contentHeight
 
       // Waiting for animation
-      this.$options.animation = setTimeout(() => {
+      this.animation = setTimeout(() => {
+        // Clearing animation
+        this.animation = null;
+        
         this.height = null;
         this.$emit('opened');
       }, this.duration);
     },
 
     close() {
-      if (this.closed)
+      if (this.shrinked)
         return;
 
-      if (this.$options.animation !== null)
-        clearTimeout(this.$options.animation);
+      if (this.animation !== null)
+        clearTimeout(this.animation);
 
       this.shrinked = true; 
       this.duration = this.computeDuration();
@@ -140,18 +154,24 @@ export default {
       const RENDER_TIME = 100;
       
       // Waiting for rendering
-      this.$options.animation = setTimeout(() => {
+      this.animation = setTimeout(() => {
         this.height = this.computeValue(this.to);
 
       // Waiting for animation
-        this.$options.animation = setTimeout(() => 
-          this.$emit('closed'), this.duration);
+        this.animation = setTimeout(() => {
+          // Clearing animation
+          this.animation = null;
+
+          this.$emit('closed');
+        }, this.duration);
+
+
       }, RENDER_TIME)
       
     },
 
     toggle() {
-      if (this.closed)
+      if (this.shrinked)
         this.open()
       else
         this.close();
@@ -167,5 +187,5 @@ export default {
 .shrinkable
   transition-property: height
   overflow: hidden
-
+  
 </style>

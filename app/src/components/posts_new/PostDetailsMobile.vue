@@ -148,6 +148,9 @@ export default {
 
 <style lang="sass">
 
+.addition__tab-wrapper.shrinkable--closed
+  display: none
+
 addition--mobile .addition__tab
   height: auto
 

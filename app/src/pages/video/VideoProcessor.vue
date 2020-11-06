@@ -16,7 +16,7 @@
 
       <description-input :default-value="description"/>
 
-      <tags-input ref="tagEditor"/>
+      <tags-editor/>
     </div>
     <div class="addition__tab-footer editor__footer">
       <delete-button  
@@ -33,7 +33,7 @@ import DescriptionInput from '@components/inputs/DescriptionInput'
 import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
-import TagsInput from '@components/inputs/TagsInput'
+import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
 
 export default {
@@ -42,7 +42,7 @@ export default {
     YoutubeUrlInput,
     ConfirmButton,
     DeleteButton,
-    TagsInput,
+    TagsEditor,
     VForm
   },
 
