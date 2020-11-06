@@ -13,33 +13,33 @@
       </shrink-button>
     </div>
 
-    <div class="addition__tab-body comments__body">
-      <shrinkable 
-        v-if="!!!empty"
-        ref="shrinkable"
-        :max-height="230"
-        :shrinked-by-default="mobile">
+    <shrinkable 
+      v-if="!!!empty"
+      class="addition__tab-body comments__body"
+      ref="shrinkable"
+      :to="firstCommentHeight"
+      :max-height="230"
+      :shrinked-by-default="mobile">
 
-        <transition name="fade">
-          <div 
-            v-if="empty"
-            class="comments__body-overlay"
-            :style="{'background-image': imageUrl}">
-          </div>
-        </transition>
+      <transition name="fade">
+        <div 
+          v-if="empty"
+          class="comments__body-overlay"
+          :style="{'background-image': overlayUrl}">
+        </div>
+      </transition>
 
-        <comment 
-          v-for="({message, createdAt, user}, id) of comments"
-          :key="id"
-          
-          :image="user.avatar"
-          :author="user.name"
+      <comment 
+        v-for="({message, createdAt, user}, id) of comments"
+        :key="id"
+        
+        :image="user.avatar"
+        :author="user.name"
 
-          :created-at="createdAt"
-          :message="message"/>
+        :created-at="createdAt"
+        :message="message"/>
 
-      </shrinkable>
-    </div>
+    </shrinkable>
 
     <comment-input v-if="inputShown"/>
     
@@ -53,7 +53,6 @@ import Comment from '@components/comments/Comment'
 
 import FormatedDate from '@services/FormatedDate'
 import Faker from 'faker/locale/ja'
-
 
 export default {
   components: {
@@ -81,7 +80,7 @@ export default {
       return this.$target();
     },
 
-    imageUrl(){
+    overlayUrl(){
       return 'url(' + this.img + ')';
     },
 
@@ -98,6 +97,35 @@ export default {
 
     counter() {
       return this.comments.length + ' comments';
+    }
+  },
+
+  mounted() {
+    let shrinkable = this.$refs.shrinkable;
+    if (!!!shrinkable)
+      return 0;
+
+    shrinkable.height = this.firstCommentHeight();
+  },
+
+  methods: {
+    firstCommentHeight() {
+      if (this.empty)
+        return 0;
+
+      let shrinkable = this.$refs.shrinkable;
+      if (!!!shrinkable)
+        return 0;
+
+      let wrapper = shrinkable.$refs.content;
+      if (!!!wrapper)
+        return  0;
+
+      let firstComment = wrapper.children[0];
+      if (!!!firstComment)
+        return 0;
+
+      return firstComment.offsetHeight + 'px';
     }
   }
 }

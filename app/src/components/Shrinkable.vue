@@ -6,7 +6,11 @@
       'transition-duration': this.transitionDuration,
       'height': height}">
 
-      <div class="shrinkable__content" ref="content">
+      <div 
+        class="shrinkable__content"
+        ref="content"
+        :style="{'max-height': maxHeight + 'px'}">
+        
         <slot/>
       </div>
   </div>
