@@ -1,5 +1,5 @@
 <template>
-  <div class="addition">
+  <div class="addition addition--mobile">
     <div 
       class="addition__tabs"
       ref="shrinkable">
@@ -111,46 +111,21 @@ export default {
     },
 
     hideEditor() {
-      let [info, editor, comments] = this.getShrinkable();
+      let [info, editor, comments] = 
+        this.getShrinkable();
 
-      let editorShowing = 
-        this.$options.editorShowing;
-
-      // Closing editor
-      if (editorShowing !== null)
-        clearTimeout(editorShowing)
-      else
-        editor.close();
-
-      this.$options.presentorShowing = setTimeout(() => {
-        // Resetting Timeout
-        this.$options.presentorShowing = null;
-
-        comments.open();
-        info.open();
-      }, 500);
+      comments.open();
+      info.open();
+      editor.close();
     },
 
     showEditor() {
-      let [info, editor, comments] = this.getShrinkable();
+      let [info, editor, comments] = 
+        this.getShrinkable();
 
-      let presentorShowing = 
-        this.$options.presentorShowing;
-
-      // Closing comments and info
-      if (presentorShowing)
-        clearTimeout(presentorShowing);
-      else {
-        comments.close();
-        info.close();
-      }
-      
-      this.$options.editorShowing = setTimeout(() => {
-        // Resetting Timeout
-        this.$options.editorShowing = null;
-
-        editor.open();
-      }, 500);
+      comments.close();
+      info.close();
+      editor.open();
     },
     
     async editorToggle(value) {
@@ -173,7 +148,7 @@ export default {
 
 <style lang="sass">
 
-.addition__tab
+addition--mobile .addition__tab
   height: auto
 
 .addition__tab-wrapper

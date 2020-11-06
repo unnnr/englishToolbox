@@ -13,32 +13,33 @@
       </shrink-button>
     </div>
 
+    <div class="addition__tab-body comments__body">
+      <shrinkable 
+        v-if="!!!empty"
+        ref="shrinkable"
+        :max-height="230"
+        :shrinked-by-default="mobile">
 
-    <shrinkable 
-      class="addition__tab-body comments__body"
-      ref="shrinkable"
-      :max-height="230"
-      :shrinked-by-default="mobile">
+        <transition name="fade">
+          <div 
+            v-if="empty"
+            class="comments__body-overlay"
+            :style="{'background-image': imageUrl}">
+          </div>
+        </transition>
 
-      <transition name="fade">
-        <div 
-          v-if="empty"
-          class="comments__body-overlay"
-          :style="{'background-image': imageUrl}">
-        </div>
-      </transition>
+        <comment 
+          v-for="({message, createdAt, user}, id) of comments"
+          :key="id"
+          
+          :image="user.avatar"
+          :author="user.name"
 
-      <comment 
-        v-for="({message, createdAt, user}, id) of comments"
-        :key="id"
-        
-        :image="user.avatar"
-        :author="user.name"
+          :created-at="createdAt"
+          :message="message"/>
 
-        :created-at="createdAt"
-        :message="message"/>
-
-    </shrinkable>
+      </shrinkable>
+    </div>
 
     <comment-input v-if="inputShown"/>
     
@@ -102,10 +103,14 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 
 .comments__body
-  max-height: 300px 
-  overflow-y: scroll
+    overflow-y: scroll
+
+.comments__body .shrinkable__content
+  display: flex
+  flex-direction: column
+  gap: 20px
 
 </style>

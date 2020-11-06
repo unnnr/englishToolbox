@@ -18,7 +18,6 @@ const Shrinkable = {
     }
   },
   
-
   watch: {
     target() {
       if (!!!this.mobile)

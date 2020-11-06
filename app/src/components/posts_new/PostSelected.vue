@@ -127,7 +127,6 @@ export default {
     },
     
     scrollToTop() {
-      return;
       window.scrollTo({ 
         behavior: 'smooth',
         top: 0, 
