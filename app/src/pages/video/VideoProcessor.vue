@@ -16,21 +16,7 @@
 
       <description-input :default-value="description"/>
 
-      <h6 class="editor__tag-title heading-sixth">Add tags<span class="editor__tag-counter">0/5</span></h6>
-
-      <div class="tags">
-        <button type="button" class="tag">consectetur</button>
-        <button type="button" class="tag">adipiscing</button>
-        <button type="button" class="tag">petronat</button>
-        <button type="button" class="tag">derber</button>
-        <button type="button" class="tag">doits</button>
-        <button type="button" class="tag">tetrat</button>
-        <button type="button" class="tag">fonter</button>
-        <button type="button" class="tag">petrelet</button>
-        <button type="button" class="tag">huynia</button>
-      </div>
-
-
+      <tags-editor ref="tagEditor"/>
     </div>
     <div class="addition__tab-footer editor__footer">
       <delete-button  
@@ -47,7 +33,8 @@ import DescriptionInput from '@components/inputs/DescriptionInput'
 import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
-import VForm from '@components/validation/VForm';
+import TagsEditor from '@components/tags/TagsEditor'
+import VForm from '@components/validation/VForm'
 
 export default {
   components: {
@@ -55,6 +42,7 @@ export default {
     YoutubeUrlInput,
     ConfirmButton,
     DeleteButton,
+    TagsEditor,
     VForm
   },
 
@@ -83,6 +71,14 @@ export default {
 
     description() {
       return this.withDefault ? this.target.description : '';
+    },
+
+    tagsCounter() {
+      let tagEditor = this.$refs.tagEditor;
+      if (!!!tagEditor)
+        return '';
+
+      return tagEditor.counter;
     }
   },
 

@@ -1,47 +1,47 @@
 <template>
-	<request-form 
-		ref="form"
-		:submitCallback="submit"
-		@input:incorrect="handleError">
+	<div ref="fragment">
+		<h6 class="editor__tag-title heading-sixth">
+						Add tags 
+						<span class="editor__tag-counter">
+							{{ counter }}
+						</span>
+		</h6>
 
-		<transition-group name="tags" class="tags" ref="tags">
-			<h4 class="editor__label tags__title text-fourth" :key="-2">
-				<span>
-						Add tags
-						<small class="editor__counter">{{ tagsCounter }}</small>
-				</span>
-				<small class="editor__error">{{ errorMessage }}</small>
-			</h4>
+		<div 
+			ref="form"
+			class="tags"
+			:submitCallback="submit"
+			@input:incorrect="handleError">
 
-			<new-tag-input
-				ref="input"
-				:key="-1"
-				:submit="forceSubmit"/>
+			<transition-group name="tags" class="tags" ref="tags">
+				<new-tag-input
+					ref="input"
+					:key="-1"
+					:submit="forceSubmit"/>
 
-			<button
-				class="tag"
-				type="button"
-				
-				v-context:items="contextMenu"
-				v-for="(tag) of sortedTags"
+				<button
+					class="tag"
+					type="button"
+					
+					v-context:items="createContext(tag)"
+					v-for="(tag) of sortedTags"
 
-				:key="tag.id"
-				:class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
-				:style="{ 'background-color': tag.selected ? tag.color : ''}"
-				
-				@click="toggle(tag)"
-				@click.right="createContext(tag)">
+					:key="tag.id"
+					:class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
+					:style="{ 'background-color': tag.selected ? tag.color : ''}"
+					
+					@click="toggle(tag)">
 
-				<span class="tag__name" for="cb2">{{ tag.label }}</span>
-			</button>
-		</transition-group>
-	</request-form>
+					<span class="tag__name" for="cb2">{{ tag.label }}</span>
+				</button>
+			</transition-group>
+		</div>
+	</div>
 </template>
 
 <script>
 
 import NewTagInput from '@components/tags/NewTagInput'
-import RequestForm from '@components/RequestForm'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
@@ -50,27 +50,19 @@ const MAX_CREATED_TAGS_COUNT = 30;
 
 export default {
 	components: {
-		RequestForm,
 		NewTagInput
 	},
 
 	data: function () {
 		return {
 			selectedCount: 0,
-
 			main: null,
 			tags: [],
-
-			errorMessage: '',
-
-			contextMenu: [
-					{ label: 'Set as main', action: () => {} }
-			]
 		}
 	},
 
 	computed: {
-		tagsCounter() {
+		counter() {
 			return this.selectedCount + '/' + MAX_TAGS_COUNT;
 		},
 
@@ -139,14 +131,33 @@ export default {
 		}
 	},
 
+	beforeMount() {
+	},
+
 	mounted() {
 		Tags.all().then((tags) => {
 			this.clear()
 			this.tags = tags;
 		});
+
+		this.removefragment();
 	},
 
 	methods: {
+		removefragment() {
+			let fragment = this.$refs.fragment;
+			if (!!!fragment)
+				return;
+
+			let parent = fragment.parentNode;
+			if (!!!parent)
+				return;
+
+			while (fragment.firstChild)
+				parent.appendChild(fragment.firstChild);
+
+		},
+
 		clear() {
 			this.main = null;
 			this.selectedCount = 0;
@@ -164,31 +175,34 @@ export default {
 		},
 
 		createContext(tag) {
-			const SET_AS_MAIN = 0;
-			const DELETE = 1;
+			return () => {
+				const SET_AS_MAIN = 0;
+				const DELETE = 1;
 
-			if (tag.main)
-			{
-					this.contextMenu[SET_AS_MAIN].label = 'Make default';
-					this.contextMenu[SET_AS_MAIN].action = () => {
-							this.main = null; 
-					}
-			}
-			else
-			{
-				this.contextMenu[SET_AS_MAIN].label = 'Set as main';
-				this.contextMenu[SET_AS_MAIN].action = () => {
-
-				if (tag.selected)
+				if (tag.main)
 				{
-					this.main = tag;
-					return;
-				}          
-
-				if (this.toggle(tag))
-					this.main = tag; 
+						this.contextMenu[SET_AS_MAIN].label = 'Make default';
+						this.contextMenu[SET_AS_MAIN].action = () => {
+								this.main = null; 
+						}
 				}
-			}        
+				else
+				{
+					this.contextMenu[SET_AS_MAIN].label = 'Set as main';
+					this.contextMenu[SET_AS_MAIN].action = () => {
+
+					if (tag.selected)
+					{
+						this.main = tag;
+						return;
+					}          
+
+					if (this.toggle(tag))
+						this.main = tag; 
+					}
+				}        
+			}
+			
 		},
 
 		toggle(tag) {
