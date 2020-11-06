@@ -9,7 +9,8 @@
       <div 
         class="shrinkable__content"
         ref="content"
-        :style="{'max-height': maxHeight + 'px'}">
+        :style="{'max-height': maxHeight + 'px'}"
+        :class="innerClass">
         
         <slot/>
       </div>
@@ -25,7 +26,9 @@ export default {
 
     maxHeight: { type: Number, default: -1 },
 
-    shrinkedByDefault: { type: Boolean, default: false}
+    shrinkedByDefault: { type: Boolean, default: false },
+
+    innerClass: { default: null },
   },
 
   data() {

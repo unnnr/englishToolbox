@@ -17,6 +17,11 @@ const Shrinkable = {
       shrinked: false,
     }
   },
+
+  mounted() {
+    if (this.mobile)
+      this.shrinked = true;
+  },
   
   watch: {
     target() {

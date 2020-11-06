@@ -1,5 +1,8 @@
 <template>
-  <div class="addition__tab description">
+  <div 
+    class="addition__tab description"
+    :class="{'description--shrinked': shrinked}">
+
     <div class="addition__tab-header">
       <h6 class="heading-sixth">{{ title }}</h6>
 
@@ -11,8 +14,8 @@
     </div>
     
     <shrinkable 
-      class="addition__tab-body description__body"
       ref="shrinkable"
+      :inner-class="['addition__tab-body', 'description__body']"
       :shrinked-by-default="mobile">
       
       <p class="description__text text-fourth">{{ description }}</p>
@@ -74,3 +77,13 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.description
+  transition: gap .3s
+
+.description--shrinked 
+  gap: 7.5px
+
+</style>
