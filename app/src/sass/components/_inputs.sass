@@ -127,7 +127,7 @@
   background: $color-white
   border: 2px solid $color-almost-white
   border-radius: $border-radius-secondary
-  transition: border .2s ease-in-out, background .2s ease-in-out
+  transition: border .2s ease-in-out, background .2s ease-in-out, padding .3s ease-in-out
   
   &:before,
   &:after
@@ -192,6 +192,10 @@
 .input-group--password
   &:before
     content: "lock"
+
+.input-group--password-new
+  &:before
+    content: "enhanced_encryption"
 
 // input password visibility button  
 

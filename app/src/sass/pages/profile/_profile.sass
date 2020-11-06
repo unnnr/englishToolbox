@@ -1,0 +1,116 @@
+.profile
+  margin: 100px 0 
+  display: grid
+  grid-row-gap: 15px
+  grid-column-gap: 30px
+  grid-template-columns: 1fr 1.5fr
+  @include lg-devices
+    grid-column-gap: 15px
+  @include md-devices
+    grid-template-columns: 1fr 1fr
+  @include sm-devices
+    grid-template-columns: 1fr
+  
+.profile__tab 
+  padding: 30px 
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-primary
+  display: grid
+  grid-row-gap: 20px
+  grid-template-rows: max-content 1fr
+  grid-template-columns: max-content 1fr
+  grid-template-areas: "title button" "body body"
+
+.profile__managment
+  
+.profile__tab-title
+  grid-area: title
+
+.profile__tab-button
+  width: max-content
+  height: max-content
+  display: grid
+  grid-area: button
+  align-items: center
+  grid-auto-flow: column
+  justify-self: end
+  align-self: center
+  &:after
+    font-family: "material icons round"
+    margin-left: 4px
+    font-size: 18px
+
+.profile__tab-button--exit
+  &:after
+    content: "exit_to_app"
+
+.profile__tab-button--delete
+  &:after
+    content: "delete_outline"
+
+.profile__tab-content
+  grid-area: body
+  display: grid
+  grid-row-gap: 15px
+  grid-auto-rows: max-content
+  // temp
+  width: 100%
+
+.profile__editor-header
+  display: grid
+  grid-template-columns: max-content 1fr
+  grid-template-rows: 1fr 1fr
+  grid-row-gap: 8px
+  grid-column-gap: 15px
+  grid-template-areas: "image name" "image button-edit"
+
+.profile__editor-image
+  grid-area: image
+  width: 100px
+  height: 100px
+  min-width: 100px
+  border-radius: 100%
+  @include background-image
+  // temp
+  background-image: url(https://pbs.twimg.com/media/D_0W00ZVUAAkp39.jpg)
+  input
+    opacity: 0
+    position: absolute
+
+.profile__editor-name
+  grid-area: name
+  align-self: end
+
+.profile__editor-button-edit
+  grid-area: button-edit
+  width: max-content
+  height: max-content
+  display: grid
+  grid-auto-flow: column
+  align-items: center
+  &:before 
+    font-family: "material icons round"
+    content: "create"
+    margin-right: 4px
+    font-size: 18px
+    
+
+.profile__editor-button-confirm 
+  width: 100%
+  height: 50px
+
+.profile__editor--disabled
+  .input-group-secondary
+    padding: 0
+    border-color: $color-white
+  
+.profile__editor-footer 
+  display: grid
+  grid-row-gap: 15px
+  justify-items: center
+
+.profile__editor-button-delete-profile
+  &:before
+    font-family: "material icons round"
+    content: "delete_forever"
