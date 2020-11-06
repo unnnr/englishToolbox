@@ -1,0 +1,163 @@
+<template>
+  <div ref="fragment">
+		<h6 class="editor__tag-title heading-sixth">
+      Add tags 
+      <span class="editor__tag-counter">
+        {{ counter }}
+      </span>
+		</h6>
+
+    <transition-group 
+      ref="tags"
+      class="tags"
+      name="tags"
+      tag="div">
+
+      <new-tag-input
+        ref="input"
+        :key="-1"
+        :submit="() => {}"/>
+
+      <button
+        class="tag"
+        type="button"
+        
+        v-context:items="createContext(tag)"
+        v-for="(tag) of sortedTags"
+
+        :key="tag.id"
+        :class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
+        :style="{ 'background-color': tag.selected ? tag.color : ''}"
+        
+        @click="toggle(tag)">
+
+        <span class="tag__name" for="cb2">{{ tag.label }}</span>
+      </button>
+    </transition-group>
+	</div>
+</template>
+
+<script>
+import NewTagInput from '@components/tags/NewTagInput'
+import Tags from '@models/Tags'
+import bus from '@services/eventbus';
+
+const MAX_TAGS_COUNT = 5;
+
+export default {
+	components: {
+		NewTagInput
+  },
+  
+  data() {
+		return {
+			selectedCount: 0,
+			main: null,
+			tags: [],
+		}
+  },
+  
+  computed: {
+    sortedTags() {
+			let sorted = [];
+
+			for (let tag of this.tags)
+			{
+				if (tag.created)
+					sorted.unshift(tag);
+				else
+					sorted.push(tag);
+			}
+
+			return sorted;
+    },
+    
+    counter() {
+			return this.selectedCount + '/' + MAX_TAGS_COUNT;
+    }
+  },
+
+  mounted() {
+		Tags.all().then((tags) => {
+			this.tags = tags;
+		});
+
+		this.removefragment();
+  },
+  
+  methods: {
+		removefragment() {
+			let fragment = this.$refs.fragment;
+			if (!!!fragment)
+				return;
+
+			let parent = fragment.parentNode;
+			if (!!!parent)
+				return;
+
+			while (fragment.firstChild)
+				parent.appendChild(fragment.firstChild);
+
+    },
+
+    createContext(tag) {
+			return () => {
+        if (tag.main) {
+          return {
+            'Unmain': 
+              () => this.main = null
+          }
+        }
+        else {
+          return {
+            'Set as main': () => {
+              if (tag.selected)
+              {
+                this.main = tag;
+                return;
+              }          
+
+              if (this.toggle(tag))
+                this.main = tag; 
+            }
+          }
+        }      
+			}
+    },
+    
+    toggle(tag) {
+			let currentState = tag.selected;
+
+			if (!!!currentState)
+			{
+				if (this.selectedCount >= MAX_TAGS_COUNT)
+					return false;
+
+				if (!!!this.main)
+						this.main = tag;
+			}
+			else
+			{
+				if (tag.main)
+					this.main = null;
+			}
+
+			this.$set(tag, 'selected', !!!currentState);
+			this.selectedCount += currentState ? -1 : 1;
+			
+			return true;
+		},
+  }
+}
+</script>
+
+<style lang="sass">
+
+.tags-enter
+  transform: scale(0.5)
+  opacity: 0
+
+.tags-enter-active
+  transition: transform .3s ease-in-out, opacity .4s ease-in-out
+
+</style> 
