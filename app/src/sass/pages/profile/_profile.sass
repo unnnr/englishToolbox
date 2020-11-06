@@ -10,7 +10,12 @@
     grid-template-columns: 1fr 1fr
   @include sm-devices
     grid-template-columns: 1fr
+    grid-template-rows: max-content 400px
   
+// ===========
+// profile tab
+// ===========
+
 .profile__tab 
   padding: 30px 
   background: $color-white
@@ -21,41 +26,45 @@
   grid-template-rows: max-content 1fr
   grid-template-columns: max-content 1fr
   grid-template-areas: "title button" "body body"
+  @include sm-devices
+    padding: 20px 
 
-.profile__managment
-  
 .profile__tab-title
   grid-area: title
 
-.profile__tab-button
-  width: max-content
-  height: max-content
-  display: grid
-  grid-area: button
-  align-items: center
-  grid-auto-flow: column
-  justify-self: end
-  align-self: center
-  &:after
-    font-family: "material icons round"
-    margin-left: 4px
-    font-size: 18px
-
-.profile__tab-button--exit
-  &:after
-    content: "exit_to_app"
-
-.profile__tab-button--delete
-  &:after
-    content: "delete_outline"
-
-.profile__tab-content
+.profile__tab-editor,
+.profile__tab-comments
+  position: relative
   grid-area: body
   display: grid
   grid-row-gap: 15px
   grid-auto-rows: max-content
-  // temp
+
+.profile__tab-scrollable
+  position: absolute
   width: 100%
+  height: 100%
+  overflow: auto
+  @include scroll-primary
+  display: grid
+  grid-auto-rows: max-content
+  grid-row-gap: 20px
+
+// ==============
+// profile editor
+// ==============
+
+.profile__editor--disabled
+  .profile__editor-image
+    &:before
+      content: none  
+
+  .input-group-secondary
+    padding: 0
+    border-color: $color-white
+
+  .profile__editor-footer
+    max-height: 0
 
 .profile__editor-header
   display: grid
@@ -66,51 +75,122 @@
   grid-template-areas: "image name" "image button-edit"
 
 .profile__editor-image
+  position: relative
   grid-area: image
   width: 100px
   height: 100px
   min-width: 100px
   border-radius: 100%
+  box-shadow: $box-shadow-primary
   @include background-image
-  // temp
-  background-image: url(https://pbs.twimg.com/media/D_0W00ZVUAAkp39.jpg)
+  background-color: $color-semigray
+
   input
     opacity: 0
     position: absolute
+    z-index: $z-negative
+
+  &:before
+    opacity: 0
+    cursor: pointer
+    font-family: "Material Icons Round"
+    content: "image"
+    font-size: 30px
+    color: #fafafa
+    display: grid
+    justify-items: center
+    align-items: center
+    position: absolute
+    width: 100%
+    height: 100%
+    border-radius: 100%
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.3) 100%)
+    transition: opacity .3s ease-in-out
+
+  &:hover
+    &:before
+      opacity: 1
 
 .profile__editor-name
   grid-area: name
   align-self: end
 
-.profile__editor-button-edit
-  grid-area: button-edit
-  width: max-content
-  height: max-content
-  display: grid
-  grid-auto-flow: column
-  align-items: center
-  &:before 
-    font-family: "material icons round"
-    content: "create"
-    margin-right: 4px
-    font-size: 18px
-    
-
-.profile__editor-button-confirm 
-  width: 100%
-  height: 50px
-
-.profile__editor--disabled
-  .input-group-secondary
-    padding: 0
-    border-color: $color-white
-  
 .profile__editor-footer 
   display: grid
   grid-row-gap: 15px
-  justify-items: center
+  overflow: hidden
+  max-height: 205px
+  transition: max-height .3s ease-in-out
 
-.profile__editor-button-delete-profile
+// ================
+// profile comments
+// ================
+
+.profile__tab-comments-overlay
+  width: 100%
+  height: 100%
+  position: absolute
+  background-size: auto 90%
+  background-position: center
+  background-repeat: no-repeat
+  background-color: $color-white
+  @include lg-devices
+    background-size: auto 80%
+  @include md-devices
+    background-size: auto 65%
+  @include sm-devices
+    background-size: auto 75%
+
+.profile__tab-comment
+  height: max-content
+  display: grid 
+  grid-column-gap: 10px
+  grid-auto-flow: column
+  justify-content: space-between
+
+// =======
+// buttons 
+// =======
+
+.profile__tab-button
+  display: grid
+  align-items: center
+  grid-auto-flow: column
+  width: max-content
+  height: max-content
   &:before
     font-family: "material icons round"
+    margin-right: 4px
+    font-size: 18px
+  &:after
+    font-family: "material icons round"
+    margin-left: 4px
+    font-size: 18px
+
+.profile__tab-button--exit
+  justify-self: end
+  align-self: center
+  &:after
+    content: "exit_to_app"
+
+.profile__tab-button--delete-all
+  justify-self: end
+  align-self: center
+  &:after
     content: "delete_forever"
+
+.profile__tab-button--edit-profile
+  &:before 
+    content: "create"
+
+.profile__tab-button--delete-profile
+  justify-self: center
+  color: $color-lightgray
+  &:before 
+    content: "delete_forever"
+
+.profile__tab-button--delete-comment
+  &:after
+    content: "delete_forever"
+    color: $color-gray
+    font-size: 20px
