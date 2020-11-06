@@ -26,8 +26,13 @@
         v-for="(tag) of sortedTags"
 
         :key="tag.id"
-        :class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
-        :style="{ 'background-color': tag.selected ? tag.color : ''}"
+        :class="{ 
+          'tag--created': tag.created,
+          'tag--main': tag.main
+        }"
+        :style="{ 
+          'background-color': tag.selected ? tag.color : '' 
+        }"
         
         @click="toggle(tag)">
 
@@ -97,7 +102,6 @@ export default {
 
 			while (fragment.firstChild)
 				parent.appendChild(fragment.firstChild);
-
     },
 
     createContext(tag) {
@@ -122,30 +126,37 @@ export default {
             }
           }
         }      
-			}
+      }
     },
     
     toggle(tag) {
-			let currentState = tag.selected;
+      let selecting = !!!tag.selected;
 
-			if (!!!currentState)
+			if (selecting)
 			{
-				if (this.selectedCount >= MAX_TAGS_COUNT)
-					return false;
+        if (this.selectedCount >= MAX_TAGS_COUNT)
+          return false;
+          
+        // Selecting tag
+        this.selectedCount++;
+        this.$set(tag, 'selected', true);
 
+        // if current main tag is unset
+        //    making selected tag main
 				if (!!!this.main)
 						this.main = tag;
 			}
 			else
 			{
+        // If unselected tag is main  
+        //    removing main tag
 				if (tag.main)
-					this.main = null;
-			}
+          this.main = null;
 
-			this.$set(tag, 'selected', !!!currentState);
-			this.selectedCount += currentState ? -1 : 1;
-			
-			return true;
+        // Unselecting tab tag
+        this.selectedCount--;
+        this.$set(tag, 'selected', false);  
+      }
 		},
   }
 }

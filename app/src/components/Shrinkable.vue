@@ -4,7 +4,10 @@
     ref="wrapper"
     :style="{
       'transition-duration': this.transitionDuration,
-      'height': height}">
+      'height': height}"
+    :class="{
+      'shrinkable--closed': closed,
+      'shrinkable--opened': opened}">
 
       <div 
         class="shrinkable__content"

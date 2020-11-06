@@ -28,7 +28,7 @@
 
 					:key="tag.id"
 					:class="{ 'tag--main': tag.main, 'tag--created': tag.created }"
-					:style="{ 'background-color': tag.selected ? tag.color : ''}"
+					:style="{ 'background-color': tag.selected && tag.color}"
 					
 					@click="toggle(tag)">
 

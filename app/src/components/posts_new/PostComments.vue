@@ -133,8 +133,8 @@ export default {
 
 <style lang="sass">
 
-.comments__body
-    overflow-y: scroll
+.shrinkable--opened.comments__body
+  overflow-y: scroll
 
 .comments__body .shrinkable__content
   display: flex
