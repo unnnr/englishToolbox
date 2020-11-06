@@ -21,7 +21,7 @@
       <p class="description__text text-fourth">{{ description }}</p>
       <h6 class="heading-sixth">Tag list</h6>
       
-      <post-tags 
+      <tag-list 
         :main-tag="mainTag"
         :tags="tags"/>
     </shrinkable>
@@ -35,11 +35,11 @@
 
 <script>
 import Shrinkable from '@mixins/Shrinkable'
-import PostTags from '@components/tags/PostTags'
+import TagList from '@components/tags/TagList'
 
 export default {
   components: {
-    PostTags
+    TagList
   },
 
   mixins: [ Shrinkable ],

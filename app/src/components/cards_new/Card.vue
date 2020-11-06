@@ -24,7 +24,7 @@
       <p class="text-third">{{ description }}</p>
     </div>
     <div class="card__footer">
-        <card-tags
+        <shorten-tag-list
           :main-tag="mainTag"
           :tags="tags"/>
 
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import CardTags from '@components/tags/CardTags'
+import ShortenTagList from '@components/tags/ShortenTagList'
 
 export default {
   components: {
-    CardTags
+    ShortenTagList
   },
 
   props: {
