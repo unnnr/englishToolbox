@@ -214,6 +214,10 @@ export default {
 	overflow: hidden;
 }
 
+.card--add.list-move  {
+  transition: none;
+}
+
 .list-move {
   transition: transform 1s ease-in-out,
   						opacity 1s ease-in-out;
