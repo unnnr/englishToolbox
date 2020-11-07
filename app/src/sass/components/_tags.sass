@@ -5,7 +5,7 @@
   padding-bottom: 5px
 
 .tag
-  transition: background .2s ease-in-out
+  transition: background .2s ease-in-out, color .3s ease-in-out, width .2s ease-in-out
   background: $color-semigray
   color: $color-white
   font-weight: $semibold
@@ -16,11 +16,20 @@
   align-items: center
   height: max-content
   display: flex
-  transition: color .3s
   user-select: none
   
   &:hover 
     cursor: pointer
+
+  &:before
+    font-family: "Material Icons Round"
+    content: "star"
+    font-size: 15px
+    max-width: 0px
+    margin-right: 0px
+    align-self: center
+    overflow: hidden
+    transition: max-width .2s ease-in-out
 
 .tag--circle
   height: 30px

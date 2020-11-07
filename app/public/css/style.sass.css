@@ -1522,8 +1522,8 @@ button:active {
 }
 
 .tag {
-  -webkit-transition: background .2s ease-in-out;
-  transition: background .2s ease-in-out;
+  -webkit-transition: background .2s ease-in-out, color .3s ease-in-out, width .2s ease-in-out;
+  transition: background .2s ease-in-out, color .3s ease-in-out, width .2s ease-in-out;
   background: #a1a1b1;
   color: #fff;
   font-weight: 600;
@@ -1540,8 +1540,6 @@ button:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-transition: color .3s;
-  transition: color .3s;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -1550,6 +1548,20 @@ button:active {
 
 .tag:hover {
   cursor: pointer;
+}
+
+.tag:before {
+  font-family: "Material Icons Round";
+  content: "star";
+  font-size: 15px;
+  max-width: 0px;
+  margin-right: 0px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  overflow: hidden;
+  -webkit-transition: max-width .2s ease-in-out;
+  transition: max-width .2s ease-in-out;
 }
 
 .tag--circle {
