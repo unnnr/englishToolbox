@@ -128,35 +128,37 @@ export default {
         }      
       }
     },
+
+    select(tag) {
+      if (this.selectedCount >= MAX_TAGS_COUNT)
+        return false;
+        
+      // Selecting tag
+      this.selectedCount++;
+      this.$set(tag, 'selected', true);
+
+      // if current main tag is unset
+      //    making selected tag main
+      if (!!!this.main)
+          this.main = tag;
+    },
+
+    unselect(tag) {
+      // If unselected tag is main  
+      //    removing main tag
+      if (tag.main)
+        this.main = null;
+
+      // Unselecting tab tag
+      this.selectedCount--;
+      this.$set(tag, 'selected', false);  
+    },
     
     toggle(tag) {
-      let selecting = !!!tag.selected;
-
-			if (selecting)
-			{
-        if (this.selectedCount >= MAX_TAGS_COUNT)
-          return false;
-          
-        // Selecting tag
-        this.selectedCount++;
-        this.$set(tag, 'selected', true);
-
-        // if current main tag is unset
-        //    making selected tag main
-				if (!!!this.main)
-						this.main = tag;
-			}
-			else
-			{
-        // If unselected tag is main  
-        //    removing main tag
-				if (tag.main)
-          this.main = null;
-
-        // Unselecting tab tag
-        this.selectedCount--;
-        this.$set(tag, 'selected', false);  
-      }
+      if (!!!tag.selected)
+        this.select(tag);
+      else
+        this.unselect(tag);
 		},
   }
 }

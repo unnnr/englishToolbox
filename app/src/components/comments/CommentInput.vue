@@ -3,15 +3,13 @@
     <button class="comments__profile-button"></button>
 
     <textarea 
+      v-model="entry"
+      
       class="comments__textarea"
-      placeholder="Your comment"
-      maxlength="256"
       ref="textarea"
 
-      v-model="entry"
-      :style="{ 
-        'height': this.height
-      }"
+      placeholder="Your comment"
+      maxlength="256"
 
       @input="onInput">
     </textarea>
@@ -29,8 +27,8 @@ import { throttle } from 'throttle-debounce';
 export default {
   data() {
     return {
+      minHeight: 40,
       entry: '',
-      height: 'auto'
     }
   },
 
@@ -50,15 +48,22 @@ export default {
 
   methods: {
     onInput(event) {
-      this.height = 'auto';
-      
-      this.height = this.$refs.textarea.scrollHeight + 'px';
+      let textarea =  this.$refs.textarea; 
+
+      textarea.style.height = this.minHeight + 'px';
+      textarea.style.height = textarea.scrollHeight + 'px';
     },
     
-
     send() {
 
     }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.comments__textarea
+  max-height: 150px
+
+</style>

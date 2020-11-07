@@ -52,11 +52,13 @@ export default {
     },
 
     title() {
-      return this.target ? this.target.title : 'Something went wrong';
+      return this.target ? this.target.title : 
+        'Something went wrong';
     },
 
     description() {
-      return this.target ? this.target.description : `Obviously, you aren't allowed to see it, but... `;
+      return this.target ? this.target.description : 
+        `Obviously, you aren't allowed to see it, but... `;
     },
 
     createdAt() {
@@ -78,12 +80,19 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 
 .description
   transition: gap .3s
 
 .description--shrinked 
   gap: 7.5px
+
+
+/*  or :not(.shrinkable--closed).description__body */
+.shrinkable--opened,
+.shrinkable--opening,
+.shrinkable--closing
+  overflow-y: auto
 
 </style>
