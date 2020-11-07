@@ -67,10 +67,10 @@ class FakeData {
   
   generateMainTag() 
   {
-    return {
-      color: this.generateColor(),
-      label: Faker.lorem.word(),
-    }
+    let tags = [{"id":1,"label":"pink","color":"pink","default":null},{"id":2,"label":"paleturquoise","color":"paleturquoise","default":null},{"id":3,"label":"powderblue","color":"powderblue","default":null},{"id":4,"label":"plum","color":"plum","default":null},{"id":5,"label":"bisque","color":"bisque","default":null},{"id":6,"label":"lightgreen","color":"lightgreen","default":null},{"id":7,"label":"lightblue","color":"lightblue","default":null},{"id":8,"label":"video","color":"lightblue","default":1},{"id":9,"label":"audio","color":"plum","default":1}];
+    let randomId = Math.floor(Math.random() * tags.length);
+
+    return tags[randomId];
   }
 
   createComments()

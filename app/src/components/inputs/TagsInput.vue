@@ -30,7 +30,7 @@
           'tag--main': tag.main
         }"
         :style="{ 
-          'background-color': tag.selected ? tag.color : '' 
+          'background-color': (tag.selected || tag.main) ? tag.color : '' 
         }"
         
         v-context:items="createContext(tag)"
@@ -55,8 +55,6 @@ export default {
 
   props: {
     tags: { type: Array, default: () => [] },
-
-    selected: { type: Array, default: () => {}}
   },
   
   data() {
@@ -68,16 +66,30 @@ export default {
   
   computed: {
     sortedTags() {
-			let sorted = [];
+      let created = [];
+      let selected = [];
+      let remained = [];
+      let main = null;
 
-			for (let tag of this.tags)
-			{
-				if (tag.created)
-					sorted.unshift(tag);
-				else
-					sorted.push(tag);
-			}
+      for (let tag of this.tags)
+      {
+        if (tag.main)
+          main = tag;
 
+        else if (tag.selected)
+          selected.push(tag);
+
+        else if (tag.created)
+          created.push(tag);
+
+        else 
+          remained.push(tag);
+      }
+      let sorted = [...selected, ...created, ...remained];
+      
+      if (main)
+        sorted.unshift(main);
+      
 			return sorted;
     },
     
@@ -87,39 +99,34 @@ export default {
   },
 
   watch: {
-    selected: {
-      get() {
-        let selected = [];
+    main(newTag, previousTag) {
+      if (newTag)
+        this.$set(newTag, 'main' ,true);
+
+      if (previousTag)
+        this.$set(newTag, 'main' ,false);
+    },
+
+    tags: {
+      handler() {
+        this.selectedCount = 0;
 
         for (let tag of this.tags)
         {
-          if (tag.selected || tag.main)
-            selected.push(tag);
-        }
+          if (tag.main)
+            this.main = tag;
 
-        return selected;
+          if (tag.selected || tag.main)
+            this.selectedCount++;
+        }
       },
 
-      set(value) {
-        for (let tag of this.selectedTags)
-          this.unselect(tag);
-
-        for (let tag of value)
-           this.select(tag);
-      }
-    },
-
-    main(newTag, previousTag) {
-      if (newTag)
-        newTag.main = true;
-
-      if (previousTag)
-        previousTag.main = false;
+      immediate: true
     }
   },
 
   mounted() {
-		this.removefragment();
+    this.removefragment();
   },
   
   methods: {
@@ -190,6 +197,8 @@ export default {
       //    removing main tag
       if (tag.main)
         this.main = null;
+      
+      console.log(tag);
 
       // Unselecting tab tag
       this.selectedCount--;
@@ -197,16 +206,19 @@ export default {
     },
     
     toggle(tag) {
-      if (!!!tag.selected)
-        this.select(tag);
-      else
+      if (tag.selected)
         this.unselect(tag);
+      else
+        this.select(tag);
 		},
   }
 }
 </script>
 
 <style lang="sass">
+
+.tags-move 
+  transition: transform .4s ease-in-out
 
 .tags-enter
   transform: scale(0.5)
