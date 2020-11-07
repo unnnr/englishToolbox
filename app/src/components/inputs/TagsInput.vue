@@ -70,7 +70,8 @@ export default {
       let selected = [];
       let remained = [];
       let main = null;
-
+      
+      // Splitting tags into sactions
       for (let tag of this.tags)
       {
         if (tag.main)
@@ -85,6 +86,8 @@ export default {
         else 
           remained.push(tag);
       }
+
+      // Combining tags sections into one array
       let sorted = [...selected, ...created, ...remained];
       
       if (main)
@@ -166,16 +169,6 @@ export default {
           }
         }      
       }
-    },
-
-    getTag(id) {
-      for (let tag of this.tags)
-      {
-        if (id === tag.id)
-          return tag
-      }
-      
-      return null;
     },
 
     select(tag) {
