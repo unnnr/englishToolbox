@@ -44,7 +44,6 @@
 
 <script>
 import NewTagInput from '@components/tags/NewTagInput'
-import Tags from '@models/Tags'
 import bus from '@services/eventbus';
 
 const MAX_TAGS_COUNT = 5;
@@ -53,12 +52,16 @@ export default {
 	components: {
 		NewTagInput
   },
+
+  props: {
+    tags: { type: Array, default: () => [] }
+  },
   
   data() {
 		return {
 			selectedCount: 0,
 			main: null,
-			tags: [],
+      selected: []
 		}
   },
   
@@ -82,11 +85,25 @@ export default {
     }
   },
 
-  mounted() {
-		Tags.all().then((tags) => {
-			this.tags = tags;
-		});
+  watch: {
+    main(newTag, previousTag) {
+      if (newTag)
+        newTag.main = true;
 
+      if (previousTag)
+        previousTag.main = false;
+    },
+
+    selected: {
+      handler(value) {
+        // this.tags = value;
+      },
+
+      immediate: true
+    },
+  },
+
+  mounted() {
 		this.removefragment();
   },
   
