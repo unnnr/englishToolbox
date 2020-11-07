@@ -1,6 +1,6 @@
 <template>
   <tags-input 
-    :tags="tags"
+    :tags="parsedTags"
     :disabled="loading"
     v-validate/>
 </template>
@@ -25,11 +25,40 @@ export default {
 
   computed: {
     target() {  
-      return this.$target;
+      return this.$target();
     },
 
-    selectedTags() {
+    selected() {
       return this.target ? this.target.tags : [];
+    },
+
+    mainTag() {
+      return this.target ? this.target.mainTag : null;
+    },
+
+    parsedTags() {
+      let tags = this.tags;
+
+      // Selecting tags
+      for (let { id } of this.selected)
+      {
+        let tag = this.getTag(id);
+
+        if (tag)
+          tag.selected = true;
+      }
+
+      // Adding main tag
+      if (!!!this.mainTag)
+        return tags;
+
+      let tag = this.getTag(this.mainTag.id);
+      if (!!!tag)
+        return tags;
+
+      tag.main = true;
+
+      return tags;
     }
   },
 
@@ -37,6 +66,18 @@ export default {
     Tags.all().then((tags) => {
 			this.tags = tags;
 		});
+  },
+
+  methods: {
+    getTag(id) {
+      for (let tag of this.tags)
+      {
+        if (tag.id === id)
+          return tag;
+      }
+
+      return null;
+    }
   }
 }
 </script>

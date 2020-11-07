@@ -54,14 +54,15 @@ export default {
   },
 
   props: {
-    tags: { type: Array, default: () => [] }
+    tags: { type: Array, default: () => [] },
+
+    selected: { type: Array, default: () => {}}
   },
   
   data() {
 		return {
 			selectedCount: 0,
 			main: null,
-      selected: []
 		}
   },
   
@@ -86,21 +87,35 @@ export default {
   },
 
   watch: {
+    selected: {
+      get() {
+        let selected = [];
+
+        for (let tag of this.tags)
+        {
+          if (tag.selected || tag.main)
+            selected.push(tag);
+        }
+
+        return selected;
+      },
+
+      set(value) {
+        for (let tag of this.selectedTags)
+          this.unselect(tag);
+
+        for (let tag of value)
+           this.select(tag);
+      }
+    },
+
     main(newTag, previousTag) {
       if (newTag)
         newTag.main = true;
 
       if (previousTag)
         previousTag.main = false;
-    },
-
-    selected: {
-      handler(value) {
-        // this.tags = value;
-      },
-
-      immediate: true
-    },
+    }
   },
 
   mounted() {
@@ -144,6 +159,16 @@ export default {
           }
         }      
       }
+    },
+
+    getTag(id) {
+      for (let tag of this.tags)
+      {
+        if (id === tag.id)
+          return tag
+      }
+      
+      return null;
     },
 
     select(tag) {
