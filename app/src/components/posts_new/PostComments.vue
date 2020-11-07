@@ -18,7 +18,7 @@
       class="addition__tab-body comments__body"
       ref="shrinkable"
       :to="firstCommentHeight"
-      :max-height="230"
+      :max-height="maxHeight"
       :shrinked-by-default="mobile">
 
       <transition name="fade">
@@ -97,10 +97,17 @@ export default {
 
     counter() {
       return this.comments.length + ' comments';
+    },
+
+    maxHeight() {
+      return this.mobile ? 230 : null; 
     }
   },
 
   mounted() {
+    if (!!!this.mobile)
+      return;
+      
     let shrinkable = this.$refs.shrinkable;
     if (!!!shrinkable)
       return 0;
