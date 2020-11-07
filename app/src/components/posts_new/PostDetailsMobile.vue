@@ -52,19 +52,11 @@ export default {
     creating: {type: Boolean, default: false },
   },
 
-  data() {
-    return {
-      asd_editorShown: false
-    }
-  },
-
   computed: {
     editorHeight() {
       let editor = this.$refs.editor;
       if (!!!editor)
         return;
-
-      console.log('tp', editor.offsetHeight);
 
       return editor.offsetHeight;
     },
@@ -74,7 +66,6 @@ export default {
       if (!!!presentor)
         return;
 
-      console.log('from', presentor.offsetHeight);
       return presentor.offsetHeight;
     },
 
@@ -86,11 +77,16 @@ export default {
   watch: {
     editing(value) {
       this.editorToggle(value);
-    },   
-    
+    },
+
     creating(value) {
       this.editorToggle(value);
-    },
+    }
+  },
+
+  mounted() {
+    if (this.editing || this.creating)
+      this.editorToggle(true);
   },
 
   methods: {
