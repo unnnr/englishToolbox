@@ -1,5 +1,5 @@
 .profile
-  margin: 100px 0 
+  margin: 50px 0
   display: grid
   grid-row-gap: 15px
   grid-column-gap: 30px
@@ -26,7 +26,7 @@
   grid-template-rows: max-content 1fr
   grid-template-columns: max-content 1fr
   grid-template-areas: "title button" "body body"
-  @include sm-devices
+  @include md-devices
     padding: 20px 
 
 .profile__tab-title
@@ -82,8 +82,12 @@
   min-width: 100px
   border-radius: 100%
   box-shadow: $box-shadow-primary
-  @include background-image
   background-color: $color-semigray
+  @include background-image
+  @include md-devices
+    min-width: 75px
+    width: 75px
+    height: 75px
 
   input
     opacity: 0

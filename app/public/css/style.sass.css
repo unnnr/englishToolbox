@@ -2483,7 +2483,7 @@ button:active {
 }
 
 .profile {
-  margin: 100px 0;
+  margin: 50px 0;
   display: -ms-grid;
   display: grid;
   grid-row-gap: 15px;
@@ -2533,7 +2533,7 @@ button:active {
       grid-template-areas: "title button" "body body";
 }
 
-@media (max-width: 770px) {
+@media (max-width: 1000px) {
   .profile__tab {
     padding: 20px;
   }
@@ -2627,10 +2627,18 @@ button:active {
   border-radius: 100%;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  background-color: #a1a1b1;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #a1a1b1;
+}
+
+@media (max-width: 1000px) {
+  .profile__editor-image {
+    min-width: 75px;
+    width: 75px;
+    height: 75px;
+  }
 }
 
 .profile__editor-image input {
@@ -2800,6 +2808,7 @@ button:active {
   display: -ms-grid;
   display: grid;
   grid-row-gap: 30px;
+  margin-bottom: 50px;
 }
 
 .banned__body {
@@ -2821,6 +2830,7 @@ button:active {
   display: -ms-grid;
   display: grid;
   grid-row-gap: 30px;
+  margin-bottom: 50px;
 }
 
 .reviews-management__body {
