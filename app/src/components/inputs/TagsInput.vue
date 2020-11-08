@@ -21,10 +21,12 @@
       <button
         class="tag"
         type="button"
+
         
         v-for="(tag) of sortedTags"
         :key="tag.id"
 
+        :disabled="loading"
         :class="{ 
           'tag--created': tag.created,
           'tag--main': tag.main
@@ -62,6 +64,7 @@ export default {
       tags: [],
 			selectedCount: 0,
       main: null,
+      loading: false,
 		}
   },
   
@@ -93,10 +96,20 @@ export default {
       
       if (main)
         sorted.unshift(main);
-
-      console.log('sorting');
       
 			return sorted;
+    },
+
+    selected() {
+      let selected = [];
+
+      for (let tag of this.tags)
+      {
+        if (tag.selected)
+          selected.push(tag);
+      }
+
+      return selected;
     },
 
     counter() {
@@ -125,8 +138,6 @@ export default {
           if (tag.selected || tag.main)
             this.selectedCount++;
         }
-
-        console.log('watching');
 
         this.tags = 
           JSON.parse(JSON.stringify(this.defaultTags));
@@ -209,7 +220,16 @@ export default {
         this.unselect(tag);
       else
         this.select(tag);
-		},
+    },
+    
+    submit(data) {
+      let selected = this.selected;
+      if (!!!selected)
+        return;
+
+      for (let index in selected)
+        data.append(`tags[${index}]`, selected[index].id);
+    } 
   }
 }
 </script>

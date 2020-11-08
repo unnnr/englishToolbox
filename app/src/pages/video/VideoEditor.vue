@@ -32,8 +32,8 @@ export default {
       return processor.hasChanges();
     },
 
-    submit(data) {
-
+    async submit(data) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
       // sending data to API
 
       let url = data.get('videoUrl');

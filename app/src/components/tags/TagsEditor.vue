@@ -1,7 +1,6 @@
 <template>
   <tags-input 
     :default-tags="parsedTags"
-    :disabled="loading"
     v-validate/>
 </template>
 
@@ -18,7 +17,6 @@ export default {
 
   data() {
     return {
-      loading: false,
       tags: [],
     }
   },
