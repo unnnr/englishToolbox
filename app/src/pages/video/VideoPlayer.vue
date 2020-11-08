@@ -35,7 +35,7 @@ export default {
     },
 
     videoId() {
-      return this.target ? this.target.videoId : null;
+      return this.target ? this.target.youtubeId : null;
     },
 
     videoLink() {

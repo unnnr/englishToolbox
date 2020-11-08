@@ -47,10 +47,8 @@ export default {
 
   mixins: [ HandleEvents ],
 
-  data() {
-    return {
-      posts: []
-    }
+  props: {
+    posts: { type: Array, default: () => [] }
   },
 
   computed: {
@@ -64,8 +62,7 @@ export default {
   },
 
   mounted() {
-    this.posts = FakeData.generatePosts();
-
+    // this.posts = FakeData.generatePosts();
     this.listen({
       'post-creating': this.onCreating,
       'post-created': this.onCreated,

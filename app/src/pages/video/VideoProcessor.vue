@@ -84,7 +84,7 @@ export default {
 
   mounted() {
     this.link = this.withDefault ?  
-      'https://youtube.com/watch?v=' + this.target.videoId : '';
+      'https://youtube.com/watch?v=' + this.target.youtubeId : '';
   },
 
   methods: {
@@ -92,7 +92,7 @@ export default {
       let videoId = event.videoId || null;
       
       if (typeof this.target === 'object')
-        this.$set(this.target, 'videoId', videoId) 
+        this.$set(this.target, 'youtubeId', videoId) 
     },
 
     hasChanges() {

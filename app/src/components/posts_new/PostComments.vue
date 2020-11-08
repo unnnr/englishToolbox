@@ -14,7 +14,7 @@
     </div>
 
     <shrinkable 
-      v-if="!!!empty"
+      v-if="commentsShown"
       class="addition__tab-body comments__body"
       ref="shrinkable"
       :to="firstCommentHeight"
@@ -86,6 +86,10 @@ export default {
 
     empty() {
       return !!!this.comments.length;
+    },
+
+    commentsShown() {
+      return !!!this.mobile || !!!this.empty;
     },
 
     comments() {

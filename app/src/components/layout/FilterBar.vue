@@ -21,9 +21,11 @@
 				shrinked-by-default>
 
 				<tag
-					v-for="({label}, index) of tags"
+					v-for="({label, color}, index) of tags"
 					:key="index"
-					:label="label"/>
+					:label="label"
+					:color="color"
+					:always-colored="false"/>
 
 			</shrinkable>
 		</div>
@@ -31,10 +33,9 @@
 </template>
 
 <script>
-
 import HandleEvents from '@mixins/HandleEvents'
-import bus from '@services/eventbus';
-import Tags from '@models/Tags';
+import Tags from '@models/Tags'
+import bus from '@services/eventbus'
 import Shrinkable from '@components/Shrinkable'
 import Tag from '@components/tags/Tag'
  

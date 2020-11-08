@@ -21,19 +21,21 @@
 
     </post-selected>
     
-    <pool/>
+    <pool :posts="videos"/>
 
   </main>
 </template>
 
 <script>
-import HandlePost from'@mixins/HandlePost'
-import PostSelected from '@components/posts_new/PostSelected'
-import FilterBar from '@components/layout/FilterBar'
+
 import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'
+import PostSelected from '@components/posts_new/PostSelected'
+import FilterBar from '@components/layout/FilterBar'
 import Pool from '@components/cards_new/Pool'
+import HandlePost from'@mixins/HandlePost'
+import Videos from '@models/Videos'
 
 export default {
   components: {
@@ -45,6 +47,22 @@ export default {
     Pool
   },
 
-  mixins: [HandlePost]
+  mixins: [ HandlePost ],
+
+  data() {
+    return {
+      videos: [],
+    }
+  },
+
+  mounted() {
+    this.loadVideos();
+  },
+
+  methods: {
+    async loadVideos() {
+      this.videos = await Videos.all();
+    }
+  }
 }
 </script>
