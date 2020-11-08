@@ -101,7 +101,7 @@ export default {
 
       for (let tag of this.tags)
       {
-        if (tag.selected)
+        if (tag.selected && !!!tag.main)
           selected.push(tag);
       }
 
@@ -219,12 +219,18 @@ export default {
     },
     
     submit(data) {
-      let selected = this.selected;
-      if (!!!selected)
-        return;
+      // Appending main tag to data
+      let mainTag = this.main;
+      if (mainTag)
+        data.append('mainTag', mainTag.id)
 
-      for (let index in selected)
-        data.append(`tags[${index}]`, selected[index].id);
+      // Appending selected tags to data
+      let selected = this.selected;
+      if (selected)
+      {
+        for (let index in selected)
+          data.append(`tags[${index}]`, selected[index].id);
+      }
     } 
   }
 }

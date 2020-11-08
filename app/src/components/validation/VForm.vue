@@ -113,11 +113,11 @@ export default {
       if (!!!this.validateInputs() || !!!this.request)
         return;
       
-      this.lock();
-
-      let data = this.collectData();
-
       try {
+        this.lock();
+
+        let data = this.collectData();
+
         await this.send(data);
       }
       catch(error) {
