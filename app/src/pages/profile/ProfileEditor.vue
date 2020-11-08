@@ -132,7 +132,7 @@
 import ProfileAvatar from '@pages/profile/ProfileAvatar'
 import RequestForm from '@components/RequestForm'
 import SubmitButton from '@components/SubmitButton'
-import Shrinkable from '@mixins/Shrinkable'
+// import Shrinkable from '@mixins/Shrinkable'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
@@ -143,8 +143,8 @@ export default {
 		RequestForm
 	},
 
-	mixins: [ Shrinkable ],
-	
+/* 	mixins: [ Shrinkable ],
+ */	
 	data: function () {
 		return {
 			data: {

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Shrinkable from '@mixins/Shrinkable'
+import ShrinkableTab from '@mixins/ShrinkableTab'
 import TagList from '@components/tags/TagList'
 
 export default {
@@ -42,7 +42,7 @@ export default {
     TagList
   },
 
-  mixins: [ Shrinkable ],
+  mixins: [ ShrinkableTab ],
 
   inject: [ '$target' ],
 

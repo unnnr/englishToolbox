@@ -2,7 +2,7 @@ import ShrinkableWrapper from '@components/Shrinkable'
 import ShrinkButton from '@components/buttons/ShrinkButton'
 
 
-const Shrinkable = {
+const ShrinkableTab = {
 	components: {
     Shrinkable: ShrinkableWrapper,
     ShrinkButton
@@ -55,4 +55,4 @@ const Shrinkable = {
   }
 };
 
-export default Shrinkable;
+export default ShrinkableTab;

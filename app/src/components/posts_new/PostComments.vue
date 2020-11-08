@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Shrinkable from '@mixins/Shrinkable'
+import ShrinkableTab from '@mixins/ShrinkableTab'
 import CommentInput from '@components/comments/CommentInput'
 import Comment from '@components/comments/Comment'
 
@@ -60,7 +60,7 @@ export default {
     Comment
   },
 
-  mixins: [ Shrinkable ],
+  mixins: [ ShrinkableTab ],
 
   inject: [ '$target' ],
 
