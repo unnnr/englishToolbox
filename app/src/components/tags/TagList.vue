@@ -1,6 +1,6 @@
 <template>
    <div class="tags">
-    <button 
+    <!-- <button 
       class="tag tag--main"
       type="button"
 
@@ -20,13 +20,34 @@
       :style="{'background-color': color}">
       
       {{ label }}
-    </button>
+    </button> -->
+    
+    <tag
+      v-if="mainTagShown"
+
+      :color="mainTag.color"
+      :label="mainTag.label"
+      main/>
+
+    <tag
+      v-for="({label, color}, index) in tags"
+      :key="index"
+
+      :color="color"
+      :label="label"/>
+    
   </div>
 </template>
 
 <script>
+import Tag from '@components/tags/Tag'
+
 export default {
-   props: {
+  components: {
+    Tag
+  },
+
+  props: {
     tags: { type: Array, default: () => [] },
     
     mainTag: { type: Object, default: null }

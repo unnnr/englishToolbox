@@ -13,11 +13,9 @@
 				tags
 			</button>
 
-			<div class="filter__tags">
-				<div 
-					class="tags"
-					ref="tagsBody">
-
+			<shrinkable 
+				class="filter__tags"
+				inner-class="tags">
 					<button 
 						class="tag"
 						type="button"
@@ -25,10 +23,7 @@
 						:key="index">
 						{{ label }}
 					</button>
-					
-				</div>
-			</div>
-
+			</shrinkable>
 		</div>
 	</section>
 </template>
@@ -38,9 +33,14 @@
 import bus from '@services/eventbus';
 import Tags from '@models/Tags';
 import HandleEvents from '@mixins/HandleEvents'
+import Shrinkable from '@components/Shrinkable'
  
 
 export default {
+	components: {
+		Shrinkable
+	},
+
 	mixins: [ HandleEvents ],
 
 	data: function() {

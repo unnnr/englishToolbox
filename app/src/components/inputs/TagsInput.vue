@@ -18,41 +18,37 @@
         :key="-1"
         :submit="() => {}"/>
 
-      <button
-        class="tag"
-        type="button"
-
-        
+      <tag
         v-for="(tag) of sortedTags"
         :key="tag.id"
 
-        :disabled="loading"
-        :class="{ 
-          'tag--created': tag.created,
-          'tag--main': tag.main
-        }"
-        :style="{ 
-          'background-color': (tag.selected || tag.main) ? tag.color : '' 
-        }"
-        
-        v-context:items="createContext(tag)"
-        @click="toggle(tag)">
+        :color="tag.color"
+        :label="tag.label"
 
-        <span class="tag__name" for="cb2">{{ tag.label }}</span>
-      </button>
+        :always-colored="false"
+        :disabled="loading"
+        
+        :selected="tag.selected"
+        :created="tag.created"
+        :main="tag.main"
+
+        v-context:items="createContext(tag)"
+        @click.native="toggle(tag)"/>
     </transition-group>
 	</div>
 </template>
 
 <script>
 import NewTagInput from '@components/tags/NewTagInput'
+import Tag from '@components/tags/Tag'
 import bus from '@services/eventbus';
 
 const MAX_TAGS_COUNT = 5;
 
 export default {
 	components: {
-		NewTagInput
+    NewTagInput,
+    Tag
   },
 
   props: {
