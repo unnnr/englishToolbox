@@ -7,22 +7,24 @@
 			</div>
 
 			<button 
-				:disabled="toggleButtonShown"
 				class="filter__shrink-button"
+				:disabled="togglerDisabled"
 				@click="toggleFilters">
+
 				tags
 			</button>
 
 			<shrinkable 
 				class="filter__tags"
-				inner-class="tags">
-					<button 
-						class="tag"
-						type="button"
-						v-for="({label}, index) of tags"
-						:key="index">
-						{{ label }}
-					</button>
+				inner-class="tags"
+				ref="shrinkable"
+				shrinked-by-default>
+
+				<tag
+					v-for="({label}, index) of tags"
+					:key="index"
+					:label="label"/>
+
 			</shrinkable>
 		</div>
 	</section>
@@ -30,15 +32,17 @@
 
 <script>
 
+import HandleEvents from '@mixins/HandleEvents'
 import bus from '@services/eventbus';
 import Tags from '@models/Tags';
-import HandleEvents from '@mixins/HandleEvents'
 import Shrinkable from '@components/Shrinkable'
+import Tag from '@components/tags/Tag'
  
 
 export default {
 	components: {
-		Shrinkable
+		Shrinkable,
+		Tag
 	},
 
 	mixins: [ HandleEvents ],
@@ -54,8 +58,8 @@ export default {
 	},
 
 	computed: {
-		toggleButtonShown() {
-			return Array.isArray(this.tags) && this.tags.length > 0; 
+		togglerDisabled() {
+			return !!!Array.isArray(this.tags) || this.tags.length === 0; 
 		}
 	},
 
@@ -73,45 +77,22 @@ export default {
 
 	methods: {
 		toggleFilters() {
-			const SHOWING_TIME = 500;
+			let shrinkable = this.$refs.shrinkable;
+			if (!!!shrinkable)
+				return;
 
-			let tagsBody = this.$refs.tagsBody;
-			
-			this.tagsShown =  !!!this.tagsShown;
-			this.wrapperHeight = tagsBody.offsetHeight + 'px';
-			
-			if (this.tagsShown)
-			{
-				clearTimeout( this.$options.hideTimer );
-
-				this.$options.showTimer = setTimeout(() => {
-					this.wrapperHeight = 'auto';
-				}, SHOWING_TIME)
-			}
-			else    
-			{
-				clearTimeout( this.$options.showTimer );
-				
-				this.$options.hideTimer = setTimeout(() => {
-					this.wrapperHeight = 0;
-				}, 50)
-			}
+			shrinkable.toggle();
 		}
 	}
 }
 </script>
 
-<style scoped>
-	.filter__tags-wrapper {
-		transition: height .5s, margin-top .5s;
-		overflow: hidden;
-	}
-
-	.filter__tags-wrapper--active {
-		margin-top: 12.5px;
-	}
-
+<style>
 	.filter__tags {
 		margin-top: 0;
+	}
+
+	.filter__tags .tags {
+		margin-top: 10px;
 	}
 </style>
