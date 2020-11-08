@@ -54,13 +54,14 @@ export default {
   },
 
   props: {
-    tags: { type: Array, default: () => [] },
+    defaultTags: { type: Array, default: () => [] },
   },
   
   data() {
 		return {
+      tags: [],
 			selectedCount: 0,
-			main: null,
+      main: null,
 		}
   },
   
@@ -92,10 +93,12 @@ export default {
       
       if (main)
         sorted.unshift(main);
+
+      console.log('sorting');
       
 			return sorted;
     },
-    
+
     counter() {
 			return this.selectedCount + '/' + MAX_TAGS_COUNT;
     }
@@ -103,18 +106,18 @@ export default {
 
   watch: {
     main(newTag, previousTag) {
-      if (newTag)
-        this.$set(newTag, 'main' ,true);
-
       if (previousTag)
-        this.$set(newTag, 'main' ,false);
+        this.$set(previousTag, 'main', false);
+
+      if (newTag)
+        this.$set(newTag, 'main', true);
     },
 
-    tags: {
-      handler() {
+    defaultTags: {
+      handler(tags) {
         this.selectedCount = 0;
 
-        for (let tag of this.tags)
+        for (let tag of tags)
         {
           if (tag.main)
             this.main = tag;
@@ -122,9 +125,14 @@ export default {
           if (tag.selected || tag.main)
             this.selectedCount++;
         }
+
+        console.log('watching');
+
+        this.tags = 
+          JSON.parse(JSON.stringify(this.defaultTags));
       },
 
-      immediate: true
+      immediate: true,
     }
   },
 
@@ -191,8 +199,6 @@ export default {
       if (tag.main)
         this.main = null;
       
-      console.log(tag);
-
       // Unselecting tab tag
       this.selectedCount--;
       this.$set(tag, 'selected', false);  

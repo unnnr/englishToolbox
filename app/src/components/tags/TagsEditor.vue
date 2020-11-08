@@ -1,6 +1,6 @@
 <template>
   <tags-input 
-    :tags="parsedTags"
+    :default-tags="parsedTags"
     :disabled="loading"
     v-validate/>
 </template>
@@ -29,7 +29,7 @@ export default {
     },
 
     selected() {
-      return this.target ? this.target.tags : [];
+      return (this.target && this.target.tags) ? this.target.tags : [];
     },
 
     mainTag() {
