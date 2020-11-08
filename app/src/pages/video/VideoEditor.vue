@@ -7,10 +7,8 @@
 
 <script>
 import VideoProcessor from '@pages/video/VideoProcessor'
-import bus from '@services/eventbus';
-
-import getYouTubeID from 'get-youtube-id'
-import FakeData from '@services/FakeData';
+import Videos from '@models/Videos'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -20,9 +18,18 @@ export default {
   inject: [ '$target' ],
 
   computed: {
-    TEMP_target() {
+    target() {
       return this.$target();
     },
+
+    postId() {
+      let id = this.target ? this.target.id : null;
+
+      if (typeof id === 'number')
+        return id;
+
+      return null;
+    }
   },
 
   methods: {
@@ -33,18 +40,13 @@ export default {
     },
 
     async submit(data) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
       // sending data to API
+      let id = this.postId;
+      if (id === null)
+        throw new Error();
 
-      let url = data.get('videoUrl');
-      let description = data.get('description');
-      
-      let post = this.TEMP_target;
-      post.description = description;
-      post.videoId = getYouTubeID(url);
-      post.thumbnail = `https://img.youtube.com/vi/${post.videoId}/sddefault.jpg`;
-
-      bus.dispatch('post-edited', { post });
+      let post = await Videos.edit(id, data);
+      bus.dispatch('post-edited', { post }); 
     }
   }
 }

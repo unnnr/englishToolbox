@@ -11,10 +11,7 @@ class Videos extends Model
 
     compareVideoUrl(newValue, cached)
     {
-        if ('https://youtube.com/watch?v=' + newValue === cached)
-            return false;
-
-        return true;
+        return newValue === 'https://youtube.com/watch?v=' + cached.youtubeId;
     }
 
     comments = {
