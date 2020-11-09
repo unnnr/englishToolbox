@@ -1317,7 +1317,6 @@ button:active {
 }
 
 .textarea-group-primary {
-  min-height: 90px;
   padding: 15px;
   background: #fff;
   border-radius: 15px;
@@ -1359,7 +1358,6 @@ button:active {
 
 .textarea-group-secondary {
   padding: 10px;
-  min-height: 80px;
   background: #fff;
   border-radius: 10px;
   border: 2px solid #fafafa;
@@ -1456,7 +1454,7 @@ button:active {
 
 .context {
   position: absolute;
-  background: rgba(18, 18, 18, 0.95);
+  background: rgba(18, 18, 18, 0.9);
   border-radius: 5px;
   z-index: 50;
   display: -webkit-box;
@@ -1467,6 +1465,8 @@ button:active {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 5px 0;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
 }
 
 .context__item {
@@ -1485,7 +1485,7 @@ button:active {
 
 .context__item:hover {
   cursor: pointer;
-  background: #333333;
+  background: rgba(44, 44, 44, 0.9);
   color: #fff;
 }
 
@@ -1496,7 +1496,7 @@ button:active {
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(18, 18, 18, 0.95);
+  background: rgba(18, 18, 18, 0);
 }
 
 .tooltip__arrow {
@@ -2690,7 +2690,6 @@ button:active {
   -ms-grid-column: 2;
   grid-area: name;
   -ms-flex-item-align: end;
-      -ms-grid-row-align: end;
       align-self: end;
 }
 
@@ -3402,6 +3401,57 @@ button:active {
       -ms-grid-row-align: center;
       align-self: center;
   margin-right: 5px;
+}
+
+.profile-popup {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+  -ms-grid-columns: max-content max-content;
+      grid-template-columns: -webkit-max-content -webkit-max-content;
+      grid-template-columns: max-content max-content;
+  grid-gap: 5px 15px;
+      grid-template-areas: "image name" "image date";
+  background-color: rgba(18, 18, 18, 0.9);
+  border-radius: 15px;
+  padding: 15px 25px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.profile-popup__image {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: image;
+  height: 75px;
+  min-width: 75px;
+  width: 75px;
+  background-color: #a1a1b1;
+  border-radius: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80);
+}
+
+.profile-popup__name {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: name;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
+  color: #fafafa;
+}
+
+.profile-popup__date {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: date;
+  color: #a1a1b1;
 }
 
 .grid {
