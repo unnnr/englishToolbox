@@ -70,13 +70,11 @@ export default {
     async deletePost(event) {
       try {
         let id = event.post.id;
-
         await Videos.delete(id);
 
         event.deleted();
       }
       catch(error) {
-        console.log(error);
         event.failed(error);
       }
     }

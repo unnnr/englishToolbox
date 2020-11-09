@@ -206,7 +206,7 @@ export default {
 
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				thsi.selectFirst();
+				this.selectFirst();
     },
 
     // Context menu event
@@ -229,17 +229,8 @@ export default {
       let _this = this;
 
       bus.dispatch('alert-warning', { 
-        okay, message: 'It cannot be restored in the future'
+        okay, message: 'It cannot be restored in the future',
       });
-
-/*         bus.dispatch('alert-warning', { 
-        okay: () => this.$emit('deleting', {
-                post,
-                failed() {
-                  bus.dispatch('post')
-                }
-              }) 
-            }) */
     }
   }
 }
