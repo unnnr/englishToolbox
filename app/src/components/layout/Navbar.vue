@@ -19,28 +19,29 @@
 						{{ link.label }}
 					</router-link>
 			</nav>
+
 			<aside class="navbar-desktop__aside">
-					<router-link v-if="!!!profileShown"
-						class="navbar-desktop__aside-login-in"
-						to="Login">
-							
-						login in
-					</router-link>
+				<router-link v-if="!!!profileShown"
+					class="navbar-desktop__aside-login-in"
+					to="Login">
+						
+					login in
+				</router-link>
 
-					<router-link v-if="!!!profileShown"
-						class="navbar-desktop__aside-sign-up"
-						to="Register"> 
-							
-						sing up
-					</router-link>
+				<router-link v-if="!!!profileShown"
+					class="navbar-desktop__aside-sign-up"
+					to="Register"> 
+						
+					sing up
+				</router-link>
 
-					<router-link
-						class="navbar-desktop__account-link"
-						v-if="profileShown"
-						to="Profile">
-							
-						<span class="material-icons-round">account_circle</span>
-					</router-link>
+				<router-link
+					class="navbar-desktop__account-link"
+					v-if="profileShown"
+					to="Profile">
+						
+					<span class="material-icons-round">account_circle</span>
+				</router-link>
 
 			</aside>	
 		</div>
@@ -133,6 +134,7 @@ export default {
 			links: [
 				{ name: 'about', label: 'about me'},
 				{ name: 'videos', label: 'videos'},
+				{ name: 'audio', label: 'audio'},
 			]
 		}
 	},
