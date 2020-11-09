@@ -16,7 +16,7 @@
       <new-tag-input
         ref="input"
         :key="-1"
-        :submit="() => {}"/>
+        :submit="createNew"/>
 
       <tag
         v-for="(tag) of sortedTags"
@@ -53,6 +53,8 @@ export default {
 
   props: {
     tags: { type: Array, default: () => [] },
+
+    createNew: { type: Function, default: () => {} }
   },
   
   data() {
@@ -124,7 +126,6 @@ export default {
 
         this.$options.main = newTag;
         if (newTag) {
-
           this.$set(newTag, 'selected', true);
           this.$set(newTag, 'main', true);
         }
@@ -144,8 +145,7 @@ export default {
       handler(tags) {
         this.selectedCount = 0;
         
-        for (let tag of tags)
-        {
+        for (let tag of tags) {
           if (!!!tag.selected)
             this.$set(tag, 'selected', false);
 
