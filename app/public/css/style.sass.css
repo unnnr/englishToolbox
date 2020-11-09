@@ -1131,12 +1131,7 @@ button:active {
 .button-primary:disabled,
 .button-secondary:disabled {
   opacity: 0.5;
-}
-
-.button-primary:disabled:hover,
-.button-secondary:disabled:hover {
-  background: #6666ff;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .button--loading:after {
@@ -1496,7 +1491,7 @@ button:active {
   position: relative;
   padding: 10px 15px;
   border-radius: 5px;
-  background: rgba(18, 18, 18, 0);
+  background: rgba(18, 18, 18, 0.95);
 }
 
 .tooltip__arrow {
@@ -1659,7 +1654,7 @@ button:active {
 
 .card--rectangle .card__image {
   border: 5px solid #fff;
-  padding-bottom: 55%;
+  padding-bottom: 56.25%;
 }
 
 .card--add {
@@ -1673,7 +1668,7 @@ button:active {
 }
 
 .card--add .card__image {
-  padding-bottom: 55%;
+  padding-bottom: 56.25%;
   background: #fff;
   height: -webkit-max-content;
   height: -moz-max-content;
@@ -1710,6 +1705,7 @@ button:active {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-size: 105%;
   margin-bottom: 30px;
   cursor: pointer;
   -webkit-transition: border .3s ease-in-out;
@@ -3401,6 +3397,186 @@ button:active {
       -ms-grid-row-align: center;
       align-self: center;
   margin-right: 5px;
+}
+
+.audio-player {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.audio-player__body {
+  height: 60px;
+  width: 100%;
+  padding: 10px;
+  padding-right: 50px;
+  background: #121212;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 110px 1fr 150px;
+      grid-template-columns: 110px 1fr 150px;
+  grid-column-gap: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.audio-player__button {
+  height: 100%;
+  width: 110px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  grid-auto-flow: column;
+  grid-column-gap: 5px;
+  color: #fafafa;
+  background: #6666ff;
+  border-radius: 10px;
+}
+
+.audio-player__button:before {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "material icons round";
+}
+
+.audio-player__button--show:before {
+  content: "visibility";
+}
+
+.audio-player__button--show:after {
+  content: "show";
+}
+
+.audio-player__button--hide:before {
+  content: "visibility_off";
+}
+
+.audio-player__button--hide:after {
+  content: "hide";
+}
+
+.audio-player__toggler:before {
+  font-size: 42px;
+  height: 25px;
+  width: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  color: #fff;
+  font-family: "material icons round";
+}
+
+.audio-player__toggler--play:before {
+  content: "play_arrow";
+}
+
+.audio-player__toggler--pause:before {
+  content: "pause";
+}
+
+.audio-player__toggler--volume-mute:before {
+  font-size: 32px;
+  content: "volume_mute";
+}
+
+.audio-player__toggler--volume-off:before {
+  font-size: 32px;
+  content: "volume_off";
+}
+
+.audio-player__toggler--volume-up:before {
+  font-size: 32px;
+  content: "volume_up";
+}
+
+.audio-player__toggler--volume-down:before {
+  font-size: 32px;
+  content: "volume_down";
+}
+
+.audio-player__timer span {
+  font-weight: 600;
+}
+
+.audio-player__status-bar {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  width: 100%;
+  height: 11px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.audio-player__status-bar-current {
+  position: absolute;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.audio-player__status-bar-total {
+  width: 100%;
+  height: 5px;
+  background-color: #848499;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.audio-player__status-bar-thumb {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 100%;
+  background: #fff;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.audio-player__controls {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column-gap: 20px;
+}
+
+.audio-player__controls--timeline {
+  -ms-grid-columns: max-content 1fr max-content;
+      grid-template-columns: -webkit-max-content 1fr -webkit-max-content;
+      grid-template-columns: max-content 1fr max-content;
+}
+
+.audio-player__controls--volume {
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
 }
 
 .profile-popup {
