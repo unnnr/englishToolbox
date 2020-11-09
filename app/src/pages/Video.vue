@@ -21,7 +21,7 @@
 
     </post-selected>
     
-    <pool :posts="videos"/>
+    <pool ref="pool" :posts="videos"/>
 
   </main>
 </template>

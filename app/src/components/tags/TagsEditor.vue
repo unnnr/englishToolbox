@@ -1,6 +1,6 @@
 <template>
   <tags-input 
-    :default-tags="parsedTags"
+    :tags="parsedTags"
     v-validate/>
 </template>
 

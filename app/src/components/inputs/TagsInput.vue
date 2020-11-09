@@ -52,12 +52,11 @@ export default {
   },
 
   props: {
-    defaultTags: { type: Array, default: () => [] },
+    tags: { type: Array, default: () => [] },
   },
   
   data() {
 		return {
-      tags: [],
 			selectedCount: 0,
       loading: false,
 		}
@@ -139,26 +138,23 @@ export default {
   },
 
   watch: {
-    defaultTags: {
+    tags: {
       handler(tags) {
         this.selectedCount = 0;
-
+        
         for (let tag of tags)
         {
-          if (tag.selected === undefined)
+          if (!!!tag.selected)
             this.$set(tag, 'selected', false);
-
-          if (tag.main === undefined)
-            this.$set(tag, 'main', false);
 
           if (tag.main)
             this.main = tag;
+          else
+            this.$set(tag, 'main', false);
 
           if (tag.selected || tag.main)
             this.selectedCount++;
-        }
-
-        this.tags = this.defaultTags;
+        }   
       },
 
       immediate: true,
@@ -238,7 +234,7 @@ export default {
       else
         this.select(tag);
     },
-    
+
     submit(data) {
       // Appending main tag to data
       let mainTag = this.main;

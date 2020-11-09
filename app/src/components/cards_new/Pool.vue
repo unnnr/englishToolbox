@@ -61,6 +61,17 @@ export default {
 		}
   },
 
+  watch: {
+    posts: {
+      handler() {
+        if (!!!this.$options.selectedPost)
+          this.selectFirst();
+      },
+
+      immediate: true
+    }
+  },
+
   mounted() {
     // this.posts = FakeData.generatePosts();
     this.listen({
@@ -70,8 +81,6 @@ export default {
       'post-edited': this.onEdited,
       'post-selected': this.onSelected
     });
-
-    this.selecting(this.firstPost);
   },
 
   methods: {
@@ -153,6 +162,10 @@ export default {
       bus.dispatch('post-selecting', { post });
     },
 
+    selectFirst() {
+      this.selecting(this.firstPost);
+    },
+
     // Events
     
     onSelected(event) {
@@ -197,7 +210,7 @@ export default {
 
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				this.selecting(this.firstPost);
+				thsi.selectFirst();
     }
   }
 }

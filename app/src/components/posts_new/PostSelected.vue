@@ -113,7 +113,7 @@ export default {
         if (!!!this.requireWarning)
           return prepareCallback.call(this, event);
 
-        this.showAlert(prepareCallback.call(this, event))
+        this.showAlert(prepareCallback.bind(this, event))
       }
     },
 
