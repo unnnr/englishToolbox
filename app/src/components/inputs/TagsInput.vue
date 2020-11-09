@@ -133,7 +133,9 @@ export default {
       get() {
         return (this.$options.main === undefined) ? null : 
           this.$options.main;
-      }
+      },
+
+      cache: false
     }
   },
 
