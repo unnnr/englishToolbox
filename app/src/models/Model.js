@@ -36,20 +36,28 @@ class Model
 
     __clearData(data, saved) 
     {
+        // Computing function prefix
         const PREFIX = 'compare';
 
         for (let [name, value] of data.entries())
         {
-            let compare = this[PREFIX + this.__capitalizeFirst(name)];
+            console.log(PREFIX + this.__capitalizeFirst(name));
 
+            // Comput comparing function
+            let compare = this[PREFIX + this.__capitalizeFirst(name)];
+            
+            console.log(compare);
+            // Check if it exist`s
             if (typeof compare === 'function')
             {
                 if (compare(value, saved))
                     data.delete(name);
 
-                break;
+                continue;
             }
             
+            // In case if not, try to roufly 
+            // compare with it cached value
             if (value === saved[name])
                 data.delete(name);
         }
