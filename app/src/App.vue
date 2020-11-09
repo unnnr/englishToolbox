@@ -1,6 +1,6 @@
 <template>
   <div class="root" id="app">
-    <popup/>
+    <alert/>
 
     <context-menu/>
 
@@ -23,7 +23,7 @@ import ValidationLinker from '@plugins/ValidationLinker'
 
 import Basement from '@components/layout/Basement'
 import Navbar from '@components/layout/Navbar'
-import Popup from '@components/alert/Popup'
+import Alert from '@components/popup/AlertWrapper'
 
 import bus from '@services/eventbus';
 
@@ -35,7 +35,7 @@ export default {
   components: {
     Basement,
     Navbar,
-    Popup
+    Alert
   },
   
   errorCaptured(error) {

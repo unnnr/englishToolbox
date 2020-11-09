@@ -21,8 +21,8 @@
 
 <script>
 
-import Alert from '@components/alert/Alert'
 import HandleEvents from '@mixins/HandleEvents'
+import Alert from '@components/popup/Alert'
 import bus from '@services/eventbus'
 
 export default {
