@@ -90,7 +90,7 @@ export default {
         this.wrapEvent(this.onStartCreating),
 
       'post-editing':
-        this.wrapEvent(this.onEditing)
+        this.wrapEvent(this.onEditing),
     });
   },
 

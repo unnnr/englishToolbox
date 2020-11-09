@@ -21,7 +21,10 @@
 
     </post-selected>
     
-    <pool ref="pool" :posts="videos"/>
+    <pool 
+      ref="pool" 
+      :posts="videos"
+      @deleting="deletePost"/>
 
   </main>
 </template>
@@ -62,6 +65,20 @@ export default {
   methods: {
     async loadVideos() {
       this.videos = await Videos.all();
+    },
+
+    async deletePost(event) {
+      try {
+        let id = event.post.id;
+
+        await Videos.delete(id);
+
+        event.deleted();
+      }
+      catch(error) {
+        console.log(error);
+        event.failed(error);
+      }
     }
   }
 }
