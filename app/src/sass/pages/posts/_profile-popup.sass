@@ -1,0 +1,29 @@
+.profile-popup
+  display: grid
+  grid-template-rows: 1fr 1fr
+  grid-template-columns: max-content max-content
+  grid-gap: 5px 15px
+  grid-template-areas: "image name" "image date"
+  background-color: transparentize($color-almost-black, 0.10)
+  border-radius: $border-radius-primary
+  padding: 15px 25px
+  width: fit-content
+  
+.profile-popup__image
+  grid-area: image
+  height: 75px
+  min-width: 75px
+  width: 75px
+  background-color: $color-semigray
+  border-radius: 100%
+  @include background-image
+  background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80)
+
+.profile-popup__name
+  grid-area: name
+  align-self: end
+  color: $color-almost-white
+
+.profile-popup__date
+  grid-area: date
+  color: $color-semigray
