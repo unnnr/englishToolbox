@@ -63,9 +63,11 @@ export default {
   
   methods: {
     async onInput() {
-      this.height = 'auto';
+      let textarea = this.$refs.input;
 
-      this.height = this.$refs.input.scrollHeight + 1 + 'px';
+      textarea.style.height = 'auto';
+
+      textarea.style.height = this.$refs.input.scrollHeight + 'px';
     }
   }
 }
@@ -73,7 +75,7 @@ export default {
 
 <style lang="sass" scoped>
 
-.textarea-group__textarea
-  max-height: 200px
+.textarea-group-secondary 
+  min-height: unset
 
 </style>
