@@ -105,20 +105,13 @@ export default {
       }
     },
 
-    async send(data) {
-      await this.request(data);
-    },
-
-    async submit() {
-      if (!!!this.validateInputs() || !!!this.request)
-        return;
-      
+    async sendWith(callback) {
       try {
         this.lock();
 
         let data = this.collectData();
 
-        await this.send(data);
+        await callback();
       }
       catch(error) {
         this.handleError();
@@ -126,6 +119,17 @@ export default {
       finally {
         this.unlock();
       }
+    },
+
+    async submit() {
+      if (!!!this.validateInputs() || !!!this.request)
+        return;
+      
+      this.sendWith(() => {
+        let data = this.collectData();
+
+        return this.request(data);
+      });
     }
   }
 }

@@ -68,7 +68,7 @@ export default {
 			
 			'alert-warning': event => {
 				let message = 
-					typeof event.message === 'string' && event.message;
+					typeof event.message === 'string' ? event.message : '';
 
 				Object.assign(this, {
 					type: 'warning',
@@ -85,7 +85,7 @@ export default {
 
 			'alert-prompt': event => {
 				let message = 
-					typeof event.message === 'string' && event.message;
+					typeof event.message === 'string' ? event.message : '';
 
 				Object.assign(this, {
 					type: 'prompt',
@@ -112,23 +112,23 @@ export default {
 		},
 
 		okay() {
-			this.fire('okay');
 			this.shown = false;
+			this.fire('okay');
 		},
 
 		cancel() {
-			this.fire('cancel');
 			this.shown = false;
+			this.fire('cancel');
 		},
 		
 		confirm() {
-			this.fire('confirm');
 			this.shown = false;
+			this.fire('confirm');
 		},
 
 		confirmInput(event) {
-			this.fire('confirm', event.entry)
 			this.shown = false;
+			this.fire('confirm', event.entry)
 		}
 	}
 }

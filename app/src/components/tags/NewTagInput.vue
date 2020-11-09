@@ -18,22 +18,27 @@
 			<span class="material-icons-round">add</span>
 		</label>
 		<input 
-			id="tn1"
-			type="text"
 			class="tag__input"
-			placeholder="newTag"
 			ref="input"
+			id="tn1"
+
 			v-model="label"
+
+			placeholder="newTag"
+			maxlength="30"
+			type="text"
 			:disabled="disabled"
-			@blur="onInputBlur"
+
+			@keydown.enter.prevent.stop="tryToSubmit"
 			@focus="onInputFocus"
-			@keydown.enter.prevent.stop="tryToSubmit">
+			@blur="onInputBlur">
 
 		<div class="tag__buffer" ref="buffer"></div>
 	</button>
 </template>
 
 <script>
+import bus from '@services/eventbus'
 
 const BLUR_DELAY = 200;
 
@@ -45,7 +50,7 @@ export default {
 		}
 	},
 
-	data: function() {
+	data() {
 		return {
 			label: '',
 			disabled: false,
@@ -54,20 +59,18 @@ export default {
 	},
 
 	watch: {
-			label() {
-				this.checkInput();
-				this.resizeInput();
-			}
+		label() {
+			this.checkInput();
+			this.resizeInput();
+		}
 	},
 
 	methods: {
-		onWrapperClick()
-		{
+		onWrapperClick() {
 			this.inputFocus();
 		},
 
-		async onLabelClick()
-		{
+		onLabelClick() {
 			this.inputFocus();
 
 			if (this.label.length === 0 || this.disabled)
@@ -107,7 +110,6 @@ export default {
 		},
 
 		setUpInputAutoGrow() {
-					
 			let buffer = this.$refs.buffer;
 			let input = this.$refs.input;
 
@@ -117,21 +119,42 @@ export default {
 			});
 		},
 
-		tryToSubmit() {
+		parseError(error) {
+			if (!!!error || typeof error !== 'object')
+				return null;
 
-			async function assert(callback)
-			{	
-				callback();
+			let body = error.body;
+			if (!!!body || typeof body !== 'object')
+				return null;
+
+			let errors = body.errors;
+			if (!!!errors || typeof errors !== 'object')
+				return null;
+
+			let label = errors.label;
+			if (!!!Array.isArray(label))
+				return null;
+
+			return label.join(', ');
+		},
+
+		async tryToSubmit() {
+			try {
+				this.disabled = true;
+			
+				if (typeof this.submit === 'function')
+					await this.submit(this.label);
+
+				this.label = '';
 			}
+			catch(error) {
+				let message = this.parseError(error);
 
-			this.disabled = true;
-
-			this.submit();
-
-			assert(this.submit)
-
-			this.label = '';
-			this.disabled = false;
+				bus.dispatch('alert-error', { message });
+			}
+			finally { 
+				this.disabled = false;
+			}
 		}
 	}
 }

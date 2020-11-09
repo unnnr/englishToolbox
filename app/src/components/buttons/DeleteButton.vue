@@ -1,8 +1,9 @@
 <template>
   <v-button 
     class="button--reddish"
-    v-validate
-    without-label/>
+    type="button"
+    without-label
+    v-validate/>
 </template>
 
 <script>

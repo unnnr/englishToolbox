@@ -90,7 +90,13 @@ export default {
         this.wrapEvent(this.onStartCreating),
 
       'post-editing':
-        this.wrapEvent(this.onEditing)
+        this.wrapEvent(this.onEditing),
+
+      'post-deleting': 
+        this.wrapEvent(this.postDeleting),
+
+      'post-deleted': 
+        this.postDeleted,
     });
   },
 
@@ -130,6 +136,16 @@ export default {
       window.scrollTo({ 
         behavior: 'smooth',
         top: 0, 
+      });
+    },
+
+    postDeleted() {
+      this.target = null;
+    },
+
+    postDeleting(data, event) {
+      bus.dispatch('post-deleted', {
+        post: event.post
       });
     },
 

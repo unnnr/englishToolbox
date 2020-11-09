@@ -48,7 +48,7 @@ export default {
 
 	mixins: [ HandleEvents ],
 
-	data: function() {
+	data() {
 		return {
 			tags: [],
 

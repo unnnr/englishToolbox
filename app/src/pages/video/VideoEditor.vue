@@ -2,6 +2,7 @@
   <video-processor 
     ref="processor"
     :request="submit"
+    :deleting="deleting"
     editing/>
 </template>
 
@@ -37,6 +38,11 @@ export default {
       let processor = this.$refs.processor;
 
       return processor.hasChanges();
+    },
+
+    async deleting(post) {
+      let id = post.id;
+      await Videos.delete(post.id);
     },
 
     async submit(data) {

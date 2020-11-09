@@ -75,11 +75,11 @@ export default {
   mounted() {
     // this.posts = FakeData.generatePosts();
     this.listen({
+      'post-selected': this.onSelected,
       'post-creating': this.onCreating,
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
-      'post-selected': this.onSelected
     });
   },
 
@@ -99,17 +99,11 @@ export default {
           'Open': () => 
             selecting(post),
 
-          'Edit': () => {
-            bus.dispatch('post-editing', { post }),
-            this.onSelected({ post });
-          },
+          'Edit': () =>
+            this.contextEdit(post),
 
-          'Delete' : () =>  {
-            bus.dispatch('alert-warning', { 
-              okay: () => bus.dispatch('post-deleted', { post })
-            })
-          },
-
+          'Delete' : () => 
+            this.contextDelete(post)
         }
       }
     },
@@ -159,7 +153,8 @@ export default {
     },
 
     selecting(post) {
-      bus.dispatch('post-selecting', { post });
+      if (post)
+        bus.dispatch('post-selecting', { post });
     },
 
     selectFirst() {
@@ -210,8 +205,37 @@ export default {
 
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				thsi.selectFirst();
-    }
+				this.selectFirst();
+    },
+
+    // Context menu event
+
+    contextDelete(post) {
+      function failed() {
+        bus.dispatch('alert-error');
+      }
+
+      function deleted() {
+        bus.dispatch('post-deleted', { post });
+      } 
+
+      function okay() {
+        _this.$emit('deleting', { 
+          deleted, failed, post,
+        });
+      }
+
+      let _this = this;
+
+      bus.dispatch('alert-warning', { 
+        okay, message: 'It cannot be restored in the future',
+      });
+    },
+
+    contextEdit(post) {
+      bus.dispatch('post-editing', { post }),
+      this.onSelected({ post });
+    },
   }
 }
 </script>

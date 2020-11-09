@@ -1,12 +1,15 @@
 <template>
   <tags-input 
     :tags="parsedTags"
+    :create-new="createNew"
     v-validate/>
 </template>
 
 <script>
 import TagsInput from '@components/inputs/TagsInput'
 import Tags from '@models/Tags'
+
+import FakeData from '@services/FakeData'
 
 export default {
   components: {
@@ -75,6 +78,23 @@ export default {
       }
 
       return null;
+    },
+
+    async createNew(label) {
+      // Collecting data
+      let data = new FormData();
+      data.append('label', label);
+      data.append('color', FakeData.generateColor())
+
+      // Submitting 
+      let tag = await Tags.create(data);
+
+      // Appending created tag
+      this.$set(tag, 'created', true);
+      this.tags.push(tag);
+
+      // Dispatching event
+      bus.dispatch('tag-created', { tag });
     }
   }
 }
