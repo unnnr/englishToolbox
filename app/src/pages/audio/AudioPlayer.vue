@@ -1,72 +1,72 @@
 <template>
 	<div 
-        class="player"
-        ref="player">
+		class="player"
+		ref="player">
 
-        <div class="player__rationed">
-            <div 
-                class="player__image"
-                :style="{ 'background-image':  backgroundImage}"
-                :class="{ 'player__image--blurred': image.blured }">
-            </div>
-            <transition name="fade">
-                <div 
-                    class="player__overlay"
-                    v-if="overlay.shown">
+		<div class="player__rationed">
+			<div 
+				class="player__image"
+				:style="{ 'background-image':  backgroundImage}"
+				:class="{ 'player__image--blurred': image.blured }">
+			</div>
+			<transition name="fade">
+				<div 
+					class="player__overlay"
+					v-if="overlay.shown">
 
-                    <object class="player__overlay-image" 
-                        type="image/svg+xml"
-                        :data="overlay.url">
-                    </object>
-                </div>
-            </transition>
-            <div class="audio">
-                <div class="audio__player">
-                    <button 
-                        class="audio__button-toggle"
-                        @click.prevent="toggleShowHide">
+					<object class="player__overlay-image" 
+						type="image/svg+xml"
+						:data="overlay.url">
+					</object>
+				</div>
+			</transition>
+			<div class="audio">
+				<div class="audio__player">
+					<button 
+						class="audio__button-toggle"
+						@click.prevent="toggleShowHide">
 
-                        <i class="material-icons">{{ visibilityIcon }}</i><span>{{ toggleButtonMessage }}</span>
-                    </button>
-                    <div class="audio__progress-control">
-                        <button
-                            class="audio__button-state"
-                            @click="togglePlayPause">
+						<i class="material-icons">{{ visibilityIcon }}</i><span>{{ toggleButtonMessage }}</span>
+					</button>
+					<div class="audio__progress-control">
+							<button
+								class="audio__button-state"
+								@click="togglePlayPause">
 
-                            <i 
-                                class="fas"
-                                :class="{'fa-play': !!!audio.playing, 'fa-pause': audio.playing }">
-                            </i>
-                        </button>
-                        <progress-slider 
-                            :max="getAudioDuration()"
-                            :value.sync="audio.currentTime"
-                            @thumb-moved="changePlayerPosition"
-                            @thumb-start-moving="pauseAudio"
-                            @thumb-end-moving="playAudio"/>
-                        <time class="audio__timer">
-                            <span class="audio__timer-current">{{ labels.currentTime }}</span>
-                            <span class="audio__timer-separator">/</span>
-                            <span class="audio__timer-maximum">{{ labels.duration }}</span>
-                        </time>
-                    </div>
-                    <div class="audio__volume-control">
-                        <button 
-                            class="audio__volume-button"
-                            @click="toggleVolume">
-                            
-                            <span class="material-icons-round">{{ volumeIcon }}</span>
-                        </button>
-                        <progress-slider 
-                            class="audio__volume-bar"
-                            :max="getAudioMaxVolume()"
-                            :value.sync="audio.volume"
-                          />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								<i 
+									class="fas"
+									:class="{'fa-play': !!!audio.playing, 'fa-pause': audio.playing }">
+								</i>
+							</button>
+							<progress-slider 
+								:max="getAudioDuration()"
+								:value.sync="audio.currentTime"
+								@thumb-moved="changePlayerPosition"
+								@thumb-start-moving="pauseAudio"
+								@thumb-end-moving="playAudio"/>
+
+							<time class="audio__timer">
+								<span class="audio__timer-current">{{ labels.currentTime }}</span>
+								<span class="audio__timer-separator">/</span>
+								<span class="audio__timer-maximum">{{ labels.duration }}</span>
+							</time>
+					</div>
+						<div class="audio__volume-control">
+								<button 
+									class="audio__volume-button"
+									@click="toggleVolume">
+									
+									<span class="material-icons-round">{{ volumeIcon }}</span>
+							</button>
+								<progress-slider 
+									class="audio__volume-bar"
+									:max="getAudioMaxVolume()"
+									:value.sync="audio.volume"/>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
