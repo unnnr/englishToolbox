@@ -59,41 +59,44 @@ export default {
 		return {
       tags: [],
 			selectedCount: 0,
-      main: null,
       loading: false,
 		}
   },
   
   computed: {
-    sortedTags() {
-      let created = [];
-      let selected = [];
-      let remained = [];
-      let main = null;
-      
-      // Splitting tags into sactions
-      for (let tag of this.tags)
-      {
-        if (tag.main)
-          main = tag;
+    sortedTags: {
+      get() {
+        let created = [];
+        let selected = [];
+        let remained = [];
+        let main = null;
+        
+        // Splitting tags into sactions
+        for (let tag of this.tags)
+        {
+          if (tag.main)
+            main = tag;
 
-        else if (tag.selected)
-          selected.push(tag);
+          else if (tag.selected)
+            selected.push(tag);
 
-        else if (tag.created)
-          created.push(tag);
+          else if (tag.created)
+            created.push(tag);
 
-        else 
-          remained.push(tag);
-      }
+          else 
+            remained.push(tag);
+        }
 
-      // Combining tags sections into one array
-      let sorted = [...selected, ...created, ...remained];
-      
-      if (main)
-        sorted.unshift(main);
-      
-			return sorted;
+        // Combining tags sections into one array
+        let sorted = [...selected, ...created, ...remained];
+        
+        if (main)
+          sorted.unshift(main);
+        
+        return sorted;
+      },
+
+      cache: false
     },
 
     selected() {
@@ -110,24 +113,44 @@ export default {
 
     counter() {
 			return this.selectedCount + '/' + MAX_TAGS_COUNT;
+    },
+
+    main: {
+      set(newTag) {
+        let preveios = this.$options.main;
+        if (preveios) {
+          this.$set(preveios, 'selected', false);
+          this.$set(preveios, 'main', false);
+        }
+
+        this.$options.main = newTag;
+        if (newTag) {
+
+          this.$set(newTag, 'selected', true);
+          this.$set(newTag, 'main', true);
+        }
+      },
+
+      get() {
+        return (this.$options.main === undefined) ? null : 
+          this.$options.main;
+      }
     }
   },
 
   watch: {
-    main(newTag, previousTag) {
-      if (previousTag)
-        this.$set(previousTag, 'main', false);
-
-      if (newTag)
-        this.$set(newTag, 'main', true);
-    },
-
     defaultTags: {
       handler(tags) {
         this.selectedCount = 0;
 
         for (let tag of tags)
         {
+          if (tag.selected === undefined)
+            this.$set(tag, 'selected', false);
+
+          if (tag.main === undefined)
+            this.$set(tag, 'main', false);
+
           if (tag.main)
             this.main = tag;
 
@@ -135,8 +158,7 @@ export default {
             this.selectedCount++;
         }
 
-        this.tags = 
-          JSON.parse(JSON.stringify(this.defaultTags));
+        this.tags = this.defaultTags;
       },
 
       immediate: true,
@@ -172,8 +194,7 @@ export default {
         else {
           return {
             'Set as main': () => {
-              if (tag.selected)
-              {
+              if (tag.selected) {
                 this.main = tag;
                 return;
               }          
@@ -211,7 +232,7 @@ export default {
       this.$set(tag, 'selected', false);  
     },
     
-    toggle(tag) {
+    toggle(tag) { 
       if (tag.selected)
         this.unselect(tag);
       else
