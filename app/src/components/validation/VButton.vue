@@ -4,7 +4,7 @@
     :class="{
       'button-secondary': secondary,
       'button-primary': primary,
-      'button--loading': loading
+      'button--loading': spinerShown
       }"
     :disabled="disabled || loading">
     
@@ -33,6 +33,10 @@ export default {
   computed: {
     primary() {
       return !!!this.secondary;
+    },
+
+    spinerShown() {
+      return this.loading && !!!this.withoutLabel;
     },
 
     label() {

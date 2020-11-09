@@ -99,10 +99,8 @@ export default {
           'Open': () => 
             selecting(post),
 
-          'Edit': () => {
-            bus.dispatch('post-editing', { post }),
-            this.onSelected({ post });
-          },
+          'Edit': () =>
+            this.contextEdit(post),
 
           'Delete' : () => 
             this.contextDelete(post)
@@ -155,7 +153,8 @@ export default {
     },
 
     selecting(post) {
-      bus.dispatch('post-selecting', { post });
+      if (post)
+        bus.dispatch('post-selecting', { post });
     },
 
     selectFirst() {
@@ -231,7 +230,12 @@ export default {
       bus.dispatch('alert-warning', { 
         okay, message: 'It cannot be restored in the future',
       });
-    }
+    },
+
+    contextEdit(post) {
+      bus.dispatch('post-editing', { post }),
+      this.onSelected({ post });
+    },
   }
 }
 </script>
