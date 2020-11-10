@@ -159,4 +159,6 @@ class FakeData {
 
 window.FakeData = new FakeData();
 
+window.Faker = Faker;
+
 export default window.FakeData; 
