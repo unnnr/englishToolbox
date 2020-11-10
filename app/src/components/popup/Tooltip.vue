@@ -94,7 +94,7 @@ export default {
 @keyframes tooltipFaden
   from 
     opacity: 0
-    transform: translateY(10px)
+    transform: translateY(5px)
   to 
     opacity: 1
     transform: translateY(0px)
@@ -104,6 +104,6 @@ export default {
     opacity: 1
   to 
     opacity: 0
-    transform: translateY(10px)
+    transform: translateY(5px)
 
 </style>
