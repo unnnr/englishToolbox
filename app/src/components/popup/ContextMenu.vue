@@ -58,7 +58,7 @@ export default {
 			this.$options.eventHandler, true);
 		
 		this.$el.dispatchEvent(
-			new CustomEvent('context:mouted', { detail: this })
+			new CustomEvent('context:mounted', { detail: this })
 		);
 	},
 

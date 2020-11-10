@@ -1,4 +1,4 @@
-import ContextMenuComponent from '@components/ContextMenu';
+import ContextMenuComponent from '@components/popup/ContextMenu';
 
 const Context = new function ()
 {
@@ -67,7 +67,7 @@ export default {
 
         Vue.directive('context', {bind: Context.bind});
 
-        document.addEventListener('context:mouted', 
+        document.addEventListener('context:mounted', 
             (event) => Context.setMenu(event.detail), true);
     }
 }

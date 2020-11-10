@@ -22,9 +22,10 @@
     <tag
       class="card__tag"
 
-      v-for="({color}, index) in tags"
+      v-for="({color, label}, index) in tags"
       :key="index"
       
+      v-tooltip="label"
       :color="color"
       circled
       />

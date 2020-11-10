@@ -4,8 +4,10 @@
 
     <context-menu/>
 
+    <tooltip/>
+
     <navbar/>
-    
+
     <transition name="slide-right" mode="out-in">
       <router-view/>
     </transition>
@@ -19,6 +21,7 @@
 import Vue from 'vue';
 import vClickOutside from 'v-click-outside'
 import Context from '@plugins/ContextMenu'
+import ToolTip from '@plugins/ToolTip'
 import ValidationLinker from '@plugins/ValidationLinker'
 
 import Basement from '@components/layout/Basement'
@@ -30,6 +33,7 @@ import bus from '@services/eventbus';
 Vue.use(vClickOutside);
 Vue.use(ValidationLinker);
 Vue.use(Context);
+Vue.use(ToolTip);
 
 export default {
   components: {
