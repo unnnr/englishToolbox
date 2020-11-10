@@ -7,7 +7,7 @@
       </div>
 
       <h5 class="reviews__card-name heading-fifth">
-        {{ author }}
+        {{ authorName }}
       </h5>
     </div>
 
@@ -42,17 +42,23 @@ import FakeData from '@services/FakeData'
 export default {
   props: {
     description: { type: String, default: '奴ら はちまき 奉仕 備える ひきざん あう じぶん ぼうず むぜい しょうゆ 戦没 体重 特殊 おかね しゃくや' },
-
-    author: { type: String, default: '陸斗' },
     
-    avatar: { type: String, default: '#' },
-
     title: { type: String, default: '右翼 備える うえる 品詞' },
+    
+    author: { type: Object, default: null },
 
     grade: { type: Number, default: 5 },
   },
 
   computed: {
+    authorName() {
+      return this.author ? this.author.name : '陸斗';
+    },
+
+    avatar() {
+      return this.author ? this.author.avatar : '#';
+    },
+    
     url() {
       return 'url(' + this.avatar + ')';
     },

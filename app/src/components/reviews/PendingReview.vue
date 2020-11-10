@@ -3,7 +3,6 @@
     <review
       :description="description"
       :author="author"
-      :avatar="avatar"
       :title="title"
       :grade="grade"/>
     
@@ -35,11 +34,9 @@ export default {
    props: {
     description: { type: String },
 
-    author: { type: String },
-    
-    avatar: { type: String },
-
     title: { type: String },
+
+    author: { type: Object },
 
     grade: { type: Number },
   },
