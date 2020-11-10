@@ -2,162 +2,35 @@
   <main>
     <section class="profile container">
 
-      <div class="profile__tab profile__editor">
-        <h5 class="profile__tab-title heading-fifth">Your profile</h5>
-        <button class="profile__tab-button profile__tab-button--exit text-fifth">sign out</button>
-        <form class="profile__tab-editor profile__editor--disabled">
-
-          <div class="profile__editor-header">
-            <div class="profile__editor-image">
-              <input type="file">
-            </div>
-            <h4 class="profile__editor-name heading-fourth">Your Name</h4>
-            <button class="profile__tab-button profile__tab-button--edit-profile text-fifth">edit profile</button>
-          </div>
-
-          <div class="input-group-secondary input-group--active input-group--name">
-            <div class="input-group__inner">
-              <span class="input-group__title">Your name</span>
-              <input placeholder="some name" class="input-group__input">
-            </div>
-          </div>
-
-          <div class="input-group-secondary input-group--active input-group--email">
-            <div class="input-group__inner">
-              <span class="input-group__title">Your email</span>
-              <input placeholder="some@email.com" class="input-group__input">
-            </div>
-          </div>
-
-          <div class="profile__editor-footer">
-
-            <div class="input-group-secondary input-group--password-new">
-              <div class="input-group__inner">
-                <span class="input-group__title">New passowrd</span>
-                <input placeholder="Some placeholder" maxlength="64" novalidate="novalidate" type="password" class="input-group__input">
-              </div>
-              <button type="button" class="input-group__visibility"></button>
-            </div>
-    
-            <div class="input-group-secondary input-group--password">
-              <div class="input-group__inner">
-                <span class="input-group__title">Confirm new passowrd</span>
-                <input placeholder="Some placeholder" maxlength="64" novalidate="novalidate" type="password" class="input-group__input">
-              </div>
-            </div>
-
-            <button class="button-secondary">confirm</button>
-            <button class="profile__tab-button profile__tab-button--delete-profile text-sixth">delete profile</button>
-          </div>
-
-        </form>
-      </div>
-
-      <div class="profile__tab profile__comments">
-        <h5 class="profile__tab-title heading-fifth">Your comments</h5>
-        <button class="profile__tab-button profile__tab-button--delete-all text-fifth">delete all</button>
-        <div class="profile__tab-comments">
-
-          <div class="profile__tab-scrollable">
-            <!-- <div class="profile__tab-comments-overlay"></div> -->
-
-            <div class="profile__tab-comment">
-              <div class="comment">
-                <div class="comment__image" style="background-image: url(&quot;https://s3.amazonaws.com/uifaces/faces/twitter/stephcoue/128.jpg&quot;);"></div>
-                <p class="comment__text text-sixth">
-                  <span class="comment__name"> 海翔 </span> 
-                  きょうかい かいぞく 誘惑 みなもと きょだい. 
-                  <time class="comment__date"> Feb 24 2020 </time>
-                </p>
-              </div>
-              <button class="profile__tab-button profile__tab-button--delete-comment"></button>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
+      <profile-editor/>
+      <profile-comments/>
+     
     </section>
 
-    <section class="banned container">
-      <h3 class="banned__title heading-third">Banned users</h3>
-      <div class="banned__body">
+    <banned-users/>
+    <reviews-editor/>
+    <favorites-list/>
 
-        <div class="banned__comment">
-          <div class="comment">
-            <div class="comment__image" style="background-image: url(&quot;https://s3.amazonaws.com/uifaces/faces/twitter/stephcoue/128.jpg&quot;);"></div>
-            <p class="comment__text text-sixth">
-              <span class="comment__name"> 海翔 </span> 
-              きょうかい かいぞく 誘惑 みなもと きょだい. 
-              <time class="comment__date"> Feb 24 2020 </time>
-            </p>
-          </div>
-          <button class="button-secondary banned__button button--greenish">unban</button>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="reviews-management container">
-      <h3 class="banned__title heading-third">Reviews manage</h3>
-      <div class="reviews-management__body">
-
-        <div class="reviews-management__card">
-          <div class="reviews__card">
-            <div class="reviews__card-person">
-              <div class="reviews__card-photo"></div>
-              <h5 class="reviews__card-name heading-fifth">Person Name</h5>
-            </div>
-            <h5 class="reviews__card-title heading-fifth">Title of review</h5>
-            <p class="reviews__card-text text-third"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-            <div class="review__grade">
-              <div class="review__stars">
-                <div class="review__star review__star--selected"></div>
-                <div class="review__star review__star--selected"></div>
-                <div class="review__star review__star--selected"></div>
-                <div class="review__star review__star--selected"></div>
-                <div class="review__star review__star--selected"></div>
-              </div>
-              <span class="review__rating">5</span>
-            </div>
-          </div>
-          <button class="reviews-management__button--accept button-secondary button--greenish">accept</button>
-          <button class="reviews-management__button--decline button-secondary button--reddish">decline</button>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="favorites container">
-      <h3 class="favorites__title heading-third">Favorite list</h3>
-      <div class="pool">
-
-        <div class="profile-popup">
-          <div class="profile-popup__image"></div>
-          <h4 class="profile-popup__name heading-fourth">Jayde Sanchez</h4>
-          <time class="profile-popup__date text-fourth">Сreated at 03.10.2020</time>
-        </div>
-
-      </div>
-    </section>
   </main>
 </template>
 
 <script>
 
-import Reviews from '@pages/profile/ReviewsEditor'
-import Favorites from '@pages/profile/Favorites'
-import ProfileEditor from '@pages/profile/ProfileEditor'
+// import RequireEmailOverlay from '@pages/profile/RequireEmailOverlay';
 import ProfileComments from '@pages/profile/ProfileComments'
-import RequireEmailOverlay from '@pages/profile/RequireEmailOverlay';
+import ProfileEditor from '@pages/profile/ProfileEditor'
+import ReviewsEditor from '@pages/profile/ReviewsEditor'
+import FavoritesList from '@pages/profile/FavoritesList'
+import BannedUsers from '@pages/profile/BannedUsers'
 
 export default {
   components: {
     // RequireEmailOverlay,
-    // ProfileComments, 
-    // ProfileEditor,
-    // Favorites,
-    // Reviews, 
+    ProfileComments, 
+    ProfileEditor,
+    ReviewsEditor, 
+    BannedUsers,
+    FavoritesList,
   }
 }
 </script>
