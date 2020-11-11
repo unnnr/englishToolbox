@@ -19,7 +19,7 @@ export default {
   components: {
     VInput
   },
-
+  
   props: {
     disabled: { type: Boolean },
 

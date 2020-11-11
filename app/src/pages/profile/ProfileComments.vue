@@ -5,22 +5,46 @@
     <div class="profile__tab-comments">
 
       <div class="profile__tab-scrollable">
-        <!-- <div class="profile__tab-comments-overlay"></div> -->
-
-        <div class="profile__tab-comment">
-          <div class="comment">
-            <div class="comment__image" style="background-image: url(&quot;https://s3.amazonaws.com/uifaces/faces/twitter/stephcoue/128.jpg&quot;);"></div>
-            <p class="comment__text text-sixth">
-              <span class="comment__name"> 海翔 </span> 
-              きょうかい かいぞく 誘惑 みなもと きょだい. 
-              <time class="comment__date"> Feb 24 2020 </time>
-            </p>
-          </div>
-          <button class="profile__tab-button profile__tab-button--delete-comment"></button>
+        <div 
+          v-if="overlayShown"
+          class="profile__tab-comments-overlay"
+          :style="{'background-image': overlayUrl}">
         </div>
 
+        <comment 
+          v-for="{id, user, createdAt} in comments"
+          :key="id"
+          :user="user"
+          :created-at="createdAt"/>
       </div>
 
     </div>
   </div>
 </template>
+
+<script>
+import Comment from '@components/comments/Comment'
+
+export default {
+  components: {
+    Comment
+  },
+
+  data() {
+    return {
+      comments: [],
+      img: 'img/svg/overlay-comments.svg',
+    }
+  },
+
+  computed: {
+    overlayUrl() {
+      return 'url(' + this.img + ')';
+    },
+
+    overlayShown() {
+      return this.comments.length === 0;
+    }
+  }
+}
+</script>
