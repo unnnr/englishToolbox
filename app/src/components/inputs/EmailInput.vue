@@ -28,8 +28,13 @@ export default {
   },
 
   methods: {
-    validating(data) {
+    validating(errors, entry) {
+      let regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       
+      if (regex.test(entry))
+        return;
+
+      errors.push('Email has invalid format');
     }
   }
 }
