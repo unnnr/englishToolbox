@@ -26,11 +26,11 @@ export default {
   props: {
     image: { type: String, default: '#' },
 
-    author: { type: String, default: '' },
+    author: { type: String, default: '陽菜' },
 
-    message: { type: String, default: '' },
+    message: { type: String, default: '恨み はなじ ぶき じぞう 封筒 推奨 あう 部首 やさい けいじばん' },
     
-    createdAt: { type: String, default: ''}
+    createdAt: { type: String, default: 'Feb 24 2020'}
   },
 
   computed: {
