@@ -1,7 +1,6 @@
 <template>
   <v-input
     placeholder="Some placeholder"
-    label="Your passowrd"
     icon="password"
     name="password"
 
@@ -12,6 +11,7 @@
 
     :force-hidden="forceHidden"
     :disabled="disabled"
+    :label="label"
     
     visibility-buttoned
     v-validate/>
@@ -27,9 +27,11 @@ export default {
   },
 
   props: {
-    disabled: { type: Boolean, default:false },
+    label: { type: String, default: 'Your passowrd' },
 
-    forceHidden: { type: Boolean, default: false },
+    disabled: { type: Boolean },
+
+    forceHidden: { type: Boolean },
   }
 }
 </script>

@@ -36,6 +36,14 @@ export default {
   },
 
   methods: {
+    reset() {
+      for (let input of this.inputs)
+      {
+        if (typeof input.reset === 'function')
+          input.reset()
+      }
+    },
+
     hasChanges() {
       for (let input of this.inputs)
       {

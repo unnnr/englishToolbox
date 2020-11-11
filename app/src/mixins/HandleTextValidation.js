@@ -118,6 +118,12 @@ const HandleTextValidation = {
   },
 	
 	methods: {
+    async reset() {
+      this.entry = this.value;
+      this.validated = false;
+      this.errors = [];
+    },
+    
     hasChanges() {
       return this.entry !== this.$options.defaultValue;
     },
