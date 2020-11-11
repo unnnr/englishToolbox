@@ -14,8 +14,8 @@
         'input-group--error' : incorrect && !!!colorless,
 
         'input-group--password': isPassword,
-        'input-group--profile': isProfile,
         'input-group--email': isEmail,
+        'input-group--name': isName,
       }"
       @click="onClick">
 
@@ -97,8 +97,8 @@ export default {
       return this.icon === 'email'
     },
 
-    isProfile() {
-      return this.profile === 'profile'
+    isName() {
+      return this.icon === 'name'
     },
 
     hidden() {

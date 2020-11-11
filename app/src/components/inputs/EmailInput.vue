@@ -5,7 +5,8 @@
     icon="email"
     name="email"
     
-    :validating="validating"/>
+    :validating="validating"
+    :disabled="disabled"/>
 </template>
 
 <script>
@@ -15,6 +16,10 @@ import VInput from '@components/validation/VInput'
 export default {
   components: {
     VInput
+  },
+
+  props: {
+    disabled: { type: Boolean, default: false}
   },
 
   methods: {
