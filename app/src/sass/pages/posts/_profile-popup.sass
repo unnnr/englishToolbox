@@ -1,29 +1,49 @@
 .profile-popup
   display: grid
-  grid-template-rows: 1fr 1fr
-  grid-template-columns: max-content max-content
   grid-gap: 5px 15px
-  grid-template-areas: "image name" "image date"
   background-color: transparentize($color-almost-black, 0.10)
   border-radius: $border-radius-primary
-  padding: 15px 25px
+  grid-auto-flow: column
+  padding: 15px 30px
   width: fit-content
-  
+  max-width: 350px
+
 .profile-popup__image
-  grid-area: image
-  height: 75px
-  min-width: 75px
-  width: 75px
+  height: 50px
+  min-width: 50px
+  width: 50px
   background-color: $color-semigray
   border-radius: 100%
   @include background-image
   background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80)
 
+.profile-popup__text
+  display: grid
+  align-content: center
+  grid-gap: 3px
+
 .profile-popup__name
-  grid-area: name
-  align-self: end
+  overflow-x: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
   color: $color-almost-white
 
 .profile-popup__date
-  grid-area: date
+  overflow-x: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
   color: $color-semigray
+
+.profile-popup__button-ban
+  display: grid
+  align-self: center
+  height: fit-content
+  font-weight: $medium
+  color: $color-reddish
+  &:before
+    font-family: "material icons round"
+    content: "block" 
+    font-size: 20px
+  &:after
+    content: "ban" 
+    font-size: 10px

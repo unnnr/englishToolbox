@@ -4,6 +4,8 @@
   width: 100%
   padding: 15px
   user-select: none
+  @include sm-devices
+    padding: 10px
 
 .audio-player__body
   height: 60px
@@ -13,28 +15,25 @@
   background: $color-almost-black
   border-radius: $border-radius-secondary
   display: grid
-  grid-template-columns: 110px 1fr 150px
-  grid-column-gap: 50px
+  grid-template-columns: 120px 1fr 120px
+  grid-column-gap: vw(50,1920)
   align-items: center
   justify-content: space-between
+  @include lg-devices
+    padding-right: 20px
+    grid-column-gap: 30px
+    grid-template-columns: 40px 1fr max-content
+  @include sm-devices
+    height: 40px
+    grid-column-gap: 20px
+    padding-left: 20px
+    grid-template-columns: max-content 1fr max-content
+  @include xs-devices
+    grid-column-gap: 15px
+  @include xxs-devices
+    padding: 10px
+    grid-column-gap: 10px
 
-.audio-player__button
-  height: 100%
-  width: 110px
-  display: grid
-  align-items: center
-  justify-content: center
-  grid-auto-flow: column
-  grid-column-gap: 5px
-  color: $color-almost-white
-  background: $color-primary
-  border-radius: $border-radius-secondary
-  &:before
-    font-size: 20px
-    font-weight: $medium
-    font-family: "material icons round"
-  &:after
-    
 .audio-player__button--show
   &:before
     content: "visibility"
@@ -47,7 +46,27 @@
   &:after
     content: "hide"
 
-
+.audio-player__button
+  height: 100%
+  width: 100%
+  display: grid
+  align-items: center
+  justify-content: center
+  grid-auto-flow: column
+  grid-column-gap: 5px
+  color: $color-almost-white
+  background: $color-primary
+  border-radius: $border-radius-secondary
+  &:before
+    font-size: 20px
+    font-weight: $medium
+    font-family: "material icons round"
+  @include lg-devices
+    &:after
+      content: none 
+  @include sm-devices
+    background: none
+    width: max-content
 
 .audio-player__toggler
   &:before    
@@ -60,6 +79,10 @@
     overflow: hidden
     color: $color-white
     font-family: "material icons round"
+    @include sm-devices
+      font-size: 36px
+      height: 20px
+      width: 20px
 
 .audio-player__toggler--play
   &:before    
@@ -73,21 +96,29 @@
   &:before    
     font-size: 32px
     content: "volume_mute"
+    @include sm-devices
+      font-size: 26px
 
 .audio-player__toggler--volume-off
   &:before    
     font-size: 32px
     content: "volume_off"
+    @include sm-devices
+      font-size: 26px
 
 .audio-player__toggler--volume-up
   &:before    
     font-size: 32px
     content: "volume_up"
+    @include sm-devices
+      font-size: 26px
 
 .audio-player__toggler--volume-down
   &:before  
     font-size: 32px  
     content: "volume_down"
+    @include sm-devices
+      font-size: 26px
 
 
 .audio-player__timer
@@ -128,10 +159,19 @@
   display: grid
   grid-auto-flow: column
   align-items: center
-  grid-column-gap: 20px
+  grid-column-gap: vw(25,1920)
+  @include lg-devices
+    grid-column-gap: 15px
+  @include sm-devices
+    grid-column-gap: 10px
 
 .audio-player__controls--timeline
   grid-template-columns: max-content 1fr max-content
 
 .audio-player__controls--volume
   grid-template-columns: max-content 1fr
+  @include lg-devices
+    grid-template-columns: 1fr
+    justify-items: end
+    .audio-player__status-bar
+      display: none
