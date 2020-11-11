@@ -1,5 +1,6 @@
 <template>
   <v-input
+    autocomplete="email"
     placeholder="some@email.com"
     label="Your email"
     icon="email"

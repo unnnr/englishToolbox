@@ -26,6 +26,10 @@ export default {
     VInput
   },
 
+  props: {
+    withPrefix: { type: Boolean, default: false }
+  },
+
   data() {
     return {
       target: null,
@@ -57,20 +61,23 @@ export default {
     label() {
       return 'Confirmation';
     },
+
+    name() {
+      return (this.withPrefix && this.target) ? 
+        this.target.name + '_confirmation' : 'confirmation';
+    }
   },
 
   watch: {
     target(current, previos) {
-      if (current)
-      {
+      if (current) {
         current.$on('input:shown', this.showInput);
         current.$on('input:hidden', this.hideInput);
 
         this.hidden = current.hidden;
       }
 
-      if (previos)
-      {
+      if (previos) {
         previos.$off('input:shown', this.showInput);
         previos.$off('input:hidden', this.hideInput);
       }
@@ -105,7 +112,7 @@ export default {
 
       let entry = this.$refs.input.entry;
 
-      data.append(this.target.name + '_confirmation', entry);
+      data.append(this.name, entry);
     }
   }
 }

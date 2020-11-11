@@ -10,6 +10,7 @@
     :min="5"
 
     :force-hidden="forceHidden"
+    :autocomplete="autocomplete"
     :disabled="disabled"
     :label="label"
     
@@ -29,9 +30,19 @@ export default {
   props: {
     label: { type: String, default: 'Your passowrd' },
 
+    withoutAutocomplete: { type: Boolean, default: false },
+
     disabled: { type: Boolean },
 
     forceHidden: { type: Boolean },
+  },
+
+  computed: {
+    autocomplete() {
+      return this.withoutAutocomplete ? 
+        'new-password' : 'current-password'
+    }
   }
+
 }
 </script>

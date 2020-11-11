@@ -103,7 +103,9 @@ export default {
       this.loading = false;
     },
 
-    handleError() {
+    handleError(error) {
+      console.error(error);
+
       bus.dispatch('alert-error');
 
       for (let input of this.inputs)
@@ -122,7 +124,7 @@ export default {
         await callback();
       }
       catch(error) {
-        this.handleError();
+        this.handleError(error);
       }
       finally {
         this.unlock();

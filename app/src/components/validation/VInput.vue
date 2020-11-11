@@ -37,6 +37,7 @@
         ref="input"
         v-model="entry"
         
+        :autocomplete="autocomplete"
         :type=" hidden ? 'password' : null"
         :placeholder="placeholder"
         :maxlength="max"
@@ -71,6 +72,8 @@ export default {
   mixins: [ HandleTextValidation ],
 
   props: {
+    autocomplete: { type: String, default: 'on' },
+
     icon: { type: String, default: null},
 
     counting: { type: Boolean, default: false },

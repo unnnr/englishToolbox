@@ -2,6 +2,7 @@
   <v-input
     ref="input"
 
+    autocomplete="url"
     placeholder="https://youtube.com/..."
     label="Youtube link"
     name="videoUrl"

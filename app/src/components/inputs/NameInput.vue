@@ -1,8 +1,10 @@
 <template>
   <v-input
+    autocomplete="name"
     placeholder="Brikys"
     label="Your name"
     icon="name"
+    name="name"
     
     :disabled="disabled"
     :value="value"
