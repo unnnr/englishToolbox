@@ -5,6 +5,7 @@
     icon="name"
     
     :disabled="disabled"
+    :value="value"
     :max="40"
     :min="3"
     v-validate/>
@@ -20,7 +21,9 @@ export default {
   },
 
   props: {
-    disabled: { type: Boolean, default: false}
+    disabled: { type: Boolean },
+
+    value: { type: String }
   },
 
   methods: {

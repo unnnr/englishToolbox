@@ -31,9 +31,11 @@
       </div>
 
       <name-input 
+        :value="userName"
         :disabled="disabled"/>
 
       <email-input 
+        :value="userEmail"
         :disabled="disabled"/>
 
       <div class="profile__editor-footer">
@@ -68,6 +70,7 @@ import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
 import NameInput from '@components/inputs/NameInput'
 import VForm from '@components/validation/VForm'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -81,19 +84,49 @@ export default {
 
   data() {
     return {
-      disabled: true
+      disabled: true,
+      user: null
+    }
+  },
+
+  computed: {
+    userName() {
+      return this.user ?  this.user.name : '蒼空';
+    },
+    
+    userEmail() {
+      return this.user ?  this.user.email : 'some@email.com';
     }
   },
 
   methods: {
+    showAlert(callback) {
+      bus.dispatch('alert-warning', {
+        message: 'All changes will be lost',
+        okay: callback,
+      })
+    },
+
     toggleEditing() {
-      this.disabled = !!!this.disabled;
+      if (this.disabled) {
+        this.disabled = false;
+        return
+      }
 
       let form = this.$refs.form;
       if (!!!form)
         return;
 
-      form.reset();
+      if (!!!form.hasChanges()) {
+        this.disabled = true;
+        form.reset();
+        return;
+      }
+
+      this.showAlert(() => {
+        this.disabled = true;
+        form.reset();
+      });
     }
   }
 }

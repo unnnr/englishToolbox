@@ -6,7 +6,9 @@
     name="email"
     
     :validating="validating"
-    :disabled="disabled"/>
+    :disabled="disabled"
+    :value="value"
+    v-validate/>
 </template>
 
 <script>
@@ -19,7 +21,9 @@ export default {
   },
 
   props: {
-    disabled: { type: Boolean, default: false}
+    disabled: { type: Boolean },
+
+    value: { type: String }
   },
 
   methods: {
