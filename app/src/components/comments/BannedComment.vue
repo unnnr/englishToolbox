@@ -1,10 +1,9 @@
 <template>
   <div class="banned__comment">
     <comment
-      :image="image"
-      :author="author"
+      :created-at="createdAt"
       :message="message"
-      :created-at="createdAt"/>
+      :user="user"/>
 
     <button 
       class="button-secondary banned__button button--greenish"
@@ -24,13 +23,11 @@ export default {
   },
 
   props: {
-    image: { type: String },
-
-    author: { type: String },
+    createdAt: { type: String },
 
     message: { type: String },
     
-    createdAt: { type: String }
+    user: { type: Object },
   },
 
   methods: {

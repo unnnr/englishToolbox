@@ -8,7 +8,7 @@
 
       <p class="comment__text text-sixth">
         <span class="comment__name">
-          {{ author }}
+          {{ authorName }}
         </span>
 
         {{ message }}
@@ -24,18 +24,24 @@
 <script>
 export default {
   props: {
-    image: { type: String, default: '#' },
-
-    author: { type: String, default: '陽菜' },
+    createdAt: { type: String, default: 'Feb 24 2020'},
 
     message: { type: String, default: '恨み はなじ ぶき じぞう 封筒 推奨 あう 部首 やさい けいじばん' },
     
-    createdAt: { type: String, default: 'Feb 24 2020'}
+    user: { type: Object, default: null },
   },
 
   computed: {
+    authorName() {
+      return this.user ? this.user.name : '陽菜'
+    },
+
+    avatar() {
+      return this.user ? this.user.avatar : '#';
+    },
+
     src() {
-      return this.image && 'url(' + this.image + ')';
+      return this.image && 'url(' + this.avatar + ')';
     }
   }
 }
