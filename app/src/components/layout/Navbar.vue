@@ -123,7 +123,7 @@ import Auth from '@services/Auth';
 export default {
 	name: 'navbar',
 
-	data: function() {
+	data() {
 		return {
 			isMobileNavShown: false,
 

@@ -27,11 +27,12 @@
 			</div>
 
 			<div class="auth__links">
-				<a 
+				<router-link
 					class="auth__link text-fifth"
-					:href="loginUrl">
+					to="Login">
+
 					Already have an account?
-				</a>
+				</router-link>
 			</div>
 			
 		</v-form>
@@ -66,10 +67,6 @@ export default {
 	computed: {
 		imageUrl() {
 			return window.origin + '/img/svg/register.svg';
-		},
-
-		loginUrl() {
-			return window.origin + '/login';
 		}
 	},    
 
