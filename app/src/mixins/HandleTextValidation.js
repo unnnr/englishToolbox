@@ -125,10 +125,10 @@ const HandleTextValidation = {
     },
     
     hasChanges() {
-      if ( typeof this.$options.defaultValue !== 'string')
-        return false;
+      let defaultValue =  this.$options.defaultValue === 'string' ? 
+        this.$options.defaultValue : '' 
         
-      return this.entry !== this.$options.defaultValue;
+      return this.entry !== defaultValue;
     },
 
     onInput() {
@@ -215,6 +215,9 @@ const HandleTextValidation = {
     },
 
     submit(data) {
+      if (this.optional && this.entry.length === 0)
+        return;
+
       if (this.submitting)
         return this.submitting(data);
 

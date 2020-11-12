@@ -11,6 +11,7 @@
     :force-hidden="forceHidden"
     :autocomplete="autocomplete"
     :disabled="disabled"
+    :optional="optional"
     :label="label"
     :name="name"
     
@@ -37,6 +38,8 @@ export default {
     forceHidden: { type: Boolean },
 
     disabled: { type: Boolean },
+
+    optional: { type: Boolean }
   },
 
   computed: {

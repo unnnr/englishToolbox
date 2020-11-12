@@ -46,7 +46,8 @@
           class="input-group--password-new"
           autocomplete="new-password"
           label="New passoword"
-          name="newPassword"/>
+          name="newPassword"
+          optional/>
 
         <confirmation-input 
           v-confirm="'newPassword'"
@@ -102,6 +103,15 @@ export default {
     userEmail() {
       return this.user ?  this.user.email : 'some@email.com';
     }
+  },
+
+  mounted() {
+		Auth.check().then(async authenticated => {
+			if (!!!authenticated)
+        return;
+        
+      this.user = await Auth.user.get();
+    });
   },
 
   methods: {

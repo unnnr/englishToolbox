@@ -7,6 +7,7 @@
     name="email"
     
     :validating="validating"
+    :optional="optional"
     :disabled="disabled"
     :value="value"
     v-validate/>
@@ -24,7 +25,10 @@ export default {
   props: {
     disabled: { type: Boolean },
 
+    optional: { type: Boolean },
+
     value: { type: String }
+    
   },
 
   methods: {

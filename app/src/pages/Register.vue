@@ -7,6 +7,7 @@
 			<h4 class="auth__title heading-fourth">Sing up</h4>
 
 			<name-input/>
+
 			<email-input/>
 			
 			<password-input
@@ -76,6 +77,7 @@ export default {
 		},
 
 		async submit(data) {
+			console.log(213);
 			await Auth.register(data);
 
 			this.redirect();

@@ -6,6 +6,7 @@
     icon="name"
     name="name"
     
+    :optional="optional"
     :disabled="disabled"
     :value="value"
     :max="40"
@@ -23,6 +24,8 @@ export default {
   },
   
   props: {
+    optional: { type: Boolean },
+
     disabled: { type: Boolean },
 
     value: { type: String }

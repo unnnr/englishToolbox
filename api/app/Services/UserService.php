@@ -35,8 +35,7 @@ class UserService
         if (!!!Hash::check($confirmation, $user->password))
         {
             throw ValidationException::withMessages([
-                'password' => 'Icorrect password', 
-                $confirmation, $user->password
+                'password' => 'Icorrect password'
             ]);
         }
 

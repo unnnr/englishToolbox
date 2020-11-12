@@ -6,7 +6,8 @@
     :validating="validating"
 
     :force-hidden="hidden"
-    :disabled="optional"
+    :disabled="disabled"
+    :optional="optional"
 
     :label="label"
     :icon="icon"
@@ -54,8 +55,15 @@ export default {
       return this.target ? this.target.max : null;
     },
 
-    optional() {
+    disabled() {
       return !!!this.target;
+    },
+
+    optional() {
+      if (!!!this.target)
+        return true;
+
+      return this.target.optional && this.target.entry.length === 0;
     },
 
     label() {

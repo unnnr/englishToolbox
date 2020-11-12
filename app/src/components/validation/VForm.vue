@@ -145,8 +145,7 @@ export default {
       if (!!!this.validateInputs() || !!!this.request || !!!this.hasChanges())
         return;
 
-      if (!!!this.requirePassword)
-      {
+      if (!!!this.requirePassword) {
         this.sendWith(() => {
           let data = this.collectData();
           return this.request(data);
@@ -154,7 +153,6 @@ export default {
 
         return;
       }
-
       bus.dispatch('alert-prompt', {
         confirm: confirmPrompt.bind(this)
       })
