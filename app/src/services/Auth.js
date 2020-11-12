@@ -6,7 +6,6 @@ const AUTH_TOKEN_EXPIRES = 12;
 
 class Auth 
 {
-    
     __callbacks = [];
     
     user = User;
@@ -32,13 +31,14 @@ class Auth
             {
                 previousResponseNotNull = false;
 
-                this.__changed(false);
-                this.__removeToken();
+                __this.__changed(false);
+                __this.__removeToken();
             }
         }
 
         let target = this.user;
         let previousResponseNotNull = false;
+        let __this = this;
 
         this.user = {
             get: async (...args) =>

@@ -4,7 +4,8 @@
    
     <button 
       class="profile__tab-button profile__tab-button--exit text-fifth"
-      type="button">
+      type="button"
+      @click="logout">
       
       sign out
     </button>
@@ -22,7 +23,9 @@
           <input type="file">
         </div>
 
-        <h4 class="profile__editor-name heading-fourth">Your Name</h4>
+        <h4 class="profile__editor-name heading-fourth">
+          {{ userName }}
+        </h4>
         <button 
           class="profile__tab-button profile__tab-button--edit-profile text-fifth"
           type="button"
@@ -115,6 +118,16 @@ export default {
   },
 
   methods: {
+    logout() {
+      let form = this.$refs.form;
+
+      form.sendWith(async () => {
+        await Auth.logout();
+
+			  this.$router.push({name: 'Home'});
+      });
+    },
+    
     showAlert(callback) {
       bus.dispatch('alert-warning', {
         message: 'All changes will be lost',

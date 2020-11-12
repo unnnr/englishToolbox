@@ -119,6 +119,9 @@ export default {
     },
 
     async sendWith(callback) {
+      if (this.loading)
+        return;
+         
       try {
         this.lock();
 
