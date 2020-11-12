@@ -21,10 +21,7 @@
 
     </post-selected>
     
-    <pool 
-      ref="pool" 
-      :posts="videos"
-      @deleting="deletePost"/>
+    <pool ref="pool"/>
 
   </main>
 </template>
@@ -52,32 +49,8 @@ export default {
 
   mixins: [ HandlePost ],
 
-  data() {
-    return {
-      videos: [],
-    }
-  },
-
-  mounted() {
-    this.loadVideos();
-  },
-
-  methods: {
-    async loadVideos() {
-      this.videos = await Videos.all();
-    },
-
-    async deletePost(event) {
-      try {
-        let id = event.post.id;
-        await Videos.delete(id);
-
-        event.deleted();
-      }
-      catch(error) {
-        event.failed(error);
-      }
-    }
+  provide: {
+    model: Videos
   }
 }
 </script>

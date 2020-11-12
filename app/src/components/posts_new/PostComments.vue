@@ -33,16 +33,15 @@
         v-for="({message, createdAt, user}, id) of comments"
         :key="id"
         
-        :image="user.avatar"
-        :author="user.name"
-
         :created-at="createdAt"
-        :message="message"/>
+        :message="message"
+        :user='user'/>
 
     </shrinkable>
 
-    <comment-input v-if="inputShown"/>
-    
+    <comment-input
+      v-if="inputShown"
+      @sending="sendComment"/>
   </div>
 </template>
 
@@ -50,9 +49,7 @@
 import ShrinkableTab from '@mixins/ShrinkableTab'
 import CommentInput from '@components/comments/CommentInput'
 import Comment from '@components/comments/Comment'
-
-import FormatedDate from '@services/FormatedDate'
-import Faker from 'faker/locale/ja'
+import Auth from '@services/Auth'
 
 export default {
   components: {
@@ -62,7 +59,7 @@ export default {
 
   mixins: [ ShrinkableTab ],
 
-  inject: [ '$target' ],
+  inject: [ '$target', 'model' ],
 
   props: {
     mobile: { type: Boolean, default: false }
@@ -71,7 +68,8 @@ export default {
   data() {
     return {
       img: 'img/svg/overlay-comments.svg',
-      inputShown: true
+      comments: [],
+      inputShown: false,
     }
   },
 
@@ -92,13 +90,6 @@ export default {
       return !!!this.mobile || !!!this.empty;
     },
 
-    comments() {
-      if (!!!this.target || !!!this.target.comments)
-        return [];
-
-      return this.target.comments;
-    },
-
     counter() {
       return this.comments.length + ' comments';
     },
@@ -109,6 +100,13 @@ export default {
   },
 
   mounted() {
+    this.loadComments();
+
+    // If user authenticated -> showing input
+    Auth.check().then(authenticated => 
+			this.inputShown = authenticated);
+    
+    // Shrinking comments 
     if (!!!this.mobile)
       return;
       
@@ -137,8 +135,42 @@ export default {
         return 0;
 
       return firstComment.offsetHeight + 'px';
+    },
+
+    async loadComments() {
+      if (!!!this.target || !!!this.model)
+        return;
+
+      let postId = this.target.id;
+
+      this.comments = 
+        await this.model.comments.get(postId);
+    },
+
+    async sendComment(event) {
+      try {
+        // Preparing data
+        let data = new FormData();
+        let message = event.entry;
+        let postId = this.target.id;
+        data.append('message', message);
+ 
+        // Sending new comment
+        let comment = 
+          await this.model.comments.create(postId, data);
+
+        // Appending response
+        this.comments.push(comment);
+      }
+      catch(error) {
+        bus.dispatch('alert-error');
+      }
+      finally {
+        event.sended();
+      }
     }
   }
+  
 }
 </script>
 

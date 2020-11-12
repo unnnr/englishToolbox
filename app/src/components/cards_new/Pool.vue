@@ -37,8 +37,6 @@ import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
 import bus from '@services/eventbus'
 
-import FakeData from '@services/FakeData';
-
 export default {
   components: {
     NewCard,
@@ -47,8 +45,12 @@ export default {
 
   mixins: [ HandleEvents ],
 
-  props: {
-    posts: { type: Array, default: () => [] }
+  inject: [ 'model' ],
+
+  data() {
+    return {
+      posts: [],
+    }
   },
 
   computed: {
@@ -61,7 +63,7 @@ export default {
 		}
   },
 
-  watch: {
+/*   watch: {
     posts: {
       handler() {
         if (!!!this.$options.selectedPost)
@@ -71,9 +73,11 @@ export default {
       immediate: true
     }
   },
+ */
 
   mounted() {
-    // this.posts = FakeData.generatePosts();
+    this.loadPosts();
+
     this.listen({
       'post-selected': this.onSelected,
       'post-creating': this.onCreating,
@@ -138,15 +142,13 @@ export default {
         return;
 
 			// Unselecting previos post
-			if (this.$options.selectedPost)
-			{
+			if (this.$options.selectedPost) {
         this.$set(this.$options.selectedPost, 'selected', false);
         this.$options.selectedPost = null
       }
       
        // Selecting current post
-      if (post)
-      {
+      if (post) {
         this.$options.selectedPost = post;
         this.$set(post, 'selected', true);
       }
@@ -159,6 +161,11 @@ export default {
 
     selectFirst() {
       this.selecting(this.firstPost);
+    },
+
+    async loadPosts() {
+      this.posts = await this.model.all();
+      this.selectFirst();
     },
 
     // Events
@@ -211,18 +218,17 @@ export default {
     // Context menu event
 
     contextDelete(post) {
-      function failed() {
-        bus.dispatch('alert-error');
-      }
-
-      function deleted() {
-        bus.dispatch('post-deleted', { post });
-      } 
-
       function okay() {
-        _this.$emit('deleting', { 
-          deleted, failed, post,
-        });
+        try {
+          _this.model.delete(post.id)
+
+          bus.dispatch('post-deleted', { post });
+        }
+        catch(error) {
+          console.error(error); 
+
+          bus.dispatch('alert-error');
+        }
       }
 
       let _this = this;

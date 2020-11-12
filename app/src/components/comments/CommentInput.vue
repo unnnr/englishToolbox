@@ -10,12 +10,15 @@
 
       placeholder="Your comment"
       maxlength="256"
+      :disabled="disabled"
 
+      @keydown.enter.prevent="send"
       @input="onInput">
     </textarea>
 
     <button 
       class="comments__send-button"
+      :disabled="disabled"
       @click="send()">
     </button>
   </div>
@@ -27,8 +30,9 @@ import { throttle } from 'throttle-debounce';
 export default {
   data() {
     return {
-      minHeight: 40,
       entry: '',
+      minHeight: 40,
+      disabled: false,
     }
   },
 
@@ -55,7 +59,12 @@ export default {
     },
     
     send() {
+      this.disabled = true
 
+      this.$emit('sending', {
+        sended: () => this.disabled = false,
+        entry: this.entry,
+      });
     }
   }
 }
