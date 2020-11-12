@@ -9,18 +9,21 @@
       delete all
     </button>
     
-    <div class="profile__tab-comments">
-      <div class="profile__tab-scrollable">
-        <transition name="fade">
-          <div 
-            v-if="empty"
-            class="profile__tab-comments-overlay"
-            :style="{'background-image': overlayUrl}">
-          </div>
-        </transition>
-        
 
-         <div class="profile__tab-comment"    
+    <div class="profile__tab-comments">
+      <transition-group 
+        class="profile__tab-scrollable"
+        name="list"
+        @before-leave="setAbsolute">
+
+        <div 
+          v-if="empty"
+          class="profile__tab-comments-overlay"
+          :key="-1"
+          :style="{'background-image': overlayUrl}">
+        </div>
+
+        <div class="profile__tab-comment"    
           v-for="comment in comments"
           :key="comment.id">
 
@@ -34,7 +37,7 @@
               @click="remove(comment)">
             </button>
          </div>
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -71,6 +74,15 @@ export default {
   },
 
   methods: {
+    setAbsolute(target) {
+			Object.assign(target.style, {
+        position: 'absolute',
+				top: target.offsetTop + 'px',
+				left: target.offsetLeft + 'px',
+				width: target.offsetWidth + 'px'
+			})
+    },
+
     async load() {
       this.comments =  await User.comments();
     },
