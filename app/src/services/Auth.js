@@ -63,7 +63,10 @@ class Auth
                 let response = await target.edit(...args);
 
                 dispatchIfChanged(response);
-
+                
+                if (response === null)  
+                    return;
+                    
                 // Handling token
                 this.__saveToken(response.auth);
                 delete response.auth;

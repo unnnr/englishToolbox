@@ -12,7 +12,9 @@ export default {
   props: {
     request: { type: Function, default: null },
 
-    secondary: { type: Boolean, default: false }
+    secondary: { type: Boolean, default: false },
+
+    requirePassword: { type: Boolean, default: false }
   },
 
   data() {
@@ -70,6 +72,7 @@ export default {
     TEMP_showData(data) {
       for (let [field, value] of data.entries())
         console.log(field + ': ' + value);
+      console.log('------------');
     },  
 
     collectData() {
@@ -119,8 +122,6 @@ export default {
       try {
         this.lock();
 
-        let data = this.collectData();
-
         await callback();
       }
       catch(error) {
@@ -132,14 +133,31 @@ export default {
     },
 
     async submit() {
-      if (!!!this.validateInputs() || !!!this.request)
-        return;
-      
-      this.sendWith(() => {
-        let data = this.collectData();
+      function confirmPrompt(entry) {
+        this.sendWith(() => {
+          let data = this.collectData();
 
-        return this.request(data);
-      });
+          data.append('password', entry);
+          this.request(data);
+        });
+      }
+
+      if (!!!this.validateInputs() || !!!this.request || !!!this.hasChanges())
+        return;
+
+      if (!!!this.requirePassword)
+      {
+        this.sendWith(() => {
+          let data = this.collectData();
+          return this.request(data);
+        });
+
+        return;
+      }
+
+      bus.dispatch('alert-prompt', {
+        confirm: confirmPrompt.bind(this)
+      })
     }
   }
 }

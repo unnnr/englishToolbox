@@ -2,9 +2,8 @@
   <v-input
     placeholder="Some placeholder"
     icon="password"
-    name="password"
 
-    v-name="'password'"
+    v-name="name"
 
     :max="64"
     :min="5"
@@ -13,6 +12,7 @@
     :autocomplete="autocomplete"
     :disabled="disabled"
     :label="label"
+    :name="name"
     
     visibility-buttoned
     v-validate/>
@@ -29,12 +29,14 @@ export default {
 
   props: {
     label: { type: String, default: 'Your passowrd' },
+    
+    name: { type: String, default: 'password' },
 
     withoutAutocomplete: { type: Boolean, default: false },
 
-    disabled: { type: Boolean },
-
     forceHidden: { type: Boolean },
+
+    disabled: { type: Boolean },
   },
 
   computed: {

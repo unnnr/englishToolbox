@@ -13,6 +13,8 @@
       ref="form"
       class="profile__tab-editor"
       :class="{'profile__editor--disabled': disabled}"
+      :request="submit"
+      require-password
       secondary>
 
       <div class="profile__editor-header">
@@ -43,11 +45,13 @@
         <password-input 
           class="input-group--password-new"
           autocomplete="new-password"
-          :label="'New passoword'"/>
+          label="New passoword"
+          name="newPassword"/>
 
         <confirmation-input 
-          v-confirm="'password'"
-          autocomplete="new-password"/>
+          v-confirm="'newPassword'"
+          autocomplete="new-password"
+          with-prefix/>
         
         <confirm-button/>
         
@@ -58,7 +62,6 @@
           delete profile
         </button>
       </div>
-
     </v-form>
   </div>
 </template>
@@ -70,7 +73,9 @@ import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
 import NameInput from '@components/inputs/NameInput'
 import VForm from '@components/validation/VForm'
+import Auth from '@services/Auth'
 import bus from '@services/eventbus'
+
 
 export default {
   components: {
@@ -127,6 +132,10 @@ export default {
         this.disabled = true;
         form.reset();
       });
+    },
+
+    async submit(data) {
+			await Auth.user.edit(data);
     }
   }
 }
