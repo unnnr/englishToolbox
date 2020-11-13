@@ -7,7 +7,7 @@
 
     <button 
       class="button-secondary banned__button button--greenish"
-      @click="unbun">
+      @click="unban">
       
       unban
     </button>
@@ -31,8 +31,8 @@ export default {
   },
 
   methods: {
-    unbun() {
-      this.$emit('unbun');
+    unban() {
+      this.$emit('unban');
     }
   }
 }

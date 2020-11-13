@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Validation\ValidationException;
 use App\Http\Requests\User\UnbanUser;
 use App\Http\Requests\User\BanUser;
 use App\Http\Resources\BanResource;
