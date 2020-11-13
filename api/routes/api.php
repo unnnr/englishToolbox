@@ -65,15 +65,18 @@ Route::group(['namespace' => 'Api'], function()
     |--------------------------------------------------------------------------
     */
 
+    Route::match(['head', 'get'], 'profile', 'UserController@index');
+    Route::match(['put', 'patch'], 'profile', 'UserController@update');
+    Route::match(['delete'], 'profile', 'UserController@delete');
+
     Route::match(['head', 'get'], 'profile/comments', 'CommentController@attachedToUser');
     Route::match(['delete'], 'profile/comments', 'CommentController@deleteAttachedToUser');
 
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
     Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');
 
-    Route::match(['head', 'get'], 'profile', 'UserController@index');
-    Route::match(['put', 'patch'], 'profile', 'UserController@update');
-    Route::match(['delete'], 'profile', 'UserController@delete');
+    Route::apiResource('banned', 'BanController')
+        ->only(['index', 'store', 'destroy']);
 });
 
 

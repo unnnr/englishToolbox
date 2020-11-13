@@ -62,7 +62,7 @@ class UserService
 
         return new AuthenticatedUserResource($user);
     }
-
+    
     public function destroy()
     {
         // 

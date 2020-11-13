@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -64,5 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function avatar()
     {
         return $this->hasOne(Avatar::class);
+    }
+
+    public function ban()
+    {
+        return $this->hasOne(Ban::class);
+    }
+    
+    public function banned() {
+        return $this->ban !== null;
     }
 }

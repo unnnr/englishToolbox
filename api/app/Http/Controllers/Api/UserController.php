@@ -13,25 +13,28 @@ use App\Services\UserService;
 
 class UserController extends Controller
 {
+
+    private $service = null;
+
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only([
-            'index', 'update', 'destroy'
-        ]);
+        $this->middleware('auth:sanctum');
+
+        $this->service = app(UserService::class);
     }
 
-    public function index(UserService $service)
+    public function index()
     {
-        return $service->currentUser();
+        return $this->service->currentUser();
     }
 
-    public function update(UserService $service, UpdateUser $request)
+    public function update(UpdateUser $request)
     {
-        return $service->update($request);
+        return $this->service->update($request);
     }
     
-    public function destroy(UserService $service, DeleteUser $request)
+    public function destroy(DeleteUser $request)
     {
-        return $service->update($request);
+        return $this->service->update($request);
     }
 }
