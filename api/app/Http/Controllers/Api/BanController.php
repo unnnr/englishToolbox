@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UnbanUser;
 use App\Http\Requests\User\BanUser;
 use App\Services\BanService;
-use App\Models\User;
+use App\Models\Ban;
 
 
 class BanController extends Controller
@@ -36,9 +36,9 @@ class BanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(User $id, BanUser $request)
+    public function store(BanUser $request)
     {
-        return $this->service->ban($user, $request);
+        return $this->service->ban($request);
     }
 
     /**
@@ -47,8 +47,8 @@ class BanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $id, UnbanUser $request)
+    public function destroy(Ban $ban, UnbanUser $request)
     {
-        return $this->service->unban($user);
+        return $this->service->unban($ban);
     }
 }

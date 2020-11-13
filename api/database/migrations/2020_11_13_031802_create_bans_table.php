@@ -17,7 +17,7 @@ class CreateBansTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('comment_id')->constrained();
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 

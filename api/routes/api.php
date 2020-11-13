@@ -75,7 +75,7 @@ Route::group(['namespace' => 'Api'], function()
     Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
     Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');
 
-    Route::apiResource('banned', 'BanController')
+    Route::apiResource('bans', 'BanController')
         ->only(['index', 'store', 'destroy']);
 });
 

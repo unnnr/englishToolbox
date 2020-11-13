@@ -24,6 +24,7 @@ class BanUser extends FormRequest
     public function rules()
     {
         return [
+            'user' => ['required', 'integer'],
             'comment' => ['required', 'integer']
         ];
     }

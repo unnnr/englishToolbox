@@ -4,21 +4,36 @@ namespace App\Services;
 
 use App\Http\Requests\User\UnbanUser;
 use App\Http\Requests\User\BanUser;
-use App\Services\UserService;
+use App\Http\Resources\BanResource;
 use App\Models\Comment;
+use App\Models\User;
 use App\Models\Ban;
+
 
 class BanService 
 {
     public function all()
     {
-        return Banned::all();
+        $all = Ban::all();
+
+        return BanResource::collection($all);
     }
 
-    public function ban(User $user, BanUser $request) : void
+    public function ban(BanUser $request) : void
     {
+        // Retrieving user
+        $userId = $request->input('user');
+        $user = User::findOrFail($userId);
+        
         // Predicting redundant requests
-        if ($user->banned())
+        if ($user->admin)
+        {
+            throw ValidationException::withMessages([
+                'user_id' => "Admin cant be banned"
+            ]);
+        }
+
+        if ($user->banned)
         {
             throw ValidationException::withMessages([
                 'user_id' => "User is already banned"
@@ -26,27 +41,21 @@ class BanService
         }
         
         // Retrieving comment
-        $commentId = $request->input('comment_id');
+        $commentId = $request->input('comment');
         $comment = Comment::findOrFail($commentId);
         
         // Creating new Ban
-        $ban = $user->ban()->create(['comment_id', $commentId]);
+        $ban = $user->ban()->create([
+            'comment_id' => $commentId
+        ]);
 
         return;
     }
 
-    public function unban(User $user) : void
+    public function unban(Ban $ban) 
     {
-        // Predicting redundant requests
-        if (!!!$user->banned())
-        {
-            throw ValidationException::withMessages([
-                'user_id' => "User isnt banned"
-            ]);
-        }
+        $ban->delete();
         
-        $user->ban()->delete();
-
         return;
     }
 }

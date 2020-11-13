@@ -70,8 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Ban::class);
     }
-    
-    public function banned() {
+
+    public function getBannedAttribute() {
         return $this->ban !== null;
+    }
+
+    public function getAdminAttribute() {
+        return false;
     }
 }

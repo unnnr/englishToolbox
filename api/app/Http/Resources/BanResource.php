@@ -3,11 +3,13 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\CommentResource; 
+use App\Http\Resources\UserResource; 
 
-class UserResource extends JsonResource
+class BanResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -16,16 +18,9 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-
-            'name' => $this->name,
-
-            'email' => $this->email,
-
-            'verified' => $this->hasVerifiedEmail(),
-
-            'admin' => true,
-
-            // 'avatar' => $this->avatar->url
+            
+            'comment' => 
+                new CommentResource($this->comment),
         ];
     }
 }
