@@ -45,18 +45,18 @@ export default {
     
     title: { type: String, default: '右翼 備える うえる 品詞' },
     
-    author: { type: Object, default: null },
-
     grade: { type: Number, default: 5 },
+
+    user: { type: Object, default: null },
   },
 
   computed: {
     authorName() {
-      return this.author ? this.author.name : '陸斗';
+      return this.user ? this.user.name : '陸斗';
     },
 
     avatar() {
-      return this.author ? this.author.avatar : '#';
+      return this.user ? this.user.avatar : '#';
     },
     
     url() {

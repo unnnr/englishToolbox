@@ -6,35 +6,15 @@
       :options="swiperOptions">
 
       <swiper-slide 
-        class="reviews__card"
-        v-for="review in reviews" 
-        :key="review.id">
+        v-for="{id, title, user, grade, description} in reviews" 
+        :key="id">
         
-      <div class="reviews__card-person">
-        <div class="reviews__card-photo"></div>
-          <h5 class="reviews__card-name heading-fifth">
-            {{ review.user.name }}
-          </h5>
-        </div>
-        <h5 class="reviews__card-title heading-fifth">
-          {{ review.title }}
-        </h5>
-        <p class="reviews__card-text text-third"> 
-          {{ review.text }}
-        </p>
-        <div class="review__grade">
-          <div class="review__stars">
-            <div 
-              v-for="id in 5"
-              class="reviews__card-star"
-              :key="id"
-              :class="{
-                'reviews__card-star--full': id <= review.grade 
-              }">
-            </div>
-          </div>
-          <span class="review__rating">5</span>
-        </div>
+        <review 
+          :title="title"
+          :user="user"
+          :grade="grade"
+          :disabled="sending"
+          :description="description"/>
 
       </swiper-slide>
     </swiper>
@@ -53,6 +33,7 @@
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import Review from '@components/reviews/Review'
 import Reviews from '@models/Reviews'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
@@ -64,20 +45,18 @@ const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 export default {
   components: {
     SwiperSlide,
-    Swiper
+    Review,
+    Swiper,
   },
 
-  data: function() {
+  data() {
     return {
       swiperOptions:{
         slidesPerView: 'auto',
-        
-        
         spaceBetween: 30
-
       },
 
-      reviews: [],
+      reviews: [{}, {}, {}, {}, {}],
 
       buttonShown: false
     }

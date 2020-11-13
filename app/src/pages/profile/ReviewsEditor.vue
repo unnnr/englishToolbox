@@ -11,9 +11,12 @@
         
         <pending-review 
           :title="title"
-          :author="user"
+          :user="user"
           :grade="grade"
-          :description="description"/>
+          :disabled="sending"
+          :description="description"
+          @accept="accept(id)"
+          @decline="decline(id)"/>
 
       </swiper-slide>
     </swiper>
@@ -24,6 +27,7 @@
 import PendingReview from '@components/reviews/PendingReview'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass } from 'swiper/core'
+import Reviews from '@models/Reviews'
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
@@ -36,12 +40,46 @@ export default {
   
   data() {
     return {
+      reviews: [],
+      sending: false,
       swiperOptions:{
 				slidesPerView: 'auto',
 				grabCursor: true,
-			},
-      reviews: [{}, {}, {}, {}, {}, {},]
-      
+      }
+    }
+  },
+
+  mounted() {
+    this.load();
+  },
+
+  methods: {
+    async send(callback) {
+      if (this.sending)
+        return;
+
+      this.sending = true;
+      try{
+        await callback();
+      }
+      catch {
+        bus.dispatch('alert-error');
+      }
+      finally {
+        this.sending = false;
+      }
+    },
+
+    accept(id) {
+    
+    },
+
+    decline(id) {
+
+    },
+
+    async load() {
+      this.reviews = await Reviews.pending();
     }
   }
 }

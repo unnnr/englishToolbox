@@ -2,12 +2,13 @@
   <div class="reviews-management__card">
     <review
       :description="description"
-      :author="author"
+      :user="user"
       :title="title"
       :grade="grade"/>
     
     <button 
       class="reviews-management__button--accept button-secondary button--greenish"
+      :disabled="disabled"
       @click="accept">
       
       accept
@@ -15,6 +16,7 @@
 
     <button 
       class="reviews-management__button--decline button-secondary button--reddish"
+      :disabled="disabled"
       @click="decline">
       
       decline
@@ -36,9 +38,11 @@ export default {
 
     title: { type: String },
 
-    author: { type: Object },
-
     grade: { type: Number },
+
+    user: { type: Object },
+    
+    disabled: { type: Boolean, default: false },
   },
 
   methods: {
