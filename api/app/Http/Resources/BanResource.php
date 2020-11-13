@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\CommentResource; 
 use App\Http\Resources\UserResource; 
 
 class BanResource extends JsonResource
@@ -19,8 +18,12 @@ class BanResource extends JsonResource
         return [
             'id' => $this->id,
             
-            'comment' => 
-                new CommentResource($this->comment),
+            'message' => $this->message,
+            'posted_at' => $this->posted_at,
+            'crated_at' => $this->created_at,
+    
+            'user' => 
+                new UserResource($this->user),
         ];
     }
 }

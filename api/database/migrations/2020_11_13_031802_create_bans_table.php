@@ -16,8 +16,9 @@ class CreateBansTable extends Migration
         Schema::create('bans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('comment_id')->constrained();
-            $table->timestamp('created_at');
+            $table->string('message');
+            $table->timestamp('posted_at')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

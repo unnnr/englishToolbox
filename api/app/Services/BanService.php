@@ -47,8 +47,12 @@ class BanService
         
         // Creating new Ban
         $ban = $user->ban()->create([
-            'comment_id' => $commentId
+            'message' => $comment->message,
+            'posted_at' => $comment->created_at
         ]);
+
+        // Deleting all user comment
+        $user->comments()->delete();
 
         return new BanResource($ban);
     }
@@ -56,7 +60,6 @@ class BanService
     public function unban(Ban $ban) 
     {
         $ban->delete();
-        
         return;
     }
 }
