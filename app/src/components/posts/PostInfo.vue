@@ -1,120 +1,98 @@
 <template>
-	<div class="description">
-		<div class="description__header">
-			<h5 class="description__title heading-fifth">{{ title }}</h5>
-			<shrink-button
-				class="description__mobile-button"
-				@click.native="toggle">
+  <div 
+    class="addition__tab description"
+    :class="{'description--shrinked': shrinked}">
 
-				<span class="material-icons-round">
-					arrow_drop_down
-				</span>
-			</shrink-button>
-		</div>
+    <div class="addition__tab-header">
+      <h6 class="heading-sixth">{{ title }}</h6>
 
-		<div
-			class="description__body"
-			ref="wrapper"
-			:style="{
-				'height': bodyHeight,
-				'transition': bodyTransition}">
-
-			<div 
-				class="description__body-content"
-				ref='content'>
-					
-				<p class="description__text text-fourth">{{ description }}</p>
-				<tag-list 
-					:tags="tags"
-					:main-tag="mainTag"/>
-			</div>
-		</div>
-		
-
-		<div class="description__footer">
-				<time class="description__date">{{ createdAt }}</time>
-				<div class="description__views">
-					<span class="description__views-icon material-icons-round">visibility</span>
-					<span class="description__views-count">{{ views }}</span>
-			</div>
-		</div>
-	</div>
-
+      <shrink-button 
+        class="addition__tab-shrink-button"
+        :shrinked="shrinked"
+        @click.native="toggle">
+      </shrink-button>
+    </div>
     
+    <shrinkable 
+      ref="shrinkable"
+      :inner-class="['addition__tab-body', 'description__body']"
+      :shrinked-by-default="mobile">
+      
+      <p class="description__text text-fourth">{{ description }}</p>
+      <h6 class="heading-sixth">Tag list</h6>
+      
+      <tag-list 
+        :main-tag="mainTag"
+        :tags="tags"/>
+    </shrinkable>
+
+    <div class="addition__tab-footer">
+      <time class="description__date text-fifth">{{ createdAt }}</time>
+      <span class="description__views text-fifth">{{ views }}</span>
+    </div>
+  </div>
 </template>
 
 <script>
-
-import Shrinkable from '@mixins/Shrinkable';
-import HandleEvents from '@mixins/HandleEvents'
-import TagList from '@components/tags/TagList';
-import bus from '@services/eventbus';
+import ShrinkableTab from '@mixins/ShrinkableTab'
+import TagList from '@components/tags/TagList'
 
 export default {
-	components: {
-		TagList
-	},
+  components: {
+    TagList
+  },
 
-	mixins: [ Shrinkable],
+  mixins: [ ShrinkableTab ],
 
-	props: {
-		target: {
-			type: Object,
-			default: null
-		}
-	},
+  inject: [ '$target' ],
 
-	computed: {
-		title() {
-			return this.target ? this.target.title : 'Lorem ipsum dolor';
-		},
+  computed: {
+    target() {
+      return this.$target();
+    },
 
-		description() {
-			return this.target ? this.target.description :  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et'
-																									 +  'dolore magna aliqua. Nisi quis eleifend quam adipiscing vitae proin sagittis. Eu mi bibendum neque egestas'
-																									 +  'congue quisque egestas diam in. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus.';
-		},
+    title() {
+      return this.target ? this.target.title : 
+        'Something went wrong';
+    },
 
-		createdAt() {
-			return this.target ? this.target.createdAt : 'April 17 2020';
-		},
+    description() {
+      return this.target ? this.target.description : 
+        `Obviously, you aren't allowed to see it, but... `;
+    },
 
-		tags() {
-			return this.target ? this.target.tags : []
-		},
+    createdAt() {
+      return this.target ? this.target.createdAt : '';
+    },
 
-		mainTag() {
-			return this.target ? this.target.mainTag : null;
-		},
+    views() {
+      return this.target ? this.target.views : '';
+    },
 
-		views() {
-			return 123;
-		}
-	},
+    tags() {
+      return this.target ? this.target.tags : [];
+    },
+
+    mainTag() {
+      return this.target ? this.target.mainTag : null;
+    }
+  }
 }
 </script>
 
+<style lang="sass" scoped>
 
-<style scoped>
+.description
+  transition: gap .3s
 
-.description__body {
-	overflow: hidden;
-	display: block;
-}
+.description--shrinked 
+  gap: 7.5px
 
-.description__text {
-	word-break: break-all;
-}
 
-.description__mobile-button {
-	transform-origin: 15px 15px;
-}
+/*  or :not(.shrinkable--closed).description__body */
+.shrinkable--opened,
+.shrinkable--opening,
+.shrinkable--closing
+  overflow-y: auto
 
-.description__mobile-button {
-	transform: rotate(0);
-}
-
-.description__mobile-button--upturned {
-	transform: rotate(-180deg);
-}
 </style>

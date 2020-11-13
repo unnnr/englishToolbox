@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import PostComments from '@components/posts_new/PostComments'
-import PostInfo from '@components/posts_new/PostInfo'
+import PostComments from '@components/posts/PostComments'
+import PostInfo from '@components/posts/PostInfo'
 import bus from '@services/eventbus'
 
 export default {

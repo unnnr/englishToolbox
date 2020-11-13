@@ -21,11 +21,11 @@
 
 <script>
 import { Swiper as SwiperClass } from 'swiper/core'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import PendingReview from '@components/reviews/PendingReview'
 import BannedComment from '@components/comments/BannedComment'
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import bus from '@services/eventbus';
 import Bans from '@models/Bans';
+import bus from '@services/eventbus';
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 

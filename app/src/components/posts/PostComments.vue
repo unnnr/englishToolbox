@@ -1,204 +1,190 @@
 <template>
-	<div class="comments">
-		<div class="comments__header">
-				<h5 class="comments__title heading-fifth">Comments</h5>
-				<button 
-					class="comments__mobile-button"
-					:class="{'comments__mobile-button--upturned': shrinked}"
-					:style="{'transition': buttonTransition}"
-					@click="toggle">
-			
-				<span class="material-icons-round">arrow_drop_down</span>
-			</button>
-		</div>
+  <div class="addition__tab comments">
+    <div class="addition__tab-header">
+      <h6 class="heading-sixth">
+        {{ counter }}
+      </h6>
 
-		<div 
-			class="comments__body"
-			ref="wrapper"
-			:style="{'height': bodyHeight,
-							 'transition': bodyTransition}">	
-		
-			<transition name="fade">
-				<div 
-					class="comments__overlay"
-					v-if="loading">
-				</div>
+      <shrink-button 
+        class="addition__tab-shrink-button"
+        :disabled="empty"
+        :shrinked="shrinked"
+        @click.native="toggle">
+      </shrink-button>
+    </div>
 
-				<div 	
-					class="comments__body-content"
-					ref='content'
-					v-else>
-				
-					<small class="comments__count text-sixth">{{ commentsCount }} comments</small>
-					<div
-						class="comment"
-						v-for="({user, message, createdAt, id}) in comments"
-						:key="id">
+    <shrinkable 
+      v-if="commentsShown"
+      class="addition__tab-body comments__body"
+      ref="shrinkable"
+      :to="firstCommentHeight"
+      :max-height="maxHeight"
+      :shrinked-by-default="mobile">
 
-						<div class="comment__image"></div>
-						<div class="comment__body">
-								<p class="comment__text text-sixth">
-									<span class="comment__name">{{ user.name }}</span>
-								<!-- 	<span class="comment__mention"></span> -->
-									{{ message }}
-								</p>
-								<time class="comment__date text-sixth">{{ createdAt }}</time>
-						</div>
-					</div>
-				</div>
-			</transition>
-		</div>
+      <transition name="fade">
+        <div 
+          v-if="empty"
+          class="comments__body-overlay"
+          :style="{'background-image': overlayUrl}">
+        </div>
+      </transition>
 
-		<request-form 
-			class="comments__footer"
-			v-if="showInput"
-			:submit-callback="submit"
-			@submit.prevent="submit">
+      <comment 
+        v-for="({message, createdAt, user}, id) of comments"
+        :key="id"
+        
+        :created-at="createdAt"
+        :message="message"
+        :user='user'/>
 
-			<a class="comments__account-link" href="#">
-				<span class="material-icons-round">account_circle</span>
-			</a>
-			
-			<textarea 
-				class="comments__textarea"
-				placeholder="your comment"
-				maxlength="500"
-				minlength="1"
-				name="message"
-				v-model="message"
-				:disabled="sending"
-				required>
-			</textarea>
-		
-			<button class="comments__send-button" type="submit">
-				<span class="material-icons-round">send</span>
-			</button>
-		</request-form>
-	</div>
+    </shrinkable>
+
+    <comment-input
+      v-if="inputShown"
+      @sending="sendComment"/>
+  </div>
 </template>
 
 <script>
-
-import HandleEvents from '@mixins/HandleEvents'
-import RequestForm from '@components/RequestForm'
-import Shrinkable from '@mixins/Shrinkable'
-import Comments from '@models/Comments'
+import ShrinkableTab from '@mixins/ShrinkableTab'
+import CommentInput from '@components/comments/CommentInput'
+import Comment from '@components/comments/Comment'
 import Auth from '@services/Auth'
-import bus from '@services/eventbus'
-
-const COMMENT_MARGIN_HEIGHT = 30;
 
 export default {
-	components: {
-		RequestForm
-	},
-	
-	mixins: [ 
-		HandleEvents,
-		Shrinkable
-	],
+  components: {
+    CommentInput,
+    Comment
+  },
 
-	props: {
-		model: {
-			type: Object
-		}
-	},
-	
-	data: function () {
+  mixins: [ ShrinkableTab ],
+
+  inject: [ '$target', 'model' ],
+
+  props: {
+    mobile: { type: Boolean, default: false }
+  },
+
+  data() {
     return {
-			comments: null,
-
-			shrinkDuration: 800,
-
-			showInput: false,
-
-			submitting: false,
-
-			message: ''
+      img: 'img/svg/overlay-comments.svg',
+      comments: [],
+      inputShown: false,
     }
-	},
+  },
 
-	computed: {
-		firstCommentHeight() {
-			const MARGIN_OFFSET = 30;
+  computed: {
+    target() {
+      return this.$target();
+    },
 
-			if (this.comments.length === 0)
-				return 0;
+    overlayUrl(){
+      return 'url(' + this.img + ')';
+    },
 
-			let content =  this.$refs.content;
-			let comment = content.children[1];
+    empty() {
+      return !!!this.comments.length;
+    },
 
-			return comment.offsetHeight + MARGIN_OFFSET;
-		},
+    commentsShown() {
+      return !!!this.mobile || !!!this.empty;
+    },
 
-		sending() {
-			return this.$refs.form && this.$refs.form.loading;
-		},
+    counter() {
+      return this.comments.length + ' comments';
+    },
 
-		shrinkTo() {
-      return this.firstCommentHeight + 'px';
-		},
-		
-		loading() {
-			return this.comments === null
-		},
+    maxHeight() {
+      return this.mobile ? 230 : null; 
+    }
+  },
 
-		commentsCount() {
-			return this.comments.length;
-		}
-	},
+  mounted() {
+    this.loadComments();
 
-  beforeMount() {
-		Auth.check().then(authenticated => 
-				this.showInput = authenticated
-		);
-	},
+    // If user authenticated -> showing input
+    Auth.check().then(authenticated => 
+			this.inputShown = authenticated);
+    
+    // Shrinking comments 
+    if (!!!this.mobile)
+      return;
+      
+    let shrinkable = this.$refs.shrinkable;
+    if (!!!shrinkable)
+      return 0;
 
-	mounted() {
-		this.listen({
-			'post-selecting': async event => {
-				this.$options.selectedPostId = event.post.id;
+    shrinkable.height = this.firstCommentHeight();
+  },
 
-				this.comments = await this.model.comments.get(event.post.id);
-			}
-		})
-	},	
-	
-	methods: {
-		trimTextarea() {
-			this.message = this.message.trim();
-		},
-		
-		async submit(data) {
-			this.trimTextarea();
+  methods: {
+    firstCommentHeight() {
+      if (this.empty)
+        return 0;
 
-			let postId = this.$options.selectedPostId; 
-			let newComment = await this.model.comments.create(postId, data);
+      let shrinkable = this.$refs.shrinkable;
+      if (!!!shrinkable)
+        return 0;
 
-			this.comments.push(newComment);
+      let wrapper = shrinkable.$refs.content;
+      if (!!!wrapper)
+        return  0;
 
-			this.message = '';
-		}
-	}   
+      let firstComment = wrapper.children[0];
+      if (!!!firstComment)
+        return 0;
+
+      return firstComment.offsetHeight + 'px';
+    },
+
+    async loadComments() {
+      if (!!!this.target || !!!this.model)
+        return;
+
+      let postId = this.target.id;
+
+      this.comments = 
+        await this.model.comments.get(postId);
+    },
+
+    async sendComment(event) {
+      try {
+        // Preparing data
+        let data = new FormData();
+        let message = event.entry;
+        let postId = this.target.id;
+        data.append('message', message);
+ 
+        // Sending new comment
+        let comment = 
+          await this.model.comments.create(postId, data);
+
+        // Appending response
+        this.comments.push(comment);
+      }
+      catch(error) {
+        bus.dispatch('alert-error');
+      }
+      finally {
+        event.sended();
+      }
+    }
+  }
+  
 }
 </script>
 
-<style scoped>
+<style lang="sass">
 
-.comments__body {
-    overflow: hidden;
-}
+/*  or :not(.shrinkable--closed).comments__body */
+.shrinkable--opened.comments__body,
+.shrinkable--opening.comments__body,
+.shrinkable--closing.comments__body
+  overflow-y: scroll
 
-.comments__mobile-button {
-   transform-origin: 15px 15px;
-}
-
-.comments__mobile-button {
-	transform: rotate(0);
-}
-
-.comments__mobile-button--upturned {
-	transform: rotate(-180deg);
-}
+.comments__body .shrinkable__content
+  display: flex
+  flex-direction: column
+  gap: 20px
 
 </style>

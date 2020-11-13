@@ -27,8 +27,8 @@
 
 <script>
 import HandleEvents from '@mixins/HandleEvents';
-import PostSelectedOverlay from '@components/posts_new/PostSelectedOverlay'
-import PostDetails from '@components/posts_new/PostDetails'
+import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
+import PostDetails from '@components/posts/PostDetails'
 import bus from '@services/eventbus'
 
 export default {

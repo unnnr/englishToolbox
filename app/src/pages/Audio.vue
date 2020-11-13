@@ -26,7 +26,7 @@
 
 <script>
 
-import PostSelected from '@components/posts_new/PostSelected'
+import PostSelected from '@components/posts/PostSelected'
 import FilterBar from '@components/layout/FilterBar'
 import Pool from '@components/cards_new/Pool'
 import HandlePost from'@mixins/HandlePost'

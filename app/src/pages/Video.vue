@@ -27,15 +27,14 @@
 </template>
 
 <script>
-
+import HandlePost from'@mixins/HandlePost'
+import Videos from '@models/Videos'
 import VideoCreator from '@pages/video/VideoCreator'
 import VideoEditor from '@pages/video/VideoEditor'
 import VideoPlayer from '@pages/video/VideoPlayer'
-import PostSelected from '@components/posts_new/PostSelected'
+import PostSelected from '@components/posts/PostSelected'
 import FilterBar from '@components/layout/FilterBar'
 import Pool from '@components/cards_new/Pool'
-import HandlePost from'@mixins/HandlePost'
-import Videos from '@models/Videos'
 
 export default {
   components: {
