@@ -6,12 +6,13 @@
 			:options="swiperOptions">
   
       <swiper-slide 
-        v-for="{id, comment} in comments"
+        v-for="{id, user, message, postedAt} in comments"
         :key="id">
         
         <banned-comment
-          :message="comment.message"
-          :user="comment"
+          :created-at="postedAt"
+          :message="message"
+          :user="user"
           @unban="unban(id)"/>
 
       </swiper-slide>

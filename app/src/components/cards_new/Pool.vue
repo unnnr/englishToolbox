@@ -63,18 +63,6 @@ export default {
 		}
   },
 
-/*   watch: {
-    posts: {
-      handler() {
-        if (!!!this.$options.selectedPost)
-          this.selectFirst();
-      },
-
-      immediate: true
-    }
-  },
- */
-
   mounted() {
     this.loadPosts();
 

@@ -72,9 +72,9 @@ export default {
     return {
       img: 'img/svg/overlay-comments.svg',
       comments: [],
+      banning: false,
       canPost: false,
       canBan: true,
-      banning: false,
     }
   },
 
@@ -154,6 +154,20 @@ export default {
       };
     },
 
+    remove(userId) {
+      for (let i = 0; i < this.comments.length; i++) {
+        let component = this.comments[i];
+
+        if (userId !== component.user.id)
+          continue;
+
+        this.comments.splice(i, 1);
+        // Array size changed, so 
+        // we need to move iterator 
+        i--;
+      }
+    },
+
     async ban(userId, commentId) {
       if (this.banning)
         return;
@@ -165,6 +179,8 @@ export default {
         data.append('comment', commentId);
         
         await Bans.create(data);
+
+        this.remove(userId);
       }
       catch(error) {
         console.log(error);

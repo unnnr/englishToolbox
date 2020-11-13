@@ -58,7 +58,7 @@ export default {
 
       reviews: [{}, {}, {}, {}, {}],
 
-      buttonShown: false
+      buttonShown: true
     }
   },
 

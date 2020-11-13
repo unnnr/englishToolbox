@@ -62,8 +62,11 @@ export default {
       this.disabled = true
 
       this.$emit('sending', {
-        sended: () => this.disabled = false,
         entry: this.entry,
+        sended: () => { 
+          this.disabled = false;
+          this.entry = '';
+        },
       });
     }
   }
