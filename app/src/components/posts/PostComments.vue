@@ -30,17 +30,18 @@
       </transition>
 
       <comment 
-        v-for="({message, createdAt, user}, id) of comments"
-        :key="id"
+        v-for="comment of comments"
+        :key="comment.id"
         
-        :created-at="createdAt"
-        :message="message"
-        :user='user'/>
+        v-context:items="createContext(comment)"
+        :created-at="comment.createdAt"
+        :message="comment.message"
+        :user="comment.user"/>
 
     </shrinkable>
 
     <comment-input
-      v-if="inputShown"
+      v-if="canPost"
       @sending="sendComment"/>
   </div>
 </template>
@@ -49,7 +50,9 @@
 import ShrinkableTab from '@mixins/ShrinkableTab'
 import CommentInput from '@components/comments/CommentInput'
 import Comment from '@components/comments/Comment'
+import Bans from '@models/Bans'
 import Auth from '@services/Auth'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -69,7 +72,9 @@ export default {
     return {
       img: 'img/svg/overlay-comments.svg',
       comments: [],
-      inputShown: false,
+      canPost: false,
+      canBan: true,
+      banning: false,
     }
   },
 
@@ -104,7 +109,7 @@ export default {
 
     // If user authenticated -> showing input
     Auth.check().then(authenticated => 
-			this.inputShown = authenticated);
+			this.canPost = authenticated);
     
     // Shrinking comments 
     if (!!!this.mobile)
@@ -137,6 +142,39 @@ export default {
       return firstComment.offsetHeight + 'px';
     },
 
+    createContext(comment) {
+      if (!!!this.canBan)
+        return null;
+
+      let commentId = comment.id;
+      let userId = comment.user.id;
+
+      return {
+        ban: this.ban.bind(this, userId, commentId)   
+      };
+    },
+
+    async ban(userId, commentId) {
+      if (this.banning)
+        return;
+      this.banning = true;
+
+      try {
+        let data = new FormData();
+        data.append('user', userId);
+        data.append('comment', commentId);
+        
+        await Bans.create(data);
+      }
+      catch(error) {
+        console.log(error);
+        bus.dispatch('alert-error');
+      }
+      finally {
+        this.banning = true;
+      }
+    },
+
     async loadComments() {
       if (!!!this.target || !!!this.model)
         return;
@@ -162,7 +200,7 @@ export default {
         // Appending response
         this.comments.push(comment);
       }
-      catch(error) {
+      catch {
         bus.dispatch('alert-error');
       }
       finally {

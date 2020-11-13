@@ -42,7 +42,7 @@ const Context = new function ()
 
     this.bind = (el, binding, vnode) =>
     {
-        if (binding.arg != 'items')
+        if (binding.arg != 'items' || !!!binding.value)
             return;
 
         let listener = {

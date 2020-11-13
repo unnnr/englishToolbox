@@ -20,7 +20,7 @@ class BanService
         return BanResource::collection($all);
     }
 
-    public function ban(BanUser $request) : void
+    public function ban(BanUser $request)
     {
         // Retrieving user
         $userId = $request->input('user');
@@ -50,7 +50,7 @@ class BanService
             'comment_id' => $commentId
         ]);
 
-        return;
+        return new BanResource($ban);
     }
 
     public function unban(Ban $ban) 
