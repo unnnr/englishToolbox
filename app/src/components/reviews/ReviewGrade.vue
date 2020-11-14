@@ -115,16 +115,12 @@ export default {
 </script>
 
 <style scoped>
-.review__star--selected {
-  opacity: 1;
-}
 
-.review__star--selected {
-  opacity: 0.25;
+.review__star::before {
   transition: opacity .5s;
 }
 
-.review__star--selected {
+.review__star--selected::before {
   opacity: 1;
   animation: scale .5s;
 }

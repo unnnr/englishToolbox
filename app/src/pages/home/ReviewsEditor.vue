@@ -4,10 +4,11 @@
       v-if="shown" 
       class="modal container">
 
-      <request-form 
+      <v-form 
         class="modal__content leave-review"
         ref="form"
-        :submit-callback="submit">
+        :submit-callback="submit"
+        secondary>
 
         <div class="modal__header">
           <h5 class="heading-fifth">Leave your review</h5>
@@ -19,33 +20,14 @@
         </div>
 
         <div class="modal__body leave-review__body">
+          <title-input
+            label="Title of review"/>
 
-          <div class="input-group-secondary">  
-            <div class="input-group__inner">
-              <span class="input-group__title">Title of review<small class="input-group__counter">0/64</small></span>
-              <input class="input-group__input" type="text">
-            </div>
-          </div>
-
-          <div class="textarea-group-secondary">  
-            <span class="textarea-group__title">Text of review<small class="textarea-group__counter">0/180</small></span>
-            <textarea class="textarea-group__textarea"></textarea>
-          </div>
+          <description-input
+            label="Text of review"/>
         
           <h6 class="heading-sixth">Grade of review</h6>
-          <!-- 
-          <div class="review__grade">
-            <div class="review__stars">
-              <button class="review__star review__star--selected"></button>
-              <button class="review__star review__star--selected"></button>
-              <button class="review__star review__star--selected"></button>
-              <button class="review__star review__star--selected"></button>
-              <button class="review__star review__star--selected"></button>
-            </div>
-            <span class="review__rating">5</span>
-          </div>
- -->
-        <review-grade/>
+          <review-grade/>
           
         </div>
         <div class="modal__footer">
@@ -55,24 +37,28 @@
             Confirm
           </submit-button> 
         </div>
-      </request-form>
+      </v-form>
     </section>
   </transition>
 </template>
 
 <script>
-
+import DescriptionInput from '@components/inputs/DescriptionInput'
 import HandleEvents from '@mixins/HandleEvents'
 import SubmitButton from '@components/SubmitButton'
 import ReviewGrade from '@components/reviews/ReviewGrade'
 import RequestForm from '@components/RequestForm'
+import TitleInput from '@components/inputs/TitleInput'
 import Reviews from '@models/Reviews'
+import VForm from '@components/validation/VForm'
 
 export default {
   components: {
+    DescriptionInput,
     SubmitButton,
-    RequestForm,
     ReviewGrade,
+    TitleInput,
+    VForm,
   },
 
   mixins: [ HandleEvents ],

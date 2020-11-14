@@ -1,15 +1,14 @@
 <template>
   <v-input
-    autocomplete="name"
-    placeholder="Brikys"
-    label="Your name"
-    icon="name"
-    name="name"
+    name="title"
     
     :optional="optional"
     :disabled="disabled"
+
     :value="value"
-    :max="40"
+    :label="label"
+    
+    :max="64"
     :min="3"
     v-validate/>
 </template>
@@ -23,17 +22,13 @@ export default {
   },
   
   props: {
+    label: {type: String, default: 'Title' },
+
+    value: { type: String },
+
     optional: { type: Boolean },
 
     disabled: { type: Boolean },
-
-    value: { type: String }
-  },
-
-  methods: {
-    validating(data) {
-      
-    }
   }
 }
 </script>
