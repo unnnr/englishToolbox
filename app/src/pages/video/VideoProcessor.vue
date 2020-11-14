@@ -1,5 +1,5 @@
 <template>
-   <v-form 
+  <v-form 
     class="addition__tab editor"
     ref="form"
     :request="request"

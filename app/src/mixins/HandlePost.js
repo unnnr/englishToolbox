@@ -10,7 +10,7 @@ const HandlePost = {
     },
 
     creatorHasChanges() {
-      let vm = this.$refs.editor;
+      let vm = this.$refs.creator;
 
       if (!!!vm ||  typeof vm.hasChanges !== 'function')
         return false;

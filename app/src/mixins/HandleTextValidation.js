@@ -125,9 +125,9 @@ const HandleTextValidation = {
     },
     
     hasChanges() {
-      let defaultValue =  this.$options.defaultValue === 'string' ? 
+      let defaultValue =  typeof this.$options.defaultValue === 'string' ? 
         this.$options.defaultValue : '' 
-        
+
       return this.entry !== defaultValue;
     },
 

@@ -144,18 +144,31 @@ export default {
     tags: {
       handler(tags) {
         this.selectedCount = 0;
-        
-        for (let tag of tags) {
-          if (!!!tag.selected)
-            this.$set(tag, 'selected', false);
+        // Initializing defalut value to 
+        // detect changes future
+        this.$options.defaultSelected = [],
+        this.$options.defaultMain = null;
 
-          if (tag.main)
+        for (let tag of tags) {
+
+          if (tag.main) {
+            this.$options.defaultMain = tag.id;
+            this.selectedCount++;
             this.main = tag;
+            
+            // Tag main is always selected 
+            // so we need skip next condition 
+            continue;
+          }
           else
             this.$set(tag, 'main', false);
 
-          if (tag.selected || tag.main)
+          if (tag.selected) {
+            this.$options.defaultSelected.push(tag.id);
             this.selectedCount++;
+          }
+          else
+            this.$set(tag, 'selected', false);          
         }   
       },
 
@@ -235,6 +248,40 @@ export default {
         this.unselect(tag);
       else
         this.select(tag);
+    },
+
+    hasChanges() {
+      // Comparing main tags
+      let main = this.main;
+      let defaultMain = this.$options.defaultMain;
+
+      if ((main === null && defaultMain !== null) ||
+          (main !== null && defaultMain === null) || 
+          main.id !== defaultMain)
+        return true;
+
+      // Comparing selected tags
+      let selected = this.selected;
+      let defaultSelected = this.$options.defaultSelected;
+
+      if (selected.length !== defaultSelected.length)
+        return true;
+      
+      let founded = false;
+      for (let i = 0; i < selected.length; i++) {
+        for (let j = 0; j < defaultSelected.length; j++) {
+          if (selected[i] !== defaultSelected[i])
+            continue;
+          
+          founded = true;
+          break;
+        }
+        
+        if (!!!founded)
+          return true;
+      }
+
+      return false;
     },
 
     submit(data) {
