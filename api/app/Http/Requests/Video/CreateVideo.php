@@ -26,11 +26,11 @@ class CreateVideo extends FormRequest
      */
     public function rules()
     {
-
         return [
              //  'unique:videos,videoID'
-            'videoUrl' => ['required', 'string', 'max:300',  new ValidYoutubeVideo],
-            'description' => ['max:180'],
+            'data' => ['required'],
+            'videoUrl' => ['required', 'string', 'max:1',  new ValidYoutubeVideo],
+            'description' => ['max:180', 'min:20'],
             'mainTag' => ['numeric'],
             'tags' => ['array', 'max:4'],  
             'tags.*' => ['numeric', 'distinct']

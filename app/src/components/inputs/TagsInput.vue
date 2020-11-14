@@ -67,9 +67,9 @@ export default {
   computed: {
     sortedTags: {
       get() {
-        let created = [];
         let selected = [];
         let remained = [];
+        let created = [];
         let main = null;
         
         // Splitting tags into sactions
@@ -255,9 +255,11 @@ export default {
       let main = this.main;
       let defaultMain = this.$options.defaultMain;
 
+      console.log(main, defaultMain);
+
       if ((main === null && defaultMain !== null) ||
           (main !== null && defaultMain === null) || 
-          main.id !== defaultMain)
+          (main !== null && main.id !== defaultMain))
         return true;
 
       // Comparing selected tags

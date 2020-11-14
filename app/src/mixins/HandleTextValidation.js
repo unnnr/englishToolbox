@@ -141,8 +141,7 @@ const HandleTextValidation = {
 
     onKeyDown(event) {
       // Preventing form submittin on enter 
-      if (event.key === 'Enter')
-      { 
+      if (event.key === 'Enter') { 
         this.$refs.input.blur();
         event.preventDefault();
 
@@ -231,9 +230,15 @@ const HandleTextValidation = {
       data.append(this.name, this.entry);
     },
 
-    handleError() {
+    handleError(errors) {
       this.$options.defaultValue = 
         this.$options.previousValue;
+
+      if (!!!this.name || !!!errors || !!!errors[this.name])
+        return;
+
+      this.validated = false;
+      this.errors.push(errors[this.name]);
     }
 	}
 }

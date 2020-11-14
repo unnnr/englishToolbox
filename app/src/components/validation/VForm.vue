@@ -106,15 +106,34 @@ export default {
       this.loading = false;
     },
 
-    handleError(error) {
-      console.error(error);
+    parseError(data) {
+      console.log(data);
+      if (!!!data || typeof data !== 'object')
+        return null;
 
-      bus.dispatch('alert-error');
+      let body = data.body;
+      if (!!!body || typeof body !== 'object')
+        return null;
 
-      for (let input of this.inputs)
-      {
+      let errors = body.errors;
+      if (!!!errors || typeof errors !== 'object')
+        return null;
+
+      let parsedErrors = {};
+      for (let [key, value] of Object.entries(errors)) {
+        parsedErrors[key] = value.join(', ');
+      }
+
+      return parsedErrors;
+    },
+
+    handleError(data) {
+      // bus.dispatch('alert-error');
+      let error = this.parseError(data);
+
+      for (let input of this.inputs) {
         if (typeof input.handleError === 'function')
-          input.handleError();
+          input.handleError(error);
       }
     },
 
