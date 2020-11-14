@@ -187,7 +187,7 @@ export default {
         bus.dispatch('alert-error');
       }
       finally {
-        this.banning = true;
+        this.banning = false;
       }
     },
 

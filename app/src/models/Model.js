@@ -15,9 +15,6 @@ class Model
     {
         const PREFIX = 'cast';
         
-        if (data === undefined || data === null)
-            return null;
-            
         for (const [name, value] of Object.entries(data))
         {
             let cast = this[PREFIX + this.__capitalizeFirst(name)];

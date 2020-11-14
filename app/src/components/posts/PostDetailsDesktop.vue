@@ -96,7 +96,17 @@ export default {
     editorShown() {
       return true;
     },
+  },
 
+  watch: {
+    editorSelected(value) {
+      if (value)
+        this.activeTab = 'editor';
+    },
+
+    target() {
+      this.showInfo();
+    }
   },
 
   methods: {
@@ -113,6 +123,10 @@ export default {
       });
     },
     
+    showInfo() {
+      this.activeTab = 'info';
+    },
+    
     selectInfo() {
       this.select('info');
     },
@@ -125,10 +139,6 @@ export default {
       bus.dispatch('post-editing' , { 
         post: this.target
       });
-    },
-
-    showInfo() {
-      this.activeTab = 'info';
     }
   }
 }

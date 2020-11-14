@@ -60,6 +60,10 @@ export default {
       height: 0
     }
   },
+
+  mounted() {
+    this.onInput();
+  },
   
   methods: {
     async onInput() {

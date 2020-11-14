@@ -124,12 +124,17 @@ export default {
     },
 
     trySwitch(event) {
-      if (event.from === 'editor' && this.requireWarning)
-        return this.showAlert(event.switch);
-      
-      this.editing = false; 
+      function callback() {
+        event.switch();
+        _this.editing = false;
+      }
 
-      event.switch();
+      let _this = this;
+
+      if (event.from === 'editor' && this.requireWarning)
+        return this.showAlert(callback);
+      
+      callback();
     },
     
     scrollToTop() {
