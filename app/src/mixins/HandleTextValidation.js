@@ -186,8 +186,7 @@ const HandleTextValidation = {
       let errors = [];
       
       // Empty field can have only 'required error'
-      if (!!!this.entry.length)
-      {
+      if (!!!this.entry.length) {
         if (!!!this.optional)
           errors.push(this.formatedName + ' cant be empty');
 
@@ -208,7 +207,10 @@ const HandleTextValidation = {
 		validate() {    
       this.errors = this.collectErrors();
 
-      this.validated = !!!this.incorrect;
+      if (this.optional && (!!!this.errors.length && !!!this.entry.length))
+        this.validated = false;
+      else
+        this.validated = !!!this.incorrect;
 
       return this.validated;
     },
