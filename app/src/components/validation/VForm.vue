@@ -39,8 +39,7 @@ export default {
 
   methods: {
     reset() {
-      for (let input of this.inputs)
-      {
+      for (let input of this.inputs) {
         if (typeof input.reset === 'function')
           input.reset()
       }
@@ -60,8 +59,7 @@ export default {
     validateInputs() {
       let allAreValid = true;
 
-      for (let input of this.inputs)
-      {
+      for (let input of this.inputs) {
         if (typeof input.validate === 'function' && !!!input.validate())
           allAreValid = false;
       }
@@ -78,8 +76,7 @@ export default {
     collectData() {
       let data = new FormData();
       
-      for (let input of this.inputs)
-      {
+      for (let input of this.inputs) {
         if (typeof input.submit === 'function')
           input.submit(data);
       }
@@ -128,7 +125,6 @@ export default {
     },
 
     handleError(data) {
-      // bus.dispatch('alert-error');
       let error = this.parseError(data);
 
       for (let input of this.inputs) {
@@ -175,6 +171,7 @@ export default {
 
         return;
       }
+
       bus.dispatch('alert-prompt', {
         confirm: confirmPrompt.bind(this)
       })

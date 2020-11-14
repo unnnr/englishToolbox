@@ -212,7 +212,7 @@ const HandleTextValidation = {
       else
         this.validated = !!!this.incorrect;
 
-      return this.validated;
+      return !!!this.incorrect;
     },
 
     submit(data) {

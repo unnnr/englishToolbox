@@ -6,8 +6,7 @@
 
       <v-form 
         class="modal__content leave-review"
-        ref="form"
-        :submit-callback="submit"
+        :request="submit"
         secondary>
 
         <div class="modal__header">
@@ -27,16 +26,14 @@
             label="Text of review"/>
         
           <h6 class="heading-sixth">Grade of review</h6>
-          <review-grade/>
+          <grade-input/>
           
         </div>
+
         <div class="modal__footer">
-          <submit-button 
-            class="leave-review__button button-secondary"
-            :loading="isLoading()">
-            Confirm
-          </submit-button> 
+          <confirm-button class="leave-review__button"/>
         </div>
+
       </v-form>
     </section>
   </transition>
@@ -44,20 +41,21 @@
 
 <script>
 import DescriptionInput from '@components/inputs/DescriptionInput'
+import ConfirmButton from '@components/buttons/ConfirmButton'
 import HandleEvents from '@mixins/HandleEvents'
-import SubmitButton from '@components/SubmitButton'
-import ReviewGrade from '@components/reviews/ReviewGrade'
 import RequestForm from '@components/RequestForm'
 import TitleInput from '@components/inputs/TitleInput'
 import Reviews from '@models/Reviews'
 import VForm from '@components/validation/VForm'
 
+import GradeInput from '@components/inputs/GradeInput'
+
 export default {
   components: {
     DescriptionInput,
-    SubmitButton,
-    ReviewGrade,
+    ConfirmButton,
     TitleInput,
+    GradeInput,
     VForm,
   },
 
@@ -90,6 +88,7 @@ export default {
     },
     
     async submit(data) {
+      return;
       await Reviews.create(data)
     }
   }

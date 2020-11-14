@@ -11,27 +11,49 @@
           'review__star--selected': star.selected
         }"
 
-        type="button" 
+        type="button"
+        :disabled="loading"
         @click="select(star)">
       </button>
     </div>
 
     <span class="review__rating">{{ rate }}</span>
+
+    <v-hidden 
+      ref="input"
+      :submit="submit"
+      v-validate/>
   </div>
 </template>
 
 <script>
+import VHidden from '@components/validation/VHidden'
 
 const STARS_COUNT = 5;
 const ANIMATION_DELAY = 125;
 
 export default {
+  components: {
+    VHidden
+  },
+
   data() {
     return {
       stars: [],
       rate: 4
     }
   },
+
+  computed: {
+    loading() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
+
+      return input.loading;
+    }
+  },
+
 
   beforeMount() {
     for (let i = 1; i <= STARS_COUNT; i++)
@@ -49,6 +71,10 @@ export default {
   },
 
   methods: {
+    submit(data) {
+      data.append('grade', this.rate);
+    },
+
     queue(callback) {
       async function fire() {
         this.pending = true;
@@ -113,6 +139,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 
