@@ -7,7 +7,7 @@
 
     <about-me/>
 
-    <reviews/>
+    <review-list/>
 
     <reviews-editor/>
 
@@ -15,11 +15,10 @@
 </template>
 
 <script>
-
 import BannerContainer from '@pages/home/BannerContainer'
 import UpdateContainer from '@pages/home/UpdateContainer'
 import ReviewsEditor from '@pages/home/ReviewsEditor'
-import Reviews from '@pages/home/Reviews'
+import ReviewList from '@pages/home/ReviewList'
 import AboutMe from '@pages/home/AboutMe'
 
 export default {
@@ -27,7 +26,7 @@ export default {
     BannerContainer,
     UpdateContainer,
     ReviewsEditor,
-    Reviews,
+    ReviewList,
     AboutMe
   }
 }

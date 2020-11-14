@@ -5,39 +5,52 @@
       class="modal container">
 
       <request-form 
-        class="leave-review"
+        class="modal__content leave-review"
         ref="form"
         :submit-callback="submit">
 
-        <div class="leave-review__header">
+        <div class="modal__header">
           <h5 class="heading-fifth">Leave your review</h5>
           <button 
-            class="leave-review__close-button"
+            class="modal__close-button"
             type="button"
             @click="hide">
           </button>
         </div>
 
-        <div class="leave-review__body">
-          <label class="leave-review__label text-fourth" for="">Title of review</label>
-          <input 
-            class="leave-review__input input-second"
-            placeholder="your title"
-            name="title"
-            type="text"/>
+        <div class="modal__body leave-review__body">
 
-          <label class="leave-review__label text-fourth" for="">Text of your review</label>
-          <textarea 
-            class="leave-review__textarea textarea-second" 
-            placeholder="your review"
-            name="text"/>
+          <div class="input-group-secondary">  
+            <div class="input-group__inner">
+              <span class="input-group__title">Title of review<small class="input-group__counter">0/64</small></span>
+              <input class="input-group__input" type="text">
+            </div>
+          </div>
+
+          <div class="textarea-group-secondary">  
+            <span class="textarea-group__title">Text of review<small class="textarea-group__counter">0/180</small></span>
+            <textarea class="textarea-group__textarea"></textarea>
+          </div>
         
-          <label class="leave-review__label text-fourth" for="">Grade</label>
-          <rate-stars name="grade"/>
+          <h6 class="heading-sixth">Grade of review</h6>
+          <!-- 
+          <div class="review__grade">
+            <div class="review__stars">
+              <button class="review__star review__star--selected"></button>
+              <button class="review__star review__star--selected"></button>
+              <button class="review__star review__star--selected"></button>
+              <button class="review__star review__star--selected"></button>
+              <button class="review__star review__star--selected"></button>
+            </div>
+            <span class="review__rating">5</span>
+          </div>
+ -->
+        <review-grade/>
+          
         </div>
-        <div class="leave-review__footer">
+        <div class="modal__footer">
           <submit-button 
-            class="leave-review__button button-second"
+            class="leave-review__button button-secondary"
             :loading="isLoading()">
             Confirm
           </submit-button> 
@@ -49,22 +62,22 @@
 
 <script>
 
-import Reviews from '@models/Reviews'
-import RateStars from '@components/RateStars'
-import RequestForm from '@components/RequestForm'
-import SubmitButton from '@components/SubmitButton'
 import HandleEvents from '@mixins/HandleEvents'
+import SubmitButton from '@components/SubmitButton'
+import ReviewGrade from '@components/reviews/ReviewGrade'
+import RequestForm from '@components/RequestForm'
+import Reviews from '@models/Reviews'
 
 export default {
   components: {
     SubmitButton,
     RequestForm,
-    RateStars
+    ReviewGrade,
   },
 
   mixins: [ HandleEvents ],
   
-  data: function () {
+  data() {
     return {
       grade: 0,
 
