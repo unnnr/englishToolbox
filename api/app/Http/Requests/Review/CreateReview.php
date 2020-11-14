@@ -24,8 +24,8 @@ class CreateReview extends FormRequest
     public function rules()
     {
         return [
-            'grade' => ['required', 'integer'],
-            'title' => ['required', 'string'],
+            'grade' => ['required', 'integer', 'between:1,5'],
+            'title' => ['required', 'string', 'between:1,100'],
             'text' => ['required', 'string'],
         ];
     }

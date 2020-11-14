@@ -9,8 +9,8 @@
       'textarea-group--focus': focused,
       'textarea-group--active': active,
 
-      'input-group--success': validated,
-      'text-group--error': incorrect
+      'textarea-group--success': validated,
+      'textarea-group--error': incorrect
     }"
     @click="onClick">  
 

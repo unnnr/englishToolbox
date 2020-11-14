@@ -1,10 +1,11 @@
 <template>
   <v-textarea 
-    name="description"
-    
     :value="defaultValue"
+    :name="name"
+
     :disabled="disabled"
     :optional="optional"
+    
     :label="label"
     :max="180"
 
@@ -12,7 +13,6 @@
 </template>
 
 <script>
-
 import VTextarea from '@components/validation/VTextarea'
 
 export default {
@@ -23,9 +23,17 @@ export default {
 
     label: { type: String, default: 'Post description' },
 
-    optional: { type: Boolean, default: true },
+    name: { type: String, default: 'description'},
+
+    required: { type: Boolean, default: false },
 
     disabled: { type: Boolean },
+  },
+
+  computed: {
+    optional() {
+      return !!!this.required;
+    }
   }
 }
-</script>
+</script>e

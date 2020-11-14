@@ -23,7 +23,9 @@
             label="Title of review"/>
 
           <description-input
-            label="Text of review"/>
+            label="Text of review"
+            name="text"
+            required/>
         
           <h6 class="heading-sixth">Grade of review</h6>
           <grade-input/>
@@ -45,10 +47,9 @@ import ConfirmButton from '@components/buttons/ConfirmButton'
 import HandleEvents from '@mixins/HandleEvents'
 import RequestForm from '@components/RequestForm'
 import TitleInput from '@components/inputs/TitleInput'
+import GradeInput from '@components/inputs/GradeInput'
 import Reviews from '@models/Reviews'
 import VForm from '@components/validation/VForm'
-
-import GradeInput from '@components/inputs/GradeInput'
 
 export default {
   components: {
@@ -63,8 +64,6 @@ export default {
   
   data() {
     return {
-      grade: 0,
-
       shown: false
     }
   },
@@ -88,30 +87,9 @@ export default {
     },
     
     async submit(data) {
-      return;
       await Reviews.create(data)
+      this.shown = false;
     }
   }
 }
 </script>
-
-<style scoped>
-
-fade-leave {
-  opacity: 1;
-  transition: opacity .5s;
-}
-
-fade-enter {
-  opacity: 0;  
-  transition: opacity .5s;
-}
-
-fade-leave-active {
-  opacity: 0;
-}
-
-fade-enter-active {
-  opacity: 1;
-}
-</style>
