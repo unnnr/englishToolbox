@@ -68,6 +68,13 @@ export default {
     }
   },
 
+  watch: {
+    shown(value) {
+      // disabling scroll
+      console.log('SCROLL MUST BE DISABLED');
+    }
+  },
+
   mounted() {
     this.listen({
       'reviews-editor-showing': () => {
@@ -81,13 +88,9 @@ export default {
       this.shown = false;
     },
 
-    isLoading() {
-			if (this.$refs.form)
-				return this.$refs.form.loading;
-    },
-    
     async submit(data) {
       await Reviews.create(data)
+     
       this.shown = false;
     }
   }

@@ -13,10 +13,10 @@
           :title="title"
           :user="user"
           :grade="grade"
-          :disabled="sending"
+          :disabled="submitting"
           :description="description"
-          @accept="accept(id)"
-          @decline="decline(id)"/>
+          @accept="onAccept(id)"
+          @decline="onDecline(id)"/>
 
       </swiper-slide>
     </swiper>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       reviews: [],
-      sending: false,
+      submitting: false,
       swiperOptions:{
 				slidesPerView: 'auto',
 				grabCursor: true,
@@ -54,28 +54,60 @@ export default {
   },
 
   methods: {
-    async send(callback) {
-      if (this.sending)
+    async send(request, onFail) {
+      if (this.submitting)
         return;
 
-      this.sending = true;
+      this.submitting = true;
+
       try{
-        await callback();
+        await request();
       }
       catch {
-        bus.dispatch('alert-error');
+        let message = null;
+
+        if (typeof onFail === 'function')
+          message = onFail();
+
+        bus.dispatch('alert-error', {
+          message
+        });
       }
       finally {
-        this.sending = false;
+        this.submitting = false;
       }
     },
 
-    accept(id) {
-    
+    remove(id) {
+      for (let index in this.reviews) {
+        if (id !== this.reviews[index].id)
+          continue;
+
+        this.reviews.splice(index, 1)
+        return;
+      }
     },
 
-    decline(id) {
+    onAccept() {
+      this.send(
+        this.accept.bind(this, ...arguments));
+    },
 
+    onDecline() {
+      this.send(
+        this.decline.bind(this, ...arguments));
+    },
+
+    async accept(id) {
+      await Reviews.verify(id);
+
+      this.remove(id);
+    },
+
+    async decline(id) {
+      await Reviews.delete(id);
+
+      this.remove(id);
     },
 
     async load() {
