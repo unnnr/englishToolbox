@@ -46,7 +46,6 @@ class Model
             // Comput comparing function
             let compare = this[PREFIX + this.__capitalizeFirst(name)];
             
-            console.log(compare);
             // Check if it exist`s
             if (typeof compare === 'function')
             {

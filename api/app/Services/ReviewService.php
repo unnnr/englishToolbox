@@ -48,6 +48,8 @@ class ReviewService
         $review->verified = true;
 
         $review->save();
+
+        return new ReviewResource($review);
     }
 
     public function delete(Review $model)

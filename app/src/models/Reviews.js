@@ -5,36 +5,58 @@ class Reviews extends Model
 {
     path = 'reviews';
 
+    verifiedLoaded = false;
+
     async pending() 
     {
+        // Retrieving reviews list 
         let response = await Http.get({
             uri: this.path + '/pending'
         });
-
-        let instaces = this.__parseCollection(response.data); 
         
-        return this.__cache.concut(instaces);
+        let pending = this.__parseCollection(response.data); 
+        
+        return this.__cache.__createCopy(pending);
     }
 
     async verified()
     {
-        let response = await Http.get({
-            uri: this.path + '/verified'
-        });
+        // Retrieving reviews list
+        let reviews = [];
 
-        let instaces = this.__parseCollection(response.data); 
-        
-        return this.__cache.concut(instaces);
+        if (this.verifiedLoaded)
+            reviews = this.__cache.get();
+        else
+        {
+            let response = await Http.get({
+                uri: this.path + '/verified'
+            });
+            
+            let instaces = this.__parseCollection(response.data); 
+
+            reviews = this.__cache.concut(instaces);
+            this.verifiedLoaded = true;
+        }
+
+        // Searcing for verified
+        let verified = [];
+        for (let review of reviews)
+        {
+            if (review.verified)
+                verified.push(review);
+        }
+
+        return verified;
     }
 
     verify(id) 
     {
         let data = new FormData();
-
         data.append('verified', true);
 
-        return this.edit(id, data)
+        return this.edit(id, data);
     }
+
 }
 
 export default new Reviews();
