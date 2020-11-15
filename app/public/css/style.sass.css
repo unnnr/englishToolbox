@@ -1388,6 +1388,30 @@ button:active {
   background: #fcfcfc;
 }
 
+.textarea-group--error {
+  color: #ff6688;
+}
+
+.textarea-group--error:before, .textarea-group--error:after {
+  color: inherit;
+}
+
+.textarea-group--warning {
+  color: #f9a922;
+}
+
+.textarea-group--warning:before, .textarea-group--warning:after {
+  color: inherit;
+}
+
+.textarea-group--success {
+  color: #1dd1bb;
+}
+
+.textarea-group--success:before, .textarea-group--success:after {
+  color: inherit;
+}
+
 .alert {
   grid-row-gap: 15px;
 }
@@ -1594,6 +1618,7 @@ button:active {
           align-items: center;
   color: inherit;
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .tag--new .tag__label span {

@@ -120,3 +120,28 @@
 .textarea-group-secondary.textarea-group--focus
   border-color: darken($color-almost-white, 5)
   background: darken($color-white, 1)
+
+// ===============
+// textarea states
+// ===============
+
+.textarea-group--error
+  color: $color-reddish
+  
+  &:before,
+  &:after
+    color: inherit
+
+.textarea-group--warning
+  color: $color-yellowish
+  
+  &:before,
+  &:after
+    color: inherit
+
+.textarea-group--success
+  color: $color-greenish
+  
+  &:before,
+  &:after
+    color: inherit
