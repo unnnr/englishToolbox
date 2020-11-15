@@ -13,7 +13,7 @@
           :created-at="postedAt"
           :message="message"
           :user="user"
-          @unban="unban(id)"/>
+          @unban="onUnbanning(id)"/>
 
       </swiper-slide>
     </swiper>
@@ -23,8 +23,9 @@
 <script>
 import { Swiper as SwiperClass } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import PendingReview from '@components/reviews/PendingReview'
 import BannedComment from '@components/comments/BannedComment'
+import PendingReview from '@components/reviews/PendingReview'
+import HandleRequests from '@mixins/HandleRequests'
 import Bans from '@models/Bans';
 import bus from '@services/eventbus';
 
@@ -36,6 +37,8 @@ export default {
     SwiperSlide,
     Swiper,
   },
+
+  mixins: [ HandleRequests ],
   
   data() {
     return {
@@ -45,7 +48,6 @@ export default {
       },
       
       comments: [],
-      sending: false
     }
   },
 
@@ -65,21 +67,14 @@ export default {
       }
     },
 
-    async unban(id) {
-      if (this.sending)
-        return;
-      this.sending = true;
+    onUnbanning() {
+      this.send(
+        this.unban.bind(this, ...arguments));
+    },
 
-      try {
-        await Bans.delete(id);
-        this.remove(id);
-      }
-      catch {
-        bus.dispatch('alert-error');
-      }
-      finally {
-        this.sending = false;
-      }
+    async unban(id) {
+      await Bans.delete(id);
+      this.remove(id);
     },
 
     async load() {
