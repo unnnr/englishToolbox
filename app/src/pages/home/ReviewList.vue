@@ -14,7 +14,7 @@
           :user="user"
           :text="text"
           :grade="grade"
-          :disabled="sending"/>
+          :disabled="loading"/>
 
       </swiper-slide>
     </swiper>
@@ -33,8 +33,9 @@
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import Review from '@components/reviews/Review'
+import HandleRequests from '@mixins/HandleRequests' 
 import Reviews from '@models/Reviews'
+import Review from '@components/reviews/Review'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
@@ -48,6 +49,8 @@ export default {
     Review,
     Swiper,
   },
+
+  mixins: [ HandleRequests ],
 
   data() {
     return {

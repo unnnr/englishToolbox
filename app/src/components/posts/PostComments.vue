@@ -42,11 +42,13 @@
 
     <comment-input
       v-if="canPost"
-      @sending="sendComment"/>
+      :disabled="loading"
+      @sending="onCommentSending"/>
   </div>
 </template>
 
 <script>
+import HandleRequests from '@mixins/HandleRequests'
 import ShrinkableTab from '@mixins/ShrinkableTab'
 import CommentInput from '@components/comments/CommentInput'
 import Comment from '@components/comments/Comment'
@@ -60,7 +62,10 @@ export default {
     Comment
   },
 
-  mixins: [ ShrinkableTab ],
+  mixins: [ 
+    HandleRequests,
+    ShrinkableTab,
+  ],
 
   inject: [ '$target', 'model' ],
 
@@ -142,17 +147,7 @@ export default {
       return firstComment.offsetHeight + 'px';
     },
 
-    createContext(comment) {
-      if (!!!this.canBan)
-        return null;
 
-      let commentId = comment.id;
-      let userId = comment.user.id;
-
-      return {
-        ban: this.ban.bind(this, userId, commentId)   
-      };
-    },
 
     remove(userId) {
       for (let i = 0; i < this.comments.length; i++) {
@@ -168,27 +163,52 @@ export default {
       }
     },
 
+    createContext(comment) {
+      if (!!!this.canBan)
+        return null;
+
+      let commentId = comment.id;
+      let userId = comment.user.id;
+
+      return {
+        'send ban': 
+          this.onBanSending.bind(this, userId, commentId)   
+      };
+    },
+
+    onBanSending() {
+      this.send(
+        this.ban.bind(this, ...arguments));
+    },
+
+
+    onCommentSending() {
+      this.send(
+        this.postComment.bind(this, ...arguments));
+    },
+
     async ban(userId, commentId) {
-      if (this.banning)
-        return;
-      this.banning = true;
-
-      try {
-        let data = new FormData();
-        data.append('user', userId);
-        data.append('comment', commentId);
+      let data = new FormData();
+      data.append('user', userId);
+      data.append('comment', commentId);
         
-        await Bans.create(data);
+      await Bans.create(data);
 
-        this.remove(userId);
-      }
-      catch(error) {
-        console.log(error);
-        bus.dispatch('alert-error');
-      }
-      finally {
-        this.banning = false;
-      }
+      this.remove(userId);
+    },
+
+    async postComment(message) {
+      // Preparing data
+      let data = new FormData();
+      let postId = this.target.id;
+      data.append('message', message);
+ 
+      // Sending new comment
+      let comment = 
+        await this.model.comments.create(postId, data);
+
+      // Appending response
+      this.comments.push(comment);
     },
 
     async loadComments() {
@@ -199,29 +219,6 @@ export default {
 
       this.comments = 
         await this.model.comments.get(postId);
-    },
-
-    async sendComment(event) {
-      try {
-        // Preparing data
-        let data = new FormData();
-        let message = event.entry;
-        let postId = this.target.id;
-        data.append('message', message);
- 
-        // Sending new comment
-        let comment = 
-          await this.model.comments.create(postId, data);
-
-        // Appending response
-        this.comments.push(comment);
-      }
-      catch {
-        bus.dispatch('alert-error');
-      }
-      finally {
-        event.sended();
-      }
     }
   }
   

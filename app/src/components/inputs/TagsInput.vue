@@ -255,8 +255,6 @@ export default {
       let main = this.main;
       let defaultMain = this.$options.defaultMain;
 
-      console.log(main, defaultMain);
-
       if ((main === null && defaultMain !== null) ||
           (main !== null && defaultMain === null) || 
           (main !== null && main.id !== defaultMain))

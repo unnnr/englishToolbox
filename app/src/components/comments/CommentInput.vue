@@ -9,6 +9,7 @@
       ref="textarea"
 
       placeholder="Your comment"
+      minlength="1"
       maxlength="256"
       :disabled="disabled"
 
@@ -18,7 +19,7 @@
 
     <button 
       class="comments__send-button"
-      :disabled="disabled"
+      :disabled="disabled || empty"
       @click="send()">
     </button>
   </div>
@@ -28,11 +29,20 @@
 import { throttle } from 'throttle-debounce';
 
 export default {
+  props: {
+    disabled: { type: Boolean, default: false }
+  },
+
   data() {
     return {
       entry: '',
-      minHeight: 40,
-      disabled: false,
+      minHeight: 40
+    }
+  },
+
+  computed: {
+    empty() {
+      return this.entry.length === 0;
     }
   },
 
@@ -59,15 +69,11 @@ export default {
     },
     
     send() {
-      this.disabled = true
+      if (this.empty)
+        return;
 
-      this.$emit('sending', {
-        entry: this.entry,
-        sended: () => { 
-          this.disabled = false;
-          this.entry = '';
-        },
-      });
+      this.$emit('sending', this.entry);
+      this.entry = '';
     }
   }
 }

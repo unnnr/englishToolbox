@@ -5,7 +5,7 @@
 		ref="wrapper"
 		:class="{
 				'tag--new-focused': inputIsFocused,
-				'tag-new-disabled': disabled
+				'tag-new-disabled': loading
 		}"
 		@click="onWrapperClick">
 
@@ -27,9 +27,9 @@
 			placeholder="newTag"
 			maxlength="30"
 			type="text"
-			:disabled="disabled"
+			:disabled="loading"
 
-			@keydown.enter.prevent.stop="tryToSubmit"
+			@keydown.enter.prevent.stop="onTagSending"
 			@focus="onInputFocus"
 			@blur="onInputBlur">
 
@@ -38,11 +38,14 @@
 </template>
 
 <script>
+import HandleRequests from '@mixins/HandleRequests'
 import bus from '@services/eventbus'
 
 const BLUR_DELAY = 200;
 
 export default {
+	mixins: [ HandleRequests ],
+	
 	props: {
 		submit: {
 			type: Function,
@@ -53,7 +56,6 @@ export default {
 	data() {
 		return {
 			label: '',
-			disabled: false,
 			inputIsFocused: false
 		}
 	},
@@ -73,10 +75,10 @@ export default {
 		onLabelClick() {
 			this.inputFocus();
 
-			if (this.label.length === 0 || this.disabled)
+			if (this.label.length === 0 || this.loading)
 				return;
 
-			this.tryToSubmit();
+			this.onTagSending();
 		},
 
 		onInputBlur() {
@@ -138,24 +140,16 @@ export default {
 			return label.join(', ');
 		},
 
-		async tryToSubmit() {
-			try {
-				this.disabled = true;
-			
-				if (typeof this.submit === 'function')
-					await this.submit(this.label);
+		onTagSending() {
+			this.send(this.sendTag, this.parseError)
+		},
 
-				this.label = '';
-			}
-			catch(error) {
-				let message = this.parseError(error);
+		async sendTag() {
+			if (typeof this.submit === 'function')
+				await this.submit(this.label);
 
-				bus.dispatch('alert-error', { message });
-			}
-			finally { 
-				this.disabled = false;
-			}
-		}
+			this.label = '';
+		},
 	}
 }
 </script>

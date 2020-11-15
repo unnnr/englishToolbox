@@ -14,7 +14,7 @@
           :user="user"
           :title="title"
           :grade="grade"
-          :disabled="submitting"
+          :disabled="loading"
           @accept="onAccept(id)"
           @decline="onDecline(id)"/>
 
@@ -24,9 +24,11 @@
 </template>
 
 <script>
-import PendingReview from '@components/reviews/PendingReview'
+import 'swiper/swiper-bundle.css'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass } from 'swiper/core'
+import PendingReview from '@components/reviews/PendingReview'
+import HandleRequests from '@mixins/HandleRequests'
 import Reviews from '@models/Reviews'
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
@@ -37,15 +39,17 @@ export default {
     SwiperSlide,
     Swiper,
   },
+
+  mixins: [ HandleRequests ],
   
   data() {
     return {
-      reviews: [],
-      submitting: false,
       swiperOptions:{
 				slidesPerView: 'auto',
 				grabCursor: true,
-      }
+      },
+
+      reviews: []
     }
   },
 
@@ -54,30 +58,6 @@ export default {
   },
 
   methods: {
-    async send(request, onFail) {
-      if (this.submitting)
-        return;
-
-      this.submitting = true;
-
-      try{
-        await request();
-      }
-      catch {
-        let message = null;
-
-        if (typeof onFail === 'function')
-          message = onFail();
-
-        bus.dispatch('alert-error', {
-          message
-        });
-      }
-      finally {
-        this.submitting = false;
-      }
-    },
-
     remove(id) {
       for (let index in this.reviews) {
         if (id !== this.reviews[index].id)
@@ -98,6 +78,7 @@ export default {
         this.decline.bind(this, ...arguments));
     },
 
+
     async accept(id) {
       await Reviews.verify(id);
 
@@ -112,7 +93,7 @@ export default {
 
     async load() {
       this.reviews = await Reviews.pending();
-    }
+    },
   }
 }
 </script>

@@ -123,12 +123,6 @@ export default {
     },
     
     select(post) {
-			// Preventing redundunt requests
-      if (post
-        && this.$options.selectedPost 
-        && this.$options.selectedPost.id === post.id)
-        return;
-
 			// Unselecting previos post
 			if (this.$options.selectedPost) {
         this.$set(this.$options.selectedPost, 'selected', false);
@@ -143,8 +137,13 @@ export default {
     },
 
     selecting(post) {
-      if (post)
-        bus.dispatch('post-selecting', { post });
+      	// Preventing redundunt requests
+      if (post
+        && this.$options.selectedPost 
+        && this.$options.selectedPost.id === post.id)
+        return;
+      
+      bus.dispatch('post-selecting', { post });
     },
 
     selectFirst() {
