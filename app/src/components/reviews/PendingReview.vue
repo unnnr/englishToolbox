@@ -1,7 +1,7 @@
 <template>
   <div class="reviews-management__card">
     <review
-      :description="description"
+      :text="text"
       :user="user"
       :title="title"
       :grade="grade"/>
@@ -34,7 +34,7 @@ export default {
   },
 
    props: {
-    description: { type: String },
+    text: { type: String },
 
     title: { type: String },
 

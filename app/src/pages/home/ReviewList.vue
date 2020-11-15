@@ -6,15 +6,15 @@
       :options="swiperOptions">
 
       <swiper-slide 
-        v-for="{id, title, user, grade, description} in reviews" 
+        v-for="{id, title, user, grade, text} in reviews" 
         :key="id">
         
         <review 
           :title="title"
           :user="user"
+          :text="text"
           :grade="grade"
-          :disabled="sending"
-          :description="description"/>
+          :disabled="sending"/>
 
       </swiper-slide>
     </swiper>

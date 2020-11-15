@@ -6,15 +6,15 @@
 			:options="swiperOptions">
   
       <swiper-slide 
-        v-for="{id, title, user, grade, description} in reviews"
+        v-for="{id, user, grade, text, title} in reviews"
         :key="id">
         
         <pending-review 
-          :title="title"
+          :text="text"
           :user="user"
+          :title="title"
           :grade="grade"
           :disabled="submitting"
-          :description="description"
           @accept="onAccept(id)"
           @decline="onDecline(id)"/>
 

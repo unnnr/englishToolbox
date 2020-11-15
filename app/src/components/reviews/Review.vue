@@ -16,7 +16,7 @@
     </h5>
 
     <p class="reviews__card-text text-third"> 
-      {{ description }}
+      {{ text }}
     </p>
     
     <div class="review__grade">
@@ -41,7 +41,7 @@ import FakeData from '@services/FakeData'
 
 export default {
   props: {
-    description: { type: String, default: '奴ら はちまき 奉仕 備える ひきざん あう じぶん ぼうず むぜい しょうゆ 戦没 体重 特殊 おかね しゃくや' },
+    text: { type: String, default: '奴ら はちまき 奉仕 備える ひきざん あう じぶん ぼうず むぜい しょうゆ 戦没 体重 特殊 おかね しゃくや' },
     
     title: { type: String, default: '右翼 備える うえる 品詞' },
     
