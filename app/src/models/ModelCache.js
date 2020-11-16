@@ -30,8 +30,6 @@ class ModelCache
 
     get(id = null) 
     {
-        console.log(this.data);
-
         if (this.data.length === 0)
             return null;
 
@@ -57,7 +55,6 @@ class ModelCache
     {
         let item = this.__find(id);
         
-        console.log(item);
         if (!!!item)
             return null;
             

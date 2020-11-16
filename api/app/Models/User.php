@@ -8,10 +8,13 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\VerifyEmail;
+use App\Models\Traits\HasFavoritePosts;
+use App\Models\Traits\CanBeBanned;
+use App\Models\Traits\HasReveiws;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable, HasRoles;
+    use HasApiTokens, Notifiable, HasRoles, HasReveiws, CanBeBanned, HasFavoritePosts;
 
     /**
      * The attributes that are mass assignable.
@@ -40,12 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function setPasswordAttribute($value)
-    {
-    	$this->attributes['password'] = bcrypt($value);
-    }
-
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
@@ -56,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
-    public function review()
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }
@@ -70,12 +67,22 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Ban::class);
     }
+    
+
+    public function getAdminAttribute() {
+        return false;
+    }
 
     public function getBannedAttribute() {
         return $this->ban !== null;
     }
 
-    public function getAdminAttribute() {
-        return false;
+    public function getCanReveiewAttribute() {
+        
+    }
+
+    public function setPasswordAttribute($value)
+    {
+    	$this->attributes['password'] = bcrypt($value);
     }
 }
