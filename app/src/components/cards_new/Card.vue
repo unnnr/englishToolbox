@@ -1,7 +1,9 @@
 <template>
   <div 
     class="card"
-    :class="{'card--rectangle': rectangular}">
+    :class="{
+      'card--rectangle': rectangular,
+      'card--selected': selected}">
 
     <div 
       class="card__image"
@@ -62,6 +64,8 @@ export default {
     mainTag: { type: Object, default: null },
 
     favorite: { type: Boolean, default: false },
+
+    selected: { type: Boolean, default: false },
 
     rectangular: { type: Boolean, default: false },
   },

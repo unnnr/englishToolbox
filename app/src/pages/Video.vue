@@ -21,20 +21,20 @@
 
     </post-selected>
     
-    <pool ref="pool"/>
+    <posts-pool ref="pool"/>
 
   </main>
 </template>
 
 <script>
-import HandlePost from'@mixins/HandlePost'
-import Videos from '@models/Videos'
-import VideoCreator from '@pages/video/VideoCreator'
-import VideoEditor from '@pages/video/VideoEditor'
-import VideoPlayer from '@pages/video/VideoPlayer'
 import PostSelected from '@components/posts/PostSelected'
+import VideoCreator from '@pages/video/VideoCreator'
+import VideoPlayer from '@pages/video/VideoPlayer'
+import VideoEditor from '@pages/video/VideoEditor'
+import HandlePost from'@mixins/HandlePost'
 import FilterBar from '@components/layout/FilterBar'
-import Pool from '@components/cards_new/Pool'
+import PostsPool from '@components/posts/PostsPool'
+import Videos from '@models/Videos'
 
 export default {
   components: {
@@ -43,7 +43,7 @@ export default {
     VideoPlayer,
     VideoEditor,
     FilterBar,
-    Pool
+    PostsPool
   },
 
   mixins: [ HandlePost ],

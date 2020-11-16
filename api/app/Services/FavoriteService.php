@@ -44,7 +44,7 @@ class FavoriteService
     { 
         $post = $this->getPost($postType, $request->input('postId'));
         
-        $post->favoritedBy()->attach(auth()->user());
+        $post->favoritedBy()->syncWithoutDetaching(auth()->user());
 
         return new PostResource($post);
     }
