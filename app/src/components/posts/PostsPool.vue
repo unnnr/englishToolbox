@@ -171,7 +171,7 @@ export default {
 
     toggleFavorite(post) {
       if (post.favorite)
-        this.unFavorite(post);
+        this.unfavorite(post);
       else
         this.favorite(post);
     },
@@ -186,12 +186,12 @@ export default {
       });
     },
 
-    unFavorite(post) {
+    unfavorite(post) {
       if (!!!this.authenticated)
         return;
 
       this.send(async () => {
-        await this.model.unFavorite(post.id);
+        await this.model.unfavorite(post.id);
         this.$set(post, 'favorite', false);
       });
     },
