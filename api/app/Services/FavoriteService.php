@@ -24,6 +24,15 @@ class FavoriteService
         return null;
     }
 
+    private function getPost(string $postType, int $postId) 
+    {
+        $postClass = $this->getPostClass($postType);
+        if (!!!$postClass)
+            abort(404);
+        
+        return $postClass::findOrFail($postId);
+    }
+
     public function all()
     {
         $favorites = auth()->user()->favorites;
@@ -33,20 +42,17 @@ class FavoriteService
 
     public function create(string $postType, Request $request)
     { 
-        $postClass = $this->getPostClass($postType);
-        if (!!!$postClass)
-            abort(404);
+        $post = $this->getPost($postType, $request->input('postId'));
         
-        $postId = $request->input('postId');
-        $post = $postClass::findOrFail($postId);
-        
-        $user = auth()->user();
-        $post->favoritedBy()->attach($user);
+        $post->favoritedBy()->attach(auth()->user());
 
         return new PostResource($post);
     }
 
-    public function delete(Review $model)
+    public function delete(string $postType, int $postId)
     {
+        $post = $this->getPost($postType, $postId);
+
+        $post->favoritedBy()->detach(auth()->user());
     }
 }
