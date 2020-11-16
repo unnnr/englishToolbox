@@ -80,7 +80,6 @@ Route::group(['namespace' => 'Api'], function()
     Route::patch( 'profile/avatar', 'AvatarController@update');
 
     Route::post('profile/favorites/{postType}', 'FavoriteController@store');
-    Route::delete('profile/favorites/{postType}/{postId}', 'FavoriteController@destroy');
     Route::apiResource('profile/favorites', 'FavoriteController')
         ->only(['index', 'destroy']);
 });

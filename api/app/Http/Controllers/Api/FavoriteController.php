@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Favorite\CreateFavorite;
 use App\Http\Controllers\Controller;
 use App\Services\FavoriteService;
+use App\Models\Favoritable;
 
 class FavoriteController extends Controller
 {
@@ -45,8 +46,8 @@ class FavoriteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(string $postType, int $postId)
+    public function destroy(Favoritable $favorite)
     {
-        return $this->service->delete($postType, $postId);
+        return $this->service->delete($favorite);
     }
 }

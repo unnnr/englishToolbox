@@ -16,9 +16,9 @@ class FavoriteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => 'id',
+            'id' => $this->id,
 
-            'post' => new PostResource()
+            'post' => new PostResource($this->post)
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models\Traits;
 
 use App\Models\User;
 
-trait Favoritable 
+trait FavoritablePost
 {
     public function favoritedBy()
     {

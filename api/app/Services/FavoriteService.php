@@ -4,17 +4,19 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Resources\PostResource; 
+use App\Http\Resources\FavoriteResource; 
+use App\Models\Favoritable;
 use App\Models\Video;
+use stdClass;
 
 class FavoriteService
 {
     private $commentable = [
+        'videos' => Video::class,
         'audio' => Audio::class,
-        'videos' => Video::class
     ];
 
-    private function getPostClass(string $postType)
+    private function computeClass(string $postType)
     {
         foreach ($this->commentable as $link => $class)
         {   
@@ -22,17 +24,9 @@ class FavoriteService
                 return $class;
         }
 
-        return null;
+       abort(404);
     }
 
-    private function getPost(string $postType, int $postId) 
-    {
-        $postClass = $this->getPostClass($postType);
-        if (!!!$postClass)
-            abort(404);
-        
-        return $postClass::findOrFail($postId);
-    }
 
     public function all()
     {
@@ -43,30 +37,39 @@ class FavoriteService
         // Grouping post id's by classes   
         foreach ($queryResult as $raw)
         {
-            $class = $raw->favoritable_type;
+            $favorite = new stdClass();
+            $favorite->id = $raw->id;
+            $favorite->post = 
+                $raw->favoritable_type::findOrFail($raw->favoritable_id);
             
-            $favorites[] = [
-                'id' => $raw->id,
-                'post' => $class::findOrFail($raw->favoritable_id)
-            ];
+            $favorites[] = $favorite;
         }
 
-        return ['data' => collect($favorites)];
+        return FavoriteResource::collection($favorites);
     }
 
     public function create(string $postType, Request $request)
     { 
-        $post = $this->getPost($postType, $request->input('postId'));
-        
-        $post->favoritedBy()->syncWithoutDetaching(auth()->user());
+        $userId = auth()->user()->id;
+        $postId =  $request->input('postId');
+        $class = $this->computeClass($postType);
+        $data = [
+            'user_id' => $userId, 
+            'favoritable_id' => $postId,
+            'favoritable_type'=> $class
+        ];
 
-        return new PostResource($post);
+        // Preventing readundant requests
+        $favorite = Favoritable::where($data)->first();
+        if ($favorite)
+            abort(422);
+        
+        $favorite = Favoritable::create($data);
+        return new FavoriteResource($favorite);
     }
 
-    public function delete(int $id)
+    public function delete(Favoritable $favorite)
     {
-        $post = $this->getPost($postType, $postId);
-
-        $post->favoritedBy()->detach(auth()->user());
+        $favorite->delete();   
     }
 }

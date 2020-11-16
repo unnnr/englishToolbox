@@ -141,7 +141,7 @@ export default {
     parseFavorites() {
       for (let favorite of this.favorites)
       {
-        let post = this.findById(favorite.id);
+        let post = this.findById(favorite.post.id);
 
         if (post)
           this.$set(post, 'favorite', true);
@@ -191,7 +191,21 @@ export default {
         return;
 
       this.send(async () => {
-        await this.model.unfavorite(post.id);
+        let id = null;
+        for (let favorite of this.favorites)
+        {
+          console.log(favorite.id);
+          if (post.id !== favorite.post.id)
+            continue;
+
+          id = favorite.id;
+          break;
+        }
+        
+        if (id === null)
+          return;
+
+        await Favorites.delete(id);
         this.$set(post, 'favorite', false);
       });
     },

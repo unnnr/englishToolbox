@@ -23,6 +23,8 @@ const HandleRequests = {
         if (typeof onFail === 'function')
           message = onFail(error);
 
+        console.error(error);
+
         bus.dispatch('alert-error', {
           message
         });
