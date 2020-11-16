@@ -35,6 +35,7 @@ class FavoriteService
             ->get();
         
         // Grouping post id's by classes   
+        $favorites = [];
         foreach ($queryResult as $raw)
         {
             $favorite = new stdClass();

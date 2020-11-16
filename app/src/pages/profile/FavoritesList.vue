@@ -2,7 +2,7 @@
   <section class="favorites container">
     <h3 class="favorites__title heading-third">Favorite list</h3>
     <pool 
-      :cards="favorites"
+      :cards="posts"
       :context="createContext"
       @favorite-toggle="unfavorite"/>
   </section>
@@ -10,6 +10,7 @@
 
 <script>
 import HandleRequests from '@mixins/HandleRequests'
+import FormatedDate from '@services/FormatedDate'
 import Favorites from '@models/Favorites'
 import Pool from '@components/cards_new/Pool'
 
@@ -26,16 +27,29 @@ export default {
     }
   },
 
+  computed: {
+    posts() {
+      let posts = [];
+      for (let favorite of this.favorites) {
+        let post = favorite.post;
+        post.createdAt = FormatedDate.parse(post.createdAt);
+        post.favorite = true;
+        posts.push(post);
+      }
+
+      return posts;
+    }
+  },
+
   beforeMount() {
     this.loadPosts();
   },
 
   methods: {
-    createContext() {
+    createContext(post) {
       return () => ({
-        'Unfavorite': () => {
-
-        }
+        'Unfavorite': 
+          () => this.unfavorite(post)
       });
     },
 
@@ -44,19 +58,32 @@ export default {
     },
 
     unfavorite(post) {
-      this.send(() => {
-        // await .unfavorite(post.id);
+      this.send(async () => {
+        // Searching for removing post
+        let removedFavorite = null;
+        for (let favorite of this.favorites)
+        {
+          if (post.id !== favorite.post.id)
+            continue;
+
+          removedFavorite = favorite;
+          break;
+        }
+        
+        if (removedFavorite === null)
+          return;
+        
+        // Sending 
+        await Favorites.delete(removedFavorite.id);
+
+        //Removing
+        let index = this.favorites.indexOf(removedFavorite);
+        this.favorites.splice(index, 1)
       });
     },
 
     async loadPosts() {
-      let posts = await Favorites.all();
-      
-      for (let post of posts) {
-        post.favorite = true;
-      }
-
-      this.favorites = posts;
+      this.favorites = await Favorites.all();;
     },
   }
 }

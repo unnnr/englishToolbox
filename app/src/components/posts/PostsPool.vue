@@ -195,8 +195,7 @@ export default {
       this.send(async () => {
         let removedFavorite = null;
         
-        for (let favorite of this.favorites)
-        {
+        for (let favorite of this.favorites) {
           if (post.id !== favorite.post.id)
             continue;
 
