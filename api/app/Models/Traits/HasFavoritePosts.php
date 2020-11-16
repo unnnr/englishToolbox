@@ -20,8 +20,8 @@ trait HasFavoritePosts
 
     public function getFavoritesAttribute() 
     {
-        $favorites[] = $this->favoriteVideo();
-        $favorites[] = $this->favoriteAudio();
+        $favorites[] = $this->favoriteVideo;
+        $favorites[] = $this->favoriteAudio;
 
         return collect($favorites)->collapse();
     }

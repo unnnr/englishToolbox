@@ -51,6 +51,10 @@ class Videos extends Model
 
         return Favorites.create('videos', data);
     }
+
+    unFavorite(id) {
+        return Favorites.delete('videos', id);
+    }
 }
 
 window.Videos = new Videos();

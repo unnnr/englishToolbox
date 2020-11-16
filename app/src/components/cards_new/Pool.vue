@@ -36,6 +36,7 @@
 <script>
 import HandleRequests from '@mixins/HandleRequests'
 import HandleEvents from '@mixins/HandleEvents'
+import Favorites from '@models/Favorites'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
 import Auth from '@services/Auth'
@@ -74,9 +75,7 @@ export default {
   },
 
   mounted() {
-    Auth.check().then(authenticated => 
-      this.authenticated = authenticated);
-    
+    this.loadUser();
     this.loadPosts();
 
     this.listen({
@@ -148,7 +147,7 @@ export default {
     },
 
     selecting(post) {
-      	// Preventing redundunt requests
+      // Preventing redundunt requests
       if (post
         && this.$options.selectedPost 
         && this.$options.selectedPost.id === post.id)
@@ -161,9 +160,62 @@ export default {
       this.selecting(this.firstPost);
     },
 
+    parseFavorites() {
+      for (let favorite of this.favorites)
+      {
+        let post = this.findById(favorite.id);
+
+        if (post)
+          this.$set(post, 'favorite', true);
+      }
+    },
+
     async loadPosts() {
       this.posts = await this.model.all();
       this.selectFirst();
+
+      if (this.favorites.length > 0)
+        this.parseFavorites();
+    },
+
+    async loadUser() {
+      let authenticated = await Auth.check();
+
+      if (!!!authenticated)
+        return;
+
+      this.favorites = await Favorites.all()
+      this.authenticated = true;
+
+      if (this.posts.length > 0)
+        this.parseFavorites();
+    },
+
+    toggleFavorite(post) {
+      if (post.favorite)
+        this.unFavorite(post);
+      else
+        this.favorite(post);
+    },
+    
+     favorite(post) {
+      if (!!!this.authenticated)
+        return;
+
+      this.send(async () => {
+        await this.model.makeFavorite(post.id);
+        this.$set(post, 'favorite', true);
+      });
+    },
+
+    unFavorite(post) {
+      if (!!!this.authenticated)
+        return;
+
+      this.send(async () => {
+        await this.model.unFavorite(post.id);
+        this.$set(post, 'favorite', false);
+      });
     },
 
     // Events
@@ -239,28 +291,6 @@ export default {
     contextEdit(post) {
       bus.dispatch('post-editing', { post }),
       this.onSelected({ post });
-    },
-
-    toggleFavorite(post) {
-      if (post.favorite)
-        this.unFavorite(post);
-      else
-        this.favorite(post);
-    },
-    
-    async favorite(post) {
-      if (!!!this.authenticated)
-        return;
-
-    console.log(123);
-      await this.model.makeFavorite(post.id);
-      this.$set(post, 'favorite', true);
-    },
-
-    async unFavorite() {
-      if (!!!this.authenticated)
-        return;
-
     }
   }
 }
