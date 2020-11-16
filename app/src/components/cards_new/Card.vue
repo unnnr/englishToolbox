@@ -12,7 +12,12 @@
         class="card__header"
         @click.self="select">
 
-        <button class="card__favorite-button card__favorite-button--active"></button>
+        <button 
+          class="card__favorite-button"
+          :class="{'card__favorite-button--active': favorite}"
+          @click="favoriteToggle">
+        </button>
+
         <span class="card__views">{{ views }}</span>
       </div>
       <div class="card__title">
@@ -56,7 +61,9 @@ export default {
 
     mainTag: { type: Object, default: null },
 
-    rectangular: { type: Boolean, default: false }
+    favorite: { type: Boolean, default: false },
+
+    rectangular: { type: Boolean, default: false },
   },
 
   computed: {
@@ -68,6 +75,10 @@ export default {
   methods: {
     select() {
       this.$emit('select');
+    },
+
+    favoriteToggle() {
+      this.$emit('favorite-toggle');
     }
   }
 }

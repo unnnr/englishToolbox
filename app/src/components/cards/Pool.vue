@@ -13,20 +13,22 @@
 			
 		<card
 			v-for="card of reversePosts"
-
 			:key="card.id"
+			
 			:title="card.id + ''"
 			:imageUrl='card.thumbnail'
 			:createdAt="card.createdAt"
 			:description="card.description"
 			
+			:selected="card.selected"
+			:editable="canCreateContent"
+			:favorite="favorite"
+			rectangle-form
+			
 			:tags="card.tags"
 			:mainTag="card.mainTag"
 			
-			:selected="card.selected"
-			:editable="canCreateContent"
-			
-			rectangle-form/>
+			@favorite:toggle="toggleFavorite(card)"/>
 	</transition-group>
 </template>
 
@@ -246,6 +248,11 @@ export default {
 			this.moveClass = 'static';
 
 			appendRecursively(cards);
+		},
+
+		toggleFavorite(card) {
+			console.log(123);
+			this.$set(card, 'favorite', !!!card.favorite);
 		}
 	}
 }

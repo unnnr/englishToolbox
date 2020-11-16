@@ -15,8 +15,6 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        return ['parent' =>$this->thumbnail];
-
         return [
             // Main data
             'id' => $this->id,

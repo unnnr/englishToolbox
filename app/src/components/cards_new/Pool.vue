@@ -22,11 +22,13 @@
 
       :main-tag="post.mainTag"
       :tags="post.tags"
+      
+      :favorite="post.favorite"
+      rectangular
 
-      @select="selecting(post)"
       v-context:items="createContext(post)"
-
-      rectangular/>
+      @select="selecting(post)"
+      @favorite-toggle="toggleFavorite(post)"/>
 
   </transition-group>
 </template>
@@ -229,6 +231,11 @@ export default {
       bus.dispatch('post-editing', { post }),
       this.onSelected({ post });
     },
+
+    toggleFavorite(post) {
+      console.log(post);
+			this.$set(post, 'favorite', !!!post.favorite);
+		}
   }
 }
 </script>

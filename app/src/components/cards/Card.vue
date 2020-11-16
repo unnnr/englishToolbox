@@ -16,6 +16,7 @@
 			<div class="card__header">
 				<button 
 					class="card__favorite-button"
+					v-if="withFavoriteButton"
 					@click.stop="">
 
 						<span class="card__favorite-icon material-icons-round">favorite</span>
@@ -77,6 +78,8 @@ export default {
 
 		rectangleForm: { type: Boolean, default: false },
 
+		withFavoriteButton: { type: Boolean, default: false },
+
 
 		// Card data
 		description: { type: String,  default: '' },
@@ -89,10 +92,7 @@ export default {
 
 		mainTag: { type: Object, default: null },
 
-		tags: { type: Array, default: function() {
-				return []
-			}
-		}
+		tags: { type: Array, default: () => [] }
 	},
 
 	data: function() {
