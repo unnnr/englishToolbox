@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource; 
 use App\Models\Video;
@@ -35,9 +36,22 @@ class FavoriteService
 
     public function all()
     {
-        $favorites = auth()->user()->favorites;
+        $queryResult = DB::table('favoritables')
+            ->where('user_id', auth()->user()->id)
+            ->get();
+        
+        // Grouping post id's by classes   
+        foreach ($queryResult as $raw)
+        {
+            $class = $raw->favoritable_type;
+            
+            $favorites[] = [
+                'id' => $raw->id,
+                'post' => $class::findOrFail($raw->favoritable_id)
+            ];
+        }
 
-        return PostResource::collection($favorites);
+        return ['data' => collect($favorites)];
     }
 
     public function create(string $postType, Request $request)
@@ -49,7 +63,7 @@ class FavoriteService
         return new PostResource($post);
     }
 
-    public function delete(string $postType, int $postId)
+    public function delete(int $id)
     {
         $post = $this->getPost($postType, $postId);
 
