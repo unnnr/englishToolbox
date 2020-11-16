@@ -12,7 +12,8 @@ class Favorites extends Model
         });
 
         let item  = this.__parseInstance(response.data);
-
+        
+        console.log(item, this.__cache)
         return this.__cache.push(item);
     }
 }

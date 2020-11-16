@@ -181,7 +181,9 @@ export default {
         return;
 
       this.send(async () => {
-        await this.model.makeFavorite(post.id);
+        let favorite = await this.model.makeFavorite(post.id);
+        this.favorites.push(favorite);
+        
         this.$set(post, 'favorite', true);
       });
     },
@@ -191,21 +193,24 @@ export default {
         return;
 
       this.send(async () => {
-        let id = null;
+        let removedFavorite = null;
+        
         for (let favorite of this.favorites)
         {
-          console.log(favorite.id);
           if (post.id !== favorite.post.id)
             continue;
 
-          id = favorite.id;
+          removedFavorite = favorite;
           break;
         }
         
-        if (id === null)
+        if (removedFavorite === null)
           return;
 
-        await Favorites.delete(id);
+        await Favorites.delete(removedFavorite.id);
+        let index = this.favorites.indexOf(removedFavorite);
+        this.favorites.splice(index, 1)
+
         this.$set(post, 'favorite', false);
       });
     },

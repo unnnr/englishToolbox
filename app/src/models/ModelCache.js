@@ -57,10 +57,11 @@ class ModelCache
         
         if (!!!item)
             return null;
-            
-        this.data.splice(id, 1);
+        
+        let index = this.data.indexOf(item);
+        this.data.splice(index, 1);
 
-        return this.__createCopy(item);
+        return this.data.length;
     }
 
     push(value) 
