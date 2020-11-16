@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Http\Resources\PostResource; 
 
 class FavoriteService
@@ -13,18 +14,11 @@ class FavoriteService
         return PostResource::collection($favorites);
     }
 
-    public function create(Request $request)
+    public function create(string $postType, Request $request)
     { 
-     
-    }
-
-    public function verify(Review $review)
-    {
-       
     }
 
     public function delete(Review $model)
     {
-        $model->delete();
     }
 }

@@ -6,9 +6,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\CommentResource;
+use App\Models\Comment;
 use App\Models\Video;
 use App\Models\Audio;
-use App\Models\Comment;
 
 
 class CommentService

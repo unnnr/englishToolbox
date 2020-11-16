@@ -9,7 +9,6 @@ use App\Http\Requests\Comment\CreateComment;
 use App\Http\Requests\Comment\UpdateComment;
 use App\Http\Requests\Comment\DeleteComment;
 
-
 class CommentController extends Controller
 {
 

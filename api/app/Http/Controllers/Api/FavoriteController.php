@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Favorite\CreateFavorite;
 use App\Http\Controllers\Controller;
 use App\Services\FavoriteService;
 
@@ -32,9 +33,9 @@ class FavoriteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(string $postType)
+    public function store(string $postType, CreateFavorite $request)
     {
-
+        return $this->service->create($postType, $request);
     }
 
 

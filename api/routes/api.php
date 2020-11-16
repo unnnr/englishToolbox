@@ -79,13 +79,7 @@ Route::group(['namespace' => 'Api'], function()
     Route::get('profile/avatar', 'AvatarController@index');
     Route::patch( 'profile/avatar', 'AvatarController@update');
 
+    Route::post('profile/favorites/{postType}', 'FavoriteController@store');
     Route::apiResource('profile/favorites', 'FavoriteController')
-        ->only(['index', 'store', 'destroy']);
+        ->only(['index', 'destroy']);
 });
-
-
-
-/* 
-Route::middleware('auth:sanctum')->get(est', function() {
-    return auth()->user();
-}); */
