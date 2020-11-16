@@ -6,6 +6,7 @@
     @before-leave="setAbsolute">
 
     <new-card 
+      v-if="canCreate"
       :key="-1"
       @click="createNew"/>
 
@@ -46,7 +47,9 @@ export default {
   props: {
     cards: { type: Array, default: () => [] },
 
-    context: { type: Function, default: () => null }
+    context: { type: Function, default: () => null },
+
+    canCreate: { type: Boolean, default: false},
   },
 
   methods: {

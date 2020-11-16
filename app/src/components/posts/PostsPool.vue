@@ -2,6 +2,8 @@
   <pool 
     :cards="reversedPosts"
     :context="createContext"
+    :can-create="canCreate"
+
     @favorite-toggle="toggleFavorite"
     @creat-new="createNew"
     @select="selecting"/>
@@ -32,7 +34,7 @@ export default {
       favorites: [],
       posts: [],
       authenticated: false,
-      canCreate: false,
+      canCreate: true,
     }
   },
 
@@ -62,16 +64,29 @@ export default {
   methods: {
     createContext(post) {
       return () => {
-        return {
-          'Open': () => 
-            selecting(post),
+        let context = {};
+        // Guest context
+        context['Open'] = 
+          () => this.selecting(post);
 
-          'Edit': () =>
-            this.contextEdit(post),
+        if (!!!this.authenticated)
+          return context;
 
-          'Delete' : () => 
-            this.contextDelete(post)
-        }
+        // User context
+        context[post.favorite ? 'Unfavorite' : 'Favorite'] = 
+          () => this.toggleFavorite(post);
+        
+        if (!!!this.canCreate)
+          return context;
+
+        // Admit context
+        context['Edit'] = 
+          () => this.contextEdit(post);
+
+        context['Delete'] = 
+          () => this.contextDelete(post)
+
+        return context;
       }
     },
 
