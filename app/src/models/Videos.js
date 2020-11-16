@@ -1,9 +1,12 @@
 
-import Model from '@models/Model'; 
 import FormatedDate from '@services/FormatedDate'
+import Favorites from '@models/Favorites'
+import Model from '@models/Model'; 
 
 class Videos extends Model 
 {
+    path = 'videos';
+
     castCreatedAt(value) 
     {
         return FormatedDate.parse(value);
@@ -42,7 +45,12 @@ class Videos extends Model
         }
     }
 
-    path = 'videos';
+    makeFavorite(id) {
+        let data = new FormData();
+        data.append('postId', id);
+
+        return Favorites.create('videos', data);
+    }
 }
 
 window.Videos = new Videos();

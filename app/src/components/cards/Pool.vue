@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
 import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards/NewCard.vue';
 import Card from '@components/cards/Card.vue';
@@ -72,8 +71,7 @@ export default {
 		}
 	},
 
-	beforeMount()
-	{
+	beforeMount() {
 		this.model.all().then( async posts => {
 				if (posts.length === 0)
 				{	

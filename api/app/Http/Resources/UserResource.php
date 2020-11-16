@@ -25,7 +25,7 @@ class UserResource extends JsonResource
 
             'admin' => true,
 
-            'banned' => $this->banned
+            'banned' => $this->banned,
 
             // 'avatar' => $this->avatar->url
         ];

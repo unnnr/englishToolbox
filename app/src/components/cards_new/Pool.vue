@@ -34,9 +34,11 @@
 </template>
 
 <script>
+import HandleRequests from '@mixins/HandleRequests'
 import HandleEvents from '@mixins/HandleEvents'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
+import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
 export default {
@@ -45,13 +47,19 @@ export default {
     Card
   },
 
-  mixins: [ HandleEvents ],
+  mixins: [ 
+    HandleRequests,
+    HandleEvents,
+  ],
 
   inject: [ 'model' ],
 
   data() {
     return {
+      favorites: [],
       posts: [],
+      authenticated: false,
+      canCreate: false,
     }
   },
 
@@ -66,6 +74,9 @@ export default {
   },
 
   mounted() {
+    Auth.check().then(authenticated => 
+      this.authenticated = authenticated);
+    
     this.loadPosts();
 
     this.listen({
@@ -103,8 +114,7 @@ export default {
     },
 
 		getPostIndex(id) {
-			for (let i = 0; i < this.posts.length; i++)
-			{
+			for (let i = 0; i < this.posts.length; i++) {
 				let post = this.posts[i];
 
 				if (post.id ===  id)
@@ -115,8 +125,7 @@ export default {
     },
 
 		findById(id) {
-			for (let post of this.posts)
-			{
+			for (let post of this.posts) {
 				if (post.id ===  id)
 					return post
 			}
@@ -233,9 +242,26 @@ export default {
     },
 
     toggleFavorite(post) {
-      console.log(post);
-			this.$set(post, 'favorite', !!!post.favorite);
-		}
+      if (post.favorite)
+        this.unFavorite(post);
+      else
+        this.favorite(post);
+    },
+    
+    async favorite(post) {
+      if (!!!this.authenticated)
+        return;
+
+    console.log(123);
+      await this.model.makeFavorite(post.id);
+      this.$set(post, 'favorite', true);
+    },
+
+    async unFavorite() {
+      if (!!!this.authenticated)
+        return;
+
+    }
   }
 }
 </script>
