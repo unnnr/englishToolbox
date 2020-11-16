@@ -37,6 +37,9 @@ Route::group(['namespace' => 'Api'], function()
     Route::apiResource('updates', 'UpdateController')
         ->only(['index']);
 
+    Route::apiResource('bans', 'BanController')
+        ->only(['index', 'store', 'destroy']);
+
     Route::apiResource('comments', 'CommentController')
         ->only(['update', 'destroy', 'show']);
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')
@@ -46,6 +49,7 @@ Route::group(['namespace' => 'Api'], function()
     Route::get('reviews/pending', 'ReviewController@pending');
     Route::apiResource('reviews', 'ReviewController')
         ->except(['show']);
+
 
     /*
     |--------------------------------------------------------------------------
@@ -65,23 +69,23 @@ Route::group(['namespace' => 'Api'], function()
     |--------------------------------------------------------------------------
     */
 
-    Route::match(['head', 'get'], 'profile', 'UserController@index');
-    Route::match(['put', 'patch'], 'profile', 'UserController@update');
-    Route::match(['delete'], 'profile', 'UserController@delete');
+    Route::get('profile', 'UserController@index');
+    Route::patch( 'profile', 'UserController@update');
+    Route::delete( 'profile', 'UserController@delete');
 
-    Route::match(['head', 'get'], 'profile/comments', 'CommentController@attachedToUser');
-    Route::match(['delete'], 'profile/comments', 'CommentController@deleteAttachedToUser');
+    Route::get('profile/comments', 'CommentController@attachedToUser');
+    Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 
-    Route::match(['head', 'get'], 'profile/avatar', 'AvatarController@index');
-    Route::match(['put', 'patch'], 'profile/avatar', 'AvatarController@update');
+    Route::get('profile/avatar', 'AvatarController@index');
+    Route::patch( 'profile/avatar', 'AvatarController@update');
 
-    Route::apiResource('bans', 'BanController')
+    Route::apiResource('profile/favorites', 'FavoriteController')
         ->only(['index', 'store', 'destroy']);
 });
 
 
 
 /* 
-Route::middleware('auth:sanctum')->get('test', function() {
+Route::middleware('auth:sanctum')->get(est', function() {
     return auth()->user();
 }); */

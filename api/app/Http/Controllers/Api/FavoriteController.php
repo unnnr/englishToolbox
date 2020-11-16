@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UnbanUser;
-use App\Http\Requests\User\BanUser;
-use App\Services\BanService;
-use App\Models\Ban;
+use App\Services\FavoriteService;
 
-
-class BanController extends Controller
+class FavoriteController extends Controller
 {
     private $service = null;
 
@@ -17,7 +13,7 @@ class BanController extends Controller
     {
         $this->middleware('auth:sanctum');
 
-        $this->service = app(BanService::class);
+        $this->service = app(FavoriteService::class);
     }
 
     /**
@@ -36,10 +32,11 @@ class BanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BanUser $request)
+    public function store(string $postType)
     {
-        return $this->service->ban($request);
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -47,8 +44,8 @@ class BanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ban $ban, UnbanUser $request)
+    public function destroy($id)
     {
-        return $this->service->unban($ban);
+        //
     }
 }

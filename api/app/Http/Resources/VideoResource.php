@@ -3,9 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TagResource; 
+use App\Http\Resources\PostResource; 
 
-class VideoResource extends JsonResource
+class VideoResource extends PostResource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,25 +15,14 @@ class VideoResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            // Main data
-            'id' => $this->id,
-
-            'title' => $this->title,
-
-            'youtubeId' => $this->youtube_id,
-
-            'description' => $this->description,
-
-            'createdAt' => $this->created_at,
-
-            // Additional
-            'thumbnail' => $this->thumbnail->url,
-
-            // Tags
-            'mainTag' => new TagResource($this->mainTag()),
-
-            'tags' => TagResource::collection($this->tags)
+        // Default post data
+        $post = parent::toArray($request);
+        
+        // Videos data
+        $video = [
+            'youtubeId' => $this->youtube_id
         ];
+
+        return array_merge($post, $video);
     }
 }

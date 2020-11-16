@@ -31,11 +31,10 @@ class Http
 
         let url = this.origin + uri;
 
-        return [ url , { method, body, headers }];
+        return [ url , { method, body, headers}];
     }
 
     __sendRequest(request) {
-        console.log(...request);
         return fetch(...request);
     }
 

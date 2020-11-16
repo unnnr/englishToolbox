@@ -3,15 +3,18 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\Auth\VerificationService;
-use App\Services\Auth\UserService;
-use App\Services\Posts\AudioService;
-use App\Services\Posts\VideoService;
-use App\Services\CommentService;
-use App\Services\SchemaService;
-use App\Services\AvatarService;
-use App\Services\BanService;
-use App\Services\TagService;
+use App\Services\{
+    Auth\VerificationService,
+    Auth\UserService,
+    Posts\AudioService,
+    Posts\VideoService,
+    FavoriteService,
+    CommentService,
+    SchemaService,
+    AvatarService,
+    BanService,
+    TagService,
+};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,16 +24,20 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        SchemaService::class => SchemaService::class,
-        AudioService::class => AudioService::class,
+        // Posts
         VideoService::class => VideoService::class,
+        AudioService::class => AudioService::class,
+        SchemaService::class => SchemaService::class,
         
-        CommentService::class => CommentService::class,
+        // Post attachments
         TagService::class => TagService::class,
-
+        CommentService::class => CommentService::class,
+        
+        // User services
+        BanService::class => BanService::class,
         UserService::class => UserService::class,
         AvatarService::class => AvatarService::class,
-        BanService::class => BanService::class,
-        VerificationService::class => VerificationService::class
+        FavoriteService::class=>FavoriteService::class,
+        VerificationService::class => VerificationService::class,
     ];
 }

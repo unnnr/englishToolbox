@@ -77,7 +77,6 @@ export default {
 		},
 
 		async submit(data) {
-			console.log(213);
 			await Auth.register(data);
 
 			this.redirect();
