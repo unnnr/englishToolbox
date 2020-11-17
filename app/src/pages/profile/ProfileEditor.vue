@@ -138,7 +138,7 @@ export default {
     toggleEditing() {
       if (this.disabled) {
         this.disabled = false;
-        return
+        return;
       }
 
       let form = this.$refs.form;

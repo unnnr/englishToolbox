@@ -1,7 +1,6 @@
 <template>
-  <button
+  <div
     :style="{'background-image': url }"
-    type="button"
     @click="showPopup">
 
     <v-hidden 
@@ -12,7 +11,7 @@
       v-validate
 
       @change.native="changeAvatar"/>
-  </button>
+  </div>
 </template>
 
 <script>
@@ -78,10 +77,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-input
-  display: none
-
-</style>
