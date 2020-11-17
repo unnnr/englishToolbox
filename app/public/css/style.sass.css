@@ -3343,6 +3343,7 @@ button:active {
 .comments__profile-button {
   height: 40px;
   min-width: 40px;
+  border-radius: 100%;
   background-color: #a1a1b1;
   background-position: center;
   background-repeat: no-repeat;
