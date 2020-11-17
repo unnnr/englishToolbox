@@ -12,6 +12,8 @@ class AvatarController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
+
+        $this->service = new AvatarService();
     }
 
     /**
@@ -21,7 +23,7 @@ class AvatarController extends Controller
      */
     public function index(AvatarService $service)
     {
-        return $service->get();
+        return $this->service->get();
     }
 
     /**
@@ -31,8 +33,8 @@ class AvatarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAvatar $request, AvatarService $service)
+    public function update(UpdateAvatar $request)
     {
-        return $service->update($request);
+        return $this->service->update($request);
     }
 }

@@ -38,7 +38,8 @@
 				<router-link
 					class="navbar-desktop__account-link"
 					v-if="profileShown"
-					to="Profile">
+					to="Profile"
+					:style="{'background-image': this.avatarUrl}">
 						
 				</router-link>
 
@@ -116,19 +117,20 @@
 	</section>
 </template>
 <script>
-
+import HandleEvents from '@mixins/HandleEvents'
+import Avatar from '@models/Avatar'
 import Auth from '@services/Auth';
 
 export default {
-	name: 'navbar',
+	mixins: [ HandleEvents ],
 
 	data() {
 		return {
-			isMobileNavShown: false,
-
-			profileShown: false,
-
 			AppName: 'Etoolbox',
+			avatar: '#',
+
+			isMobileNavShown: false,
+			profileShown: false,
 
 			links: [
 				{ name: 'about', label: 'about me'},
@@ -138,14 +140,27 @@ export default {
 		}
 	},
 
-	beforeMount() {
-		Auth.check().then( authenticated => 
-			this.profileShown = authenticated
-		);
+	computed: {
+		avatarUrl() {
+			return 'url(' + this.avatar + ')';
+		}
+	},
 
-		Auth.onChange( authenticated => 
+	beforeMount() {
+		Auth.check().then( async authenticated => {
+			this.avatar = await Avatar.get();
+			this.profileShown = authenticated;
+		});
+
+		Auth.onChange( async authenticated => {
+			this.avatar = await Avatar.get();
 			this.profileShown = authenticated
-		)
+		});
+
+		this.listen({
+			'avatar-changed': image => 
+				this.avatar = image
+		})
 	},
 
 	methods: {

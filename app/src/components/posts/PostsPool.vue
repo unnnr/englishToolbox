@@ -5,7 +5,7 @@
     :can-create="canCreate"
 
     @favorite-toggle="toggleFavorite"
-    @creat-new="createNew"
+    @create-new="createNew"
     @select="selecting"/>
 </template>
 

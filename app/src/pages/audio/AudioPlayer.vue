@@ -8,11 +8,8 @@
 
           <div class="audio-player__controls audio-player__controls--timeline">
             <button class="audio-player__toggler audio-player__toggler--play"></button>
-            <div class="audio-player__status-bar">
-              <div class="audio-player__status-bar-current"></div>
-              <div class="audio-player__status-bar-total"></div>
-              <div class="audio-player__status-bar-thumb"></div>
-            </div>
+            <progress-slider/>
+
             <div class="audio-player__timer">
               <span class="audio-player__timer-current text-sixth">0:00</span>
               <span class="audio-player__timer-separator text-sixth">/</span>
@@ -22,11 +19,7 @@
 
           <div class="audio-player__controls audio-player__controls--volume">
             <button class="audio-player__toggler audio-player__toggler--volume-up"></button>
-            <div class="audio-player__status-bar">
-              <div class="audio-player__status-bar-current"></div>
-              <div class="audio-player__status-bar-total"></div>
-              <div class="audio-player__status-bar-thumb"></div>
-            </div>
+            <progress-slider/>
           </div>
 
         </div>
@@ -35,3 +28,22 @@
   </div>
 </template>
 
+<script>
+import ProgressSlider from '@components/ProgressSlider'
+
+export default {
+  components: {
+    ProgressSlider
+  },
+
+  data() {
+    return {
+
+    }
+  },
+
+  methods: {
+    
+  }
+}
+</script>

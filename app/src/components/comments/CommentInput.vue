@@ -1,6 +1,9 @@
 <template>
   <div class="addition__tab-footer comments__footer">
-    <button class="comments__profile-button"></button>
+    <button 
+      class="comments__profile-button"
+      :style="{'background-image': avatarUrl}">
+    </button>
 
     <textarea 
       v-model="entry"
@@ -22,11 +25,12 @@
       :disabled="disabled || empty"
       @click="send()">
     </button>
-  </div>
+  </div>  
 </template>
 
 <script>
 import { throttle } from 'throttle-debounce';
+import Avatar from '@models/Avatar'
 
 export default {
   props: {
@@ -36,6 +40,7 @@ export default {
   data() {
     return {
       entry: '',
+      avatar: '',
       minHeight: 40
     }
   },
@@ -43,10 +48,15 @@ export default {
   computed: {
     empty() {
       return this.entry.length === 0;
+    },
+
+    avatarUrl() {
+      return 'url(' + this.avatar + ')';
     }
   },
 
   mounted() {
+    this.loadAvatar();
     this.onInput()
 
     this.$options.eventHandler = throttle(100, this.onInput);
@@ -74,6 +84,10 @@ export default {
 
       this.$emit('sending', this.entry);
       this.entry = '';
+    },
+
+    async loadAvatar() {
+      this.avatar = await Avatar.get();
     }
   }
 }

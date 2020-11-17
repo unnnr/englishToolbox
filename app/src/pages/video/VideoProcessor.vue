@@ -12,6 +12,7 @@
       
       <youtube-url-input 
         :default-value="link"
+        :focusOnMount="!!!editing"
         @changed="updatedLink"/>
 
       <description-input 

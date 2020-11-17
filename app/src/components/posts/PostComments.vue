@@ -171,7 +171,7 @@ export default {
       let userId = comment.user.id;
 
       return {
-        'send ban': 
+        'send a ban': 
           this.onBanSending.bind(this, userId, commentId)   
       };
     },

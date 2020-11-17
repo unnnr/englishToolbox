@@ -3,7 +3,7 @@
 
     <div 
       class="comment__image"
-      :style="{'background-image': src}">
+      :style="{'background-image': url}">
     </div>
 
       <p class="comment__text text-sixth">
@@ -40,8 +40,8 @@ export default {
       return this.user ? this.user.avatar : '#';
     },
 
-    src() {
-      return this.image && 'url(' + this.avatar + ')';
+    url() {
+      return 'url(' + this.avatar + ')';
     }
   }
 }
