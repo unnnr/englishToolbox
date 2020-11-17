@@ -1,18 +1,23 @@
 <template>
 	<div 
+		ref="slider"
 		class="audio-player__status-bar"
-		ref="slider">
+		:class="{
+			'audio-player__status-bar--animated': animated}"
+		@click="setThumb">
 
 		<div 
 			class="audio-player__status-bar-current"
 			:style="{'width': margin}">
 		</div>
 		
-		<div class="audio-player__status-bar-total"></div>
+		<div 
+			class="audio-player__status-bar-total">
+		</div>
 		
 		<div 
 			class="audio-player__status-bar-thumb"
-			:style="{'margin': margin}"
+			:style="{'margin-left': margin}"
 			@mousedown="activeThumg">
 		</div>
 	</div>
@@ -32,18 +37,22 @@ export default {
 	computed: {
 		margin() {
 			return this.progress + '%';
+		},
+
+		animated() {
+			return !!!this.active;
 		}
 	},
 
 	mounted() {
 		document.addEventListener('mouseup', this.disableThumb);
-		document.addEventListener('mousemove', this.moveThumb);
+		document.addEventListener('mousemove', this.onMove);
 		document.addEventListener('mouseleave', this.disableThumb);
 	},
 
 	beforeDestroy() {
 		document.removeEventListener('mouseup', this.disableThumb);
-		document.removeEventListener('mousemove', this.moveThumb);
+		document.removeEventListener('mousemove', this.onMove);
 		document.removeEventListener('mouseleave', this.disableThumb);
 	},
 
@@ -63,21 +72,32 @@ export default {
 
 			this.computeAnchors();
 			this.active = true;
-
-			this.start = Date.now()
 		},
 
 		disableThumb() {
 			if (!!!this.active)
 				return;
-				
+			
 			this.active = false;
 		},
 
-		moveThumb(event) {
+		onMove(event) {
 			if (!!!this.active)
 				return;
-			
+
+			this.moveThumb(event);
+		},
+
+		setThumb(event) {
+			if (this.active)
+				return;
+
+			this.computeAnchors();
+			this.moveThumb(event)
+		},
+
+		moveThumb(event) {
+			// Computing position at px
 			let sliderWidth = this.width;
 			let sliderLeft = this.left;
 			let cursoreLeft = event.pageX;
@@ -89,6 +109,7 @@ export default {
 			else if (position > sliderWidth)
 				position = sliderWidth;
 
+			// Computing position at %
 			let progress = position * 100 / sliderWidth;
 
 			if (progress > 100)
@@ -96,9 +117,21 @@ export default {
 
 			this.progress = progress;
 
-			console.log(Date.now() - this.start);
-			this.start = Date.now();
 		}
 	}
 }
 </script>
+
+<style lang="sass">
+
+.audio-player__status-bar-thumb
+	transform: translateX(-50%)
+
+.audio-player__status-bar--animated .audio-player__status-bar-thumb
+	transition: margin .2s
+
+.audio-player__status-bar--animated .audio-player__status-bar-current
+	transition: width .2s
+	
+
+</style>
