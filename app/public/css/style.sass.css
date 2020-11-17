@@ -387,18 +387,13 @@ body {
 }
 
 .navbar-desktop__account-link {
-  height: 42px;
-}
-
-.navbar-desktop__account-link span {
-  font-size: 42px;
-  color: #6666ff;
-  -webkit-transition: color .3s;
-  transition: color .3s;
-}
-
-.navbar-desktop__account-link span:hover {
-  color: #4d4dff;
+  height: 40px;
+  min-width: 40px;
+  background-color: #a1a1b1;
+  border-radius: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .navbar-mobile {
@@ -1469,6 +1464,14 @@ button:active {
 
 .alert--prompt .alert__title:before {
   content: "help_outline";
+}
+
+.alert--notification {
+  color: #6666ff;
+}
+
+.alert--notification .alert__title:before {
+  content: "notification_important";
 }
 
 .context {
@@ -3339,13 +3342,11 @@ button:active {
 
 .comments__profile-button {
   height: 40px;
-}
-
-.comments__profile-button:before {
-  font-family: "material icons round";
-  content: "account_circle";
-  color: #6666ff;
-  font-size: 40px;
+  min-width: 40px;
+  background-color: #a1a1b1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .comments__send-button {

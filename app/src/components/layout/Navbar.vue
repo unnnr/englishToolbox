@@ -40,7 +40,6 @@
 					v-if="profileShown"
 					to="Profile">
 						
-					<span class="material-icons-round">account_circle</span>
 				</router-link>
 
 			</aside>	
