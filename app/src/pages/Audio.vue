@@ -19,7 +19,7 @@
 
     </post-selected>
     
-    <pool ref="pool" :posts="posts"/>
+    <posts-pool ref="pool"/>
 
   </main>
 </template>
@@ -27,25 +27,24 @@
 <script>
 
 import PostSelected from '@components/posts/PostSelected'
-import FilterBar from '@components/layout/FilterBar'
-import Pool from '@components/cards_new/Pool'
-import HandlePost from'@mixins/HandlePost'
 import AudioPlayer from '@pages/audio/AudioPlayer'
+import HandlePost from'@mixins/HandlePost'
+import FilterBar from '@components/layout/FilterBar'
+import PostsPool from '@components/posts/PostsPool'
+import Audio from '@models/Audio'
 
 export default {
   components: {
     PostSelected,
     AudioPlayer,
     FilterBar,
-    Pool
+    PostsPool,
   },
 
   mixins: [ HandlePost ],
 
-  data() {
-    return {
-      posts: []
-    }
+  provide: {
+    model: Audio
   },
 
   mounted() {

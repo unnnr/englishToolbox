@@ -82,6 +82,8 @@ export default {
 
     forceHidden: { type: Boolean, default: false },
 
+    focusOnMount: { type: Boolean, default: false},
+
     visibilityButtoned: { type: Boolean, default: false },
   },
 
@@ -121,6 +123,14 @@ export default {
   beforeMount() {
     if (this.isPassword)
       this.entryHidden = true;
+  },
+
+  mounted() {
+    if (this.focusOnMount) {
+      let input = this.$refs.input;
+
+      input.focus();
+    }
   },
 
   methods: {

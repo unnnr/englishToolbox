@@ -2,8 +2,8 @@
   <div class="modal__content alert"
     :class="{
       'alert--error': error,
-      'alert--warning': warning,
       'alert--prompt': prompt,
+      'alert--warning': warning,
     }">
 
     <span class="alert__title heading-fifth">
@@ -17,11 +17,12 @@
     <v-input 
       v-if="prompt"
       v-model="entry"
+
       label="Your confirmation"
-
       :max="64"
-      :forceHidden="promptDotten"
-
+      
+      visibilityButtoned
+      focus-on-mount
       colorless/>
 
     <div class="alert__buttons">
@@ -87,12 +88,7 @@ export default {
       type: Boolean,
       defualt: false
     },
-    
-    promptDotten: {
-      type: Boolean,
-      default: false
-    },
-
+  
     message: {
       type: String,
       default: ''
@@ -136,7 +132,7 @@ export default {
       return this.prompt;
     }
   },
-  
+   
   methods: {
 		okay() {
 			this.$emit('okay', event);

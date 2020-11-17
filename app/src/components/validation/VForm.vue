@@ -10,6 +10,8 @@
 <script>
 export default {
   props: {
+    catch: { type: Function, default: null },
+
     request: { type: Function, default: null },
 
     secondary: { type: Boolean, default: false },
@@ -125,7 +127,15 @@ export default {
     },
 
     handleError(data) {
+      if (data || typeof data !== 'object' || data.status !== 422) {
+        bus.dispatch('alert-error');
+        return;
+      }
+
       let error = this.parseError(data);
+
+      if (this.catch)
+        this.catch(error);
 
       for (let input of this.inputs) {
         if (typeof input.handleError === 'function')
@@ -141,6 +151,8 @@ export default {
         this.lock();
 
         await callback();
+
+        console.log(callback);
       }
       catch(error) {
         this.handleError(error);
@@ -156,7 +168,7 @@ export default {
           let data = this.collectData();
 
           data.append('password', entry);
-          this.request(data);
+          return this.request(data);
         });
       }
 

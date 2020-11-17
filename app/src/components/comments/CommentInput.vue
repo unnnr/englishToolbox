@@ -25,7 +25,7 @@
       :disabled="disabled || empty"
       @click="send()">
     </button>
-  </div>
+  </div>  
 </template>
 
 <script>
