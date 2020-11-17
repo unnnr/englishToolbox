@@ -18,12 +18,11 @@ class AvatarService
     {
         $path = $request->file('avatar')->store(self::AVATARS_PATH);
 
-        $user = auth()->user();
-
-        $user->avatar()->update([
+        $avatar = auth()->user()->avatar;
+        $avatar->update([
             'name' => basename($path)
         ]);
 
-        return new AvatarResource($user);
+        return new AvatarResource($avatar);
     }
 }

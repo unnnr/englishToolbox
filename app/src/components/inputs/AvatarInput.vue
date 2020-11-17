@@ -1,13 +1,17 @@
 <template>
   <button
     :style="{'background-image': url }"
+    type="button"
     @click="showPopup">
 
     <v-hidden 
       ref="input"
-      type="file"
-      v-validate/>
 
+      type="file"
+      accept="image/*"
+      v-validate
+
+      @change.native="changeAvatar"/>
   </button>
 </template>
 
@@ -50,20 +54,19 @@ export default {
       if (event.target.value.length === 0)
         return;
 
-			let file = this.$refs.avatar.files[0];
-
+			let file = this.$refs.input.$el.files[0];
 			if (!!!file)
-				return;
-
+        return;
+        
       this.send(
         this.submit.bind(this, file));
     },
 
-    async submit() {
+    async submit(file) {
       let data = new FormData();
       data.append('avatar', file);
 
-      let newImage = Auth.user.avatar.edit(data);
+      let newImage = await Avatar.edit(data);
       this.image = newImage;
     },
 
