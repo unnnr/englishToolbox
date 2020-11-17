@@ -153,12 +153,12 @@ export default {
 
 	beforeMount() {
 		Auth.check().then( async authenticated => {
-			this.avatar = await Avatar.get()
+			this.avatar = await Avatar.get();
 			this.profileShown = authenticated;
 		});
 
 		Auth.onChange( async authenticated => {
-			this.avatar = await Avatar.get()
+			this.avatar = await Avatar.get();
 			this.profileShown = authenticated
 		});
 

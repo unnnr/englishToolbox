@@ -19,7 +19,7 @@
 
     </post-selected>
     
-    <posts-pool ref="pool"/>
+    <posts-pool/>
 
   </main>
 </template>
@@ -45,16 +45,6 @@ export default {
 
   provide: {
     model: Audio
-  },
-
-  mounted() {
-    this.loadPosts();
-  },
-
-  methods: {
-    loadPosts() {
-      this.posts = [ {}, {} ]
-    }
   }
 }
 </script>
