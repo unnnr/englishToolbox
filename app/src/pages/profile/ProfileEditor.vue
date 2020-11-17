@@ -19,9 +19,7 @@
       secondary>
 
       <div class="profile__editor-header">
-        <div class="profile__editor-image">
-          <input type="file">
-        </div>
+        <avatar-input class="profile__editor-image"/>
 
         <h4 class="profile__editor-name heading-fourth">
           {{ userName }}
@@ -74,6 +72,7 @@
 import ConfirmationInput from '@components/inputs/ConfirmationInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import PasswordInput from '@components/inputs/PasswordInput'
+import AvatarInput from '@components/inputs/AvatarInput'
 import EmailInput from '@components/inputs/EmailInput'
 import NameInput from '@components/inputs/NameInput'
 import VForm from '@components/validation/VForm'
@@ -86,9 +85,10 @@ export default {
     ConfirmationInput,
     ConfirmButton,
     PasswordInput,
+    AvatarInput,
     EmailInput,
     NameInput,
-    VForm,
+    VForm
   },
 
   data() {
