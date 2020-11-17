@@ -36,7 +36,6 @@ export default {
   },
 
   mounted() {
-    console.log('mount');
     this.$el.dispatchEvent(
 			new CustomEvent('tooltip:mounted', { detail: this })
     );

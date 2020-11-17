@@ -25,7 +25,6 @@
 </template>
 
 <script>
-
 import PostSelected from '@components/posts/PostSelected'
 import AudioPlayer from '@pages/audio/AudioPlayer'
 import HandlePost from'@mixins/HandlePost'

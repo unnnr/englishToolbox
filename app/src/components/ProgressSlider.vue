@@ -1,119 +1,104 @@
 <template>
 	<div 
-		class="progress-bar"
-		ref="slider"
-		@click="moveThumb">
-											
+		class="audio-player__status-bar"
+		ref="slider">
+
 		<div 
-			ref="progressFilled"
-			class="progress-current"
-			:class="{'progress-current--smooth': !!!isThumbActive}"
-			:style="{'width': progress + '%'}">
-
-			<button 
-				ref="thumb" 
-				class="progress-thumb"
-				@mousedown="activeThumb">
-			</button>
-
+			class="audio-player__status-bar-current"
+			:style="{'width': margin}">
 		</div>
-		<div class="progress-maximum"></div>
+		
+		<div class="audio-player__status-bar-total"></div>
+		
+		<div 
+			class="audio-player__status-bar-thumb"
+			:style="{'margin': margin}"
+			@mousedown="activeThumg">
+		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	props: {
-		max: {
-			type: Number,
-			default: 120
+	data() {
+		return {
+			width: null,
+			left: null,
+			progress: 0,
+			active: false,
+		}
+	},
+
+	computed: {
+		margin() {
+			return this.progress + '%';
+		}
+	},
+
+	mounted() {
+		document.addEventListener('mouseup', this.disableThumb);
+		document.addEventListener('mousemove', this.moveThumb);
+		document.addEventListener('mouseleave', this.disableThumb);
+	},
+
+	beforeDestroy() {
+		document.removeEventListener('mouseup', this.disableThumb);
+		document.removeEventListener('mousemove', this.moveThumb);
+		document.removeEventListener('mouseleave', this.disableThumb);
+	},
+
+	methods: {
+		computeAnchors() {
+			let slider = this.$refs.slider;
+			if (!!!slider)
+				return;
+			
+			this.width = slider.offsetWidth;
+			this.left  = slider.getBoundingClientRect().left;
 		},
 
-		value: {
-			type: Number,
-			default: 0
-		}
-	},
-
-data: function () {
-	return {
-				isThumbActive: false,
-				progress: 0,
-				isSmooth: true
-		}
-	},
-
-	watch: {
-		value(progress) {
-			if (this.isThumbActive)
+		activeThumg() {
+			if (this.active)
 				return;
 
-			let newProgress = progress * 100 / this.max;
-			if (newProgress > 100)
-				newProgress = 100;
-					
-			this.progress = newProgress;    
-		}
-	},
+			this.computeAnchors();
+			this.active = true;
 
-mounted() {
-		document.addEventListener('mouseup', this.disableThumb);
-		document.addEventListener('mousemove', this.onMove);
+			this.start = Date.now()
+		},
 
-		this.progress = this.value * 100 / this.max;
-	},
-	
-	methods: {
 		disableThumb() {
-			if (this.isThumbActive)
-				this.$emit('thumb-end-moving');
-					
-			this.isThumbActive = false;
-
-			document.documentElement.style.cursor = "unset";
-		},
-
-		activeThumb() {
-			if (!!!this.isThumbActive)
-				this.$emit('thumb-start-moving');
-
-			this.isThumbActive = true;
-
-			document.documentElement.style.cursor = "grabbing";
-		},
-
-		onMove(event) {
-			if (this.isThumbActive)
-				this.moveThumb(event);
+			if (!!!this.active)
+				return;
+				
+			this.active = false;
 		},
 
 		moveThumb(event) {
-			let slider = this.$refs.slider;
+			if (!!!this.active)
+				return;
 			
-			let sliderWidth = slider.offsetWidth;
-			let sliderLeft = slider.getBoundingClientRect().left;
-			let cursoreLeft =  event.pageX;
+			let sliderWidth = this.width;
+			let sliderLeft = this.left;
+			let cursoreLeft = event.pageX;
 
-			// Counting distance in px
-			let distance = cursoreLeft - sliderLeft;
-
-			if (distance < 0)
-					distance = 0;
-
-			else if (distance > sliderWidth)
-				distance = sliderWidth;
-
-			// Counting progress in %
-			this.progress = distance * 100 / sliderWidth;       
-
-			let value = this.progress * this.max / 100;
+			let position = cursoreLeft - sliderLeft;
 			
-			if (this.progress >= 100)
-				value = this.max;
+			if (position < 0)
+				position = 0;
+			else if (position > sliderWidth)
+				position = sliderWidth;
 
-			this.$emit('thumb-moved', value);
-			this.$emit('update:value', value);
+			let progress = position * 100 / sliderWidth;
+
+			if (progress > 100)
+				progress = 100;
+
+			this.progress = progress;
+
+			console.log(Date.now() - this.start);
+			this.start = Date.now();
 		}
 	}
-};
+}
 </script>
