@@ -19,6 +19,7 @@
 import HandleRequests from '@mixins/HandleRequests'
 import VHidden from '@components/validation/VHidden'
 import Avatar from '@models/Avatar'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -49,7 +50,6 @@ export default {
       input.$el.click();
     },
 
-
     changeAvatar(event) {
       if (event.target.value.length === 0)
         return;
@@ -68,6 +68,8 @@ export default {
 
       let newImage = await Avatar.edit(data);
       this.image = newImage;
+
+      bus.dispatch('avatar-changed', newImage);
     },
 
     async load() {
