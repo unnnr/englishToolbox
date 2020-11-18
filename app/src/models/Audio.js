@@ -4,10 +4,6 @@ import Model from '@models/Model'
 class Audio extends Model
 {
     path = 'audio'
-    async all() 
-    {
-        return [{}, {}]    
-    }
 }
 
 export default new Audio();  

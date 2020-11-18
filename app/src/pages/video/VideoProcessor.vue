@@ -76,14 +76,6 @@ export default {
 
     description() {
       return this.withDefault ? this.target.description : '';
-    },
-
-    tagsCounter() {
-      let tagEditor = this.$refs.tagEditor;
-      if (!!!tagEditor)
-        return '';
-
-      return tagEditor.counter;
     }
   },
 
