@@ -13,18 +13,16 @@
           
 
           <div class="audio-player__controls audio-player__controls--timeline">
-            <button v-if="playing"
-              class="audio-player__toggler audio-player__toggler--pause"
-              @click="pause">
-            </button>
-            
-            <button v-else
-              class="audio-player__toggler audio-player__toggler--play"
-              @click="play">
+            <button
+              class="audio-player__toggler"
+              :class="{
+                'audio-player__toggler--play': playing,
+                'audio-player__toggler--pause': !!!playing,}"
+              @click="togglePlauPause">
             </button>
             
             <progress-slider 
-              :value="progress"
+              v-model="progress"
               :to="duration"
               :disabled="!!!playable"
               @input="updatePlayer"/>
@@ -37,7 +35,12 @@
           </div>
 
           <div class="audio-player__controls audio-player__controls--volume">
-            <button class="audio-player__toggler audio-player__toggler--volume-up"></button>
+            <button 
+              class="audio-player__toggler"
+              :class="volumeIcon"
+              @click="toggleVolume">
+            </button>
+
             <progress-slider
               v-model="volume"
               :disabled="!!!playable"/>
@@ -64,6 +67,8 @@ export default {
 
       playing: false,
       playable: false,
+
+      volume: 1,
     
       player: new Audio()
     }
@@ -73,6 +78,11 @@ export default {
 
   computed: {
     target() {
+      return {
+        image: 'http://etoolbox/storage/avatars/default_1.webp', 
+        audio: 'https://www.tutorialrepublic.com/examples/audio/birds.mp3',
+      };
+      
       return this.$target();
     },
 
@@ -83,17 +93,24 @@ export default {
     image() {
       return this.target ? this.target.image : '#';
     },
-    
-    volume: {
-      set(value) {
-        return this.player.volume = value;
+
+    volumeIcon: {
+      get() {
+        if (this.volume >= 0.7)
+          return 'audio-player__toggler--volume-up';
+
+        if (this.volume >= 0.3)
+          return 'audio-player__toggler--volume-down'
+
+        if (this.volume > 0)
+          return 'audio-player__toggler--volume-mute'
+
+        return 'audio-player__toggler--volume-off'; 
       },
 
-      get() {
-        return this.player.volume;
-      }
+      cache: false
     },
-
+    
     formatedDuration() {
       return this.formatTime(this.duration);
     },
@@ -108,8 +125,13 @@ export default {
   },
 
   mounted() {
-    console.log(this)
     this.load();
+  },
+
+  watch: {
+    volume(value) {
+      return this.player.volume = value;
+    }
   },
 
   methods: {
@@ -128,8 +150,7 @@ export default {
     },
 
     updatePlayer(value) {
-      this.progress = value;
-      this.player.currentTime  =  value;
+      this.player.currentTime = value;
     },
 
     updateSlider() {
@@ -137,19 +158,39 @@ export default {
     },
 
     play() {
-      if (!!!this.playable)
-        return;
-
-      this.playing = true;
-      this.player.play();
+      if (this.playable)
+        this.player.play();
     },
 
     pause() {
-      if (!!!this.playable)
-        return;
+      if (this.playable)
+        this.player.pause();
+    },
 
-      this.playing = false;
-      this.player.pause();
+    toggleVolume() {
+      if (this.volume === 0) {
+        // Resuming volume
+        if (typeof this.$options.beforeMute === 'number')
+          this.volume = this.$options.beforeMute;
+        else  
+          this.volume = 1; 
+
+        this.$options.beforeMute = null;
+      }
+      else {
+        // Muting
+        this.$options.beforeMute = this.volume;
+        this.volume = 0;
+      }
+    },
+
+    togglePlauPause() {
+      if (this.playing)
+        this.pause();
+      else 
+        this.play();
+
+      this.playing = !!!this.playing;
     },
 
     load() {
