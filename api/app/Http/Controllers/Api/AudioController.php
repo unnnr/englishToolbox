@@ -60,7 +60,7 @@ class AudioController extends Controller
      */
     public function update(UpdateAudio $request, Audio $audio)
     {
-        return $this->service->update($request, $id); 
+        return $this->service->update($request, $audio); 
     }
 
     /**
