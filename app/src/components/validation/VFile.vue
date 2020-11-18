@@ -17,13 +17,14 @@
     
     <div class="input-group__inner">
       <span class="input-group__title">
-        {{ message }}
+        {{ label }}
       </span>
 
       <input 
         class="input-group__input"
-        type="file"
         ref="input"
+        type="file"
+        :accept="accept"
         @change="onChange">
     </div>
   </div>
@@ -35,6 +36,8 @@ export default {
     icon: { type: String, default: null},
 
     name: { type: String, default: null},
+
+    accept: { type: String, default: null },
 
     label: { type: String, default: 'Your file' },
 
@@ -56,11 +59,14 @@ export default {
   },
   
   computed: {
-    file() {
-      let input = this.$refs.input;
-      let file = input.files[0];
+    file: {
+      get() {
+        let input = this.$refs.input;
+        let file = input.files[0];
 
-      return file;
+        return file;
+      },
+      cache: false
     },
 
     message() {
@@ -76,12 +82,8 @@ export default {
 
     formatedName() {
       return this.name || 'this field';
-		},
-
-    active() {
-      return this.focused || this.entry.length !== 0;
-		},
-		
+    },
+    
 		incorrect() {
       return Boolean(this.errors.length);
 		},
@@ -111,7 +113,7 @@ export default {
     collectErrors() {
       let errors = [];
 
-      if (!!!this.file)
+      if (!!!this.file) 
       {
         if (!!!this.optional)
           errors.push(this.formatedName + ' cant be empty');
@@ -123,21 +125,40 @@ export default {
         errors.push('File is too large');
 
       return errors;
-		},
+    },
+    
+    hasChanges() {
+      return this.validated;
+    },
     
     validate() {
       this.errors = this.collectErrors();
+    
+      if (this.optional && (!!!this.errors.length && !!!this.file))
+        this.validated = false;
+      else
+        this.validated = !!!this.incorrect;
 
-      this.validated = !!!this.incorrect;
-
-      return this.validated;
+      return !!!this.incorrect;
     },
 
     submit(data) {
-      if (!!!this.name)
+      if (!!!this.name || !!!this.validated)
         return;
 
       data.append(this.name, this.file); 
+      this.validated = false;
+    },
+
+    handleError(errors) {
+      if (!!!this.name || !!!errors || !!!errors[this.name]) {
+        if (!!!this.optional || this.file)
+          this.validated = true;
+        return;
+      }
+
+      this.validated = false;
+      this.errors.push(errors[this.name]);
     }
   }
 }

@@ -4,20 +4,29 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Posts\AudioService;
 use App\Http\Requests\Audio\CreateAudio;
 use App\Http\Requests\Audio\UpdateAudio;
+use App\Http\Requests\Audio\DeleteAudio;
+use App\Services\Posts\AudioService;
+use App\Models\Audio;
+
 
 class AudioController extends Controller
 {
+    private $service;
+
+    public function __construct() 
+    {
+        $this->service = new AudioService();
+    }
      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(AudioService $audioService)
+    public function index()
     {
-        return $audioService->all();
+        return $this->service->all();
     }
 
     /**
@@ -26,9 +35,9 @@ class AudioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AudioService $audioService, CreateAudio $request)
+    public function store(CreateAudio $request)
     {
-        return $audioService->create($request); 
+        return $this->service->create($request); 
     }
 
     /**
@@ -49,9 +58,9 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, AudioService $audioService, UpdateAudio $request)
+    public function update(UpdateAudio $request, Audio $audio)
     {
-        return $audioService->update($request, $id); 
+        return $this->service->update($request, $audio); 
     }
 
     /**
@@ -60,8 +69,8 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteAudio $request, Audio $audio)
     {
-        //
+        return $this->service->delete($audio); 
     }
 }

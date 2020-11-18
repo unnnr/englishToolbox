@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\PostResource; 
 
-class AudioResource extends JsonResource
+class AudioResource extends PostResource
 {
     /**
      * Transform the resource into an array.
@@ -14,22 +14,15 @@ class AudioResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
+          // Default post data
+          $post = parent::toArray($request);
+        
+          // Videos data
+          $video = [
+            'audio' => $this->audio,
+            'image' =>  $this->image,
+          ];
 
-            'title' => $this->title,
-
-            'description' => $this->description,
-
-            'mainTag' => new TagResource($this->mainTag()),
-
-            'tags' => TagResource::collection($this->tags),
-
-            'audio' => asset('storage/audio/'. $this->audioFile),
-
-            'image' => asset('storage/audioBackgrounds/'. $this->imageFile),
-
-            'thumbnail' => asset('storage/thumbnails/'. $this->imageFile)
-        ];
+        return array_merge($post, $video);
     }
 }

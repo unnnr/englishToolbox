@@ -18,19 +18,29 @@
 		<div 
 			class="audio-player__status-bar-thumb"
 			:style="{'margin-left': margin}"
-			@mousedown="activeThumg">
+			@mousedown="activeThumb">
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
+	props: {
+		from: { type: Number, default: 0 },
+
+		to: { type: Number, default: 1 },
+
+		value: { type: Number, default: 0},
+
+		disabled: { type: Boolean, default: false }
+	},
+
 	data() {
 		return {
 			width: null,
 			left: null,
 			progress: 0,
-			active: false,
+			active: false
 		}
 	},
 
@@ -56,6 +66,24 @@ export default {
 		document.removeEventListener('mouseleave', this.disableThumb);
 	},
 
+	watch: {
+		value: {
+			handler(value) {
+				let progress = value * 100 / (this.to - this.from);
+				if (progress > 100)
+					progress = 100;
+
+				this.progress = progress;
+			},
+
+			immediate: true
+		},
+
+		disabled() {
+			this.active = false;
+		}
+	},
+
 	methods: {
 		computeAnchors() {
 			let slider = this.$refs.slider;
@@ -66,8 +94,8 @@ export default {
 			this.left  = slider.getBoundingClientRect().left;
 		},
 
-		activeThumg() {
-			if (this.active)
+		activeThumb() {
+			if (this.active || this.disabled)
 				return;
 
 			this.computeAnchors();
@@ -89,7 +117,7 @@ export default {
 		},
 
 		setThumb(event) {
-			if (this.active)
+			if (this.active || this.disabled)
 				return;
 
 			this.computeAnchors();
@@ -116,7 +144,11 @@ export default {
 				progress = 100;
 
 			this.progress = progress;
+			
+			// Computing value
+			let value = (this.to - this.from) * this.progress / 100;
 
+			this.$emit('input', value);
 		}
 	}
 }

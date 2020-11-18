@@ -1,22 +1,27 @@
 <template>
-  <v-form 
+   <v-form 
     class="addition__tab editor"
     ref="form"
     :request="request"
     secondary>
 
     <div class="addition__tab-header">
-      <h6 class="heading-sixth">Video editor</h6>
+      <h6 class="heading-sixth">Audio editor</h6>
     </div>
+
     <div class="addition__tab-body editor__body">
-      
-      <youtube-url-input 
-        :default-value="link"
-        :focusOnMount="!!!editing"
-        @changed="updatedLink"/>
+      <title-input
+        :default-value="title"/>
 
       <description-input 
         :default-value="description"/>
+
+      <h6 class="editor__tag-title heading-sixth">Upload files</h6>
+
+      <div class="editor__upload-inputs">
+        <audio-input :optional="editing"/>
+        <image-input :optional="editing"/>
+      </div>
 
       <tags-editor/>
     </div>
@@ -24,28 +29,31 @@
       <delete-button  
         v-if="editing"
         class="editor__delete-button"
-        @click.native="deleteVideo"/>
+        @click.native="deleteAudio"/>
         
-      <confirm-button class="editor__confirm-button"/>
-    </div>
+      <confirm-button class="editor__confirm-button"/> </div>
   </v-form>
 </template>
 
 <script>
 import DescriptionInput from '@components/inputs/DescriptionInput'
-import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
+import TitleInput from '@components/inputs/TitleInput'
+import ImageInput from '@components/inputs/ImageInput'
+import AudioInput from '@components/inputs/AudioInput'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
 
 export default {
-  components: {
+   components: {
     DescriptionInput,
-    YoutubeUrlInput,
     ConfirmButton,
     DeleteButton,
     TagsEditor,
+    TitleInput,
+    ImageInput,
+    AudioInput,
     VForm
   },
 
@@ -59,12 +67,6 @@ export default {
 
   inject: [ '$target' ],
 
-  data() {
-    return {
-      link: ''
-    }
-  },
-
   computed: {
     target() {
       return this.$target();
@@ -76,29 +78,21 @@ export default {
 
     description() {
       return this.withDefault ? this.target.description : '';
+    },
+
+    title() {
+      return this.withDefault ? this.target.title : '';
     }
   },
 
-  mounted() {
-    this.link = this.withDefault ?  
-      'https://youtube.com/watch?v=' + this.target.youtubeId : '';
-  },
-
   methods: {
-    updatedLink(event) {
-      let videoId = event.videoId || null;
-      
-      if (typeof this.target === 'object')
-        this.$set(this.target, 'youtubeId', videoId) 
-    },
-
     hasChanges() {
       let form = this.$refs.form;
 
       return form.hasChanges();
     },
 
-    async deleteVideo() {
+    async deleteAudio() {
       function okay() {
         if (typeof _this.deleting !== 'function')
           return;

@@ -30,10 +30,6 @@ export default {
   },
 
   methods: {
-    emitEvent(value) {
-      this.$emit
-    },
-
     validating(errors, entry) {
       this.videoId = getYouTubeID(entry);
 

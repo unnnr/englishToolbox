@@ -1,17 +1,17 @@
 <template>
-  <video-processor 
+  <audio-processor
     ref="processor"
     :request="submit"/>
 </template>
 
 <script>
-import VideoProcessor from '@pages/video/VideoProcessor'
-import Videos from '@models/Videos'
-
+import AudioProcessor from '@pages/audio/AudioProcessor'
+import Audio from '@models/Audio'
+import bus from '@services/eventbus'
 
 export default {
   components: {
-    VideoProcessor
+    AudioProcessor
   },
 
   methods: {
@@ -21,7 +21,7 @@ export default {
     },
     
     async submit(data) {
-      let post = await Videos.create(data);
+      let post = await Audio.create(data);
 
       bus.dispatch('post-created', { post });
     }
