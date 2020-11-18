@@ -18,7 +18,7 @@
 		<div 
 			class="audio-player__status-bar-thumb"
 			:style="{'margin-left': margin}"
-			@mousedown="activeThumg">
+			@mousedown="activeThumb">
 		</div>
 	</div>
 </template>
@@ -31,6 +31,8 @@ export default {
 		to: { type: Number, default: 1 },
 
 		value: { type: Number, default: 0},
+
+		disabled: { type: Boolean, default: false }
 	},
 
 	data() {
@@ -75,6 +77,10 @@ export default {
 			},
 
 			immediate: true
+		},
+
+		disabled() {
+			this.active = false;
 		}
 	},
 
@@ -88,8 +94,8 @@ export default {
 			this.left  = slider.getBoundingClientRect().left;
 		},
 
-		activeThumg() {
-			if (this.active)
+		activeThumb() {
+			if (this.active || this.disabled)
 				return;
 
 			this.computeAnchors();
@@ -111,7 +117,7 @@ export default {
 		},
 
 		setThumb(event) {
-			if (this.active)
+			if (this.active || this.disabled)
 				return;
 
 			this.computeAnchors();
