@@ -10,12 +10,7 @@
     </div>
 
     <div class="addition__tab-body editor__body">
-      <div class="input-group-secondary">  
-        <div class="input-group__inner">
-          <span class="input-group__title">Audio title<small class="input-group__counter">0/0</small></span>
-          <input class="input-group__input"  type="text">
-        </div>
-      </div>
+      <title-input/>
 
       <description-input 
         :default-value="description"/>
@@ -24,26 +19,23 @@
 
       <div class="editor__upload-inputs">
 
-        <div class="input-group-secondary input-group--upload input-group--audio">  
-          <div class="input-group__inner">
-            <span class="input-group__title">audio</span>
-            <input class="input-group__input"  type="file">
-          </div>
-        </div>
+       <audio-input/>
 
-        <div class="input-group-secondary input-group--upload input-group--image">  
+      <image-input/>
+
+        <!-- <div class="input-group-secondary input-group--upload input-group--image">  
           <div class="input-group__inner">
             <span class="input-group__title">image</span>
             <input class="input-group__input"  type="file">
           </div>
-        </div>
+        </div> -->
         
       </div>
 
       <tags-editor/>
     </div>
     <div class="addition__tab-footer editor__footer">
-       <delete-button  
+      <delete-button  
         v-if="editing"
         class="editor__delete-button"
         @click.native="deleteAudio"/>
@@ -54,9 +46,11 @@
 
 <script>
 import DescriptionInput from '@components/inputs/DescriptionInput'
-import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
+import TitleInput from '@components/inputs/TitleInput'
+import ImageInput from '@components/inputs/ImageInput'
+import AudioInput from '@components/inputs/AudioInput'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
 
@@ -66,6 +60,9 @@ export default {
     ConfirmButton,
     DeleteButton,
     TagsEditor,
+    TitleInput,
+    ImageInput,
+    AudioInput,
     VForm
   },
 

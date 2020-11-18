@@ -22,8 +22,9 @@
 
       <input 
         class="input-group__input"
-        type="file"
         ref="input"
+        type="file"
+        :accept="accept"
         @change="onChange">
     </div>
   </div>
@@ -35,6 +36,8 @@ export default {
     icon: { type: String, default: null},
 
     name: { type: String, default: null},
+
+    accept: { type: String, default: null },
 
     label: { type: String, default: 'Your file' },
 
@@ -123,7 +126,11 @@ export default {
         errors.push('File is too large');
 
       return errors;
-		},
+    },
+    
+    hasChanges() {
+      return this.validated;
+    },
     
     validate() {
       this.errors = this.collectErrors();
@@ -138,6 +145,15 @@ export default {
         return;
 
       data.append(this.name, this.file); 
+      this.validated = false;
+    },
+
+    handleError(errors) {
+      if (!!!this.name || !!!errors || !!!errors[this.name])
+        return;
+
+      this.validated = false;
+      this.errors.push(errors[this.name]);
     }
   }
 }
