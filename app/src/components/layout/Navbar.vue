@@ -38,14 +38,9 @@
 				<router-link
 					class="navbar-desktop__account-link"
 					v-if="profileShown"
-					to="Profile">
+					to="Profile"
+					:style="{'background-image': this.avatarUrl}">
 						
-					<span 
-						class="material-icons-round"
-						:style="{'background-image': this.avatarUrl}">
-						
-						account_circle
-					</span>
 				</router-link>
 
 			</aside>	

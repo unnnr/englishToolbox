@@ -85,16 +85,12 @@
     box-shadow:  0px 5px 25px rgba(102, 102, 255, 0.1)
 
 .navbar-desktop__account-link
-  height: 42px
-
-  span
-    font-size: 42px
-    color: $color-primary
-    transition: color .3s
-
-    &:hover
-      color: darken($color-primary, 5)
-
+  height: 40px
+  min-width: 40px
+  background-color: $color-semigray
+  border-radius: 100%
+  @include background-image
+  
 // =============
 // navbar mobile
 // =============

@@ -21,11 +21,9 @@
   
 .comments__profile-button 
   height: 40px
-  &:before
-    font-family: "material icons round"
-    content: "account_circle"
-    color: $color-primary
-    font-size: 40px
+  min-width: 40px
+  background-color: $color-semigray
+  @include background-image
 
 .comments__send-button 
   height: 40px
