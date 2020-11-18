@@ -1,5 +1,8 @@
 <template>
-  <div class="player">
+  <div 
+    class="player"
+    :style="{
+      'background-image': imageUrl}">
 
     <div class="audio-player">
         <div class="audio-player__body">
@@ -38,7 +41,7 @@
           <div class="audio-player__controls audio-player__controls--volume">
             <button class="audio-player__toggler audio-player__toggler--volume-up"></button>
             <progress-slider
-              v-model="audio.volume"
+              v-model="volume"
               :disabled="!!!audio.playable"/>
           </div>
 
@@ -59,22 +62,33 @@ export default {
   data() {
     return {
       audio: {
-        src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3',
+        src: 'https://www.tutorialrepublic.com/examples/audio/birds.mp3',
 
         duration: 0,
         progress: 0,
-        volume: 1,
 
         playing: false,
         playable: false,
       },
       
+      image: 'http://etoolbox/storage/avatars/default_1.webp',
     
       player: new Audio()
     }
   },
 
   computed: {
+    volume: {
+      set(value) {
+        console.log(value);
+        return this.player.volume = value;
+      },
+
+      get() {
+        return this.player.volume;
+      }
+    },
+
     formatedDuration() {
       return this.formatTime(this.audio.duration);
     },
@@ -82,6 +96,10 @@ export default {
     formatedCurrent() {
       return this.formatTime(this.audio.progress);
     },
+
+    imageUrl() {
+      return 'url(' + this.image + ')';
+    }
   },
 
   mounted() {
@@ -95,7 +113,7 @@ export default {
       
       parsedSeconds = parsedSeconds - parsedMinutes * 60;
 
-      if (parsedMinutes >  59) {
+      if (parsedMinutes > 59) {
         parsedMinutes = 59;
         parsedSeconds = 59;
       }
@@ -120,8 +138,9 @@ export default {
       }
 
       this.player.src = this.audio.src;
-      this.player.volume = 1;
+      this.player.volume = this.volume;
 
+      // Attaching events
       this.player.addEventListener('canplaythrough', 
         init.bind(this), { once: true });
 
