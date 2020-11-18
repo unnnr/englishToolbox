@@ -3,7 +3,8 @@
     name="audio"
     icon="audio"
     label="audio"
-    accept="audio/*"/>
+    accept="audio/*"
+    v-validate/>
 </template>
 
 <script>

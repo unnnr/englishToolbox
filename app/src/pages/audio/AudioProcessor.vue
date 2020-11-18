@@ -10,7 +10,8 @@
     </div>
 
     <div class="addition__tab-body editor__body">
-      <title-input/>
+      <title-input
+        :default-value="title"/>
 
       <description-input 
         :default-value="description"/>
@@ -18,18 +19,8 @@
       <h6 class="editor__tag-title heading-sixth">Upload files</h6>
 
       <div class="editor__upload-inputs">
-
-       <audio-input/>
-
-      <image-input/>
-
-        <!-- <div class="input-group-secondary input-group--upload input-group--image">  
-          <div class="input-group__inner">
-            <span class="input-group__title">image</span>
-            <input class="input-group__input"  type="file">
-          </div>
-        </div> -->
-        
+        <audio-input/>
+        <image-input/>
       </div>
 
       <tags-editor/>
@@ -86,6 +77,10 @@ export default {
     },
 
     description() {
+      return this.withDefault ? this.target.description : '';
+    },
+
+    title() {
       return this.withDefault ? this.target.description : '';
     }
   },

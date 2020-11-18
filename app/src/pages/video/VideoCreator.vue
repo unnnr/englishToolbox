@@ -7,7 +7,6 @@
 <script>
 import VideoProcessor from '@pages/video/VideoProcessor'
 import Videos from '@models/Videos'
-import bus from '@services/eventbus'
 
 
 export default {
@@ -18,7 +17,6 @@ export default {
   methods: {
     hasChanges() {
       let processor = this.$refs.processor;
-
       return processor.hasChanges();
     },
     

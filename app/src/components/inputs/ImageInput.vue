@@ -3,7 +3,8 @@
     name="image"
     icon="image"
     label="image"
-    accept="image/*"/>
+    accept="image/*"
+    v-validate/>
 </template>
 
 <script>

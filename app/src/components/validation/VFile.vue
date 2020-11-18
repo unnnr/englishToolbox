@@ -17,7 +17,7 @@
     
     <div class="input-group__inner">
       <span class="input-group__title">
-        {{ message }}
+        {{ label }}
       </span>
 
       <input 
@@ -59,11 +59,14 @@ export default {
   },
   
   computed: {
-    file() {
-      let input = this.$refs.input;
-      let file = input.files[0];
+    file: {
+      get() {
+        let input = this.$refs.input;
+        let file = input.files[0];
 
-      return file;
+        return file;
+      },
+      cache: false
     },
 
     message() {
@@ -79,12 +82,8 @@ export default {
 
     formatedName() {
       return this.name || 'this field';
-		},
-
-    active() {
-      return this.focused || this.entry.length !== 0;
-		},
-		
+    },
+    
 		incorrect() {
       return Boolean(this.errors.length);
 		},
@@ -114,8 +113,9 @@ export default {
     collectErrors() {
       let errors = [];
 
-      if (!!!this.file)
+      if (!!!this.file) 
       {
+        console.log(this.file);
         if (!!!this.optional)
           errors.push(this.formatedName + ' cant be empty');
 
@@ -134,7 +134,7 @@ export default {
     
     validate() {
       this.errors = this.collectErrors();
-
+      
       this.validated = !!!this.incorrect;
 
       return this.validated;
