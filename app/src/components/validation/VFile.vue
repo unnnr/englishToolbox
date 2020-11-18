@@ -133,13 +133,13 @@ export default {
     
     validate() {
       this.errors = this.collectErrors();
-      
+    
       if (this.optional && (!!!this.errors.length && !!!this.file))
         this.validated = false;
       else
         this.validated = !!!this.incorrect;
 
-      return !!!this.validated;
+      return !!!this.incorrect;
     },
 
     submit(data) {
