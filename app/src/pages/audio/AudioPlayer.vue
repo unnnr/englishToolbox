@@ -78,11 +78,6 @@ export default {
 
   computed: {
     target() {
-      return {
-        image: 'http://etoolbox/storage/avatars/default_1.webp', 
-        audio: 'https://www.tutorialrepublic.com/examples/audio/birds.mp3',
-      };
-      
       return this.$target();
     },
 

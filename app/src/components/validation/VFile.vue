@@ -149,8 +149,10 @@ export default {
     },
 
     handleError(errors) {
-      if (!!!this.name || !!!errors || !!!errors[this.name])
+      if (!!!this.name || !!!errors || !!!errors[this.name]) {
+        this.validated = true;
         return;
+      }
 
       this.validated = false;
       this.errors.push(errors[this.name]);

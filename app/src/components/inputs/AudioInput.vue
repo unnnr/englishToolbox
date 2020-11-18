@@ -1,6 +1,6 @@
 <template>
   <v-file
-    name="audio"
+    name="audioFile"
     icon="audio"
     label="audio"
     accept="audio/*"

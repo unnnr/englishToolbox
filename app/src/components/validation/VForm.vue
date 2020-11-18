@@ -127,11 +127,6 @@ export default {
     },
 
     handleError(data) {
-      if (data || typeof data !== 'object' || data.status !== 422) {
-        bus.dispatch('alert-error');
-        return;
-      }
-
       let error = this.parseError(data);
 
       if (this.catch)
@@ -140,6 +135,11 @@ export default {
       for (let input of this.inputs) {
         if (typeof input.handleError === 'function')
           input.handleError(error);
+      }
+
+      if (data.status !== 422) {
+        bus.dispatch('alert-error');
+        return;
       }
     },
 

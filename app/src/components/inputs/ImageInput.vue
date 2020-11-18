@@ -1,6 +1,6 @@
 <template>
   <v-file
-    name="image"
+    name="imageFile"
     icon="image"
     label="image"
     accept="image/*"
