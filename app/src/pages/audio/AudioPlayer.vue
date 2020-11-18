@@ -13,22 +13,20 @@
           
 
           <div class="audio-player__controls audio-player__controls--timeline">
+            <button v-if="playing"
+              class="audio-player__toggler audio-player__toggler--pause"
+              @click="pause">
+            </button>
             
-            <transition name="fade">
-              <button v-if="audio.playing"
-               class="audio-player__toggler audio-player__toggler--pause"
-               @click="pause">
-             </button>
-              <button v-else
-                class="audio-player__toggler audio-player__toggler--play"
-                @click="play">
-              </button>
-            </transition>
+            <button v-else
+              class="audio-player__toggler audio-player__toggler--play"
+              @click="play">
+            </button>
             
             <progress-slider 
-              :value="audio.progress"
-              :to="audio.duration"
-              :disabled="!!!audio.playable"
+              :value="progress"
+              :to="duration"
+              :disabled="!!!playable"
               @input="updatePlayer"/>
 
             <div class="audio-player__timer">
@@ -42,7 +40,7 @@
             <button class="audio-player__toggler audio-player__toggler--volume-up"></button>
             <progress-slider
               v-model="volume"
-              :disabled="!!!audio.playable"/>
+              :disabled="!!!playable"/>
           </div>
 
         </div>
@@ -61,26 +59,33 @@ export default {
 
   data() {
     return {
-      audio: {
-        src: 'https://www.tutorialrepublic.com/examples/audio/birds.mp3',
+      duration: 0,
+      progress: 0,
 
-        duration: 0,
-        progress: 0,
-
-        playing: false,
-        playable: false,
-      },
-      
-      image: 'http://etoolbox/storage/avatars/default_1.webp',
+      playing: false,
+      playable: false,
     
       player: new Audio()
     }
   },
 
+  inject: [ '$target' ],
+
   computed: {
+    target() {
+      return this.$target();
+    },
+
+    audio() {
+      return this.target ? this.target.audio : '#';
+    },
+
+    image() {
+      return this.target ? this.target.image : '#';
+    },
+    
     volume: {
       set(value) {
-        console.log(value);
         return this.player.volume = value;
       },
 
@@ -90,11 +95,11 @@ export default {
     },
 
     formatedDuration() {
-      return this.formatTime(this.audio.duration);
+      return this.formatTime(this.duration);
     },
 
     formatedCurrent() {
-      return this.formatTime(this.audio.progress);
+      return this.formatTime(this.progress);
     },
 
     imageUrl() {
@@ -103,6 +108,7 @@ export default {
   },
 
   mounted() {
+    console.log(this)
     this.load();
   },
 
@@ -122,22 +128,38 @@ export default {
     },
 
     updatePlayer(value) {
-      this.audio.progress = value;
+      this.progress = value;
       this.player.currentTime  =  value;
     },
 
     updateSlider() {
-      this.audio.progress = this.player.currentTime;
+      this.progress = this.player.currentTime;
+    },
+
+    play() {
+      if (!!!this.playable)
+        return;
+
+      this.playing = true;
+      this.player.play();
+    },
+
+    pause() {
+      if (!!!this.playable)
+        return;
+
+      this.playing = false;
+      this.player.pause();
     },
 
     load() {
       function init() {
-        this.audio.playable = true;
+        this.playable = true;
 
-        this.audio.duration = this.player.duration;
+        this.duration = this.player.duration;
       }
 
-      this.player.src = this.audio.src;
+      this.player.src = this.audio;
       this.player.volume = this.volume;
 
       // Attaching events
@@ -148,24 +170,8 @@ export default {
         event => this.updateSlider());
 
       this.player.addEventListener('ended', 
-        event => this.audio.playing = false);
+        event => this.playing = false);
     },
-
-    play() {
-      if (!!!this.audio.playable)
-        return;
-
-      this.audio.playing = true;
-      this.player.play();
-    },
-
-    pause() {
-      if (!!!this.audio.playable)
-        return;
-
-      this.audio.playing = false;
-      this.player.pause();
-    }
-  }
+  },
 }
 </script>
