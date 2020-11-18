@@ -8,7 +8,7 @@
 
           <div class="audio-player__controls audio-player__controls--timeline">
             <button class="audio-player__toggler audio-player__toggler--play"></button>
-            <progress-slider/>
+            <progress-slider :to="2" v-model="value"/>
 
             <div class="audio-player__timer">
               <span class="audio-player__timer-current text-sixth">0:00</span>
@@ -19,7 +19,7 @@
 
           <div class="audio-player__controls audio-player__controls--volume">
             <button class="audio-player__toggler audio-player__toggler--volume-up"></button>
-            <progress-slider/>
+            <progress-slider v-model="value"/>
           </div>
 
         </div>
@@ -38,7 +38,7 @@ export default {
 
   data() {
     return {
-
+      value: .5
     }
   },
 
