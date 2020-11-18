@@ -4,7 +4,7 @@ namespace App\Services\Contracts;
 
 interface MustHandleFiles
 {     
-    public const THUMBNAIL_PATH =  'public/thumbnails';
+    public const THUMBNAIL_PATH =  'thumbnails';
 
     public const THUMBNAIL_WIDTH = 300;
     

@@ -50,7 +50,7 @@ abstract class PostService
 
         // Attaching thumbnail
         $post->thumbnail()->create([
-            'url' => $this->getThumbnailUrl($post)
+            'url' => $this->getThumbnailUrl($post, $request)
         ]);
 
         event(new PostCreated($post));
@@ -68,10 +68,8 @@ abstract class PostService
         return new $this->resource($post);
     }
 
-    public function update(Request $request, int $id) : JsonResource
+    public function update(Request $request, Model $post) : JsonResource
     {
-        $post =  $this->model::findOrFail($id);
-
         if (method_exists(get_called_class(), 'updating'))
             $this->updating($request, $post);
         else
@@ -84,18 +82,17 @@ abstract class PostService
         return $this->createScalarResponce($post);
     }
 
-    public function destroy(int $id) : void
+    public function destroy(Model $post) : void
     {
-        $post = $this->model::findOrFail($id);
-
         if (method_exists(get_called_class(), 'deleting'))
             $data = $this->deleting($request,  $post);
 
+        // Removing attachments
         $post->tags()->detach();
-        
-        $post->delete();
-
         $post->thumbnail()->delete();
+        
+        // Deleting post 
+        $post->delete();
 
         event(new PostDeleted($post));
     }

@@ -24,9 +24,9 @@ trait HandleFiles
         if (is_null($outputPath))
             $outputPath = self::THUMBNAIL_PATH;
 
-        $path = storage_path('app/' . $outputPath . '/' . $fileName);
-        $thumbnail->save($path);
+        $path = $outputPath . '/' . $fileName;
+        $thumbnail->save(storage_path('app/public/' . $path));
 
-        return $path;
+        return 'storage/' . $path;
     }
 }

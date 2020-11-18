@@ -47,7 +47,7 @@ class VideoService extends PostService
 
             $video->youtube_id = $this->getVideoId($url);
 
-            $video->title = $this->getVideoTitle($video->youtube_id);
+            $video->title = $this->getVideoTitle($video->youtube_id, $request);
 
             $video->thumbnail()->update([
                 'url' => $this->getThumbnailUrl($video)

@@ -5,12 +5,11 @@ namespace App\Services\Posts;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Http\Resources\AudioResource;
-use App\Models\Audio;
+use App\Services\Contracts\MustHandleFiles;
 use App\Services\Traits\HandleFiles;
 use App\Services\Posts\PostService;
-use App\Services\Contracts\MustHandleFiles;
-
+use App\Http\Resources\AudioResource;
+use App\Models\Audio;
 
 class AudioService extends PostService implements MustHandleFiles
 {
@@ -24,29 +23,39 @@ class AudioService extends PostService implements MustHandleFiles
     
     protected $resource = AudioResource::class;
 
-    protected function beforeCreate(Request $request)
+    protected function getThumbnailUrl(Audio $audio, Request $request) 
+    {
+        $path = $this->createThumbnail(
+            $request->file('imageFile'),
+            $audio->imageFile,
+            self::BLURED);
+
+        return url($path);
+    }
+
+    protected function creating(Request $request)
     { 
         // Creating files
-        $audioFileName =  $this->storeFile($request->file('audioFile'),  self::AUDIO_PATH);
+        $audioFileName =  
+            $this->storeFile($request->file('audioFile'),  self::AUDIO_PATH);
         
-        $imageFileName = $this->storeFile($request->file('imageFile'), self::IMAGES_PATH);
-        
-        $this->createThumbnail($request->file('imageFile'), $imageFileName, self::BLURED);
+        $imageFileName = 
+            $this->storeFile($request->file('imageFile'), self::IMAGES_PATH);
         
         // Retrieving sended data 
         $description = $request->input('description');
         
         $title =  $request->input('title'); 
         
-        return [
+        return Audio::create([
             'title' => $title,
             'description' => $description,
             'audioFile' => $audioFileName,
             'imageFile' => $imageFileName,
-        ];
+        ]);
     }
 
-    protected function beforeUpdate(Request $request, Audio $post)
+    protected function updating(Request $request, Audio $post)
     {   
         $data = [];
 
@@ -78,7 +87,7 @@ class AudioService extends PostService implements MustHandleFiles
         return $data;
     }
 
-    protected function beforeDelete(Request $request, Audio $post)
+    protected function deleting(Request $request, Audio $post)
     {
         $imageName = $post->imageFile;
         $audioName =  $post->audioName;
