@@ -48,10 +48,8 @@ export default {
     async submit(data) {
       // sending data to API
       let id = this.postId;
-      if (id === null)
-        throw new Error();
-
       let post = await Videos.edit(id, data);
+      
       bus.dispatch('post-edited', { post }); 
     }
   }

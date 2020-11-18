@@ -1,15 +1,16 @@
 <template>
   <v-input
+    ref="input"
+
+    placeholder="'Best title for my post'"
+    label="Post title"
     name="title"
     
-    :optional="optional"
-    :disabled="disabled"
-
-    :value="value"
-    :label="label"
-    
+    :value="defaultValue"
     :max="64"
     :min="3"
+
+    :focusOnMount="focusOnMount"
     v-validate/>
 </template>
 
@@ -20,15 +21,15 @@ export default {
   components: {
     VInput
   },
-  
+
   props: {
-    label: {type: String, default: 'Title' },
+    defaultValue: { type: String, default: '' },
 
-    value: { type: String },
+    focusOnMount: { type: Boolean },
+  },
 
-    optional: { type: Boolean },
-
-    disabled: { type: Boolean },
+  mounted() {
+    console.log(123)
   }
 }
 </script>

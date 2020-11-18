@@ -18,4 +18,14 @@ class Audio extends Model
     ];
 
     protected $defaultTag = 'audio';
+
+    public function getAudioAttribute()
+    {
+        return url('storage/audio/' . $this->audioFile);
+    } 
+
+    public function getImageAttribute()
+    {
+        return url('storage/audioBackgrounds/' . $this->imageFile);
+    } 
 }

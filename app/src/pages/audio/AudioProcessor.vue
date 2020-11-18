@@ -19,8 +19,8 @@
       <h6 class="editor__tag-title heading-sixth">Upload files</h6>
 
       <div class="editor__upload-inputs">
-        <audio-input/>
-        <image-input/>
+        <audio-input :optional="editing"/>
+        <image-input :optional="editing"/>
       </div>
 
       <tags-editor/>
@@ -81,7 +81,7 @@ export default {
     },
 
     title() {
-      return this.withDefault ? this.target.description : '';
+      return this.withDefault ? this.target.title : '';
     }
   },
 

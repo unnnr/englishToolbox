@@ -17,14 +17,15 @@
               class="audio-player__toggler"
               :class="{
                 'audio-player__toggler--play': playing,
-                'audio-player__toggler--pause': !!!playing,}"
+                'audio-player__toggler--pause': !!!playing}"
+              :disabled="disabled"
               @click="togglePlauPause">
             </button>
             
             <progress-slider 
               v-model="progress"
               :to="duration"
-              :disabled="!!!playable"
+              :disabled="disabled"
               @input="updatePlayer"/>
 
             <div class="audio-player__timer">
@@ -43,7 +44,7 @@
 
             <progress-slider
               v-model="volume"
-              :disabled="!!!playable"/>
+              :disabled="disabled"/>
           </div>
 
         </div>
@@ -79,6 +80,10 @@ export default {
   computed: {
     target() {
       return this.$target();
+    },
+
+    disabled() {
+      return !!!this.playable;
     },
 
     audio() {
@@ -119,13 +124,17 @@ export default {
     }
   },
 
-  mounted() {
-    this.load();
-  },
-
   watch: {
     volume(value) {
       return this.player.volume = value;
+    },
+
+    target: {
+      handler() {
+        this.load();
+      },
+
+      immediate: true
     }
   },
 

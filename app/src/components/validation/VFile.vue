@@ -115,7 +115,6 @@ export default {
 
       if (!!!this.file) 
       {
-        console.log(this.file);
         if (!!!this.optional)
           errors.push(this.formatedName + ' cant be empty');
 
@@ -135,13 +134,16 @@ export default {
     validate() {
       this.errors = this.collectErrors();
       
-      this.validated = !!!this.incorrect;
+      if (this.optional && (!!!this.errors.length && !!!this.file))
+        this.validated = false;
+      else
+        this.validated = !!!this.incorrect;
 
-      return this.validated;
+      return !!!this.validated;
     },
 
     submit(data) {
-      if (!!!this.name)
+      if (!!!this.name || !!!this.validated)
         return;
 
       data.append(this.name, this.file); 
@@ -150,7 +152,8 @@ export default {
 
     handleError(errors) {
       if (!!!this.name || !!!errors || !!!errors[this.name]) {
-        this.validated = true;
+        if (!!!this.optional || this.file)
+          this.validated = true;
         return;
       }
 
