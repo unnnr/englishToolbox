@@ -1,5 +1,7 @@
 <template>
   <pool 
+    class="container"
+
     :cards="reversedPosts"
     :context="createContext"
     :can-create="canCreate"
