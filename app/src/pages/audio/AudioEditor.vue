@@ -1,5 +1,6 @@
 <template>
   <audio-processor 
+    ref="processor"
     :request="submit"
     editing/>
 </template>

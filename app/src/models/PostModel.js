@@ -5,35 +5,33 @@ import Model from '@models/Model';
 
 class PostModel extends Model 
 {
+    async comments(postId)
+    {
+        let response = await Http.get({
+            uri: this.path + `/${postId}/comments`
+        });
+        
+        for (let comment of response.data)
+            comment.createdAt = FormatedDate.parse(comment.createdAt);
+
+        return response.data;
+    }
+
+    async postComment(postId, data)
+    {
+        let response = await Http.post({
+            data, uri: this.path + `/${postId}/comments`
+        }); 
+
+        let comment = response.data;
+        comment.createdAt = FormatedDate.parse(comment.createdAt);
+        
+        return response.data;
+    }
+    
     castCreatedAt(value) 
     {
         return FormatedDate.parse(value);
-    }
-
-    comments = {
-        async get(postId)
-        {
-            let response = await Http.get({
-                uri: this.path + `/${postId}/comments`
-            });
-            
-            for (let comment of response.data)
-                comment.createdAt = FormatedDate.parse(comment.createdAt);
-    
-            return response.data;
-        },
-
-        async create(postId, data)
-        {
-            let response = await Http.post({
-                data, uri: this.path + `/${postId}/comments`
-            }); 
-
-            let comment = response.data;
-            comment.createdAt = FormatedDate.parse(comment.createdAt);
-            
-            return response.data;
-        }
     }
 
     makeFavorite(id) {

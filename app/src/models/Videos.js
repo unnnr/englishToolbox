@@ -2,10 +2,9 @@
 import PostModel from '@models/PostModel'; 
 
 class Videos extends PostModel 
-{
-    path = 'videos';
+{ 
+    path = 'videos'
 
- 
     compareVideoUrl(newValue, cached)
     {
         let link = 'https://youtube.com/watch?v=';

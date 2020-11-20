@@ -205,7 +205,7 @@ export default {
  
       // Sending new comment
       let comment = 
-        await this.model.comments.create(postId, data);
+        await this.model.postComment(postId, data);
 
       // Appending response
       this.comments.push(comment);
@@ -218,7 +218,7 @@ export default {
       let postId = this.target.id;
 
       this.comments = 
-        await this.model.comments.get(postId);
+        await this.model.comments(postId);
     }
   }
   

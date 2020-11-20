@@ -8,11 +8,11 @@
       :creator-has-changes="creatorHasChanges">
 
       <template #creator>
-        <audio-creator/>
+        <audio-creator ref="creator"/>
       </template>
 
       <template #editor>
-        <audio-editor/>
+        <audio-editor ref="editor"/>
       </template>
 
       <template #player>
