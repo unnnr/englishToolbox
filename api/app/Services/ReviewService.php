@@ -74,6 +74,10 @@ class ReviewService
 
     public function delete(Review $model)
     {
+        // Removing avatar
+        $filepath = Review::AVATARS_PATH . '/' .  $model->user_avatar;
+        Storage::delete($filepath);
+
         $model->delete();
     }
 }

@@ -8,6 +8,7 @@ class Review extends Model
 {
     public const AVATARS_PATH = 'public/reviewsAvatars';
 
+
     protected $fillable = [
         'title', 'text', 'grade', 'verified', 'user_name', 'user_avatar'
     ];
@@ -19,6 +20,6 @@ class Review extends Model
 
     public function getAvatarUrlAttribute() 
     {
-        return self::AVATARS_PATH . '/' . $this->user_avatar;
+        return basename(self::AVATARS_PATH) . '/' . $this->user_avatar;
     } 
 }

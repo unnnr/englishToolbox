@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Review;
 
 class CreateReviewsTable extends Migration
 {
@@ -34,5 +36,6 @@ class CreateReviewsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('reviews');
+        Storage::deleteDirectory(Review::AVATARS_PATH);
     }
 }
