@@ -8,7 +8,9 @@
     
     :optional="optional"
     :disabled="disabled"
+    :focusOnMount="focusOnMount"
     :value="value"
+    
     :max="40"
     :min="3"
     v-validate/>
@@ -23,11 +25,13 @@ export default {
   },
   
   props: {
-    optional: { type: Boolean },
+    value: { type: String },
 
+    optional: { type: Boolean },
+    
     disabled: { type: Boolean },
 
-    value: { type: String }
+    focusOnMount: { type: Boolean },
   },
 
   methods: {

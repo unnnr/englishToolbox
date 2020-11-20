@@ -6,11 +6,12 @@
     label="Post title"
     name="title"
     
+    :focusOnMount="focusOnMount"
     :value="defaultValue"
+
     :max="64"
     :min="3"
 
-    :focusOnMount="focusOnMount"
     v-validate/>
 </template>
 
@@ -26,10 +27,6 @@ export default {
     defaultValue: { type: String, default: '' },
 
     focusOnMount: { type: Boolean },
-  },
-
-  mounted() {
-    console.log(123)
   }
 }
 </script>

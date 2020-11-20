@@ -5,7 +5,8 @@
     <div 
       v-if="overlayShown"
       class="player__overlay"
-      :style="{'background-image': imageUrl}"></div>
+      :style="{'background-image': imageUrl}">
+    </div>
 
     <iframe 
       v-else

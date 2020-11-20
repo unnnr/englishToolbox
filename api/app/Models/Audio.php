@@ -30,11 +30,11 @@ class Audio extends Model implements CreatesThumbnail
 
     public function getAudioAttribute()
     {
-        return Storage::url(self::AUDIO_PATH.'/'.$this->audioFile);
+        return url(Storage::url(self::AUDIO_PATH.'/'.$this->audioFile));
     } 
 
     public function getImageAttribute()
     {
-        return Storage::url(self::IMAGE_PATH.'/'.$this->imageFile);
+        return url(Storage::url(self::IMAGE_PATH.'/'.$this->imageFile));
     } 
 }

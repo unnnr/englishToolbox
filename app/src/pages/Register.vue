@@ -6,7 +6,7 @@
 
 			<h4 class="auth__title heading-fourth">Sing up</h4>
 
-			<name-input/>
+			<name-input focus-on-mount/>
 
 			<email-input/>
 			

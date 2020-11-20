@@ -30,6 +30,6 @@ trait HandlePostThumbnails
         $path = $post::THUMBNAIL_PATH.'/'.$fileName;
         $thumbnail->save(storage_path('app/'.$path));
 
-        return Storage::url($path);
+        return url(Storage::url($path));
     }
 }

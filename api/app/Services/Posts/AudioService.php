@@ -20,12 +20,10 @@ class AudioService extends PostService
 
     protected function getThumbnailUrl(Audio $audio, Request $request) 
     {
-        $path = $this->storeThumbnail(
+        return $this->storeThumbnail(
             $request->file('imageFile'),
             $audio->imageFile,
             $audio);
-
-        return url($path);
     }
 
     protected function creating(Request $request)
@@ -66,7 +64,7 @@ class AudioService extends PostService
         {
             // Removing previous image file and thumbnail
             Storage::delete(Audio::IMAGE_PATH .'/'. $audio->imageFile);
-            Storage::delete(Audio::THUMBNAILS_PATH .'/'. $audio->imageFile);
+            Storage::delete(Audio::THUMBNAIL_PATH .'/'. $audio->imageFile);
 
             // Storing new image and updating model
             $audio->imageFile = 

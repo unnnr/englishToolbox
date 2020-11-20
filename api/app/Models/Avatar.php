@@ -30,6 +30,6 @@ class Avatar extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::url(self::STORAGE_PATH.'/'.$this->name);
+        return url(Storage::url(self::STORAGE_PATH.'/'.$this->name));
     }
 }

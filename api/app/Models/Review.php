@@ -20,6 +20,6 @@ class Review extends Model
 
     public function getAvatarUrlAttribute() 
     {
-        return Storage::url(self::AVATARS_PATH.'/'.$this->user_avatar);
+        return url(Storage::url(self::AVATARS_PATH.'/'.$this->user_avatar));
     } 
 }
