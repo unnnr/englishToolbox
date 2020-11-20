@@ -15,7 +15,7 @@ class FavoriteController extends Controller
     {
         $this->middleware('auth:sanctum');
 
-        $this->service = app(FavoriteService::class);
+        $this->service = new FavoriteService();
     }
 
     /**
@@ -39,6 +39,16 @@ class FavoriteController extends Controller
         return $this->service->create($postType, $request);
     }
 
+    /**
+     * Return the specified tag.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(string $postType)
+    {
+        return $this->service->show($postType);
+    }
 
     /**
      * Remove the specified resource from storage.

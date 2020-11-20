@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Resources\FavoriteResource; 
 use App\Models\Favoritable;
-use App\Models\Video;
 use stdClass;
 
 class FavoriteService
 {
     private $commentable = [
-        'videos' => Video::class,
-        'audio' => Audio::class,
+        'videos' =>\App\Models\Video::class,
+        'audio' => \App\Models\Audio::class,
     ];
 
     private function computeClass(string $postType)
@@ -63,10 +62,23 @@ class FavoriteService
         // Preventing readundant requests
         $favorite = Favoritable::where($data)->first();
         if ($favorite)
-            abort(422);
+            abort(421);
         
         $favorite = Favoritable::create($data);
         return new FavoriteResource($favorite);
+    }
+
+    public function show(string $postType) 
+    {
+        $class = $this->computeClass($postType);
+        $user = auth()->user();
+
+        $favorites = Favoritable::where([
+            'favoritable_type' => $class,
+            'user_id' => $user->id
+        ])->get();
+
+        return FavoriteResource::collection($favorites);
     }
 
     public function delete(Favoritable $favorite)

@@ -162,7 +162,7 @@ export default {
       if (!!!authenticated)
         return;
 
-      this.favorites = await Favorites.all()
+      this.favorites = await this.model.favorites();
       this.authenticated = true;
 
       if (this.posts.length > 0)

@@ -8,7 +8,7 @@ use App\Models\Audio;
 
 trait HasFavoritePosts 
 {
-    public function favoriteVideo() 
+    public function favoriteVideos() 
     {
         return $this->morphedByMany(Video::class, 'favoritable');
     }

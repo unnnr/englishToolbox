@@ -21,9 +21,6 @@ trait HandleFiles
         if ($blured)
             $thumbnail->blur(25);
 
-       /*  if (is_null($outputDir))
-            $outputDir = self::THUMBNAIL_PATH; */
-
         $path = $outputDir . '/' . $fileName;
         $thumbnail->save(storage_path('app/public/' . $path));
 
