@@ -133,7 +133,7 @@ export default {
 			profileShown: false,
 
 			links: [
-				{ name: 'about', label: 'about me'},
+				{ name: 'home#about', label: 'about me'},
 				{ name: 'videos', label: 'videos'},
 				{ name: 'audio', label: 'audio'},
 			]
