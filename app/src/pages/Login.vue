@@ -11,7 +11,7 @@
 
 			<h4 class="auth__title heading-fourth">login in</h4>
 			
-			<email-input /> 
+			<email-input focus-on-mount/> 
 
 			<password-input />
 		

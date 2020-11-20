@@ -1,6 +1,6 @@
 <template>
   <transition-group 
-    class="pool container"
+    class="pool"
 		tag="section"
   	name="list"
     @before-leave="setAbsolute">
@@ -25,7 +25,7 @@
       
       :selected="card.selected"
       :favorite="card.favorite"
-      rectangular
+      :rectangular="!!!squareCards"
 
       v-context:items="context(card)"
       @select="select(card)"
@@ -49,7 +49,9 @@ export default {
 
     context: { type: Function, default: () => null },
 
-    canCreate: { type: Boolean, default: false},
+    canCreate: { type: Boolean, default: false },
+
+    squareCards: { type: Boolean, default: false }
   },
 
   methods: {

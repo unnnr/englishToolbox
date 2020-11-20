@@ -5,7 +5,7 @@
 
     <update-container/>
 
-    <about-me/>
+    <about-me id="about"/>
 
     <review-list/>
 

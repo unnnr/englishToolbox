@@ -11,8 +11,6 @@ const routes = [
 
   { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
 
-  { path: '/about', name: 'About', component: () => import('@pages/Home') },
-
     // -> recommended 
 
   // Auth pages
@@ -43,7 +41,30 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+
+  scrollBehavior(to) {
+    function waitFor(callback) {
+      return new Promise(resolve => 
+        setTimeout(callback.bind(this, resolve), DELAY));
+    }
+
+    function scroll(resolve) {
+      if (!!!to.hash)
+        return;
+      
+      let target = document.querySelector(to.hash);
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
+
+      resolve();
+    }
+    
+    const DELAY = 500;
+
+    return waitFor(scroll);
+  }
 })
 
 export default router

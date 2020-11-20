@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Spatie\Permission\PermissionServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 

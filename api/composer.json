@@ -16,9 +16,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^7.0",
         "laravel/sanctum": "^2.5",
-        "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2",
-        "spatie/laravel-permission": "^3.13"
+        "laravel/tinker": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

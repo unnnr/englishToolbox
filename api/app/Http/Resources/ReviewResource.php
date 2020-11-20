@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\UserResource; 
 
 class ReviewResource extends JsonResource
 {
@@ -26,7 +25,10 @@ class ReviewResource extends JsonResource
 
             'text' => $this->text,
 
-            'user' => new UserResource($this->user)
+            'user' => [
+                'avatar' => $this->avatarUrl,
+                'name' => $this->user_name,
+            ]
         ];
     }
 }

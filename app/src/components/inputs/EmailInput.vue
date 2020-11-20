@@ -9,6 +9,7 @@
     :validating="validating"
     :optional="optional"
     :disabled="disabled"
+    :focusOnMount="focusOnMount"
     :value="value"
     v-validate/>
 </template>
@@ -23,12 +24,13 @@ export default {
   },
 
   props: {
+    value: { type: String },
+
     disabled: { type: Boolean },
 
     optional: { type: Boolean },
 
-    value: { type: String }
-    
+    focusOnMount: { type: Boolean },
   },
 
   methods: {

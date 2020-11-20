@@ -11,6 +11,7 @@
 
     <div class="addition__tab-body editor__body">
       <title-input
+        :focusOnMount="!!!editing"
         :default-value="title"/>
 
       <description-input 

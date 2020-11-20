@@ -4,14 +4,20 @@
     :style="{
       'background-image': imageUrl}">
 
-    <div class="audio-player">
+    <transition name="fade">
+      <object  
+        v-if="overlayShown"
+        class="player__overlay"
+        :style="{'background-image': overlayUrl}">
+      </object>
+      
+      <div v-else class="audio-player">
         <div class="audio-player__body">
 
           <button 
             class="audio-player__button audio-player__button--hide text-fourth">
           </button>
           
-
           <div class="audio-player__controls audio-player__controls--timeline">
             <button
               class="audio-player__toggler"
@@ -48,7 +54,8 @@
           </div>
 
         </div>
-    </div>
+      </div>
+    </transition>
 
   </div>
 </template>
@@ -63,6 +70,8 @@ export default {
 
   data() {
     return {
+      overlay: 'img/svg/overlay-audios.svg',
+      
       duration: 0,
       progress: 0,
 
@@ -80,6 +89,14 @@ export default {
   computed: {
     target() {
       return this.$target();
+    },
+
+    overlayShown() {
+      return !!!this.target || !!!this.target.audio || !!!this.target.image;
+    },
+
+    overlayUrl() {
+      return 'url(' + this.overlay + ')'
     },
 
     disabled() {

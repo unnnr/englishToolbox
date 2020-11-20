@@ -1,12 +1,9 @@
 
-import Model from '@models/Model'
+import PostModel from '@models/PostModel'
 
-class Audio extends Model
+class Audio extends PostModel
 {
     path = 'audio'
 }
 
 export default new Audio();  
-
-// audio: 'https://www.tutorialrepublic.com/examples/audio/birds.mp3',
-// image: 'http://etoolbox/storage/avatars/default_1.webp', 

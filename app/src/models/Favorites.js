@@ -1,5 +1,6 @@
 
 import Model from '@models/Model' 
+import Http from '@services/Http'
 
 class Favorites extends Model
 {
@@ -11,10 +12,21 @@ class Favorites extends Model
             data, uri: this.path + `/${postType}`,
         });
 
-        let item  = this.__parseInstance(response.data);
-        
-        console.log(item, this.__cache)
-        return this.__cache.push(item);
+        return response.data;
+    }
+
+    async get(type) 
+    {
+        let response = await Http.get({
+            uri: this.path + '/' + type,
+        });
+
+        return response.data;    
+    }
+
+    async all() 
+    {
+        return await super.all(true)
     }
 }
 
