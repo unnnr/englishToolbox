@@ -15,9 +15,11 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('grade');
             $table->boolean('verified')->default(false);
-            $table->foreignId('user_id');
+            $table->integer('grade');
+            $table->foreignId('user_id')->nullable();
+            $table->string('user_name');
+            $table->string('user_avatar');
             $table->string('title');
             $table->string('text');
             $table->timestamps();

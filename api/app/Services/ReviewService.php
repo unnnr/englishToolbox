@@ -2,12 +2,29 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Resources\ReviewResource;
+use App\Services\AvatarService;
 use App\Models\Review;
+use App\Models\Avatar;
+
 
 class ReviewService
 {
+    private function copyAvatar(Avatar $avatar) : string
+    {
+        $filename =  $avatar->name;
+
+        $from = AvatarService::AVATARS_PATH . '/' . $filename;
+        $to = Review::AVATARS_PATH . '/' . $filename;
+
+        if (!!!file_exists(Storage::path($to)))
+            Storage::copy($from, $to);
+
+        return $filename; 
+    }
+    
     public function all()
     {
         return ReviewResource::collection(
@@ -32,12 +49,15 @@ class ReviewService
     public function create(Request $request)
     { 
         $user = auth()->user();
-
-        $review  =  $user->review()->create([
+        
+        $avatar = $this->copyAvatar($user->avatar);
+        
+        $review  =  $user->reviews()->create([
             'title' => $request->title,
             'text' => $request->text,
             'grade' => $request->grade,
-            'user_id' => $user->id,
+            'user_name' => $user->name,
+            'user_avatar' => $avatar,
         ]);
 
         return new ReviewResource($review);

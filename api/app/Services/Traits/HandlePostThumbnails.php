@@ -4,7 +4,7 @@ namespace App\Services\Traits;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
-trait HandleFiles
+trait HandlePostThumbnails
 {     
     public function storeFile(object $file, string $path)
     {
@@ -13,10 +13,16 @@ trait HandleFiles
         return basename($fullpath);
     }
 
-    public function createThumbnail(object $file, string $fileName, bool $blured = false, ?string $outputDir = self::THUMBNAILS_DIR)
+    public function createThumbnail(
+        object $file,
+        string $fileName,
+        string $outputDir = self::THUMBNAIL_DIR,
+        int $width = self::THUBMNAIL_WIDTH,
+        int $height = self::THUBMNAIL_HEIGHT,
+        bool $blured = self::THUMBNAIL_BLURED)
     {
         $thumbnail = Image::make($file->getRealPath());    
-        $thumbnail->resize(self::THUMBNAIL_WIDTH, self::THUMBNAIL_HEIGHT);
+        $thumbnail->resize($width, $height);
 
         if ($blured)
             $thumbnail->blur(25);

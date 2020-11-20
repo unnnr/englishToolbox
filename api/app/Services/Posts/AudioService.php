@@ -5,30 +5,31 @@ namespace App\Services\Posts;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Services\Contracts\MustHandleFiles;
-use App\Services\Traits\HandleFiles;
+use App\Services\Contracts\MustHandleThumbnails;
+use App\Services\Traits\HandleThumbnails;
 use App\Services\Posts\PostService;
 use App\Http\Resources\AudioResource;
 use App\Models\Audio;
 
-class AudioService extends PostService implements MustHandleFiles
+class AudioService extends PostService implements MustHandleThumbnails
 {
-    use HandleFiles;
+    use HandleThumbnails;
 
     const AUDIO_PATH = 'public/audio';
 
-    const IMAGES_PATH = 'public/audioBackgrounds';
+    const IMAGE_PATH = 'public/audioBackgrounds';
 
     protected $model = Audio::class;
     
     protected $resource = AudioResource::class;
 
+    public const THUMBNAIL_BLURED = true;
+
     protected function getThumbnailUrl(Audio $audio, Request $request) 
     {
         $path = $this->createThumbnail(
             $request->file('imageFile'),
-            $audio->imageFile,
-            self::BLURED);
+            $audio->imageFile);
 
         return url($path);
     }
@@ -40,7 +41,7 @@ class AudioService extends PostService implements MustHandleFiles
             $this->storeFile($request->file('audioFile'),  self::AUDIO_PATH);
         
         $imageFileName = 
-            $this->storeFile($request->file('imageFile'), self::IMAGES_PATH);
+            $this->storeFile($request->file('imageFile'), self::IMAGE_PATH);
         
         // Retrieving sended data 
         $description = $request->input('description');
@@ -70,12 +71,12 @@ class AudioService extends PostService implements MustHandleFiles
         if ($request->has('imageFile'))
         {
             // Removing previous image file and thumbnail
-            Storage::delete(self::IMAGES_PATH .'/'. $audio->imageFile);
+            Storage::delete(self::IMAGE_PATH .'/'. $audio->imageFile);
             Storage::delete(self::THUMBNAILS_PATH .'/'. $audio->imageFile);
 
             // Storing new image and updating model
             $audio->imageFile = 
-                $this->storeFile($request->file('imageFile'), self::IMAGES_PATH);
+                $this->storeFile($request->file('imageFile'), self::IMAGE_PATH);
 
             // Creating new thumbnail and updating model
             $audio->thumbnail()->update([
@@ -97,9 +98,9 @@ class AudioService extends PostService implements MustHandleFiles
         $imageName = $post->imageFile;
         $audioName =  $post->audioName;
 
-        Storage::delete(self::IMAGES_PATH . $imageName);
-        Storage::delete(self::THUMBNAILS_PATH . $imageName);
+        Storage::delete(self::IMAGE_PATH . $imageName);
         Storage::delete(self::AUIDIO_PATH . $audioName);
+        Storage::delete(self::THUMBNAIL_PATH . $imageName);
     }
 
 }

@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\VerifyEmail;
 use App\Models\Traits\HasFavoritePosts;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable, HasRoles, HasFavoritePosts;
+    use HasApiTokens, Notifiable, HasFavoritePosts;
 
     /**
      * The attributes that are mass assignable.

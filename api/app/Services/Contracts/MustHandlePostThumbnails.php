@@ -2,17 +2,17 @@
 
 namespace App\Services\Contracts;
 
-interface MustHandleFiles
+interface MustHandlePostThumbnails
 {     
-    public const THUMBNAILS_DIR =  'thumbnails';
+    public const THUMBNAIL_DIR =  'thumbnails';
 
-    public const THUMBNAILS_PATH = 'public/thumbnails';
+    public const THUMBNAIL_PATH = 'public/thumbnails';
 
     public const THUMBNAIL_WIDTH = 300;
     
     public const THUMBNAIL_HEIGHT = 168.75;
 
-    public const BLURED = true;
+    public const THUMBNAIL_BLURED = false;
 
     public function storeFile(object $file, string $path);
 
