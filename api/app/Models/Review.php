@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Review extends Model
 {
     public const AVATARS_PATH = 'public/reviewsAvatars';
-
 
     protected $fillable = [
         'title', 'text', 'grade', 'verified', 'user_name', 'user_avatar'
@@ -20,6 +20,6 @@ class Review extends Model
 
     public function getAvatarUrlAttribute() 
     {
-        return basename(self::AVATARS_PATH) . '/' . $this->user_avatar;
+        return Storage::url(self::AVATARS_PATH.'/'.$this->user_avatar);
     } 
 }

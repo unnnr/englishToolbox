@@ -16,7 +16,7 @@ class ReviewService
     {
         $filename =  $avatar->name;
 
-        $from = AvatarService::AVATARS_PATH . '/' . $filename;
+        $from = Avatar::STORAGE_PATH . '/' . $filename;
         $to = Review::AVATARS_PATH . '/' . $filename;
 
         if (!!!file_exists(Storage::path($to)))

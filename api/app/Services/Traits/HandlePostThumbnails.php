@@ -3,6 +3,7 @@
 namespace App\Services\Traits;
 
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
 
 trait HandlePostThumbnails
 {     
@@ -13,23 +14,22 @@ trait HandlePostThumbnails
         return basename($fullpath);
     }
 
-    public function createThumbnail(
-        object $file,
-        string $fileName,
-        string $outputDir = self::THUMBNAIL_DIR,
-        int $width = self::THUBMNAIL_WIDTH,
-        int $height = self::THUBMNAIL_HEIGHT,
-        bool $blured = self::THUMBNAIL_BLURED)
+    public function storeThumbnail(object $file, string $fileName, object $post)
     {
         $thumbnail = Image::make($file->getRealPath());    
-        $thumbnail->resize($width, $height);
+        
+        // Resizing
+        $thumbnail->resize($post::THUMBNAIL_WIDTH,
+                           $post::THUMBNAIL_HEIGHT);
 
-        if ($blured)
+        // Bluring
+        if (defined(get_class($post).'::THUMBNAIL_BLURED') && $post::THUMBNAIL_BLURED)
             $thumbnail->blur(25);
+        
+        // Saving
+        $path = $post::THUMBNAIL_PATH.'/'.$fileName;
+        $thumbnail->save(storage_path('app/'.$path));
 
-        $path = $outputDir . '/' . $fileName;
-        $thumbnail->save(storage_path('app/public/' . $path));
-
-        return 'storage/' . $path;
+        return Storage::url($path);
     }
 }

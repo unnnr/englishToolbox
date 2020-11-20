@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Avatar extends Model
 {
+    const STORAGE_PATH = 'public/avatars';
+    
     public $fillable = [
         'name'
     ];
@@ -26,6 +30,6 @@ class Avatar extends Model
 
     public function getUrlAttribute()
     {
-        return asset('storage/avatars/' . $this->name);
+        return Storage::url(self::STORAGE_PATH.'/'.$this->name);
     }
 }
