@@ -38,6 +38,7 @@ import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -80,24 +81,18 @@ export default {
   },
 
   mounted() {
-    this.$options.defaultVideoId 
-      = this.target.youtubeId;
-  
     this.link = this.withDefault ?  
       'https://youtube.com/watch?v=' + this.target.youtubeId : '';
   },
 
   beforeDestroy() {    
-    this.target.youtubeId 
-      = this.$options.defaultVideoId;
+    bus.dispatch('preview-changed', { videoId: null });
   },
 
   methods: {
     updatedLink(event) {
       let videoId = event.videoId || null;
-      
-      if (typeof this.target === 'object')
-        this.$set(this.target, 'youtubeId', videoId) 
+      bus.dispatch('preview-changed', { videoId });
     },
 
     hasChanges() {
@@ -107,13 +102,10 @@ export default {
     },
 
     async submit(data) {
-      if (!!!this.request)
-        return;
+      if (this.request)
+        await this.request(data);
 
-      await this.request(data);
-
-      this.$options.defaultVideoId 
-        = this.target.youtubeId;
+      bus.dispatch('preview-changed', { videoId: null });
     },
 
     async deleteVideo() {
