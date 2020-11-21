@@ -96,7 +96,7 @@ export default {
         this.postDeleted,
 
       'post-start-creating':  
-      // Prevents alert showing if creator is already shown
+      // Prevents alert appearing if creator is already shown
       //                                         ||
       //                                         \/
       this.wrapEvent(this.onStartCreating, () => !!!this.creating),
