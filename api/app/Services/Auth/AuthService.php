@@ -6,15 +6,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-
+use App\Services\Traits\CreatesDefaultAvatar;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
-use Illuminate\Support\Facades\Auth;
-
 class AuthService
 {
+    use CreatesDefaultAvatar;
+
     protected $authTokenName = 'auth';
 
     public function register(Request $request)
@@ -26,6 +26,7 @@ class AuthService
         );
 
         $user->avatar()->create([
+            'name' => $this->createAvatar()
         ]);
 
         event(new Registered($user));

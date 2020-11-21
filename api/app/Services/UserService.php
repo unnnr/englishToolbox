@@ -3,17 +3,18 @@
 namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Http\Resources\AuthenticatedUserResource;
-use App\Models\User;
+use App\Http\Resources\UserResource;
 use App\Events\EmailChanged;
+use App\Models\User;
 
 
 class UserService 
 {
+
     public function currentUser()
     {
         $user = auth()->user();
