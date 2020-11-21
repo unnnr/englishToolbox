@@ -2,7 +2,7 @@
   <v-form 
     class="addition__tab editor"
     ref="form"
-    :request="request"
+    :request="submit"
     secondary>
 
     <div class="addition__tab-header">
@@ -80,8 +80,16 @@ export default {
   },
 
   mounted() {
+    this.$options.defaultVideoId 
+      = this.target.youtubeId;
+  
     this.link = this.withDefault ?  
       'https://youtube.com/watch?v=' + this.target.youtubeId : '';
+  },
+
+  beforeDestroy() {    
+    this.target.youtubeId 
+      = this.$options.defaultVideoId;
   },
 
   methods: {
@@ -96,6 +104,16 @@ export default {
       let form = this.$refs.form;
 
       return form.hasChanges();
+    },
+
+    async submit(data) {
+      if (!!!this.request)
+        return;
+
+      await this.request(data);
+
+      this.$options.defaultVideoId 
+        = this.target.youtubeId;
     },
 
     async deleteVideo() {

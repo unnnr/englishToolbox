@@ -107,7 +107,10 @@ export default {
     },
 
     onChange() {
-      this.validate();
+      if (!!!this.validate())
+        return;
+
+      this.$emit('change', this.file);
     },
 
     collectErrors() {

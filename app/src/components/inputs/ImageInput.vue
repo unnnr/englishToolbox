@@ -5,6 +5,7 @@
     label="image"
     accept="image/*"
     :optional="optional"
+    @change="change"
     v-validate/>
 </template>
 
@@ -18,6 +19,12 @@ export default {
 
   props: {
     optional: { type: Boolean }
+  },
+
+  methods: {
+    change(data) {
+      this.$emit('change', data);
+    }
   }
 }
 </script>
