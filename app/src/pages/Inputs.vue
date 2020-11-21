@@ -168,9 +168,11 @@ export default {
 
 .preview
   position: fixed
-  width: 300px
-  top: 100px
+  bottom: 100px
   left: 100px
+  width: 300px
+  border-radius: 100%
+  overflow: hidden
 
 .colors
   margin: 100px auto
