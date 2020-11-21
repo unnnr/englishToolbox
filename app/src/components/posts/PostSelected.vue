@@ -86,9 +86,6 @@ export default {
       'post-selecting': 
         this.wrapEvent(this.onSelecting),
 
-      'post-start-creating': 
-        this.wrapEvent(this.onStartCreating),
-
       'post-editing':
         this.wrapEvent(this.onEditing),
 
@@ -97,11 +94,17 @@ export default {
 
       'post-deleted': 
         this.postDeleted,
+
+      'post-start-creating':  
+      // Prevents alert showing if creator is already shown
+      //                                         ||
+      //                                         \/
+      this.wrapEvent(this.onStartCreating, () => !!!this.creating),
     });
   },
 
   methods: {
-    wrapEvent(callback) {
+    wrapEvent(callback, prevent) {
       function prepareCallback() {
         // default data
         let data = {
@@ -116,6 +119,8 @@ export default {
       }
 
       return (event) => {
+        if (typeof prevent === 'function' && !!!prevent())
+          return;
         if (!!!this.requireWarning)
           return prepareCallback.call(this, event);
 
