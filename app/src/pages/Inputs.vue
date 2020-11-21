@@ -79,12 +79,14 @@ export default {
       else 
         third = getNumber(FROM, TO);
 
-      return '#' + first.toString(16) + second.toString(16) + third.toString(16);
+      return '#' + first.toString(16)
+                 + second.toString(16)
+                 + third.toString(16);
     },
 
     * entropy() {
-      const MIN_DIFFERENCE = 20;
-      const FROM = 40;
+      const MIN_DIFFERENCE = 15;
+      const FROM = 80;
       const TO = 250;
 
       const STEP = 10;

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class Avatar extends Model
 {
     const STORAGE_PATH = 'public/avatars';
+
+    const PRESET_PATH = 'presets/avatar.svg';
     
     public $fillable = [
         'name'
