@@ -5,7 +5,8 @@
     label="audio"
     accept="audio/*"
     :optional="optional"
-    v-validate/>
+    v-validate
+    @change="change"/>
 </template>
 
 <script>
@@ -18,6 +19,12 @@ export default {
 
   props: {
     optional: { type: Boolean }
+  },
+
+  methods: {
+    change(data) {
+      this.$emit('change', data);
+    }
   }
 }
 </script>

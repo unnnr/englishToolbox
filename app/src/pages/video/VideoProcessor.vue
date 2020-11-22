@@ -2,7 +2,7 @@
   <v-form 
     class="addition__tab editor"
     ref="form"
-    :request="request"
+    :request="submit"
     secondary>
 
     <div class="addition__tab-header">
@@ -38,6 +38,7 @@ import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -84,18 +85,27 @@ export default {
       'https://youtube.com/watch?v=' + this.target.youtubeId : '';
   },
 
+  beforeDestroy() {    
+    bus.dispatch('preview-changed', { videoId: null });
+  },
+
   methods: {
     updatedLink(event) {
       let videoId = event.videoId || null;
-      
-      if (typeof this.target === 'object')
-        this.$set(this.target, 'youtubeId', videoId) 
+      bus.dispatch('preview-changed', { videoId });
     },
 
     hasChanges() {
       let form = this.$refs.form;
 
       return form.hasChanges();
+    },
+
+    async submit(data) {
+      if (this.request)
+        await this.request(data);
+
+      bus.dispatch('preview-changed', { videoId: null });
     },
 
     async deleteVideo() {

@@ -13,25 +13,29 @@
 					'width': '100%',
 					'background-color': 'none'}">
 
+
 				<swiper-slide
-					v-for="card in slides"
-					:key="card.id">
-					
+					v-for="index in loadingCards"
+					:key="index">
+
 					<empty-card 
-						v-if="loading"
 						square-form
 						margined/>
+
+				</swiper-slide>
+
+				<swiper-slide
+					v-for="post in updates"
+					:key="post.id">
 					
 					<card 
-						v-else
-						:title="card.title"
-						:description="card.description"
-						:created-at="card.createdAt"
-						:imageUrl="card.thumbnail"
-						:main-tag="{label: 'video', color: '#b9cfe3'}"
-						:tags="card.tags"
-						square-form
-						margined/>
+						:description="post.description"
+						:created-at="post.createdAt"
+						:title="post.title"
+						:img="post.thumbnail"
+
+						:main-tag="post.mainTag"
+						:tags="post.tags"/>
 					
 				</swiper-slide>
 			</swiper>
@@ -40,13 +44,12 @@
 </template>
 
 <script>
-
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import EmptyCard from '@components/cards/EmptyCard'
-import Card from '@components/cards/Card';
+import EmptyCard from '@components/cards_new/EmptyCard'
 import Updates from '@models/Updates';
+import Card from '@components/cards_new/Card';
 
 SwiperClass.use([Pagination, Autoplay])
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
@@ -59,9 +62,9 @@ export default {
 		Card
 	},
 
-	data: function() {
+	data() {
 		return {
-			updates: null,
+			updates: [],
 				
 			swiperOptions: {
 				slidesPerView: '4',
@@ -76,15 +79,11 @@ export default {
 
 	computed: {
 		loading() {
-			return this.updates === null;
+			return this.updates.length  === 0;
 		},
 
-		defaultUpdates() {
-			return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 } ]
-		},
-
-		slides() {
-			return this.loading ? this.defaultUpdates : this.updates;
+		loadingCards() {
+			return this.loading ? 4 : 0;
 		}
 	},
 

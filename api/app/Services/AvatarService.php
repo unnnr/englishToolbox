@@ -7,8 +7,6 @@ use App\Http\Resources\AvatarResource;
 
 class AvatarService 
 {
-    const AVATARS_PATH = 'public/avatars';
-
     public function get()
     {
         return new AvatarResource(auth()->user()->avatar);

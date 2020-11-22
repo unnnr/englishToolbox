@@ -36,12 +36,14 @@
 
       <button 
         v-if="okShown"
+        ref="ok"
         class="alert__button button-secondary"
         :class="{
           'button--yellowish': warning,
           'button--reddish': error,
         }"
-        @click="okay">
+        @click="okay"
+        autofocus>
         
         Ok
       </button>
@@ -132,8 +134,33 @@ export default {
       return this.prompt;
     }
   },
+
+  watch: {
+    warning(value) {
+      if (value)
+        this.autoFocus();
+    },
+
+    error(value) {
+     if (value)
+      this.autoFocus();
+    } 
+  },
+
+  mounted() {
+    this.autoFocus();
+  },
    
   methods: {
+    autoFocus() {
+      if (this.warning || this.error) {
+        let button = this.$refs.ok;
+
+        if (button)
+          button.focus();
+      }
+    },
+
 		okay() {
 			this.$emit('okay', event);
     },

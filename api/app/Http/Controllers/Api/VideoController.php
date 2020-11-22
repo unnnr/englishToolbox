@@ -8,6 +8,7 @@ use App\Services\Posts\VideoService;
 use App\Http\Requests\Video\CreateVideo;
 use App\Http\Requests\Video\UpdateVideo;
 use App\Http\Requests\Video\DeleteVideo;
+use App\Models\Video;
 
 
 class VideoController extends Controller
@@ -41,9 +42,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id ,VideoService $videoService)
+    public function show(Video $video ,VideoService $videoService)
     {
-        return $videoService->get($id);
+        return $videoService->get($video);
     }
 
     /**
@@ -53,9 +54,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, UpdateVideo $request, VideoService $videoService)
+    public function update(Video $video, UpdateVideo $request, VideoService $videoService)
     {
-        return $videoService->update($request, $id);
+        return $videoService->update($request, $video);
     }
 
     /**
@@ -64,8 +65,8 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id, DeleteVideo $request, VideoService $videoService)
+    public function destroy(Video $video, DeleteVideo $request, VideoService $videoService)
     {
-        return $videoService->destroy($id);
+        return $videoService->destroy($video);
     }
 }

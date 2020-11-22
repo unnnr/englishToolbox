@@ -21,13 +21,23 @@
 </template>
 
 <script>
+import HandleEvents from '@mixins/HandleEvents'
+
 export default {
+  mixins: [ HandleEvents ],
+
   inject: [ '$target' ],
 
   data() {
     return {
-      img: 'img/svg/overlay-videos.svg'
+      img: 'img/svg/overlay-videos.svg',
+      preview: null 
     }
+  },
+
+  mounted() {
+    this.listen({'preview-changed':
+      event => this.preview = event.videoId })
   },
 
   computed: {
@@ -36,7 +46,13 @@ export default {
     },
 
     videoId() {
-      return this.target ? this.target.youtubeId : null;
+      if (this.preview)
+        return this.preview;
+
+      if (this.target && this.target.youtubeId)
+        return this.target.youtubeId;
+      
+      return null;
     },
 
     videoLink() {
@@ -52,7 +68,7 @@ export default {
 
     overlayShown() {
       return !!!this.videoId;
-    },
+    }
   }
 }
 </script>

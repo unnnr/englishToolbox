@@ -62,11 +62,16 @@
 
 <script>
 import ProgressSlider from '@components/ProgressSlider'
+import HandleEvents from '@mixins/HandleEvents'
 
 export default {
   components: {
     ProgressSlider
   },
+
+  mixins: [ HandleEvents ],
+
+  inject: [ '$target' ],
 
   data() {
     return {
@@ -80,11 +85,15 @@ export default {
 
       volume: 1,
     
-      player: new Audio()
+      player: new Audio(),
+
+      preview: {
+        image: null,
+        audio: null,
+      },
     }
   },
 
-  inject: [ '$target' ],
 
   computed: {
     target() {
@@ -92,7 +101,7 @@ export default {
     },
 
     overlayShown() {
-      return !!!this.target || !!!this.target.audio || !!!this.target.image;
+      return !!!this.audio || !!!this.image;
     },
 
     overlayUrl() {
@@ -104,11 +113,23 @@ export default {
     },
 
     audio() {
-      return this.target ? this.target.audio : '#';
+       if (this.preview.audio)
+        return this.preview.audio;
+
+      if (this.target && this.target.audio)
+        return this.target.audio;
+
+      return null;
     },
 
     image() {
-      return this.target ? this.target.image : '#';
+      if (this.preview.image)
+        return this.preview.image;
+
+      if (this.target && this.target.image)
+        return this.target.image;
+
+      return null;
     },
 
     volumeIcon: {
@@ -145,14 +166,20 @@ export default {
     volume(value) {
       return this.player.volume = value;
     },
-
-    target: {
-      handler() {
-        this.load();
+    
+    audio: {
+      handler(value) {
+        if (value)
+          this.load();
       },
 
       immediate: true
     }
+  },
+
+  mounted() {
+    this.listen({'preview-changed':
+      preview => Object.assign(this.preview, preview)});
   },
 
   methods: {

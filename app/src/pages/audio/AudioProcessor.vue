@@ -20,8 +20,13 @@
       <h6 class="editor__tag-title heading-sixth">Upload files</h6>
 
       <div class="editor__upload-inputs">
-        <audio-input :optional="editing"/>
-        <image-input :optional="editing"/>
+        <audio-input
+          :optional="editing" 
+          @change="updateAudio"/>
+
+        <image-input 
+          :optional="editing"
+          @change="udpateImage"/>
       </div>
 
       <tags-editor/>
@@ -45,6 +50,7 @@ import ImageInput from '@components/inputs/ImageInput'
 import AudioInput from '@components/inputs/AudioInput'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
+import bus from '@services/eventbus'
 
 export default {
    components: {
@@ -86,11 +92,64 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    this.clearPreview()
+  },
+
   methods: {
     hasChanges() {
       let form = this.$refs.form;
 
       return form.hasChanges();
+    },
+
+    clearPreview() {
+      if (this.$options.audio)
+        URL.revokeObjectURL(this.$options.audio)
+
+      if (this.$options.image)
+        URL.revokeObjectURL(this.$options.image)
+
+      bus.dispatch('preview-changed', {
+        image: null,
+        audio: null,
+      });
+    },
+
+    udpateImage(image) {
+      // Removing saved image
+      if (this.$options.image)
+        URL.revokeObjectURL(this.$options.image)
+
+      let ulrObject  = URL.createObjectURL(image);
+
+      // Saving for revoking in futurne
+      this.$options.image = ulrObject;
+
+      bus.dispatch('preview-changed', {
+        image: ulrObject
+      });
+    },
+
+    updateAudio(audio) {
+     // Removing saved image
+      if (this.$options.audio)
+        URL.revokeObjectURL(this.$options.audio)
+
+      let ulrObject  = URL.createObjectURL(audio);
+
+      // Saving for revoking in futurne
+      this.$options.audio = ulrObject;
+
+      bus.dispatch('preview-changed', {
+        audio: ulrObject
+      });    },
+
+    async submit(data) {
+      if (this.request)
+        await this.request(data);
+      
+      this.clearPreview();
     },
 
     async deleteAudio() {
