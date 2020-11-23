@@ -17,7 +17,7 @@
       <new-tag-input
         ref="input"
         :key="-1"
-        :submit="createNew"/>
+        @creating="event => $emit('creating', event)"/>
 
       <tag
         v-for="(tag) of sortedTags"
@@ -54,8 +54,6 @@ export default {
 
   props: {
     tags: { type: Array, default: () => [] },
-
-    createNew: { type: Function, default: () => {} }
   },
   
   data() {

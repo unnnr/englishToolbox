@@ -1,12 +1,13 @@
 <template>
   <tags-input 
     :tags="parsedTags"
-    :create-new="createNew"
     @deleting="deleteTag"
+    @creating="creating"
     v-validate/>
 </template>
 
 <script>
+import HandleRequests from '@mixins/HandleRequests'
 import TagsInput from '@components/inputs/TagsInput'
 import Tags from '@models/Tags'
 
@@ -16,6 +17,8 @@ export default {
   components: {
     TagsInput
   },
+
+	mixins: [ HandleRequests ],
 
   inject: [ '$target' ],
 
@@ -85,7 +88,28 @@ export default {
       return null;
     },
 
+    showError(errors, messages) {
+      if (messages)
+        return messages.label;
+    },
+
+    creating(event) {
+      let finnaly = event.loaded;
+      let label = event.label;
+
+      this.send(
+        this.createTag.bind(this, label),
+        this.showError,
+        finnaly);
+    },
+
+    deleting() {
+
+    },
+
     async deleteTag(tag) {
+      await Tag.delete(tag.id);
+      
       let index = this.tags.indexOf(tag);
 
       if (index === -1)
@@ -94,7 +118,7 @@ export default {
       this.tags.splice(index, 1);
     },
 
-    async createNew(label) {
+    async createTag(label) {
       // Collecting data
       let data = new FormData();
       data.append('label', label);

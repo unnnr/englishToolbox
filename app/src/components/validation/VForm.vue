@@ -106,7 +106,6 @@ export default {
     },
 
     parseError(data) {
-      console.log(data);
       if (!!!data || typeof data !== 'object')
         return null;
 
@@ -119,9 +118,8 @@ export default {
         return null;
 
       let parsedErrors = {};
-      for (let [key, value] of Object.entries(errors)) {
+      for (let [key, value] of Object.entries(errors)) 
         parsedErrors[key] = value.join(', ');
-      }
 
       return parsedErrors;
     },
