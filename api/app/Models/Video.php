@@ -13,10 +13,10 @@ use App\Models\Traits\HasTags;
 class Video extends Model
 {
     use HasTags, HasComments, HasThumbnail, HasUpdates, FavoritablePost;
+    
+    public const DEFAULT_TAG = 'video';
 
     protected $fillable = [
         'youtube_id', 'title', 'description'
     ];
-
-    protected $defaultTag = 'video';
 }

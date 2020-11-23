@@ -44,10 +44,40 @@ class TagService
                 'Cant delete default tag'
             ]);
         }
+        
+        // Posts MUST have main tags, 
+        // so we need to reassign them
+        $rawTags = DB::table('taggables')
+            ->where(['tag_id' => $tag->id, 'main' => 1])
+            ->get();
 
+        foreach ($rawTags as $rawTag)
+        {
+            $postClass = $rawTag->taggable_type;
+            $postId = $rawTag->taggable_id;     
+            
+            // Retrieving default tag 
+            $defaultTag = Tag::where([
+                'label' => $postClass::DEFAULT_TAG,
+                'default' => 1
+            ])->firstOrFail();
+            
+            // Inserting default tag
+            DB::table('taggables')->insert([
+                'taggable_type' => $postClass,
+                'taggable_id' => $postId,
+                'tag_id' => $defaultTag->id,
+                'main' => 1,
+            ]);
+        }
+        
+        // Removing attachments
         DB::table('taggables')
             ->where('tag_id', $tag->id)
             ->delete();
+
+        // Removing tag
+        $tag->delete();
     }
 
     public function videos(int $tagId)

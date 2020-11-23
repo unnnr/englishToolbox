@@ -31,7 +31,7 @@ trait HandleTags
     private function findDefaultTag(Model $post)
     {
         $mainTag = Tag::where([
-            'label' => $post->defaultTag,
+            'label' => $post::DEFAULT_TAG,
             'default' => true
         ])->firstOrFail();
 
