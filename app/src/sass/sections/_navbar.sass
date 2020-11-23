@@ -158,14 +158,11 @@
   padding: 0 30px
 
 .navbar-mobile__account-link
-
-  span
-    color: $color-primary
-    font-size: 35px
-    transition: color .2s
-
-    &:hover
-      color: darken($color-primary, 5)
+  height: 40px
+  min-width: 40px
+  background-color: $color-semigray
+  border-radius: 100%
+  @include background-image
 
 .navbar-mobile__link
   font-size: 22px

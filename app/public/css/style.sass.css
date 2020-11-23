@@ -490,15 +490,14 @@ body {
   padding: 0 30px;
 }
 
-.navbar-mobile__account-link span {
-  color: #6666ff;
-  font-size: 35px;
-  -webkit-transition: color .2s;
-  transition: color .2s;
-}
-
-.navbar-mobile__account-link span:hover {
-  color: #4d4dff;
+.navbar-mobile__account-link {
+  height: 40px;
+  min-width: 40px;
+  background-color: #a1a1b1;
+  border-radius: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .navbar-mobile__link {
@@ -3048,7 +3047,7 @@ button:active {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 2;
+  z-index: 40;
 }
 
 .selected__overlay-body {
@@ -3786,19 +3785,4 @@ button:active {
 .profile-popup__button-ban:after {
   content: "ban";
   font-size: 10px;
-}
-
-.grid {
-  background: #fff;
-  padding: 100px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 500px;
-      grid-template-columns: 500px;
-  grid-row-gap: 30px;
-}
-
-.pe {
-  padding-top: 150px;
-  padding-bottom: 150px;
 }
