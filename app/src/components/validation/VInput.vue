@@ -121,7 +121,7 @@ export default {
   },
 
   beforeMount() {
-    if (this.isPassword)
+    if (this.visibilityButtoned)
       this.entryHidden = true;
   },
 

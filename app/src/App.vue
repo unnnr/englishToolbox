@@ -20,13 +20,13 @@
 
 import Vue from 'vue';
 import vClickOutside from 'v-click-outside'
+import ValidationLinker from '@plugins/ValidationLinker'
 import Context from '@plugins/ContextMenu'
 import ToolTip from '@plugins/ToolTip'
-import ValidationLinker from '@plugins/ValidationLinker'
 
 import Basement from '@components/layout/Basement'
 import Navbar from '@components/layout/Navbar'
-import Alert from '@components/popup/AlertWrapper'
+import Alert from '@components/popup/Alert'
 
 import bus from '@services/eventbus';
 
