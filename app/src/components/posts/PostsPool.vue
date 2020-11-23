@@ -2,9 +2,9 @@
   <pool 
     class="container"
 
-    :cards="reversedPosts"
-    :context="createContext"
     :can-create="canCreate"
+    :context="createContext"
+    :cards="reversedPosts"
 
     @favorite-toggle="toggleFavorite"
     @create-new="createNew"
@@ -244,9 +244,9 @@ export default {
 			if (post === null)
         return;
         
-			Object.assign(post, target);
-			this.selecting(post);
-		},
+      Object.assign(post, target);
+      bus.dispatch('post-selecting', { post:  target });
+  },
     
     async onDeleted(event) {
 			let deletedPost = event.post;

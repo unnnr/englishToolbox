@@ -159,24 +159,24 @@ export default {
       });
     },
 
-    onSelecting(data, event) {
+    onSelecting($this, event) {
       bus.dispatch('post-selected', event);
-
-      data.target = event.post;  
-      Object.assign(this, data);
-
-      this.scrollToTop();
-    },
-
-    onEditing(data, event) {
-      data.target = event.post;
-      data.editing = true;
+      
+      $this.target = event.post;  
+      Object.assign(this, $this);
 
       this.scrollToTop();
     },
 
-    onStartCreating(data) {
-      data.creating = true;
+    onEditing($this, event) {
+      $this.target = event.post;
+      $this.editing = true;
+
+      this.scrollToTop();
+    },
+
+    onStartCreating($this) {
+      $this.creating = true;
       bus.dispatch('post-creating');
 
       this.scrollToTop();
