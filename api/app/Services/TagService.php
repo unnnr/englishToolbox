@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Tag;
-use App\Models\Video;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\VideoResource;
+use App\Models\Video;
+use App\Models\Tag;
 
 
 class TagService
@@ -34,14 +36,18 @@ class TagService
         return TagResource::collection($all);
     }
 
-    public function update(Request $request)
+    public function delete(Tag $tag)
     {
+        if ($tag->default) 
+        {
+            throw ValidationException::withMessages([
+                'Cant delete default tag'
+            ]);
+        }
 
-    }
-
-    public function delete()
-    {
-
+        DB::table('taggables')
+            ->where('tag_id', $tag->id)
+            ->delete();
     }
 
     public function videos(int $tagId)

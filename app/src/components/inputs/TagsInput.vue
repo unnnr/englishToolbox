@@ -215,7 +215,12 @@ export default {
       }
 
       function destroy() {
-        _this.$emit('deleting', tag);
+        function then() {
+          if (tag.main)
+            _this.main = null;
+        } 
+
+        _this.$emit('deleting', { tag, then });
       }
 
       let context = {};

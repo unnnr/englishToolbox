@@ -1,7 +1,7 @@
 <template>
   <tags-input 
     :tags="parsedTags"
-    @deleting="deleteTag"
+    @deleting="deleting"
     @creating="creating"
     v-validate/>
 </template>
@@ -103,15 +103,19 @@ export default {
         finnaly);
     },
 
-    deleting() {
+    deleting(event) {
+      async function request() {
+        await this.deleteTag(event.tag);
+        event.then();
+      }
 
+      this.send(request.bind(this));
     },
 
     async deleteTag(tag) {
-      await Tag.delete(tag.id);
+      await Tags.delete(tag.id);
       
       let index = this.tags.indexOf(tag);
-
       if (index === -1)
         return;
 

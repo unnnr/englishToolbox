@@ -7,9 +7,18 @@ use App\Http\Requests\Tag\CreateTag;
 use App\Http\Requests\Tag\UpdateTag;
 use App\Http\Requests;
 use App\Services\TagService;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
+
+    private $servive;
+
+    public function __construct() 
+    {
+        $this->service = new TagService();
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -60,8 +69,8 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        return $this->service->delete($tag);
     }
 }
