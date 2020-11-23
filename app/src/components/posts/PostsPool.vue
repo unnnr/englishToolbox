@@ -219,7 +219,9 @@ export default {
     // Events
     
     onSelected(event) {
-      this.select(event.post);
+      let post = this.findById(event.post.id);
+  
+      this.select(post);
     },
 
     createNew() {
@@ -245,7 +247,10 @@ export default {
         return;
         
       Object.assign(post, target);
-      bus.dispatch('post-selecting', { post:  target });
+      bus.dispatch('post-selecting', { 
+        withoutAlert: true,
+        post: target
+      });
   },
     
     async onDeleted(event) {

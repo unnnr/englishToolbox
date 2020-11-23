@@ -121,7 +121,8 @@ export default {
       return (event) => {
         if (typeof prevent === 'function' && !!!prevent())
           return;
-        if (!!!this.requireWarning)
+
+        if (event.withoutAlert || !!!this.requireWarning)
           return prepareCallback.call(this, event);
 
         this.showAlert(prepareCallback.bind(this, event))
