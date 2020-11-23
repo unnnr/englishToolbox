@@ -46,7 +46,7 @@ abstract class PostService
             $post = $this->model::create($request->validated());
 
         // Attaching tags and main tag
-        $this->updateTags($post, $request);
+        $this->createTags($post, $request);
 
         // Attaching thumbnail
         $post->thumbnail()->create([

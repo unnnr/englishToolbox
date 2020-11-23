@@ -219,7 +219,10 @@ export default {
     // Events
     
     onSelected(event) {
-      let post = this.findById(event.post.id);
+      let post = null;
+
+      if (event.post)
+        post = this.findById(event.post.id);
   
       this.select(post);
     },

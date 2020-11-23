@@ -16,16 +16,8 @@ trait HasTags
     {
         $mainTag = $this->morphToMany(Tag::class, 'taggable')
             ->withPivot('main')
-            ->where('main', true)
-            ->first();
-
-        if (!!!$mainTag)
-        {
-            $mainTag = Tag::where([
-                'label' => $this->defaultTag,
-                'default' => true
-            ])->firstOrFail();
-        }
+            ->where('main', 1)
+            ->firstOrFail();
         
         return $mainTag; 
     }

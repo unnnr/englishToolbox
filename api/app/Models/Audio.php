@@ -22,7 +22,7 @@ class Audio extends Model implements CreatesThumbnail
 
     public const IMAGE_PATH = 'public/audioBackgrounds';
 
-    protected $defaultTag = 'audio';
+    public $defaultTag = 'audio';
 
     protected $fillable = [
         'title', 'description', 'imageFile', 'audioFile'

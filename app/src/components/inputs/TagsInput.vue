@@ -288,15 +288,17 @@ export default {
       // Appending main tag to data
       let mainTag = this.main;
       if (mainTag)
-        data.append('mainTag', mainTag.id)
+        data.append('mainTag', mainTag.id);
+      else 
+        data.append('mainTag', '');
 
       // Appending selected tags to data
       let selected = this.selected;
-      if (selected)
-      {
-        for (let index in selected)
-          data.append(`tags[${index}]`, selected[index].id);
-      }
+      for (let index in selected)
+        data.append(`tags[${index}]`, selected[index].id);
+
+      if (selected.length === 0)
+        data.append('tags', '');
     } 
   }
 }
