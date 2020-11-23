@@ -151,8 +151,6 @@ export default {
         this.lock();
 
         await callback();
-
-        console.log(callback);
       }
       catch(error) {
         this.handleError(error);

@@ -129,7 +129,8 @@ export default {
     if (this.focusOnMount) {
       let input = this.$refs.input;
 
-      input.focus();
+      if (input)
+        input.focus();
     }
   },
 
