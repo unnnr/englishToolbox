@@ -11,7 +11,6 @@ use App\Http\Resources\VideoResource;
 
 class TagService
 {
-
     public function create(Request $request)
     {
         $newTag = Tag::create(

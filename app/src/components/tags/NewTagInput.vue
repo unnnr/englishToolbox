@@ -5,8 +5,7 @@
 		ref="wrapper"
 		:class="{
 				'tag--new-focused': inputIsFocused,
-				'tag-new-disabled': loading
-		}"
+				'tag-new-disabled': loading}"
 		@click="onWrapperClick">
 
 		<label

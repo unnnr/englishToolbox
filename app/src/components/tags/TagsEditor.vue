@@ -2,6 +2,7 @@
   <tags-input 
     :tags="parsedTags"
     :create-new="createNew"
+    @deleting="deleteTag"
     v-validate/>
 </template>
 
@@ -82,6 +83,15 @@ export default {
       }
 
       return null;
+    },
+
+    async deleteTag(tag) {
+      let index = this.tags.indexOf(tag);
+
+      if (index === -1)
+        return;
+
+      this.tags.splice(index, 1);
     },
 
     async createNew(label) {

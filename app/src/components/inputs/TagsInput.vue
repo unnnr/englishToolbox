@@ -11,7 +11,8 @@
       ref="tags"
       class="tags"
       name="tags"
-      tag="div">
+      tag="div"
+      @before-leave="setAbsolute">
 
       <new-tag-input
         ref="input"
@@ -32,7 +33,7 @@
         :created="tag.created"
         :main="tag.main"
 
-        v-context:items="createContext(tag)"
+        v-context:items="() => createContext(tag)"
         @click.native="toggle(tag)"/>
     </transition-group>
 	</div>
@@ -73,8 +74,7 @@ export default {
         let main = null;
         
         // Splitting tags into sactions
-        for (let tag of this.tags)
-        {
+        for (let tag of this.tags) {
           if (tag.main)
             main = tag;
 
@@ -181,6 +181,15 @@ export default {
   },
   
   methods: {
+    setAbsolute(tag) {
+			Object.assign(tag.style, {
+				position: 'absolute',
+				width: tag.offsetWidth + 'px',
+				top: tag.offsetTop + 'px',
+				left: tag.offsetLeft + 'px'
+			})
+    },
+    
 		removefragment() {
 			let fragment = this.$refs.fragment;
 			if (!!!fragment)
@@ -195,27 +204,33 @@ export default {
     },
 
     createContext(tag) {
-			return () => {
-        if (tag.main) {
-          return {
-            'Unmain': 
-              () => this.main = null
-          }
-        }
-        else {
-          return {
-            'Set as main': () => {
-              if (tag.selected) {
-                this.main = tag;
-                return;
-              }          
+      function makeMain() {
+        if (tag.selected)
+          return _this.main = tag;
 
-              if (this.toggle(tag))
-                this.main = tag; 
-            }
-          }
-        }      
+        if (_this.toggle(tag))
+          _this.main = tag; 
       }
+
+      function unmain() {
+        _this.main = null;
+      }
+
+      function destroy() {
+        _this.$emit('deleting', tag);
+      }
+
+      let context = {};
+      let _this = this;
+
+      if (tag.main) 
+        context['Unmain'] = unmain; 
+      else 
+        context['Make main'] = makeMain;
+
+      context['Delete'] = destroy;
+
+			return context;
     },
 
     select(tag) {
@@ -248,6 +263,8 @@ export default {
         this.unselect(tag);
       else
         this.select(tag);
+
+      return tag.selected;
     },
 
     hasChanges() {
@@ -313,7 +330,11 @@ export default {
   transform: scale(0.5)
   opacity: 0
 
-.tags-enter-active
+.tags-leave-to
+  transform: scale(0)
+  opacity: 0
+
+.tags-enter-active, .tags-leave-active
   transition: transform .3s ease-in-out, opacity .4s ease-in-out
 
 </style> 
