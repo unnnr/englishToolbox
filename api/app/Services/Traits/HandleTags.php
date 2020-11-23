@@ -2,73 +2,87 @@
 
 namespace App\Services\Traits;
 
-use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use App\Models\Tag;
 
 trait HandleTags 
 {
-    private function attachTags(Model $post, $tags)
+    private function attachTags(Model $post, $tags) : void
     {
-        // REQUIRE VALIDATION
+        if ($tags !== null) {
+            foreach (Tag::find($tags) as $tag)
+            {
+                if (!!!$tag->default)  
+                    continue;
+
+                throw ValidationException::withMessages([
+                    'tags' => ["Cant attach default '{$tag->label}' tag with id {$tag->id}"]
+                ]); 
+            }
+        }
 
         $post->tags()->wherePivot('main', null)->detach();
 
         $post->tags()->attach($tags);
     }
 
-
-    private function attachMainTag(Model $post, ?int $newTagID)
+    private function findDefaultTag(Model $post)
     {
-        /*
-            if previous  equals to new tag
-            (Cause of models login previous cant be null)
-                -> we must return
+        $mainTag = Tag::where([
+            'label' => $post::DEFAULT_TAG,
+            'default' => true
+        ])->firstOrFail();
 
-            if new tag is not null 
-                -> we must try to find it in table  
+        return $mainTag;
+    }
 
-                -> if this try is failed 
-                    -> we must return
 
-                -> OR founded tag is default
-                    -> we must return 
+    private function attachMainTag(Model $post, ?int $tagId) : void
+    { 
+        if ($tagId === null)
+            $mainTag = $this->findDefaultTag($post);
+        else {
+            $mainTag = Tag::findOrFail($tagId);
 
-            if prvevious is not defautl 
-                -> we must detach it
+            if ($mainTag->default) {
+                throw ValidationException::withMessages([
+                    'mainTag' => ['Trying to attach incorrect default tag']
+                ]); 
+            }
+        }
 
-            if new tag is not null 
-              (And rely on previous cnecks if  it
-              isnt null it has correct format)
-                -> we must attach it
-                    
-        */
+        $post->tags()->attach($mainTag, [ 'main' => true ]);
+    }
 
+
+    private function updateMainTag(Model $post, ?int $newTagID)
+    {
         $previous = $post->mainTag();
-
+      
         if ($previous->id === $newTagID)
             return;
 
-        if (!!!is_null($newTagID))
-            $tag = Tag::find($newTagID);
+        $post->tags()->detach($previous);
 
-        if (!!!is_null($newTagID) && ( is_null($tag) || $tag->default ))
-            return;
-
-        if (!!!$previous->default)  
-            $post->tags()->detach($previous->id);
-
-        if (!!!is_null($newTagID))
-            $post->tags()->attach($newTagID, ['main' => true]);
+        $this->attachMainTag($post, $newTagID);
     }
 
-    function updateTags(Model $post, Request $request)
+    private function createTags(Model $post, Request $request) 
+    {
+        $this->attachMainTag($post, $request->input('mainTag'));
+
+        $this->attachTags($post, $request->input('tags'));
+    }
+
+    private function updateTags(Model $post, Request $request)
     {
         if ($request->has('mainTag'))
         {
-            $mainTag  =  $request->input('mainTag');
+            $mainTag = $request->input('mainTag');
 
-            $this->attachMaintag($post, $mainTag);
+            $this->updateMainTag($post, $mainTag);
         }
     
         if ($request->has('tags'))

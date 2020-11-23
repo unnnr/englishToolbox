@@ -1,6 +1,6 @@
 <template>
   <v-input
-    placeholder="Some placeholder"
+    placeholder="my_super_secret_password"
     icon="password"
 
     v-name="name"

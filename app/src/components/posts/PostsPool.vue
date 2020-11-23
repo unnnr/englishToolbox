@@ -2,9 +2,9 @@
   <pool 
     class="container"
 
-    :cards="reversedPosts"
-    :context="createContext"
     :can-create="canCreate"
+    :context="createContext"
+    :cards="reversedPosts"
 
     @favorite-toggle="toggleFavorite"
     @create-new="createNew"
@@ -219,7 +219,12 @@ export default {
     // Events
     
     onSelected(event) {
-      this.select(event.post);
+      let post = null;
+
+      if (event.post)
+        post = this.findById(event.post.id);
+  
+      this.select(post);
     },
 
     createNew() {
@@ -234,7 +239,9 @@ export default {
 			let post = event.post;
 
       this.posts.push(post);
-			this.selecting(post);
+		  bus.dispatch('post-selecting', { 
+        post, withoutAlert: true,
+      });
     },
     
     async onEdited(event) {
@@ -244,9 +251,12 @@ export default {
 			if (post === null)
         return;
         
-			Object.assign(post, target);
-			this.selecting(post);
-		},
+      Object.assign(post, target);
+      bus.dispatch('post-selecting', { 
+        withoutAlert: true,
+        post: target
+      });
+  },
     
     async onDeleted(event) {
 			let deletedPost = event.post;

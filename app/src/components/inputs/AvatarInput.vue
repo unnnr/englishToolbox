@@ -27,6 +27,10 @@ export default {
 
   mixins: [ HandleRequests ],
 
+  props: {
+    disabled: { type: Boolean, default: false }
+  },
+
   data() {
     return {
       image: '#'
@@ -45,6 +49,9 @@ export default {
 
   methods: {
     showPopup(event) {
+      if (this.disabled)
+        return;
+        
       let input =  this.$refs.input;
       input.$el.click();
     },

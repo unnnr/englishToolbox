@@ -6,7 +6,8 @@ const ToolTip = new class {
 	component = null;
 	
 	__conmputeCords(event) {
-		const MARGIN_TOP = 10;
+		const OFFSET_TOP = 10;
+		const OFFSET_LEFT = 22;
 		
 		// Computing distance from page
 		let el = event.target;
@@ -21,8 +22,8 @@ const ToolTip = new class {
 
 		// Computing coords
 		el = event.target;
-		let x = left - el.offsetWidth / 2;
-		let y = top + el.offsetHeight + MARGIN_TOP;
+		let x = left + el.offsetWidth / 2 - OFFSET_LEFT;
+		let y = top + el.offsetHeight + OFFSET_TOP;
 
 		return [x, y];
 	}
@@ -68,8 +69,10 @@ const ToolTip = new class {
 
 		el.addEventListener('click', 
 			this.__wrappEvent(listener, this.showTooltip));
+
 		el.addEventListener('mouseover', 
 			this.__wrappEvent(listener, this.showTooltip));
+
 		el.addEventListener('mouseleave', 
 			this.__wrappEvent(listener, this.hideTooltip));
 	}

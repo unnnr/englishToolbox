@@ -121,7 +121,7 @@ export default {
   },
 
   beforeMount() {
-    if (this.isPassword)
+    if (this.visibilityButtoned)
       this.entryHidden = true;
   },
 
@@ -129,7 +129,8 @@ export default {
     if (this.focusOnMount) {
       let input = this.$refs.input;
 
-      input.focus();
+      if (input)
+        input.focus();
     }
   },
 

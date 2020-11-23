@@ -2,7 +2,7 @@
   <v-input
     ref="input"
 
-    placeholder="'Best title for my post'"
+    placeholder="Best title for my post"
     label="Post title"
     name="title"
     

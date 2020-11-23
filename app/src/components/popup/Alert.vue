@@ -1,180 +1,135 @@
 <template>
-  <div class="modal__content alert"
-    :class="{
-      'alert--error': error,
-      'alert--prompt': prompt,
-      'alert--warning': warning,
-    }">
+	<transition  name="fade">
+		<section 
+			class="modal container"
+			v-if="shown">
 
-    <span class="alert__title heading-fifth">
-      {{ title }}
-    </span>
+      <prompt-alert
+        v-if="prompt"
+        :message="message"
+        @confirm="confirmInput"
+        @cancel="cancel"/>
 
-    <p class="alert__description text-fourth">
-      {{ description }}
-    </p>
+      <warning-alert
+        v-if="warning"
+        :message="message"
+        @cancel="cancel"
+        @okay="okay"/>
 
-    <v-input 
-      v-if="prompt"
-      v-model="entry"
+      <error-alert
+        v-if="error"
+        :message="message"
+        @okay="okay"/>
 
-      label="Your confirmation"
-      :max="64"
-      
-      visibilityButtoned
-      focus-on-mount
-      colorless/>
-
-    <div class="alert__buttons">
-      <button 
-        class="alert__button button--skeleton button-secondary"
-        v-if="cancelShown"
-        @click="cancel">
-        
-        Cancel
-      </button>
-
-      <button 
-        v-if="okShown"
-        ref="ok"
-        class="alert__button button-secondary"
-        :class="{
-          'button--yellowish': warning,
-          'button--reddish': error,
-        }"
-        @click="okay"
-        autofocus>
-        
-        Ok
-      </button>
-
-      <button 
-        class="alert__button button--bluish button-secondary"
-        v-if="confirmShown"
-        @click="confirm">
-        
-        Confirm
-      </button>
-    </div>
-    
-  </div> 
+  	</section> 
+	</transition>
 </template>
 
 <script>
-import VInput from '@components/validation/VInput'
+
+import HandleEvents from '@mixins/HandleEvents'
+import WarningAlert from '@components/popup/WarningAlert'
+import PromptAlert from '@components/popup/PromptAlert'
+import ErrorAlert from '@components/popup/ErrorAlert'
+import bus from '@services/eventbus'
 
 export default {
   components: {
-    VInput
+    WarningAlert, 
+    PromptAlert,
+    ErrorAlert
   },
 
-  provide() {
-    return {
-      secondary: true
-    }
-  },
+	mixins: [ HandleEvents ],
 
-  data() {
+	data() {
 		return {
-      entry: ''
+			type: null,
+			message: null
 		}   
-  },
-  
-  props: {
-    warning: {
-      type: Boolean,
-      default: false
-    },
+	},
 
-    prompt: {
-      type: Boolean,
-      defualt: false
-    },
-  
-    message: {
-      type: String,
-      default: ''
-    }
-  },
+	computed: {
+		prompt() {
+			return this.type === 'prompt';
+		},
 
-  computed: {
-    title() {
-      if (this.warning)
-        return 'Are you sure?'
-
-      if (this.prompt)
-        return 'Enter confirmation here'
-
-      return 'Something went wrong';
-    },
-
-    description() {
-      if (this.message.length > 0)
-        return this.message;
-
-      if (this.error)
-        return 'Please try again';
-
-      return '';
-    },
-
-    error() {
-     return !!!this.warning && !!!this.prompt;
+		warning() {
+			return this.type === 'warning';
     },
     
-    cancelShown() {
-      return this.warning || this.prompt;
+    error() {
+      return this.type === 'error';
     },
-
-    okShown() {
-      return this.warning || this.error;
-    },
-
-    confirmShown() {
-      return this.prompt;
+    
+    shown() {
+      return this.error || this.warning || this.prompt;
     }
-  },
+	},
 
-  watch: {
-    warning(value) {
-      if (value)
-        this.autoFocus();
+	mounted() {
+		this.listen({
+			'alert-error': event => {
+        this.prepareAlert(event);
+        this.type = 'error';
+			},
+			
+			'alert-warning': event => {
+        this.prepareAlert(event);
+				this.type = 'warning';
+
+			},
+
+			'alert-prompt': event => {
+        this.prepareAlert(event);
+				this.type = 'prompt';
+			},
+		});
+	}, 
+
+	methods: {
+    prepareAlert(event) {
+      this.message = typeof event.message === 'string' ? 
+        event.message : '';
+      
+      Object.assign(this.$options, {
+				confirm: event.confirm,
+        cancel: event.cancel,
+				okay: event.okay,
+			});
     },
 
-    error(value) {
-     if (value)
-      this.autoFocus();
-    } 
-  },
+		fire(eventName, args) {
+			if (typeof this.$options[eventName] !== 'function')
+					return;
 
-  mounted() {
-    this.autoFocus();
-  },
-   
-  methods: {
-    autoFocus() {
-      if (this.warning || this.error) {
-        let button = this.$refs.ok;
+			this.$options[eventName](args);
+			this.$options[eventName] = null;
+    },
 
-        if (button)
-          button.focus();
-      }
+    hide() {
+      this.type = null;
     },
 
 		okay() {
-			this.$emit('okay', event);
-    },
-    
-    cancel() {
-			this.$emit('cancel', event);
-    },
+			this.hide();
+			this.fire('okay');
+		},
 
+		cancel() {
+			this.hide();
+			this.fire('cancel');
+		},
+		
 		confirm() {
-      if (this.prompt)
-        this.$emit('confirm-prompt', { entry: this.entry });
-      else
-        this.$emit('confirm');
-		}
+			this.hide();
+			this.fire('confirm');
+		},
+
+		confirmInput(event) {
+			this.hide();
+			this.fire('confirm', event.entry)
+    },
 	}
 }
 </script>

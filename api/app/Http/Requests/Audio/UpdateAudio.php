@@ -30,9 +30,9 @@ class UpdateAudio extends FormRequest
             'audioFile' => 'max:10240|mimes:mpga,wav',
             'imageFile' => 'max:10240|image',
 
-            'mainTag' => 'numeric',  
-            'tags.*' => 'numeric|distinct',
-            'tags' => 'array|max:4'
+            'tags' => ['array', 'max:4', 'nullable'],  
+            'tags.*' => ['numeric', 'distinct'],
+            'mainTag' => ['numeric', 'nullable'],
         ];
     }
 }

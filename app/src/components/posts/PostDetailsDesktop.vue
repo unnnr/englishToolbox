@@ -105,7 +105,7 @@ export default {
     },
 
     target() {
-      this.showInfo();
+      this.activeTab = 'info';
     }
   },
 
@@ -121,10 +121,6 @@ export default {
           _this.activeTab = tabName
         }
       });
-    },
-    
-    showInfo() {
-      this.activeTab = 'info';
     },
     
     selectInfo() {

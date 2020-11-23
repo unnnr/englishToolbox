@@ -19,7 +19,9 @@
       secondary>
 
       <div class="profile__editor-header">
-        <avatar-input class="profile__editor-image"/>
+        <avatar-input 
+          class="profile__editor-image"
+          :disabled="disabled"/>
 
         <h4 class="profile__editor-name heading-fourth">
           {{ userName }}

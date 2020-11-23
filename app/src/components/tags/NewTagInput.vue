@@ -5,8 +5,7 @@
 		ref="wrapper"
 		:class="{
 				'tag--new-focused': inputIsFocused,
-				'tag-new-disabled': loading
-		}"
+				'tag-new-disabled': loading}"
 		@click="onWrapperClick">
 
 		<label
@@ -56,7 +55,8 @@ export default {
 	data() {
 		return {
 			label: '',
-			inputIsFocused: false
+			inputIsFocused: false,
+			loading: false,
 		}
 	},
 
@@ -121,35 +121,16 @@ export default {
 			});
 		},
 
-		parseError(error) {
-			if (!!!error || typeof error !== 'object')
-				return null;
-
-			let body = error.body;
-			if (!!!body || typeof body !== 'object')
-				return null;
-
-			let errors = body.errors;
-			if (!!!errors || typeof errors !== 'object')
-				return null;
-
-			let label = errors.label;
-			if (!!!Array.isArray(label))
-				return null;
-
-			return label.join(', ');
-		},
-
 		onTagSending() {
-			this.send(this.sendTag, this.parseError)
-		},
+			this.sending = true;
 
-		async sendTag() {
-			if (typeof this.submit === 'function')
-				await this.submit(this.label);
-
-			this.label = '';
-		},
+			this.$emit('creating', { label: this.label, 
+			loaded: () => {
+					this.label = '';
+					this.sending = false;
+				} 
+			});
+		}
 	}
 }
 </script>

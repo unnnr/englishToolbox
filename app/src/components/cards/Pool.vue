@@ -73,8 +73,7 @@ export default {
 
 	beforeMount() {
 		this.model.all().then( async posts => {
-				if (posts.length === 0)
-				{	
+				if (posts.length === 0) {	
 					bus.dispatch('overlay-showing--empty');
 
 					return;
