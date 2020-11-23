@@ -2,17 +2,26 @@
 
 namespace App\Services\Traits;
 
-use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use App\Models\Tag;
-
-use Illuminate\Support\Facades\Log;
 
 trait HandleTags 
 {
     private function attachTags(Model $post, $tags) : void
     {
-        // REQUIRE VALIDATION
+        if ($tags !== null) {
+            foreach (Tag::find($tags) as $tag)
+            {
+                if (!!!$tag->default)  
+                    continue;
+
+                throw ValidationException::withMessages([
+                    'tags' => ["Cant attach default '{$tag->label}' tag with id {$tag->id}"]
+                ]); 
+            }
+        }
 
         $post->tags()->wherePivot('main', null)->detach();
 
@@ -34,8 +43,15 @@ trait HandleTags
     { 
         if ($tagId === null)
             $mainTag = $this->findDefaultTag($post);
-        else
+        else {
             $mainTag = Tag::findOrFail($tagId);
+
+            if ($mainTag->default) {
+                throw ValidationException::withMessages([
+                    'mainTag' => ['Trying to attach incorrect default tag']
+                ]); 
+            }
+        }
 
         $post->tags()->attach($mainTag, [ 'main' => true ]);
     }

@@ -38,11 +38,15 @@ export default {
     },
 
     parsedTags() {
-      let tags = this.tags;
+      let tags = [];
+
+      for (let tag of this.tags) {
+        if (!!!tag.default)
+          tags.push(tag);
+      }
 
       // Selecting tags
-      for (let { id } of this.selected)
-      {
+      for (let { id } of this.selected)  {
         let tag = this.getTag(id);
 
         if (tag)

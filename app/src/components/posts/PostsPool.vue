@@ -239,7 +239,9 @@ export default {
 			let post = event.post;
 
       this.posts.push(post);
-			this.selecting(post);
+		  bus.dispatch('post-selecting', { 
+        post, withoutAlert: true,
+      });
     },
     
     async onEdited(event) {
