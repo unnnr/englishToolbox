@@ -11,12 +11,20 @@ use Illuminate\Support\Facades\Log;
 
 trait CreatesDefaultAvatar
 {     
-    private function randomColor($saturation = 60, $lightness = 60, $count = 1000) : string
+    public function randomColor($saturation = 60, $lightness = 60, $count = 1000) : string
     {
+        // Range of colors cut out of the spectrum 
+        $cutFrom = 60;
+        $cutTo = 160;
         
-        $hue = rand(0, $count);
+        // Range without cutout part  
+        $range = 360 - $cutTo + $cutFrom;
+        
+        $hue = rand(0, $count) * ($range / $count) % $range;
 
-        Log::debug($hue);
+        // Moving hue 
+        if ($hue > $cutFrom)
+            $hue += $cutTo - $cutFrom;
 
         return "hsl({$hue}, {$saturation}%, {$lightness}%)";
     }

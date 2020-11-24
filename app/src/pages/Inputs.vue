@@ -23,13 +23,6 @@
 </template>
 
 <script>
-
-const MIN_DIFFERENCE = 0;
-const FROM = 120;
-const TO = 200;
-
-const STEP = 10;
-
 function * range(value) {
   for (let i = 0; i < value; i++) 
     yield i;
@@ -49,107 +42,32 @@ export default {
   },
 
   methods: {
-    getRandomNumber() {
-      return Math.floor(min + Math.random() * (max - min));
-    },
-
-
-    getTestNumber(min, max) {
-      this.$options.counter = typeof this.$options.counter === 'number' ? 
-        this.$options.counter + 1 : 0;
-      
-      switch (this.$options % this.$options.counter) {
-        case 0: 
-          return this.$options.first;
-        case 1: 
-          return this.$options.second;
-        case 2: 
-          return this.$options.third;
-      }
-    },
-    
-    generate() {
-      function getNumber(min, max) {
-        return Math.floor(min + Math.random() * (max - min));
-      }
-
-      const MIN_DIFFERENCE = 20;
-      const FROM = 40;
-      const TO = 220;
-      
-      let first = getNumber(FROM, TO);
-      let second = getNumber(FROM, TO);
-      let third;
-
-      // One of the three nodes must be different from the others.
-      // So if 'first node' and 'second node' are simiral
-      // we need to ensure that third will be different
-      if (Math.abs(first - second) < MIN_DIFFERENCE) {
-        let average = (first + second) / 2;
-
-        // To generate different from first and second value
-        // we need to pick it from two ranges
-        // [FROM, average - MIN_DIFFERENCE] U [average + MIN_DIFFERENCE, TO]
-        
-        // By default  MIN_DIFFERENCE * 2 < TO - FROM, 
-        // so we dont consider other cases
-
-        if (average + MIN_DIFFERENCE <= TO)
-          third = 
-            getNumber(average + MIN_DIFFERENCE, TO);
-        else 
-         third = 
-            getNumber(FROM, average - MIN_DIFFERENCE);
-      }
-      else 
-        third = getNumber(FROM, TO);
-
-      return '#' + first.toString(16)
-                 + second.toString(16)
-                 + third.toString(16);
-    },
-
     * entropy() {
       function makeColor(colorNum, colors){
-        if (colors < 1) colors = 1; // defaults to one color - avoid divide by zero
-        return colorNum * (360 / colors) % 360;
+        let angles = 360 - CUT_TO + CUT_FROM;
+
+        let angle = colorNum * (angles / colors) % angles;
+
+        if (angle > CUT_FROM)
+          (angle += CUT_TO - CUT_FROM) &&  console.log('MOVED', CUT_TO - CUT_FROM, angles);
+
+        console.log(angle);
+
+        return angle;
       }
 
+      const CUT_FROM  = 60;
+      const CUT_TO = 160;
 
       for (let i of range(this.count))
       {
         var color = "hsl( " + makeColor(i, this.count) + ", 60%, 60% )";
         yield color;
       }
-
-      return;
-
-      let count = Math.floor((TO - FROM) / STEP);
-      let nodes = [];
-
-      for (let first of range(count)) {
-        nodes[0] = FROM + first * STEP;
-
-        for (let second of range(count)) {
-          nodes[1] = FROM + second * STEP;
-
-          for (let third of range(count)) {
-            nodes[2] = FROM + third * STEP;
-
-            if (Math.abs(nodes[0] - nodes[1]) < MIN_DIFFERENCE) {
-              break;
-            }
-
-            yield '#' + nodes[0].toString(16).padStart(2, '0')
-                      + nodes[1].toString(16).padStart(2, '0')
-                      + nodes[2].toString(16).padStart(2, '0') ;
-          }
-        }
-      }
     },
 
     test() {
-      this.$refs.wrapper.style.width = Math.floor((TO - FROM) / STEP) * 40 + 'px';
+      this.$refs.wrapper.style.width = 800 + 'px';
 
       for (let value of this.entropy()) {
         this.colors.push(value)
