@@ -97,7 +97,7 @@ export default {
         this.wrapEvent(this.postDeleting),
 
       'post-deleted': 
-        this.postDeleted,
+        this.wrapEvent(this.postDeleted),
 
       'post-start-creating':  
       // Prevents alert appearing if creator is already shown

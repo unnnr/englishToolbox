@@ -289,22 +289,15 @@ export default {
 
     contextDelete(post) {
       function okay() {
-        try {
-          _this.model.delete(post.id)
-
+        this.send(async () => {
+          await this.model.delete(post.id);         
           bus.dispatch('post-deleted', { post });
-        }
-        catch(error) {
-          console.error(error); 
-
-          bus.dispatch('alert-error');
-        }
+        });
       }
 
-      let _this = this;
-
       bus.dispatch('alert-warning', { 
-        okay, message: 'It cannot be restored in the future',
+        message: 'It cannot be restored in the future',
+        okay: okay.bind(this) 
       });
     },
 

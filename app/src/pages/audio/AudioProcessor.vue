@@ -35,13 +35,14 @@
       <delete-button  
         v-if="editing"
         class="editor__delete-button"
-        @click.native="deleteAudio"/>
+        @click.native="prepareDeletion"/>
         
       <confirm-button class="editor__confirm-button"/> </div>
   </v-form>
 </template>
 
 <script>
+import HandlePostProcessing from '@mixins/HandlePostProcessing'
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
@@ -64,25 +65,9 @@ export default {
     VForm
   },
 
-  props: {
-    editing: { type: Boolean, default: false },
-
-    request: { type: Function, default: null },
-
-    deleting: {type: Function, default: null }
-  },
-
-  inject: [ '$target' ],
+  mixins: [ HandlePostProcessing ],
 
   computed: {
-    target() {
-      return this.$target();
-    },
-
-    withDefault() {
-      return this.target && this.editing;
-    },
-
     description() {
       return this.withDefault ? this.target.description : '';
     },
@@ -97,12 +82,6 @@ export default {
   },
 
   methods: {
-    hasChanges() {
-      let form = this.$refs.form;
-
-      return form.hasChanges();
-    },
-
     clearPreview() {
       if (this.$options.audio)
         URL.revokeObjectURL(this.$options.audio)
@@ -146,35 +125,11 @@ export default {
       });    },
 
     async submit(data) {
-      if (this.request)
-        await this.request(data);
-      
+      if (!!!this.request)
+        return;
+
+      await this.request(data);
       this.clearPreview();
-    },
-
-    async deleteAudio() {
-      function okay() {
-        if (typeof _this.deleting !== 'function')
-          return;
-
-        let form = _this.$refs.form;
-        if (!!!form)
-          return;
-
-        form.sendWith(async () => {
-          let post = _this.target;
-          await _this.deleting(post);
-
-          bus.dispatch('post-deleting', { post })
-        });
-      }
-
-      let _this = this;
-
-      
-      bus.dispatch('alert-warning', { 
-        okay, message: 'It cannot be restored in the future',
-      });
     }
   }
 }

@@ -2,6 +2,7 @@
   <audio-processor 
     ref="processor"
     :request="submit"
+    :deleting="deleting"
     editing/>
 </template>
 

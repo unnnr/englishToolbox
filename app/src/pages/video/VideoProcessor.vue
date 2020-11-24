@@ -24,7 +24,7 @@
       <delete-button  
         v-if="editing"
         class="editor__delete-button"
-        @click.native="deleteVideo"/>
+        @click.native="prepareDeletion"/>
         
       <confirm-button class="editor__confirm-button"/>
     </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import HandlePostProcessing from '@mixins/HandlePostProcessing'
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
@@ -49,17 +50,9 @@ export default {
     TagsEditor,
     VForm
   },
-
-  props: {
-    editing: { type: Boolean, default: false },
-
-    request: { type: Function, default: null },
-
-    deleting: {type: Function, default: null }
-  },
-
-  inject: [ '$target' ],
-
+  
+  mixins: [ HandlePostProcessing ],
+  
   data() {
     return {
       link: ''
@@ -67,14 +60,6 @@ export default {
   },
 
   computed: {
-    target() {
-      return this.$target();
-    },
-
-    withDefault() {
-      return this.target && this.editing;
-    },
-
     description() {
       return this.withDefault ? this.target.description : '';
     }
@@ -95,43 +80,12 @@ export default {
       bus.dispatch('preview-changed', { videoId });
     },
 
-    hasChanges() {
-      let form = this.$refs.form;
-
-      return form.hasChanges();
-    },
-
     async submit(data) {
-      if (this.request)
-        await this.request(data);
-
+      if (!!!this.request)
+        return;
+      
+      await this.request(data);
       bus.dispatch('preview-changed', { videoId: null });
-    },
-
-    async deleteVideo() {
-      function okay() {
-        if (typeof _this.deleting !== 'function')
-          return;
-
-        let form = _this.$refs.form;
-        if (!!!form)
-          return;
-
-        form.sendWith(async () => {
-          let post = _this.target;
-          await _this.deleting(post);
-
-          this.target = {};
-          bus.dispatch('post-deleted', { post })
-        });
-      }
-
-      let _this = this;
-      
-      
-      bus.dispatch('alert-warning', { 
-        okay, message: 'It cannot be restored in the future',
-      });
     }
   }
 }

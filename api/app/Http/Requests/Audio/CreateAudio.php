@@ -19,7 +19,7 @@ class CreateAudio extends CreatePost
         // Only audio rules
         $audio = [
             'audioFile' => 'required|max:10240|mimes:mpga,wav',
-            'imageFile' => 'required|max:10240|image:png,jpeg,gif',
+            'imageFile' => 'required|max:10240|mimes:png,jpeg,gif',
             'title' => 'required|string|max:50',
         ];
 

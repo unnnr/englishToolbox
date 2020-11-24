@@ -3,7 +3,7 @@
     name="imageFile"
     icon="image"
     label="image"
-    accept="image/*"
+    accept="image/png,image/jpeg,image/webp,image/gif"
     :optional="optional"
     @change="change"
     v-validate/>

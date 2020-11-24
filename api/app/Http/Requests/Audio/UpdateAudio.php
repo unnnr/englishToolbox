@@ -19,7 +19,7 @@ class UpdateAudio extends UpdatePost
         // Only audio rules
         $audio = [
             'audioFile' => 'max:10240|mimes:mpga,wav',
-            'imageFile' => 'max:10240|image',
+            'imageFile' => 'max:10240|mimes:png,jpeg,gif',
             'title' => 'max:50',
         ];
 
