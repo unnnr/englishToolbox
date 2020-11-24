@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
 import HandleRequests from '@mixins/HandleRequests'
 import HandleEvents from '@mixins/HandleEvents'
 import Favorites from '@models/Favorites'
@@ -25,6 +26,7 @@ export default {
   },
 
   mixins: [ 
+    HandleTagsDeletion,
     HandleRequests,
     HandleEvents,
   ],
@@ -60,6 +62,8 @@ export default {
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
+
+      'tag-deleted': this.onTagDeleted
     });
   },
 
@@ -272,6 +276,14 @@ export default {
 					&& removedPost.id === this.$options.selectedPost.id)
 				this.selectFirst();
     },
+
+    async onTagDeleted(event) {
+      let tag = event.tag;
+
+      for (let post of this.posts)
+        this.removeTagFromPost(tag, post);
+    },
+
 
     // Context menu event
 

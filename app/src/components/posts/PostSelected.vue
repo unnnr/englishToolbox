@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import HandleEvents from '@mixins/HandleEvents';
 import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
+import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
+import HandleEvents from '@mixins/HandleEvents';
 import PostDetails from '@components/posts/PostDetails'
 import bus from '@services/eventbus'
 
@@ -37,7 +38,10 @@ export default {
     PostDetails,
   },
 
-  mixins: [ HandleEvents ],
+  mixins: [ 
+    HandleTagsDeletion,
+    HandleEvents
+  ],
 
   props: {
     editorHasChanges: { type: Function },
@@ -100,6 +104,9 @@ export default {
       //                                         ||
       //                                         \/
       this.wrapEvent(this.onStartCreating, () => !!!this.creating),
+
+      'tag-deleted': 
+        this.onTagDeleted,
     });
   },
 
@@ -181,6 +188,13 @@ export default {
       bus.dispatch('post-creating');
 
       this.scrollToTop();
+    },
+
+    onTagDeleted(event) {
+      let tag = event.tag;
+      let post = this.target;
+
+      this.removeTagFromPost(tag, post);
     },
     
     showAlert(callback) {

@@ -10,6 +10,7 @@
 import HandleRequests from '@mixins/HandleRequests'
 import TagsInput from '@components/inputs/TagsInput'
 import Tags from '@models/Tags'
+import bus from '@services/eventbus'
 
 import FakeData from '@services/FakeData'
 
@@ -105,8 +106,12 @@ export default {
 
     deleting(event) {
       async function request() {
-        await this.deleteTag(event.tag);
+        let tag = event.tag;
+
+        await this.deleteTag(tag);
         event.then();
+
+        bus.dispatch('tag-deleted', { tag })
       }
 
       this.send(request.bind(this));

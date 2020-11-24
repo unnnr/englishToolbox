@@ -34,10 +34,10 @@
 
 <script>
 import HandleEvents from '@mixins/HandleEvents'
-import Tags from '@models/Tags'
-import bus from '@services/eventbus'
 import Shrinkable from '@components/Shrinkable'
+import Tags from '@models/Tags'
 import Tag from '@components/tags/Tag'
+import bus from '@services/eventbus'
  
 
 export default {
@@ -72,11 +72,29 @@ export default {
 		this.listen({
 			'tag-created': (event) => {
 				this.tags.push(event.tag);
+			},
+
+			'tag-deleted': (event) => {
+				let tag = this.find(event.tag.id);
+				if (tag === null)
+					return;
+
+				let index = this.tags.indexOf(tag);
+				this.tags.splice(index, 1);
 			}
 		});
 	},
 
 	methods: {
+		find(id) {
+			for (let tag of this.tags) {
+				if (tag.id === id)
+					return tag;
+			}
+
+			return null;
+		},
+
 		toggleFilters() {
 			let shrinkable = this.$refs.shrinkable;
 			if (!!!shrinkable)
