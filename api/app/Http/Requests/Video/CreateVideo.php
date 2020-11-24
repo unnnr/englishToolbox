@@ -2,23 +2,11 @@
 
 namespace App\Http\Requests\Video;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Alaouy\Youtube\Rules\ValidYoutubeVideo;
+use App\Http\Requests\Post\CreatePost;
 
-use App\Rules\YoutubeID;
-
-class CreateVideo extends FormRequest
+class CreateVideo extends CreatePost
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,13 +14,14 @@ class CreateVideo extends FormRequest
      */
     public function rules()
     {
-        return [
-             //  'unique:videos,videoID'
-            'description' => ['string', 'max:180'],
-            'videoUrl' => ['required', 'string',  new ValidYoutubeVideo],
-            'mainTag' => ['numeric'],
-            'tags' => ['array', 'max:4'],  
-            'tags.*' => ['numeric', 'distinct']
+        // Defualt post rules
+        $post = parent::rules();
+
+        // Only video rules
+        $video = [
+            'videoUrl' => ['required', 'string',  new ValidYoutubeVideo]
         ];
+
+        return array_merge($post, $video);
     }
 }

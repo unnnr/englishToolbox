@@ -2,21 +2,11 @@
 
 namespace App\Http\Requests\Video;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Alaouy\Youtube\Rules\ValidYoutubeVideo;
+use App\Http\Requests\Post\UpdatePost;
 
-class UpdateVideo extends FormRequest
+class UpdateVideo extends UpdatePost
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,12 +14,14 @@ class UpdateVideo extends FormRequest
      */
     public function rules()
     {
-        return [
-            'tags' => ['array', 'max:4', 'nullable'],  
-            'tags.*' => ['numeric', 'distinct'],
-            'mainTag' => ['numeric', 'nullable'],
-            'videoUrl' => ['string', 'max:300',  new ValidYoutubeVideo],
-            'description' => ['string', 'max:180', 'nullable'],
+        // Defualt post rules
+        $post = parent::rules();
+
+        // Only video rules
+        $video = [
+            'videoUrl' => ['string',  new ValidYoutubeVideo]
         ];
+
+        return array_merge($post, $video);
     }
 }

@@ -121,12 +121,13 @@ export default {
           let post = _this.target;
           await _this.deleting(post);
 
-          bus.dispatch('post-deleting', { post })
+          this.target = {};
+          bus.dispatch('post-deleted', { post })
         });
       }
 
       let _this = this;
-
+      
       
       bus.dispatch('alert-warning', { 
         okay, message: 'It cannot be restored in the future',

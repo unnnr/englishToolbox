@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Audio;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Post\UpdatePost;
 
-class UpdateAudio extends FormRequest
+class UpdateAudio extends UpdatePost
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,16 +13,16 @@ class UpdateAudio extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'max:50',
-            'description' => 'max:180',
+        // Defualt post rules
+        $post = parent::rules();
 
+        // Only audio rules
+        $audio = [
             'audioFile' => 'max:10240|mimes:mpga,wav',
             'imageFile' => 'max:10240|image',
-
-            'tags' => ['array', 'max:4', 'nullable'],  
-            'tags.*' => ['numeric', 'distinct'],
-            'mainTag' => ['numeric', 'nullable'],
+            'title' => 'max:50',
         ];
+
+        return array_merge($post, $audio);
     }
 }
