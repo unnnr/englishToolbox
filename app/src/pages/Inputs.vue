@@ -118,7 +118,7 @@ export default {
 
       for (let i of range(this.count))
       {
-        var color = "hsl( " + makeColor(i, this.count) + ", 70%, 60% )";
+        var color = "hsl( " + makeColor(i, this.count) + ", 60%, 60% )";
         yield color;
       }
 
