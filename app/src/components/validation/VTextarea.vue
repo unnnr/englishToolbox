@@ -46,7 +46,6 @@
 </template>
 
 <script>
-
 import HandleTextValidation from '@mixins/HandleTextValidation'
 
 export default {

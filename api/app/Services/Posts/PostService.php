@@ -85,7 +85,7 @@ abstract class PostService
     public function destroy(Model $post) : void
     {
         if (method_exists(get_called_class(), 'deleting'))
-            $data = $this->deleting($request,  $post);
+            $data = $this->deleting($post);
 
         // Removing attachments
         $post->tags()->detach();

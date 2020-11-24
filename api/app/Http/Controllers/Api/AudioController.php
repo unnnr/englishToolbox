@@ -71,6 +71,6 @@ class AudioController extends Controller
      */
     public function destroy(DeleteAudio $request, Audio $audio)
     {
-        return $this->service->delete($audio); 
+        return $this->service->destroy($audio); 
     }
 }

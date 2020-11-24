@@ -10,6 +10,9 @@ use App\Services\Posts\PostService;
 use App\Http\Resources\AudioResource;
 use App\Models\Audio;
 
+
+use Illuminate\Support\Facades\Log;
+
 class AudioService extends PostService
 {
     use HandlePostThumbnails;
@@ -85,13 +88,15 @@ class AudioService extends PostService
         $audio->save();
     }
 
-    protected function deleting(Request $request, Audio $post)
+    protected function deleting(Audio $post)
     {
         $imageName = $post->imageFile;
-        $audioName =  $post->audioName;
+        $audioName =  $post->audioFile;
 
-        Storage::delete(Audio::IMAGE_PATH . $imageName);
-        Storage::delete(Audio::AUIDIO_PATH . $audioName);
-        Storage::delete(Audio::THUMBNAIL_PATH . $imageName);
+        Log::debug(Audio::IMAGE_PATH .'/'. $imageName);
+
+        Storage::delete(Audio::THUMBNAIL_PATH .'/'. $imageName);
+        Storage::delete(Audio::IMAGE_PATH .'/'. $imageName);
+        Storage::delete(Audio::AUDIO_PATH .'/'. $audioName);
     }
 }
