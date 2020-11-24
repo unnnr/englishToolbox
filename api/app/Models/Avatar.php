@@ -11,6 +11,11 @@ class Avatar extends Model
     const STORAGE_PATH = 'public/avatars';
 
     const PRESET_PATH = 'presets/avatar.svg';
+
+    const IMAGE_HEIGHT = 300;
+
+    const IMAGE_WIDTH = 300;
+
     
     public $fillable = [ 'name' ];
 

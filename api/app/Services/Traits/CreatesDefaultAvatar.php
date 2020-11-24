@@ -7,11 +7,16 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Avatar;
 
+use Illuminate\Support\Facades\Log;
+
 trait CreatesDefaultAvatar
 {     
     private function randomColor($saturation = 60, $lightness = 60, $count = 1000) : string
     {
+        
         $hue = rand(0, $count);
+
+        Log::debug($hue);
 
         return "hsl({$hue}, {$saturation}%, {$lightness}%)";
     }
@@ -20,7 +25,7 @@ trait CreatesDefaultAvatar
     {
         do {
             $name = '/default_' . Str::random(40) . '.svg';
-            $path = Storage::path(Avatar::STORAGE_PATH . $name);
+            $path = Storage::path(Avatar::STORAGE_PATH . '/'. $name);
         }
         while (file_exists($path));
 
