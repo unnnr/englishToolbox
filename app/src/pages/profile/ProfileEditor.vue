@@ -160,8 +160,6 @@ export default {
     },
 
     async submit(data) {
-      await new Promise(resolve => setTimeout(resolve, 400));
-      console.log('rese');
       await Auth.user.edit(data);
     }
   }

@@ -8,7 +8,7 @@ const Context = new function ()
         menu.left = event.pageX;
 
         menu.target = el;
-
+        
         if (typeof items === 'function')
             menu.items = items();
         else 

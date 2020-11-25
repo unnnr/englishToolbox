@@ -61,6 +61,12 @@ class User
         if (data.get('confirmation') === '')
            data.delete('confirmation');
 
+        if (data.get('name') === this.__user.name)
+           data.delete('name');
+
+        if (data.get('email') === this.__user.email)
+           data.delete('email');
+
         this.__user = await Http.patch({
             data, uri: this.path
         })

@@ -14,13 +14,15 @@
           :user="user"
           :text="text"
           :grade="grade"
-          :disabled="loading"/>
+          :disabled="loading"
+          
+          v-context:items="createContext(id)"/>
 
       </swiper-slide>
     </swiper>
   <button 
     class="reviews__leave-review-button text-third"
-    v-if="buttonShown"
+    v-if="canUpload"
     @click="showEditor">
 
     leave a review
@@ -59,27 +61,63 @@ export default {
         spaceBetween: 30
       },
 
-      reviews: [{}, {}, {}, {}, {}],
+      reviews: [],
 
-      buttonShown: true
+      canUpload: false,
+      canDelete: true,
     }
   },
 
   beforeMount() {
     Auth.check().then( authenticated => 
-			this.buttonShown = authenticated
+			this.canUpload = authenticated
     );
     
     this.load();
   },
 
   methods: {
+    createContext(id) {
+      if (!!!this.canDelete)
+        return null;
+
+      function okay() {
+        _this.send(() => 
+          _this.deleteReview(id));
+      }
+
+      function showAlert() {
+        bus.dispatch('alert-warning', {
+          okay, message: 'A deleted review cannot be restored',
+        })
+      }
+
+      let _this = this;
+
+      return () => {
+        return { 'Delete': showAlert }
+      };
+    },
+
     showEditor() {
       bus.dispatch('reviews-editor-showing');
     },
 
     async load() {
       this.reviews = await Reviews.verified();
+    },
+
+    async deleteReview(id) {
+      await Reviews.delete(id);
+      
+      for (let review of this.reviews) {
+        if (review.id !== id) 
+          continue;
+
+        let index = this.reviews.indexOf(review);
+        this.reviews.splice(index, 1);
+        break;
+      }
     }
   }
 }
