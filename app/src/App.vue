@@ -1,10 +1,9 @@
 <template>
   <div class="root" id="app">
-    <alert/>
-
+    <profile-popup/>
     <context-menu/>
-
     <tooltip/>
+    <alert/>
 
     <navbar/>
 
@@ -24,9 +23,10 @@ import ValidationLinker from '@plugins/ValidationLinker'
 import Context from '@plugins/ContextMenu'
 import ToolTip from '@plugins/ToolTip'
 
+import ProfilePopup from '@components/popups/ProfilePopup.vue';
 import Basement from '@components/layout/Basement'
 import Navbar from '@components/layout/Navbar'
-import Alert from '@components/popup/Alert'
+import Alert from '@components/popups/Alert'
 
 import bus from '@services/eventbus';
 
@@ -37,9 +37,10 @@ Vue.use(ToolTip);
 
 export default {
   components: {
+    ProfilePopup,
     Basement,
     Navbar,
-    Alert
+    Alert,
   },
   
   errorCaptured(error) {

@@ -1,6 +1,7 @@
 <template>
 	<transition name="fade">
-		<div v-if="shown"
+		<div 
+			v-if="shown"
 			class="context"
 			:style="{
 				'top': marginTop,
@@ -26,8 +27,7 @@
 import { throttle } from 'throttle-debounce';
 
 export default {
-	data: function() 
-	{
+	data() {
 		return {
 			items: [],
 			shown: false,

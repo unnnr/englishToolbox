@@ -28,9 +28,9 @@
 <script>
 
 import HandleEvents from '@mixins/HandleEvents'
-import WarningAlert from '@components/popup/WarningAlert'
-import PromptAlert from '@components/popup/PromptAlert'
-import ErrorAlert from '@components/popup/ErrorAlert'
+import WarningAlert from '@components/popups/WarningAlert'
+import PromptAlert from '@components/popups/PromptAlert'
+import ErrorAlert from '@components/popups/ErrorAlert'
 import bus from '@services/eventbus'
 
 export default {

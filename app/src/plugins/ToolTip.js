@@ -1,4 +1,4 @@
-import ToolTipComponent from '@components/popup/Tooltip';
+import ToolTipComponent from '@components/popups/Tooltip';
 
 const ToolTip = new class {
 	listeners = [];

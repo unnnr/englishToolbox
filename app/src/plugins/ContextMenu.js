@@ -1,4 +1,4 @@
-import ContextMenuComponent from '@components/popup/ContextMenu';
+import ContextMenuComponent from '@components/popups/ContextMenu';
 
 const Context = new function ()
 {
