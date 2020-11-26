@@ -67,6 +67,15 @@ export default {
     }
 	},
 
+	watch: {
+		shown(value) {
+			if (value)
+				this.lockScroll();
+			else 
+				this.unlockScroll();
+		}
+	},
+
 	mounted() {
 		this.listen({
 			'alert-error': event => {
@@ -88,6 +97,31 @@ export default {
 	}, 
 
 	methods: {
+		preventIfScroll(event) {
+			var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+			if (keys[event.keyCode])
+				event.preventDefault();
+		},
+
+		prevent(event) {
+			event.preventDefault();
+		},
+
+		lockScroll() {
+			window.addEventListener('wheel', this.prevent, { passive: false });
+			window.addEventListener('scroll', this.prevent, { passive: false });
+			window.addEventListener('touchmove', this.prevent);
+			window.addEventListener('keydown', this.preventIfScroll);
+		},
+
+		unlockScroll() {
+			window.removeEventListener('wheel', this.prevent, { passive: false });
+			window.removeEventListener('scroll', this.prevent, { passive: false });
+			window.removeEventListener('touchmove', this.prevent);
+			window.removeEventListener('keydown', this.preventIfScroll);
+		},
+
     prepareAlert(event) {
       this.message = typeof event.message === 'string' ? 
         event.message : '';
@@ -105,7 +139,7 @@ export default {
 
 			this.$options[eventName](args);
 			this.$options[eventName] = null;
-    },
+		},
 
     hide() {
       this.type = null;
