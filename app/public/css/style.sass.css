@@ -43,6 +43,18 @@ a {
   -webkit-touch-callout: none;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+small {
+  overflow-wrap: break-word;
+}
+
 body,
 textarea,
 input,
@@ -2284,6 +2296,7 @@ button:active {
 
 .reviews__card-text {
   margin-bottom: 30px;
+  overflow-wrap: break-word;
 }
 
 .review__grade {
@@ -2846,6 +2859,11 @@ button:active {
   margin-bottom: 50px;
 }
 
+.banned__body.swiper-container {
+  padding: 30px;
+  margin: 0;
+}
+
 .banned__body {
   padding: 30px;
   background: #fff;
@@ -2866,6 +2884,11 @@ button:active {
   display: grid;
   grid-row-gap: 30px;
   margin-bottom: 50px;
+}
+
+.reviews-management__body.swiper-container {
+  padding: 30px;
+  margin: 0;
 }
 
 .reviews-management__body {
