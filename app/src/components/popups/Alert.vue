@@ -2,7 +2,8 @@
 	<transition  name="fade">
 		<section 
 			class="modal container"
-			v-if="shown">
+			v-if="shown"
+			@click.self="cancel">
 
       <prompt-alert
         v-if="prompt"

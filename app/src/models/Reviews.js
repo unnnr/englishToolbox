@@ -33,8 +33,8 @@ class Reviews extends Model
             });
             
             let instaces = this.__parseCollection(response.data); 
-
-            reviews = this.__cache.concut(instaces);
+            
+            reviews = this.__cache.set(instaces);
             this.verifiedLoaded = true;
         }
 
