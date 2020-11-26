@@ -27,7 +27,6 @@ const Context = new function ()
             event.preventDefault();
             event.stopPropagation();
 
-            
             target(event, items, vnode, el);            
         };
     }   

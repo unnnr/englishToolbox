@@ -83,14 +83,14 @@ export default {
   position: absolute
   color: white
   z-index: 2
-  animation: tooltipFaden .5s
+  animation: tooltipFadein .5s
 
 
 .tooltip--removed 
   animation: tooltipFadeout .5s
   z-index: 1
 
-@keyframes tooltipFaden
+@keyframes tooltipFadein
   from 
     opacity: 0
     transform: translateY(5px)

@@ -3,7 +3,8 @@
 
     <div 
       class="comment__image"
-      :style="{'background-image': url}">
+      :style="{'background-image': url}"
+      @click="showPopup" >
     </div>
 
       <p class="comment__text text-sixth">
@@ -22,6 +23,8 @@
 </template>
 
 <script>
+import bus from '@services/eventbus'
+
 export default {
   props: {
     createdAt: { type: String, default: 'Feb 24 2020'},
@@ -43,6 +46,17 @@ export default {
     url() {
       return 'url(' + this.avatar + ')';
     }
+  },
+
+  methods: {
+    showPopup() {
+      let user = this.user;
+      let el  = this.$el;
+
+      bus.dispatch('profile-popup', {
+        user, el
+      })
+    },
   }
 }
 </script>
