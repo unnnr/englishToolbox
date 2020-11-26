@@ -120,21 +120,8 @@ export default {
       this.top = y;
     },
 
-    parseEvent(event) {
-      // Removing previous popup with animation
-      if (this.shown)
-        this.remove();
-
-      let user = event.user;
-      if (user && typeof user === 'object' )
-        this.user = user;
-
-      this.move(event.el);
-      this.show();
-    },
-
     show() {
-      const DELAY = 300;
+      const DELAY = 500;
       
       // Needed to prevent further 'v-outside' events
       this.showing = true;
@@ -151,7 +138,20 @@ export default {
 
       this.remove();
       this.shown = false;
-    }
+    },
+
+    parseEvent(event) {
+      // Removing previous popup with animation
+      if (this.shown)
+        this.remove();
+
+      let user = event.user;
+      if (user && typeof user === 'object' )
+        this.user = user;
+
+      this.move(event.el);
+      this.show();
+    },
   }
 }
 </script>
@@ -176,7 +176,7 @@ export default {
     transform: translateY(5px)
   to 
     opacity: 1
-    transform: translateY(0px)
+    transform: translateY(0)
 
 @keyframes popupFadeout 
   from 
