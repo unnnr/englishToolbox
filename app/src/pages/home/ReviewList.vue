@@ -3,6 +3,7 @@
     <h2 class="reviews__title heading-second">Student reviews</h2>
     <swiper 
       class="reviews__swiper"
+			:cleanup-styles-on-destroy="false"
       :options="swiperOptions">
 
       <swiper-slide 
@@ -61,7 +62,7 @@ export default {
         spaceBetween: 30
       },
 
-      reviews: [],
+      reviews: [{} ,{} ,{}],
 
       canUpload: false,
       canDelete: true,
@@ -104,7 +105,7 @@ export default {
     },
 
     async load() {
-      this.reviews = await Reviews.verified();
+      // this.reviews = await Reviews.verified();
     },
 
     async deleteReview(id) {

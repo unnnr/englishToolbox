@@ -8,6 +8,7 @@
 
 			<swiper
 				ref="swiper"
+				:cleanup-styles-on-destroy="false"
 				:options="swiperOptions"
 				:style="{
 					'width': '100%',

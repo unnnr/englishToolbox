@@ -8,9 +8,8 @@
     <navbar/>
 
     <transition 
-      name="temp"
-      mode="out-in"
-      @before-leave="freezeStyle">
+      name="slide-right"
+      mode="out-in">
 
       <router-view/>
     </transition>
@@ -57,19 +56,6 @@ export default {
       
     bus.dispatch('alert-error', options)
   },
-
-  methods: {
-    freezeStyle(el) {
-      let height = el.offsetHeight + 'px';
-      let width = el.offsetWidth + 'px';
-			let left = el.offsetLeft + 'px';
-     	let top = el.offsetTop + 'px';
-
-      Object.assign(el.style, {
-        height, width, left, top
-      });
-    }
-  }
 }
 </script>
 
@@ -79,13 +65,9 @@ export default {
   background: #fafafa;
 }
 
-.temp-enter-active, .temp-leave-active {
-  transition-duration: 0s;
-}
-
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition-duration: 4s;
+  transition-duration: .4s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
@@ -115,6 +97,5 @@ export default {
   -moz-user-select: none  
   -ms-user-select: none      
   user-select: none
-
 
 </style>

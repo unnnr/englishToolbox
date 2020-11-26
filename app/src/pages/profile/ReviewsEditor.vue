@@ -3,6 +3,7 @@
     <h3 class="banned__title heading-third">Reviews manage</h3>
     <swiper
       class="reviews-management__body"
+			:cleanup-styles-on-destroy="false"
 			:options="swiperOptions">
   
       <swiper-slide 

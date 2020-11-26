@@ -3,9 +3,11 @@
 		<swiper
 			class="banner__swiper"
 			ref="swiper"
+			:cleanup-styles-on-destroy="false"
 			:options="swiperOptions">
 
 			<swiper-slide 
+				ref="swiper"
 				v-for="({name, action, additionalClass}, index) of banners"
 				:key="index">
 
@@ -55,7 +57,7 @@ export default {
 		SwiperSlide
 	},
     
-	data: function() {
+	data() {
 		return {
 			swiperOptions:{
 				slidesPerView: 1,
@@ -80,6 +82,8 @@ export default {
 				loop: true,
 			},
 
+			freezed: true,
+
 			banners: [
 				{ 
 					name: 'banner-videos',
@@ -101,6 +105,12 @@ export default {
 		}
 	},  
 
+	beforeDestroy() {
+		let swiper = this.$refs.swiper;
+
+		console.log(swiper);
+	},
+
 	computed: {
 		path() {
 			return 'img/svg/';
@@ -108,6 +118,11 @@ export default {
 	},
 
 	methods: {
+		freezeWidth() {
+			this.freezed = true;
+
+		},
+
 		desktopUrl(fileName) {
 			return this.path + fileName + '-desktop.svg';
 		},
