@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .reviews__cards {
     width: 100%;
   }

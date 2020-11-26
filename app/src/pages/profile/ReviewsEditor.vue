@@ -7,7 +7,8 @@
   
       <swiper-slide 
         v-for="{id, user, grade, text, title} in reviews"
-        :key="id">
+        :key="id"
+        class="reviews__swiper-slide">
         
         <pending-review 
           :text="text"
@@ -49,7 +50,7 @@ export default {
 				grabCursor: true,
       },
 
-      reviews: []
+      reviews: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
 
@@ -92,8 +93,18 @@ export default {
     },
 
     async load() {
-      this.reviews = await Reviews.pending();
+      // this.reviews = await Reviews.pending();
     },
   }
 }
 </script>
+
+<style lang="sass">
+
+.reviews__swiper-slide 
+  width: 300px
+  height: auto
+
+.reviews-management__card 
+  width: auto
+</style>

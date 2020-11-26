@@ -80,7 +80,7 @@ export default {
 }
 
 .temp-enter-active, .temp-leave-active {
-  transition-duration: 400s;
+  transition-duration: 0s;
 }
 
 .slide-right-enter-active,
