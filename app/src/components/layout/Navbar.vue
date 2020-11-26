@@ -4,7 +4,7 @@
 			<nav class="navbar-desktop__links">
 					<router-link 
 						class="navbar-desktop__logo"
-						to="Home">
+						to="home">
 						
 						{{ AppName }}
 					</router-link>
@@ -23,7 +23,7 @@
 			<aside class="navbar-desktop__aside">
 				<router-link v-if="!!!profileShown"
 					class="navbar-desktop__aside-login-in"
-					to="Login">
+					to="login">
 						
 					login in
 				</router-link>
@@ -38,7 +38,7 @@
 				<router-link
 					class="navbar-desktop__account-link"
 					v-if="profileShown"
-					to="Profile"
+					to="profile"
 					:style="{'background-image': this.avatarUrl}">
 						
 				</router-link>
@@ -53,7 +53,7 @@
 			</button>
 			<router-link
 				class="navbar-mobile__logo"
-				to="Home">
+				to="home">
 
 					{{ AppName }}
 			</router-link>
@@ -67,7 +67,7 @@
 					<router-link
 						class="navbar-mobile__account-link"
 						v-if="profileShown"
-						to="Profile">
+						to="profile">
 					</router-link>
 						<button
 							class="navbar-mobile__button navbar-mobile__button--hide"
@@ -77,7 +77,7 @@
 				</div>
 					<router-link
 						class="navbar-mobile__link"
-						to="Home">
+						to="home">
 						
 						{{  AppName }}
 					</router-link>
@@ -96,7 +96,7 @@
 						<router-link  
 							class="navbar-mobile__footer-link navbar-mobile__footer-link--login-in"
 							v-if="!!!profileShown"
-							to="Login">
+							to="login">
 							
 							login in
 						</router-link>
@@ -104,7 +104,7 @@
 						<router-link
 							class="navbar-mobile__footer-link navbar-mobile__footer-link--sign-up"
 							v-if="!!!profileShown"
-							to="Register">
+							to="register">
 							
 							sing up
 						</router-link>

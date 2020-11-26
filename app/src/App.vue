@@ -7,7 +7,11 @@
 
     <navbar/>
 
-    <transition name="slide-right" mode="out-in">
+    <transition 
+      name="temp"
+      mode="out-in"
+      @before-leave="freezeStyle">
+
       <router-view/>
     </transition>
 
@@ -52,6 +56,19 @@ export default {
       options = error;
       
     bus.dispatch('alert-error', options)
+  },
+
+  methods: {
+    freezeStyle(el) {
+      let height = el.offsetHeight + 'px';
+      let width = el.offsetWidth + 'px';
+			let left = el.offsetLeft + 'px';
+     	let top = el.offsetTop + 'px';
+
+      Object.assign(el.style, {
+        height, width, left, top
+      });
+    }
   }
 }
 </script>
@@ -62,12 +79,15 @@ export default {
   background: #fafafa;
 }
 
+.temp-enter-active, .temp-leave-active {
+  transition-duration: 400s;
+}
+
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition-duration: 0.4s;
+  transition-duration: 4s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-  overflow: hidden;
 }
 .slide-left-enter,
 .slide-right-leave-active {
