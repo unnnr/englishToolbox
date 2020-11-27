@@ -36,7 +36,9 @@
 						:img="post.thumbnail"
 
 						:main-tag="post.mainTag"
-						:tags="post.tags"/>
+						:tags="post.tags"
+
+						@select="goTo(post)"/>
 					
 				</swiper-slide>
 			</swiper>
@@ -66,6 +68,12 @@ export default {
 	data() {
 		return {
 			updates: [],
+
+			typesMap: {
+				'audio': 'audio',
+				'video': 'videos',
+				'chart': 'charts'
+			},
 				
 			swiperOptions: {
 				slidesPerView: '4',
@@ -93,6 +101,13 @@ export default {
 	},
 
 	methods: {
+		goTo(update) {
+			let type = this.typesMap[update.postType];
+			let id = update.postId;
+
+			this.$router.push({ path: `/${type}/${id}`});
+		},
+
 		async load() {
 			this.updates = await Updates.all();
 		}

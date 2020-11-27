@@ -21,13 +21,11 @@ const routes = [
 
 
   // Post pages
-  
-
   { path: '/videos', name:'Videos', component: () => import('@pages/Video') },
-
   { path: '/videos/:id', component: () => import('@pages/Video') },
 
   { path: '/audio', name: 'Audio', component: () => import('@pages/Audio') },
+  { path: '/audio/:id', component: () => import('@pages/Audio') },
 
     // -> charts page
     
@@ -46,13 +44,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 
+
   scrollBehavior(to) {
     function waitFor(callback) {
+      const DELAY = 500;
+
       return new Promise(resolve => 
         setTimeout(callback, DELAY));
     }
 
-    function scroll() {
+    function scrollToHash() {
       if (!!!to.hash)
         return;
       
@@ -60,11 +61,13 @@ const router = new VueRouter({
       if (target)
         target.scrollIntoView({ behavior: 'smooth' });
     }
-    
-    const DELAY = 500;
 
-    return waitFor(scroll);
+    waitFor(scrollToHash);
   }
-})
+});
+
+router.beforeEach((to, from, next) => {
+  next();
+});
 
 export default router
