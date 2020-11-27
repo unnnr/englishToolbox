@@ -127,6 +127,12 @@ export default {
       if (post) {
         this.$options.selectedPost = post;
         this.$set(post, 'selected', true);
+        
+        // Updating url without appending it to router history
+        if (this.$route.params.id === post.id)
+          return;
+          
+        this.$router.replace({ params: { id: post.id} }).catch(() => null);
       }
     },
 

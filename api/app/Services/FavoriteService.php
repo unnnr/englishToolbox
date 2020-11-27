@@ -37,13 +37,6 @@ class FavoriteService
         $favorites = [];
         foreach ($queryResult as $raw)
         {
-           /*  $id = $raw->id;
-            $post = $raw->favoritable_type::findOrFail($raw->favoritable_id);
-
-            $favorite = new stdClass();
-            $favorite->id = $raw->id;
-            $favorite->post = 
-                 */
             $id = $raw->id;
             $favorite = Favoritable::findOrFail($id);
 
