@@ -19,6 +19,16 @@ class Favoritable extends Model
             $this->favoritable_id);
     }
 
+
+    public function getPostTypeAttribute() 
+    {
+        $type = $this->favoritable_type;
+
+        $shorten = substr(strrchr($type, '\\'), 1);
+
+        return lcfirst($shorten);
+    }
+
     public function getUserAttribute() 
     {
         return User::findOrFail($this->user_id);

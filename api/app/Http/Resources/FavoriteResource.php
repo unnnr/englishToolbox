@@ -17,6 +17,8 @@ class FavoriteResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            
+            'postType' => $this->postType,
 
             'post' => new PostResource($this->post)
         ];
