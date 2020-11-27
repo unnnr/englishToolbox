@@ -19,7 +19,8 @@ class VideoResource extends PostResource
         
         // Videos data
         $video = [
-            'youtubeId' => $this->youtube_id
+            'youtubeId' => $this->youtube_id,
+            'type' => 'video'
         ];
 
         return array_merge($post, $video);

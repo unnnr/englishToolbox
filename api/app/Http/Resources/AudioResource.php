@@ -17,12 +17,13 @@ class AudioResource extends PostResource
           // Default post data
           $post = parent::toArray($request);
         
-          // Videos data
-          $video = [
+          // Audio data
+          $audio = [
             'audio' => $this->audio,
             'image' =>  $this->image,
+            'type' => 'audio'
           ];
 
-        return array_merge($post, $video);
+        return array_merge($post, $audio);
     }
 }
