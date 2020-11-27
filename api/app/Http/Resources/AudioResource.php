@@ -21,7 +21,6 @@ class AudioResource extends PostResource
           $audio = [
             'audio' => $this->audio,
             'image' =>  $this->image,
-            'type' => 'audio'
           ];
 
         return array_merge($post, $audio);

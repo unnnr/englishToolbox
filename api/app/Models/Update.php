@@ -14,4 +14,13 @@ class Update extends Model
     {
         return $this->morphTo();
     }
+
+    public function getTypeAttribute()
+    {
+        $type = $this->updatable_type;
+
+        $shorten = substr(strrchr($type, '\\'), 1);
+
+        return lcfirst($shorten);
+    }
 }

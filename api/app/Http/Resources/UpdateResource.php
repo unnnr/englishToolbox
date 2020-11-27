@@ -18,12 +18,16 @@ class UpdateResource extends JsonResource
             'id' => $this->id,
 
             'title' => $this->updatable->title,
-
+            
             'description' => $this->updatable->description,  
-
+            
             'thumbnail' => $this->updatable->thumbnail->url,
-
-            'createdAt' => $this->created_at
+            
+            'createdAt' => $this->created_at,
+            
+            'postType' => $this->type,
+            
+            'postId' => $this->updatable->id,
         ];
     }
 }
