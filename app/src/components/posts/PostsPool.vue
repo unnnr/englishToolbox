@@ -156,10 +156,18 @@ export default {
 
     async loadPosts() {
       this.posts = await this.model.all();
-      this.selectFirst();
 
       if (this.favorites.length > 0)
         this.parseFavorites();
+    
+      
+      let id = parseInt(this.$route.params.id);
+      let post = this.findById(id);
+
+      if (post)
+        this.selecting(post);
+      else
+        this.selectFirst();
     },
 
     async loadUser() {
