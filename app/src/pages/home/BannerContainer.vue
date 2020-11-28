@@ -142,20 +142,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-
-.item {
-	width: 100%;
-	height: 100%;
-}
-
-
-</style>
-
-<style>
-.swiper-wrapper {
-  transition-timing-function: ease !important;
-}
-
-</style>

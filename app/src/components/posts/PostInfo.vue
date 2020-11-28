@@ -79,20 +79,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-.description
-  transition: gap .3s
-
-.description--shrinked 
-  gap: 7.5px
-
-
-/*  or :not(.shrinkable--closed).description__body */
-.shrinkable--opened,
-.shrinkable--opening,
-.shrinkable--closing
-  overflow-y: auto
-
-</style>

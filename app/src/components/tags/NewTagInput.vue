@@ -134,16 +134,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-
-
-.tag__buffer {
-    position: absolute;
-    top: -1000px;
-    left: -1000px;
-    visibility: hidden;
-    white-space: pre;
-}
-
-</style>

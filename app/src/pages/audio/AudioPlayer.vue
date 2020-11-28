@@ -1,8 +1,10 @@
 <template>
-  <div 
-    class="player"
-    :style="{
-      'background-image': imageUrl}">
+  <div class="player">
+
+    <div 
+      class="player__content"
+      :style="{'background-image': imageUrl}">
+    </div>
 
     <transition name="fade">
       <object  

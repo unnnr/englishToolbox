@@ -155,34 +155,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-
-.profile-popup
-  position: absolute
-  z-index: 2
-
-.profile-popup-enter
-  animation: popupFadein .5s
-
-.profile-popup-leave
-  animation: popupFadeout .5s
-  z-index: 1
-
-@keyframes popupFadein
-  from 
-    opacity: 0
-    transform: translateY(5px)
-  to 
-    opacity: 1
-    transform: translateY(0)
-
-@keyframes popupFadeout 
-  from 
-    opacity: 1
-  to 
-    opacity: 0
-    transform: translateY(5px)
-
-</style>

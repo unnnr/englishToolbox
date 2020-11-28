@@ -72,13 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.player__overlay
-  display: block
-
-.fade-leave-active.player__overlay
-  transition-delay: .55s !important
-
-</style>

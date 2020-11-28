@@ -99,13 +99,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.reviews__swiper-slide 
-  width: 300px
-  height: auto
-
-.reviews-management__card 
-  width: auto
-</style>

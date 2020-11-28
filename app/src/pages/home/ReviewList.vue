@@ -123,9 +123,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .reviews__cards {
-    width: 100%;
-  }
-</style>

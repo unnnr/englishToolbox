@@ -323,21 +323,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.tags-move 
-  transition: transform .4s ease-in-out
-
-.tags-enter
-  transform: scale(0.5)
-  opacity: 0
-
-.tags-leave-to
-  transform: scale(0)
-  opacity: 0
-
-.tags-enter-active, .tags-leave-active
-  transition: transform .3s ease-in-out, opacity .4s ease-in-out
-
-</style> 

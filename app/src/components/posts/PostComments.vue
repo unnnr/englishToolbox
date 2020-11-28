@@ -224,18 +224,3 @@ export default {
   
 }
 </script>
-
-<style lang="sass">
-
-/*  or :not(.shrinkable--closed).comments__body */
-.shrinkable--opened.comments__body,
-.shrinkable--opening.comments__body,
-.shrinkable--closing.comments__body
-  overflow-y: scroll
-
-.comments__body .shrinkable__content
-  display: flex
-  flex-direction: column
-  gap: 20px
-
-</style>

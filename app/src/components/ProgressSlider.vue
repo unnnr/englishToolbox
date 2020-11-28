@@ -153,17 +153,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="sass">
-
-.audio-player__status-bar-thumb
-	transform: translateX(-50%)
-
-.audio-player__status-bar--animated .audio-player__status-bar-thumb
-	transition: margin .2s
-
-.audio-player__status-bar--animated .audio-player__status-bar-current
-	transition: width .2s
-	
-
-</style>

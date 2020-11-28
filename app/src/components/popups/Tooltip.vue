@@ -9,7 +9,7 @@
 
     <div class="tooltip__arrow"></div>
       
-    {{ label }}
+    <p class="text-fifth">{{ label }}</p>
   </div>
 </template>
 
@@ -77,32 +77,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-.tooltip 
-  position: absolute
-  color: white
-  z-index: 2
-  animation: tooltipFadein .5s
-
-
-.tooltip--removed 
-  animation: tooltipFadeout .5s
-  z-index: 1
-
-@keyframes tooltipFadein
-  from 
-    opacity: 0
-    transform: translateY(5px)
-  to 
-    opacity: 1
-    transform: translateY(0px)
-
-@keyframes tooltipFadeout 
-  from 
-    opacity: 1
-  to 
-    opacity: 0
-    transform: translateY(5px)
-
-</style>

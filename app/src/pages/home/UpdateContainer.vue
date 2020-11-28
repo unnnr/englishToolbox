@@ -114,11 +114,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-
-.swiper-slide {
-	width: auto;
-}
- 
-</style>

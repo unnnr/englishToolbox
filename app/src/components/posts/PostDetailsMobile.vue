@@ -133,25 +133,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.fade-enter-active.editor, .fade-leave-active.editor
-  position: absolute !important
-
-</style>
-
-
-<style lang="sass">
-
-.addition__tab-wrapper.shrinkable--closed
-  display: none
-
-addition--mobile .addition__tab
-  height: auto
-
-.addition__tab-wrapper
-  webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
-  box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15)
-  
-</style>

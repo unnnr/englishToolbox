@@ -90,13 +90,3 @@ export default {
 
 
 </script>
-
-<style>
-
-	.context 
-	{
-		position: absolute;
-		z-index: 122;
-	}
-
-</style>

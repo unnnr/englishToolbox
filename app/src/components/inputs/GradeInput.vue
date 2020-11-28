@@ -139,25 +139,3 @@ export default {
   }
 }
 </script>
-
-
-<style scoped>
-
-.review__star::before {
-  transition: opacity .5s;
-}
-
-.review__star--selected::before {
-  opacity: 1;
-  animation: scale .5s;
-}
-
-@keyframes scale {
-  80% {
-    transform: scale(1.3)
-  }
-  100% {
-    transform: scale(1)
-  }
-}
-</style>

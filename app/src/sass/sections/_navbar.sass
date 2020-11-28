@@ -212,15 +212,11 @@
 
 .navbar-mobile__overlay
   position: fixed
-  z-index: $z-negative
+  z-index: $z-fourth
   top: 0
   left: 0
-  opacity: 0
+  opacity: 1
   height: 100%
   width: 100%
-  background: #000
-  transition: opacity .3s, z-index
-
-.navbar-mobile__overlay--visible
-  z-index: $z-fourth
-  opacity: 0.5
+  background: rgba(0, 0, 0, 0.5)
+  backdrop-filter: saturate(180%) blur(10px)

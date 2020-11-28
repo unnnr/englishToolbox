@@ -105,13 +105,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-	.filter__tags {
-		margin-top: 0;
-	}
-
-	.filter__tags .tags {
-		margin-top: 10px;
-	}
-</style>

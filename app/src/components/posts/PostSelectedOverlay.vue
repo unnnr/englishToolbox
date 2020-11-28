@@ -21,10 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-.selected__overlay
-  display: block
-
-</style>

@@ -1,9 +1,16 @@
 .tooltip
   width: max-content
-  position: relative
+  z-index: $z-second
+  position: absolute
   padding: 10px 15px
   border-radius: 5px
-  background: rgba(18, 18, 18, 0.95)
+  background: rgba(18, 18, 18, 0.90)
+  backdrop-filter: blur(5px) saturate(150%);
+  p
+    color: #dadaea
+
+.tooltip--removed 
+  z-index: $z-first
 
 .tooltip__arrow
   top: 0
@@ -11,6 +18,7 @@
   height: 0
   border-left: 7px solid transparent
   border-right: 7px solid transparent
-  border-bottom: 7px solid rgba(18, 18, 18, 0.95)
+  border-bottom: 7px solid rgba(18, 18, 18, 0.90)
+  backdrop-filter: blur(5px) saturate(150%);
   transform: translateY(-100%)
   position: absolute

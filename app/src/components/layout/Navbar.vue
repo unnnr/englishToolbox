@@ -84,15 +84,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-
-.navbar-mobile__link {
-	transition: all .3s;
-}
-
-.navbar-desktop__link {
-	transition: all .3s;
-}
-
-</style>
