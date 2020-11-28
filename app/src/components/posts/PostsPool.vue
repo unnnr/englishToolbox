@@ -188,8 +188,6 @@ export default {
       if (to > posts.length)
         to = posts.length;
 
-      console.log(to);
-
       let paginated = [];
       for (let i = 0; i < to; i++)
         paginated.push(posts[i]);
@@ -256,7 +254,7 @@ export default {
         this.favorite(post);
     },
     
-     favorite(post) {
+    favorite(post) {
       if (!!!this.authenticated)
         return;
 
@@ -334,6 +332,9 @@ export default {
 			let post = event.post;
 
       this.posts.push(post);
+      this.reversedPosts.unshift(post);
+      this.parsedPosts.unshift(post);
+
 		  bus.dispatch('post-selecting', { 
         post, withoutAlert: true,
       });
@@ -362,10 +363,17 @@ export default {
 			
 			// If removed post was selected, we need select another
 			let removedPost = this.posts.splice(index, 1)[0];
-
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				this.selectFirst();
+        this.selectFirst();
+      
+      index = this.reversedPosts.indexOf(removedPost);
+      if (index !== -1) 
+        this.reversedPosts.splice(index, 1);
+
+      index = this.parsedPosts.indexOf(removedPost);
+      if (index !== 1)
+        this.parsedPosts.splice(index, 1);        
     },
 
     async onTagDeleted(event) {
