@@ -21,10 +21,10 @@ const routes = [
 
 
   // Post pages
-  { path: '/videos', name:'Videos', component: () => import('@pages/Video') },
+  { path: '/videos', name:'Videos', redirect: { path: '/videos/first' }},
   { path: '/videos/:id', component: () => import('@pages/Video') },
 
-  { path: '/audio', name: 'Audio', component: () => import('@pages/Audio') },
+  { path: '/audio', name: 'Audio', redirect: { path: '/audio/first' }},
   { path: '/audio/:id', component: () => import('@pages/Audio') },
 
     // -> charts page

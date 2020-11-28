@@ -1,10 +1,11 @@
 <template>
   <pool 
+    ref="pool"
     class="container"
 
     :can-create="canCreate"
     :context="createContext"
-    :cards="reversedPosts"
+    :cards="parsedPosts"
 
     @favorite-toggle="toggleFavorite"
     @create-new="createNew"
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import { throttle } from 'throttle-debounce';
 import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
 import HandleRequests from '@mixins/HandleRequests'
 import HandleEvents from '@mixins/HandleEvents'
@@ -35,8 +37,12 @@ export default {
 
   data() {
     return {
+      paginationStep: 6,
+
       favorites: [],
       posts: [],
+      parsedPosts: [],
+      
       authenticated: false,
       canCreate: true,
     }
@@ -45,11 +51,7 @@ export default {
   computed: {
     firstPost() {
       return this.reversedPosts[0];
-    },
-
-    reversedPosts() {
-			return [...this.posts].reverse();
-		}
+    }
   },
 
   mounted() {
@@ -65,6 +67,13 @@ export default {
 
       'tag-deleted': this.onTagDeleted
     });
+
+    this.$options.scrollEvent = throttle(200, this.onScroll);
+    document.addEventListener('scroll', this.$options.scrollEvent)
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('scroll', this.$options.scrollEvent)
   },
 
   methods: {
@@ -127,6 +136,12 @@ export default {
       if (post) {
         this.$options.selectedPost = post;
         this.$set(post, 'selected', true);
+        
+        // Updating url without appending it to router history
+        if (this.$route.params.id === post.id)
+          return;
+
+        this.$router.replace({ params: { id: post.id} }).catch(() => null);
       }
     },
 
@@ -154,13 +169,62 @@ export default {
       }
     },
 
+    reverse(posts) {
+      return [...posts].reverse();
+    },
+
+    filter(posts) {
+      return posts;
+    },
+
+    paginate(posts) {
+      // this.$options.paginatedIndex 
+      let to = this.paginationStep;
+
+      // Moving index if 'Create new' button shown
+      if (this.canCreate)
+        to--;
+
+      if (to > posts.length)
+        to = posts.length;
+
+      let paginated = [];
+      for (let i = 0; i < to; i++)
+        paginated.push(posts[i]);
+
+      return paginated
+    },
+
+    movePagination(parsed, posts) {
+      let from = parsed.length;
+      let to = from + this.paginationStep;
+
+      if (to > posts.length)
+        to = posts.length;
+
+      for (let i = from; i < to; i++) {
+        let post = posts[i];
+        parsed.push(post);
+      }
+    },
+
+    parsePosts() {
+      let filtered = this.filter(this.posts);
+      let reversed = this.reverse(filtered);
+      let paginated = this.paginate(reversed);
+
+      this.reversedPosts = reversed;
+      this.parsedPosts = paginated;
+    },
+
     async loadPosts() {
       this.posts = await this.model.all();
-
+      
       if (this.favorites.length > 0)
         this.parseFavorites();
-    
-      
+  
+      this.parsePosts();
+
       let id = parseInt(this.$route.params.id);
       let post = this.findById(id);
 
@@ -190,7 +254,7 @@ export default {
         this.favorite(post);
     },
     
-     favorite(post) {
+    favorite(post) {
       if (!!!this.authenticated)
         return;
 
@@ -229,6 +293,23 @@ export default {
     },
 
     // Events
+
+    onScroll() {
+      let pool = this.$refs.pool.$el;
+      if (!!!pool)
+        return;
+
+      const OFFSET = 100;
+
+      let viewportHeight = window.innerHeight;
+      let lastCard = pool.lastElementChild;
+      let bottom = lastCard.getBoundingClientRect().bottom;
+
+      if (bottom - OFFSET > viewportHeight)
+        return;
+
+      this.movePagination(this.parsedPosts, this.reversedPosts);
+    },
     
     onSelected(event) {
       let post = null;
@@ -251,6 +332,9 @@ export default {
 			let post = event.post;
 
       this.posts.push(post);
+      this.reversedPosts.unshift(post);
+      this.parsedPosts.unshift(post);
+
 		  bus.dispatch('post-selecting', { 
         post, withoutAlert: true,
       });
@@ -279,10 +363,17 @@ export default {
 			
 			// If removed post was selected, we need select another
 			let removedPost = this.posts.splice(index, 1)[0];
-
 			if (this.$options.selectedPost 
 					&& removedPost.id === this.$options.selectedPost.id)
-				this.selectFirst();
+        this.selectFirst();
+      
+      index = this.reversedPosts.indexOf(removedPost);
+      if (index !== -1) 
+        this.reversedPosts.splice(index, 1);
+
+      index = this.parsedPosts.indexOf(removedPost);
+      if (index !== 1)
+        this.parsedPosts.splice(index, 1);        
     },
 
     async onTagDeleted(event) {
