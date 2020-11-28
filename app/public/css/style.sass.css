@@ -3109,6 +3109,15 @@ button:active {
   position: absolute;
   height: 100%;
   width: 100%;
+  -webkit-transition: -webkit-filter .3s ease-in-out;
+  transition: -webkit-filter .3s ease-in-out;
+  transition: filter .3s ease-in-out;
+  transition: filter .3s ease-in-out, -webkit-filter .3s ease-in-out;
+}
+
+.player__content--blurred {
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 
 .addition {
@@ -3471,7 +3480,9 @@ button:active {
   width: 100%;
   padding: 10px;
   padding-right: 50px;
-  background: #121212;
+  background: rgba(18, 18, 18, 0.9);
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
   border-radius: 10px;
   display: -ms-grid;
   display: grid;
