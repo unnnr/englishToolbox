@@ -222,7 +222,9 @@ export default {
       
       if (this.favorites.length > 0)
         this.parseFavorites();
-    
+  
+      this.parsePosts();
+
       let id = parseInt(this.$route.params.id);
       let post = this.findById(id);
 
@@ -230,8 +232,6 @@ export default {
         this.selecting(post);
       else
         this.selectFirst();
-
-      this.parsePosts();
     },
 
     async loadUser() {

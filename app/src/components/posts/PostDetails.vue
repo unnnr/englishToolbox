@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { throttle } from 'throttle-debounce';
+import Resolution from '@services/Resolution';
 
 export default {
   components: {
@@ -43,25 +43,18 @@ export default {
   },
 
   mounted() {
-    this.check();
+    this.mobile = Resolution.isMobile();
 
-		this.$options.eventHandler = throttle(200, this.check);
-    window.addEventListener('resize', 
-      this.$options.eventHandler);
+    Resolution.listen(this.check);
   },
 
 	beforeDestroy() {
-		window.removeEventListener('resizeresize',
-			this.$options.eventHandler);
+    Resolution.detach(this.check);
 	},
 
   methods: {
-    check() {
-      if (this.mobile && window.innerWidth > this.mobileBorder)
-        this.mobile = false;
-
-      else if (!!!this.mobile && window.innerWidth <= this.mobileBorder)
-        this.mobile = true;
+    check(mobile) {
+      this.mobile = mobile;
     }
   }
 }
