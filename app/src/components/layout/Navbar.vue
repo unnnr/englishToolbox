@@ -4,7 +4,8 @@
 			v-if="mobile"
 			:profileShown="profileShown"
 			:app-name="appName"
-			:avatar="avatar"/>
+			:avatar="avatar"
+			:links="links"/>
 
 		<desktop-navbar 
 			v-else
@@ -72,7 +73,7 @@ export default {
 
 	methods: {
 		resolutionChanged(mobile) {
-			this.mobile = true;
+			this.mobile = mobile;
 		},
 
 		async authChanged(authenticated) {
