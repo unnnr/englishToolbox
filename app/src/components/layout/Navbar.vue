@@ -10,7 +10,8 @@
 			v-else
 			:profileShown="profileShown"
 			:app-name="appName"
-			:avatar="avatar"/>
+			:avatar="avatarUrl"
+			:links="links"/>
 
 	</section>
 </template>
@@ -33,12 +34,11 @@ export default {
 
 	data() {
 		return {
-			mobile: true,
 			appName: 'Etoolbox',
 			avatar: '#',
 
-			isMobileNavShown: false,
 			profileShown: false,
+			mobile: true,
 
 			links: [
 				{ name: '/home#about', label: 'about me'},
@@ -55,24 +55,15 @@ export default {
 	},
 
 	beforeMount() {
-		Auth.check().then( async authenticated => {
-			this.avatar = await Avatar.get();
-			this.profileShown = authenticated;
-		});
-
-		Auth.onChange( async authenticated => {
-			this.avatar = await Avatar.get();
-			this.profileShown = authenticated
-		});
-
-		this.listen({
-			'avatar-changed': image => 
-				this.avatar = image
-		})
+		Auth.check().then(this.authChanged);
+		Auth.onChange(this.authChanged);
 
 		this.mobile = Resolution.isMobile();
+		Resolution.listen(this.resolutionChanged);
 
-		Resolution.listen(this.check);
+		this.listen({ 'avatar-changed': image => 
+			this.avatar = image
+		})
 	},
 
 	beforeDestroy() {
@@ -80,23 +71,13 @@ export default {
 	},
 
 	methods: {
-		check(mobile) {
+		resolutionChanged(mobile) {
 			this.mobile = true;
 		},
 
-		showMobileNav() {
-			this.isMobileNavShown = true;
-		},
-
-		hideMobileNav() {
-			this.isMobileNavShown = false;
-		},
-
-		moblieNavClicked(event) {
-			let nav = this.$refs.mobileNav;
-
-			if (nav !== event.target)
-				this.hideMobileNav()
+		async authChanged(authenticated) {
+			this.avatar = await Avatar.get();
+			this.profileShown = authenticated
 		}
 	},
 
