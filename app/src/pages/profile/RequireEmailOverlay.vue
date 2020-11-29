@@ -22,9 +22,9 @@ import HandleEvents from '@mixins/HandleEvents'
 export default {
 	mixins: [ HandleEvents ],
 
-	data: function() {
+	data() {
 		return {
-				shown: false
+				shown: true
 		}
 	},
 

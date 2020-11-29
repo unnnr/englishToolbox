@@ -45,7 +45,6 @@
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import HandleEvents from '@mixins/HandleEvents'
-import RequestForm from '@components/RequestForm'
 import TitleInput from '@components/inputs/TitleInput'
 import GradeInput from '@components/inputs/GradeInput'
 import Reviews from '@models/Reviews'
