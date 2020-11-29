@@ -9,7 +9,7 @@ use App\Services\Traits\HandleTags;
 use App\Events\PostCreated;
 use App\Events\PostUpdated;
 use App\Events\PostDeleted;
-
+use App\Models\View;
 
 abstract class PostService
 {  

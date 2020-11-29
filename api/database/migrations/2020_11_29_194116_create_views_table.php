@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagsTable extends Migration
+class CreateViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
+        Schema::create('views', function (Blueprint $table) {
+            $table->foreignId('post_id')
+                ->constrained();
             
-            $table->string('label');
-            $table->string('color');
-            $table->boolean('default')->nullable();
-
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained();
+                
             $table->timestamp('created_at');
         });
     }
@@ -31,6 +32,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('views');
     }
 }

@@ -17,13 +17,16 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+
             $table->boolean('verified')->default(false);
             $table->integer('grade');
+            $table->string('title');
+            $table->string('text');
+
             $table->foreignId('user_id')->nullable();
             $table->string('user_name');
             $table->string('user_avatar');
-            $table->string('title');
-            $table->string('text');
+
             $table->timestamps();
         });
     }
