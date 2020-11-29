@@ -87,6 +87,18 @@ class User
         return response;
     }
 
+    async views()
+    {
+        return [];
+        
+        let uri = this.path + '/views';
+
+        let response = await Http.get({ uri })
+        .catch(this.__catchError);
+    
+        return response.data;
+    }
+
     async comments()
     {
         let response = await Http.get({

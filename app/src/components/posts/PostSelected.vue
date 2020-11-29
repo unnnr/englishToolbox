@@ -30,6 +30,7 @@ import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
 import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
 import HandleEvents from '@mixins/HandleEvents';
 import PostDetails from '@components/posts/PostDetails'
+import Views from '@models/Views'
 import bus from '@services/eventbus'
 
 export default {
@@ -42,6 +43,8 @@ export default {
     HandleTagsDeletion,
     HandleEvents
   ],
+
+  inject: ['model'],
 
   props: {
     editorHasChanges: { type: Function },
@@ -157,6 +160,23 @@ export default {
       });
     },
 
+    showAlert(callback) {
+      bus.dispatch('alert-warning', { 
+        message: 'You have unsaved changes. All of them will be lost',
+        okay: callback
+      });
+    },
+
+    async updateViews() {
+      let model = this.model;
+      let id = this.target.id;
+
+      let updated = await Views.update(model, id);
+
+      if (updated)
+        this.target.views++;
+    },
+
     postDeleted() {
       this.target = null;
     },
@@ -170,10 +190,11 @@ export default {
     onSelecting($this, event) {
       bus.dispatch('post-selected', event);
       
-      $this.target = event.post;  
+      $this.target = event.post;
       Object.assign(this, $this);
 
       this.scrollToTop();
+      this.updateViews();
     },
 
     onEditing($this, event) {
@@ -195,13 +216,6 @@ export default {
       let post = this.target;
 
       this.removeTagFromPost(tag, post);
-    },
-    
-    showAlert(callback) {
-      bus.dispatch('alert-warning', { 
-        message: 'You have unsaved changes. All of them will be lost',
-        okay: callback
-      });
     }
   }
 }
