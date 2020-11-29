@@ -2,15 +2,31 @@
 	<section 
 		class="register-overlay"
 		v-if="shown"
-		@click="() => {this.shown = false}">
+		>
 
-		<object
+		<div class="register-overlay__body">
+			<object
 			class="register-overlay__image"
 			type="image/svg+xml"
 			:data="imageUrl">
 
-		</object>
-		<button class="register-overlay__confirm-button button-second">confirm</button>
+			</object>
+			
+			<p class="register-overlay__hint register-overlay__hint--error text-fourth">
+				<!-- Enter your code here:  -->
+				Your code is invalid, please try again:
+			</p>
+
+			<div class="register-overlay__input-group">
+				<input class="register-overlay__input" maxlength="1" placeholder="-">
+				<input class="register-overlay__input" maxlength="1" placeholder="-">
+				<input class="register-overlay__input" maxlength="1" placeholder="-">
+				<input class="register-overlay__input" maxlength="1" placeholder="-">
+			</div>
+
+			<button class="register-overlay__confirm-button button-secondary" disabled>confirm</button>
+		</div>
+
 	</section> 
 </template>
 
@@ -42,3 +58,5 @@ export default {
 	}
 }
 </script>
+
+		@click="() => {this.shown = false}"
