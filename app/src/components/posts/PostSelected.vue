@@ -30,6 +30,7 @@ import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
 import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
 import HandleEvents from '@mixins/HandleEvents';
 import PostDetails from '@components/posts/PostDetails'
+import Views from '@models/Views'
 import bus from '@services/eventbus'
 
 export default {

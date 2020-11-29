@@ -86,7 +86,7 @@ class Auth
     __saveToken(token)
     {
         Cookies.set('auth', token, {
-            expires:AUTH_TOKEN_EXPIRES 
+            expires: AUTH_TOKEN_EXPIRES 
         });
 
         Object.assign(Http.defaultHeaders, this.__creationails());
@@ -189,21 +189,6 @@ class Auth
     async check() 
     {
         return Boolean(await this.user.get());
-    }
-
-    rules()
-    {
-        return {
-            password: {
-                max: 64,
-                min: 5
-            },
-
-            name: {
-                max: 32, 
-                min: 3
-            }
-        }
     }
 }
 
