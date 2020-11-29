@@ -8,7 +8,7 @@ class GuestViews {
 	__cookieExpires = 30;
 	
 	constructor() {
-		let stored = Cookies.get(this.__cookieName);
+		let stored = Cookies.getJSON(this.__cookieName);
 
 		if (!!!stored) {
 			stored = [];
@@ -42,8 +42,6 @@ class GuestViews {
 
 		await model.get(id, true);
 		
-		console.log(123);
-		return;
 		let key = this.createKey(model.type, id);
 		this.__views.push(key);
 		this.setCookie(this.__views);

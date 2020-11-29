@@ -3,7 +3,6 @@
 namespace App\Services\Posts;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 use App\Services\Traits\HandleTags;
@@ -75,7 +74,6 @@ abstract class PostService
             //
             //
             //
-            Log::debug('views');
         }
         
         // Calling child callback

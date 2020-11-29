@@ -14,14 +14,14 @@ class AudioResource extends PostResource
      */
     public function toArray($request)
     {
-          // Default post data
-          $post = parent::toArray($request);
-        
-          // Audio data
-          $audio = [
-            'audio' => $this->audio,
-            'image' =>  $this->image,
-          ];
+		// Default post data
+		$post = parent::toArray($request);
+	
+		// Audio data
+		$audio = [
+		'audio' => $this->audio,
+		'image' =>  $this->image,
+		];
 
         return array_merge($post, $audio);
     }
