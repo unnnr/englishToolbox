@@ -4062,6 +4062,38 @@ button:active {
   grid-area: link;
 }
 
+.not-found {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+
+.not-found__body {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  grid-gap: 30px;
+  -ms-grid-columns: minmax(100px, 500px);
+      grid-template-columns: minmax(100px, 500px);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.not-found__body img {
+  display: block;
+  width: 80%;
+}
+
+.not-found__body button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0px 30px;
+}
+
 .fade-enter-active, .fade-leave-active {
   -webkit-transition: opacity .5s !important;
   transition: opacity .5s !important;
