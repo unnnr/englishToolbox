@@ -39,9 +39,10 @@ class GuestViews {
 		// await model.get(id);
 		
 		let key = model.type[0] + id;
-		
-		Cookies.setCookie(this.__views, )
+		this.setCookie(key)
 
 		return true;
 	}
 }
+
+export default GuestViews;

@@ -4,13 +4,13 @@ import Auth from '@services/Auth'
 
 class Views {
 
-	__views = null;
-
 	__service = null;
 
 	constructor() {
-		Auth.check().then(this.init);
-		Auth.onChange(this.init);
+		let callback = this.init.bind(this);
+
+		Auth.check().then(callback);
+		Auth.onChange(callback);
 	}
 
 	init(authenticated) {
@@ -28,6 +28,6 @@ class Views {
 	}
 }
 
-window.Views = new Views;
+window.Views = new Views();
 
 export default window.Views;

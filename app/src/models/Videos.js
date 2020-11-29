@@ -4,6 +4,8 @@ import PostModel from '@models/PostModel';
 class Videos extends PostModel 
 { 
     path = 'videos'
+    
+    type = 'video'
 
     compareVideoUrl(newValue, cached)
     {
