@@ -17,7 +17,7 @@
   display: flex
   justify-content: space-between
   white-space: nowrap
-
+  height: 40px
   @include lg-devices
     display: none
 
@@ -67,7 +67,10 @@
 .navbar-desktop__aside-sign-up
   background: $color-primary
   color: $color-white
-  padding: 10px 30px
+  padding: 0 30px
+  height: 40px
+  display: grid
+  align-items: center
   border-radius: 30px
   transition: background .3s, box-shadow .1s ease-in-out, transform .1s ease-in-out
   font-weight: $semibold
@@ -98,9 +101,10 @@
 .navbar-mobile
   display: none
   justify-content: space-between
-
+  height: 40px
   @include lg-devices
     display: flex
+    align-items: center
 
 
 .navbar-mobile__button
@@ -198,7 +202,10 @@
 .navbar-mobile__footer-link--sign-up
   color: $color-white
   background: $color-primary
-  padding: 10px 30px
+  padding: 0 30px
+  height: 40px
+  display: grid
+  align-items: center
   border-radius: 30px
   transition: background .3s, box-shadow .1s ease-in-out, transform .1s ease-in-out
 
