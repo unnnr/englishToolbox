@@ -3,6 +3,7 @@
 
     <div 
       class="player__content"
+      :class="{'player__content--blurred': blurred}"
       :style="{'background-image': imageUrl}">
     </div>
 
@@ -17,7 +18,11 @@
         <div class="audio-player__body">
 
           <button 
-            class="audio-player__button audio-player__button--hide text-fourth">
+            class="audio-player__button text-fourth"
+            :class="{
+                'audio-player__button--hide': !!!blurred,
+                'audio-player__button--show': blurred}"
+            @click="toggleBlur">
           </button>
           
           <div class="audio-player__controls audio-player__controls--timeline">
@@ -82,6 +87,7 @@ export default {
       duration: 0,
       progress: 0,
 
+      blurred: true,
       playing: false,
       playable: false,
 
@@ -205,6 +211,11 @@ export default {
 
     updateSlider() {
       this.progress = this.player.currentTime;
+    },
+
+    toggleBlur() {
+      console.log(123);
+      this.blurred = !!!this.blurred;
     },
 
     play() {

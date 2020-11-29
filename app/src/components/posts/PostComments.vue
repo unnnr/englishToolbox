@@ -75,7 +75,7 @@ export default {
 
   data() {
     return {
-      img: 'img/svg/overlay-comments.svg',
+      img: '/img/svg/overlay-comments.svg',
       comments: [],
       banning: false,
       canPost: false,
