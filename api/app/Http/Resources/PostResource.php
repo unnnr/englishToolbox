@@ -28,7 +28,7 @@ class PostResource extends JsonResource
             // Additional
             'thumbnail' => $this->thumbnail->url,
 
-            'views' => 0,
+            'views' => $this->views,
 
             // Tags
             'mainTag' => new TagResource($this->mainTag()),

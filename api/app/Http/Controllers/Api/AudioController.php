@@ -46,9 +46,9 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Audio $aduio)
     {
-        //
+        return $this->service->get($audio); 
     }
 
     /**

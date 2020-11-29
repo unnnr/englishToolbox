@@ -40,8 +40,10 @@ class GuestViews {
 		if (this.has(model.type, id)) 
 			return false;
 
-		// await model.get(id);
+		await model.get(id, true);
 		
+		console.log(123);
+		return;
 		let key = this.createKey(model.type, id);
 		this.__views.push(key);
 		this.setCookie(this.__views);

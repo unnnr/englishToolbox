@@ -17,6 +17,6 @@ class Video extends Model
     public const DEFAULT_TAG = 'video';
 
     protected $fillable = [
-        'youtube_id', 'title', 'description'
+        'youtube_id', 'title', 'description', 'views'
     ];
 }

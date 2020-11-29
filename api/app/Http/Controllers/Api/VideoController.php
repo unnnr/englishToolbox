@@ -13,14 +13,21 @@ use App\Models\Video;
 
 class VideoController extends Controller
 {
+    private $service;
+
+    public function __construct() 
+    {
+        $this->service = new VideoService();
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(VideoService $videoService)
+    public function index()
     {
-        return $videoService->all();
+        return $this->service->all();
     }
 
     /**
@@ -29,11 +36,9 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateVideo $request, VideoService $videoService)
+    public function store(CreateVideo $request)
     {
-        $video = $videoService->create($request);
-
-        return $video;
+        return $this->service->create($request);;
     }
 
     /**
@@ -42,9 +47,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $video ,VideoService $videoService)
+    public function show(Video $video)
     {
-        return $videoService->get($video);
+        return $this->service->get($video);
     }
 
     /**
@@ -54,9 +59,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Video $video, UpdateVideo $request, VideoService $videoService)
+    public function update(Video $video, UpdateVideo $request)
     {
-        return $videoService->update($request, $video);
+        return $this->service->update($request, $video);
     }
 
     /**
@@ -65,8 +70,8 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video, DeleteVideo $request, VideoService $videoService)
+    public function destroy(Video $video, DeleteVideo $request)
     {
-        return $videoService->destroy($video);
+        return $this->service->destroy($video);
     }
 }

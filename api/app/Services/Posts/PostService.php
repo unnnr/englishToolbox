@@ -3,6 +3,7 @@
 namespace App\Services\Posts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 use App\Services\Traits\HandleTags;
@@ -58,12 +59,28 @@ abstract class PostService
         return $this->createScalarResponce($post);
     }
 
-    public function get($id) : JsonResource
+    public function get(Model $post) : JsonResource
     {
-        if (method_exists(get_called_class(), 'getting'))
-            $this->getting($request);
+        // Updating views
+        $authenticated = auth('sanctum')->check();
 
-        $post = $this->model::findOrFail($id);
+        if (!!!$authenticated 
+            || ($authenticated && auth('sanctum')->user()->hasntViewed($post)))
+        {
+            $post->update([
+                'views' => $post->views + 1
+            ]);
+
+            // creating view instance
+            //
+            //
+            //
+            Log::debug('views');
+        }
+        
+        // Calling child callback
+        if (method_exists(get_called_class(), 'getting'))
+            return $this->getting($post);
 
         return new $this->resource($post);
     }

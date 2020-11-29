@@ -25,7 +25,7 @@ class Audio extends Model implements CreatesThumbnail
     public const DEFAULT_TAG = 'audio';
 
     protected $fillable = [
-        'title', 'description', 'imageFile', 'audioFile'
+        'title', 'description', 'imageFile', 'audioFile', 'views'
     ];
 
     public function getAudioAttribute()

@@ -14,13 +14,11 @@ class CreateViewsTable extends Migration
     public function up()
     {
         Schema::create('views', function (Blueprint $table) {
-            $table->foreignId('post_id')
-                ->constrained();
-            
+            $table->morphs('viewable');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained();
-                
+
             $table->timestamp('created_at');
         });
     }

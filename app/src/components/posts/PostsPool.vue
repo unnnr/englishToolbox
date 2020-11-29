@@ -156,7 +156,8 @@ export default {
     },
 
     selectFirst() {
-      this.selecting(this.firstPost);
+      if (this.firstPost)
+        this.selecting(this.firstPost);
     },
 
     parseFavorites() {

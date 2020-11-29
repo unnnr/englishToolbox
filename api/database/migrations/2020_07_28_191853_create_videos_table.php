@@ -20,7 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('youtube_id');
             $table->string('title');
             $table->string('description')->nullable();
-            $table->unsignedInteger('views');
+            $table->unsignedInteger('views')->default(0);
 
             $table->timestamps();
         });
