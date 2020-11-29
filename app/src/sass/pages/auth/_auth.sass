@@ -6,8 +6,9 @@
   display: grid
   grid-column-gap: 50px
   align-items: center
-  padding-top: 150px
-  padding-bottom: 150px
+  height: calc( 100vh - 90px )
+  @include lg-devices
+    height: calc( 100vh - 70px )
 
 .auth--login
   grid-template-columns: 1fr 500px

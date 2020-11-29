@@ -335,6 +335,7 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   white-space: nowrap;
+  height: 40px;
 }
 
 @media (max-width: 1200px) {
@@ -412,7 +413,13 @@ body {
 .navbar-desktop__aside-sign-up {
   background: #6666ff;
   color: #fff;
-  padding: 10px 30px;
+  padding: 0 30px;
+  height: 40px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 30px;
   -webkit-transition: background .3s, -webkit-box-shadow .1s ease-in-out, -webkit-transform .1s ease-in-out;
   transition: background .3s, -webkit-box-shadow .1s ease-in-out, -webkit-transform .1s ease-in-out;
@@ -455,6 +462,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  height: 40px;
 }
 
 @media (max-width: 1200px) {
@@ -462,6 +470,9 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
 
@@ -602,7 +613,13 @@ body {
 .navbar-mobile__footer-link--sign-up {
   color: #fff;
   background: #6666ff;
-  padding: 10px 30px;
+  padding: 0 30px;
+  height: 40px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 30px;
   -webkit-transition: background .3s, -webkit-box-shadow .1s ease-in-out, -webkit-transform .1s ease-in-out;
   transition: background .3s, -webkit-box-shadow .1s ease-in-out, -webkit-transform .1s ease-in-out;
@@ -2448,8 +2465,13 @@ button:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  height: calc( 100vh - 90px);
+}
+
+@media (max-width: 1200px) {
+  .auth {
+    height: calc( 100vh - 70px);
+  }
 }
 
 .auth--login {
