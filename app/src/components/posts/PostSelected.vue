@@ -172,10 +172,14 @@ export default {
       let id = this.target.id;
 
       let updated = await Views.update(model, id);
-
-      if (updated)
-        this.target.views++;
+      if (!!!updated)
+        return;
+      
+      let value = this.target.views + 1;
+      this.$set(this.target, 'views', value);
     },
+
+    // Events
 
     postDeleted() {
       this.target = null;

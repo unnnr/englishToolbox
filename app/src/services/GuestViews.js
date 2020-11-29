@@ -24,12 +24,16 @@ class GuestViews {
 		});
 	}
 
+	createKey(type, id) {
+		return type[0] + id;
+	}
+
 	has(type, id) {
 		if (this.__views === null)
 			return true;
 		
-		let key = type[0] + id;
-		return this.views.indexOf(key) !== -1;
+		let key = this.createKey(type, id);
+		return this.__views.indexOf(key) !== -1;
 	}
 
 	async update(model, id) {
@@ -38,8 +42,9 @@ class GuestViews {
 
 		// await model.get(id);
 		
-		let key = model.type[0] + id;
-		this.setCookie(key)
+		let key = this.createKey(model.type, id);
+		this.__views.push(key);
+		this.setCookie(this.__views);
 
 		return true;
 	}
