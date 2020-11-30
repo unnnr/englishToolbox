@@ -73,14 +73,16 @@ Route::group(['namespace' => 'Api'], function()
     Route::patch( 'profile', 'UserController@update');
     Route::delete( 'profile', 'UserController@delete');
 
+    Route::get('profile/favorites/{postType}', 'FavoriteController@show');
+    Route::post('profile/favorites/{postType}', 'FavoriteController@store');
+    Route::apiResource('profile/favorites', 'FavoriteController')
+        ->only(['index', 'destroy']);
+
     Route::get('profile/comments', 'CommentController@attachedToUser');
     Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 
     Route::get('profile/avatar', 'AvatarController@index');
     Route::patch( 'profile/avatar', 'AvatarController@update');
 
-    Route::get('profile/favorites/{postType}', 'FavoriteController@show');
-    Route::post('profile/favorites/{postType}', 'FavoriteController@store');
-    Route::apiResource('profile/favorites', 'FavoriteController')
-        ->only(['index', 'destroy']);
+    Route::get( 'profile/views', 'ViewController@index');
 });

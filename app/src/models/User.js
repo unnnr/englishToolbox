@@ -89,8 +89,6 @@ class User
 
     async views()
     {
-        return [];
-        
         let uri = this.path + '/views';
 
         let response = await Http.get({ uri })

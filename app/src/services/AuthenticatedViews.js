@@ -8,7 +8,15 @@ class AuthenticatedViews {
 	}
 
 	async load() {
-		this.__views = await User.views();
+		let response = await User.views();
+		let views = [];
+
+		for (let view of response) {
+			let key = this.createKey(view.type, view.postId);
+			views.push(key);
+		}
+
+		this.__views = views;
 	}
 
 	createKey(type, id) {

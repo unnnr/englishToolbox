@@ -29,7 +29,7 @@ class UserService
         /// TO MIDDLEWATE
 
         $confirmation = $request->input('password');
-
+        
         //return [Hash::make($confirmation), $user->password];
 
         if (!!!Hash::check($confirmation, $user->password))

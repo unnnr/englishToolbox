@@ -68,18 +68,24 @@ abstract class PostService
 
         Log::debug($authenticated);
 
-        if (!!!$authenticated 
-            || ($authenticated && auth('sanctum')->user()->hasntViewed($post)))
+        if (!!!$authenticated)
         {
-            $post->update([
-                'views' => $post->views + 1
-            ]);
+            $post->update(['views' => $post->views + 1]);
 
-
-
-            $post->views()->create([
-                'user_id' => auth('sanctum')->user()->id
-            ]);
+            $post->views()
+                ->create([ 'user_id' => null]);
+        }
+        else  
+        {
+            $user = auth('sanctum')->user();
+            if ($user->hasntViewed($post))
+            {
+                $post->update(['views' => $post->views + 1]);
+    
+                $post->views()->create([
+                    'user_id' => auth('sanctum')->user()->id
+                ]);
+            }
         }
         
         // Calling child callback
