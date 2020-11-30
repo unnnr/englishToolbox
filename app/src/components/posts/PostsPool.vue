@@ -52,7 +52,7 @@ export default {
 
   computed: {
     firstPost() {
-      return this.reversedPosts[0];
+      return this.parsed[0];
     }
   },
 
@@ -99,11 +99,11 @@ export default {
     async loadPosts() {
       this.posts = await this.model.all();
       
+      // Favorites
       if (this.favorites.length > 0)
         this.parseFavorites();
-  
-      this.parsePosts();
 
+      // Selecting post from uri or simply first
       let id = parseInt(this.$route.params.id);
       let post = this.findById(id);
 

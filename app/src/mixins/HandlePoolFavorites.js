@@ -8,6 +8,16 @@ const HandlePoolFavorites = {
   },
 
   methods: {
+    parseFavorites() {
+      for (let favorite of this.favorites)
+      {
+        let post = this.findById(favorite.post.id);
+
+        if (post)
+          this.$set(post, 'favorite', true);
+      }
+    },
+    
     toggleFavorite(post) {
       if (post.favorite)
         this.unfavorite(post);

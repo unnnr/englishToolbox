@@ -53,21 +53,23 @@ const HandlePoolEvents = {
       this.select(post);
     },
 
-    onScroll() {
+    needToPaginate() {
       let pool = this.$refs.pool.$el;
       if (!!!pool)
         return;
 
       const OFFSET = 100;
-
+    
       let viewportHeight = window.innerHeight;
       let lastCard = pool.lastElementChild;
       let bottom = lastCard.getBoundingClientRect().bottom;
 
-      if (bottom - OFFSET > viewportHeight)
-        return;
+      return bottom - OFFSET > viewportHeight;
+    },
 
-      this.movePagination(this.parsedPosts, this.reversedPosts);
+    onScroll() {
+      if (this.needToPaginate())
+        this.movePagination();
     },
 
     onCreating() {
@@ -110,17 +112,11 @@ const HandlePoolEvents = {
 			
 			// If removed post was selected, we need select another
 			let removedPost = this.posts.splice(index, 1)[0];
-			if (this.$options.selectedPost 
-					&& removedPost.id === this.$options.selectedPost.id)
+      if (!!!this.$options.selectedPost)
+        return;
+       
+			if(removedPost.id === this.$options.selectedPost.id)
         this.selectFirst();
-      
-      index = this.reversedPosts.indexOf(removedPost);
-      if (index !== -1) 
-        this.reversedPosts.splice(index, 1);
-
-      index = this.parsedPosts.indexOf(removedPost);
-      if (index !== 1)
-        this.parsedPosts.splice(index, 1);        
     },
 
     onTagDeleted(event) {
