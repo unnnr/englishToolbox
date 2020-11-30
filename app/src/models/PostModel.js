@@ -24,7 +24,11 @@ class PostModel extends Model
         }); 
 
         let comment = response.data;
-        comment.createdAt = FormatedDate.parse(comment.createdAt);
+        comment.createdAt = 
+            FormatedDate.parse(comment.createdAt);
+            
+        comment.user.createdAt = 
+            FormatedDate.parse(comment.user.createdAt);
         
         return response.data;
     }

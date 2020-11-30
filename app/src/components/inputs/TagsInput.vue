@@ -289,7 +289,8 @@ export default {
       let founded = false;
       for (let i = 0; i < selected.length; i++) {
         for (let j = 0; j < defaultSelected.length; j++) {
-          if (selected[i] !== defaultSelected[i])
+
+          if (selected[i].id !== defaultSelected[i])
             continue;
           
           founded = true;
