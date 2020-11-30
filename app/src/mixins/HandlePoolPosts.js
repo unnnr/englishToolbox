@@ -5,7 +5,7 @@ const HandlePoolPosts = {
       paginationStep: 6,
 
       parsedPosts: [],
-      filters: [ {id: 8} ],
+      filters: [],
     }
   },
 
@@ -68,9 +68,7 @@ const HandlePoolPosts = {
   },
 
   methods: {
-    postHasTag(post, tag) {
-      let filter = tag.id;
-      
+    postHasTag(post, filter) {
       let mainTag = post.mainTag;
       if (mainTag.id === filter)
         return true;

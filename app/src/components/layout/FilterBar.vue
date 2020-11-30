@@ -21,11 +21,13 @@
 				shrinked-by-default>
 
 				<tag
-					v-for="({label, color}, index) of tags"
-					:key="index"
-					:label="label"
-					:color="color"
-					:always-colored="false"/>
+					v-for="tag of tags"
+					:key="tag.id"
+					:label="tag.label"
+					:color="tag.color"
+					:selected="tag.selected"
+					:always-colored="false"
+					@click.native="toggle(tag)"/>
 
 			</shrinkable>
 		</div>
@@ -91,6 +93,19 @@ export default {
 	},
 
 	methods: {
+		toggle(tag) {
+			let filter = tag.id;
+
+			if (tag.selected) {
+				this.$set(tag, 'selected', false);
+				bus.dispatch('filter-removed', { filter });
+			}
+			else {
+				this.$set(tag, 'selected', true);
+				bus.dispatch('filter-added', { filter });
+			}
+		},
+		
 		find(id) {
 			for (let tag of this.tags) {
 				if (tag.id === id)
