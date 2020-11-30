@@ -71,6 +71,11 @@
 </template>
 
 <script>
+// services
+import Auth from '@services/Auth'
+import bus from '@services/eventbus'
+
+// components
 import ConfirmationInput from '@components/inputs/ConfirmationInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import PasswordInput from '@components/inputs/PasswordInput'
@@ -78,8 +83,6 @@ import AvatarInput from '@components/inputs/AvatarInput'
 import EmailInput from '@components/inputs/EmailInput'
 import NameInput from '@components/inputs/NameInput'
 import VForm from '@components/validation/VForm'
-import Auth from '@services/Auth'
-import bus from '@services/eventbus'
 
 
 export default {

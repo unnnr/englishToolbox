@@ -48,13 +48,19 @@
 </template>
 
 <script>
-import HandleRequests from '@mixins/HandleRequests'
-import ShrinkableTab from '@mixins/ShrinkableTab'
-import CommentInput from '@components/comments/CommentInput'
-import Comment from '@components/comments/Comment'
+// services
 import Bans from '@models/Bans'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
+
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+import ShrinkableTab from '@mixins/ShrinkableTab'
+
+// components
+import CommentInput from '@components/comments/CommentInput'
+import Comment from '@components/comments/Comment'
+
 
 export default {
   components: {

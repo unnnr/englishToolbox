@@ -35,9 +35,9 @@
 
 <script>
 import PostComments from '@components/posts/PostComments'
+import Shrinkable from '@components/Shrinkable'
 import PostInfo from '@components/posts/PostInfo'
 import bus from '@services/eventbus'
-import Shrinkable from '@components/Shrinkable'
 
 export default {
   components: {

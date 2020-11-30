@@ -27,14 +27,20 @@
 </template>
 
 <script>
+// services
+import Audio from '@models/Audio'
+
+// mixins
+import HandlePost from'@mixins/HandlePost'
+
+// coponents
 import PostSelected from '@components/posts/PostSelected'
 import AudioCreator from '@pages/audio/AudioCreator'
 import AudioPlayer from '@pages/audio/AudioPlayer'
 import AudioEditor from '@pages/audio/AudioEditor'
-import HandlePost from'@mixins/HandlePost'
 import FilterBar from '@components/layout/FilterBar'
 import PostsPool from '@components/posts/PostsPool'
-import Audio from '@models/Audio'
+
 
 export default {
   components: {

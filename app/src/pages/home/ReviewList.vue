@@ -32,19 +32,23 @@
 </template>
 
 <script>
-
+// services
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import HandleRequests from '@mixins/HandleRequests' 
 import Reviews from '@models/Reviews'
-import Review from '@components/reviews/Review'
 import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
-SwiperClass.use([Pagination]);
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
 
+// components
+import Review from '@components/reviews/Review'
+
+SwiperClass.use([Pagination]);
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
+
 
 export default {
   components: {

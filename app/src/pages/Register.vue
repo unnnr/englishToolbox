@@ -46,7 +46,6 @@
 </template>
 
 <script>
-
 import ConfirmationInput from '@components/inputs/ConfirmationInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import PasswordInput from '@components/inputs/PasswordInput'

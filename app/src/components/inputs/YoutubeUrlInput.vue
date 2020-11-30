@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import VInput from '@components/validation/VInput'
 import getYouTubeID from 'get-youtube-id'
+import VInput from '@components/validation/VInput'
 
 export default {
   components: {

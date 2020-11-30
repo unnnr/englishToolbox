@@ -48,14 +48,11 @@
 </template>
 
 <script>
-
-
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
 import VForm from '@components/validation/VForm'
 import Auth from '@services/Auth'
-
 
 export default {
 	components: {

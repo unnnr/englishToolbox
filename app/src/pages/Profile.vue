@@ -17,14 +17,12 @@
 </template>
 
 <script>
-
 import RequireEmailOverlay from '@pages/profile/RequireEmailOverlay';
 import ProfileComments from '@pages/profile/ProfileComments'
 import ProfileEditor from '@pages/profile/ProfileEditor'
 import ReviewsEditor from '@pages/profile/ReviewsEditor'
 import FavoritesList from '@pages/profile/FavoritesList'
 import BannedUsers from '@pages/profile/BannedUsers'
-import 'swiper/swiper-bundle.css'
 
 export default {
   components: {

@@ -20,7 +20,6 @@
 </template>
 
 <script>
-
 import VInput from '@components/validation/VInput'
 
 export default {

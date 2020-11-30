@@ -13,15 +13,20 @@
 </template>
 
 <script>
+// services
+import Auth from '@services/Auth'
+import bus from '@services/eventbus'
+
+// mixins
 import HandlePoolFavorites from '@mixins/HandlePoolFavorites'
 import HandleTagsDeletion from '@mixins/HandleTagsDeletion'
 import HandlePoolContext from '@mixins/HandlePoolContext'
 import HandlePoolEvents from '@mixins/HandlePoolEvents'
 import HandlePoolPosts from '@mixins/HandlePoolPosts'
 import HandleRequests from '@mixins/HandleRequests'
+
+// components
 import Pool from '@components/cards_new/Pool'
-import Auth from '@services/Auth'
-import bus from '@services/eventbus'
 
 export default {
   components: {

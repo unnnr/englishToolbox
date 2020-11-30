@@ -29,9 +29,6 @@
 <script>
 import VHidden from '@components/validation/VHidden'
 
-const STARS_COUNT = 5;
-const ANIMATION_DELAY = 125;
-
 export default {
   components: {
     VHidden
@@ -40,7 +37,10 @@ export default {
   data() {
     return {
       stars: [],
-      rate: 4
+      rate: 4,
+
+      animationDelay: 125,
+      starsCount: 5
     }
   },
 
@@ -56,8 +56,7 @@ export default {
 
 
   beforeMount() {
-    for (let i = 1; i <= STARS_COUNT; i++)
-    {
+    for (let i = 1; i <= this.starsCount; i++) {
       this.stars.push({
         selected: i <= this.rate ? true : false,
         value: i
@@ -103,7 +102,7 @@ export default {
           selected: false
         });
 
-        await this.sleep(ANIMATION_DELAY);
+        await this.sleep(this.animationDelay);
       }
     },
 
@@ -114,7 +113,7 @@ export default {
           selected: true
         });
 
-        await this.sleep(ANIMATION_DELAY);
+        await this.sleep(this.animationDelay);
       }
     },
 

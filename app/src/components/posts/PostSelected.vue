@@ -26,12 +26,18 @@
 </template>
 
 <script>
-import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
-import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
-import HandleEvents from '@mixins/HandleEvents';
-import PostDetails from '@components/posts/PostDetails'
+// services
 import Views from '@models/Views'
 import bus from '@services/eventbus'
+
+// mixins
+import HandleTagsDeletion from '@mixins/HandleTagsDeletion';
+import HandleEvents from '@mixins/HandleEvents';
+
+// components
+import PostSelectedOverlay from '@components/posts/PostSelectedOverlay'
+import PostDetails from '@components/posts/PostDetails'
+
 
 export default {
   components: {

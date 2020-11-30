@@ -33,12 +33,17 @@
 </template>
 
 <script>
+// services
+import Tags from '@models/Tags'
+import bus from '@services/eventbus'
+
+// mixins
 import HandleEvents from '@mixins/HandleEvents'
 import Shrinkable from '@components/Shrinkable'
-import Tags from '@models/Tags'
+
+// components
 import Tag from '@components/tags/Tag'
-import bus from '@services/eventbus'
- 
+
 
 export default {
 	components: {

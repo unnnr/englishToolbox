@@ -26,14 +26,20 @@
 </template>
 
 <script>
+// services
 import 'swiper/swiper-bundle.css'
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import { Swiper as SwiperClass } from 'swiper/core'
-import PendingReview from '@components/reviews/PendingReview'
-import HandleRequests from '@mixins/HandleRequests'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import Reviews from '@models/Reviews'
 
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+
+// components
+import PendingReview from '@components/reviews/PendingReview'
+
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
+
 
 export default {
   components: {

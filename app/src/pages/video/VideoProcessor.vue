@@ -32,14 +32,20 @@
 </template>
 
 <script>
+// services
+import bus from '@services/eventbus'
+
+// mixins
 import HandlePostProcessing from '@mixins/HandlePostProcessing'
+
+// components
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import YoutubeUrlInput from '@components/inputs/YoutubeUrlInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
-import bus from '@services/eventbus'
+
 
 export default {
   components: {

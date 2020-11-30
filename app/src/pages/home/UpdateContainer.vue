@@ -47,15 +47,19 @@
 </template>
 
 <script>
+// services
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+
+// components
 import EmptyCard from '@components/cards_new/EmptyCard'
 import Updates from '@models/Updates';
 import Card from '@components/cards_new/Card';
 
 SwiperClass.use([Pagination, Autoplay])
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
+
 
 export default {
 	components: {

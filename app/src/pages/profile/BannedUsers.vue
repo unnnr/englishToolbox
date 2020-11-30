@@ -22,13 +22,18 @@
 </template>
 
 <script>
+// services
 import { Swiper as SwiperClass } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import BannedComment from '@components/comments/BannedComment'
-import PendingReview from '@components/reviews/PendingReview'
-import HandleRequests from '@mixins/HandleRequests'
 import Bans from '@models/Bans';
 import bus from '@services/eventbus';
+
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+
+// components
+import BannedComment from '@components/comments/BannedComment'
+import PendingReview from '@components/reviews/PendingReview'
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 

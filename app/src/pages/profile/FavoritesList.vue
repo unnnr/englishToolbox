@@ -13,10 +13,16 @@
 </template>
 
 <script>
-import HandleRequests from '@mixins/HandleRequests'
-import FormatedDate from '@services/FormatedDate'
+// services
 import Favorites from '@models/Favorites'
+
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+
+// components
+import FormatedDate from '@services/FormatedDate'
 import Pool from '@components/cards_new/Pool'
+
 
 export default {
   components: {

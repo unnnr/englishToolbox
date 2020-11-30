@@ -8,7 +8,6 @@
 import VideoProcessor from '@pages/video/VideoProcessor'
 import Videos from '@models/Videos'
 
-
 export default {
   components: {
     VideoProcessor

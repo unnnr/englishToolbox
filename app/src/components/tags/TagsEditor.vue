@@ -7,12 +7,17 @@
 </template>
 
 <script>
-import HandleRequests from '@mixins/HandleRequests'
-import TagsInput from '@components/inputs/TagsInput'
+// services
+import FakeData from '@services/FakeData'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus'
 
-import FakeData from '@services/FakeData'
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+
+// components
+import TagsInput from '@components/inputs/TagsInput'
+
 
 export default {
   components: {

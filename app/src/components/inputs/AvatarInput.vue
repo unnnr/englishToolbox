@@ -7,7 +7,7 @@
       ref="input"
 
       type="file"
-      accept="image/*"
+      accept="image/png,image/jpeg,image/webp,image/gif"
       v-validate
 
       @change.native="changeAvatar"/>
@@ -15,10 +15,15 @@
 </template>
 
 <script>
-import HandleRequests from '@mixins/HandleRequests'
-import VHidden from '@components/validation/VHidden'
+// services
 import Avatar from '@models/Avatar'
 import bus from '@services/eventbus'
+
+// mixins
+import HandleRequests from '@mixins/HandleRequests'
+
+// components
+import VHidden from '@components/validation/VHidden'
 
 export default {
   components: {

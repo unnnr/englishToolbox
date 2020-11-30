@@ -40,8 +40,6 @@
 import HandleRequests from '@mixins/HandleRequests'
 import bus from '@services/eventbus'
 
-const BLUR_DELAY = 200;
-
 export default {
 	mixins: [ HandleRequests ],
 	
@@ -82,6 +80,8 @@ export default {
 		},
 
 		onInputBlur() {
+			const BLUR_DELAY = 200;
+
 			this.$options.delayTimer = setTimeout(() => {
 				this.inputIsFocused = false;
 				this.checkInput();

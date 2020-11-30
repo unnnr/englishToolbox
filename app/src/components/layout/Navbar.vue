@@ -18,12 +18,18 @@
 </template>
 
 <script>
-import DesktopNavbar from '@components/layout/DesktopNavbar'
-import MobileNavbar from '@components/layout/MobileNavbar'
-import HandleEvents from '@mixins/HandleEvents'
+// services
 import Resolution from '@services/Resolution'
 import Avatar from '@models/Avatar'
 import Auth from '@services/Auth';
+
+// mixins
+import HandleEvents from '@mixins/HandleEvents'
+
+// components
+import DesktopNavbar from '@components/layout/DesktopNavbar'
+import MobileNavbar from '@components/layout/MobileNavbar'
+
 
 export default {
 	components: {

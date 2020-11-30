@@ -31,9 +31,8 @@
 </template>
 
 <script>
-
-import Auth from  '@services/Auth';
 import HandleEvents from '@mixins/HandleEvents'
+import Auth from  '@services/Auth';
 
 export default {
 	mixins: [ HandleEvents ],
