@@ -78,10 +78,7 @@ const HandlePoolEvents = {
 
     onCreated(event) {
 			let post = event.post;
-
       this.posts.push(post);
-      this.reversedPosts.unshift(post);
-      this.parsedPosts.unshift(post);
 
 		  bus.dispatch('post-selecting', { 
         post, withoutAlert: true,
