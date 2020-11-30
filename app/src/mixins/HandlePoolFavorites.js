@@ -1,6 +1,12 @@
 import Favorites from '@models/Favorites'
 
 const HandlePoolFavorites = {
+  data() {
+    return {
+      favorites: []
+    }
+  },
+
   methods: {
     toggleFavorite(post) {
       if (post.favorite)

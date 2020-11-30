@@ -5,7 +5,7 @@
 
     :can-create="canCreate"
     :context="createContext"
-    :cards="parsedPosts"
+    :cards="parsed"
 
     @favorite-toggle="toggleFavorite"
     @create-new="createNew"
@@ -43,9 +43,7 @@ export default {
     return {
       paginationStep: 6,
 
-      favorites: [],
       posts: [],
-      parsedPosts: [],
       
       authenticated: false,
       canCreate: true,

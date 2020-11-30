@@ -17,4 +17,4 @@ class Videos extends PostModel
 
 window.Videos = new Videos();
 
-export default new Videos();
+export default window.Videos;
