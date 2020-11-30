@@ -1,5 +1,5 @@
 <template>
-	<transition  name="fade">
+	<transition name="fade">
 		<section 
 			class="modal container"
 			v-if="shown"
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import HandleScrollLock from '@mixins/HandleScrollLock'
 import HandleEvents from '@mixins/HandleEvents'
 import WarningAlert from '@components/popups/WarningAlert'
 import PromptAlert from '@components/popups/PromptAlert'
@@ -41,12 +41,15 @@ export default {
     ErrorAlert
   },
 
-	mixins: [ HandleEvents ],
+	mixins: [ 
+		HandleScrollLock,
+		HandleEvents
+	],
 
 	data() {
 		return {
 			type: null,
-			message: null
+			message: null,
 		}   
 	},
 
@@ -98,31 +101,6 @@ export default {
 	}, 
 
 	methods: {
-		preventIfScroll(event) {
-			var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-			if (keys[event.keyCode])
-				event.preventDefault();
-		},
-
-		prevent(event) {
-			event.preventDefault();
-		},
-
-		lockScroll() {
-			window.addEventListener('wheel', this.prevent, { passive: false });
-			window.addEventListener('scroll', this.prevent, { passive: false });
-			window.addEventListener('touchmove', this.prevent);
-			window.addEventListener('keydown', this.preventIfScroll);
-		},
-
-		unlockScroll() {
-			window.removeEventListener('wheel', this.prevent, { passive: false });
-			window.removeEventListener('scroll', this.prevent, { passive: false });
-			window.removeEventListener('touchmove', this.prevent);
-			window.removeEventListener('keydown', this.preventIfScroll);
-		},
-
     prepareAlert(event) {
       this.message = typeof event.message === 'string' ? 
         event.message : '';

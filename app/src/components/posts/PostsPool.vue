@@ -87,7 +87,8 @@ export default {
         if (this.$route.params.id === post.id)
           return;
 
-        this.$router.replace({ params: { id: post.id} }).catch(() => null);
+        this.$router.replace({ params: { id: post.id} })
+          .catch(() => null);
       }
     },
 

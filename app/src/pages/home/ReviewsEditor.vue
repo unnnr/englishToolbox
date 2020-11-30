@@ -42,12 +42,18 @@
 </template>
 
 <script>
+// services
+import Reviews from '@models/Reviews'
+
+// mixins
+import HandleScrollLock from '@mixins/HandleScrollLock'
+import HandleEvents from '@mixins/HandleEvents'
+
+// components
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
-import HandleEvents from '@mixins/HandleEvents'
 import TitleInput from '@components/inputs/TitleInput'
 import GradeInput from '@components/inputs/GradeInput'
-import Reviews from '@models/Reviews'
 import VForm from '@components/validation/VForm'
 
 export default {
@@ -59,7 +65,10 @@ export default {
     VForm,
   },
 
-  mixins: [ HandleEvents ],
+  mixins: [ 
+    HandleScrollLock,
+    HandleEvents
+  ],
   
   data() {
     return {
@@ -69,8 +78,10 @@ export default {
 
   watch: {
     shown(value) {
-      // disabling scroll
-      console.log('SCROLL MUST BE DISABLED');
+      if (value)
+        this.lockScroll();
+      else
+        this.unlockScroll();
     }
   },
 
