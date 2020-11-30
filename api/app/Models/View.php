@@ -9,6 +9,6 @@ class View extends Model
     const UPDATED_AT = null;
 
     public $fillable = [
-        'user_id'
+        'user_id', 'viewable_type', 'viewable_id'
     ];
 }

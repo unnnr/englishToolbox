@@ -11,6 +11,9 @@ use App\Events\PostUpdated;
 use App\Events\PostDeleted;
 use App\Models\View;
 
+
+use Illuminate\Support\Facades\Log;
+
 abstract class PostService
 {  
     use HandleTags;
@@ -63,6 +66,8 @@ abstract class PostService
         // Updating views
         $authenticated = auth('sanctum')->check();
 
+        Log::debug($authenticated);
+
         if (!!!$authenticated 
             || ($authenticated && auth('sanctum')->user()->hasntViewed($post)))
         {
@@ -70,10 +75,11 @@ abstract class PostService
                 'views' => $post->views + 1
             ]);
 
-            // creating view instance
-            //
-            //
-            //
+
+
+            $post->views()->create([
+                'user_id' => auth('sanctum')->user()->id
+            ]);
         }
         
         // Calling child callback

@@ -66,26 +66,39 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Ban::class);
     }
 
+    public function views() 
+    {
+        return $this->hasMany(View::class);
+    }
 
     public function hasntViewed(Model $post) 
     {
-        return true;
+        $view = $this->views()->where([
+            'viewable_type'=> get_class($post),
+            'viewable_id' => $post->id
+        ]);
+
+        return !!!$view;
     }
 
-    public function getAdminAttribute() {
+    public function getAdminAttribute() 
+    {
         return false;
     }
 
-    public function getBannedAttribute() {
+    public function getBannedAttribute() 
+    {
         return $this->ban !== null;
     }
 
-    public function getCanReveiewAttribute() {
-        
+    public function getCanReveiewAttribute() 
+    {
+            
     }
 
     public function setPasswordAttribute($value)
     {
     	$this->attributes['password'] = bcrypt($value);
     }
+
 }

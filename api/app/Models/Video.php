@@ -2,18 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\FavoritablePost;
-use App\Models\Traits\HasThumbnail;
-use App\Models\Traits\HasComments;
-use App\Models\Traits\HasUpdates;
-use App\Models\Traits\HasTags;
-
-
-class Video extends Model
+class Video extends Post
 {
-    use HasTags, HasComments, HasThumbnail, HasUpdates, FavoritablePost;
-    
     public const DEFAULT_TAG = 'video';
 
     protected $fillable = [
