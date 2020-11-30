@@ -13,7 +13,7 @@
   border-radius: $border-radius-primary
   padding: 15px
   display: grid
-  grid-template-columns: minmax(0px, 400px) 1fr
+  grid-template-columns: minmax(0px, 500px) 1fr
   grid-template-rows: max-content max-content
   grid-template-areas: "search button" "tags tags"
   grid-column-gap: 10px
@@ -49,17 +49,19 @@
     margin-left: 5px
     font-size: 25px
 
-.filter__search
+.search
   grid-area: search
   padding: 0 10px
   height: 35px
-  background: $color-almost-white
-  border-radius: $border-radius-secondary
   width: 100%
   display: flex
   align-items: center
+  position: relative
+  background: $color-almost-white
+  border-radius: $border-radius-secondary
 
   &:before
+    z-index: $z-first
     font-family: "material icons round"
     content: "search" 
     margin-right: 5px
@@ -67,4 +69,86 @@
     color: $color-semigray
 
   input
+    z-index: $z-first
     width: 100%
+    font-weight: $medium
+    color: $color-dark
+    font-size: 15px
+    &::placeholder
+      color: $color-semigray
+
+.search__dropdown
+  position: absolute
+  z-index: $z-first - 1
+  left: 0
+  top: 0
+  padding-top: 35px
+  width: 100%
+  min-height: 35px
+  height: max-content
+  background-color: transparentize($color-almost-white, 0.1)
+  backdrop-filter: blur(5px) saturate(150%)
+  border-radius: $border-radius-secondary
+
+.search__dropdown-content
+  z-index: $z-first - 1
+  max-height: 0
+  overflow: overlay
+  @include scroll-body
+  transition: height .4s ease-in-out, max-height .4s ease-in-out
+
+.search__dropdown-content--active
+  max-height: 300px
+
+.search__item
+  display: grid
+  grid-template-areas: "image title" "image tags"
+  grid-template-columns: max-content 1fr
+  grid-template-rows: max-content max-content
+  grid-column-gap: 10px
+  align-items: center
+  padding: 12px 
+  transition: background .3s ease-in-out
+  cursor: pointer !important
+  &:hover
+    background: transparentize($color-white, 0.1)
+
+.search__item--active
+  background: transparentize($color-white, 0.1)
+  
+.search__item-image
+  grid-area: image
+  height: 40px
+  width: 40px
+  border-radius: 5px
+  background-color: $color-semigray
+  @include background-image
+  background-image: url(https://img.youtube.com/vi/WW1BpABbzHs/sddefault.jpg)
+
+.search__item-title
+  grid-area: title
+  color: $color-dark
+  font-weight: $semibold
+  font-size: 16px
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow: hidden
+
+.search__item-tags
+  grid-area: tags
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 10px
+  overflow: hidden
+
+.search__item-tag
+  display: grid
+  grid-auto-flow: column
+  grid-column-gap: 2px
+  align-items: center
+  font-size: 10px
+  font-weight: $semibold
+  &::before
+    font-size: 12px
+    margin: 0
