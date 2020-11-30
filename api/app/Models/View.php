@@ -12,8 +12,6 @@ class View extends Model
         'user_id', 'viewable_type', 'viewable_id'
     ];
 
-    
-
     public function getTypeAttribute() 
     {
         $type = $this->viewable_type;

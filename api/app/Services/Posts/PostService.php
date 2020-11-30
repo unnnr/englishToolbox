@@ -116,6 +116,7 @@ abstract class PostService
 
         // Removing attachments
         $post->tags()->detach();
+        $post->views()->delete();
         $post->thumbnail()->delete();
         
         // Deleting post 

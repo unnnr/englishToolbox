@@ -1,3 +1,4 @@
+import { throttle } from 'throttle-debounce';
 import HandleEvents from '@mixins/HandleEvents'
 import bus from '@services/eventbus'
 
@@ -29,6 +30,29 @@ const HandlePoolEvents = {
   },
 
   methods: {
+    createNew() {
+      bus.dispatch('post-start-creating');
+    },
+
+    trySelect(post) {
+      // Preventing redundunt requests
+      if (post
+        && this.$options.selectedPost 
+        && this.$options.selectedPost.id === post.id)
+        return;
+      
+      bus.dispatch('post-selecting', { post });
+    },
+
+    onSelected(event) {
+      let post = null;
+
+      if (event.post)
+        post = this.findById(event.post.id);
+  
+      this.select(post);
+    },
+
     onScroll() {
       let pool = this.$refs.pool.$el;
       if (!!!pool)
@@ -44,19 +68,6 @@ const HandlePoolEvents = {
         return;
 
       this.movePagination(this.parsedPosts, this.reversedPosts);
-    },
-    
-    onSelected(event) {
-      let post = null;
-
-      if (event.post)
-        post = this.findById(event.post.id);
-  
-      this.select(post);
-    },
-
-    createNew() {
-      bus.dispatch('post-start-creating');
     },
 
     onCreating() {
