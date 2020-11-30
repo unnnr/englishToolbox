@@ -4241,31 +4241,39 @@ button:active {
 }
 
 .not-found {
-  padding-top: 150px;
-  padding-bottom: 150px;
-}
-
-.not-found__body {
+  height: calc( 100vh - 90px);
   display: -ms-grid;
   display: grid;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   justify-items: center;
-  grid-gap: 30px;
-  -ms-grid-columns: minmax(100px, 500px);
-      grid-template-columns: minmax(100px, 500px);
+  -ms-grid-row-align: center;
+      align-self: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  grid-gap: 30px;
+  -ms-grid-columns: minmax(100px, 500px);
+      grid-template-columns: minmax(100px, 500px);
 }
 
-.not-found__body img {
+@media (max-width: 1200px) {
+  .not-found {
+    height: calc( 100vh - 70px);
+  }
+}
+
+.not-found img {
   display: block;
   width: 80%;
 }
 
-.not-found__body button {
+.not-found button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
