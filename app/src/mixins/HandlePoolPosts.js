@@ -3,7 +3,9 @@ const HandlePoolPosts = {
     return {
       paginationPosition: 0,
       paginationStep: 6,
+
       parsedPosts: [],
+      filters: [ {id: 8} ],
     }
   },
 
@@ -17,7 +19,21 @@ const HandlePoolPosts = {
     filtered() {
       console.log('filtering');
 
-      return this.reversed;
+      let filters = this.filters;
+      let posts = this.reversed;
+
+      if (filters.length === 0)
+        return posts;
+
+      let filtered = [];
+      for (let filter of filters) {
+        for (let post of posts) {
+          if (this.postHasTag(post, filter))
+            filtered.push(post);
+        } 
+      }
+
+      return filtered;
     },
 
     chunked() {
@@ -52,6 +68,24 @@ const HandlePoolPosts = {
   },
 
   methods: {
+    postHasTag(post, tag) {
+      let filter = tag.id;
+      
+      let mainTag = post.mainTag;
+      if (mainTag.id === filter)
+        return true;
+      
+      let tags = post.tags;
+      for (let i = 0; i < tags.length; i++) {
+        let tag = tags[i];
+        
+        if (tag.id === filter)
+          return true;
+      }
+
+      return false;
+    },
+
     movePagination() {
       let postion = this.paginationPosition;
       if (postion < this.chunked.length)
