@@ -25,12 +25,18 @@
         Created at {{ userCreatedAt }}
       </time>
     </div>
-    <button class="profile-popup__button-ban"></button>
+    
+    <button
+      v-if="banButtonShown"
+      class="profile-popup__button-ban"
+      @click="tryBan">
+    </button>
   </div>
 </template>
 
 <script>
 import HandleEvents from '@mixins/HandleEvents'
+import Auth from '@services/Auth'
 
 export default {
   mixins: [ HandleEvents ],
@@ -39,7 +45,9 @@ export default {
 		return {
       showing: false,
       shown: false,
-			user: null,
+
+      user: null,
+      ban: null,
 
 			left: 0,
 			top: 0,
@@ -69,7 +77,11 @@ export default {
 
     avatarUrl() {
       return 'url(' + this.userAvatar + ')';
-    }
+    },
+
+    banButtonShown() {
+      return typeof this.ban === 'function'
+    },
   },
   
   mounted() {
@@ -148,10 +160,19 @@ export default {
       let user = event.user;
       if (user && typeof user === 'object' )
         this.user = user;
-
+      
+      this.ban = event.ban;
       this.move(event.el);
       this.show();
     },
+
+    async tryBan() {
+      if (typeof this.ban !== 'function')
+        return;
+
+      await this.ban();
+      this.hide();
+    }
   }
 }
 </script>

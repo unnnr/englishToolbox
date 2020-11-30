@@ -34,6 +34,7 @@
         :key="comment.id"
         
         v-context:items="createContext(comment)"
+        :popup-options="createPopup(comment)"
         :created-at="comment.createdAt"
         :message="comment.message"
         :user="comment.user"/>
@@ -83,6 +84,7 @@ export default {
     return {
       img: '/img/svg/overlay-comments.svg',
       comments: [],
+
       banning: false,
       canPost: false,
       canBan: true,
@@ -153,8 +155,6 @@ export default {
       return firstComment.offsetHeight + 'px';
     },
 
-
-
     remove(userId) {
       for (let i = 0; i < this.comments.length; i++) {
         let component = this.comments[i];
@@ -180,6 +180,19 @@ export default {
         'send a ban': 
           this.onBanSending.bind(this, userId, commentId)   
       };
+    },
+
+    createPopup(comment) {
+      function ban() {
+        this.send(this.ban.bind(this, comment.user.id, comment.id))
+      }
+      
+      if (!!!this.canBan)
+        return;
+
+      return {
+        ban: ban.bind(this)
+      }
     },
 
     onBanSending() {

@@ -44,8 +44,6 @@ import NewTagInput from '@components/tags/NewTagInput'
 import Tag from '@components/tags/Tag'
 import bus from '@services/eventbus';
 
-const MAX_TAGS_COUNT = 5;
-
 export default {
 	components: {
     NewTagInput,
@@ -58,7 +56,8 @@ export default {
   
   data() {
 		return {
-			selectedCount: 0,
+      selectedCount: 0,
+      maxTagsCount: 5,
       loading: false,
 		}
   },
@@ -111,7 +110,7 @@ export default {
     },
 
     counter() {
-			return this.selectedCount + '/' + MAX_TAGS_COUNT;
+			return this.selectedCount + '/' + this.maxTagsCount;
     },
 
     main: {
@@ -237,7 +236,7 @@ export default {
     },
 
     select(tag) {
-      if (this.selectedCount >= MAX_TAGS_COUNT)
+      if (this.selectedCount >= this.maxTagsCount)
         return false;
         
       // Selecting tag
@@ -290,7 +289,8 @@ export default {
       let founded = false;
       for (let i = 0; i < selected.length; i++) {
         for (let j = 0; j < defaultSelected.length; j++) {
-          if (selected[i] !== defaultSelected[i])
+
+          if (selected[i].id !== defaultSelected[i])
             continue;
           
           founded = true;

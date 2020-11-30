@@ -8,7 +8,6 @@
 
 <script>
 // services
-import FakeData from '@services/FakeData'
 import Tags from '@models/Tags'
 import bus from '@services/eventbus'
 
@@ -30,7 +29,7 @@ export default {
 
   data() {
     return {
-      tags: [],
+      tags: []
     }
   },
 
@@ -84,6 +83,21 @@ export default {
   },
 
   methods: {
+    generateColor() {
+      const CUT_FROM  = 60;
+      const CUT_TO = 160;
+      const COUNT = 1000;
+
+      let range = 360 - CUT_TO + CUT_FROM;
+      let hue = Math.floor(Math.random() * COUNT) 
+        * (range / COUNT) % range;
+
+      if (hue > CUT_FROM)
+        hue += CUT_TO - CUT_FROM;
+
+      return `hsl(${hue}, 70%, 70%)`;
+    },
+
     getTag(id) {
       for (let tag of this.tags)
       {
@@ -136,7 +150,7 @@ export default {
       // Collecting data
       let data = new FormData();
       data.append('label', label);
-      data.append('color', FakeData.generateColor())
+      data.append('color', this.generateColor())
 
       // Submitting 
       let tag = await Tags.create(data);

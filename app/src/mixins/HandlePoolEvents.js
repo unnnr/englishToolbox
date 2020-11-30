@@ -20,7 +20,11 @@ const HandlePoolEvents = {
       'post-created': this.onCreated,
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
-      'tag-deleted': this.onTagDeleted
+
+      'filter-removed': this.onFilterRemoved,
+      'filter-added': this.onFilterAdded,
+
+      'tag-deleted': this.onTagDeleted,
     });
   },
 
@@ -78,10 +82,7 @@ const HandlePoolEvents = {
 
     onCreated(event) {
 			let post = event.post;
-
       this.posts.push(post);
-      this.reversedPosts.unshift(post);
-      this.parsedPosts.unshift(post);
 
 		  bus.dispatch('post-selecting', { 
         post, withoutAlert: true,
@@ -117,6 +118,26 @@ const HandlePoolEvents = {
        
 			if(removedPost.id === this.$options.selectedPost.id)
         this.selectFirst();
+    },
+
+    onFilterAdded(event) {
+      let filter = event.filter;
+
+      this.paginationPosition = 0;
+      this.filters.push(filter);
+      this.selectFirst(true);
+    },
+
+    onFilterRemoved(event) {
+      let filter = event.filter;
+      let index = this.filters.indexOf(filter);
+
+      if (index === -1)
+        return;
+
+      this.paginationPosition = 0;
+      this.filters.splice(index, 1);
+      this.selectFirst(true);
     },
 
     onTagDeleted(event) {

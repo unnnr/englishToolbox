@@ -32,6 +32,12 @@ export default {
     message: { type: String, default: '恨み はなじ ぶき じぞう 封筒 推奨 あう 部首 やさい けいじばん' },
     
     user: { type: Object, default: null },
+
+    id: { type: Number, default: null},
+
+    popupOptions: { type: Object, default: null },
+
+    withoutPopup: { type: Boolean, default: false },
   },
 
   computed: {
@@ -50,11 +56,19 @@ export default {
 
   methods: {
     showPopup() {
+      if (this.withoutPopup)
+        return;
+
+      let commentId = this.id;
       let user = this.user;
       let el  = this.$el;
+      let ban = null;
+
+      if (this.popupOptions && typeof this.popupOptions === 'object')
+        ban = this.popupOptions.ban;
 
       bus.dispatch('profile-popup', {
-        user, el
+        commentId, user, el, ban
       })
     },
   }

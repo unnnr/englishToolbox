@@ -97,8 +97,8 @@ export default {
       }
     },
 
-    selectFirst() {
-      if (this.firstPost)
+    selectFirst(forced = false) {
+      if (this.firstPost || forced)
         this.trySelect(this.firstPost);
     },
 

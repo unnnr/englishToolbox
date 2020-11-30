@@ -1,9 +1,5 @@
 <template>
-  <transition-group 
-    class="pool"
-		tag="section"
-  	name="list"
-    @before-leave="setAbsolute">
+  <scale-group-transition class="pool">
 
     <new-card 
       v-if="canCreate"
@@ -31,15 +27,17 @@
       @select="select(card)"
       @favorite-toggle="toggleFavorite(card)"/>
 
-  </transition-group>
+  </scale-group-transition>
 </template>
 
 <script>
+import ScaleGroupTransition from '@components/transitions/ScaleGroupTransition'
 import NewCard from '@components/cards_new/NewCard'
 import Card from '@components/cards_new/Card'
 
 export default {
   components: {
+    ScaleGroupTransition,
     NewCard,
     Card
   },
@@ -55,15 +53,6 @@ export default {
   },
 
   methods: {
-    setAbsolute(target) {
-			Object.assign(target.style, {
-				position: 'absolute',
-				width: target.offsetWidth + 'px',
-				top: target.offsetTop + 'px',
-				left: target.offsetLeft + 'px'
-			})
-    },
-
     select(card) {
       this.$emit('select', card);
     },
