@@ -8,6 +8,7 @@
     <div 
       class="card__image"
       :style="{'background-image': src}"
+      v-context:items="context"
       @click.self="select">
 
       <div 
@@ -63,11 +64,14 @@ export default {
 
     mainTag: { type: Object, default: null },
 
+    context: { type: Function, defualt: null },
+
     favorite: { type: Boolean, default: false },
 
     selected: { type: Boolean, default: false },
 
     rectangular: { type: Boolean, default: false },
+
   },
 
   computed: {

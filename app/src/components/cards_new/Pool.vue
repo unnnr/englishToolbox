@@ -27,7 +27,7 @@
       :favorite="card.favorite"
       :rectangular="!!!squareCards"
 
-      v-context:items="context(card)"
+      :context="context(card)"
       @select="select(card)"
       @favorite-toggle="toggleFavorite(card)"/>
 

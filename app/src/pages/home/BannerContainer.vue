@@ -107,8 +107,6 @@ export default {
 
 	beforeDestroy() {
 		let swiper = this.$refs.swiper;
-
-		console.log(swiper);
 	},
 
 	computed: {

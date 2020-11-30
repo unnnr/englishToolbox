@@ -105,3 +105,14 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass">
+
+.filter__tags
+	transition: all .4s
+
+.filter__tags.shrinkable--closing,
+.filter__tags.shrinkable--closed
+	margin-top: 0
+
+</style>
