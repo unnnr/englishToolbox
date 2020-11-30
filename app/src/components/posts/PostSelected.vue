@@ -203,6 +203,9 @@ export default {
       $this.target = event.post;
       Object.assign(this, $this);
 
+      if (!!!this.target)
+        return;
+
       this.scrollToTop();
       this.updateViews();
     },

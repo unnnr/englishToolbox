@@ -125,6 +125,7 @@ const HandlePoolEvents = {
 
       this.paginationPosition = 0;
       this.filters.push(filter);
+      this.selectFirst(true);
     },
 
     onFilterRemoved(event) {
@@ -136,6 +137,7 @@ const HandlePoolEvents = {
 
       this.paginationPosition = 0;
       this.filters.splice(index, 1);
+      this.selectFirst(true);
     },
 
     onTagDeleted(event) {
