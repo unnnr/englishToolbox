@@ -7,36 +7,44 @@ const routes = [
 
   // Main pages
 
-  { path: '/home', alias: '/', name: 'Home',component: () => import('@pages/Home') },
+  { path: '/home', alias: '/', name: 'Home',
+    component: () => import('@pages/Home') },
 
-  { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
+  { path: '/profile', name: 'Profile', 
+    component: () => import('@pages/Profile') },
 
-    // -> recommended 
+  { path: '/recommendations', name: 'Recommendations', 
+    component: () => import('@pages/Recommendations') },
 
   // Auth pages
   
-  { path: '/login', name: 'Login', component: () => import('@pages/Login') },
+  { path: '/login', name: 'Login',
+    component: () => import('@pages/Login') },
 
-  { path: '/register', name: 'Register', component: () => import('@pages/Register') },
+  { path: '/register', name: 'Register', 
+    component: () => import('@pages/Register') },
 
 
   // Post pages
   { path: '/videos', name:'Videos', redirect: { path: '/videos/first' }},
-  { path: '/videos/:id', component: () => import('@pages/Video') },
+  { path: '/videos/:id', 
+    component: () => import('@pages/Video') },
 
   { path: '/audio', name: 'Audio', redirect: { path: '/audio/first' }},
-  { path: '/audio/:id', component: () => import('@pages/Audio') },
+  { path: '/audio/:id', 
+    component: () => import('@pages/Audio') },
 
     // -> charts page
     
 
   // Fallback pages 
 
-  { path: '*', name: 'NotFound', component: () => import('@pages/NotFound') },
-
+  { path: '*', name: 'NotFound', 
+    component: () => import('@pages/NotFound') },
 
   // temp -> 
-  { path: '/inputs', name: 'inputs', component: () => import('@pages/Inputs') },
+  { path: '/inputs', name: 'inputs', 
+    component: () => import('@pages/Inputs') },
 ]
 
 const router = new VueRouter({

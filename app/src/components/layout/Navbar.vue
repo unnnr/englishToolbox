@@ -51,6 +51,7 @@ export default {
 				{ name: '/home#about', label: 'about me'},
 				{ name: '/videos', label: 'videos'},
 				{ name: '/audio', label: 'audio'},
+				{ name: '/recommendations', label: 'I recommend'},
 			]
 		}
 	},
