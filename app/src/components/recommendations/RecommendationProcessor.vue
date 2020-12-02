@@ -3,9 +3,7 @@
     class="i-recommend__card i-recommend__card--editor"
     secondary>
 
-    <div class="i-recommend__card-image i-recommend__card-image i-recommend__card-image--loaded">
-      <input type="file">
-    </div>
+    <recommendation-thumbnail/>
 
     <title-input 
       class="i-recommend__card-title-input"/>
@@ -23,6 +21,7 @@
 </template>
 
 <script>
+import RecommendationThumbnail from '@components/inputs/RecommendationThumbnail'
 import DescriptionInput from '@components/inputs/DescriptionInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import TitleInput from '@components/inputs/TitleInput'
@@ -31,6 +30,7 @@ import VForm from '@components/validation/VForm'
 
 export default {
   components: {
+    RecommendationThumbnail,
     DescriptionInput,
     ConfirmButton,
     TitleInput,
