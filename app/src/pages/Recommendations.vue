@@ -15,6 +15,7 @@
       <transition-group
         name="cards"
         tag="div"
+        class="i-recommend__wrapper"
         @before-leave="setAbsolute">
 
         <recommendation

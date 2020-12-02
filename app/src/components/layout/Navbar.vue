@@ -41,7 +41,7 @@ export default {
 
 	data() {
 		return {
-			appName: 'Etoolbox',
+			appName: 'EnglishNerd',
 			avatar: '#',
 
 			profileShown: false,

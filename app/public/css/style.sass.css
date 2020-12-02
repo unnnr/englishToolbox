@@ -4199,7 +4199,13 @@ button:active {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin: 0 auto;
+  margin: 75px auto;
+}
+
+.i-recommend__wrapper {
+  display: -ms-grid;
+  display: grid;
+  grid-row-gap: 30px;
 }
 
 .i-recommend__card {
