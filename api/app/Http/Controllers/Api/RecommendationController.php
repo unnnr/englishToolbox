@@ -64,6 +64,6 @@ class RecommendationController extends Controller
      */
     public function destroy(DeleteRecommendation $request, Recommendation $recommendation)
     {
-        return $this->service->destroy($recommendation);
+        return $this->service->delete($recommendation);
     }
 }

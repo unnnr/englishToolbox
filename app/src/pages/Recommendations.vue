@@ -3,15 +3,17 @@
 
       <h3 class="i-recommend__title heading-third">I recommend</h3>
 			
-      <recommendation-editor 
-        v-if="editingTarget"
-        :target="editingTarget"
-        @edited="updateEdited"/>
+      <transition name="fade" mode="out-in">
+        <recommendation-editor 
+          v-if="editingTarget"
+          :target="editingTarget"
+          @edited="updateEdited"/>
 
-      <recommendation-creator
-        v-else
-        @created="appendNew"/>
-
+        <recommendation-creator
+          v-else
+          @created="appendNew"/>
+      </transition>
+   
       <transition-group
         name="cards"
         tag="div"
@@ -120,6 +122,9 @@ export default {
     },
 
     async delete(instance) {
+      let id = instance.id;
+      await Recommendations.delete(id);
+      
       this.remove(instance);
     },
 

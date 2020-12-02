@@ -81,6 +81,8 @@ class RecommendationService
 
     public function delete(Recommendation $model)
     {
+        $this->deleteImage($model);
         
+        $model->delete();
     }
 }
