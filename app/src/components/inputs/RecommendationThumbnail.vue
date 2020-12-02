@@ -7,14 +7,15 @@
 
     <v-hidden 
       ref="input"
-
+      
       accept="image/png,image/jpeg,image/webp,image/gif"
       type="file"
 
       :validate="validate"
+      v-validate
+
       :submit="submit"
       :reset="reset"
-      v-validate
 
       @change.native="changeImage"/>
   </div>

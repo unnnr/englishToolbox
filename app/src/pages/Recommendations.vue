@@ -1,23 +1,36 @@
 <template>
-	 <main class="i-recommend container">
+	 <main
+    class="i-recommend container"
+    card="main"
+    name="cards">
+
       <h3 class="i-recommend__title heading-third">I recommend</h3>
 			
       <recommendation-editor 
-        v-if="editing"/>
+        v-if="editingTarget"
+        :target="editingTarget"
+        @edited="updateEdited"/>
 
       <recommendation-creator
         v-else
         @created="appendNew"/>
 
-			<recommendation
-				v-for="recommendation of recommendations"
-				:key="recommendation.id"
+      <transition-group
+        class="recommendations"
+        name="cards"
+        @before-leave="setAbsolute">
 
-        v-context:items="createContext(recommendation)"
-				:description="recommendation.description"
-				:image="recommendation.image"
-				:title="recommendation.title"
-				:link="recommendation.link"/>
+        <recommendation
+          v-for="recommendation of recommendations"
+          :key="recommendation.id"
+
+          v-context:items="createContext(recommendation)"
+          :description="recommendation.description"
+          :image="recommendation.image"
+          :title="recommendation.title"
+          :link="recommendation.link"/>
+
+      </transition-group>
 
   </main>
 </template>
@@ -40,7 +53,7 @@ export default {
       recommendations: [],
 
       canEdit: true,
-      editing: false,
+      editingTarget: null
     }
   },
 
@@ -53,6 +66,15 @@ export default {
   },
   
   methods: {
+    setAbsolute(card) {
+			Object.assign(card.style, {
+				position: 'absolute',
+				width: card.offsetWidth + 'px',
+				top: card.offsetTop + 'px',
+				left: card.offsetLeft + 'px'
+			})
+    },
+
     createContext(recommendation) {
       if (!!!this.canEdit)
         return;
@@ -70,8 +92,31 @@ export default {
       
     },
 
-    edit() {
-      
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth'});
+    },
+
+    updateEdited() {
+
+    },
+
+    remove(instace) {
+      let index = this.recommendations.indexOf(instace);
+      if (index === -1)
+        return;
+
+      this.recommendations.splice(index, 1);
+    },
+
+    edit(recommendation) {
+      this.scrollToTop();
+
+
+      if (this.editingTarget)
+        this.appendNew(this.editingTarget);
+
+      this.editingTarget = recommendation;
+      this.remove(this.editingTarget);
     },
 
     appendNew(instance) {
@@ -79,8 +124,29 @@ export default {
     },
 
     async load() {
-      this.recommendations = await Recommendations.all()
+      let recommendations = await Recommendations.all();
+
+      for (let item of recommendations)
+        this.$set(item, 'shown', true);
+
+      this.recommendations = recommendations;
     }
   }
 }
 </script>
+
+<style lang="sass">
+
+.recommendations
+  position: relative
+
+.cards-move 
+  transition: transform .4s ease-in-out
+
+.cards-enter-active, .cards-leave-active 
+  transition: opacity .5s !important
+
+.cards-enter, .cards-leave-to
+  opacity: 0 !important
+
+</style>
