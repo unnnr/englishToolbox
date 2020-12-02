@@ -5,18 +5,23 @@
     :request="request"
     secondary>
 
-    <recommendation-thumbnail/>
+    <recommendation-thumbnail
+      :default-value="image"
+      :optinal="editing"/>
 
     <title-input 
-      class="i-recommend__card-title-input"/>
+      class="i-recommend__card-title-input"
+      :default-value="title"/>
 
     <description-input 
       class="i-recommend__card-textarea"
+      :default-value="description"
       :autoGrow="false"
       required/>
 
     <link-input 
-      class="i-recommend__card-link-input"/>
+      class="i-recommend__card-link-input"
+      :default-value="link"/>
 
     <confirm-button
        class="i-recommend__card-button"/>
@@ -43,7 +48,31 @@ export default {
   },
 
   props: {
-    request: { type: Function, default: null }
+    request: { type: Function, default: null },
+
+    target: { type: Object, default: null },
+  },
+
+  computed: {
+    editing() {
+      return Boolean(this.target);
+    },
+
+    description() {
+      return this.target ? this.target.description : '';
+    },
+
+    title() {
+      return this.target ? this.target.title : '';
+    },
+
+    image() {
+      return this.target ? this.target.image : '';
+    },
+
+    link() {
+      return this.target ? this.target.link : '';
+    },
   },
 
   methods: {

@@ -14,6 +14,7 @@
       :validate="validate"
       v-validate
 
+      :has-changes="hasChanged"
       :submit="submit"
       :reset="reset"
 
@@ -65,11 +66,16 @@ export default {
     },
 
     loaded() {
-      return Boolean(this.preview);
+      return Boolean(this.preview || this.defaultValue);
     }
   },
 
   methods: {
+    hasChanged() {
+      console.log(12312);
+      return Boolean(this.file);
+    },
+    
     reset() {
       let input = this.$refs.input;
       if (!!!input)

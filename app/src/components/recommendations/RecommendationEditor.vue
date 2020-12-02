@@ -1,6 +1,7 @@
 <template>
   <recommendation-processor
-    :request="submit"/>
+    :request="submit"
+    :target="target"/>
 </template>
 
 <script>
@@ -9,6 +10,10 @@ import RecommendationProcessor from '@components/recommendations/RecommendationP
 export default {
   components: { 
     RecommendationProcessor
+  },
+
+  props: {
+    target: { type: Object, default: null },
   },
 
   methods: {
