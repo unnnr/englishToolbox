@@ -16,7 +16,9 @@ export default {
 
     secondary: { type: Boolean, default: false },
 
-    requirePassword: { type: Boolean, default: false }
+    requirePassword: { type: Boolean, default: false },
+
+    preventRedundant: { type: Boolean, default: true }
   },
 
   data() {
@@ -168,13 +170,17 @@ export default {
         });
       }
 
-      if (!!!this.validateInputs() || !!!this.request || !!!this.hasChanges())
+      if (!!!this.validateInputs() || !!!this.request)
+        return;
+
+      let hasChanges = this.hasChanges();
+      if (this.preventRedundant && !!!hasChanges)
         return;
 
       if (!!!this.requirePassword) {
         this.sendWith(() => {
           let data = this.collectData();
-          return this.request(data);
+          return this.request(data, hasChanges);
         });
 
         return;

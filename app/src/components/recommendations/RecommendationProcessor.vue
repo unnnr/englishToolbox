@@ -3,6 +3,7 @@
     class="i-recommend__card i-recommend__card--editor"
     ref="form"
     :request="request"
+    :prevent-redundant="!!!editing"
     secondary>
 
     <recommendation-thumbnail
