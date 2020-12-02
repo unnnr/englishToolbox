@@ -8,7 +8,7 @@ use App\Services\RecommendationService;
 use App\Http\Requests\Recommendation\CreateRecommendation;
 use App\Http\Requests\Recommendation\UpdateRecommendation;
 use App\Http\Requests\Recommendation\DeleteRecommendation;
-use App\Model\Recommendation;
+use App\Models\Recommendation;
 
 
 class RecommendationController extends Controller
@@ -53,7 +53,7 @@ class RecommendationController extends Controller
      */
     public function update(UpdateRecommendation $request, Recommendation $recommendation)
     {
-        return $this->service->update($request);
+        return $this->service->update($request, $recommendation);
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <require-email-overlay v-if="false"/>
+    <require-email-overlay v-if="true"/>
     
     <section class="profile container">
 

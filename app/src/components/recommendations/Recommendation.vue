@@ -13,7 +13,11 @@
       {{ description }}
     </p>
     
-    <a class="heading-sixth i-recommend__card-link" href="#">
+    <a 
+      class="heading-sixth i-recommend__card-link"
+      target="_blank"
+      :href="link">
+
       {{ link }}
     </a>
   </div>

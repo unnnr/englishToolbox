@@ -38,7 +38,7 @@ Route::group(['namespace' => 'Api'], function()
         ->only(['index']);
 
     Route::apiResource('recommendations', 'RecommendationController')
-        ->only(['index', 'store', 'destroy']);
+        ->only(['index','update', 'store', 'destroy']);
 
     Route::apiResource('bans', 'BanController')
         ->only(['index', 'store', 'destroy']);

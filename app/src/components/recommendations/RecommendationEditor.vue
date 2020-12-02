@@ -20,9 +20,11 @@ export default {
   methods: {
     async submit(data, hasChanges) {
       let target = this.target;
+      let id = target.id;
 
       if (hasChanges) 
-        taregt = await Recommendations.edit();
+        target = await Recommendations.edit(id, data);
+
 
       this.$emit('edited', target);
     }

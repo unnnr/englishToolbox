@@ -9,6 +9,20 @@ use App\Models\Recommendation;
 
 class RecommendationService
 {
+    private function storeImage(object $file)
+    {
+        $path = $file->store(Recommendation::STORAGE_PATH);
+
+        // Returning file name
+        return basename($path);
+    }
+
+    private function deleteImage(Recommendation $model) 
+    {
+        $path = Recommendation::STORAGE_PATH . '/' . $model->image;
+        Storage::delete($path);
+    }
+
     public function all()
     {
         $all = Recommendation::all();
@@ -19,18 +33,19 @@ class RecommendationService
 
     public function create(Request $request)
     { 
-        $path = $request
-            ->file('image')
-            ->store(Recommendation::STORAGE_PATH);
-        $image = basename($path);
-            
+        // Stroring image
+        $image = $request->file('image');
+        $fileName = $this->storeImage($image);
+        
+        // Retrieving default data
+        $description = $request->input('description');
         $title = $request->input('title');
         $link = $request->input('link');
-        $description = $request->input('description');
-
+        
+        // Creating instance
         $recommendation = Recommendation::create([
             'description' => $description,
-            'image' => $image,
+            'image' => $fileName,
             'title' => $title,
             'link' => $link,
         ]);
@@ -38,9 +53,30 @@ class RecommendationService
         return new RecommendationResource($recommendation);
     }
 
-    public function update(Recommendation $model)
+    public function update(Request $request, Recommendation $model)
     {
-       
+        if ($request->hasFile('image')) 
+        {
+            // Deleting previous image
+            $this->deleteImage($model);
+            
+            // Stroring new
+            $image = $request->file('image');
+            $model->image = $this->storeImage($image);
+        }
+
+        if ($request->has('description'))
+            $model->description = $request->input('description');
+
+        if ($request->has('title'))
+            $model->title = $request->input('title');
+
+        if ($request->has('link'))
+            $model->link = $request->input('link');
+
+        $model->save();
+
+        return new RecommendationResource($model);
     }
 
     public function delete(Recommendation $model)
