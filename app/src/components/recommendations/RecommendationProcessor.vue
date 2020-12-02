@@ -1,6 +1,7 @@
 <template>
   <v-form 
     class="i-recommend__card i-recommend__card--editor"
+    ref="form"
     :request="request"
     secondary>
 
@@ -43,6 +44,14 @@ export default {
 
   props: {
     request: { type: Function, default: null }
+  },
+
+  methods: {
+    reset() {
+      let form = this.$refs.form;
+      if (form)
+        form.reset();
+    }
   }
 }
 </script>

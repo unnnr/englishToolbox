@@ -13,6 +13,7 @@
 
       :validate="validate"
       :submit="submit"
+      :reset="reset"
       v-validate
 
       @change.native="changeImage"/>
@@ -68,6 +69,19 @@ export default {
   },
 
   methods: {
+    reset() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return;
+      
+      if (this.preview) { 
+        URL.revokeObjectURL(this.preview);
+        this.preview = '';
+      }
+    
+      input.$el.value = '';
+    },
+
     showPopup() {
       let input = this.$refs.input;
       if (input)

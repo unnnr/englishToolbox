@@ -17,8 +17,12 @@ class Recommendations extends Model
     ]
   }
 
+  async create() {
+    return { id: Math.random() * 100000, title: 'Some' +  Math.random() * 100000, description: 'Even more', link: 'than'};
+  }
+
   async edit(data) {
-    return { id: Math.random() * 100000, title: 'Some', description: 'Event more', link: 'than'};
+    return { id: Math.random() * 100000, title: 'Some', description: 'Even more', link: 'than'};
   }
 
   async delete() {

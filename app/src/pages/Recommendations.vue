@@ -6,7 +6,8 @@
         v-if="editing"/>
 
       <recommendation-creator
-        v-else/>
+        v-else
+        @created="appendNew"/>
 
 			<recommendation
 				v-for="recommendation of recommendations"
@@ -71,6 +72,10 @@ export default {
 
     edit() {
       
+    },
+
+    appendNew(instance) {
+      this.recommendations.push(instance);
     },
 
     async load() {

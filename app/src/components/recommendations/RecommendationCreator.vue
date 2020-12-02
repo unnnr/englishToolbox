@@ -1,5 +1,6 @@
 <template>
   <recommendation-processor
+    ref="processor"
     :request="submit"/>
 </template>
 
@@ -13,8 +14,16 @@ export default {
   },
 
   methods: {
-    submit(data) {
-      Recommendations
+    async submit(data) {
+      let created = 
+        await Recommendations.create(data);
+
+      this.$emit('created', created)
+
+
+      let processor = this.$refs.processor;
+      if (processor)
+        processor.reset();
     }
   }
 }

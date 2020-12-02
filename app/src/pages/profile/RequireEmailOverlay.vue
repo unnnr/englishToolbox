@@ -57,5 +57,3 @@ export default {
 	}
 }
 </script>
-
-		@click="() => {this.shown = false}"
