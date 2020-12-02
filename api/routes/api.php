@@ -32,10 +32,13 @@ Route::group(['namespace' => 'Api'], function()
 
     Route::apiResource('audio', 'AudioController');
 
-	Route::apiResource('tags', 'TagController');
+    Route::apiResource('tags', 'TagController');
     
     Route::apiResource('updates', 'UpdateController')
         ->only(['index']);
+
+    Route::apiResource('recommendations', 'RecommendationController')
+        ->only(['index', 'store', 'destroy']);
 
     Route::apiResource('bans', 'BanController')
         ->only(['index', 'store', 'destroy']);

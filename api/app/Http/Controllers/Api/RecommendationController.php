@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\RecommendationService;
-use App\Recommendation;
+use App\Http\Requests\Recommendation\CreateRecommendation;
+use App\Http\Requests\Recommendation\UpdateRecommendation;
+use App\Http\Requests\Recommendation\DeleteRecommendation;
+use App\Model\Recommendation;
 
 
 class RecommendationController extends Controller
@@ -13,8 +17,8 @@ class RecommendationController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')
-            ->only('store', 'update', 'destroy');
+/*         $this->middleware('auth:sanctum')
+            ->only('store', 'update', 'destroy'); */
 
         $this->service = new RecommendationService();
     }
@@ -26,7 +30,7 @@ class RecommendationController extends Controller
      */
     public function index()
     {
-        
+        return $this->service->all();
     }
 
     /**
@@ -35,9 +39,9 @@ class RecommendationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRecommendation $request)
     {
-        //
+        return $this->service->create($request);
     }
 
     /**
@@ -47,9 +51,9 @@ class RecommendationController extends Controller
      * @param  \App\Recommendation  $recommendation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recommendation $recommendation)
+    public function update(UpdateRecommendation $request, Recommendation $recommendation)
     {
-        //
+        return $this->service->update($request);
     }
 
     /**
@@ -58,8 +62,8 @@ class RecommendationController extends Controller
      * @param  \App\Recommendation  $recommendation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recommendation $recommendation)
+    public function destroy(DeleteRecommendation $request, Recommendation $recommendation)
     {
-        //
+        return $this->service->destroy($recommendation);
     }
 }

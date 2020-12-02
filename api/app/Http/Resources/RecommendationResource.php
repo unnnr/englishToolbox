@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TagResource; 
 
 class RecommendationResource extends JsonResource
 {
@@ -22,7 +21,7 @@ class RecommendationResource extends JsonResource
             
             'title' => $this->title,
             
-            'image' => $this->image,
+            'image' => $this->imageUrl,
 
             'description' => $this->description,
         ];
