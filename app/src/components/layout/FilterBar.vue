@@ -2,8 +2,67 @@
 	<section class="filter container">
 		<div class="filter__body">
 			
-			<div class="filter__search">
+			<div class="search">
 				<input type="text" placeholder="search">
+				<div class="search__dropdown">	
+					<div class="search__dropdown-content search__dropdown-content--active">
+						<div class="search__item">
+							<div class="search__item-image"></div>
+							<h6 class="search__item-title">K/DA - MORE ft. Madison Beer, (G)I-DLE, LeK/DA - MORE ft. Madison Beer, (G)I-DLE, Le...</h6>
+							<div class="search__item-tags">
+								<span class="search__item-tag tag--main">plum</span>
+								<span class="search__item-tag">pink</span>
+								<span class="search__item-tag">bisque</span>
+								<span class="search__item-tag">powderblue</span>
+								<span class="search__item-tag">paleturquoise</span>
+							</div>
+						</div>
+						<div class="search__item">
+							<div class="search__item-image"></div>
+							<h6 class="search__item-title">K/DA - MORE ft. Madison Beer, (G)I-DLE, LeK/DA - MORE ft. Madison Beer, (G)I-DLE, Le...</h6>
+							<div class="search__item-tags">
+								<span class="search__item-tag tag--main">plum</span>
+								<span class="search__item-tag">pink</span>
+								<span class="search__item-tag">bisque</span>
+								<span class="search__item-tag">powderblue</span>
+								<span class="search__item-tag">paleturquoise</span>
+							</div>
+						</div>
+						<div class="search__item">
+							<div class="search__item-image"></div>
+							<h6 class="search__item-title">K/DA - MORE ft. Madison Beer, (G)I-DLE, LeK/DA - MORE ft. Madison Beer, (G)I-DLE, Le...</h6>
+							<div class="search__item-tags">
+								<span class="search__item-tag tag--main">plum</span>
+								<span class="search__item-tag">pink</span>
+								<span class="search__item-tag">bisque</span>
+								<span class="search__item-tag">powderblue</span>
+								<span class="search__item-tag">paleturquoise</span>
+							</div>
+						</div>
+						<div class="search__item">
+							<div class="search__item-image"></div>
+							<h6 class="search__item-title">K/DA - MORE ft. Madison Beer, (G)I-DLE, LeK/DA - MORE ft. Madison Beer, (G)I-DLE, Le...</h6>
+							<div class="search__item-tags">
+								<span class="search__item-tag tag--main">plum</span>
+								<span class="search__item-tag">pink</span>
+								<span class="search__item-tag">bisque</span>
+								<span class="search__item-tag">powderblue</span>
+								<span class="search__item-tag">paleturquoise</span>
+							</div>
+						</div>
+						<div class="search__item">
+							<div class="search__item-image"></div>
+							<h6 class="search__item-title">K/DA - MORE ft. Madison Beer, (G)I-DLE, LeK/DA - MORE ft. Madison Beer, (G)I-DLE, Le...</h6>
+							<div class="search__item-tags">
+								<span class="search__item-tag tag--main">plum</span>
+								<span class="search__item-tag">pink</span>
+								<span class="search__item-tag">bisque</span>
+								<span class="search__item-tag">powderblue</span>
+								<span class="search__item-tag">paleturquoise</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<button 
