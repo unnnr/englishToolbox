@@ -11,7 +11,8 @@
 
     <description-input 
       class="i-recommend__card-textarea"
-      :autoGrow="false"/>
+      :autoGrow="false"
+      required/>
 
     <link-input 
       class="i-recommend__card-link-input"/>

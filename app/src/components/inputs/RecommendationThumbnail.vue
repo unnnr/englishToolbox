@@ -21,6 +21,7 @@
 
 <script>
 import VHidden from '@components/validation/VHidden'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -82,7 +83,14 @@ export default {
     },
 
     validate() {
-      return this.optinal || this.file;
+      let validated = this.optinal || this.file;
+    
+      if (!!!validated)
+        bus.dispatch('alert-error', { 
+          message: 'Please select an image' 
+        });
+
+      return validated;
     },
 
     submit(data) {

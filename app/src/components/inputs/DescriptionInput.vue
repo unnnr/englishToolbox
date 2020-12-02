@@ -28,9 +28,9 @@ export default {
 
     required: { type: Boolean, default: false },
 
-    disabled: { type: Boolean },
+    autoGrow: { type: Boolean, type: true },
 
-    autoGrow: { type: Boolean },
+    disabled: { type: Boolean },
   },
 
   computed: {

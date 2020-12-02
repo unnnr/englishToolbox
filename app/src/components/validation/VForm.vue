@@ -59,14 +59,14 @@ export default {
     },
 
     validateInputs() {
-      let allAreValid = true;
+      let allValid = true;
 
       for (let input of this.inputs) {
         if (typeof input.validate === 'function' && !!!input.validate())
-          allAreValid = false;
+          allValid = false;
       }
 
-      return allAreValid;
+      return allValid;
     },
 
     TEMP_showData(data) {
