@@ -1,37 +1,41 @@
 <template>
-  <div class="i-recommend__card i-recommend__card--editor">
+  <v-form 
+    class="i-recommend__card i-recommend__card--editor"
+    secondary>
+
     <div class="i-recommend__card-image i-recommend__card-image i-recommend__card-image--loaded">
       <input type="file">
     </div>
 
-    <div class="input-group-secondary i-recommend__card-title-input">
-      <div class="input-group__inner">
-        <span class="input-group__title">Your title</span>
-        <input placeholder="title" class="input-group__input">
-      </div>
-    </div>
+    <title-input 
+      class="i-recommend__card-title-input"/>
 
-    <div class="textarea-group-secondary i-recommend__card-textarea">
-      <span class="textarea-group__title">
-        Text
-        <small class="textarea-group__counter">0/180</small>
-      </span>
-      <textarea maxlength="180" class="textarea-group__textarea"></textarea>
-    </div>
-    
-    <div class="input-group-secondary i-recommend__card-link-input">
-      <div class="input-group__inner">
-        <span class="input-group__title">Your link</span>
-        <input placeholder="link" class="input-group__input">
-      </div>
-    </div>
+    <description-input 
+      class="i-recommend__card-textarea"/>
 
-    <button class="i-recommend__card-button button-secondary">Confirm</button>
-  </div>
+    <link-input 
+      class="i-recommend__card-link-input"/>
+
+    <confirm-button
+       class="i-recommend__card-button"/>
+
+    </v-form>
 </template>
 
 <script>
+import DescriptionInput from '@components/inputs/DescriptionInput'
+import ConfirmButton from '@components/buttons/ConfirmButton'
+import TitleInput from '@components/inputs/TitleInput'
+import LinkInput from '@components/inputs/LinkInput'
+import VForm from '@components/validation/VForm'
+
 export default {
-  
+  components: {
+    DescriptionInput,
+    ConfirmButton,
+    TitleInput,
+    LinkInput,
+    VForm
+  },
 }
 </script>

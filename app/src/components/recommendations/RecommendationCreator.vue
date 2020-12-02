@@ -9,5 +9,11 @@ export default {
   components: { 
     RecommendationProcessor
   },
+
+  methods: {
+    request() {
+      
+    }
+  }
 }
 </script>
