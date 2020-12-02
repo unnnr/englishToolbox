@@ -5,6 +5,7 @@
 
     :disabled="disabled"
     :optional="optional"
+    :autoGrow="autoGrow"
     
     :label="label"
     :max="180"
@@ -20,7 +21,7 @@ export default {
 
   props: {
     defaultValue: { type: String, default: '' },
-
+    
     label: { type: String, default: 'Post description' },
 
     name: { type: String, default: 'description'},
@@ -28,6 +29,8 @@ export default {
     required: { type: Boolean, default: false },
 
     disabled: { type: Boolean },
+
+    autoGrow: { type: Boolean },
   },
 
   computed: {

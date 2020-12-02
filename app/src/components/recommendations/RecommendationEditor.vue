@@ -1,5 +1,6 @@
 <template>
-  <recommendation-processor/>
+  <recommendation-processor
+    :request="submit"/>
 </template>
 
 <script>
@@ -9,5 +10,11 @@ export default {
   components: { 
     RecommendationProcessor
   },
+
+  methods: {
+    submit(data) {
+
+    }
+  }
 }
 </script>

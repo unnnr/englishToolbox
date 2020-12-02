@@ -1,6 +1,7 @@
 <template>
   <v-form 
     class="i-recommend__card i-recommend__card--editor"
+    :request="request"
     secondary>
 
     <recommendation-thumbnail/>
@@ -9,7 +10,8 @@
       class="i-recommend__card-title-input"/>
 
     <description-input 
-      class="i-recommend__card-textarea"/>
+      class="i-recommend__card-textarea"
+      :autoGrow="false"/>
 
     <link-input 
       class="i-recommend__card-link-input"/>
@@ -37,5 +39,9 @@ export default {
     LinkInput,
     VForm
   },
+
+  props: {
+    request: { type: Function, default: null }
+  }
 }
 </script>

@@ -12,6 +12,7 @@
       type="file"
 
       :validate="validate"
+      :submit="submit"
       v-validate
 
       @change.native="changeImage"/>
@@ -76,19 +77,16 @@ export default {
       if (this.preview)
         URL.revokeObjectURL(this.preview);
 
-      console.log(this.preview, this.file.size);
       this.preview =
         URL.createObjectURL(this.file);
-      console.log(this.preview);
-      
     },
 
     validate() {
-      return this.optinal || this.preview;
+      return this.optinal || this.file;
     },
 
     submit(data) {
-      if (this.optinal && !!!this.preview)
+      if (this.optinal && !!!this.file)
         return;
 
       data.append('image', this.file);

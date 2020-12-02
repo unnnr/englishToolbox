@@ -2,9 +2,11 @@
 	 <main class="i-recommend container">
       <h3 class="i-recommend__title heading-third">I recommend</h3>
 			
-      <recommendation-editor/>
+      <recommendation-editor 
+        v-if="editing"/>
 
-      <recommendation-creator/>
+      <recommendation-creator
+        v-else/>
 
 			<recommendation
 				v-for="recommendation of recommendations"
@@ -23,6 +25,7 @@
 import RecommendationCreator from '@components/recommendations/RecommendationCreator'
 import RecommendationEditor from '@components/recommendations/RecommendationEditor'
 import Recommendation from '@components/recommendations/Recommendation'
+import Recommendations from '@models/Recommendations'
 
 export default {
 	components: {
@@ -33,9 +36,19 @@ export default {
 
 	data() {
 		return {
-			recommendations: [{id: 12, image:'http://etoolbox/storage/avatars/default_OK89ORldpriXJ1P4JMAN5THZ4ANZpVjvItnUAPDJ.svg', title: 'adasdjalsd', description: 'adasdjalsd', link: 'adasdjalsd'}],
+      recommendations: [],
+
       canEdit: true,
+      editing: false,
     }
+  },
+
+  computed: {
+    
+  },
+
+  mounted() {
+    this.load();
   },
   
   methods: {
@@ -59,6 +72,10 @@ export default {
     edit() {
       
     },
+
+    async load() {
+      this.recommendations = await Recommendations.all()
+    }
   }
 }
 </script>

@@ -51,6 +51,10 @@ import HandleTextValidation from '@mixins/HandleTextValidation'
 export default {
   mixins: [ HandleTextValidation ],
 
+  props: {
+    autoGrow: { type: Boolean, default: true },
+  },
+
   data() {
     return {
       counting: true,
@@ -60,12 +64,25 @@ export default {
     }
   },
 
-  mounted() {
-    this.onInput();
+  watch: {
+    autoGrow(value) {
+      if (value)
+        this.onInput();
+      else
+        this.height = '';
+    },
   },
-  
+
+  mounted() {
+    if (this.autoGrow)
+      this.onInput();
+  },
+
   methods: {
     async onInput() {
+      if (!!!this.autoGrow)
+        return;
+
       let textarea = this.$refs.input;
 
       textarea.style.height = 'auto';
