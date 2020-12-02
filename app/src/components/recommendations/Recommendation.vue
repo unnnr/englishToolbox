@@ -2,7 +2,7 @@
   <div class="i-recommend__card">
     <div 
       class="i-recommend__card-image"
-      :style="{'bacground-image': imageUrl}">
+      :style="{'background-image': imageUrl}">
     </div>
 
     <h5 class="heading-fifth i-recommend__card-title">
@@ -33,7 +33,7 @@ export default {
 
   computed: {
     imageUrl() {
-      return 'ulr(' + this.image + ')';
+      return 'url(' + this.image + ')';
     }
   }
 }
