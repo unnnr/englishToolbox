@@ -1,8 +1,5 @@
 <template>
-	 <main
-    class="i-recommend container"
-    card="main"
-    name="cards">
+	 <main class="i-recommend container">
 
       <h3 class="i-recommend__title heading-third">I recommend</h3>
 			
@@ -16,8 +13,8 @@
         @created="appendNew"/>
 
       <transition-group
-        class="recommendations"
         name="cards"
+        tag="div"
         @before-leave="setAbsolute">
 
         <recommendation
@@ -88,16 +85,8 @@ export default {
       });
     },
 
-    delete() {
-      
-    },
-
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth'});
-    },
-
-    updateEdited() {
-
     },
 
     remove(instace) {
@@ -111,7 +100,6 @@ export default {
     edit(recommendation) {
       this.scrollToTop();
 
-
       if (this.editingTarget)
         this.appendNew(this.editingTarget);
 
@@ -119,8 +107,16 @@ export default {
       this.remove(this.editingTarget);
     },
 
+    updateEdited() {
+      
+    },
+
     appendNew(instance) {
       this.recommendations.push(instance);
+    },
+
+    async delete(instance) {
+      this.remove(instance);
     },
 
     async load() {
