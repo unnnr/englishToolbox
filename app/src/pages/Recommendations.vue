@@ -19,7 +19,7 @@
         @before-leave="setAbsolute">
 
         <recommendation
-          v-for="recommendation of recommendations"
+          v-for="recommendation of reversed"
           :key="recommendation.id"
 
           v-context:items="createContext(recommendation)"
@@ -56,7 +56,9 @@ export default {
   },
 
   computed: {
-    
+    reversed() {
+      return [...this.recommendations].reverse();
+    }
   },
 
   mounted() {
@@ -108,8 +110,9 @@ export default {
       this.remove(this.editingTarget);
     },
 
-    updateEdited() {
-      
+    updateEdited(target) {
+      this.appendNew(target);
+      this.editingTarget = null;
     },
 
     appendNew(instance) {

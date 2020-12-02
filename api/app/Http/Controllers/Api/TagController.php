@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\CreateTag;
 use App\Http\Requests\Tag\UpdateTag;
-use App\Http\Requests;
 use App\Services\TagService;
 use App\Models\Tag;
 
