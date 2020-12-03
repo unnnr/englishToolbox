@@ -8,8 +8,11 @@
 
 			<swiper
 				ref="swiper"
+				:key="resolution"
+				
 				:cleanup-styles-on-destroy="false"
 				:options="swiperOptions"
+
 				:style="{
 					'width': '100%',
 					'background-color': 'none'}">
@@ -51,6 +54,7 @@
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import Resolution from '@services/Resolution'
 
 // components
 import EmptyCard from '@components/cards_new/EmptyCard'
@@ -71,6 +75,8 @@ export default {
 
 	data() {
 		return {
+			resolution: 'typo',
+
 			updates: [],
 
 			typesMap: {
@@ -88,7 +94,7 @@ export default {
 				} */
 			}
 		}
-	},  
+	},
 
 	computed: {
 		loading() {
@@ -102,9 +108,33 @@ export default {
 
 	beforeMount() {
 		this.load();
+
+		Resolution.bind(this.updateSwiper);
 	},
 
 	methods: {
+		updateSwiper(mobile, tablet, desktop) {
+			console.log(mobile, tablet, desktop);
+
+			if (mobile) {
+				this.swiperOptions.slidesPerView = 1;
+				this.resolution = 'mobile';
+				return;
+			}
+
+			if (tablet) {
+				this.swiperOptions.slidesPerView = 2;
+				this.resolution = 'tablet';
+				return;
+			}
+
+			if (desktop) {
+				this.swiperOptions.slidesPerView = 4;
+				this.resolution = 'desktop';
+				return;
+			}
+		},
+
 		goTo(update) {
 			let type = this.typesMap[update.postType];
 			let id = update.postId;

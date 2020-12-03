@@ -16,25 +16,35 @@ class Resolution {
 		
 		window.addEventListener('resize', throttled);
 
-
+		this.check();
 	}
 
 	check() {
-		if (this.__type !== 'mobile' && window.innerWidth <= this.__mobileBoundary) {
-			this.__type = 'mobile';
-			this.onChange();
+
+		if (window.innerWidth <= this.__mobileBoundary) {
+			if (this.__type !== 'mobile') {
+				this.__type = 'mobile';
+				this.onChange();
+			}
+
+			return
+		}
+		
+		if (window.innerWidth <= this.__tabletBoundary) {
+			if (this.__type !== 'tablet') {
+				this.__type = 'tablet';
+				this.onChange();
+			}
+
 			return;
 		}
 
-		if (this.__type !== 'tablet' && window.innerWidth <= this.__tabletBoundary) {
-			this.__type = 'tablet';
-			this.onChange();
-			return;
-		}
-
-		if (this.__type !== 'desktop' && window.innerWidth > this.__tabletBoundary) {
-			this.__type = 'desktop';
-			this.onChange();
+		if (window.innerWidth > this.__tabletBoundary) {
+			if (this.__type !== 'desktop') {
+				this.__type = 'desktop';
+				this.onChange();
+			}
+			
 			return;
 		}
 	}
@@ -44,18 +54,17 @@ class Resolution {
 		let mobile = this.isMobile();		
 		let tablet = this.isTablet();
 
+
 		for (let callback of this.__listeners)
 			callback(mobile, tablet, desktop);
 	}
 
 	bind(callback) {
 		this.listen(callback)
-		
-		let desktop = this.isDesktop();		
-		let mobile = this.isMobile();		
-		let tablet = this.isTablet();
 
-		callback(mobile, tablet, desktop);
+		callback(this.isMobile(),
+						this.isTablet(),
+						this.isDesktop());
 	}
 
 	listen(callback) {
