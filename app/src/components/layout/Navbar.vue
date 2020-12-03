@@ -66,8 +66,7 @@ export default {
 		Auth.check().then(this.authChanged);
 		Auth.onChange(this.authChanged);
 
-		this.mobile = Resolution.isMobile();
-		Resolution.listen(this.resolutionChanged);
+		Resolution.bind(this.resolutionChanged);
 
 		this.listen({ 'avatar-changed': image => 
 			this.avatar = image
@@ -79,8 +78,8 @@ export default {
 	},
 
 	methods: {
-		resolutionChanged(mobile) {
-			this.mobile = mobile;
+		resolutionChanged(mobile, tablet, desktop) {
+			this.mobile = !!!desktop;
 		},
 
 		async authChanged(authenticated) {

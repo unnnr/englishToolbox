@@ -43,9 +43,7 @@ export default {
   },
 
   mounted() {
-    this.mobile = Resolution.isMobile();
-
-    Resolution.listen(this.check);
+    Resolution.bind(this.check);
   },
 
 	beforeDestroy() {
@@ -53,8 +51,8 @@ export default {
 	},
 
   methods: {
-    check(mobile) {
-      this.mobile = mobile;
+    check(mobile, tablet, desktop) {
+      this.mobile = !!!desktop;
     }
   }
 }

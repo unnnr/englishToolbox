@@ -124,7 +124,7 @@ export default {
     async delete(instance) {
       let id = instance.id;
       await Recommendations.delete(id);
-      
+
       this.remove(instance);
     },
 

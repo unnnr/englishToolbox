@@ -2,11 +2,13 @@ import { throttle } from 'throttle-debounce';
 
 class Resolution {
 	
-	__mobile = null;
+	__type = null;
 
 	__listeners = [];
 
-	__boundary = 1200;
+	__mobileBoundary = 770;
+
+	__tabletBoundary = 1200;	
 
 	constructor() {
 		const DELAY = 200;
@@ -14,23 +16,46 @@ class Resolution {
 		
 		window.addEventListener('resize', throttled);
 
-		this.__mobile = 
-			window.innerWidth <= this.__boundary;
+
 	}
 
 	check() {
-		if (this.__mobile && window.innerWidth > this.__boundary)
-			this.onChange(false)
+		if (this.__type !== 'mobile' && window.innerWidth <= this.__mobileBoundary) {
+			this.__type = 'mobile';
+			this.onChange();
+			return;
+		}
 
-		else if (!!!this.__mobile && window.innerWidth <= this.__boundary)
-			this.onChange(true)
+		if (this.__type !== 'tablet' && window.innerWidth <= this.__tabletBoundary) {
+			this.__type = 'tablet';
+			this.onChange();
+			return;
+		}
+
+		if (this.__type !== 'desktop' && window.innerWidth > this.__tabletBoundary) {
+			this.__type = 'desktop';
+			this.onChange();
+			return;
+		}
 	}
 
-	onChange(isMobile) {
-		this.__mobile = isMobile;
-		
+	onChange() {
+		let desktop = this.isDesktop();		
+		let mobile = this.isMobile();		
+		let tablet = this.isTablet();
+
 		for (let callback of this.__listeners)
-			callback(isMobile);
+			callback(mobile, tablet, desktop);
+	}
+
+	bind(callback) {
+		this.listen(callback)
+		
+		let desktop = this.isDesktop();		
+		let mobile = this.isMobile();		
+		let tablet = this.isTablet();
+
+		callback(mobile, tablet, desktop);
 	}
 
 	listen(callback) {
@@ -51,11 +76,15 @@ class Resolution {
 	}
 
 	isMobile() {
-		return  this.__mobile;
+		return  this.__type === 'mobile';
+	}
+
+	isTablet() {
+		return  this.__type === 'tablet';
 	}
 
 	isDesktop() {
-		return  !!!this.__mobile;
+		return  this.__type === 'desktop';
 	}
 }
 
