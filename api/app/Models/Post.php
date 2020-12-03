@@ -20,4 +20,10 @@ abstract class Post extends Model
         HasComments,
         HasThumbnail,
         FavoritablePost;
+
+    function toSearchableArray() {
+        return [
+            'title' => $this->title
+        ];
+    }
 }

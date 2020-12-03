@@ -20,8 +20,9 @@
 
 <script>
 
-import Vue from 'vue';
 import vClickOutside from 'v-click-outside'
+import Vue from 'vue';
+
 import ValidationLinker from '@plugins/ValidationLinker'
 import Context from '@plugins/ContextMenu'
 import ToolTip from '@plugins/ToolTip'
@@ -33,8 +34,8 @@ import Alert from '@components/popups/Alert'
 
 import bus from '@services/eventbus';
 
-Vue.use(vClickOutside);
 Vue.use(ValidationLinker);
+Vue.use(vClickOutside);
 Vue.use(Context);
 Vue.use(ToolTip);
 

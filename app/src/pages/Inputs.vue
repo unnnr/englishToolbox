@@ -23,6 +23,12 @@
 </template>
 
 <script>
+
+
+import algoliasearch from 'algoliasearch/lite'
+import 'instantsearch.css/themes/algolia-min.css'
+
+
 function * range(value) {
   for (let i = 0; i < value; i++) 
     yield i;
@@ -33,7 +39,13 @@ export default {
     return {
       currentColor: '',
       count: 1000,
-      colors: []
+      colors: [],
+
+
+			searchClient: algoliasearch(
+        'B1G2GM9NG0',
+        'aadef574be1f9252bb48d4ea09b5cfe5'
+      ),
     }
   },
 

@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-private-methods": "^7.10.4",
+    "algoliasearch": "^4.8.3",
     "core-js": "^3.6.5",
     "eslint-plugin-class-property": "^1.1.0",
     "faker": "^5.1.0",
     "get-youtube-id": "^1.0.1",
+    "instantsearch.js": "^4.9.0",
     "js-cookie": "^2.2.1",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
