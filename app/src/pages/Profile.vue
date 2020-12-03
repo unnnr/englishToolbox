@@ -1,6 +1,6 @@
 <template>
   <main>
-    <require-email-overlay v-if="true"/>
+    <email-overlay v-if="true"/>
     
     <section class="profile container">
 
@@ -17,21 +17,21 @@
 </template>
 
 <script>
-import RequireEmailOverlay from '@pages/profile/RequireEmailOverlay';
 import ProfileComments from '@pages/profile/ProfileComments'
 import ProfileEditor from '@pages/profile/ProfileEditor'
 import ReviewsEditor from '@pages/profile/ReviewsEditor'
 import FavoritesList from '@pages/profile/FavoritesList'
+import EmailOverlay from '@pages/profile/EmailOverlay';
 import BannedUsers from '@pages/profile/BannedUsers'
 
 export default {
   components: {
-    RequireEmailOverlay,
     ProfileComments, 
     ProfileEditor,
-    ReviewsEditor, 
-    BannedUsers,
     FavoritesList,
+    ReviewsEditor, 
+    EmailOverlay,
+    BannedUsers,
   }
 }
 </script>

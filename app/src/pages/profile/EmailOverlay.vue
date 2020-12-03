@@ -1,15 +1,13 @@
 <template>
 	<section 
 		class="register-overlay"
-		v-if="shown"
-		>
+		v-if="shown">
 
 		<div class="register-overlay__body">
 			<object
-			class="register-overlay__image"
-			type="image/svg+xml"
-			:data="imageUrl">
-
+				class="register-overlay__image"
+				type="image/svg+xml"
+				:data="imageUrl">
 			</object>
 			
 			<p class="register-overlay__hint register-overlay__hint--error text-fourth">
@@ -39,7 +37,7 @@ export default {
 
 	data() {
 		return {
-				shown: true
+			shown: true
 		}
 	},
 
