@@ -3,6 +3,7 @@
     <h2 class="reviews__title heading-second">Student reviews</h2>
     <swiper 
       class="reviews__swiper"
+			:key="resolution"
 			:cleanup-styles-on-destroy="false"
       :options="swiperOptions">
 
@@ -41,6 +42,7 @@ import Auth from '@services/Auth'
 import bus from '@services/eventbus'
 
 // mixins
+import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 import HandleRequests from '@mixins/HandleRequests'
 
 // components
@@ -57,12 +59,14 @@ export default {
     Swiper,
   },
 
-  mixins: [ HandleRequests ],
+  mixins: [ 
+    HandleDynamicSlides,
+    HandleRequests
+  ],
 
   data() {
     return {
       swiperOptions:{
-        slidesPerView: 'auto',
         spaceBetween: 30
       },
 

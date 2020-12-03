@@ -9,14 +9,8 @@
 			<swiper
 				ref="swiper"
 				:key="resolution"
-				
 				:cleanup-styles-on-destroy="false"
-				:options="swiperOptions"
-
-				:style="{
-					'width': '100%',
-					'background-color': 'none'}">
-
+				:options="swiperOptions">
 
 				<swiper-slide
 					v-for="index in loadingCards"
@@ -54,7 +48,9 @@
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
-import Resolution from '@services/Resolution'
+
+// mixins
+import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 
 // components
 import EmptyCard from '@components/cards_new/EmptyCard'
@@ -73,10 +69,10 @@ export default {
 		Card
 	},
 
+	mixins: [ HandleDynamicSlides ],
+
 	data() {
 		return {
-			resolution: 'typo',
-
 			updates: [],
 
 			typesMap: {
@@ -108,33 +104,9 @@ export default {
 
 	beforeMount() {
 		this.load();
-
-		Resolution.bind(this.updateSwiper);
 	},
 
 	methods: {
-		updateSwiper(mobile, tablet, desktop) {
-			console.log(mobile, tablet, desktop);
-
-			if (mobile) {
-				this.swiperOptions.slidesPerView = 1;
-				this.resolution = 'mobile';
-				return;
-			}
-
-			if (tablet) {
-				this.swiperOptions.slidesPerView = 2;
-				this.resolution = 'tablet';
-				return;
-			}
-
-			if (desktop) {
-				this.swiperOptions.slidesPerView = 4;
-				this.resolution = 'desktop';
-				return;
-			}
-		},
-
 		goTo(update) {
 			let type = this.typesMap[update.postType];
 			let id = update.postId;

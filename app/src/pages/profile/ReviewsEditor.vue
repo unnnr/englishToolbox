@@ -3,6 +3,7 @@
     <h3 class="banned__title heading-third">Reviews manage</h3>
     <swiper
       class="reviews-management__body"
+			:key="resolution"
 			:cleanup-styles-on-destroy="false"
 			:options="swiperOptions">
   
@@ -33,6 +34,7 @@ import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import Reviews from '@models/Reviews'
 
 // mixins
+import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 import HandleRequests from '@mixins/HandleRequests'
 
 // components
@@ -48,7 +50,10 @@ export default {
     Swiper,
   },
 
-  mixins: [ HandleRequests ],
+  mixins: [ 
+    HandleDynamicSlides,
+    HandleRequests
+  ],
   
   data() {
     return {
