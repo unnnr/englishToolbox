@@ -186,10 +186,22 @@ class Auth
         return response;
     }
 
+    async verifyEmail(data) {
+        let response = await Http.post({
+            data, uri: 'profile/verify'
+        });
+        
+        this.user.target.__user.verified = true;
+
+        return response;
+    }
+
     async check() 
     {
         return Boolean(await this.user.get());
     }
 }
 
-export default new Auth();
+window.Auth = new Auth();
+
+export default window.Auth;
