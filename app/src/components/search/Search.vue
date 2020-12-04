@@ -9,7 +9,15 @@
 				<div class="search__dropdown">	
 					<div class="search__dropdown-content search__dropdown-content--active">
 						
-            <search-hit/>
+            <search-hit
+              v-for="hit of hits"
+              :key="hit.objectID"
+
+              :thumbnail="hit.thumbnail"
+              :title="hit.title"
+
+              :main-tag="hit.mainTag"
+              :tags="hit.tags"/>
 					
 					</div>
 				</div>
@@ -30,7 +38,11 @@ export default {
   data() {
     return {
       query: '',
+
    
+      hits: [],
+
+      // JSON.parse(`[{"thumbnail":"https://img.youtube.com/vi/5qap5aO4i9A/sddefault.jpg","title":"lofi hip hop radio - beats to relax/study to","mainTag":{"id":2,"label":"paleturquoise","color":"paleturquoise","default":null},"tags":[],"objectID":"10","_highlightResult":{"thumbnail":{"value":"https://img.youtube.com/vi/5qap5aO4i9A/sddefault.jpg","matchLevel":"none","matchedWords":[]},"title":{"value":"<em>lofi</em> hip hop radio - beats to relax/study to","matchLevel":"full","fullyHighlighted":false,"matchedWords":["lofi"]},"mainTag":{"id":{"value":"2","matchLevel":"none","matchedWords":[]},"label":{"value":"paleturquoise","matchLevel":"none","matchedWords":[]},"color":{"value":"paleturquoise","matchLevel":"none","matchedWords":[]}}}}]`),
       
       // searchClient: algoliasearch(
       //   'latency',
@@ -59,6 +71,8 @@ export default {
       searchClient: this.searchClient,
     });
 
+    
+
     search.addWidgets([{
       init(opts) {
          self.preparedRequest = () => 
@@ -75,7 +89,7 @@ export default {
     search.start();
     
     // Initiating input callback
-    const DELAY = 400;
+    const DELAY = 500;
 
     this.throttledInput = 
       throttle(DELAY, this.onInput)
@@ -92,7 +106,7 @@ export default {
     },
 
     parseRespose(response) {
-      console.log(response.hits)
+      this.hits = response.hits;
     },
 
     onInput() {
