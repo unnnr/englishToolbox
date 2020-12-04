@@ -127,7 +127,8 @@ export default {
 
       bus.dispatch('preview-changed', {
         audio: ulrObject
-      });    },
+      });   
+    },
 
     async submit(data) {
       if (!!!this.request)

@@ -8,15 +8,15 @@
       :creator-has-changes="creatorHasChanges">
 
       <template #creator>
-        <audio-creator ref="creator"/>
+        <chart-creator ref="creator"/>
       </template>
 
       <template #editor>
-        <audio-editor ref="editor"/>
+        <chart-editor ref="editor"/>
       </template>
 
       <template #player>
-        <audio-player/>
+        <chart-player/>
       </template>
 
     </post-selected>
@@ -35,9 +35,9 @@ import HandlePost from'@mixins/HandlePost'
 
 // coponents
 import PostSelected from '@components/posts/PostSelected'
-import AudioCreator from '@pages/audio/AudioCreator'
-import AudioPlayer from '@pages/audio/AudioPlayer'
-import AudioEditor from '@pages/audio/AudioEditor'
+import ChartCreator from '@pages/chart/ChartCreator'
+import ChartPlayer from '@pages/chart/ChartPlayer'
+import ChartEditor from '@pages/chart/ChartEditor'
 import FilterBar from '@components/layout/FilterBar'
 import PostsPool from '@components/posts/PostsPool'
 
@@ -45,9 +45,9 @@ import PostsPool from '@components/posts/PostsPool'
 export default {
   components: {
     PostSelected,
-    AudioCreator,
-    AudioPlayer,
-    AudioEditor,
+    ChartCreator,
+    ChartPlayer,
+    ChartEditor,
     FilterBar,
     PostsPool
   },

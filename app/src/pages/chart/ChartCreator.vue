@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ChartProcessor from '@pages/audio/ChartProcessor'
+import ChartProcessor from '@pages/chart/ChartProcessor'
 import Charts from '@models/Charts'
 import bus from '@services/eventbus'
 

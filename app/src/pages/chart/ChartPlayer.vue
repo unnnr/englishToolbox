@@ -27,8 +27,7 @@ export default {
 
   data() {
     return {
-      overlay: 'img/svg/overlay-audios.svg',
-
+      overlay: '/img/svg/overlay-charts.svg',
       preview: null
     }
   },
@@ -65,7 +64,7 @@ export default {
 
   mounted() {
     this.listen({'preview-changed':
-      preview => this.preview = preview });
+      event => this.preview = event.preview });
   },
 }
 </script>
