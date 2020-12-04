@@ -19,12 +19,7 @@
 					Your code is invalid, please try again:
 				</p>
 
-				<div class="register-overlay__input-group">
-					<input class="register-overlay__input" maxlength="1" placeholder="-">
-					<input class="register-overlay__input" maxlength="1" placeholder="-">
-					<input class="register-overlay__input" maxlength="1" placeholder="-">
-					<input class="register-overlay__input" maxlength="1" placeholder="-">
-				</div>
+				<code-input/>
 
 				<button class="register-overlay__confirm-button button-secondary" disabled>confirm</button>
 			</div>
@@ -35,10 +30,15 @@
 
 <script>
 import HandleScrollLock from '@mixins/HandleScrollLock'
+import CodeInput from '@components/inputs/CodeInput'
 import Auth from  '@services/Auth';
 
 export default {
-	mixins: [ HandleScrollLock],
+	components: {
+		CodeInput
+	},
+
+	mixins: [ HandleScrollLock ],
 
 	data() {
 		return {
@@ -62,6 +62,8 @@ export default {
 			handler(value) {
 				if (value)
 					this.lockScroll();
+				else
+					this.unlockScroll();
 			},
 
 			immediate: true
