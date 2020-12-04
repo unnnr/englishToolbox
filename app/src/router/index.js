@@ -26,6 +26,11 @@ const routes = [
 
 
   // Post pages
+  
+  { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},
+  { path: '/charts/:id', 
+    component: () => import('@pages/Chart') },
+    
   { path: '/videos', name:'Videos', redirect: { path: '/videos/first' }},
   { path: '/videos/:id', 
     component: () => import('@pages/Video') },
@@ -33,9 +38,6 @@ const routes = [
   { path: '/audio', name: 'Audio', redirect: { path: '/audio/first' }},
   { path: '/audio/:id', 
     component: () => import('@pages/Audio') },
-
-    // -> charts page
-    
 
   // Fallback pages 
 
