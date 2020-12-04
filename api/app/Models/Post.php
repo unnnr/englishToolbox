@@ -35,9 +35,20 @@ abstract class Post extends Model
 
             'title' => $this->title,
 
+            'type' => $this->type,
+
             'mainTag' => new \App\Http\Resources\TagResource($this->mainTag),
             
             'tags' => \App\Http\Resources\TagResource::collection($this->tags),
         ];
+    }
+
+    public function getTypeAttribute() 
+    {
+        $type = $this->favoritable_type;
+
+        $shorten = substr(strrchr($type, '\\'), 1);
+
+        return lcfirst($shorten);
     }
 }
