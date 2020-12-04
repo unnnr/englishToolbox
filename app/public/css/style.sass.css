@@ -2320,6 +2320,10 @@ button:active {
   justify-items: center;
 }
 
+.reviews .swiper-container {
+  width: 100%;
+}
+
 .reviews__title {
   margin-bottom: 75px;
 }
