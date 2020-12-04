@@ -4261,6 +4261,9 @@ button:active {
   padding-bottom: 100%;
   border-radius: 10px;
   background-color: #a1a1b1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 770px) {
@@ -4325,9 +4328,6 @@ button:active {
   background-color: #fff;
   border: 2px #dadaea dashed;
   cursor: pointer;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .i-recommend__card--editor .i-recommend__card-image input {
