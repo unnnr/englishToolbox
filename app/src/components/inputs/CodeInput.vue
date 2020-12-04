@@ -1,18 +1,19 @@
 <template>
-  <div class="register-overlay__input-group">
+  <div 
+    class="register-overlay__input-group">
+
 		<input 
       v-for="key in keys"
       :key="key.ref"
 
       class="register-overlay__input"
-      ref="inputs"
       v-model="key.value"
+      ref="inputs"
       
       maxlength="1" 
       placeholder="-"
       
       @keydown.prevent.stop="event => onKeyDown(key, event)"
-      @input="event => onInput(key, event)"
       @focus="focus.bind(key)"
       @blur="focus.bind(key)"
       @copy="copy">
@@ -135,22 +136,34 @@ export default {
       input.focus();
     },
 
+    input(key, char) {
+      this.$set(key, 'value', char);
+      this.$emit('input', this.code);
+    },
+
+
     confirm() {
-      if (this.code.length !== this.keysCount)
-        this.$emit('confirmed', this.code);
+      if (this.code.length === this.keysCount)
+        this.$emit('confirme', this.code);
     },
 
     onKeyDown(key, event) {
       // Filtering numbers
       if (event.keyCode >= 48 && event.keyCode <= 59) {
-        this.$set(key, 'value', event.key);
+        this.input(key, event.key)
         this.focusNext(key);
         return;
       }
 
       // Filtering removing chars
-      if (event.key === 'Backspace' || event.key === 'Delete') {
-        this.$set(key, 'value', '');
+      if (event.key === 'Backspace') {
+        this.input(key, '')
+        this.focusePrevios(key);
+        return;
+      }
+
+      if (event.key === 'Delete') {
+        this.input(key, '')
         this.focusePrevios(key);
         return;
       }
@@ -192,11 +205,7 @@ export default {
 
     onBlur(key) {
       this.$set(key, 'focused', false);
-    },
-
-    onInput(key, event) {
-      this.$emit('input', 123);
-    },
+    }
   }
 }
 </script>

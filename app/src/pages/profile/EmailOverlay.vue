@@ -19,9 +19,18 @@
 					Your code is invalid, please try again:
 				</p>
 
-				<code-input/>
+				<code-input
+					v-model="entry"
+					@confirme="request"/>
 
-				<button class="register-overlay__confirm-button button-secondary" disabled>confirm</button>
+				<button 
+					class="register-overlay__confirm-button button-secondary" 
+					:disabled="loading"
+					@click.prevent="request">
+					
+					confirm
+				</button>
+
 			</div>
 		</transition>
 
@@ -30,6 +39,7 @@
 
 <script>
 import HandleScrollLock from '@mixins/HandleScrollLock'
+import HandleRequests from '@mixins/HandleRequests'
 import CodeInput from '@components/inputs/CodeInput'
 import Auth from  '@services/Auth';
 
@@ -38,12 +48,16 @@ export default {
 		CodeInput
 	},
 
-	mixins: [ HandleScrollLock ],
+	mixins: [ 
+		HandleScrollLock,
+		HandleRequests
+	],
 
 	data() {
 		return {
 			loaded: false,
 			verified: false,
+			entry: '',
 		}
 	},
 
@@ -79,11 +93,28 @@ export default {
 	},
 
 	methods: {
+		request() {
+			console.log(this.entry);
+			if (this.entry.length < 4)
+				return;
+
+			this.send(this.verify.bind(this));
+		},	
+
 		async load() {
 			let user = await Auth.user.get();
 
 			this.verified = user.verified;
 			this.loaded = true;
+		},
+
+
+		async verify() {
+			let data = new FormData();
+			data.append('code', this.entry);
+
+			await Auth.verifyEmail(data);
+			this.verified = true;
 		}
 	}
 }
