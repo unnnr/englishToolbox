@@ -66,7 +66,7 @@ export default {
 
   data() {
     return {
-      reviews: [{} ,{} ,{}],
+      reviews: [],
 
       canUpload: false,
       canDelete: true,
@@ -109,7 +109,7 @@ export default {
     },
 
     async load() {
-      // this.reviews = await Reviews.verified();
+      this.reviews = await Reviews.verified();
     },
 
     async deleteReview(id) {

@@ -1,28 +1,31 @@
 <template>
   <div class="reviews-management container">
     <h3 class="banned__title heading-third">Reviews manage</h3>
-    <swiper
-      class="reviews-management__body"
-			:key="resolution"
-			:cleanup-styles-on-destroy="false"
-			:options="swiperOptions">
-  
-      <swiper-slide 
-        v-for="{id, user, grade, text, title} in reviews"
-        :key="id"
-        class="reviews__swiper-slide">
-        
-        <pending-review 
-          :text="text"
-          :user="user"
-          :title="title"
-          :grade="grade"
-          :disabled="loading"
-          @accept="onAccept(id)"
-          @decline="onDecline(id)"/>
+    <div class="reviews-management__body">
 
-      </swiper-slide>
-    </swiper>
+      <swiper
+        :key="resolution"
+        :cleanup-styles-on-destroy="false"
+        :options="swiperOptions">
+    
+        <swiper-slide 
+          v-for="{id, user, grade, text, title} in reviews"
+          :key="id"
+          class="reviews__swiper-slide">
+          
+          <pending-review 
+            :text="text"
+            :user="user"
+            :title="title"
+            :grade="grade"
+            :disabled="loading"
+            @accept="onAccept(id)"
+            @decline="onDecline(id)"/>
+
+        </swiper-slide>
+      </swiper>
+
+    </div>
   </div>
 </template>
 
@@ -62,7 +65,7 @@ export default {
 				grabCursor: true,
       },
 
-      reviews: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
+      reviews: []
     }
   },
 
@@ -105,7 +108,7 @@ export default {
     },
 
     async load() {
-      // this.reviews = await Reviews.pending();
+      this.reviews = await Reviews.pending();
     },
   }
 }
