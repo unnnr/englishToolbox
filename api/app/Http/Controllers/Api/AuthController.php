@@ -17,7 +17,8 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only('logout');
+        $this->middleware('auth:sanctum')
+            ->only(['logout', 'verifyEmail']);
     }
     
     public function register(AuthService $service, RegisterUser $request)

@@ -14,9 +14,9 @@
 					:data="imageUrl">
 				</object>
 				
-				<p class="register-overlay__hint register-overlay__hint--error text-fourth">
-					<!-- Enter your code here:  -->
-					Your code is invalid, please try again:
+				<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
+					Enter your code here: 
+					<!-- 	Your code is invalid, please try again: -->
 				</p>
 
 				<code-input
@@ -55,9 +55,9 @@ export default {
 
 	data() {
 		return {
-			loaded: false,
-			verified: false,
 			entry: '',
+			verified: false,
+			loaded: false,
 		}
 	},
 

@@ -46,6 +46,14 @@ export default {
           let key = string[index];
           this.$set(this.keys[index], 'value', key);
         }
+
+        this.$emit('input', this.code);
+        if (this.code.length == this.keysCount && !!!this.$options.completed) {
+          this.$options.completed = true;
+          this.confirm();
+        }
+
+        return;
       },
 
       get() {
@@ -76,12 +84,12 @@ export default {
     }
 
     window.addEventListener('paste', this.paste);
-    window.addEventListener('keydown', this.focus);
+    // window.addEventListener('keydown', this.focus);
   },
 
   beforeDestroy() {
     window.removeEventListener('paste', this.paste);
-    window.removeEventListener('keydown', this.focus);
+    // window.removeEventListener('keydown', this.focus);
   },
 
   data() {
@@ -148,6 +156,7 @@ export default {
     },
 
     onKeyDown(key, event) {
+      console.log(key);
       // Filtering numbers
       if (event.keyCode >= 48 && event.keyCode <= 59) {
         this.input(key, event.key)
@@ -164,7 +173,6 @@ export default {
 
       if (event.key === 'Delete') {
         this.input(key, '')
-        this.focusePrevios(key);
         return;
       }
 
@@ -190,8 +198,10 @@ export default {
     paste(event) {
       let value = 
         event.clipboardData.getData('text').trim();
+      console.log(value);
 
       this.code = value;
+      
     },
 
     copy(event) {
@@ -200,7 +210,7 @@ export default {
     },
 
     onFocus(key) {
-      this.$set(key, 'focused', false);
+      this.$set(key, 'focused', true);
     },
 
     onBlur(key) {

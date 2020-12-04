@@ -38,7 +38,7 @@ class VerificationService
                     : redirect('profile');     
     }
 
-    public const MAX_ATTEMPTS = 10;
+    public const MAX_ATTEMPTS = 100;
 
     private function generateKey(int $digitsCount = 4) 
     {
@@ -73,8 +73,8 @@ class VerificationService
         if ($verification->attempts >= self:: MAX_ATTEMPTS)
             abort(Response::BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
-        $input = $request->input('code');
-        if ($input === $verification->key)
+        $input = (int)$request->input('code');
+        if ($input !== $verification->key)
         {
             $verification->attempts++;
             $verification->save();

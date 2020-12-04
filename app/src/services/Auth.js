@@ -188,7 +188,7 @@ class Auth
 
     async verifyEmail(data) {
         let response = await Http.post({
-            data, uri: 'profile/verify'
+            data, uri: 'verify'
         });
         
         this.user.target.__user.verified = true;
