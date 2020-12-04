@@ -14,7 +14,7 @@ class UpdateVideo extends UpdatePost
      */
     public function rules()
     {
-        // Defualt post rules
+        // Default post rules
         $post = parent::rules();
 
         // Only video rules

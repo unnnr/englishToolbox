@@ -13,7 +13,7 @@ class UpdateAudio extends UpdatePost
      */
     public function rules()
     {
-        // Defualt post rules
+        // Default post rules
         $post = parent::rules();
 
         // Only audio rules
