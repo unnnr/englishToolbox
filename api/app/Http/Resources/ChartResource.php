@@ -19,7 +19,7 @@ class ChartResource extends PostResource
 	
 		// Cahrt data
 		$chart = [
-		    'image' => $this->image,
+		    'image' => $this->imageUrl,
 		];
 
         return array_merge($post, $chart);

@@ -24,7 +24,7 @@ class ChartService extends PostService
     protected function getThumbnailUrl(Chart $chart, Request $request) 
     {
         return $this->storeThumbnail(
-            $request->file('imageFile'),
+            $request->file('image'),
             $chart->image,
             $chart);
     }
@@ -40,14 +40,14 @@ class ChartService extends PostService
         
         $title =  $request->input('title'); 
         
-        return Audio::create([
+        return Chart::create([
             'title' => $title,
             'description' => $description,
             'image' => $imageFileName,
         ]);
     }
 
-    protected function updating(Request $request, Audio $chart)
+    protected function updating(Request $request, Chart $chart)
     {   
         if ($request->has('image'))
         {

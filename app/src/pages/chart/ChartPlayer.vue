@@ -64,7 +64,7 @@ export default {
 
   mounted() {
     this.listen({'preview-changed':
-      event => this.preview = event.preview });
+      event => this.preview = event.image });
   },
 }
 </script>
