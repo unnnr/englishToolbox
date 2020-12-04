@@ -1,12 +1,15 @@
 <template>
   	<div class="search">
-				<input ref="inut" type="text" placeholder="search">
+				<input 
+          v-model="query"
+          type="text"
+          placeholder="search"
+          @input="throttledInput">
 
 				<div class="search__dropdown">	
 					<div class="search__dropdown-content search__dropdown-content--active">
 						
             <search-hit/>
-
 					
 					</div>
 				</div>
@@ -14,9 +17,10 @@
 </template>
 
 <script>
+import instantsearch from 'instantsearch.js'
 import algoliasearch from 'algoliasearch/lite'
-import instantsearch from 'instantsearch.js';
 import SearchHit from '@components/search/SearchHit'
+import { throttle } from 'throttle-debounce';
 
 export default {
   components: {
@@ -25,52 +29,69 @@ export default {
 
   data() {
     return {
+      query: '',
+
       searchClient: algoliasearch(
-      'latency',
-      '6be0576ff61c053d5f9a3225e2a90f76'
-      )
+        'latency',
+        '6be0576ff61c053d5f9a3225e2a90f76'
+      ),
+
+      // Throttled onInput event
+      throttledInput: null,
+
+      // Callback initiated by instantsearch
+      preparedRequest: null,
     }
   },
 
   mounted() {
     const self = this;
 
+    // Initiating search instance
     const search = instantsearch({
       indexName: 'instant_search',
       searchClient: this.searchClient,
     });
 
-    search.addWidgets([ {
+    search.addWidgets([{
       init(opts) {
-        let helper = opts.helper;
-        let input = self.$refs.input;
-        if (!!!input)
-          return;
-
-        input.addEventListener('input', ({currentTarget}) => {
-          helper.setQuery(currentTarget.value) // update the parameters
-                .search(); // launch the query
-        });
+         self.preparedRequest = 
+          self.request.bind(opts.helper)
       }
     }]);
 
-     search.addWidgets([{
+    search.addWidgets([{
       render(options) {
-        const results = options.results;
-        // read the hits from the results and transform them into HTML.
-
-        console.log(results);
-
-        return;
-        document.querySelector('#hits').innerHTML = results.hits
-          .map(
-            hit => `<p>${instantsearch.highlight({ attribute: 'title', hit })}</p>`
-          )
-          .join('');
-      },
+        self.parseRespose(options);
+      }
     }]);
 
     // search.start();
+    
+    // Initiating input callback
+    const DELAY = 400;
+
+    this.throttledInput = 
+      throttle(DELAY, this.onInput)
+  },
+
+  methods: {
+    request(helper) {
+      helper
+        .setQuery(this.query)
+        .search();
+    },
+
+    parseRespose(respose) {
+
+    },
+
+    onInput() {
+      console.log(23);
+      let callback = this.preparedRequest;
+      if (typeof callback === 'function')
+        callback();
+    },
   }
 }
 </script>
