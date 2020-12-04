@@ -74,6 +74,10 @@ export default {
 		this.load();
 	},
 
+	beforeDestroy() {
+		this.unlockScroll();
+	},
+
 	methods: {
 		async load() {
 			let user = await Auth.user.get();

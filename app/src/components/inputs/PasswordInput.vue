@@ -28,7 +28,7 @@ export default {
   },
 
   props: {
-    label: { type: String, default: 'Your passowrd' },
+    label: { type: String, default: 'Your password' },
     
     name: { type: String, default: 'password' },
 

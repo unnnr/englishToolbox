@@ -5,13 +5,14 @@
       :key="key.ref"
 
       class="register-overlay__input"
-      :ref="key.ref"
+      ref="inputs"
       v-model="key.value"
       
       maxlength="1" 
       placeholder="-"
       
-      @input="event => onInput(index, key)"
+      @keydown.prevent.stop="event => onKeyDown(key, event)"
+      @input="event => onInput(key, event)"
       @focus="focus.bind(key)"
       @blur="focus.bind(key)"
       @copy="copy">
@@ -68,7 +69,6 @@ export default {
   mounted() {
     for (let i = 0; i < this.keysCount; i++) {
        this.keys.push({ 
-          ref: this.inputName(i),
           value: '',
           focused: false,
       });
@@ -91,39 +91,97 @@ export default {
   },
 
   methods: {
-    some(index) {
-      console.log(index)
-      return '' + index;
-    },
-
-    inputName(index) {
-      return 'input_' + index;
-    },
-
-
     focus() {
+      if (this.focused)
+        return;
+
       for (let key of this.keys) {
-        
         if (key.value !== '')
           continue;
         
-        let input = this.$refs[key.ref];
-        console.log(input);
+        let index = this.keys.indexOf(key);
+        let input = this.$refs.inputs[index];
+
         input.focus();
+        return;
+      }
+    },
+
+    focusNext(key) {
+      let index = this.keys.indexOf(key);
+      let input = this.$refs.inputs[index + 1];
+
+      // This way you can only fire once
+      if (!!!input) {
+        if (!!!this.$options.completed) {  
+          this.$options.completed = true;
+          this.confirm();
+        }
+
+        return;
+      }
+
+      input.focus();
+    },
+
+    focusePrevios(key) {
+      let index = this.keys.indexOf(key);
+      let input = this.$refs.inputs[index - 1];
+
+
+      if (!!!input)
+        return;
+
+      input.focus();
+    },
+
+    confirm() {
+      if (this.code.length !== this.keysCount)
+        this.$emit('confirmed', this.code);
+    },
+
+    onKeyDown(key, event) {
+      // Filtering numbers
+      if (event.keyCode >= 48 && event.keyCode <= 59) {
+        this.$set(key, 'value', event.key);
+        this.focusNext(key);
+        return;
+      }
+
+      // Filtering removing chars
+      if (event.key === 'Backspace' || event.key === 'Delete') {
+        this.$set(key, 'value', '');
+        this.focusePrevios(key);
+        return;
+      }
+
+      // Filtering confirm chars
+      if (event.key === 'Enter') {
+        this.confirm();
+        return;
+      }
+
+      // Filtering arrows
+      if (event.key === 'ArrowRight') {
+        this.focusNext(key);
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        this.focusePrevios(key);
         return;
       }
     },
 
 
     paste(event) {
-      let value = event.clipboardData.getData('text').trim();
+      let value = 
+        event.clipboardData.getData('text').trim();
 
       this.code = value;
     },
 
     copy(event) {
-      console.log(123, this.code);
-
       event.clipboardData.setData('text/plain', this.code);
       event.preventDefault();
     },
@@ -137,8 +195,6 @@ export default {
     },
 
     onInput(key, event) {
-      console.log(event);
-
       this.$emit('input', 123);
     },
   }
