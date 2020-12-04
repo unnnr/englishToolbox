@@ -2324,12 +2324,6 @@ button:active {
   margin-bottom: 75px;
 }
 
-.reviews__swiper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .reviews__card {
   background: #fff;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
@@ -2343,8 +2337,6 @@ button:active {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-preferred-size: 25%;
-      flex-basis: 25%;
 }
 
 .reviews__card-photo {
@@ -3068,6 +3060,7 @@ button:active {
   border-radius: 15px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  min-height: 200px;
 }
 
 .banned__comment {
@@ -3095,6 +3088,7 @@ button:active {
   border-radius: 15px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  min-height: 400px;
 }
 
 .reviews-management__card {
@@ -3105,7 +3099,6 @@ button:active {
   grid-row-gap: 30px;
   grid-column-gap: 7.5px;
       grid-template-areas: "review review" "accept decline";
-  width: 25%;
 }
 
 .reviews-management__card .reviews__card {
