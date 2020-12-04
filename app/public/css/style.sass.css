@@ -288,6 +288,14 @@ body {
   }
 }
 
+.feed {
+  margin-bottom: 50px;
+}
+
+.feed__title {
+  margin-bottom: 30px;
+}
+
 .root {
   min-height: 100vh;
   display: -ms-grid;
@@ -526,7 +534,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   position: fixed;
-  z-index: 50;
+  z-index: 80;
   top: 0;
   left: 0;
   background: #fff;
@@ -641,7 +649,7 @@ body {
 
 .navbar-mobile__overlay {
   position: fixed;
-  z-index: 40;
+  z-index: 79;
   top: 0;
   left: 0;
   opacity: 1;
@@ -801,7 +809,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  z-index: 50;
+  z-index: 90;
   -webkit-backdrop-filter: saturate(180%) blur(10px);
           backdrop-filter: saturate(180%) blur(10px);
 }
@@ -1547,7 +1555,7 @@ button:active {
   position: absolute;
   background: rgba(18, 18, 18, 0.9);
   border-radius: 5px;
-  z-index: 40;
+  z-index: 100;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1584,7 +1592,7 @@ button:active {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  z-index: 20;
+  z-index: 100;
   position: absolute;
   padding: 10px 15px;
   border-radius: 5px;
@@ -2616,7 +2624,7 @@ button:active {
   background: rgba(250, 250, 250, 0.7);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
           backdrop-filter: saturate(180%) blur(10px);
-  z-index: 30;
+  z-index: 20;
 }
 
 .register-overlay__body {
@@ -3222,7 +3230,7 @@ button:active {
 }
 
 .search:before {
-  z-index: 10;
+  z-index: 30;
   font-family: "material icons round";
   content: "search";
   margin-right: 5px;
@@ -3231,7 +3239,7 @@ button:active {
 }
 
 .search input {
-  z-index: 10;
+  z-index: 30;
   width: 100%;
   font-weight: 500;
   color: #2f2e44;
@@ -3255,8 +3263,9 @@ button:active {
 }
 
 .search__dropdown {
+  overflow: hidden;
   position: absolute;
-  z-index: 9;
+  z-index: 29;
   left: 0;
   top: 0;
   padding-top: 35px;
@@ -3272,7 +3281,7 @@ button:active {
 }
 
 .search__dropdown-content {
-  z-index: 9;
+  z-index: 29;
   max-height: 0;
   overflow: overlay;
   -webkit-transition: height .4s ease-in-out, max-height .4s ease-in-out;
@@ -3424,7 +3433,7 @@ button:active {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 40;
+  z-index: 20;
 }
 
 .selected__overlay-body {
@@ -3451,7 +3460,7 @@ button:active {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
   border-radius: 15px;
   background-color: #fff;
   background-position: center;
@@ -4119,7 +4128,7 @@ button:active {
 
 .profile-popup {
   position: absolute;
-  z-index: 20;
+  z-index: 50;
   display: -ms-grid;
   display: grid;
   grid-gap: 5px 15px;

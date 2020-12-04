@@ -61,7 +61,7 @@
   border-radius: $border-radius-secondary
 
   &:before
-    z-index: $z-first
+    z-index: $z-third
     font-family: "material icons round"
     content: "search" 
     margin-right: 5px
@@ -69,7 +69,7 @@
     color: $color-semigray
 
   input
-    z-index: $z-first
+    z-index: $z-third
     width: 100%
     font-weight: $medium
     color: $color-dark
@@ -78,8 +78,9 @@
       color: $color-semigray
 
 .search__dropdown
+  overflow: hidden
   position: absolute
-  z-index: $z-first - 1
+  z-index: $z-third - 1
   left: 0
   top: 0
   padding-top: 35px
@@ -91,7 +92,7 @@
   border-radius: $border-radius-secondary
 
 .search__dropdown-content
-  z-index: $z-first - 1
+  z-index: $z-third - 1
   max-height: 0
   overflow: overlay
   @include scroll-body
