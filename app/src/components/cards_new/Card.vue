@@ -64,7 +64,7 @@ export default {
 
     mainTag: { type: Object, default: null },
 
-    context: { type: Function, defualt: null },
+    context: { type: Function, default: null },
 
     favorite: { type: Boolean, default: false },
 

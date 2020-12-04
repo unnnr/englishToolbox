@@ -14,7 +14,7 @@ class CreateVideo extends CreatePost
      */
     public function rules()
     {
-        // Defualt post rules
+        // Default post rules
         $post = parent::rules();
 
         // Only video rules

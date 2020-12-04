@@ -72,7 +72,7 @@ abstract class PostService
         {
             $post->update(['views' => $post->views + 1]);
 
-            $post->views()
+            $post->viewList()
                 ->create([ 'user_id' => null]);
         }
         else  

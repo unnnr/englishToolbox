@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Notifications\VerifyEmail;
+use App\Notifications\VerifyEmailNotification;
 use App\Models\Traits\HasFavoritePosts;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -43,7 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail());
+        $this->notify(new VerifyEmailNotification());
     }
 
     public function comments()
@@ -101,4 +101,16 @@ class User extends Authenticatable implements MustVerifyEmail
     	$this->attributes['password'] = bcrypt($value);
     }
 
+
+    public function getEmailVerificationAttribute() 
+    {
+        return $this->hasMany(VerificationCode::class)
+            ->where('type', 'email')
+            ->first();
+    }
+
+    public function verificationCodes() 
+    {
+        return $this->hasMany(VerificationCode::class);
+    }
 }

@@ -14,22 +14,11 @@
         :focusOnMount="!!!editing"
         :default-value="title"/>
 
-      <description-input 
-        :default-value="description"/>
-
       <h6 class="editor__tag-title heading-sixth">Upload files</h6>
 
-      <div class="editor__upload-inputs">
-        <audio-input
-          :name="'audioFile'"
-          :optional="editing" 
-          @change="updateAudio"/>
-
-        <image-input 
-          :name="'imageFile'"
+       <image-input 
           :optional="editing"
           @change="udpateImage"/>
-      </div>
 
       <tags-editor/>
     </div>
@@ -51,34 +40,26 @@ import bus from '@services/eventbus'
 import HandlePostProcessing from '@mixins/HandlePostProcessing'
 
 //components
-import DescriptionInput from '@components/inputs/DescriptionInput'
 import ConfirmButton from '@components/buttons/ConfirmButton'
 import DeleteButton from '@components/buttons/DeleteButton'
 import TitleInput from '@components/inputs/TitleInput'
 import ImageInput from '@components/inputs/ImageInput'
-import AudioInput from '@components/inputs/AudioInput'
 import TagsEditor from '@components/tags/TagsEditor'
 import VForm from '@components/validation/VForm'
 
 export default {
    components: {
-    DescriptionInput,
     ConfirmButton,
     DeleteButton,
     TagsEditor,
     TitleInput,
     ImageInput,
-    AudioInput,
     VForm
   },
 
   mixins: [ HandlePostProcessing ],
 
   computed: {
-    description() {
-      return this.withDefault ? this.target.description : '';
-    },
-
     title() {
       return this.withDefault ? this.target.title : '';
     }
@@ -90,15 +71,11 @@ export default {
 
   methods: {
     clearPreview() {
-      if (this.$options.audio)
-        URL.revokeObjectURL(this.$options.audio)
-
       if (this.$options.image)
         URL.revokeObjectURL(this.$options.image)
 
       bus.dispatch('preview-changed', {
         image: null,
-        audio: null,
       });
     },
 
@@ -115,21 +92,6 @@ export default {
       bus.dispatch('preview-changed', {
         image: ulrObject
       });
-    },
-
-    updateAudio(audio) {
-     // Removing saved image
-      if (this.$options.audio)
-        URL.revokeObjectURL(this.$options.audio)
-
-      let ulrObject  = URL.createObjectURL(audio);
-
-      // Saving for revoking in futurne
-      this.$options.audio = ulrObject;
-
-      bus.dispatch('preview-changed', {
-        audio: ulrObject
-      });   
     },
 
     async submit(data) {

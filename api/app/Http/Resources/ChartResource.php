@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Http\Resources\PostResource; 
 
-class AudioResource extends PostResource
+class ChartResource extends PostResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,11 @@ class AudioResource extends PostResource
 		// Default post data
 		$post = parent::toArray($request);
 	
-		// Audio data
-		$audio = [
-		    'audio' => $this->audio,
-		    'image' =>  $this->image,
+		// Cahrt data
+		$chart = [
+		    'image' => $this->imageUrl,
 		];
 
-        return array_merge($post, $audio);
+        return array_merge($post, $chart);
     }
 }

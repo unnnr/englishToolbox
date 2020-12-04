@@ -11,6 +11,8 @@ use App\Models\Traits\HasViews;
 use App\Models\Traits\HasTags;
 use Laravel\Scout\Searchable;
 
+use Illuminate\Support\Facades\Log;
+
 abstract class Post extends Model
 {
     use HasTags, 
@@ -20,4 +22,33 @@ abstract class Post extends Model
         HasComments,
         HasThumbnail,
         FavoritablePost;
+
+    public function searchableAs()
+    {
+        return 'posts';
+    }
+
+    function toSearchableArray() {
+
+        return [
+            'thumbnail' => $this->thumbnail->url,
+
+            'title' => $this->title,
+
+            'type' => $this->type,
+
+            'mainTag' => new \App\Http\Resources\TagResource($this->mainTag),
+            
+            'tags' => \App\Http\Resources\TagResource::collection($this->tags),
+        ];
+    }
+
+    public function getTypeAttribute() 
+    {
+        $type = $this->favoritable_type;
+
+        $shorten = substr(strrchr($type, '\\'), 1);
+
+        return lcfirst($shorten);
+    }
 }

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Video;
+namespace App\Http\Requests\Chart;
 
-use Alaouy\Youtube\Rules\ValidYoutubeVideo;
 use App\Http\Requests\Post\UpdatePost;
 
-class UpdateVideo extends UpdatePost
+class UpdateChart extends UpdatePost
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,11 +16,12 @@ class UpdateVideo extends UpdatePost
         // Default post rules
         $post = parent::rules();
 
-        // Only video rules
-        $video = [
-            'videoUrl' => ['string',  new ValidYoutubeVideo]
+        // Only chart rules
+        $chart = [
+            'image' => 'max:10240|file|mimes:png,jpeg,gif',
+            'title' => 'string|max:50',
         ];
 
-        return array_merge($post, $video);
+        return array_merge($post, $chart);
     }
 }

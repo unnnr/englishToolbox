@@ -5,8 +5,7 @@ class Audio extends PostModel
 {
     path = 'audio'
     
-    type = 'video'
-    
+    type = 'audio'
 }
 
 export default new Audio();  

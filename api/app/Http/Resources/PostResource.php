@@ -31,7 +31,7 @@ class PostResource extends JsonResource
             'views' => $this->views,
 
             // Tags
-            'mainTag' => new TagResource($this->mainTag()),
+            'mainTag' => new TagResource($this->mainTag),
 
             'tags' => TagResource::collection($this->tags)
         ];

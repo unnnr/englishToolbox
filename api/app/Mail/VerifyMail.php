@@ -2,11 +2,13 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Str;
 use App\Services\Auth\VerificationService;
+
 
 class VerifyMail extends Mailable
 {
@@ -32,10 +34,11 @@ class VerifyMail extends Mailable
     {
         $email = $this->user->email;
         $name = $this->user->name;
-        $url = app(VerificationService::class)->verificationUrl($this->user);
+
+        $key = $this->user->emailVerification->key;
+        $code = Str::padLeft($key, 4, '0');
 
         return $this->view('mail.verifyEmail')
-            ->to($email, $name)
-            ->with([ 'url' => $url]);
+            ->to($email, $name)->with(['code' => $code]);
     }
 }

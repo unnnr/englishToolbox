@@ -14,11 +14,6 @@ class TagSeeder extends Seeder
     public function run()
     {
         Tag::create([
-            'label' => 'pink',
-            'color' => 'pink' 
-        ]);
-            
-        Tag::create([
             'label' => 'paleturquoise',
             'color' => 'paleturquoise' 
         ]);
@@ -50,14 +45,19 @@ class TagSeeder extends Seeder
 
         Tag::create([
             'label' => 'video',
-            'color' => 'lightblue',
+            'color' => 'cornflowerblue',
             'default' => true
         ]);
-
 
         Tag::create([
             'label' => 'audio',
             'color' => 'plum',
+            'default' => true
+        ]);
+
+        Tag::create([
+            'label' => 'chart',
+            'color' => 'cadetblue',
             'default' => true
         ]);
     }

@@ -214,7 +214,6 @@ export default {
     },
 
     toggleBlur() {
-      console.log(123);
       this.blurred = !!!this.blurred;
     },
 

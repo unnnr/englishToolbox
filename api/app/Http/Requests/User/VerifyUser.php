@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Schema;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateSchema extends FormRequest
+class UpdateUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class CreateSchema extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
-            'image' => 'required|image|max:20480'
+            'code' => 'required|string|integer',
         ];
     }
 }

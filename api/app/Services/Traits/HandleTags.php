@@ -59,7 +59,7 @@ trait HandleTags
 
     private function updateMainTag(Model $post, ?int $newTagID)
     {
-        $previous = $post->mainTag();
+        $previous = $post->mainTag;
       
         if ($previous->id === $newTagID)
             return;

@@ -4,8 +4,9 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Auth\VerificationService;
 
-class SendEmailVerificationNotification
+class SendVerificationCode
 {
     /**
      * Create the event listener.
@@ -25,6 +26,11 @@ class SendEmailVerificationNotification
      */
     public function handle($event)
     {
-        $event->user->sendEmailVerificationNotification();
+        $user = $event->user;
+
+        $service = app(VerificationService::class);
+        $service->createCode($user);
+        
+        $user->sendEmailVerificationNotification();
     }
 }
