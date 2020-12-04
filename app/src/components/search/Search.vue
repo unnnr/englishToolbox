@@ -2,12 +2,19 @@
   	<div class="search">
 				<input 
           v-model="query"
-          type="text"
+          autocapitalize="none"
+          autocomplete="off"
+          autocorrect="off"
           placeholder="search"
-          @input="throttledInput">
+          spellcheck="false" 
+          @input="throttledInput"
+          @focus="show"
+          @blur="hide">
 
 				<div class="search__dropdown">	
-					<div class="search__dropdown-content search__dropdown-content--active">
+					<div 
+            class="search__dropdown-content"
+            :class="{'search__dropdown-content--active': active}">
 						
             <search-hit
               v-for="hit of hits"
@@ -37,21 +44,17 @@ export default {
 
   data() {
     return {
+      active: false,
       query: '',
-
-   
       hits: [],
 
-      // JSON.parse(`[{"thumbnail":"https://img.youtube.com/vi/5qap5aO4i9A/sddefault.jpg","title":"lofi hip hop radio - beats to relax/study to","mainTag":{"id":2,"label":"paleturquoise","color":"paleturquoise","default":null},"tags":[],"objectID":"10","_highlightResult":{"thumbnail":{"value":"https://img.youtube.com/vi/5qap5aO4i9A/sddefault.jpg","matchLevel":"none","matchedWords":[]},"title":{"value":"<em>lofi</em> hip hop radio - beats to relax/study to","matchLevel":"full","fullyHighlighted":false,"matchedWords":["lofi"]},"mainTag":{"id":{"value":"2","matchLevel":"none","matchedWords":[]},"label":{"value":"paleturquoise","matchLevel":"none","matchedWords":[]},"color":{"value":"paleturquoise","matchLevel":"none","matchedWords":[]}}}}]`),
-      
       // searchClient: algoliasearch(
       //   'latency',
       //   '6be0576ff61c053d5f9a3225e2a90f76'
       // ),
 
-       searchClient: algoliasearch(
-        '935M213CXE',
-        'cd89ba96eb6549adb8d90b48d8c9e685',
+      searchClient: algoliasearch(
+        '935M213CXE', 'cd89ba96eb6549adb8d90b48d8c9e685',
       ),
 
       // Throttled onInput event
@@ -71,8 +74,6 @@ export default {
       searchClient: this.searchClient,
     });
 
-    
-
     search.addWidgets([{
       init(opts) {
          self.preparedRequest = () => 
@@ -82,6 +83,9 @@ export default {
 
     search.addWidgets([{
       render(options) {
+        if (!!!options.state.query)
+          return;
+          
         self.parseRespose(options.results);
       }
     }]);
@@ -89,17 +93,27 @@ export default {
     search.start();
     
     // Initiating input callback
-    const DELAY = 500;
+    const DELAY = 700;
 
     this.throttledInput = 
-      throttle(DELAY, this.onInput)
+      throttle(DELAY, this.onInput);
   },
 
   methods: {
+    show() {
+      this.active = true;
+    },
+
+    hide() {
+      this.active = false;
+    },
+
     request(helper) {
-      if (this.query.length === 0)
+      if (this.query.length === 0) {
+        this.parseRespose({ hits: [] })
         return;
-        
+      }
+
       helper
         .setQuery(this.query)
         .search();

@@ -22,7 +22,7 @@ trait HasTags
             return $main;
 
         $default = (object) [
-            'id' => 12,
+            'id' => null,
             'label' => 'んゃし',
             'color' => 'darkgray',
             'default' => true,
