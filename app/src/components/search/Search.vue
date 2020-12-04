@@ -30,10 +30,16 @@ export default {
   data() {
     return {
       query: '',
+   
+      
+      // searchClient: algoliasearch(
+      //   'latency',
+      //   '6be0576ff61c053d5f9a3225e2a90f76'
+      // ),
 
-      searchClient: algoliasearch(
-        'latency',
-        '6be0576ff61c053d5f9a3225e2a90f76'
+       searchClient: algoliasearch(
+        '935M213CXE',
+        'cd89ba96eb6549adb8d90b48d8c9e685',
       ),
 
       // Throttled onInput event
@@ -49,24 +55,24 @@ export default {
 
     // Initiating search instance
     const search = instantsearch({
-      indexName: 'instant_search',
+      indexName: 'posts',
       searchClient: this.searchClient,
     });
 
     search.addWidgets([{
       init(opts) {
-         self.preparedRequest = 
-          self.request.bind(opts.helper)
+         self.preparedRequest = () => 
+          self.request(opts.helper)
       }
     }]);
 
     search.addWidgets([{
       render(options) {
-        self.parseRespose(options);
+        self.parseRespose(options.results);
       }
     }]);
 
-    // search.start();
+    search.start();
     
     // Initiating input callback
     const DELAY = 400;
@@ -77,17 +83,19 @@ export default {
 
   methods: {
     request(helper) {
+      if (this.query.length === 0)
+        return;
+        
       helper
         .setQuery(this.query)
         .search();
     },
 
-    parseRespose(respose) {
-
+    parseRespose(response) {
+      console.log(response.hits)
     },
 
     onInput() {
-      console.log(23);
       let callback = this.preparedRequest;
       if (typeof callback === 'function')
         callback();

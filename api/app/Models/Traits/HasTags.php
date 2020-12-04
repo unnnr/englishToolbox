@@ -9,24 +9,24 @@ trait HasTags
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')
-            ->withPivot('main')->where('main');
+            ->wherePivot('main', null);
     }    
-    
-    public function getMainTagAttribut() {
+
+    public function getMainTagAttribute() {
         $main = $this->morphToMany(Tag::class, 'taggable')
             ->withPivot('main')
             ->where('main', 1)
-            ->firstOrFail();
+            ->first();
 
         if ($main)
             return $main;
 
-        $default = [
+        $default = (object) [
             'id' => 12,
             'label' => 'んゃし',
             'color' => 'darkgray',
             'default' => true,
         ];
-        return (object) $default;
+        return $default;
     }
 }   
