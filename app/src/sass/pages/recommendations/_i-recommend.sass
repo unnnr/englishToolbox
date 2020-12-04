@@ -39,6 +39,7 @@
   padding-bottom: 100%
   border-radius: $border-radius-secondary
   background-color: $color-semigray
+  @include background-image
   @include sm-devices
     padding-bottom: 75%
 
@@ -71,7 +72,6 @@
     background-color: $color-white
     border: 2px $color-lightgray dashed
     cursor: pointer
-    @include background-image
 
     input
       opacity: 0
