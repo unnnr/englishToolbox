@@ -1,10 +1,10 @@
 <template>
   <v-file
-    name="audioFile"
     icon="audio"
     label="audio"
     accept="audio/*"
     :optional="optional"
+    :name="name"
     v-validate
     @change="change"/>
 </template>
@@ -18,6 +18,8 @@ export default {
   },
 
   props: {
+    name: { type: String, default: 'audio' },
+
     optional: { type: Boolean }
   },
 

@@ -21,10 +21,12 @@
 
       <div class="editor__upload-inputs">
         <audio-input
+          :name="'audioFile'"
           :optional="editing" 
           @change="updateAudio"/>
 
         <image-input 
+          :name="'imageFile'"
           :optional="editing"
           @change="udpateImage"/>
       </div>

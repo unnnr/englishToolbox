@@ -1,9 +1,9 @@
 <template>
   <v-file
-    name="imageFile"
     icon="image"
     label="image"
     accept="image/png,image/jpeg,image/webp,image/gif"
+    :name="name"
     :optional="optional"
     @change="change"
     v-validate/>
@@ -18,7 +18,9 @@ export default {
   },
 
   props: {
-    optional: { type: Boolean }
+    name: { type: String, default: 'image' },
+
+    optional: { type: Boolean },
   },
 
   methods: {
