@@ -1,6 +1,6 @@
 <template>
   <main>
-    <email-overlay v-if="true"/>
+    <email-overlay/>
     
     <section class="profile container">
 

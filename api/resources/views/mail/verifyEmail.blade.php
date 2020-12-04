@@ -90,5 +90,5 @@
     </defs>
   </svg>
   <h2 style="text-align: center; font-size: 25px; margin:20px 0; color: #2f2e44;">Your verification code: {{ $code }}</h2>
-  <p style="text-align:center; font-size:16px; margin:0; color:#a1a1b1;">Hello!<br><br>Thanks for your registration on <a style="color:#6666ff;" href="#">englishnerd.org</a>.<br> Please use the code above to verification your email.</p>
+  <p style="text-align:center; font-size:16px; margin:0; color:#a1a1b1;">Hello!<br><br>Thanks for your registration on <a style="color:#6666ff;" href="#">englishnerd.org</a>.<br> Please use the code above to verify your email.</p>
 </div>
