@@ -2,18 +2,16 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Request;
+
 
 class VerificationService
 {
-    public function verify(Request $request)
+    public function some_verify(Request $request)
     {
 
         $urlID = (string) $request->route('id');
@@ -41,15 +39,63 @@ class VerificationService
                     : redirect('profile');     
     }
 
-    public function verificationUrl($user)
+    public const MAX_ATTEMPTS = 10;
+
+    private function generateHash(int $digitsCount = 4) 
     {
-        return URL::temporarySignedRoute(
-            'verify',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
-                'id' => $user->getKey(),
-                'hash' => sha1($user->getEmailForVerification()),
-            ]
-        );
+        $max = pow(10, $digitsCount);
+        $code = random_int(0, $max);
+        $hash = bcrypt($code);
+
+        return $hash;
+    }
+
+    public function createCode() 
+    {
+        $user = auth()->user();
+
+        // Deleting previous code
+        $previosCode = $user->emailVerification;
+        if ($previosCode)
+            VerificationCode::destroy($previosCode->id);
+        
+        // Creating new instance
+        $user->verificationCodes()->create([
+            'hash' => $this->generateHash(),
+            'type' => 'email',
+        ]);
+    }
+
+    public function verify(Request $request)
+    {
+        $user = auth()->user();
+        $verification = $user->emailVerification;
+        
+        if ($user->hasVerifiedEmail() || !!!$verification)
+            abort(Response::BAD_REQUEST);
+        
+        if ($verification->attempts >= self:: MAX_ATTEMPTS)
+            abort(Response::BAD_REQUEST, 'You have failed too many attempts. Please try again later');
+        
+        $input = $request->input('code');
+        if (!!!Hash::check($input, $verification->hash))
+        {
+            $verification->attempts++;
+            $verification->save();
+
+            throw ValidationException::withMessages([
+                'code' => [trans('auth.failed')]
+            ]);
+        }
+
+        $verification->delete();
+        $user->markEmailAsVerified();
+        
+        event(new Verified($request->user()));
+    }
+
+    public function reset() 
+    {
+
     }
 }

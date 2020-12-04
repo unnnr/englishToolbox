@@ -101,4 +101,16 @@ class User extends Authenticatable implements MustVerifyEmail
     	$this->attributes['password'] = bcrypt($value);
     }
 
+
+    public function getEmailVerificationAttribute() 
+    {
+        return $this->hasMany(VerificationCode::class)
+            ->where('type', 'email')
+            ->first();
+    }
+
+    public function verificationCodes() 
+    {
+        return $this->hasMany(verificationCodes::class);
+    }
 }
