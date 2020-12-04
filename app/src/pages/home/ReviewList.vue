@@ -66,10 +66,6 @@ export default {
 
   data() {
     return {
-      swiperOptions:{
-        spaceBetween: 30
-      },
-
       reviews: [{} ,{} ,{}],
 
       canUpload: false,
