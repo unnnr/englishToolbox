@@ -18,9 +18,9 @@ class VerifyEmail extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($key)
     {
-        //
+        $this->key = $key;
     }
 
     /**
@@ -42,7 +42,7 @@ class VerifyEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        return new VerifyMail($notifiable);
+        return new VerifyMail($notifiable, $this->key);
     }
 
     /**

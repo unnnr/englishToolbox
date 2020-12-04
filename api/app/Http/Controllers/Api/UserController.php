@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $this->middleware('auth:sanctum');
 
-        $this->service = app(UserService::class);
+        $this->service = new UserService();
     }
 
     public function index()

@@ -41,13 +41,12 @@ class VerificationService
 
     public const MAX_ATTEMPTS = 10;
 
-    private function generateHash(int $digitsCount = 4) 
+    private function generateKey(int $digitsCount = 4) 
     {
         $max = pow(10, $digitsCount);
         $code = random_int(0, $max);
-        $hash = bcrypt($code);
 
-        return $hash;
+        return $code;
     }
 
     public function createCode() 
@@ -60,10 +59,13 @@ class VerificationService
             VerificationCode::destroy($previosCode->id);
         
         // Creating new instance
+        $key = $this->generateKey();
         $user->verificationCodes()->create([
-            'hash' => $this->generateHash(),
+            'hash' => bcrypt($key),
             'type' => 'email',
         ]);
+
+        return $key;
     }
 
     public function verify(Request $request)
@@ -90,7 +92,7 @@ class VerificationService
 
         $verification->delete();
         $user->markEmailAsVerified();
-        
+
         event(new Verified($request->user()));
     }
 

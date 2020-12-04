@@ -18,9 +18,10 @@ class VerifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $key)
     {
         $this->user = $user;
+        $this->key = $key;
     }
 
     /**
@@ -32,10 +33,9 @@ class VerifyMail extends Mailable
     {
         $email = $this->user->email;
         $name = $this->user->name;
-        $url = app(VerificationService::class)->verificationUrl($this->user);
+        $key = $this->key;
 
         return $this->view('mail.verifyEmail')
-            ->to($email, $name)
-            ->with([ 'url' => $url]);
+            ->to($email, $name)->with(['key' => $key]);
     }
 }
