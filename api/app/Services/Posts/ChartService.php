@@ -17,26 +17,23 @@ class ChartService extends PostService
 {
     use HandlePostThumbnails;
     
-    protected $model = Audio::class;
+    protected $model = Chart::class;
     
-    protected $resource = AudioResource::class;
+    protected $resource = ChartResource::class;
 
-    protected function getThumbnailUrl(Audio $audio, Request $request) 
+    protected function getThumbnailUrl(Chart $chart, Request $request) 
     {
         return $this->storeThumbnail(
             $request->file('imageFile'),
-            $audio->imageFile,
-            $audio);
+            $chart->image,
+            $chart);
     }
 
     protected function creating(Request $request)
     { 
         // Creating files
-        $audioFileName =  
-            $this->storeFile($request->file('audioFile'),  Audio::AUDIO_PATH);
-        
         $imageFileName = 
-            $this->storeFile($request->file('imageFile'), Audio::IMAGE_PATH);
+            $this->storeFile($request->file('image'), Chart::IMAGE_PATH);
         
         // Retrieving sended data 
         $description = $request->input('description');
@@ -46,57 +43,42 @@ class ChartService extends PostService
         return Audio::create([
             'title' => $title,
             'description' => $description,
-            'audioFile' => $audioFileName,
-            'imageFile' => $imageFileName,
+            'image' => $imageFileName,
         ]);
     }
 
-    protected function updating(Request $request, Audio $audio)
+    protected function updating(Request $request, Audio $chart)
     {   
-        if ($request->has('audioFile'))
-        {
-            // Removing previous audio file
-            Storage::delete(Audio::AUDIO_PATH .'/'. $audio->audioFile);
-
-            // Storing new file and updating model
-            $audio->audioFile = 
-                $this->storeFile($request->file('audioFile'), Audio::AUDIO_PATH);
-        }
-
-        if ($request->has('imageFile'))
+        if ($request->has('image'))
         {
             // Removing previous image file and thumbnail
-            Storage::delete(Audio::IMAGE_PATH .'/'. $audio->imageFile);
-            Storage::delete(Audio::THUMBNAIL_PATH .'/'. $audio->imageFile);
+            Storage::delete(Chart::IMAGE_PATH .'/'. $chart->imageFile);
+            Storage::delete(Chart::THUMBNAIL_PATH .'/'. $chart->imageFile);
 
             // Storing new image and updating model
-            $audio->imageFile = 
-                $this->storeFile($request->file('imageFile'), Audio::IMAGE_PATH);
+            $chart->image = 
+                $this->storeFile($request->file('image'), Chart::IMAGE_PATH);
 
             // Creating new thumbnail and updating model
-            $audio->thumbnail()->update([
-                'url' => $this->getThumbnailUrl($audio, $request)
+            $chart->thumbnail()->update([
+                'url' => $this->getThumbnailUrl($chart, $request)
             ]);
         }
 
         if ($request->has('title'))
-            $audio->title = $request->input('title'); 
+            $chart->title = $request->input('title'); 
 
         if ($request->has('description'))
-            $audio->description = $request->input('description'); 
+            $chart->description = $request->input('description'); 
 
-        $audio->save();
+        $chart->save();
     }
 
-    protected function deleting(Audio $post)
+    protected function deleting(Chart $post)
     {
-        $imageName = $post->imageFile;
-        $audioName =  $post->audioFile;
+        $imageName = $post->image;
 
-        Log::debug(Audio::IMAGE_PATH .'/'. $imageName);
-
-        Storage::delete(Audio::THUMBNAIL_PATH .'/'. $imageName);
-        Storage::delete(Audio::IMAGE_PATH .'/'. $imageName);
-        Storage::delete(Audio::AUDIO_PATH .'/'. $audioName);
+        Storage::delete(Chart::THUMBNAIL_PATH .'/'. $imageName);
+        Storage::delete(Chart::IMAGE_PATH .'/'. $imageName);
     }
 }

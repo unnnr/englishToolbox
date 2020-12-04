@@ -24,7 +24,6 @@ class CreateChartsTable extends Migration
             $table->string('description')->nullable();
             $table->unsignedInteger('views')->default(0);
 
-
             $table->timestamps();
         });
     }

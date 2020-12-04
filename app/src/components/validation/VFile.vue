@@ -45,7 +45,7 @@ export default {
 
     optional: { type: Boolean, default: false },
 
-    disabled: { type: Boolean, defualt: false},
+    disabled: { type: Boolean, default: false},
   },
 
   inject: [ 'secondary' ],

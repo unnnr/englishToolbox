@@ -28,8 +28,10 @@ Route::group(['namespace' => 'Api'], function()
     |--------------------------------------------------------------------------
     */
 
+    Route::apiResource('charts', 'ChartController');
+    
     Route::apiResource('videos', 'VideoController');
-
+    
     Route::apiResource('audio', 'AudioController');
 
     Route::apiResource('tags', 'TagController');

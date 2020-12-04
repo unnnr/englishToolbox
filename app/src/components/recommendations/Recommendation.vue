@@ -26,13 +26,13 @@
 <script>
 export default {
   props: {
-    description: { type: String, defualt: '#' }, 
+    description: { type: String, default: '#' }, 
     
-    image: { type: String, defualt: '#' },
+    image: { type: String, default: '#' },
 
-    title: { type: String, defualt: '#' }, 
+    title: { type: String, default: '#' }, 
 
-    link: { type: String, defualt: '#' }, 
+    link: { type: String, default: '#' }, 
   },
 
   computed: {
