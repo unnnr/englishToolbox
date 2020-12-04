@@ -11,14 +11,22 @@ trait HasTags
         return $this->morphToMany(Tag::class, 'taggable')
             ->withPivot('main')->where('main');
     }    
-
-    public function mainTag()
-    {
-        $mainTag = $this->morphToMany(Tag::class, 'taggable')
+    
+    public function getMainTagAttribut() {
+        $main = $this->morphToMany(Tag::class, 'taggable')
             ->withPivot('main')
             ->where('main', 1)
             ->firstOrFail();
-        
-        return $mainTag; 
+
+        if ($main)
+            return $main;
+
+        $default = [
+            'id' => 12,
+            'label' => 'んゃし',
+            'color' => 'darkgray',
+            'default' => true,
+        ];
+        return (object) $default;
     }
 }   

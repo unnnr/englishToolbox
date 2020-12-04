@@ -8,6 +8,7 @@ trait HasThumbnail
 {
     public function thumbnail()
     {
-        return $this->morphOne(Thumbnail::class, 'thumbnailable');
-    }   
+        return $this->morphOne(Thumbnail::class, 'thumbnailable')
+            ->withDefault(['url' => 'some']);
+    }
 }   
