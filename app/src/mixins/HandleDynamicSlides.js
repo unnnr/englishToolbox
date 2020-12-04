@@ -3,7 +3,9 @@ import Resolution from '@services/Resolution'
 const HandleDynamicSlides = {
   data() {
     return {
-      swiperOptions: {},
+      swiperOptions: {
+        spaceBetween: 30
+      },
       
       resolution: null,
       
