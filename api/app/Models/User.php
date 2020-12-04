@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Notifications\VerifyEmail;
+use App\Notifications\VerifyEmailNotification;
 use App\Models\Traits\HasFavoritePosts;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -41,9 +41,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendEmailVerificationNotification($key)
+    public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail($key));
+        $this->notify(new VerifyEmailNotification());
     }
 
     public function comments()
@@ -111,6 +111,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function verificationCodes() 
     {
-        return $this->hasMany(verificationCodes::class);
+        return $this->hasMany(VerificationCode::class);
     }
 }

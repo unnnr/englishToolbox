@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Mail\VerifyMail;
 
 
-class VerifyEmail extends Notification
+class VerifyEmailNotification extends Notification
 {
     use Queueable;
 
@@ -18,9 +18,9 @@ class VerifyEmail extends Notification
      *
      * @return void
      */
-    public function __construct($key)
+    public function __construct()
     {
-        $this->key = $key;
+        //
     }
 
     /**
@@ -42,7 +42,7 @@ class VerifyEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        return new VerifyMail($notifiable, $this->key);
+        return new VerifyMail($notifiable);
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Services\Auth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 
@@ -49,23 +48,18 @@ class VerificationService
         return $code;
     }
 
-    public function createCode() 
+    public function createCode($user) 
     {
-        $user = auth()->user();
-
         // Deleting previous code
         $previosCode = $user->emailVerification;
         if ($previosCode)
             VerificationCode::destroy($previosCode->id);
         
         // Creating new instance
-        $key = $this->generateKey();
         $user->verificationCodes()->create([
-            'hash' => bcrypt($key),
+            'key' => $this->generateKey(),
             'type' => 'email',
         ]);
-
-        return $key;
     }
 
     public function verify(Request $request)
@@ -80,7 +74,7 @@ class VerificationService
             abort(Response::BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
         $input = $request->input('code');
-        if (!!!Hash::check($input, $verification->hash))
+        if ($input === $verification->key)
         {
             $verification->attempts++;
             $verification->save();

@@ -10,7 +10,7 @@ use App\Http\Requests\User\DeleteUser;
 use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\VerifyUser;
 use App\Http\Controllers\Controller;
-userApp\Services\Auth\VerificationService;
+use App\Services\Auth\VerificationService;
 use App\Services\Auth\AuthService;
 
 class AuthController extends Controller

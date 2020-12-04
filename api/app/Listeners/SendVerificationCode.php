@@ -26,10 +26,11 @@ class SendVerificationCode
      */
     public function handle($event)
     {
-        $service = app(VerificationService::class);
+        $user = $event->user;
 
-        $key = $service->createCode();
+        $service = app(VerificationService::class);
+        $service->createCode($user);
         
-        $event->user->sendEmailVerificationNotification($key);
+        $user->sendEmailVerificationNotification();
     }
 }

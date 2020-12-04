@@ -18,14 +18,14 @@ class CreateVerificationCodesTable extends Migration
 
             $table->foreignId('user_id')->constrained();
             
+            $table->string('type')
+                ->nullable();
+            $table->smallInteger('key')
+                ->unsigned();
+
             $table->smallInteger('attempts')
                 ->unsigned()
                 ->default(0);
-
-            $table->string('type')
-                ->nullable();
-
-            $table->string('hash');
 
             $table->timestamps();
         });

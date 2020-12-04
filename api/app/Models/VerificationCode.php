@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class VerificationCode extends Model
 {
     protected $fillable = [
-        'hash', 'type', 'attempts'
+        'key', 'type', 'attempts'
     ];
 
     public function user()
