@@ -6,65 +6,54 @@ class Resolution {
 
 	__listeners = [];
 
-	__mobileBoundary = 770;
+	boundaries = [
+		{ name: 'mobile', 		px: 576 },
+		{ name: 'smalTablet', px: 1000 },
+		{ name: 'tablet', 		px: 1200 },
+		{ name: 'desktop', 		px: Infinity },
+	];
 
-	__tabletBoundary = 1200;	
+	MOBILE = 'mobile';
+
+	SMAL_TABLET = 'smalTablet';
+
+	TABLET = 'tablet';
+
+	DESKTOP = 'desktop';
 
 	constructor() {
 		const DELAY = 200;
 		let throttled = throttle(DELAY, this.check.bind(this));
 		
 		window.addEventListener('resize', throttled);
-
 		this.check();
 	}
 
 	check() {
-
-		if (window.innerWidth <= this.__mobileBoundary) {
-			if (this.__type !== 'mobile') {
-				this.__type = 'mobile';
-				this.onChange();
-			}
-
-			return
-		}
+		let width = window.innerWidth;
 		
-		if (window.innerWidth <= this.__tabletBoundary) {
-			if (this.__type !== 'tablet') {
-				this.__type = 'tablet';
-				this.onChange();
-			}
-
-			return;
-		}
-
-		if (window.innerWidth > this.__tabletBoundary) {
-			if (this.__type !== 'desktop') {
-				this.__type = 'desktop';
-				this.onChange();
-			}
+		for (let boundary of this.boundaries) {
+			if (width > boundary.px)
+				continue;
 			
-			return;
+			if (this.type !== boundary.name) {
+				this.type = boundary.name;
+				this.onChange();
+			}
+
+			break;
 		}
 	}
 
 	onChange() {
-		let desktop = this.isDesktop();		
-		let mobile = this.isMobile();		
-		let tablet = this.isTablet();
-
-
 		for (let callback of this.__listeners)
-			callback(mobile, tablet, desktop);
+			callback(this.type);
 	}
 
 	bind(callback) {
 		this.listen(callback)
 
-		callback(this.isMobile(),
-						this.isTablet(),
-						this.isDesktop());
+		callback(this.type);
 	}
 
 	listen(callback) {
@@ -82,18 +71,6 @@ class Resolution {
 
 		this.__listeners.splice(index, 1);
 		return true;
-	}
-
-	isMobile() {
-		return  this.__type === 'mobile';
-	}
-
-	isTablet() {
-		return  this.__type === 'tablet';
-	}
-
-	isDesktop() {
-		return  this.__type === 'desktop';
 	}
 }
 
