@@ -1,7 +1,7 @@
 <template>
   <v-input
-    placeholder="http://some.link.su"
-    label="Yout link"
+    placeholder="https://some.link.su"
+    label="Your link"
     name="link"
     
     :value="defaultValue"

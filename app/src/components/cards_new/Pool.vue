@@ -12,7 +12,7 @@
       
       :description="card.description"
       :created-at="card.createdAt"
-      :title="card.id + card.title"
+      :title="card.title"
       :views="card.views"
       :img="card.thumbnail"
 
