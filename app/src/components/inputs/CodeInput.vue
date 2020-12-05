@@ -3,19 +3,17 @@
     class="register-overlay__input-group">
 
 		<input 
-      v-for="key in keys"
-      :key="key.ref"
+      v-for="input in inputs"
+      :key="input.index"
 
       class="register-overlay__input"
-      v-model="key.value"
+      v-model="input.value"
       ref="inputs"
       
       maxlength="1" 
       placeholder="-"
       
-      @keydown.prevent.stop="event => onKeyDown(key, event)"
-      @focus="focus.bind(key)"
-      @blur="focus.bind(key)"
+      @keydown.prevent.stop="event => onKeyDown(input, event)"
       @copy="copy">
 
       <v-hidden/>
@@ -35,187 +33,188 @@ export default {
   },
 
   computed: {
-    code: {
+   code: {
       set(value) {
         let string  = value + '';
 
-        for (let index in this.keys) {
+        for (let index in self.inputs) {
           if (index >= string.length)
             return;
         
           let key = string[index];
-          this.$set(this.keys[index], 'value', key);
+          let input = this.inputs[index];
+          input.set(key);
         }
-
-        this.$emit('input', this.code);
-        if (this.code.length == this.keysCount && !!!this.$options.completed) {
-          this.$options.completed = true;
-          this.confirm();
-        }
-
-        return;
       },
 
       get() {
         let string = '';
-        for (let {value} of this.keys)
+        for (let {value} of this.inputs)
           string += value;
 
         return string;
       }
-    },
-
-    focused() {
-      for (let { focused } of this.keys) {
-        if (focused)
-          return true;
-      }
-
-      return false; 
     }
   },
 
   mounted() {
-    for (let i = 0; i < this.keysCount; i++) {
-       this.keys.push({ 
-          value: '',
-          focused: false,
-      });
-    }
+    this.initKeys();
 
     window.addEventListener('paste', this.paste);
-    // window.addEventListener('keydown', this.focus);
+    window.addEventListener('keydown', this.focus);
   },
 
   beforeDestroy() {
     window.removeEventListener('paste', this.paste);
-    // window.removeEventListener('keydown', this.focus);
+    window.removeEventListener('keydown', this.focus);
   },
 
   data() {
     return {
       keysCount: 4,
-      keys: [],
+      inputs: [],
     }
   },
 
   methods: {
-    focus() {
-      if (this.focused)
-        return;
+    initKeys() {
+      function createInput(index) {
+        let input = {
+          index, value: ''
+        };
 
-      for (let key of this.keys) {
-        if (key.value !== '')
-          continue;
+        input.set =
+           (char) => self.setChar(input, char);
+
+        input.el = 
+          () => self.$refs.inputs[index];
+
+        input.focus = 
+          () => input.el().focus();
         
-        let index = this.keys.indexOf(key);
-        let input = this.$refs.inputs[index];
-
-        input.focus();
-        return;
-      }
-    },
-
-    focusNext(key) {
-      let index = this.keys.indexOf(key);
-      let input = this.$refs.inputs[index + 1];
-
-      // This way you can only fire once
-      if (!!!input) {
-        if (!!!this.$options.completed) {  
-          this.$options.completed = true;
-          this.confirm();
-        }
-
-        return;
+        return input; 
       }
 
-      input.focus();
+      const self = this;
+
+      for (let i = 0; i < this.keysCount; i++)
+        this.inputs.push(createInput(i));
     },
 
-    focusePrevios(key) {
-      let index = this.keys.indexOf(key);
-      let input = this.$refs.inputs[index - 1];
+    parseChar(char) {
+      // if key is integer or empty 
+      if (char === '' || !!!isNaN(parseInt(char)))
+        return char;
 
-
-      if (!!!input)
-        return;
-
-      input.focus();
+      return null;
     },
 
-    input(key, char) {
-      this.$set(key, 'value', char);
+    setChar(input, char) {
+      let parsed = this.parseChar(char); 
+
+      if (parsed === null)
+        return null;
+        
+      input.value = parsed;
       this.$emit('input', this.code);
+
+      this.confirm(true);
+      
+      return parsed;
     },
 
+    onKeyDown(input, event) {
+      let key = event.key;
 
-    confirm() {
-      if (this.code.length === this.keysCount)
-        this.$emit('confirme', this.code);
+      // Detecting special keys
+      switch (key) {
+        case 'Backspace': 
+          this.focusePrevios(input);
+          input.set('');
+          return true;
+
+        case 'Delete': 
+          input.set('');
+          return true;
+
+        case 'ArrowRight':
+          this.focusNext(input);
+          return true;
+
+        case 'ArrowLeft':
+          this.focusePrevios(input);
+          return true;
+      }
+
+      let changed = input.set(key); 
+      if (changed)
+        this.focusNext(input);
+
+      return changed;
     },
 
-    onKeyDown(key, event) {
-      console.log(key);
-      // Filtering numbers
-      if (event.keyCode >= 48 && event.keyCode <= 59) {
-        this.input(key, event.key)
-        this.focusNext(key);
+  confirm(preserveFurther) {
+      if (preserveFurther && this.$options.sended)
         return;
-      }
 
-      // Filtering removing chars
-      if (event.key === 'Backspace') {
-        this.input(key, '')
-        this.focusePrevios(key);
+      if (this.code.length !== this.keysCount)
         return;
-      }
 
-      if (event.key === 'Delete') {
-        this.input(key, '')
-        return;
-      }
-
-      // Filtering confirm chars
-      if (event.key === 'Enter') {
-        this.confirm();
-        return;
-      }
-
-      // Filtering arrows
-      if (event.key === 'ArrowRight') {
-        this.focusNext(key);
-        return;
-      }
-
-      if (event.key === 'ArrowLeft') {
-        this.focusePrevios(key);
-        return;
-      }
+      this.$options.sended = true;
+      this.$emit('confirm', this.code);
     },
 
+    focusNext(input) {
+      let next = 
+        this.inputs[input.index + 1];
+
+      if (next)
+        return next.focus();
+
+      this.confirm(true);
+    },
+
+    focus(event) {
+      if (event.ctrlKey || event.altKey)
+        return;
+
+      let target = null;
+
+      for (let input of this.inputs) {
+        if (input.value !== '')
+          continue;
+
+        target = input;
+        break;
+      }
+
+      if (target === null)
+        return;
+
+      this.onKeyDown(target, event);
+      event.preventDefault();
+    },
+
+    focusePrevios(input) {
+      let previos =
+        this.inputs[input.index - 1];
+
+      if (previos)
+        previos.focus();
+    },
 
     paste(event) {
       let value = 
         event.clipboardData.getData('text').trim();
-      console.log(value);
 
       this.code = value;
-      
+      event.preventDefault();
     },
 
     copy(event) {
       event.clipboardData.setData('text/plain', this.code);
       event.preventDefault();
     },
-
-    onFocus(key) {
-      this.$set(key, 'focused', true);
-    },
-
-    onBlur(key) {
-      this.$set(key, 'focused', false);
-    }
-  }
+  } 
 }
 </script>

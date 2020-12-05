@@ -20,7 +20,7 @@
 
 				<code-input
 					v-model="entry"
-					@confirme="request"/>
+					@confirm="request"/>
 
 				<button 
 					class="register-overlay__confirm-button button-secondary" 
@@ -93,7 +93,6 @@ export default {
 
 	methods: {
 		request() {
-			console.log(this.entry);
 			if (this.entry.length < 4)
 				return;
 
