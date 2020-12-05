@@ -2675,6 +2675,13 @@ button:active {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  text-align: center;
+}
+
+.register-overlay__hint u {
+  text-decoration: underline;
+  color: #6666ff;
+  cursor: pointer;
 }
 
 .register-overlay__hint--error {

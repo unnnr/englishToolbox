@@ -8,15 +8,14 @@
 				class="register-overlay__body"
 				v-if="loaded">
 
-				<object
+				<img 
 					class="register-overlay__image"
-					type="image/svg+xml"
-					:data="imageUrl">
-				</object>
-				
+					:src="imageUrl" 
+					alt="#">
+
 				<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
-					Enter your code here: 
-					<!-- 	Your code is invalid, please try again: -->
+					If you have troubles, click to <br>
+					<u>change your mail</u>, or <u>resend verification mail</u>
 				</p>
 
 				<code-input
@@ -63,7 +62,7 @@ export default {
 
 	computed: {
 		imageUrl() {
-			return window.origin + '/img/svg/register-overlay.svg';
+			return window.origin + '/img/svg/overlay-confirm.svg';
 		},
 
 		shown() {
