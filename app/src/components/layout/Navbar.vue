@@ -1,19 +1,18 @@
 <template>
 	<section class="navbar container">
-		<mobile-navbar 
-			v-if="mobile"
-			:profileShown="profileShown"
-			:app-name="appName"
-			:avatar="avatar"
-			:links="links"/>
-
 		<desktop-navbar 
-			v-else
+			v-if="desktop"
 			:profileShown="profileShown"
 			:app-name="appName"
 			:avatar="avatarUrl"
 			:links="links"/>
-
+		
+		<mobile-navbar 
+			v-else
+			:profileShown="profileShown"
+			:app-name="appName"
+			:avatar="avatar"
+			:links="links"/>
 	</section>
 </template>
 
@@ -45,7 +44,7 @@ export default {
 			avatar: '#',
 
 			profileShown: false,
-			mobile: true,
+			desktop: true,
 
 			links: [
 				{ name: '/home#about', label: 'about me'},
@@ -79,8 +78,8 @@ export default {
 	},
 
 	methods: {
-		resolutionChanged(mobile, tablet, desktop) {
-			this.mobile = !!!desktop;
+		resolutionChanged(type) {
+			this.desktop = Resolution.DESKTOP === type;
 		},
 
 		async authChanged(authenticated) {

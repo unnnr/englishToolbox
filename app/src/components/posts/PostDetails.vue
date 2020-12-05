@@ -1,20 +1,20 @@
-  <template>
-  <post-details-mobile 
-    v-if="mobile" 
-    :editing="editing"
-    :creating="creating">
-
-    <slot/>
-  </post-details-mobile>
-    
+<template>
   <post-details-desktop 
-    v-else
+    v-if="desktop" 
     :editing="editing"
     :creating="creating"
     @switching="event => $emit('switching', event)">
 
     <slot/>
   </post-details-desktop>
+  
+  <post-details-mobile 
+    v-else
+    :editing="editing"
+    :creating="creating">
+
+    <slot/>
+  </post-details-mobile>
 </template>
 
 <script>
@@ -37,8 +37,7 @@ export default {
 
   data() {
     return {
-      mobile: false,
-      mobileBorder: 1200
+      desktop: false,
     }
   },
 
@@ -51,8 +50,8 @@ export default {
 	},
 
   methods: {
-    check(mobile, tablet, desktop) {
-      this.mobile = !!!desktop;
+    check(type) {
+			this.desktop = Resolution.DESKTOP === type;
     }
   }
 }

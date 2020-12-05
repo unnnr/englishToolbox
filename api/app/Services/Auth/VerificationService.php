@@ -58,7 +58,7 @@ class VerificationService
         // Creating new instance
         $user->verificationCodes()->create([
             'key' => $this->generateKey(),
-            'type' => 'email',
+            'type' => 'email', 
         ]);
     }
 

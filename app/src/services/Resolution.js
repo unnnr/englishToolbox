@@ -35,8 +35,8 @@ class Resolution {
 		for (let boundary of this.boundaries) {
 			if (width > boundary.px)
 				continue;
-			
 			if (this.type !== boundary.name) {
+
 				this.type = boundary.name;
 				this.onChange();
 			}

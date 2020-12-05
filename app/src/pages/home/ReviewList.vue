@@ -3,7 +3,7 @@
     <h2 class="reviews__title heading-second">Student reviews</h2>
     <swiper 
       class="reviews__swiper"
-			:key="resolution"
+			:key="resolution.type"
 			:cleanup-styles-on-destroy="false"
       :options="swiperOptions">
 

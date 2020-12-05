@@ -3,15 +3,25 @@ import Resolution from '@services/Resolution'
 const HandleDynamicSlides = {
   data() {
     return {
-      swiperOptions: {
-        spaceBetween: 30
+      swiperOptions: {},
+      
+      resolution: {
+        type: null,
+
+        slides: {
+          mobile: 1,
+          smalTablet: 2,
+          tablet: 3,
+          desktop: 4
+        },
+
+        space: {
+          mobile: 15,
+          smalTablet: 30,
+          tablet: 30,
+          desktop: 30
+        }
       },
-      
-      resolution: null,
-      
-      mobileSlides: 1,
-      tabletSlides: 2,
-      desktopSlides: 4,
     }
   },
 
@@ -20,24 +30,14 @@ const HandleDynamicSlides = {
   },
 
   methods: {
-    updateSwiper(mobile, tablet, desktop) {
-			if (mobile) {
-        this.swiperOptions.slidesPerView = this.mobileSlides;
-				this.resolution = 'mobile';
-				return;
-			}
+    updateSwiper(type) {
+      this.resolution.type = type;
 
-			if (tablet) {
-        this.swiperOptions.slidesPerView = this.tabletSlides;
-				this.resolution = 'tablet';
-				return;
-			}
+      this.swiperOptions.slidesPerView = 
+        this.resolution.slides[type];
 
-			if (desktop) {
-        this.swiperOptions.slidesPerView = this.desktopSlides;
-				this.resolution = 'desktop';
-				return;
-			}
+      this.swiperOptions.spaceBetween = 
+        this.resolution.space[type];
 		},
   }
 }

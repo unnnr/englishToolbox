@@ -8,7 +8,7 @@
 
 			<swiper
 				ref="swiper"
-				:key="resolution"
+				:key="resolution.type"
 				:cleanup-styles-on-destroy="false"
 				:options="swiperOptions">
 
@@ -80,9 +80,8 @@ export default {
 				'video': 'videos',
 				'chart': 'charts'
 			},
-				
+
 			swiperOptions: {
-				slidesPerView: '4',
 
 				/* pagination: {
 						el: '.swiper-pagination',

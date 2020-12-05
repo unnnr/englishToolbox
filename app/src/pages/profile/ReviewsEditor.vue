@@ -4,7 +4,7 @@
     <div class="reviews-management__body">
 
       <swiper
-        :key="resolution"
+        :key="resolution.type"
         :cleanup-styles-on-destroy="false"
         :options="swiperOptions">
     
