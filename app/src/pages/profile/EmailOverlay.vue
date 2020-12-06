@@ -1,39 +1,41 @@
 <template>
-	<section 
-		class="register-overlay"
-		v-if="shown">
+	<transition name="fade">
+		<section 
+			class="register-overlay"
+			v-if="shown">
 
-		<transition name="fade">
-			<div 
-				class="register-overlay__body"
-				v-if="loaded">
+			<transition name="fade">
+				<div 
+					class="register-overlay__body"
+					v-if="loaded">
 
-				<img 
-					class="register-overlay__image"
-					:src="imageUrl" 
-					alt="#">
+					<img 
+						class="register-overlay__image"
+						:src="imageUrl" 
+						alt="#">
 
-				<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
-					If you have troubles, click to <br>
-					<u>change your mail</u>, or <u>resend verification mail</u>
-				</p>
+					<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
+						If you have troubles, click to <br>
+						<u>change your mail</u>, or <u>resend verification mail</u>
+					</p>
 
-				<code-input
-					v-model="entry"
-					@confirm="request"/>
+					<code-input
+						v-model="entry"
+						@confirm="request"/>
 
-				<button 
-					class="register-overlay__confirm-button button-secondary" 
-					:disabled="loading"
-					@click.prevent="request">
-					
-					confirm
-				</button>
+					<button 
+						class="register-overlay__confirm-button button-secondary" 
+						:disabled="loading"
+						@click.prevent="request">
+						
+						confirm
+					</button>
 
-			</div>
-		</transition>
+				</div>
+			</transition>
 
-	</section> 
+		</section> 
+	</transition>
 </template>
 
 <script>
