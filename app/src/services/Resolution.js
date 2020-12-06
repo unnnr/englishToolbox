@@ -79,15 +79,18 @@ class Resolution {
 
 	detach(callback) {
 		let index = this.__listeners.indexOf(callback);
+		if (index !== -1) {
+			this.__listeners.splice(index, 1);
+			return true;
+		}
 
-		if (index === -1)
-			index = this.__rawListeners(callback)
+		index = this.__rawListeners.indexOf(callback);
+		if (index !== -1) {
+			this.__rawListeners.splice(index, 1);
+			return true;
+		}
 
-		if (index === -1)
-			return;
-
-		this.__listeners.splice(index, 1);
-		return true;
+		return false;
 	}
 }
 

@@ -59,24 +59,20 @@ export default {
     this.loadAvatar();
     this.onInput()
 
-    //this.$options.eventHandler = throttle(100, this.onInput);
-
     Resolution.listen(this.onInput, true);
-    window.addEventListener('resize', 
-			this.$options.eventHandler);
   },
 
 	beforeDestroy() {
-		window.removeEventListener('resize',
-     this.$options.eventHandler);
+		Resolution.detach(this.onInput);
 	},
 
   methods: {
-    onInput(event) {
-      let textarea =  this.$refs.textarea; 
+    onInput() {
+      let textarea =  this.$refs.textarea;
+      let style = textarea.style; 
 
-      textarea.style.height = this.minHeight + 'px';
-      textarea.style.height = textarea.scrollHeight + 'px';
+      style.height = this.minHeight + 'px';
+      style.height = textarea.scrollHeight + 'px';
     },
     
     send() {
