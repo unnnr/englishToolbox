@@ -1,8 +1,11 @@
 <template>
-  	<div class="navbar-mobile">
+  	<div 
+			class="navbar-mobile"
+			@click="hide">
+			
 			<button  
 				class="navbar-mobile__button navbar-mobile__button--show"
-				@click="show">
+				@click.stop="show">
 			</button>
 
 			<router-link
@@ -16,12 +19,13 @@
 				class="navbar-mobile__links"
 				:class="{'navbar-mobile__links--slide': shown}"
 				ref="mobileNav"
-				@click="() => {}">
+				@click.self.stop="() => null">
 
 				<div class="navbar-mobile__header">
 					<router-link
-						class="navbar-mobile__account-link"
 						v-if="profileShown"
+						class="navbar-mobile__account-link"
+						:style="{'background-image': avatar}"
 						to="/profile">
 					</router-link>
 
@@ -72,7 +76,8 @@
 				<div 
 					v-if="shown"
 					class="navbar-mobile__overlay"
-					:class="{'navbar-mobile__overlay--visible': true}">
+					:class="{'navbar-mobile__overlay--visible': true}"
+					@click.self="hide">
 				</div>
 			</transition>
 
@@ -80,7 +85,11 @@
 </template>
 
 <script>
+import HandleScrollLock from '@mixins/HandleScrollLock'
+
 export default {
+	mixins: [HandleScrollLock],
+
   props: {
     appName: { type: String, default: '' },
     
@@ -100,10 +109,12 @@ export default {
  	methods: {
 		show() {
 			this.shown = true;
+			this.lockScroll()
 		},
 
 		hide() {
 			this.shown = false;
+			this.unlockScroll()
 		}
 	}
 }

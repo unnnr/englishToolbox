@@ -153,7 +153,7 @@ export default {
       return changed;
     },
 
-  confirm(preserveFurther) {
+    confirm(preserveFurther) {
       if (preserveFurther && this.$options.sended)
         return;
 
