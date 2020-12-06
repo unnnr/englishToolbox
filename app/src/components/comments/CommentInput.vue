@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { throttle } from 'throttle-debounce';
+import Resolution from '@services/Resolution'
 import Avatar from '@models/Avatar'
 
 export default {
@@ -59,8 +59,9 @@ export default {
     this.loadAvatar();
     this.onInput()
 
-    this.$options.eventHandler = throttle(100, this.onInput);
+    //this.$options.eventHandler = throttle(100, this.onInput);
 
+    Resolution.listen(this.onInput, true);
     window.addEventListener('resize', 
 			this.$options.eventHandler);
   },

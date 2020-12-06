@@ -28,7 +28,9 @@ export default {
     VHidden
   },
 
-  prop: {
+  props: {
+    keysCount: { type: Number, default: 4},
+
     value: { type: String, default: ''},
   },
 
@@ -71,7 +73,6 @@ export default {
 
   data() {
     return {
-      keysCount: 4,
       inputs: [],
     }
   },

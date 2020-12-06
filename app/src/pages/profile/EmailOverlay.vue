@@ -21,11 +21,12 @@
 
 					<code-input
 						v-model="entry"
+						:keysCount="keysCount"
 						@confirm="request"/>
 
 					<button 
 						class="register-overlay__confirm-button button-secondary" 
-						:disabled="loading"
+						:disabled="disabled"
 						@click.prevent="request">
 						
 						confirm
@@ -56,7 +57,9 @@ export default {
 
 	data() {
 		return {
+			keysCount: 4,
 			entry: '',
+			
 			verified: false,
 			loaded: false,
 		}
@@ -69,6 +72,10 @@ export default {
 
 		shown() {
 			return !!!this.verified || !!!this.loaded;
+		},
+
+		disabled() {
+			return this.loading || this.entry.length !== this.keysCount;
 		}
 	},
 
@@ -95,7 +102,7 @@ export default {
 
 	methods: {
 		request() {
-			if (this.entry.length < 4)
+			if (this.disabled)
 				return;
 
 			this.send(this.verify.bind(this));
