@@ -11,7 +11,7 @@
 			v-else
 			:profileShown="profileShown"
 			:app-name="appName"
-			:avatar="avatar"
+			:avatar="avatarUrl"
 			:links="links"/>
 	</section>
 </template>

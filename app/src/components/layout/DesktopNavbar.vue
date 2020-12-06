@@ -38,7 +38,7 @@
 				class="navbar-desktop__account-link"
 				v-if="profileShown"
 				to="/profile"
-				:style="{'background-image': this.avatar}">
+				:style="{'background-image': avatar}">
 			</router-link>
 		</aside>	
 	</div>
