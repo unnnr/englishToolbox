@@ -25,7 +25,18 @@ const HandleRequests = {
         parsedErrors[key] = value.join(', ');
 
       return parsedErrors;
-		},
+    },
+    
+    getFirstOfParsed(parsed) {
+      let entries = Object.entries(parsed);
+      if (!!!entries.length)
+        return null;
+
+      let keyValue = entries[0];
+      let message=  keyValue[1];
+
+      return message;
+    },
 
 		async send(request, onFail, finnaly) {
       if (this.loading)
@@ -39,11 +50,15 @@ const HandleRequests = {
       catch(error) {
         let message = null;
 
-        if (typeof onFail === 'function')
-          message = onFail(error, this.parseError(error));
+        let parsed = this.parseError(error);
+        // Delegeting to callback
+        if (typeof onFail === 'function') 
+          message = onFail(error, parsed);
 
-        console.error(error);
-
+        // Or showing first of them
+        else if (parsed)
+          message = this.getFirstOfParsed(parsed);
+          
         bus.dispatch('alert-error', {
           message
         });

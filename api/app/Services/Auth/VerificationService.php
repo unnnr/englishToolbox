@@ -80,7 +80,7 @@ class VerificationService
             $verification->save();
 
             throw ValidationException::withMessages([
-                'code' => [trans('auth.failed')]
+                'code' => [ 'Wrong code' ]
             ]);
         }
 

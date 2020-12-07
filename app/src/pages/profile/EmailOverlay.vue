@@ -105,7 +105,7 @@ export default {
 			if (this.disabled)
 				return;
 
-			this.send(this.verify.bind(this));
+			this.send(this.verify);
 		},	
 
 		async load() {
