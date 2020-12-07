@@ -10,35 +10,7 @@ use Illuminate\Http\Request;
 
 class VerificationService
 {
-    public function some_verify(Request $request)
-    {
-
-        $urlID = (string) $request->route('id');
-        $userID =  (string) $request->user()->getKey();
-
-        if (!!!hash_equals( $urlID, $userID))
-            throw new AuthorizationException;
-
-        $urlEmail = (string) $request->route('hash');
-        $userEmail = $request->user()->getEmailForVerification();
-
-        if (!!!hash_equals($urlEmail, sha1($userEmail)))
-            throw new AuthorizationException;
-
-        if ($request->user()->hasVerifiedEmail())
-            return $request->wantsJson() 
-                        ? response('', Responce::HTTP_NO_CONTENT)
-                        : redirect('profile'); 
-
-        if ($request->user()->markEmailAsVerified())
-            event(new Verified($request->user()));
-
-        return $request->wantsJson() 
-                    ? response('', Responce::HTTP_NO_CONTENT)
-                    : redirect('profile');     
-    }
-
-    public const MAX_ATTEMPTS = 100;
+    public const MAX_ATTEMPTS = 15;
 
     private function generateKey(int $digitsCount = 4) 
     {
@@ -67,23 +39,28 @@ class VerificationService
         $user = auth()->user();
         $verification = $user->emailVerification;
         
+        // If the user is already verified or verification doesnt exist
         if ($user->hasVerifiedEmail() || !!!$verification)
-            abort(Response::BAD_REQUEST);
+            abort(Response::HTTP_BAD_REQUEST);
         
+        // If user exceed all attempts
         if ($verification->attempts >= self:: MAX_ATTEMPTS)
-            abort(Response::BAD_REQUEST, 'You have failed too many attempts. Please try again later');
+            abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
         $input = (int)$request->input('code');
+
+        // If Code is inccorect
         if ($input !== $verification->key)
         {
             $verification->attempts++;
             $verification->save();
 
             throw ValidationException::withMessages([
-                'code' => [ 'Wrong code' ]
+                'code' => [ 'Youtr code is inccorect' ]
             ]);
         }
-
+        
+        
         $verification->delete();
         $user->markEmailAsVerified();
 
