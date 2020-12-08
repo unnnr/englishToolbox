@@ -49,9 +49,9 @@ const HandleRequests = {
       }
       catch(error) {
         let message = null;
-
         let parsed = this.parseError(error);
-        // Delegeting to callback
+        
+        // Delegating  to callback
         if (typeof onFail === 'function') 
           message = onFail(error, parsed);
 

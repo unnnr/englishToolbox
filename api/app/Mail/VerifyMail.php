@@ -2,16 +2,10 @@
 
 namespace App\Mail;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\Services\Auth\VerificationService;
-
 
 class VerifyMail extends Mailable
-{
-
+{    
     private $user;
 
     /**
@@ -38,6 +32,7 @@ class VerifyMail extends Mailable
         $code = str_pad($key, 4, "0", STR_PAD_LEFT);
 
         return $this->view('mail.verifyEmail')
-            ->to($email, $name)->with(['code' => $code]);
+            ->to($email, $name)
+            ->with(['code' => $code]);
     }
 }

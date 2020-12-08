@@ -101,11 +101,23 @@ export default {
 	},
 
 	methods: {
+		handleError(raw, parsed) {
+			let status = raw.status;
+
+			if (status === 400)
+				return raw.body.message;
+
+			if (status === 422)
+				return parsed.code;
+
+			return null;
+		},
+
 		request() {
 			if (this.disabled)
 				return;
 
-			this.send(this.verify);
+			this.send(this.verify, this.handleError);
 		},	
 
 		async load() {

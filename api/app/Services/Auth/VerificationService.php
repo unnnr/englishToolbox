@@ -6,11 +6,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use App\Models\VerificationCode;
 
 
 class VerificationService
 {
-    public const MAX_ATTEMPTS = 15;
+    public const MAX_ATTEMPTS = 3;
 
     private function generateKey(int $digitsCount = 4) 
     {
@@ -70,5 +71,26 @@ class VerificationService
     public function reset() 
     {
 
+    }
+
+    public function clearExceeded () {
+        $conditions = [
+            'type' => 'email',
+            'attempts' => self::MAX_ATTEMPTS
+        ];
+
+        VerificationCode::where($conditions)->chunkById(200, function ($codes) {
+            foreach ($codes as $code) {
+                // Creting new key
+                $newKey = $this->generateKey();
+                $code->update([
+                    'key' => $newKey,
+                    'attempts' => '0'
+                ]);
+                
+                // Sending notification
+                $code->user->sendEmailVerificationNotification();
+            }
+        });
     }
 }
