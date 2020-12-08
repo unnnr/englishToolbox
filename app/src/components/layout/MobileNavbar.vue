@@ -38,13 +38,6 @@
 
 				<router-link
 					class="navbar-mobile__link"
-					to="/home">
-					
-					{{  appName }}
-				</router-link>
-
-				<router-link
-					class="navbar-mobile__link"
 					active-class="navbar-desktop__link--active"
 					v-for="(link, index) in links"
 					:key="index"

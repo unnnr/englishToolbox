@@ -34,7 +34,7 @@
 
 						:main-tag="post.mainTag"
 						:tags="post.tags"
-
+						
 						@select="goTo(post)"/>
 					
 				</swiper-slide>
