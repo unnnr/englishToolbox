@@ -1,13 +1,15 @@
 <template>
   <div class="modal__content alert alert--error">
 
-    <span class="alert__title heading-fifth">
-      Something went wrong
-    </span>
+    <div class="alert__header">
+      <span class="alert__title heading-fifth">Something went wrong</span>
+      <button class="alert__button-close"></button>
+    </div>
 
-    <p class="alert__description text-fourth">
+    <p class="alert__description text-fifth">
       {{ description }}
     </p>
+
 
     <div class="alert__buttons">
       <button 

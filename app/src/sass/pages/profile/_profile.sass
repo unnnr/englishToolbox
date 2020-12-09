@@ -19,25 +19,28 @@
   grid-row-gap: 20px
 
 .register-overlay__image
-  width: 600px
+  width: 500px
 
   @include xl-devices
-    width: 450px
+    width: 350px
 
   @include md-devices
-    width: 400px
+    width: 300px
   
   @include sm-devices
-    width: 325px
+    width: 250px
 
   @include xxs-devices 
-    width: 275px
+    width: 225px
 
 
 .register-overlay__hint
   transition: color .2s ease-in-out
   user-select: none
   text-align: center
+  line-height: 1.5
+  span
+    color: $color-primary
   u
     text-decoration: underline
     color: $color-primary

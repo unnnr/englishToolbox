@@ -94,12 +94,12 @@
 .search__dropdown-content
   z-index: $z-third - 1
   max-height: 0
-  overflow: overlay
+  overflow: hidden
   @include scroll-body
   transition: height .4s ease-in-out, max-height .4s ease-in-out
 
 .search__dropdown-content--active
-  max-height: 300px
+  max-height: 400px
 
 .search__item
   display: grid

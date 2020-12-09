@@ -15,6 +15,7 @@
 						alt="#">
 
 					<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
+						Code sent to <span>allahuy@mail.cock</span> <br>
 						If you have troubles, click to <br>
 						<u>change your mail</u>, or <u>resend verification mail</u>
 					</p>

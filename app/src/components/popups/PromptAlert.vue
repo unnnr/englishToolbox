@@ -1,11 +1,12 @@
 <template>
   <div class="modal__content alert alert--prompt">
 
-    <span class="alert__title heading-fifth">
-      Enter confirmation here
-    </span>
+    <div class="alert__header">
+      <span class="alert__title heading-fifth">Enter confirmation here</span>
+      <button class="alert__button-close"></button>
+    </div>
 
-    <p class="alert__description text-fourth">
+    <p class="alert__description text-fifth">
       {{ message }}
     </p>
 
