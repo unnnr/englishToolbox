@@ -39,13 +39,12 @@ export default {
       set(value) {
         let string  = value + '';
 
-        for (let index in self.inputs) {
+        for (let index in this.inputs) {
           if (index >= string.length)
             return;
-        
+
           let key = string[index];
           let input = this.inputs[index];
-          input.set(key);
         }
       },
 

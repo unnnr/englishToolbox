@@ -57,7 +57,7 @@ class VerificationService
             $verification->save();
 
             throw ValidationException::withMessages([
-                'code' => [ 'Youtr code is inccorect' ]
+                'code' => [ 'Your code is inccorect' ]
             ]);
         }
         
