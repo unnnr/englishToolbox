@@ -23,7 +23,7 @@
 				</swiper-slide>
 
 				<swiper-slide
-					v-for="post in updates"
+					v-for="post in reversed"
 					:key="post.id">
 					
 					<card 
@@ -31,6 +31,7 @@
 						:created-at="post.createdAt"
 						:title="post.title"
 						:img="post.thumbnail"
+						:views="post.views"
 
 						:main-tag="post.mainTag"
 						:tags="post.tags"
@@ -92,6 +93,10 @@ export default {
 	},
 
 	computed: {
+		reversed() {
+      return [...this.updates].reverse();
+		},
+		
 		loading() {
 			return this.updates.length  === 0;
 		},
