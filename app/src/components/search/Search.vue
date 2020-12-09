@@ -61,7 +61,6 @@ export default {
 
   computed: {
     active() {
-      return true;
       return this.shown && this.hits.length;
     }
   },
