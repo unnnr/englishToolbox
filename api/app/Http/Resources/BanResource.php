@@ -18,8 +18,7 @@ class BanResource extends JsonResource
         return [
             'id' => $this->id,
             
-            'message' => $this->message,
-            'posted_at' => $this->posted_at,
+            'reason' => $this->reason,
             'crated_at' => $this->created_at,
     
             'user' => 

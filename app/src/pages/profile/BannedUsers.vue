@@ -8,12 +8,12 @@
 			:options="swiperOptions">
   
       <swiper-slide 
-        v-for="{id, user, message, postedAt} in comments"
+        v-for="{id, user, reason, createdAt} in comments"
         :key="id">
         
-        <banned-comment
-          :created-at="postedAt"
-          :message="message"
+        <banned-user
+          :created-at="createdAt"
+          :reason="reason"
           :user="user"
           @unban="onUnbanning(id)"/>
 
@@ -34,15 +34,14 @@ import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 import HandleRequests from '@mixins/HandleRequests'
 
 // components
-import BannedComment from '@components/comments/BannedComment'
-import PendingReview from '@components/reviews/PendingReview'
+import BannedUser from '@components/comments/BannedUser'
 
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 export default {
   components: {
-    BannedComment,
     SwiperSlide,
+    BannedUser,
     Swiper,
   },
 

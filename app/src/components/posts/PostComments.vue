@@ -206,10 +206,10 @@ export default {
         this.postComment.bind(this, ...arguments));
     },
 
-    async ban(user, reason) {
+    async ban(user, message) {
       let data = new FormData();
       data.append('user', user);
-      data.append('reason', reason);
+      data.append('reason', 'Comment: ' + message);
         
       await Bans.create(data);
 

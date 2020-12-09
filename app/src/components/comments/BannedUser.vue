@@ -2,7 +2,7 @@
   <div class="banned__comment">
     <comment
       :created-at="createdAt"
-      :message="message"
+      :message="reason"
       :user="user"/>
 
     <button 
@@ -25,7 +25,7 @@ export default {
   props: {
     createdAt: { type: String },
 
-    message: { type: String },
+    reason: { type: String },
     
     user: { type: Object },
   },
