@@ -1169,10 +1169,10 @@ button:active {
   background: #6666ff;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
-  -webkit-transition: background .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
-  transition: background .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
-  transition: transform .1s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
-  transition: transform .1s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  -webkit-transition: background .2s ease-in-out, opacity .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: background .2s ease-in-out, opacity .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: transform .1s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, opacity .2s ease-in-out;
+  transition: transform .1s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, opacity .2s ease-in-out, -webkit-transform .1s ease-in-out, -webkit-box-shadow .2s ease-in-out;
 }
 
 .button-primary:hover,
@@ -4871,4 +4871,44 @@ button:active {
 .fade-leave-active.player__overlay {
   -webkit-transition-delay: .55s !important;
           transition-delay: .55s !important;
+}
+
+.test {
+  z-index: 1000;
+  overflow: hidden;
+  position: fixed;
+  background: gray;
+}
+
+@media (orientation: landscape) {
+  .test {
+    -webkit-transform: none;
+            transform: none;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+@media (orientation: portrait) {
+  .test {
+    right: 0;
+    top: 100%;
+    width: 100vh;
+    height: 100vw;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-transform-origin: right top;
+            transform-origin: right top;
+  }
+}
+
+.test::before {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  font-size: 50px;
+  color: white;
+  content: "your text here";
 }

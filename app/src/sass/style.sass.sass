@@ -249,3 +249,30 @@ body
 //  temp
 // =====
     
+.test
+  z-index: 1000
+  overflow: hidden
+  position: fixed
+  background: gray
+  @media (orientation: landscape)
+    transform: none
+    top: 0
+    right: 0
+    width: 100vw
+    height: 100vh
+  @media (orientation: portrait)
+    right: 0
+    top: 100%
+    width: 100vh
+    height: 100vw
+    transform: rotate(90deg)
+    transform-origin: right top
+    
+
+  &::before
+    position: absolute
+    text-align: center
+    width: 100%
+    font-size: 50px
+    color: white
+    content: "your text here"
