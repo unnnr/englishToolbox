@@ -14,6 +14,7 @@
 
 <script>
 // services
+import PostLinks from '@services/PostLinks'
 import Favorites from '@models/Favorites'
 
 // mixins
@@ -82,7 +83,8 @@ export default {
       let type = favorite.postType;
       let id = favorite.post.id;
 
-			this.$router.push({ path: `/${type}/${id}`});
+      let path = PostLinks.generate(type, id);
+			this.$router.push({ path });
     },
 
     unfavorite(post) {

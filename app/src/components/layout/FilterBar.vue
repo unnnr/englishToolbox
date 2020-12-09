@@ -19,7 +19,7 @@
 				shrinked-by-default>
 
 				<tag
-					v-for="tag of tags"
+					v-for="tag of parsed"
 					:key="tag.id"
 					:label="tag.label"
 					:color="tag.color"
@@ -67,6 +67,18 @@ export default {
 	computed: {
 		togglerDisabled() {
 			return !!!Array.isArray(this.tags) || this.tags.length === 0; 
+		},
+
+		parsed() {
+			let parsed = [];
+
+			for (let tag of this.tags)
+			{
+				if (!!!tag.default)
+					parsed.push(tag);
+			}
+
+			return parsed;
 		}
 	},
 

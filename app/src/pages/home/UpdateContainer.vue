@@ -49,6 +49,7 @@
 import 'swiper/swiper-bundle.css'
 import { Swiper as SwiperClass, Pagination, Autoplay } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import PostLinks from '@services/PostLinks'
 
 // mixins
 import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
@@ -75,12 +76,6 @@ export default {
 	data() {
 		return {
 			updates: [],
-
-			typesMap: {
-				'audio': 'audio',
-				'video': 'videos',
-				'chart': 'charts'
-			},
 
 			swiperOptions: {
 
@@ -112,10 +107,10 @@ export default {
 
 	methods: {
 		goTo(update) {
-			let type = this.typesMap[update.postType];
-			let id = update.postId;
+			let path = 
+				PostLinks.generate(update.postType, update.postId)
 
-			this.$router.push({ path: `/${type}/${id}`});
+			this.$router.push({ path });
 		},
 
 		async load() {
