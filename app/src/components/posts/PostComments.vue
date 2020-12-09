@@ -173,12 +173,12 @@ export default {
       if (!!!this.canBan)
         return null;
 
-      let commentId = comment.id;
+      let reason = comment.message;
       let userId = comment.user.id;
 
       return {
         'send a ban': 
-          this.onBanSending.bind(this, userId, commentId)   
+          this.onBanSending.bind(this, userId, reason)   
       };
     },
 
@@ -206,14 +206,15 @@ export default {
         this.postComment.bind(this, ...arguments));
     },
 
-    async ban(userId, commentId) {
+    async ban(user, reason) {
       let data = new FormData();
-      data.append('user', userId);
-      data.append('comment', commentId);
+      data.append('user', user);
+      data.append('reason', reason);
         
       await Bans.create(data);
 
-      this.remove(userId);
+      // Removing alll user comments from list
+      this.remove(user);
     },
 
     async postComment(message) {

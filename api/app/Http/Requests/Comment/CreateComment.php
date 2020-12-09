@@ -13,7 +13,7 @@ class CreateComment extends FormRequest
      */
     public function authorize()
     {
-        return !!!auth()->user()->banned;
+        return true;
     }
 
     /**

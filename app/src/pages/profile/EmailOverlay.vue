@@ -123,7 +123,7 @@ export default {
 		async load() {
 			let user = await Auth.user.get();
 
-			this.verified = user.verified;
+			this.verified = user && user.verified;
 			this.loaded = true;
 		},
 

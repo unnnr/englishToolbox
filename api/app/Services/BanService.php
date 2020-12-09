@@ -41,14 +41,10 @@ class BanService
             ]);
         }
         
-        // Retrieving comment
-        $commentId = $request->input('comment');
-        $comment = Comment::findOrFail($commentId);
-        
         // Creating new Ban
+        $reason = $request->input('reason');
         $ban = $user->ban()->create([
-            'message' => $comment->message,
-            'posted_at' => $comment->created_at
+            'reason' => $reason,
         ]);
 
         // Deleting all user comment

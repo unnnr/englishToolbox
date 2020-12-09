@@ -2,7 +2,6 @@ import Http from '@services/Http'
 import Avatar from '@models/Avatar';
 import FormatedDate from '@services/FormatedDate'
 
-
 class User 
 {
     avatar = Avatar;
@@ -104,6 +103,9 @@ class User
         })
         .catch(this.__catchError);
         
+        if (response === null)
+            return [];
+
         for (let comment of response.data)
             comment.createdAt = FormatedDate.parse(comment.createdAt);
             
