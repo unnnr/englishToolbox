@@ -55,6 +55,7 @@
     <button
       v-if="visibilityButtoned" 
       type="button"
+      tabindex="-1"
       :disabled="forceHidden"
       :class="{'input-group__visibility': this.entryHidden, 
                'input-group__visibility-off': !!!this.entryHidden}"
