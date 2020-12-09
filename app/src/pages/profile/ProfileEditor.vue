@@ -131,12 +131,7 @@ export default {
       })
     },
     
-    toggleEditing() {
-      if (this.disabled) {
-        this.disabled = false;
-        return;
-      }
-
+    hide() {
       let form = this.$refs.form;
       if (!!!form)
         return;
@@ -153,6 +148,16 @@ export default {
       });
     },
 
+    show() {
+      this.disabled = false;
+    },
+
+    toggleEditing() {
+      if (this.disabled)
+        this.show();
+      else
+        this.hide();
+    },
 
     deleteProfile() {
       let form = this.$refs.form;
@@ -180,6 +185,7 @@ export default {
 
     async submit(data) {
       await Auth.user.edit(data);
+      this.hide();
     }
   }
 }
