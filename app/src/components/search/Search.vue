@@ -25,7 +25,6 @@
 
               :main-tag="hit.mainTag"
               :tags="hit.tags"/>
-					
 					</div>
 				</div>
 			</div>
@@ -44,14 +43,9 @@ export default {
 
   data() {
     return {
-      active: false,
+      shown: false,
       query: '',
       hits: [],
-
-      // searchClient: algoliasearch(
-      //   'latency',
-      //   '6be0576ff61c053d5f9a3225e2a90f76'
-      // ),
 
       searchClient: algoliasearch(
         '935M213CXE', 'cd89ba96eb6549adb8d90b48d8c9e685',
@@ -62,6 +56,12 @@ export default {
 
       // Callback initiated by instantsearch
       preparedRequest: null,
+    }
+  },
+
+  computed: {
+    active() {
+      return this.shown && this.hits.length;
     }
   },
 
@@ -93,7 +93,7 @@ export default {
     search.start();
     
     // Initiating input callback
-    const DELAY = 700;
+    const DELAY = 1000;
 
     this.throttledInput = 
       throttle(DELAY, this.onInput);
@@ -101,11 +101,11 @@ export default {
 
   methods: {
     show() {
-      this.active = true;
+      this.shown = true;
     },
 
     hide() {
-      this.active = false;
+      this.shown = false;
     },
 
     request(helper) {
@@ -120,7 +120,7 @@ export default {
     },
 
     parseRespose(response) {
-      this.hits = response.hits;
+      this.hits = response.hits.slice(0, 5);
     },
 
     onInput() {
@@ -131,3 +131,19 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.search__dropdown-content
+  position: relative
+
+.search-hits-move 
+  transition: transform 4s ease-in-out
+
+.search-hits-enter-active
+  transition: all .5s !important
+
+
+.search-hits-enter, .search-hits-leave-to
+  opacity: 0 !important
+
+</style>

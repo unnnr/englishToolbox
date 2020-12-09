@@ -74,8 +74,8 @@ Route::group(['namespace' => 'Api'], function()
     */
 
     Route::get('profile', 'UserController@index');
-    Route::patch( 'profile', 'UserController@update');
-    Route::delete( 'profile', 'UserController@delete');
+    Route::patch('profile', 'UserController@update');
+    Route::delete('profile', 'UserController@destroy');
 
     Route::get('profile/favorites/{postType}', 'FavoriteController@show');
     Route::post('profile/favorites/{postType}', 'FavoriteController@store');

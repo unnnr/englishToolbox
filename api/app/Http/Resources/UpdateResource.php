@@ -22,11 +22,13 @@ class UpdateResource extends JsonResource
             'description' => $this->updatable->description,  
             
             'thumbnail' => $this->updatable->thumbnail->url,
+
+            'views' => $this->updatable->views,
             
             'createdAt' => $this->created_at,
             
             'postType' => $this->type,
-            
+
             'postId' => $this->updatable->id,
         ];
     }

@@ -6,6 +6,8 @@ class Resolution {
 
 	__listeners = [];
 
+	__rawListeners = [];
+
 	boundaries = [
 		{ name: 'mobile', 		px: 576 },
 		{ name: 'smalTablet', px: 1000 },
@@ -31,6 +33,9 @@ class Resolution {
 
 	check() {
 		let width = window.innerWidth;
+
+		for (let callback of this.__rawListeners)
+			callback(width);
 		
 		for (let boundary of this.boundaries) {
 			if (width > boundary.px)
@@ -56,21 +61,36 @@ class Resolution {
 		callback(this.type);
 	}
 
-	listen(callback) {
+	listen(callback, everyChange) {
 		if (typeof callback !== 'function')
 			throw 'Incorrect callback type';
-
+		
+		if (this.__listeners.indexOf(callback) !== -1
+			|| this.__rawListeners.indexOf(callback) !== -1) 
+			throw 'callback have been already binded';
+			
+		if (everyChange) {
+			this.__rawListeners.push(callback);
+			return;
+		}
+		
 		this.__listeners.push(callback);
 	}
 
 	detach(callback) {
 		let index = this.__listeners.indexOf(callback);
+		if (index !== -1) {
+			this.__listeners.splice(index, 1);
+			return true;
+		}
 
-		if (index === -1)
-			return false;
+		index = this.__rawListeners.indexOf(callback);
+		if (index !== -1) {
+			this.__rawListeners.splice(index, 1);
+			return true;
+		}
 
-		this.__listeners.splice(index, 1);
-		return true;
+		return false;
 	}
 }
 

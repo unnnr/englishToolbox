@@ -61,7 +61,8 @@
         
         <button 
           class="profile__tab-button profile__tab-button--delete-profile text-sixth"
-          type="button">
+          type="button"
+          @click="deleteProfile">
           
           delete profile
         </button>
@@ -123,23 +124,13 @@ export default {
   },
 
   methods: {
-    logout() {
-      let form = this.$refs.form;
-
-      form.sendWith(async () => {
-        await Auth.logout();
-
-			  this.$router.push({name: 'Home'});
-      });
-    },
-    
     showAlert(callback) {
       bus.dispatch('alert-warning', {
         message: 'All changes will be lost',
         okay: callback,
       })
     },
-
+    
     toggleEditing() {
       if (this.disabled) {
         this.disabled = false;
@@ -159,6 +150,31 @@ export default {
       this.showAlert(() => {
         this.disabled = true;
         form.reset();
+      });
+    },
+
+
+    deleteProfile() {
+      let form = this.$refs.form;
+
+      form.appendPassword(password => {
+        form.sendWith(async () => {
+          let data = new FormData(data);
+          data.append('password', password);
+
+          await Auth.user.delete(data);
+			    this.$router.push({name: 'Home'});
+        });
+      });
+    },
+
+    logout() {
+      let form = this.$refs.form;
+
+      form.sendWith(async () => {
+        await Auth.logout();
+
+			  this.$router.push({name: 'Home'});
       });
     },
 

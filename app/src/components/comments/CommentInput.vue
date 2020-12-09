@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { throttle } from 'throttle-debounce';
+import Resolution from '@services/Resolution'
 import Avatar from '@models/Avatar'
 
 export default {
@@ -59,23 +59,20 @@ export default {
     this.loadAvatar();
     this.onInput()
 
-    this.$options.eventHandler = throttle(100, this.onInput);
-
-    window.addEventListener('resize', 
-			this.$options.eventHandler);
+    Resolution.listen(this.onInput, true);
   },
 
 	beforeDestroy() {
-		window.removeEventListener('resize',
-     this.$options.eventHandler);
+		Resolution.detach(this.onInput);
 	},
 
   methods: {
-    onInput(event) {
-      let textarea =  this.$refs.textarea; 
+    onInput() {
+      let textarea =  this.$refs.textarea;
+      let style = textarea.style; 
 
-      textarea.style.height = this.minHeight + 'px';
-      textarea.style.height = textarea.scrollHeight + 'px';
+      style.height = this.minHeight + 'px';
+      style.height = textarea.scrollHeight + 'px';
     },
     
     send() {

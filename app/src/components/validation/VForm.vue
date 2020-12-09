@@ -143,6 +143,12 @@ export default {
       }
     },
 
+    appendPassword(callback) {
+      bus.dispatch('alert-prompt', {
+        confirm: (entry) => callback(entry)
+      });
+    },
+
     async sendWith(callback) {
       if (this.loading)
         return;
@@ -161,15 +167,6 @@ export default {
     },
 
     async submit() {
-      function confirmPrompt(entry) {
-        this.sendWith(() => {
-          let data = this.collectData();
-
-          data.append('password', entry);
-          return this.request(data);
-        });
-      }
-
       if (!!!this.validateInputs() || !!!this.request)
         return;
 
@@ -177,18 +174,20 @@ export default {
       if (this.preventRedundant && !!!hasChanges)
         return;
 
-      if (!!!this.requirePassword) {
-        this.sendWith(() => {
+      if (this.requirePassword) {
+        this.appendPassword(password => {
           let data = this.collectData();
-          return this.request(data, hasChanges);
+          data.append('password', password);
+          
+          return this.request(data);
         });
-
         return;
       }
 
-      bus.dispatch('alert-prompt', {
-        confirm: confirmPrompt.bind(this)
-      })
+      this.sendWith(() => {
+        let data = this.collectData();
+        return this.request(data, hasChanges);
+      });
     }
   }
 }

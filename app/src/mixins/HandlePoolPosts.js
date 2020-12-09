@@ -11,14 +11,10 @@ const HandlePoolPosts = {
 
   computed: {
     reversed() {
-      console.log('reversing');
-
       return [...this.posts].reverse();
     },
 
     filtered() {
-      console.log('filtering');
-
       let filters = this.filters;
       let posts = this.reversed;
 
@@ -27,7 +23,15 @@ const HandlePoolPosts = {
 
       let filtered = [];
       for (let filter of filters) {
-        for (let post of posts) {
+
+        for (let i = 0; i < posts.length; i++) {
+          let post = posts[i];
+
+          // if already has been filtered
+          let index = filtered.indexOf(post);
+          if (index !== -1)
+            continue;
+
           if (this.postHasTag(post, filter))
             filtered.push(post);
         } 
@@ -37,8 +41,6 @@ const HandlePoolPosts = {
     },
 
     chunked() {
-      console.log('chunking');
-
       let chunked = [];
       let posts = this.filtered;
       let step = this.paginationStep;
@@ -50,8 +52,6 @@ const HandlePoolPosts = {
     },
 
     parsed() {
-      console.log('parsing');
-
       let chunked = this.chunked;
       let parsed = [];
 

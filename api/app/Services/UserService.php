@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Resources\AuthenticatedUserResource;
@@ -25,13 +26,10 @@ class UserService
     {
         $user = auth()->user();
 
-
         /// TO MIDDLEWATE
 
         $confirmation = $request->input('password');
         
-        //return [Hash::make($confirmation), $user->password];
-
         if (!!!Hash::check($confirmation, $user->password))
         {
             throw ValidationException::withMessages([
@@ -63,8 +61,37 @@ class UserService
         return new AuthenticatedUserResource($user);
     }
     
-    public function destroy()
+    public function destroy(Request $request)
     {
-        // 
+        $user = auth()->user();
+
+        /// TO MIDDLEWATE
+
+        $confirmation = $request->input('password');
+        
+        if (!!!Hash::check($confirmation, $user->password))
+        {
+            throw ValidationException::withMessages([
+                'password' => 'Icorrect password'
+            ]);
+        }
+
+        /// TO MIDDLEWATE
+
+        $user->currentAccessToken()->delete();
+        
+        // Removing one to one relationship
+        $avatar = $user->avatar;
+        Storage::delete($user->avatar::STORAGE_PATH .'/'. $avatar->name);
+        $user->avatar->delete();  
+        
+        $ban = $user->ban;
+        if ($ban)
+            $ban->delete();
+
+        // Removing one to many relationship
+        $user->verificationCodes()->delete();
+        $user->comments()->delete();
+        $user->views()->delete();
     }
 }
