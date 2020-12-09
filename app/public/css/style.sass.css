@@ -1087,6 +1087,10 @@ body {
   content: "enhanced_encryption";
 }
 
+.input-group--code:before {
+  content: "vpn_key";
+}
+
 .input-group__visibility,
 .input-group__visibility-off {
   display: -webkit-box;
@@ -1488,6 +1492,18 @@ button:active {
   grid-row-gap: 15px;
 }
 
+.alert__header {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .alert__title {
   color: inherit;
   display: -webkit-box;
@@ -1505,6 +1521,25 @@ button:active {
   font-size: 30px;
 }
 
+.alert__button-close::before {
+  height: 15px;
+  width: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  font-family: "material icons round";
+  content: "clear";
+  font-size: 25px;
+  color: #848499;
+}
+
 .alert__buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1517,6 +1552,32 @@ button:active {
 
 .alert__button:nth-child(2) {
   margin-left: 15px;
+}
+
+.alert__description {
+  display: -ms-grid;
+  display: grid;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  line-height: 1.4;
+}
+
+.alert__description u {
+  text-decoration: underline;
+  color: #6666ff;
+  cursor: pointer;
+}
+
+.alert__description--resended {
+  color: #dadaea;
+}
+
+.alert__button-login {
+  font-size: 16px;
+  color: #2f2e44;
+  font-weight: 600;
 }
 
 .alert--error {
@@ -1549,6 +1610,14 @@ button:active {
 
 .alert--notification .alert__title:before {
   content: "notification_important";
+}
+
+.alert--recovery {
+  color: #6666ff;
+}
+
+.alert--recovery .alert__title:before {
+  content: "autorenew";
 }
 
 .context {
@@ -2641,30 +2710,30 @@ button:active {
 }
 
 .register-overlay__image {
-  width: 600px;
+  width: 500px;
 }
 
 @media (max-width: 1400px) {
   .register-overlay__image {
-    width: 450px;
+    width: 350px;
   }
 }
 
 @media (max-width: 1000px) {
   .register-overlay__image {
-    width: 400px;
+    width: 300px;
   }
 }
 
 @media (max-width: 770px) {
   .register-overlay__image {
-    width: 325px;
+    width: 250px;
   }
 }
 
 @media (max-width: 370px) {
   .register-overlay__image {
-    width: 275px;
+    width: 225px;
   }
 }
 
@@ -2676,6 +2745,11 @@ button:active {
       -ms-user-select: none;
           user-select: none;
   text-align: center;
+  line-height: 1.5;
+}
+
+.register-overlay__hint span {
+  color: #6666ff;
 }
 
 .register-overlay__hint u {
@@ -3287,7 +3361,7 @@ button:active {
 .search__dropdown-content {
   z-index: 29;
   max-height: 0;
-  overflow: overlay;
+  overflow: hidden;
   -webkit-transition: height .4s ease-in-out, max-height .4s ease-in-out;
   transition: height .4s ease-in-out, max-height .4s ease-in-out;
 }
@@ -3321,7 +3395,7 @@ button:active {
 }
 
 .search__dropdown-content--active {
-  max-height: 300px;
+  max-height: 400px;
 }
 
 .search__item {

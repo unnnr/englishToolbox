@@ -5,6 +5,12 @@
 .alert 
   grid-row-gap: 15px
   
+.alert__header
+  display: grid
+  grid-auto-flow: column
+  justify-content: space-between
+  align-items: center
+
 .alert__title
   color: inherit
   display: flex
@@ -16,6 +22,19 @@
     margin-right: 5px
     font-size: 30px
 
+.alert__button-close
+  &::before
+    height: 15px
+    width: 15px
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    font-family: "material icons round"
+    content: "clear"
+    font-size: 25px
+    color: $color-gray
+
 .alert__buttons
   display: flex
 
@@ -24,6 +43,23 @@
 
   &:nth-child(2)
     margin-left: 15px
+
+.alert__description
+  display: grid
+  user-select: none
+  line-height: 1.4
+  u
+    text-decoration: underline
+    color: $color-primary
+    cursor: pointer
+
+.alert__description--resended
+  color: $color-lightgray
+
+.alert__button-login
+  font-size: 16px
+  color: $color-dark
+  font-weight: $semibold
 
 // ===========
 // alert state
@@ -56,3 +92,10 @@
   .alert__title
     &:before
       content: "notification_important"
+
+.alert--recovery
+  color: $color-primary
+
+  .alert__title
+    &:before
+      content: "autorenew"
