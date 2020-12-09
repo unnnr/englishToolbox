@@ -2,7 +2,8 @@
   <div class="addition__tab-footer comments__footer">
     <button 
       class="comments__profile-button"
-      :style="{'background-image': avatarUrl}">
+      :style="{'background-image': avatarUrl}"
+      @click="toProfile">
     </button>
 
     <textarea 
@@ -73,6 +74,12 @@ export default {
 
       style.height = this.minHeight + 'px';
       style.height = textarea.scrollHeight + 'px';
+    },
+
+    toProfile() {
+      this.$router.push({
+        path: '/profile'
+      });
     },
     
     send() {
