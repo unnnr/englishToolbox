@@ -51,9 +51,10 @@ class Auth
             },
 
             delete: async (...args) => {
-                let user = await target.edit(...args);
+                let user = await target.delete(...args);
 
-                dispatchIfChanged(user);
+                this.__removeToken();
+                dispatchIfChanged(null);
 
                 return user;
             },

@@ -76,10 +76,10 @@ class User
         return this.__makeResponse();
     }
 
-    async delete()
+    async delete(data)
     {
         let response = await Http.delete({
-            uri: this.path
+            data, uri: this.path
         })
         .then(this.__parseResponse)
         .catch(this.__catchError);

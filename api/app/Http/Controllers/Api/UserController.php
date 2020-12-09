@@ -35,6 +35,6 @@ class UserController extends Controller
     
     public function destroy(DeleteUser $request)
     {
-        return $this->service->update($request);
+        return $this->service->destroy($request);
     }
 }
