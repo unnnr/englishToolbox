@@ -9,7 +9,9 @@ use App\Http\Requests\User\RegisterUser;
 use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\DeleteUser;
+use App\Http\Middleware\RequirePassword;
 use App\Services\UserService;
+
 
 class UserController extends Controller
 {
@@ -19,6 +21,8 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
+        $this->middleware(RequirePassword::class)
+            ->only(['update', 'destroy']);
 
         $this->service = new UserService();
     }

@@ -3,9 +3,7 @@
 namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\Http\Resources\UserResource;
@@ -25,20 +23,7 @@ class UserService
     public function update(Request $request)
     {
         $user = auth()->user();
-
-        /// TO MIDDLEWATE
-
-        $confirmation = $request->input('password');
         
-        if (!!!Hash::check($confirmation, $user->password))
-        {
-            throw ValidationException::withMessages([
-                'password' => 'Icorrect password'
-            ]);
-        }
-
-        /// TO MIDDLEWATE
-
         if ($request->has('name'))
             $user->name = $request->input('name');
 
@@ -64,20 +49,6 @@ class UserService
     public function destroy(Request $request)
     {
         $user = auth()->user();
-
-        /// TO MIDDLEWATE
-
-        $confirmation = $request->input('password');
-        
-        if (!!!Hash::check($confirmation, $user->password))
-        {
-            throw ValidationException::withMessages([
-                'password' => 'Icorrect password'
-            ]);
-        }
-
-        /// TO MIDDLEWATE
-
         $user->currentAccessToken()->delete();
         
         // Removing one to one relationship
