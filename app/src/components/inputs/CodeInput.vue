@@ -10,6 +10,7 @@
       v-model="input.value"
       ref="inputs"
       
+      :disabled="disabled"
       maxlength="1" 
       placeholder="-"
       
@@ -32,6 +33,8 @@ export default {
     keysCount: { type: Number, default: 4},
 
     value: { type: String, default: ''},
+
+    disabled: { type: Boolean, default: false }
   },
 
   computed: {
@@ -60,16 +63,22 @@ export default {
     }
   },
 
+  watch: {
+    disabled(value) {
+      if (value)
+        this.removeEvents();
+      else
+        this.initEvents();
+    }
+  },
+
   mounted() {
     this.initKeys();
-
-    window.addEventListener('paste', this.paste);
-    window.addEventListener('keydown', this.focus);
+    this.initEvents();
   },
 
   beforeDestroy() {
-    window.removeEventListener('paste', this.paste);
-    window.removeEventListener('keydown', this.focus);
+    this.removeEvents();
   },
 
   data() {
@@ -79,6 +88,16 @@ export default {
   },
 
   methods: {
+    initEvents() {
+      window.addEventListener('paste', this.paste);
+      window.addEventListener('keydown', this.focus);
+    },
+
+    removeEvents() {
+      window.removeEventListener('paste', this.paste);
+      window.removeEventListener('keydown', this.focus);
+    },
+    
     initKeys() {
       function createInput(index) {
         let input = {

@@ -25,12 +25,13 @@
 
 					<code-input
 						v-model="entry"
+						:disabled="inputDisabled"
 						:keysCount="keysCount"
 						@confirm="onConfirm"/>
 
 					<button 
 						class="register-overlay__confirm-button button-secondary" 
-						:disabled="disabled"
+						:disabled="buttonDisabled"
 						@click.prevent="request">
 						
 						confirm
@@ -65,6 +66,7 @@ export default {
 			keysCount: 4,
 			entry: '',
 			
+			changingMail: false,
 			verified: false,
 			loaded: false,
 		}
@@ -79,8 +81,12 @@ export default {
 			return !!!this.verified || !!!this.loaded;
 		},
 
-		disabled() {
+		buttonDisabled() {
 			return this.loading || this.entry.length !== this.keysCount;
+		},
+
+		inputDisabled() {
+			return this.loading || this.changingMail;
 		}
 	},
 
@@ -130,7 +136,21 @@ export default {
 		},
 
 		onChanging() {
-			this.send(this.resend, this.handleError);
+			this.changingMail = true;
+
+			bus.dispatch('alert-prompt', {
+				message: 'Write here your new email',
+				label: 'Email',
+				visible: true,
+				
+				cancel: () =>
+					this.changingMail = true,
+
+				confirm: () => {
+					this.send(this.changeMail, this.handleError);
+					this.changingMail = false;
+				}
+			});
 		},
 
 		async load() {
@@ -145,8 +165,10 @@ export default {
 			await Auth.resendCode();
 		},
 
-		async changeMail() {
+		async changeMail(email) {
+			console.log(email, 123);
 
+			//await Auth.resendCode();
 		},
 
 

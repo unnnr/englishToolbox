@@ -16,10 +16,10 @@
     <v-input 
       v-model="entry"
 
-      label="Your confirmation"
+      :label="label"
       :max="64"
       
-      visibilityButtoned
+      :visibilityButtoned="password"
       focus-on-mount
       colorless/>
 
@@ -57,10 +57,11 @@ export default {
   },
     
   props: {
-    message: {
-      type: String,
-      default: ''
-    }
+    label: { type: String, default: 'Your confirmation' },
+
+    message: { type: String, default: '' },
+
+    password: { type: Boolean, default: true },
   },
 
   data() {
