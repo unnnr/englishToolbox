@@ -3,7 +3,10 @@
 
     <div class="alert__header">
       <span class="alert__title heading-fifth">Something went wrong</span>
-      <button class="alert__button-close"></button>
+      <button 
+        class="alert__button-close"
+        @click="okay">
+      </button>
     </div>
 
     <p class="alert__description text-fifth">

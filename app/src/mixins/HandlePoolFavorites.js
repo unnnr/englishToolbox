@@ -9,10 +9,8 @@ const HandlePoolFavorites = {
 
   methods: {
     parseFavorites() {
-      for (let favorite of this.favorites)
-      {
+      for (let favorite of this.favorites) {
         let post = this.findById(favorite.post.id);
-
         if (post)
           this.$set(post, 'favorite', true);
       }

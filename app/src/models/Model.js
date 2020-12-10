@@ -64,6 +64,9 @@ class Model
         return data;
     }
 
+    dropCache() {
+        this.__cache.clear();
+    }
 
     async create(data)
     {

@@ -12,6 +12,10 @@ class PostLinks {
 
     return parsedType + '/' + id
   }
+
+  getPath(type) {
+    return this.map[type];
+  }
 }
 
 export default new PostLinks();

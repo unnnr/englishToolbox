@@ -9,7 +9,7 @@ use App\Events\EmailChanged;
 use App\Events\PostCreated;
 use App\Events\PostDeleted;
 use App\Events\PostUpdated;
-use App\Listeners\SendVerificationCode;
+use App\Listeners\CreateVerificationCode;
 use App\Listeners\CreateUpdate;
 use App\Listeners\EditUpdate;
 use App\Listeners\DeleteUpdate;
@@ -24,11 +24,11 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendVerificationCode::class,
+            CreateVerificationCode::class,
         ],
         
         EmailChanged::class => [
-            SendVerificationCode::class,
+            CreateVerificationCode::class,
         ],
 
         PostCreated::class => [

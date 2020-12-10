@@ -1,6 +1,7 @@
 
 import FormatedDate from '@services/FormatedDate'
 import Favorites from '@models/Favorites'
+import Updates from '@models/Updates'
 import Model from '@models/Model'; 
 
 class PostModel extends Model 
@@ -31,6 +32,25 @@ class PostModel extends Model
             FormatedDate.parse(comment.user.createdAt);
         
         return response.data;
+    }
+
+    async create() {
+        let post = await super.create(...arguments);
+        Updates.dropCache();
+
+        return post;
+    }
+
+    async edit() {
+        let post = await super.edit(...arguments);
+        Updates.dropCache();
+
+        return post;
+    }
+
+    async delete() {
+        await super.delete(...arguments);
+        Updates.dropCache();
     }
     
     castCreatedAt(value) 

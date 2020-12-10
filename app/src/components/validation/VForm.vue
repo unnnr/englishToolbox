@@ -71,12 +71,6 @@ export default {
       return allValid;
     },
 
-    TEMP_showData(data) {
-      for (let [field, value] of data.entries())
-        console.log(field + ': ' + value);
-      console.log('------------');
-    },  
-
     collectData() {
       let data = new FormData();
       
@@ -84,10 +78,6 @@ export default {
         if (typeof input.submit === 'function')
           input.submit(data);
       }
-
-      //
-      this.TEMP_showData(data);
-      // 
 
       return data;
     },
@@ -155,7 +145,6 @@ export default {
          
       try {
         this.lock();
-
         await callback();
       }
       catch(error) {
@@ -174,12 +163,13 @@ export default {
       if (this.preventRedundant && !!!hasChanges)
         return;
 
-      if (this.requirePassword) {
+      if (hasChanges && this.requirePassword) {
         this.appendPassword(password => {
-          let data = this.collectData();
-          data.append('password', password);
-          
-          return this.request(data);
+          this.sendWith(() => {
+            let data = this.collectData();
+            data.append('password', password);
+            return this.request(data, hasChanges);
+          });
         });
         return;
       }

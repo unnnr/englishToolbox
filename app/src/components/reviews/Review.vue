@@ -26,7 +26,7 @@
           :key="index"
 
           class="review__star"
-          :class="{'review__star--selected': grade <= maxGrade}">
+          :class="{'review__star--selected': index <= grade}">
         </div>
       </div>
       <span class="review__rating">

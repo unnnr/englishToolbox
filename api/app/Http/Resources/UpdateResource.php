@@ -15,8 +15,14 @@ class UpdateResource extends JsonResource
     public function toArray($request)
     {
         return [
+            // Update data
             'id' => $this->id,
+            
+            'postType' => $this->type,
 
+            'createdAt' => $this->created_at,
+
+            // Post data          
             'title' => $this->updatable->title,
             
             'description' => $this->updatable->description,  
@@ -24,12 +30,12 @@ class UpdateResource extends JsonResource
             'thumbnail' => $this->updatable->thumbnail->url,
 
             'views' => $this->updatable->views,
-            
-            'createdAt' => $this->created_at,
-            
-            'postType' => $this->type,
 
             'postId' => $this->updatable->id,
+
+            'mainTag' => new TagResource($this->updatable->mainTag),
+
+            'tags' => TagResource::collection($this->updatable->tags)
         ];
     }
 }

@@ -14,7 +14,11 @@
       ref="form"
       class="profile__tab-editor"
       :class="{'profile__editor--disabled': disabled}"
+
+      :preventRedundant="false"
       :request="submit"
+      :catch="handleError"
+
       require-password
       secondary>
 
@@ -183,9 +187,21 @@ export default {
       });
     },
 
-    async submit(data) {
-      await Auth.user.edit(data);
+    handleError(error) {
+      if (!!!error || !!!error.password)
+        return;
+
+      bus.dispatch('alert-error', {
+        message: 'Incorrect password'
+      }); 
+    },
+
+    async submit(data, hasChanges) { 
+      if (hasChanges)
+        await Auth.user.edit(data);
+
       this.hide();
+      console.log(111); 
     }
   }
 }

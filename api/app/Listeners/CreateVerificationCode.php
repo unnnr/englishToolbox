@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Services\Auth\VerificationService;
 
-class SendVerificationCode
+class CreateVerificationCode
 {
     /**
      * Create the event listener.
@@ -26,11 +26,7 @@ class SendVerificationCode
      */
     public function handle($event)
     {
-        $user = $event->user;
-
-        $service = app(VerificationService::class);
-        $service->createCode($user);
-        
-        $user->sendEmailVerificationNotification();
+        app(VerificationService::class)
+            ->createCode($event->user)
     }
 }

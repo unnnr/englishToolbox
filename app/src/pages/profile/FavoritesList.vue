@@ -104,7 +104,7 @@ export default {
     },
 
     async loadPosts() {
-      this.favorites = await Favorites.all();;
+      this.favorites = await Favorites.all();
     },
   }
 }

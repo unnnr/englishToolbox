@@ -3,7 +3,10 @@
 
     <div class="alert__header">
       <span class="alert__title heading-fifth">Are you sure?</span>
-      <button class="alert__button-close"></button>
+      <button 
+        class="alert__button-close"
+        @click="cancel">
+      </button>
     </div>
 
     <p class="alert__description text-fifth">
