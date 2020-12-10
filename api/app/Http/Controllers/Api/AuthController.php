@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\ResendEmailVerification;
 use App\Http\Requests\User\RegisterUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\DeleteUser;
@@ -18,7 +19,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')
-            ->only(['logout', 'verifyEmail']);
+            ->only(['logout', 'verifyEmail', 'resendEmail']);
     }
     
     public function register(AuthService $service, RegisterUser $request)
@@ -39,5 +40,10 @@ class AuthController extends Controller
     public function verifyEmail(VerifyUser $request, VerificationService $service) 
     {
         return $service->verify($request);
+    }
+
+    public function resendEmail(ResendEmailVerification $request, VerificationService $service) 
+    {
+        return $service->resend($request);
     }
 }

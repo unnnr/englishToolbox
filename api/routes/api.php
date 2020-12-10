@@ -66,6 +66,7 @@ Route::group(['namespace' => 'Api'], function()
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('verify', 'AuthController@verifyEmail');
+    Route::post('verification/resend', 'AuthController@resendEmail');
 
     /*
     |--------------------------------------------------------------------------

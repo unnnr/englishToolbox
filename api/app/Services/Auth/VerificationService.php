@@ -11,7 +11,9 @@ use App\Models\VerificationCode;
 
 class VerificationService
 {
-    public const MAX_ATTEMPTS = 3;
+    public const RESENDING_ATTEMPT_VALUE = 2.5;
+
+    public const MAX_ATTEMPTS = 10;
 
     private function generateKey(int $digitsCount = 4) 
     {
@@ -33,6 +35,8 @@ class VerificationService
             'key' => $this->generateKey(),
             'type' => 'email', 
         ]);
+
+        $user->sendEmailVerificationNotification();
     }
 
     public function verify(Request $request)
@@ -45,7 +49,7 @@ class VerificationService
             abort(Response::HTTP_BAD_REQUEST);
         
         // If user exceed all attempts
-        if ($verification->attempts >= self:: MAX_ATTEMPTS)
+        if ($verification->attempts >= self::MAX_ATTEMPTS)
             abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
         $input = (int)$request->input('code');
@@ -68,9 +72,34 @@ class VerificationService
         event(new Verified($request->user()));
     }
 
-    public function reset() 
+    public function resend(Request $request) 
     {
+        $user = auth()->user();
+        $verification = $user->emailVerification;
+        
+        // Preventing redundant request
+        if ($user->hasVerifiedEmail() || !!!$verification)
+            abort(Response::HTTP_BAD_REQUEST);
 
+        if ($verification->attempts >= self::MAX_ATTEMPTS)
+          abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
+        
+        // Updating verification
+        $verification->attempts = 
+            min($verification->attempts + self::RESENDING_ATTEMPT_VALUE, self::MAX_ATTEMPTS);
+
+        $verification->key = 
+            $this->generateKey();
+
+        $verification->save();
+        
+        // Changing mail
+        $newEmail = $request->input('newEmail');
+        if ($newEmail)
+            $user->update(['email' => $newEmail ]);
+
+        // sending code
+        $user->sendEmailVerificationNotification();
     }
 
     public function clearExceeded () {
