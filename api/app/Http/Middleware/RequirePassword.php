@@ -18,7 +18,7 @@ class RequirePassword
     public function handle($request, Closure $next)
     {
         if (!!!auth()->check())
-            abort(422, 'asd');
+            abort(401);
 
         $confirmation = $request->input('password');
         if ($confirmation === null)
