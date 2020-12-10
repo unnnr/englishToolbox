@@ -8,7 +8,7 @@ use App\Http\Resources\UpdateResource;
 
 class UpdateService
 {
-    public const LIMIT  = 3; 
+    public const LIMIT = 20; 
 
     public function create(Model $post)
     {
@@ -31,8 +31,10 @@ class UpdateService
 
     public function all()
     {
-        $all = Update::all();
-
-        return UpdateResource::collection($all);
+        $collection = Update::orderBy('id', 'DESC')
+            ->limit(self::LIMIT)
+            ->get();
+            
+        return UpdateResource::collection($collection);
     }
 }
