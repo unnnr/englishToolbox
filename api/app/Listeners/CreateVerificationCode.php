@@ -27,6 +27,6 @@ class CreateVerificationCode
     public function handle($event)
     {
         app(VerificationService::class)
-            ->createCode($event->user)
+            ->createCode($event->user);
     }
 }

@@ -197,6 +197,23 @@ class Auth
         return response;
     }
 
+    async resendCode(newMail) {
+        let data = null;
+
+        if (!!!newMail) {
+            data = new FormData();
+            data.append('newMail', newMail)
+        }
+
+        let response = await Http.post({
+            data, uri: 'verification/resend'
+        });
+
+        this.user.target.__user.email = newMail;
+
+        return response;
+    }
+
     async check() 
     {
         return Boolean(await this.user.get());

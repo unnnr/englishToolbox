@@ -15,15 +15,18 @@
 						alt="#">
 
 					<p class="register-overlay__hint register-overlay__hint--error-s text-fourth">
-						Code sent to <span>allahuy@mail.cock</span> <br>
+						Code sent to <span>{{ email }}</span> <br>
 						If you have troubles, click to <br>
-						<u>change your mail</u>, or <u>resend verification mail</u>
+						
+						<u @click="onChanging">change your mail</u>, or 
+						
+						<u @click="onResend">resend verification mail</u>
 					</p>
 
 					<code-input
 						v-model="entry"
 						:keysCount="keysCount"
-						@confirm="request"/>
+						@confirm="onConfirm"/>
 
 					<button 
 						class="register-overlay__confirm-button button-secondary" 
@@ -58,6 +61,7 @@ export default {
 
 	data() {
 		return {
+			email: null,
 			keysCount: 4,
 			entry: '',
 			
@@ -114,18 +118,35 @@ export default {
 			return null;
 		},
 
-		request() {
+		onConfirm() {
 			if (this.disabled)
 				return;
 
 			this.send(this.verify, this.handleError);
-		},	
+		},
+		
+		onResend() {
+			this.send(this.resend, this.handleError);
+		},
+
+		onChanging() {
+			this.send(this.resend, this.handleError);
+		},
 
 		async load() {
 			let user = await Auth.user.get();
 
 			this.verified = user && user.verified;
 			this.loaded = true;
+			this.email = user.email;
+		},
+
+		async resend() {
+			await Auth.resendCode();
+		},
+
+		async changeMail() {
+
 		},
 
 
