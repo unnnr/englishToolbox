@@ -3,7 +3,7 @@
     <h3 class="favorites__title heading-third">Favorite list</h3>
 
 
-    <pool 
+    <pool
       :cards="posts"
       :context="createContext"
       square-cards

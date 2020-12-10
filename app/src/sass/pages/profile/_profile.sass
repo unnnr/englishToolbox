@@ -280,3 +280,20 @@
     content: "delete_forever"
     color: $color-gray
     font-size: 20px
+
+.favorites
+  display: grid
+  grid-row-gap: 30px
+  grid-template-areas: "title" "pool"
+  
+  .pool
+    grid-template-columns: repeat(4,1fr)
+    @include xl-devices
+      grid-template-columns: repeat(3,1fr)
+    @include md-devices
+      grid-template-columns: repeat(2,1fr)
+    @include xs-devices
+      grid-template-columns: 1fr
+
+.favorites__title
+  grid-area: "title"
