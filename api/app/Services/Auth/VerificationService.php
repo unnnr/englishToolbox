@@ -11,7 +11,7 @@ use App\Models\VerificationCode;
 
 class VerificationService
 {
-    public const RESENDING_ATTEMPT_VALUE = 2.5;
+    public const RESENDING_ATTEMPT_VALUE = 3;
 
     public const MAX_ATTEMPTS = 10;
 

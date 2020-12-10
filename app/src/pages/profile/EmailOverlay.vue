@@ -146,8 +146,17 @@ export default {
 				cancel: () =>
 					this.changingMail = true,
 
-				confirm: () => {
-					this.send(this.changeMail, this.handleError);
+				confirm: (email) => {
+					this.send(
+						() => 
+							this.changeMail(email),
+
+						raw => {
+							if (raw.status === 422)
+								return 'Please enter a valid email address';
+						}
+					);
+					
 					this.changingMail = false;
 				}
 			});
@@ -166,9 +175,9 @@ export default {
 		},
 
 		async changeMail(email) {
-			console.log(email, 123);
+			await Auth.resendCode(email);
 
-			//await Auth.resendCode();
+			this.email = email;
 		},
 
 
