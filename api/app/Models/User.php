@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\VerifyEmailNotification;
+use App\Notifications\RecoveryNotification;
 use App\Models\Traits\HasFavoritePosts;
+use App\Models\Traits\HandleAuthCodes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable, HasFavoritePosts;
+    use HasApiTokens, Notifiable, HasFavoritePosts, HandleAuthCodes;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +46,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
+    }
+    
+    public function sendRecoveryNotification()
+    {
+        $this->notify(new RecoveryNotification());
     }
 
     public function comments()
@@ -96,21 +103,13 @@ class User extends Authenticatable implements MustVerifyEmail
             
     }
 
+    public function favoritedBy()
+    {
+        return $this->morphToMany(User::class, 'favoritable');
+    }
+
     public function setPasswordAttribute($value)
     {
     	$this->attributes['password'] = bcrypt($value);
-    }
-
-
-    public function getEmailVerificationAttribute() 
-    {
-        return $this->hasMany(VerificationCode::class)
-            ->where('type', 'email')
-            ->first();
-    }
-
-    public function verificationCodes() 
-    {
-        return $this->hasMany(VerificationCode::class);
     }
 }
