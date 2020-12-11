@@ -71,12 +71,20 @@ export default {
 	},   
 
 	methods: {
-		changePassword() {
-			bus.dispatch('alert-prompt', {
-				confirm: (email) =>
-					bus.dispatch('alert-recovery')
-			});
+		showRecovery(email) {
+			bus.dispatch('alert-recovery', {
+				email
+			})
+		},
 
+		showPrompt() {
+			bus.dispatch('alert-prompt', {
+				type: 'email', confirm: this.showRecovery
+			});
+		},
+		
+		changePassword() {
+			this.showPrompt();
 		},
 
 		redirect() {

@@ -43,10 +43,14 @@
 </template>
 
 <script>
+import PasswordInput from '@components/inputs/PasswordInput'
+import EmailInput from '@components/inputs/EmailInput'
 import VInput from '@components/validation/VInput'
 
 export default {
   components: {
+    // PasswordInput,
+    // EmailInput,
     VInput
   },
 

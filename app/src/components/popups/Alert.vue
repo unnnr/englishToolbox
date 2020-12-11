@@ -70,7 +70,8 @@ export default {
 		return {
 			type: null,
 			message: null,
-			promptType: null
+			promptType: null,
+			recoveryEmail: null
 		}   
 	},
 
@@ -147,6 +148,9 @@ export default {
     prepareAlert(event) {
 			this.promptType = 
 				event.type || 'password';
+
+			this.recoveryEmail = 
+				event.email;
 
       this.message = typeof event.message === 'string' ? 
         event.message : '';

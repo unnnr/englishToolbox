@@ -5,12 +5,10 @@
     label="Your email"
     icon="email"
     name="email"
+
+    v-bind="$attrs"
     
     :validating="validating"
-    :optional="optional"
-    :disabled="disabled"
-    :focusOnMount="focusOnMount"
-    :value="value"
     v-validate/>
 </template>
 
@@ -20,16 +18,6 @@ import VInput from '@components/validation/VInput'
 export default {
   components: {
     VInput
-  },
-
-  props: {
-    value: { type: String },
-
-    disabled: { type: Boolean },
-
-    optional: { type: Boolean },
-
-    focusOnMount: { type: Boolean },
   },
 
   methods: {

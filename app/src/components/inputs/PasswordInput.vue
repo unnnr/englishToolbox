@@ -3,20 +3,18 @@
     placeholder="my_super_secret_password"
     icon="password"
 
-    v-name="name"
-
     :max="64"
     :min="5"
 
-    :force-hidden="forceHidden"
     :autocomplete="autocomplete"
-    :disabled="disabled"
-    :optional="optional"
     :label="label"
     :name="name"
+
+    v-name="name"
+    v-bind="$attrs"
+    v-validate
     
-    visibility-buttoned
-    v-validate/>
+    visibility-buttoned/>
 </template>
 
 <script>
@@ -33,12 +31,6 @@ export default {
     name: { type: String, default: 'password' },
 
     withoutAutocomplete: { type: Boolean, default: false },
-
-    forceHidden: { type: Boolean },
-
-    disabled: { type: Boolean },
-
-    optional: { type: Boolean }
   },
 
   computed: {

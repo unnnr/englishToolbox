@@ -214,6 +214,30 @@ class Auth
         return response;
     }
 
+    async createRecovery(data = null) {
+        let response = await Http.post({
+            data, uri: 'recovery'
+        });
+        
+        return response;
+    }
+
+    async resendRecovery(data = null) {
+        let response = await Http.post({
+            data, uri: 'recovery/resend'
+        });
+        
+        return response;
+    }
+
+    async confirmRecovery(data) {
+        let response = await Http.post({
+            data, uri: 'recovery/confirm'
+        });
+        
+        return response;
+    }
+
     async check() 
     {
         return Boolean(await this.user.get());
