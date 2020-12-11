@@ -24,6 +24,11 @@
         :message="message"
         @okay="okay"/>
 
+			<guest-alert
+				v-if="guest"
+				@okay="okay"
+				@cancel="cancel"/>
+
   	</section> 
 	</transition>
 </template>
@@ -40,13 +45,15 @@ import bus from '@services/eventbus'
 import WarningAlert from '@components/popups/WarningAlert'
 import PromptAlert from '@components/popups/PromptAlert'
 import ErrorAlert from '@components/popups/ErrorAlert'
+import GuestAlert from '@components/popups/GuestAlert'
 
 
 export default {
   components: {
     WarningAlert, 
     PromptAlert,
-    ErrorAlert
+    ErrorAlert,
+    GuestAlert
   },
 
 	mixins: [ 
@@ -64,6 +71,10 @@ export default {
 	},
 
 	computed: {
+		guest() {
+			return this.type === 'guest';
+		},
+
 		prompt() {
 			return this.type === 'prompt';
 		},
@@ -77,7 +88,7 @@ export default {
     },
     
     shown() {
-      return this.error || this.warning || this.prompt;
+      return this.error || this.warning || this.prompt || this.guest;
     }
 	},
 
@@ -107,6 +118,11 @@ export default {
         this.prepareAlert(event);
 				this.type = 'prompt';
 			},
+
+			'alert-guest': event => {
+				this.prepareAlert(event);
+				this.type = 'guest';
+			}
 		});
 	}, 
 

@@ -10,9 +10,6 @@ use App\Services\Posts\PostService;
 use App\Http\Resources\AudioResource;
 use App\Models\Audio;
 
-
-use Illuminate\Support\Facades\Log;
-
 class AudioService extends PostService
 {
     use HandlePostThumbnails;
@@ -92,8 +89,6 @@ class AudioService extends PostService
     {
         $imageName = $post->imageFile;
         $audioName =  $post->audioFile;
-
-        Log::debug(Audio::IMAGE_PATH .'/'. $imageName);
 
         Storage::delete(Audio::THUMBNAIL_PATH .'/'. $imageName);
         Storage::delete(Audio::IMAGE_PATH .'/'. $imageName);

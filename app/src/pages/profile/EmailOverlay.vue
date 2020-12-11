@@ -143,10 +143,14 @@ export default {
 				label: 'Email',
 				visible: true,
 				
-				cancel: () =>
-					this.changingMail = true,
+				cancel: async () => {
+					this.changingMail = false;
+					
+					await this.$nextTick();
+					this.lockScroll();
+				},
 
-				confirm: (email) => {
+				confirm: async (email) => {
 					this.send(
 						() => 
 							this.changeMail(email),
@@ -158,6 +162,9 @@ export default {
 					);
 					
 					this.changingMail = false;
+
+					await this.$nextTick();
+					this.lockScroll();
 				}
 			});
 		},

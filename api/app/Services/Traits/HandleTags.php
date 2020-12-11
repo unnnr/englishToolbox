@@ -60,12 +60,11 @@ trait HandleTags
     private function updateMainTag(Model $post, ?int $newTagID)
     {
         $previous = $post->mainTag;
-      
+        
         if ($previous->id === $newTagID)
             return;
 
-        $post->tags()->detach($previous);
-
+        $post->detachMainTag();
         $this->attachMainTag($post, $newTagID);
     }
 

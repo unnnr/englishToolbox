@@ -59,3 +59,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.card--rectangle .card__image
+  background-size: 106%
+
+</style>

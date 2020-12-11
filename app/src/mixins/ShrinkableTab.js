@@ -41,12 +41,22 @@ const ShrinkableTab = {
         this.shrinked = shrinkable.toggle();
     },
 
+    open() {
+      if (!!!this.shrinked)
+        return
+    
+      let shrinkable = this.$refs.shrinkable;
+      if (!!!shrinkable)
+        return;
+
+      shrinkable.open();
+    },
+
     shrink() {
       if (this.shrinked)
         return
       
       let shrinkable = this.$refs.shrinkable;
-      
       if (!!!shrinkable)
         return;
 
