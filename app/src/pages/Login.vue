@@ -71,7 +71,12 @@ export default {
 	},   
 
 	methods: {
-		showRecovery(email) {
+	 	showRecovery(email) {
+			
+			// creating recovery;
+
+			console.log(email);
+
 			bus.dispatch('alert-recovery', {
 				email
 			})

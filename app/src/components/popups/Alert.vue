@@ -5,33 +5,39 @@
 			v-if="shown"
 			@click.self="cancel">
 
-      <prompt-alert
-        v-if="prompt"
-        :message="message"
-				:type="promptType"
-        @confirm="confirmInput"
-        @cancel="cancel"/>
+			<transition 
+				name="fade" 
+				:appear="false"
+				mode="out-in">
 
-      <warning-alert
-        v-if="warning"
-        :message="message"
-        @cancel="cancel"
-        @okay="okay"/>
+				<prompt-alert
+					v-if="prompt"
+					:message="message"
+					:type="promptType"
+					@confirm="confirmInput"
+					@cancel="cancel"/>
 
-      <error-alert
-        v-if="error"
-        :message="message"
-        @okay="okay"/>
+				<warning-alert
+					v-if="warning"
+					:message="message"
+					@cancel="cancel"
+					@okay="okay"/>
 
-			<guest-alert
-				v-if="guest"
-				@okay="okay"
-				@cancel="cancel"/>
+				<error-alert
+					v-if="error"
+					:message="message"
+					@okay="okay"/>
 
-			<recovery-alert
-				v-if="recovery"
-				@close="cancel"/>
+				<guest-alert
+					v-if="guest"
+					@okay="okay"
+					@cancel="cancel"/>
 
+				<recovery-alert
+					v-if="recovery"
+					:email="recoveryEmail"
+					@close="cancel"/>
+			</transition>
   	</section> 
 	</transition>
 </template>

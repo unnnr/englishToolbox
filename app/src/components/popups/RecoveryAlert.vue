@@ -50,6 +50,10 @@ export default {
     VForm,
   },
 
+  props: {
+    email: { type: String, required: true}
+  },
+
   data() {
     return {
       shown: true
