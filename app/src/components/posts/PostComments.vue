@@ -123,16 +123,13 @@ export default {
     // If user authenticated -> showing input
     Auth.check().then(authenticated => 
 			this.canPost = authenticated);
-    
-    // Shrinking comments 
-    if (!!!this.mobile)
-      return;
-      
-    let shrinkable = this.$refs.shrinkable;
-    if (!!!shrinkable)
-      return 0;
+  },
 
-    shrinkable.height = this.firstCommentHeight();
+  watch: {
+    target() {
+      if (this.mobile)
+        this.loadComments();
+    }
   },
 
   methods: {
@@ -153,6 +150,14 @@ export default {
         return 0;
 
       return firstComment.offsetHeight + 'px';
+    },
+
+    showFirst() {
+      let shrinkable = this.$refs.shrinkable;
+      if (!!!shrinkable)
+        return 0;
+
+      shrinkable.height = this.firstCommentHeight();
     },
 
     remove(userId) {
@@ -229,6 +234,12 @@ export default {
 
       // Appending response
       this.comments.push(comment);
+
+      if (!!!this.mobile)
+        return;
+
+      await this.$nextTick()
+      this.open();
     },
 
     async loadComments() {
@@ -239,6 +250,14 @@ export default {
 
       this.comments = 
         await this.model.comments(postId);
+
+      // Shrinking comments 
+      if (!!!this.mobile)
+        return;
+
+      await this.$nextTick();
+
+      this.showFirst();
     }
   }
   
