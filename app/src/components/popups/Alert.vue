@@ -29,6 +29,10 @@
 				@okay="okay"
 				@cancel="cancel"/>
 
+			<recovery-alert
+				v-if="recovery"
+				@close="cancel"/>
+
   	</section> 
 	</transition>
 </template>
@@ -42,6 +46,7 @@ import HandleEvents from '@mixins/HandleEvents'
 import bus from '@services/eventbus'
 
 // components
+import RecoveryAlert from '@components/popups/RecoveryAlert.vue'
 import WarningAlert from '@components/popups/WarningAlert'
 import PromptAlert from '@components/popups/PromptAlert'
 import ErrorAlert from '@components/popups/ErrorAlert'
@@ -50,10 +55,11 @@ import GuestAlert from '@components/popups/GuestAlert'
 
 export default {
   components: {
+    RecoveryAlert,
     WarningAlert, 
     PromptAlert,
     ErrorAlert,
-    GuestAlert
+    GuestAlert,
   },
 
 	mixins: [ 
@@ -65,7 +71,6 @@ export default {
 		return {
 			type: null,
 			message: null,
-			
 			hiddenPrompt: true
 		}   
 	},
@@ -75,20 +80,28 @@ export default {
 			return this.type === 'guest';
 		},
 
+		error() {
+      return this.type === 'error';
+    },
+
 		prompt() {
 			return this.type === 'prompt';
 		},
 
 		warning() {
 			return this.type === 'warning';
-    },
-    
-    error() {
-      return this.type === 'error';
-    },
+		},
+		
+		recovery() {
+			return this.type === 'recovery';
+		},
     
     shown() {
-      return this.error || this.warning || this.prompt || this.guest;
+			return this.error 
+					|| this.recovery
+					|| this.warning
+					|| this.prompt
+					|| this.guest;
     }
 	},
 
@@ -122,6 +135,11 @@ export default {
 			'alert-guest': event => {
 				this.prepareAlert(event);
 				this.type = 'guest';
+			},
+
+			'alert-recovery': event => {
+				this.prepareAlert(event);
+				this.type = 'recovery';
 			}
 		});
 	}, 

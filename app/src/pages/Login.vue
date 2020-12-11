@@ -36,7 +36,9 @@
 				
 				<a 
 					class="auth__link text-fifth"
-					href="#">
+					href="#"
+					@click="changePassword">
+					
 					Forgot your password?
 				</a>
 			</div>
@@ -69,6 +71,10 @@ export default {
 	},   
 
 	methods: {
+		changePassword() {
+			bus.dispatch('alert-recovery');
+		},
+
 		redirect() {
 			this.$router.push({name: 'Home'});
 		},
