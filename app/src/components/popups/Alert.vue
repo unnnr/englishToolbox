@@ -8,8 +8,7 @@
       <prompt-alert
         v-if="prompt"
         :message="message"
-				:password="hiddenPrompt"
-				:label="label"
+				:type="promptType"
         @confirm="confirmInput"
         @cancel="cancel"/>
 
@@ -71,7 +70,7 @@ export default {
 		return {
 			type: null,
 			message: null,
-			hiddenPrompt: true
+			promptType: null
 		}   
 	},
 
@@ -146,12 +145,9 @@ export default {
 
 	methods: {
     prepareAlert(event) {
-			this.hiddenPrompt = 
-				!!!event.visible;
+			this.promptType = 
+				event.type || 'password';
 
-			this.label = 
-				event.label || 'Your confirmation';
-			
       this.message = typeof event.message === 'string' ? 
         event.message : '';
       

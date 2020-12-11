@@ -72,7 +72,11 @@ export default {
 
 	methods: {
 		changePassword() {
-			bus.dispatch('alert-recovery');
+			bus.dispatch('alert-prompt', {
+				confirm: (email) =>
+					bus.dispatch('alert-recovery')
+			});
+
 		},
 
 		redirect() {
