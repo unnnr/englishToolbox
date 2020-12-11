@@ -1,5 +1,7 @@
 <template>
   <v-input
+    ref="input"
+
     autocomplete="email"
     placeholder="some@email.com"
     label="Your email"
@@ -18,6 +20,24 @@ import VInput from '@components/validation/VInput'
 export default {
   components: {
     VInput
+  },
+
+  computed: {
+    entry() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return '';
+
+      return input.entry;
+    },
+
+    validated() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
+
+      return input.validated;
+    }
   },
 
   methods: {

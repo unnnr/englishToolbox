@@ -5,7 +5,7 @@
     accept="image/png,image/jpeg,image/webp,image/gif"
     :name="name"
     
-    v-bind="$arrts"
+    v-bind="$attrs"
     v-validate
     
     @change="change"/>

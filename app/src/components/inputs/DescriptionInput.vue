@@ -3,9 +3,7 @@
     :value="defaultValue"
     :name="name"
 
-    :optional="optional"
-    :autoGrow="autoGrow"
-    
+    :optional="optional"    
     :label="label"
     :max="180"
 
@@ -27,8 +25,6 @@ export default {
     name: { type: String, default: 'description'},
 
     required: { type: Boolean, default: false },
-
-    autoGrow: { type: Boolean, type: true },
   },
 
   computed: {

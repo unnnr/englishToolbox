@@ -12,14 +12,25 @@
       {{ message }}
     </p>
 
-    <v-input 
-      v-model="entry"
+    <password-input
+      v-if="password"
+      ref="input"
+      focus-on-mount
+      colorless/>
 
-      :icon="icon"
+    <email-input
+      v-if="email"
+      ref="input"
+      focus-on-mount
+      colorless/>
+
+    <v-input 
+      v-if="text"
+      ref="input"
+
       :label="label"
       :max="64"
       
-      :visibilityButtoned="password"
       focus-on-mount
       colorless/>
 
@@ -49,8 +60,8 @@ import VInput from '@components/validation/VInput'
 
 export default {
   components: {
-    // PasswordInput,
-    // EmailInput,
+    PasswordInput,
+    EmailInput,
     VInput
   },
 
@@ -64,13 +75,23 @@ export default {
     type: { type: String, default: 'Your confirmation' },
   },
 
-  data() {
-		return {
-      entry: ''
-		}   
-  },
-
   computed: {
+    entry() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return '';
+
+      return input.entry;
+    },
+
+    validated() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
+
+      return input.validated;
+    },
+
     password() {
       return this.type === 'password';
     },
@@ -83,57 +104,37 @@ export default {
       return !!!this.email && !!!this.password;
     },
 
-    icon() {
-      if (this.password)
-        return 'password';
-      
-      if (this.email)
-        return 'email';
-
-      return null;
-    },
-
     message() {
       if (this.password)
         return 'Confirm action with password';
       
       if (this.email)
-        return 'Please write your email';
-
-      return '';
-    },
-
-    label() {
-      if (this.password)
-        return 'Password';
-      
-      if (this.email)
-        return 'Email';
+        return 'What email did you register your account to?';
 
       return '';
     }
   },
-
-  mounted() {
-    this.autoFocus();
-  },
    
   methods: {
-    autoFocus() {
-      if (this.warning || this.error) {
-        let button = this.$refs.ok;
+    validate() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
 
-        if (button)
-          button.focus();
-      }
+      return input.validate();
     },
-    
+
     cancel() {
 			this.$emit('cancel', event);
     },
 
 		confirm() {
-      this.$emit('confirm', { entry: this.entry });
+      if (!!!this.validated)
+        return;
+
+      this.$emit('confirm', { 
+        entry: this.entry
+      });
 		}
 	}
 }
