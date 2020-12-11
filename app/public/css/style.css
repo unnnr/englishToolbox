@@ -3092,6 +3092,9 @@ button:active {
   -ms-flex-item-align: end;
       -ms-grid-row-align: end;
       align-self: end;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .profile__editor-footer {
