@@ -61,8 +61,8 @@ import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 import HandleRequests from '@mixins/HandleRequests'
 
 // components
-import EmptyCard from '@components/cards_new/EmptyCard'
-import Card from '@components/cards_new/Card';
+import EmptyCard from '@components/cards/EmptyCard'
+import Card from '@components/cards/Card';
 
 SwiperClass.use([Pagination, Autoplay])
 const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)

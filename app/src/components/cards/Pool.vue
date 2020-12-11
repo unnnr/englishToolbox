@@ -32,8 +32,8 @@
 
 <script>
 import ScaleGroupTransition from '@components/transitions/ScaleGroupTransition'
-import NewCard from '@components/cards_new/NewCard'
-import Card from '@components/cards_new/Card'
+import NewCard from '@components/cards/NewCard'
+import Card from '@components/cards/Card'
 
 export default {
   components: {

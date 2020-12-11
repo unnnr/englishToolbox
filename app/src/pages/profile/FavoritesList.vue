@@ -22,7 +22,7 @@ import HandleRequests from '@mixins/HandleRequests'
 
 // components
 import FormatedDate from '@services/FormatedDate'
-import Pool from '@components/cards_new/Pool'
+import Pool from '@components/cards/Pool'
 
 
 export default {

@@ -26,7 +26,7 @@ import HandlePoolPosts from '@mixins/HandlePoolPosts'
 import HandleRequests from '@mixins/HandleRequests'
 
 // components
-import Pool from '@components/cards_new/Pool'
+import Pool from '@components/cards/Pool'
 
 export default {
   components: {
