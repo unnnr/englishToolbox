@@ -12,6 +12,7 @@ use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\VerifyUser;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\VerificationService;
+use App\Services\Auth\RecoveryService;
 use App\Services\Auth\AuthService;
 
 class AuthController extends Controller
@@ -42,7 +43,22 @@ class AuthController extends Controller
         return $service->verify($request);
     }
 
-    public function resendEmail(ResendEmailVerification $request, VerificationService $service) 
+    public function resendVerication(ResendEmailVerification $request, VerificationService $service) 
+    {
+        return $service->resend($request);
+    }
+
+    public function createRecovery( $request, RecoveryService $service) 
+    {
+        return $service->resend($request);
+    }
+
+    public function changePassword(ResendEmailVerification $request, RecoveryService $service) 
+    {
+        return $service->resend($request);
+    }
+
+    public function resendRecovery(ResendEmailVerification $request, RecoveryService $service) 
     {
         return $service->resend($request);
     }
