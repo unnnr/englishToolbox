@@ -10,7 +10,12 @@ trait HasTags
     {
         return $this->morphToMany(Tag::class, 'taggable')
             ->wherePivot('main', null);
-    }    
+    }
+    
+    public function detachMainTag() {
+        return $this->morphToMany(Tag::class, 'taggable')
+            ->detach($this->mainTag->id);
+    }
 
     public function getMainTagAttribute() {
         $main = $this->morphToMany(Tag::class, 'taggable')
