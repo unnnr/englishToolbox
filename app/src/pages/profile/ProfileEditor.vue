@@ -110,11 +110,11 @@ export default {
 
   computed: {
     userName() {
-      return this.user ?  this.user.name : '蒼空';
+      return this.user ? this.user.name : '蒼空';
     },
     
     userEmail() {
-      return this.user ?  this.user.email : 'some@email.com';
+      return this.user ? this.user.email : 'some@email.com';
     }
   },
 
@@ -198,7 +198,7 @@ export default {
 
     async submit(data, hasChanges) { 
       if (hasChanges)
-        await Auth.user.edit(data);
+        this.user = await Auth.user.edit(data);
 
       this.hide();
       console.log(111); 
