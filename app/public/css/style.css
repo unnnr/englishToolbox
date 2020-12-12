@@ -3287,6 +3287,7 @@ button:active {
 .reviews-management {
   display: -ms-grid;
   display: grid;
+  grid-auto-columns: 100%;
   grid-row-gap: 30px;
   margin-bottom: 50px;
 }
