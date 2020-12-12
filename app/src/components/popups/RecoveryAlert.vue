@@ -1,5 +1,6 @@
 <template>
   <v-form 
+    ref="form"
     class="modal__content alert alert--recovery"
     :request="submit"
     secondary>
@@ -67,8 +68,20 @@ export default {
     },
 
     resendCode() {
+      let form = this.$refs.form;
+      if (!!!form)
+        return;
 
-    },
+      let data = null;
+      if (this.email) {
+        data = new FormData();
+        data.append('email', this.email);
+      }
+
+      form.sendWith(async () => {
+        await Auth.resendRecovery(data);
+      })
+    },  
 
     async submit(data) {
       if (this.email)

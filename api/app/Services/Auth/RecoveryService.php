@@ -4,7 +4,6 @@ namespace App\Services\Auth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\VerificationCode;
 use App\Models\User;
@@ -69,8 +68,6 @@ class RecoveryService
         $user = $this->getUser($request);
         $recovery = $user->recoveryCode;
         
-        Log::debug('here');
-
         // If recovery doesnt exist
         if (!!!$recovery)
             abort(Response::HTTP_BAD_REQUEST);
@@ -80,8 +77,6 @@ class RecoveryService
             abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
         $input = (int)$request->input('code');
-
-        Log::debug('check');
 
         // If Code is inccorect
         if ($input !== $recovery->key)
@@ -98,6 +93,7 @@ class RecoveryService
 
         $user->password = 
             $request->input('password');
+        $user->save();
     }
 
     public function resend(Request $request) 

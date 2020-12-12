@@ -101,8 +101,7 @@ export default {
 		},
 		
 		changePassword() {
-			this.showRecovery('admin@email.com');
-			// this.showPrompt();
+			this.showPrompt();
 		},
 
 		redirect() {
