@@ -74,10 +74,16 @@
   z-index: $z-first
   padding-top: 0
   padding-bottom: 0
+  overflow: hidden
   &:before
     font-family: "Material Icons Round"
     content: "star"
     font-size: 15px
-    max-width: 15px
+    min-width: 15px
     margin-right: 5px
     align-self: center
+  span
+    display: block
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden

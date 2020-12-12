@@ -61,7 +61,8 @@
   box-shadow: $box-shadow-primary
   font-size: 40px
   font-weight: $semibold
-  color: $color-dark
+  color: transparent
+  text-shadow: 0 0 0 $color-dark
   width: 60px
   height: 90px
   border: transparent 3px solid
@@ -200,6 +201,9 @@
 .profile__editor-name
   grid-area: name
   align-self: end
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
 
 .profile__editor-footer 
   display: grid
