@@ -34,7 +34,7 @@ class RecoveryService
                 ->firstOrFail();
         }
         else if(auth('sanctum')->check())
-            $user = auth()->user();
+            $user = auth('sanctum')->user();
         else
             abort(Response::HTTP_BAD_REQUEST);
 

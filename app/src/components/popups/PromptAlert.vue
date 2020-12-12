@@ -8,7 +8,24 @@
       </button>
     </div>
 
-    <p class="alert__description text-fifth">
+    <p 
+      v-if="password"
+      class="alert__description text-fifth">
+      
+      <span>
+        {{ message }}.
+        
+        <span v-if="true">
+          If you forgot it, please <u @click="resetPassword">click here</u>
+        </span>
+
+      </span>
+    </p>
+
+    <p 
+      v-else 
+      class="alert__description text-fifth">
+      
       {{ message }}
     </p>
 
@@ -57,6 +74,8 @@
 import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
 import VInput from '@components/validation/VInput'
+import Auth from '@services/Auth'
+import bus from '@services/eventbus'
 
 export default {
   components: {
@@ -73,6 +92,12 @@ export default {
     
   props: { 
     type: { type: String, default: 'Your confirmation' },
+  },
+
+  data() {
+    return {
+      canReset: false
+    }
   },
 
   computed: {
@@ -114,6 +139,10 @@ export default {
       return '';
     }
   },
+
+  mounted() {
+    this.load()
+  },
    
   methods: {
     validate() {
@@ -135,7 +164,28 @@ export default {
       this.$emit('confirm', { 
         entry: this.entry
       });
-		}
+    },
+
+    async load() {
+      this.canReset = await Auth.check();
+    },
+    
+    async resetPassword() {
+      function onError(error) {
+				bus.dispatch('alert-error', {	
+          message: 'Some problem occurred during the recovery creation. Please try again'
+        });
+			}
+
+      let user = await Auth.user.get();
+      
+      Auth.createRecovery()
+				.catch(onError);
+       
+      bus.dispatch('alert-recovery', {
+        email: user.email
+      })
+    }
 	}
 }
 </script>
