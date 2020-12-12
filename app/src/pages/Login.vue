@@ -70,16 +70,24 @@ export default {
 		},
 	},
 	
-	mounted() {
-		this.showRecovery('some@mail.com');
-	},
-
 	methods: {
 	 	showRecovery(email) {
-			
-			// creating recovery;
+			function onError(error) {
+				let message = null;
 
-			console.log(email);
+				if (error.status === 404)
+					message = 'We can\'t find a user with this email. Please try again';
+				else
+					message = 'Some problem occurred during the recovery creation. Please try again'
+				
+				bus.dispatch('alert-error', {	message });
+			}
+
+			let data = new FormData();
+			data.append('email', email);
+
+			Auth.createRecovery(data)
+				.catch(onError);
 
 			bus.dispatch('alert-recovery', {
 				email
@@ -93,7 +101,8 @@ export default {
 		},
 		
 		changePassword() {
-			this.showPrompt();
+			this.showRecovery('admin@email.com');
+			// this.showPrompt();
 		},
 
 		redirect() {

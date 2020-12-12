@@ -1,6 +1,7 @@
 <template>
   <v-form 
     class="modal__content alert alert--recovery"
+    :request="submit"
     secondary>
 
     <div class="alert__header">
@@ -13,7 +14,7 @@
     </div>
 
     <p class="alert__description text-fifth">
-      We sent the confirmation code to your email.
+      <span> We sent the confirmation code to {{ email }}. </span>
       <span>If you need to resend the code, <u @click="resendCode">click here</u>.</span>
       <!-- <span class="alert__description--resended">Confirmation code has been resended.</span> -->
     </p>
@@ -69,8 +70,8 @@ export default {
 
     },
 
-    async submit() {
-
+    async submit(data) {
+      console.log('sending...')
     }
   }
 }

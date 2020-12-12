@@ -11,7 +11,7 @@ trait HandleAuthCodes
         return $this->hasMany(VerificationCode::class);
     }
 
-    public function getRecoveryCodesAttribute() 
+    public function getRecoveryCodeAttribute() 
     {
         return $this->hasMany(VerificationCode::class)
             ->where('type', 'password')

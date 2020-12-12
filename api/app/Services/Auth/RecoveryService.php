@@ -23,7 +23,7 @@ class RecoveryService
         return $code;
     }
 
-    private function getUser(Request $requst) 
+    private function getUser(Request $request) 
     {
         $user = null;
         
@@ -33,7 +33,7 @@ class RecoveryService
             $user = User::where('email', $email)
                 ->firstOrFail();
         }
-        else if (auth('sanctum')->check())
+        else if(auth('sanctum')->check())
             $user = auth()->user();
         else
             abort(Response::HTTP_BAD_REQUEST);
@@ -63,7 +63,7 @@ class RecoveryService
         $user->sendRecoveryNotification();
     }
 
-    public function verify(Request $request)
+    public function confirm(Request $request)
     {
         $user = $this->getUser($requst);
         $recovery = $user->passwordRecovery;
@@ -100,7 +100,7 @@ class RecoveryService
 
     public function resend(Request $request) 
     {
-        $user = $this->getUser($requst);
+        $user = $this->getUser($request);
         $recovery = $user->emailVerification;
         
         // Preventing redundant request

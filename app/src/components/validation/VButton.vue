@@ -6,6 +6,9 @@
       'button-primary': primary,
       'button--loading': spinerShown
       }"
+
+    :dept-style="{'content': spinerUrl}"
+    
     :disabled="disabled || loading">
     
     {{ label }}
@@ -26,13 +29,18 @@ export default {
 
   data() {
     return {
-      loading: false
+      loading: false,
+      spiner: window.origin + '/img/svg/spinner.svg'
     }
   },
 
   computed: {
     primary() {
       return !!!this.secondary;
+    },
+
+    spinerUrl() {
+      return this.spinerShown ? 'url("'+ this.spiner +'")' : null;
     },
 
     spinerShown() {

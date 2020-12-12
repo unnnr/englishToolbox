@@ -28,10 +28,10 @@ class RecoveryMail extends Mailable
         $email = $this->user->email;
         $name = $this->user->name;
 
-        $key = $this->user->passwordRecovery->key;
+        $key = $this->user->recoveryCode->key;
         $code = str_pad($key, 4, "0", STR_PAD_LEFT);
 
-        return $this->view('mail.verifyEmail')
+        return $this->view('mail.changePassword')
             ->to($email, $name)
             ->with(['code' => $code]);
     }
