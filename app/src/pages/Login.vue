@@ -68,7 +68,11 @@ export default {
 		imageUrl() {
 			return window.origin + '/img/svg/login.svg';
 		},
-	},   
+	},
+	
+	mounted() {
+		this.showRecovery('some@mail.com');
+	},
 
 	methods: {
 	 	showRecovery(email) {
