@@ -51,7 +51,7 @@ export default {
       posts: [],
       
       authenticated: false,
-      canCreate: true,
+      canCreate: false,
     }
   },
 

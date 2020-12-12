@@ -3,9 +3,11 @@
     icon="audio"
     label="audio"
     accept="audio/*"
-    :optional="optional"
     :name="name"
+
+    v-bind="$arrts"
     v-validate
+
     @change="change"/>
 </template>
 
@@ -19,8 +21,6 @@ export default {
 
   props: {
     name: { type: String, default: 'audio' },
-
-    optional: { type: Boolean }
   },
 
   methods: {

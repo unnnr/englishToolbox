@@ -5,30 +5,39 @@
 			v-if="shown"
 			@click.self="cancel">
 
-      <prompt-alert
-        v-if="prompt"
-        :message="message"
-				:password="hiddenPrompt"
-				:label="label"
-        @confirm="confirmInput"
-        @cancel="cancel"/>
+			<transition 
+				name="fade" 
+				:appear="false"
+				mode="out-in">
 
-      <warning-alert
-        v-if="warning"
-        :message="message"
-        @cancel="cancel"
-        @okay="okay"/>
+				<prompt-alert
+					v-if="prompt"
+					:message="message"
+					:type="promptType"
+					@confirm="confirmInput"
+					@cancel="cancel"/>
 
-      <error-alert
-        v-if="error"
-        :message="message"
-        @okay="okay"/>
+				<warning-alert
+					v-if="warning"
+					:message="message"
+					@cancel="cancel"
+					@okay="okay"/>
 
-			<guest-alert
-				v-if="guest"
-				@okay="okay"
-				@cancel="cancel"/>
+				<error-alert
+					v-if="error"
+					:message="message"
+					@okay="okay"/>
 
+				<guest-alert
+					v-if="guest"
+					@okay="okay"
+					@cancel="cancel"/>
+
+				<recovery-alert
+					v-if="recovery"
+					:email="recoveryEmail"
+					@close="cancel"/>
+			</transition>
   	</section> 
 	</transition>
 </template>
@@ -42,6 +51,7 @@ import HandleEvents from '@mixins/HandleEvents'
 import bus from '@services/eventbus'
 
 // components
+import RecoveryAlert from '@components/popups/RecoveryAlert.vue'
 import WarningAlert from '@components/popups/WarningAlert'
 import PromptAlert from '@components/popups/PromptAlert'
 import ErrorAlert from '@components/popups/ErrorAlert'
@@ -50,10 +60,11 @@ import GuestAlert from '@components/popups/GuestAlert'
 
 export default {
   components: {
+    RecoveryAlert,
     WarningAlert, 
     PromptAlert,
     ErrorAlert,
-    GuestAlert
+    GuestAlert,
   },
 
 	mixins: [ 
@@ -65,8 +76,8 @@ export default {
 		return {
 			type: null,
 			message: null,
-			
-			hiddenPrompt: true
+			promptType: null,
+			recoveryEmail: null
 		}   
 	},
 
@@ -75,20 +86,28 @@ export default {
 			return this.type === 'guest';
 		},
 
+		error() {
+      return this.type === 'error';
+    },
+
 		prompt() {
 			return this.type === 'prompt';
 		},
 
 		warning() {
 			return this.type === 'warning';
-    },
-    
-    error() {
-      return this.type === 'error';
-    },
+		},
+		
+		recovery() {
+			return this.type === 'recovery';
+		},
     
     shown() {
-      return this.error || this.warning || this.prompt || this.guest;
+			return this.error 
+					|| this.recovery
+					|| this.warning
+					|| this.prompt
+					|| this.guest;
     }
 	},
 
@@ -122,18 +141,23 @@ export default {
 			'alert-guest': event => {
 				this.prepareAlert(event);
 				this.type = 'guest';
+			},
+
+			'alert-recovery': event => {
+				this.prepareAlert(event);
+				this.type = 'recovery';
 			}
 		});
 	}, 
 
 	methods: {
     prepareAlert(event) {
-			this.hiddenPrompt = 
-				!!!event.visible;
+			this.promptType = 
+				event.type || 'password';
 
-			this.label = 
-				event.label || 'Your confirmation';
-			
+			this.recoveryEmail = 
+				event.email;
+
       this.message = typeof event.message === 'string' ? 
         event.message : '';
       

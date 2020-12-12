@@ -4,9 +4,11 @@
     label="image"
     accept="image/png,image/jpeg,image/webp,image/gif"
     :name="name"
-    :optional="optional"
-    @change="change"
-    v-validate/>
+    
+    v-bind="$attrs"
+    v-validate
+    
+    @change="change"/>
 </template>
 
 <script>
@@ -19,8 +21,6 @@ export default {
 
   props: {
     name: { type: String, default: 'image' },
-
-    optional: { type: Boolean },
   },
 
   methods: {

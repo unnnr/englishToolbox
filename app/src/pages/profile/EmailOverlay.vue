@@ -7,7 +7,7 @@
 			<transition name="fade">
 				<div 
 					class="register-overlay__body"
-					v-if="loaded">
+					v-if="authenticated">
 
 					<img 
 						class="register-overlay__image"
@@ -66,9 +66,9 @@ export default {
 			keysCount: 4,
 			entry: '',
 			
+			authenticated: false,
 			changingMail: false,
 			verified: false,
-			loaded: false,
 		}
 	},
 
@@ -78,7 +78,7 @@ export default {
 		},
 
 		shown() {
-			return !!!this.verified || !!!this.loaded;
+			return !!!this.verified || !!!this.authenticated;
 		},
 
 		buttonDisabled() {
@@ -170,10 +170,13 @@ export default {
 		},
 
 		async load() {
+			this.authenticated = await Auth.check();
+			if (!!!this.authenticated)
+				return;
+
 			let user = await Auth.user.get();
 
 			this.verified = user && user.verified;
-			this.loaded = true;
 			this.email = user.email;
 		},
 

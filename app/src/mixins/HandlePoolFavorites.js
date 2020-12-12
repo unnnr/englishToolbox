@@ -1,9 +1,10 @@
 import Favorites from '@models/Favorites'
+import bus from '@services/eventbus'
 
 const HandlePoolFavorites = {
   data() {
     return {
-      favorites: []
+      favorites: []    
     }
   },
 
@@ -17,6 +18,11 @@ const HandlePoolFavorites = {
     },
     
     toggleFavorite(post) {
+      if (!!!this.authenticated) {
+        bus.dispatch('alert-guest');
+        return;
+      }
+
       if (post.favorite)
         this.unfavorite(post);
       else

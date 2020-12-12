@@ -1,16 +1,16 @@
 <template>
   <v-input
+    ref="input"
+
     autocomplete="email"
     placeholder="some@email.com"
     label="Your email"
     icon="email"
     name="email"
+
+    v-bind="$attrs"
     
     :validating="validating"
-    :optional="optional"
-    :disabled="disabled"
-    :focusOnMount="focusOnMount"
-    :value="value"
     v-validate/>
 </template>
 
@@ -22,14 +22,22 @@ export default {
     VInput
   },
 
-  props: {
-    value: { type: String },
+  computed: {
+    entry() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return '';
 
-    disabled: { type: Boolean },
+      return input.entry;
+    },
 
-    optional: { type: Boolean },
+    validated() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
 
-    focusOnMount: { type: Boolean },
+      return input.validated;
+    }
   },
 
   methods: {

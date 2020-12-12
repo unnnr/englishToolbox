@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Auth from '@services/Auth'
 
 Vue.use(VueRouter)
 
+
+let authenticated = false;
+
+Auth.check().then(value => authenticated = value);
+Auth.onChange(value => authenticated = value);
+  
 const routes = [
 
   // Main pages
@@ -10,19 +17,33 @@ const routes = [
   { path: '/home', alias: '/', name: 'Home',
     component: () => import('@pages/Home') },
 
-  { path: '/profile', name: 'Profile', 
-    component: () => import('@pages/Profile') },
-
   { path: '/recommendations', name: 'Recommendations', 
     component: () => import('@pages/Recommendations') },
+
+  { path: '/profile', name: 'Profile', 
+    component: () => import('@pages/Profile') },
 
   // Auth pages
   
   { path: '/login', name: 'Login',
-    component: () => import('@pages/Login') },
+    component: () => import('@pages/Login'),
+    beforeEnter: (to, from, next) => {
+      if (!!!authenticated)
+        return next();
+
+      next({ name: 'Home'});
+    }
+  },
 
   { path: '/register', name: 'Register', 
-    component: () => import('@pages/Register') },
+    component: () => import('@pages/Register'),
+    beforeEnter: (to, from, next) => {
+      if (!!!authenticated)
+        return next();
+
+      next({ name: 'Home'});
+    }
+  },
 
 
   // Post pages
@@ -77,6 +98,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   next();
 });
 

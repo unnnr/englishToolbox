@@ -214,6 +214,40 @@ class Auth
         return response;
     }
 
+    async createRecovery(data = null) {
+        let response = await Http.post({
+            data, uri: 'recovery'
+        });
+        
+        return response;
+    }
+
+    async resendRecovery(data = null) {
+        let response = await Http.post({
+            data, uri: 'recovery/resend'
+        });
+
+        return response;
+    }
+
+    async confirmRecovery(data) {
+        let response = await Http.post({
+            data, uri: 'recovery/confirm'
+        });
+
+        if (!!!data.get('email'))
+            return response;
+
+        if (!!!response.data && !!!response.data.auth)
+            throw Error('Incorrect http response');
+
+        this.__saveToken(response.data.auth);
+        delete response.data.auth;
+
+        
+        return response;
+    }
+
     async check() 
     {
         return Boolean(await this.user.get());

@@ -3,13 +3,11 @@
     :value="defaultValue"
     :name="name"
 
-    :disabled="disabled"
-    :optional="optional"
-    :autoGrow="autoGrow"
-    
+    :optional="optional"    
     :label="label"
     :max="180"
 
+    v-bind="$attrs"
     v-validate/> 
 </template>
 
@@ -27,10 +25,6 @@ export default {
     name: { type: String, default: 'description'},
 
     required: { type: Boolean, default: false },
-
-    autoGrow: { type: Boolean, type: true },
-
-    disabled: { type: Boolean },
   },
 
   computed: {

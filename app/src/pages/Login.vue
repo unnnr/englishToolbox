@@ -36,7 +36,9 @@
 				
 				<a 
 					class="auth__link text-fifth"
-					href="#">
+					href="#"
+					@click="changePassword">
+					
 					Forgot your password?
 				</a>
 			</div>
@@ -66,9 +68,42 @@ export default {
 		imageUrl() {
 			return window.origin + '/img/svg/login.svg';
 		},
-	},   
-
+	},
+	
 	methods: {
+	 	showRecovery(email) {
+			function onError(error) {
+				let message = null;
+
+				if (error.status === 404)
+					message = 'We can\'t find a user with this email. Please try again';
+				else
+					message = 'Some problem occurred during the recovery creation. Please try again'
+				
+				bus.dispatch('alert-error', {	message });
+			}
+
+			let data = new FormData();
+			data.append('email', email);
+
+			Auth.createRecovery(data)
+				.catch(onError);
+
+			bus.dispatch('alert-recovery', {
+				email
+			})
+		},
+
+		showPrompt() {
+			bus.dispatch('alert-prompt', {
+				type: 'email', confirm: this.showRecovery
+			});
+		},
+		
+		changePassword() {
+			this.showPrompt();
+		},
+
 		redirect() {
 			this.$router.push({name: 'Home'});
 		},

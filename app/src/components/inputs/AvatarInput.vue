@@ -8,6 +8,7 @@
 
       type="file"
       accept="image/png,image/jpeg,image/webp,image/gif"
+      
       v-validate
 
       @change.native="changeAvatar"/>

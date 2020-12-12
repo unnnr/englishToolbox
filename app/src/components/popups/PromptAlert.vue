@@ -1,6 +1,5 @@
 <template>
   <div class="modal__content alert alert--prompt">
-
     <div class="alert__header">
       <span class="alert__title heading-fifth">Enter confirmation here</span>
       <button 
@@ -9,17 +8,46 @@
       </button>
     </div>
 
-    <p class="alert__description text-fifth">
+    <p 
+      v-if="password"
+      class="alert__description text-fifth">
+      
+      <span>
+        {{ message }}.
+        
+        <span v-if="true">
+          If you forgot it, please <u @click="resetPassword">click here</u>
+        </span>
+
+      </span>
+    </p>
+
+    <p 
+      v-else 
+      class="alert__description text-fifth">
+      
       {{ message }}
     </p>
 
+    <password-input
+      v-if="password"
+      ref="input"
+      focus-on-mount
+      colorless/>
+
+    <email-input
+      v-if="email"
+      ref="input"
+      focus-on-mount
+      colorless/>
+
     <v-input 
-      v-model="entry"
+      v-if="text"
+      ref="input"
 
       :label="label"
       :max="64"
       
-      :visibilityButtoned="password"
       focus-on-mount
       colorless/>
 
@@ -43,10 +71,16 @@
 </template>
 
 <script>
+import PasswordInput from '@components/inputs/PasswordInput'
+import EmailInput from '@components/inputs/EmailInput'
 import VInput from '@components/validation/VInput'
+import Auth from '@services/Auth'
+import bus from '@services/eventbus'
 
 export default {
   components: {
+    PasswordInput,
+    EmailInput,
     VInput
   },
 
@@ -56,41 +90,102 @@ export default {
     }
   },
     
-  props: {
-    label: { type: String, default: 'Your confirmation' },
-
-    message: { type: String, default: '' },
-
-    password: { type: Boolean, default: true },
+  props: { 
+    type: { type: String, default: 'Your confirmation' },
   },
 
   data() {
-		return {
-      entry: ''
-		}   
+    return {
+      canReset: false
+    }
+  },
+
+  computed: {
+    entry() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return '';
+
+      return input.entry;
+    },
+
+    validated() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
+
+      return input.validated;
+    },
+
+    password() {
+      return this.type === 'password';
+    },
+
+    email() {
+      return this.type === 'email';
+    },
+
+    text() {
+      return !!!this.email && !!!this.password;
+    },
+
+    message() {
+      if (this.password)
+        return 'Confirm action with password';
+      
+      if (this.email)
+        return 'What email did you register your account to?';
+
+      return '';
+    }
   },
 
   mounted() {
-    this.autoFocus();
+    this.load()
   },
    
   methods: {
-    autoFocus() {
-      if (this.warning || this.error) {
-        let button = this.$refs.ok;
+    validate() {
+      let input = this.$refs.input;
+      if (!!!input)
+        return false;
 
-        if (button)
-          button.focus();
-      }
+      return input.validate();
     },
-    
+
     cancel() {
 			this.$emit('cancel', event);
     },
 
 		confirm() {
-      this.$emit('confirm', { entry: this.entry });
-		}
+      if (!!!this.validated)
+        return;
+
+      this.$emit('confirm', { 
+        entry: this.entry
+      });
+    },
+
+    async load() {
+      this.canReset = await Auth.check();
+    },
+    
+    async resetPassword() {
+      function onError(error) {
+				bus.dispatch('alert-error', {	
+          message: 'Some problem occurred during the recovery creation. Please try again'
+        });
+			}
+
+      let user = await Auth.user.get();
+      
+      Auth.createRecovery()
+				.catch(onError);
+       
+      bus.dispatch('alert-recovery', {
+        email: user.email
+      })
+    }
 	}
 }
 </script>

@@ -6,12 +6,11 @@
     label="Post title"
     name="title"
     
-    :focusOnMount="focusOnMount"
     :value="defaultValue"
-
     :max="64"
     :min="3"
 
+    v-bind="$attrs"
     v-validate/>
 </template>
 
@@ -25,8 +24,6 @@ export default {
 
   props: {
     defaultValue: { type: String, default: '' },
-
-    focusOnMount: { type: Boolean },
   }
 }
 </script>

@@ -11,7 +11,7 @@
         'input-group--focus': focused,
 
         'input-group--success': validated && !!!colorless,
-        'input-group--error' : incorrect && !!!colorless,
+        'input-group--error' : incorrect,
 
         'input-group--password': isPassword,
         'input-group--email': isEmail,

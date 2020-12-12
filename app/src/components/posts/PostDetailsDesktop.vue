@@ -63,7 +63,9 @@ export default {
   props: {
     creating: { type: Boolean, default: false },
 
-    editing: { type: Boolean, default: false }
+    editing: { type: Boolean, default: false },
+
+    canCreate: { type: Boolean, default: false }
   },
 
   inject: [ '$target' ],
@@ -94,7 +96,7 @@ export default {
     },
     
     editorShown() {
-      return true;
+      return this.canCreate;
     },
   },
 

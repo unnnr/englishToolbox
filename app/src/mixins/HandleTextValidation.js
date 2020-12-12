@@ -20,8 +20,6 @@ const HandleTextValidation = {
 
 		validating: { type: Function, default: null },
 
-		inputing: { type: Function, default: null },
-
 		// Booleans 
 		optional: { type: Boolean, default: false },
 
@@ -119,7 +117,7 @@ const HandleTextValidation = {
 	
 	methods: {
     async reset() {
-      this.entry = this.value;
+      this.entry = this.$options.defaultValue || '';
       this.validated = false;
       this.errors = [];
     },
@@ -147,16 +145,6 @@ const HandleTextValidation = {
 
         return;
       }
-      
-      // Invoking validate callback
-      let options = {
-        key: event.key,
-        keyCode: event.keyCode,
-        currentEntry: this.entry 
-      };
-
-      if (this.inputing && this.inputing(options))
-        this.event.preventDefault()
     },
 
     onFocus() {
@@ -231,6 +219,10 @@ const HandleTextValidation = {
 
       data.append(this.name, this.entry);
     },
+
+  /*   submitted() {
+      this.$options.defaultValue = this.entry;
+    }, */
 
     handleError(errors) {
       this.$options.defaultValue = 

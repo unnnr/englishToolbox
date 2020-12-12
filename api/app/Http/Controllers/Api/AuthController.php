@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\ResendEmailVerification;
+use App\Http\Requests\User\ResendRecoveryEmail;
+use App\Http\Requests\User\ConfirmRecovery;
+use App\Http\Requests\User\CreateRecovery;
 use App\Http\Requests\User\RegisterUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\DeleteUser;
-use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\VerifyUser;
+use App\Http\Requests\User\LoginUser;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\VerificationService;
+use App\Services\Auth\RecoveryService;
 use App\Services\Auth\AuthService;
 
 class AuthController extends Controller
@@ -42,7 +46,22 @@ class AuthController extends Controller
         return $service->verify($request);
     }
 
-    public function resendEmail(ResendEmailVerification $request, VerificationService $service) 
+    public function resendVerication(ResendEmailVerification $request, VerificationService $service) 
+    {
+        return $service->resend($request);
+    }
+
+    public function createRecovery(CreateRecovery $request, RecoveryService $service) 
+    {
+        return $service->createCode($request);
+    }
+
+    public function changePassword(ConfirmRecovery $request, RecoveryService $service) 
+    {
+        return $service->confirm($request);
+    }
+
+    public function resendRecovery(ResendRecoveryEmail $request, RecoveryService $service) 
     {
         return $service->resend($request);
     }
