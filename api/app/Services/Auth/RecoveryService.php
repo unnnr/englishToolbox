@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\VerificationCode;
 use App\Models\User;
@@ -41,18 +42,18 @@ class RecoveryService
         return $user;
     }
 
-    public function createCode(Request $requst) 
+    public function createCode(Request $request) 
     {
-        $user = $this->getUser($requst);
+        $user = $this->getUser($request);
 
         // Return if recovery already exist
-        if ($user->passwordRecovery)
+        if ($user->recoveryCode)
             return;
 
         // Deleting previous code
-        $previosCode = $user->passwordRecovery;
-        if ($previosCode)
-            VerificationCode::destroy($previosCode->id);
+        $previousCode = $user->recoveryCode;
+        if ($previousCode)
+            VerificationCode::destroy($previousCode->id);
         
         // Creating new instance
         $user->verificationCodes()->create([
@@ -65,9 +66,11 @@ class RecoveryService
 
     public function confirm(Request $request)
     {
-        $user = $this->getUser($requst);
-        $recovery = $user->passwordRecovery;
+        $user = $this->getUser($request);
+        $recovery = $user->recoveryCode;
         
+        Log::debug('here');
+
         // If recovery doesnt exist
         if (!!!$recovery)
             abort(Response::HTTP_BAD_REQUEST);
@@ -77,6 +80,8 @@ class RecoveryService
             abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
         $input = (int)$request->input('code');
+
+        Log::debug('check');
 
         // If Code is inccorect
         if ($input !== $recovery->key)
@@ -88,20 +93,17 @@ class RecoveryService
                 'code' => [ 'Your code is inccorect' ]
             ]);
         }
-        
-        
+
         $recovery->delete();
 
-        $newPassword = 
-            $requst->input('password');
-
-        $user->changePassword(newPassword);
+        $user->password = 
+            $request->input('password');
     }
 
     public function resend(Request $request) 
     {
         $user = $this->getUser($request);
-        $recovery = $user->emailVerification;
+        $recovery = $user->recoveryCode;
         
         // Preventing redundant request
         if (!!!$recovery)

@@ -26,9 +26,9 @@ class VerificationService
     public function createCode($user) 
     {
         // Deleting previous code
-        $previosCode = $user->emailVerification;
-        if ($previosCode)
-            VerificationCode::destroy($previosCode->id);
+        $previousCode = $user->emailVerification;
+        if ($previousCode)
+            VerificationCode::destroy($previousCode->id);
         
         // Creating new instance
         $user->verificationCodes()->create([

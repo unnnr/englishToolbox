@@ -26,6 +26,8 @@ class ConfirmRecovery extends FormRequest
         return [
             'email' => 'email',
             'code' => 'required',
+            'password' => 'required|string|between:5,64',
+            'confirmation' => 'required|same:password',
         ];
     }
 }

@@ -71,7 +71,7 @@ Route::group(['namespace' => 'Api'], function()
     
     Route::post('recovery', 'AuthController@createRecovery');
     Route::post('recovery/resend', 'AuthController@resendRecovery');
-    Route::post('recovery/confirm', 'AuthController@resendRecovery');
+    Route::post('recovery/confirm', 'AuthController@changePassword');
 
     /*
     |--------------------------------------------------------------------------

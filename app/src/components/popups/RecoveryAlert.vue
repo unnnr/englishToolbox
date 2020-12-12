@@ -71,7 +71,12 @@ export default {
     },
 
     async submit(data) {
-      console.log('sending...')
+      if (this.email)
+        data.append('email', this.email);
+
+      await Auth.confirmRecovery(data);
+
+      this.$emit('close');
     }
   }
 }
