@@ -5,12 +5,12 @@
 			
       <transition name="fade" mode="out-in">
         <recommendation-editor 
-          v-if="editingTarget"
+          v-if="editing"
           :target="editingTarget"
           @edited="updateEdited"/>
 
         <recommendation-creator
-          v-else
+          v-if="creating"
           @created="appendNew"/>
       </transition>
    
@@ -52,7 +52,7 @@ export default {
 		return {
       recommendations: [],
 
-      canEdit: true,
+      canCreate: true,
       editingTarget: null
     }
   },
@@ -60,6 +60,14 @@ export default {
   computed: {
     reversed() {
       return [...this.recommendations].reverse();
+    },
+
+    editing() {
+      return this.canCreate && this.editingTarget;
+    },
+
+    creating() {
+      return this.canCreate && !!!this.editingTarget;
     }
   },
 
@@ -78,7 +86,7 @@ export default {
     },
 
     createContext(recommendation) {
-      if (!!!this.canEdit)
+      if (!!!this.canCreate)
         return;
 
         return () => ({

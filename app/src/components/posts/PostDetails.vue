@@ -1,6 +1,7 @@
 <template>
   <post-details-desktop 
     v-if="desktop" 
+    :canCreate="canCreate"
     :editing="editing"
     :creating="creating"
     @switching="event => $emit('switching', event)">
@@ -10,6 +11,7 @@
   
   <post-details-mobile 
     v-else
+    :canCreate="canCreate"
     :editing="editing"
     :creating="creating">
 
@@ -38,6 +40,7 @@ export default {
   data() {
     return {
       desktop: false,
+      canCreate: true,
     }
   },
 
