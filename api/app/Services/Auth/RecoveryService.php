@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use App\Http\Resources\AuthenticatedUserResource;
 use App\Models\VerificationCode;
 use App\Models\User;
 
@@ -45,7 +46,7 @@ class RecoveryService
     {
         $user = $this->getUser($request);
 
-        // Return if recovery already exist
+        // If recovery already exist -> return
         if ($user->recoveryCode)
             return;
 
@@ -90,10 +91,17 @@ class RecoveryService
         }
 
         $recovery->delete();
+        
+        // Reseting auth token
+        $user->tokens('name', 'auth')->delete();
+        $user->withAccessToken(
+            $user->createToken('auth'));
 
-        $user->password = 
-            $request->input('password');
+        // Changing password
+        $user->password = $request->input('password');
         $user->save();
+    
+        return new AuthenticatedUserResource($user);
     }
 
     public function resend(Request $request) 
@@ -108,7 +116,7 @@ class RecoveryService
         if ($recovery->attempts >= self::MAX_ATTEMPTS)
           abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
         
-        // Updating verification
+        // Updating recovery
         $recovery->attempts = 
             min($recovery->attempts + self::RESENDING_ATTEMPT_VALUE, self::MAX_ATTEMPTS);
 
@@ -117,7 +125,7 @@ class RecoveryService
 
         $recovery->save();
         
-        // sending code
+        // Sending code
         $user->sendRecoveryNotification();
     }
 

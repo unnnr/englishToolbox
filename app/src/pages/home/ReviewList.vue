@@ -1,5 +1,6 @@
 <template>
   <section class="reviews container">
+
     <h2 class="reviews__title heading-second">Student reviews</h2>
     <swiper 
       class="reviews__swiper"
