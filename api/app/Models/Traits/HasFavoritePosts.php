@@ -17,9 +17,14 @@ trait HasFavoritePosts
     {
         return $this->morphedByMany(Audio::class, 'favoritable');
     }
+    public function favoriteCharts() 
+    {
+        return $this->morphedByMany(Audio::class, 'favoritable');
+    }
 
     public function getFavoritesAttribute() 
     {
+        $favorites[] = $this->favoriteCharts;
         $favorites[] = $this->favoriteVideo;
         $favorites[] = $this->favoriteAudio;
 

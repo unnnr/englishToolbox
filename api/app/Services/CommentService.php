@@ -7,15 +7,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Video;
-use App\Models\Audio;
-
 
 class CommentService
 {
     private $commentable = [
-        'audio' => Audio::class,
-        'videos' => Video::class
+        'charts' => \App\Models\Chart::class,
+        'videos' =>\App\Models\Video::class,
+        'audio' => \App\Models\Audio::class,
     ];
 
     private function getPostClass(string $postType)

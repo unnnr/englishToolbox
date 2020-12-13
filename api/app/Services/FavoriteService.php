@@ -10,14 +10,15 @@ use stdClass;
 
 class FavoriteService
 {
-    private $commentable = [
+    private $favoritable = [
+        'charts' => \App\Models\Chart::class,
         'videos' =>\App\Models\Video::class,
         'audio' => \App\Models\Audio::class,
     ];
 
     private function computeClass(string $postType)
     {
-        foreach ($this->commentable as $link => $class)
+        foreach ($this->favoritable as $link => $class)
         {   
             if ($link === $postType)
                 return $class;

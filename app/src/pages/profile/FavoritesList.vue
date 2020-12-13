@@ -2,7 +2,6 @@
   <section class="favorites container">
     <h3 class="favorites__title heading-third">Favorite list</h3>
 
-
     <pool
       :cards="posts"
       :context="createContext"
