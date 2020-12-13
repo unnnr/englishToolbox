@@ -75,9 +75,8 @@ export default {
   },
 
   beforeMount() {
-    Auth.check().then( authenticated => 
-			this.canUpload = authenticated
-    );
+    Auth.user.get().then(user => 
+			this.canUpload = user && user.canReview);
     
     this.load();
   },

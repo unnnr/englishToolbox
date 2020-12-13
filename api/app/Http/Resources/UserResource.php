@@ -21,11 +21,13 @@ class UserResource extends JsonResource
 
             'email' => $this->email,
 
-            'verified' => $this->hasVerifiedEmail(),
-
-            'admin' => true,
+            'admin' => $this->admin,
 
             'banned' => $this->banned,
+
+            'canReview' => $this->canReview,
+
+            'verified' => $this->hasVerifiedEmail()
         ];
     }
 }

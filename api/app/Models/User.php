@@ -5,16 +5,20 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Notifications\VerifyEmailNotification;
-use App\Notifications\RecoveryNotification;
+use App\Models\Traits\HasAuthNotifications;
 use App\Models\Traits\HasFavoritePosts;
 use App\Models\Traits\HandleAuthCodes;
+use App\Models\Traits\HasRoles;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable, HasFavoritePosts, HandleAuthCodes;
+    use HasAuthNotifications,
+        HasFavoritePosts,
+        HandleAuthCodes,
+        HasApiTokens, 
+        HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -43,14 +47,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendEmailVerificationNotification()
+    public function ban()
     {
-        $this->notify(new VerifyEmailNotification());
+        return $this->hasOne(Ban::class);
     }
-    
-    public function sendRecoveryNotification()
+
+    public function favoritedBy()
     {
-        $this->notify(new RecoveryNotification());
+        return $this->morphToMany(User::class, 'favoritable');
+    }
+
+    public function roles() 
+    {
+        return $this->hasMany(Role::class);
     }
 
     public function comments()
@@ -61,16 +70,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function reviews()
     {
         return $this->hasMany(Review::class);
-    }
-
-    public function avatar()
-    {
-        return $this->hasOne(Avatar::class);
-    }
-
-    public function ban()
-    {
-        return $this->hasOne(Ban::class);
     }
 
     public function views() 
@@ -88,24 +87,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return !!!$view;
     }
 
-    public function getAdminAttribute() 
+    public function avatar()
     {
-        return false;
-    }
-
-    public function getBannedAttribute() 
-    {
-        return $this->ban !== null;
-    }
-
-    public function getCanReveiewAttribute() 
-    {
-            
-    }
-
-    public function favoritedBy()
-    {
-        return $this->morphToMany(User::class, 'favoritable');
+        return $this->hasOne(Avatar::class)
+            ->withDefault(['ulr' => 'empty']);
     }
 
     public function setPasswordAttribute($value)
