@@ -1,36 +1,40 @@
 <template>
-	 <main class="i-recommend container">
+	 <main class="recommendations container">
 
-      <h3 class="i-recommend__title heading-third">I recommend</h3>
-			
-      <transition name="fade" mode="out-in">
-        <recommendation-editor 
-          v-if="editing"
-          :target="editingTarget"
-          @edited="updateEdited"/>
+      <section class="i-recommend">
 
-        <recommendation-creator
-          v-if="creating"
-          @created="appendNew"/>
-      </transition>
-   
-      <transition-group
-        name="cards"
-        tag="div"
-        class="i-recommend__wrapper"
-        @before-leave="setAbsolute">
+        <h3 class="i-recommend__title heading-third">I recommend</h3>
+        
+        <transition name="fade" mode="out-in">
+          <recommendation-editor 
+            v-if="editing"
+            :target="editingTarget"
+            @edited="updateEdited"/>
 
-        <recommendation
-          v-for="recommendation of reversed"
-          :key="recommendation.id"
+          <recommendation-creator
+            v-if="creating"
+            @created="appendNew"/>
+        </transition>
+    
+        <transition-group
+          name="cards"
+          tag="div"
+          class="i-recommend__wrapper"
+          @before-leave="setAbsolute">
 
-          v-context:items="createContext(recommendation)"
-          :description="recommendation.description"
-          :image="recommendation.image"
-          :title="recommendation.title"
-          :link="recommendation.link"/>
+          <recommendation
+            v-for="recommendation of reversed"
+            :key="recommendation.id"
 
-      </transition-group>
+            v-context:items="createContext(recommendation)"
+            :description="recommendation.description"
+            :image="recommendation.image"
+            :title="recommendation.title"
+            :link="recommendation.link"/>
+
+        </transition-group>
+
+      </section>
 
   </main>
 </template>
