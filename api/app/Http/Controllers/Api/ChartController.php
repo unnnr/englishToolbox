@@ -18,6 +18,9 @@ class ChartController extends Controller
     public function __construct() 
     {
         $this->service = new ChartService();
+
+        $this->middleware('auth:sanctum')
+            ->only(['store', 'update', 'destroy']);
     }
      /**
      * Display a listing of the resource.

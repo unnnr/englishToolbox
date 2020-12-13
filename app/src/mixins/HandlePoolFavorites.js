@@ -18,6 +18,7 @@ const HandlePoolFavorites = {
     },
     
     toggleFavorite(post) {
+      console.log(this.authenticated);
       if (!!!this.authenticated) {
         bus.dispatch('alert-guest');
         return;

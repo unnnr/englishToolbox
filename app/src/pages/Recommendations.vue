@@ -52,7 +52,7 @@ export default {
 		return {
       recommendations: [],
 
-      canCreate: true,
+      canCreate: false,
       editingTarget: null
     }
   },
@@ -69,6 +69,10 @@ export default {
     creating() {
       return this.canCreate && !!!this.editingTarget;
     }
+  },
+
+  beforeMount() {
+    this.loadUser();
   },
 
   mounted() {
@@ -89,7 +93,7 @@ export default {
       if (!!!this.canCreate)
         return;
 
-        return () => ({
+      return () => ({
         'Edit': () => 
           this.edit(recommendation),
 
@@ -127,6 +131,11 @@ export default {
 
     appendNew(instance) {
       this.recommendations.push(instance);
+    },
+
+    async loadUser() {
+      let user = await Auth.user.get();
+      this.canCreate = user && user.admin;
     },
 
     async delete(instance) {

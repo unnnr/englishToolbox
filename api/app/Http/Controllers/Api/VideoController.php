@@ -18,6 +18,9 @@ class VideoController extends Controller
     public function __construct() 
     {
         $this->service = new VideoService();
+
+        $this->middleware('auth:sanctum')
+            ->only(['store', 'update', 'destroy']);
     }
     
     /**

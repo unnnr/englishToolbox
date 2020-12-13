@@ -40,8 +40,12 @@ export default {
   data() {
     return {
       desktop: false,
-      canCreate: true,
+      canCreate: false,
     }
+  },
+
+  beforeMount() {
+    this.loadUser()
   },
 
   mounted() {
@@ -55,7 +59,12 @@ export default {
   methods: {
     check(type) {
 			this.desktop = Resolution.DESKTOP === type;
-    }
+    },
+
+     async loadUser() {
+      let user = await Auth.user.get();
+      this.canCreate = user && user.admin;
+     }
   }
 }
 </script>

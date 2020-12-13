@@ -23,7 +23,7 @@ trait HasRoles
         if ($this->banned)
             return false;
 
-        return $this->reviews()
+        return !!!$this->reviews()
                     ->where('verified', 0)
                     ->exists();
     }

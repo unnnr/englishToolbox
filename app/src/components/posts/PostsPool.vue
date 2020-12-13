@@ -120,10 +120,11 @@ export default {
     },
 
     async loadUser() {
-      let authenticated = await Auth.check();
-
-      if (!!!authenticated)
+      let user = await Auth.user.get();
+      if (!!!user)
         return;
+
+      this.canCreate = user.admin;
 
       this.favorites = await this.model.favorites();
       this.authenticated = true;

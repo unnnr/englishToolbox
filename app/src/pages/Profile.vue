@@ -45,11 +45,20 @@ export default {
     }
   },
 
+  beforeMount() {
+    this.loadUser();
+  },
+
   mounted() {
     this.redirectGuest()
   },
 
   methods: {
+    async loadUser() {
+      let user = await Auth.user.get();
+      this.admin = user && user.admin;
+    },
+
     async redirectGuest() {
       if (await Auth.check())
         return;

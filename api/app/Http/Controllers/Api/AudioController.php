@@ -18,6 +18,9 @@ class AudioController extends Controller
     public function __construct() 
     {
         $this->service = new AudioService();
+        
+        $this->middleware('auth:sanctum')
+        ->only(['store', 'update', 'destroy']);
     }
      /**
      * Display a listing of the resource.

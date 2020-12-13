@@ -87,7 +87,7 @@ export default {
 
       banning: false,
       canPost: false,
-      canBan: true,
+      canBan: false,
     }
   },
 
@@ -121,8 +121,10 @@ export default {
     this.loadComments();
 
     // If user authenticated -> showing input
-    Auth.check().then(authenticated => 
-			this.canPost = authenticated);
+    Auth.user.get().then(user => {
+      this.canPost = Boolean(user);
+      this.canBan = user && user.admin;
+    });
   },
 
   watch: {
