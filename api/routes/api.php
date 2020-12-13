@@ -46,7 +46,7 @@ Route::group(['namespace' => 'Api'], function()
         ->only(['index', 'store', 'destroy']);
 
     Route::apiResource('comments', 'CommentController')
-        ->only(['update', 'destroy', 'show']);
+        ->only(['destroy', 'show']);
     Route::apiResource('{postType}/{postId}/comments', 'CommentController')
         ->only(['store', 'index']);
 

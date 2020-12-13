@@ -37,30 +37,7 @@ class CommentController extends Controller
     {
         return $service->create($request, $postType, (int) $postId);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CommentService $service, $id)
-    {
-        return $service->get($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateComment $request, CommentService $service, $id)
-    {
-        return $service->update($request, (int) $id);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -47,29 +47,11 @@ class CommentService
                     ->setStatusCode(Response::HTTP_CREATED); 
     }
 
-    public function update(Request $request, int $id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        $comment->update($request->validated());
-
-        return new CommentResource($comment);
-    }
-
     public function delete(int $id)
     {
         $comment = Comment::findOrFail($id);
 
         $comment->delete();
-
-        // response('', Response::HTTP_NO_CONTENT);
-    }
-
-    public function get(int $id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        return new CommentResource($comment);
     }
 
     public function all()

@@ -7,23 +7,24 @@ trait HasRoles
 {
     public function getBannedAttribute() 
     {
-        return (bool) $this->ban;
+        return $this->ban()
+                    ->exists();
     }
 
     public function getAdminAttribute() 
     {
-        return (bool) $this->roles()
-            ->where('name', 'admin')
-            ->first();
+        return $this->roles()
+                    ->where('name', 'admin')
+                    ->exists();
     }
 
     public function getCanReviewAttribute() 
     {
         if ($this->banned)
             return false;
-            
-        return (bool) $this->reviews()
-            ->where('verified', 0)
-            ->first();
+
+        return $this->reviews()
+                    ->where('verified', 0)
+                    ->exists();
     }
 }   

@@ -58,6 +58,9 @@ const HandlePoolEvents = {
     },
 
     needToPaginate() {
+      if (!!!this.posts.length)
+        return;
+        
       let pool = this.$refs.pool.$el;
       if (!!!pool)
         return;

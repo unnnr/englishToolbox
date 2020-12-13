@@ -13,7 +13,7 @@ class UpdateRecommendation extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->admin;
     }
 
     /**

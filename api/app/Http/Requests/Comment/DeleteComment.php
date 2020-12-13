@@ -13,7 +13,14 @@ class DeleteComment extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = auth()->user();
+        if ($user->admin)
+            return;
+            
+        $commentId = $this->route('comment');
+
+        return Comment::where('id', $commentId)
+                    ->where('user_id', $user->id)->exists();
     }
 
     /**

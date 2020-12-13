@@ -5,7 +5,7 @@
     accept="audio/*"
     :name="name"
 
-    v-bind="$arrts"
+    v-bind="$attrs"
     v-validate
 
     @change="change"/>
