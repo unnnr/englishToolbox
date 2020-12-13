@@ -14,7 +14,7 @@
       'tag--main': main
     }">
 
-    <span class="tag__name" for="cb2">
+    <span class="tag__name">
       {{ !!!circled ?  label : '' }}
     </span>
   </button>

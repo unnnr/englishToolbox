@@ -82,8 +82,6 @@ body
     opacity: 0
     left: 100%
 
-
-
 // ==========
 // containers 
 // ==========
@@ -183,7 +181,7 @@ body
     grid-template-columns: 1fr 1fr
 
   @include sm-devices
-    grid-template-columns: 1fr
+    grid-template-columns: 100%
 
 .feed
   margin-bottom: 50px
@@ -200,12 +198,13 @@ body
   display: grid
   grid-template-columns: 100%
   grid-template-areas: "navbar" "main" "basement"
-  grid-template-rows: max-content 1fr max-content
+  grid-template-rows: max-content minmax(100vh, max-content) max-content
 
 .posts
   display: grid
   grid-template-columns: 100%
   grid-template-areas: "filter" "selected" "pool" 
+  grid-auto-rows: max-content
   @include lg-devices
     grid-template-areas: "selected" "filter" "pool" 
 
@@ -288,31 +287,3 @@ body
 // =====
 //  temp
 // =====
-    
-.test
-  z-index: 1000
-  overflow: hidden
-  position: fixed
-  background: gray
-  @media (orientation: landscape)
-    transform: none
-    top: 0
-    right: 0
-    width: 100vw
-    height: 100vh
-  @media (orientation: portrait)
-    right: 0
-    top: 100%
-    width: 100vh
-    height: 100vw
-    transform: rotate(90deg)
-    transform-origin: right top
-    
-
-  &::before
-    position: absolute
-    text-align: center
-    width: 100%
-    font-size: 50px
-    color: white
-    content: "your text here"
