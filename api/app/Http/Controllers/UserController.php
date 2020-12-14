@@ -16,15 +16,15 @@ use App\Services\UserService;
 class UserController extends Controller
 {
 
-    private $service = null;
+    private $service;
 
     public function __construct()
     {
+        $this->service = new UserService();
+
         $this->middleware('auth:sanctum');
         $this->middleware(RequirePassword::class)
             ->only(['update', 'destroy']);
-
-        $this->service = new UserService();
     }
 
     public function index()

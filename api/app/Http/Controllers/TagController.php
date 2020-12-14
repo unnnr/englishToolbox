@@ -16,6 +16,9 @@ class TagController extends Controller
     public function __construct() 
     {
         $this->service = new TagService();
+
+        $this->middleware('auth')
+            ->only(['store', 'destroy']);
     }
     
     /**
@@ -23,9 +26,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TagService $tagService)
+    public function index()
     {
-        return $tagService->all();
+        return $this->service->all();
     }
 
     /**
@@ -34,32 +37,9 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTag $request, TagService $tagService)
+    public function store(CreateTag $request)
     {
-        return $tagService->create($request);
-    }
-
-    /**
-     * Return the specified tag.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(int $id, TagService $tagService)
-    {
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(int $id, TagService $tagService)
-    {
-        return $tagService->update($id,  $request);
+        return $this->service->create($request);
     }
 
     /**

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\AvatarService;
-
 use App\Http\Requests\User\UpdateAvatar;
+use App\Services\AvatarService;
 
 class AvatarController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
-
         $this->service = new AvatarService();
+
+        $this->middleware('auth:sanctum');
     }
 
     /**
@@ -21,7 +19,7 @@ class AvatarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(AvatarService $service)
+    public function index()
     {
         return $this->service->get();
     }

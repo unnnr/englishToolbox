@@ -9,13 +9,17 @@ use App\Services\UpdateService;
 
 class UpdateController extends Controller
 {
+    public function __construct() 
+    {
+        $this->service = new UpdateService();
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UpdateService $service)
+    public function index()
     {
-        return $service->all();
+        return $this->service->all();
     }
 }

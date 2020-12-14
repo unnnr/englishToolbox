@@ -13,9 +13,9 @@ class FavoriteController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
-
         $this->service = new FavoriteService();
+
+        $this->middleware('auth:sanctum');
     }
 
     /**

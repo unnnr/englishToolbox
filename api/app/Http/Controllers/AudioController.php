@@ -19,7 +19,7 @@ class AudioController extends Controller
         $this->service = new AudioService();
         
         $this->middleware('auth:sanctum')
-        ->only(['store', 'update', 'destroy']);
+            ->only(['store', 'update', 'destroy']);
     }
      /**
      * Display a listing of the resource.

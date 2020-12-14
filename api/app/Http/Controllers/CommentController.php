@@ -12,9 +12,14 @@ use App\Http\Requests\Comment\DeleteComment;
 class CommentController extends Controller
 {
 
+    private $service = null;
+
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['show', 'index']);
+        $this->service = new CommentService();
+
+        $this->middleware('auth:sanctum')
+            ->except(['show', 'index']);
     }
 
     /**
@@ -22,9 +27,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CommentService $service, string $postType, int $postId)
+    public function index(string $postType, int $postId)
     {
-        return $service->allPostComments($postType, $postId);
+        return $this->service->allPostComments($postType, $postId);
     }
 
     /**
@@ -33,9 +38,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateComment $request, CommentService $service, $postType, $postId)
+    public function store(CreateComment $request, $postType, $postId)
     {
-        return $service->create($request, $postType, (int) $postId);
+        return $this->service->create($request, $postType, (int) $postId);
     }
     
     /**
@@ -44,19 +49,19 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CommentService $service, $id)
+    public function destroy($id)
     {
-        return $service->delete($id);
+        return $this->service->delete($id);
     }
 
 
-    public function attachedToUser(CommentService $service) 
+    public function attachedToUser() 
     {
-        return $service->attachedToUser();
+        return $this->service->attachedToUser();
     }
 
-    public function deleteAttachedToUser(CommentService $service)
+    public function deleteAttachedToUser()
     {
-        return $service->deleteAttachedToUser();
+        return $this->service->deleteAttachedToUser();
     }
 }

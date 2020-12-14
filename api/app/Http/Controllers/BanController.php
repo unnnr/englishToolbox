@@ -17,7 +17,7 @@ class BanController extends Controller
     {
         $this->middleware('auth:sanctum');
 
-        $this->service = app(BanService::class);
+        $this->service = new BanService();
     }
 
     /**

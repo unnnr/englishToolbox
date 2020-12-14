@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Services\ReviewService;
 use App\Http\Requests\Review\CreateReview;
 use App\Http\Requests\Review\VerifyReview;
@@ -11,10 +9,14 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
+    private $service;
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['verified']);
+        $this->middleware('auth:sanctum')
+            ->except(['verified']);
+
+        $this->service = new ReviewService();
     }
 
     /**
@@ -22,17 +24,17 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ReviewService $service, Request $request)
+    public function index()
     {
         return $service->all();
     }
 
-    public function pending(ReviewService $service, Request $request)
+    public function pending()
     {
         return $service->pending();
     }
 
-    public function verified(ReviewService $service)
+    public function verified()
     {
         return $service->verified();
     }
@@ -43,7 +45,7 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReviewService $service, CreateReview $request)
+    public function store(CreateReview $request)
     {
         return $service->create($request);
     }
@@ -55,7 +57,7 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ReviewService $service, VerifyReview $request, Review $review)
+    public function update(VerifyReview $request, Review $review)
     {
         return $service->verify($review); 
     }
@@ -66,7 +68,7 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReviewService $service, Review $review)
+    public function destroy(Review $review)
     {
         return $service->delete($review);
     }
