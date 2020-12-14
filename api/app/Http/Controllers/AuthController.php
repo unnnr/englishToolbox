@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\User\DeleteUser;
 use App\Http\Requests\User\VerifyUser;
 use App\Http\Requests\User\LoginUser;
-use App\Http\Controllers\Controller;
+
 use App\Services\Auth\VerificationService;
 use App\Services\Auth\RecoveryService;
 use App\Services\Auth\AuthService;

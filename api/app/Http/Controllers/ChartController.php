@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Audio\CreateAudio;
-use App\Http\Requests\Audio\UpdateAudio;
-use App\Http\Requests\Audio\DeleteAudio;
-use App\Services\Posts\AudioService;
-use App\Models\Audio;
+
+use App\Http\Requests\Chart\CreateChart;
+use App\Http\Requests\Chart\UpdateChart;
+use App\Http\Requests\Chart\DeleteChart;
+use App\Services\Posts\ChartService;
+use App\Models\Chart;
 
 
-class AudioController extends Controller
+class ChartController extends Controller
 {
     private $service;
 
     public function __construct() 
     {
-        $this->service = new AudioService();
-        
+        $this->service = new ChartService();
+
         $this->middleware('auth:sanctum')
-        ->only(['store', 'update', 'destroy']);
+            ->only(['store', 'update', 'destroy']);
     }
      /**
      * Display a listing of the resource.
@@ -38,20 +38,20 @@ class AudioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateAudio $request)
+    public function store(CreateChart $request)
     {
         return $this->service->create($request); 
     }
 
     /**
-     * Return the specified audio post.
+     * Return the specified chart post.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Audio $audio)
+    public function show(Chart $chart)
     {
-        return $this->service->get($audio); 
+        return $this->service->get($chart); 
     }
 
     /**
@@ -61,9 +61,9 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAudio $request, Audio $audio)
+    public function update(UpdateChart $request, Chart $chart)
     {
-        return $this->service->update($request, $audio); 
+        return $this->service->update($request, $chart); 
     }
 
     /**
@@ -72,8 +72,8 @@ class AudioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DeleteAudio $request, Audio $audio)
+    public function destroy(DeleteChart $request, Chart $chart)
     {
-        return $this->service->destroy($audio); 
+        return $this->service->destroy($chart); 
     }
 }

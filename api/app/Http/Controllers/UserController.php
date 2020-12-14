@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+
 use App\Http\Requests\User\RegisterUser;
 use App\Http\Requests\User\LoginUser;
 use App\Http\Requests\User\UpdateUser;

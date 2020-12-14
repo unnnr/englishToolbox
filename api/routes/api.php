@@ -20,79 +20,73 @@ use App\Models\Video;
 |
 */
 
-Route::group(['namespace' => 'Api'], function() 
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Reosouces
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Reosouces
+|--------------------------------------------------------------------------
+*/
 
-    Route::apiResource('charts', 'ChartController');
+Route::apiResource('charts', 'ChartController');
+Route::apiResource('videos', 'VideoController');
+Route::apiResource('audio', 'AudioController');
+Route::apiResource('tags', 'TagController');
+Route::apiResource('updates', 'UpdateController')
+    ->only(['index']);
     
-    Route::apiResource('videos', 'VideoController');
+Route::apiResource('recommendations', 'RecommendationController')
+    ->only(['index','update', 'store', 'destroy']);
+
+Route::apiResource('bans', 'BanController')
+    ->only(['index', 'store', 'destroy']);
+
+Route::apiResource('comments', 'CommentController')
+    ->only(['destroy', 'show']);
+
+Route::apiResource('{postType}/{postId}/comments', 'CommentController')
+    ->only(['store', 'index']);
     
-    Route::apiResource('audio', 'AudioController');
-
-    Route::apiResource('tags', 'TagController');
-    
-    Route::apiResource('updates', 'UpdateController')
-        ->only(['index']);
-
-    Route::apiResource('recommendations', 'RecommendationController')
-        ->only(['index','update', 'store', 'destroy']);
-
-    Route::apiResource('bans', 'BanController')
-        ->only(['index', 'store', 'destroy']);
-
-    Route::apiResource('comments', 'CommentController')
-        ->only(['destroy', 'show']);
-    Route::apiResource('{postType}/{postId}/comments', 'CommentController')
-        ->only(['store', 'index']);
-
-    Route::get('reviews/verified', 'ReviewController@verified');
-    Route::get('reviews/pending', 'ReviewController@pending');
-    Route::apiResource('reviews', 'ReviewController')
-        ->except(['show']);
+Route::get('reviews/verified', 'ReviewController@verified');
+Route::get('reviews/pending', 'ReviewController@pending');
+Route::apiResource('reviews', 'ReviewController')
+    ->except(['show']);
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Auth
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Auth
+|--------------------------------------------------------------------------
+*/
 
-    Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
 
-    Route::post('verify', 'AuthController@verifyEmail');
-    Route::post('verification/resend', 'AuthController@resendVerication');
-    
-    Route::post('recovery', 'AuthController@createRecovery');
-    Route::post('recovery/resend', 'AuthController@resendRecovery');
-    Route::post('recovery/confirm', 'AuthController@changePassword');
+Route::post('verify', 'AuthController@verifyEmail');
+Route::post('verification/resend', 'AuthController@resendVerication');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Profile routes
-    |--------------------------------------------------------------------------
-    */
+Route::post('recovery', 'AuthController@createRecovery');
+Route::post('recovery/resend', 'AuthController@resendRecovery');
+Route::post('recovery/confirm', 'AuthController@changePassword');
 
-    Route::get('profile', 'UserController@index');
-    Route::patch('profile', 'UserController@update');
-    Route::delete('profile', 'UserController@destroy');
+/*
+|--------------------------------------------------------------------------
+| Profile routes
+|--------------------------------------------------------------------------
+*/
 
-    Route::get('profile/favorites/{postType}', 'FavoriteController@show');
-    Route::post('profile/favorites/{postType}', 'FavoriteController@store');
-    Route::apiResource('profile/favorites', 'FavoriteController')
-        ->only(['index', 'destroy']);
+Route::get('profile', 'UserController@index');
+Route::patch('profile', 'UserController@update');
+Route::delete('profile', 'UserController@destroy');
 
-    Route::get('profile/comments', 'CommentController@attachedToUser');
-    Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
+Route::get('profile/favorites/{postType}', 'FavoriteController@show');
+Route::post('profile/favorites/{postType}', 'FavoriteController@store');
+Route::apiResource('profile/favorites', 'FavoriteController')
+    ->only(['index', 'destroy']);
 
-    Route::get('profile/avatar', 'AvatarController@index');
-    Route::patch( 'profile/avatar', 'AvatarController@update');
+Route::get('profile/comments', 'CommentController@attachedToUser');
+Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 
-    Route::get( 'profile/views', 'ViewController@index');
-});
+Route::get('profile/avatar', 'AvatarController@index');
+Route::patch( 'profile/avatar', 'AvatarController@update');
+
+Route::get( 'profile/views', 'ViewController@index');

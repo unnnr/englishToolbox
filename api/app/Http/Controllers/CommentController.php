@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CommentService;
-use App\Http\Controllers\Controller;
+
 use App\Http\Requests\Comment\CreateComment;
 use App\Http\Requests\Comment\UpdateComment;
 use App\Http\Requests\Comment\DeleteComment;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 use App\Services\Posts\VideoService;
 use App\Http\Requests\Video\CreateVideo;
 use App\Http\Requests\Video\UpdateVideo;

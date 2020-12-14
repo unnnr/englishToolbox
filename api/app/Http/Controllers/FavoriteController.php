@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Requests\Favorite\CreateFavorite;
-use App\Http\Controllers\Controller;
+
 use App\Services\FavoriteService;
 use App\Models\Favoritable;
 
