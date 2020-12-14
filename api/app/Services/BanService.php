@@ -27,6 +27,12 @@ class BanService
         $user = User::findOrFail($userId);
         
         // Predicting redundant requests
+        if (auth()->user()->id === $userId) 
+        {
+            throw ValidationException::withMessages([
+                'user_id' => "You cant ban yourself"
+            ]);
+        }
         if ($user->admin)
         {
             throw ValidationException::withMessages([

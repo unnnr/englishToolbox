@@ -85,6 +85,7 @@ export default {
       img: '/img/svg/overlay-comments.svg',
       comments: [],
 
+      authenticatedId: null,
       banning: false,
       canPost: false,
       canBan: false,
@@ -124,6 +125,7 @@ export default {
     Auth.user.get().then(user => {
       this.canPost = Boolean(user);
       this.canBan = user && user.admin;
+      this.authenticatedId = user && user.id;
     });
   },
 
@@ -177,7 +179,7 @@ export default {
     },
 
     createContext(comment) {
-      if (!!!this.canBan)
+      if (!!!this.canBan || this.authenticatedId == comment.user.id)
         return null;
 
       let reason = comment.message;
