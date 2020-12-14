@@ -2,7 +2,8 @@
   <transition-group
     tag="section"
     name="list"
-    @before-leave="onLeave">
+    @before-leave="onLeave"
+    :appear="false">
     
     <slot/>
   </transition-group>

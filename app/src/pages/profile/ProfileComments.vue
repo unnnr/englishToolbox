@@ -114,3 +114,20 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.comment.list-enter-active
+  animation: none !important
+  
+.profile__tab-comments-overlay.list-leave-active
+  animation: none
+  opacity: 0
+
+.profile__tab-comments-overlay.list-enter
+  opacity: 0 !important
+
+.profile__tab-comments-overlay.list-enter-active
+  transition: opacity .5s
+
+</style>

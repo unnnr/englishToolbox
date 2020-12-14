@@ -26,17 +26,17 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return $service->all();
+        return $this->service->all();
     }
 
     public function pending()
     {
-        return $service->pending();
+        return $this->service->pending();
     }
 
     public function verified()
     {
-        return $service->verified();
+        return $this->service->verified();
     }
 
     /**
@@ -47,7 +47,7 @@ class ReviewController extends Controller
      */
     public function store(CreateReview $request)
     {
-        return $service->create($request);
+        return $this->service->create($request);
     }
 
     /**
@@ -59,7 +59,7 @@ class ReviewController extends Controller
      */
     public function update(VerifyReview $request, Review $review)
     {
-        return $service->verify($review); 
+        return $this->service->verify($review); 
     }
 
     /**
@@ -70,6 +70,6 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        return $service->delete($review);
+        return $this->service->delete($review);
     }
 }

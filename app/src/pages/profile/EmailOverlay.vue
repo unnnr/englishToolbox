@@ -78,7 +78,7 @@ export default {
 		},
 
 		shown() {
-			return !!!this.verified || !!!this.authenticated;
+			return !!!this.verified && this.authenticated && this.email !== null;
 		},
 
 		buttonDisabled() {
