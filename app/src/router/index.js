@@ -14,19 +14,15 @@ const routes = [
 
   // Main pages
 
-  { path: '/home', alias: '/', name: 'Home',
-    component: () => import('@pages/Home') },
+  { path: '/home', alias: '/', name: 'Home', component: () => import('@pages/Home') },
 
-  { path: '/recommendations', name: 'Recommendations', 
-    component: () => import('@pages/Recommendations') },
+  { path: '/recommendations', name: 'Recommendations', component: () => import('@pages/Recommendations') },
 
-  { path: '/profile', name: 'Profile', 
-    component: () => import('@pages/Profile') },
+  { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
 
   // Auth pages
   
-  { path: '/login', name: 'Login',
-    component: () => import('@pages/Login'),
+  { path: '/login', name: 'Login', component: () => import('@pages/Login'),
     beforeEnter: (to, from, next) => {
       if (!!!authenticated)
         return next();
@@ -49,25 +45,20 @@ const routes = [
   // Post pages
   
   { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},
-  { path: '/charts/:id', 
-    component: () => import('@pages/Chart') },
+  { path: '/charts/:id', component: () => import('@pages/Chart') },
     
   { path: '/videos', name:'Videos', redirect: { path: '/videos/first' }},
-  { path: '/videos/:id', 
-    component: () => import('@pages/Video') },
+  { path: '/videos/:id', component: () => import('@pages/Video') },
 
   { path: '/audio', name: 'Audio', redirect: { path: '/audio/first' }},
-  { path: '/audio/:id', 
-    component: () => import('@pages/Audio') },
+  { path: '/audio/:id', component: () => import('@pages/Audio') },
 
   // Fallback pages 
 
-  { path: '*', name: 'NotFound', 
-    component: () => import('@pages/NotFound') },
+  { path: '*', name: 'NotFound', component: () => import('@pages/NotFound') },
 
-  // temp -> 
-  { path: '/inputs', name: 'inputs', 
-    component: () => import('@pages/Inputs') },
+  // whiteboard -> 
+  { path: '/whiteboard', name: 'Whiteboard', component: () => import('@pages/Whiteboard') },
 ]
 
 const router = new VueRouter({
