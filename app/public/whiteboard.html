@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>whiteboard</title>
+
+  <!-- =============== META TAGS =============== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+
+  <!-- ================= FONTS ================= -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
+
+  <!-- ============= FONT AWERSOME ============= -->
+  <script src="https://kit.fontawesome.com/6b69b7366d.js" crossorigin="anonymous"></script>
+
+  <!-- ================== CSS ================== -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <section class="games container">
+    <div class="games__selected">
+
+      <div class="whiteboard">
+
+        <div class="whiteboard__group whiteboard__group--controls">
+          <div class="whiteboard__element--small whiteboard__element">
+            <button class="whiteboard__button-control--undo whiteboard__button-control whiteboard__button"></button>
+            <div class="whiteboard__separator"></div>
+            <button class="whiteboard__button-control--redo whiteboard__button-control whiteboard__button"></button>
+          </div>
+          <div class="whiteboard__element--small whiteboard__element">
+            <button class="whiteboard__button-control--minus whiteboard__button-control whiteboard__button"></button>
+            <div class="whiteboard__separator"></div>
+            <span class="whiteboard__scale-count">100%</span>
+            <div class="whiteboard__separator"></div>
+            <button class="whiteboard__button-control--plus whiteboard__button-control whiteboard__button"></button>
+          </div>
+        </div>
+
+        <div class="whiteboard__group whiteboard__group--users">
+
+          <div class="whiteboard__group-inner">
+            <div class="whiteboard__element--square whiteboard__element--small whiteboard__element">
+              <button class="whiteboard__button-control--unlock whiteboard__button-control"></button>
+            </div>
+            <div class="whiteboard__element--small whiteboard__element">
+              <button class="whiteboard__button-online"><span class="whiteboard__online-count">5</span>users online</button>
+            </div>
+          </div>
+
+          <div class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
+
+            <div class="whiteboard__user">
+              <div class="whiteboard__user-avatar"></div>
+              <p class="whiteboard__user-name text-fifth">Pepe Frog</p>
+            </div>
+
+            <div class="whiteboard__user">
+              <div class="whiteboard__user-avatar"></div>
+              <p class="whiteboard__user-name text-fifth">Ronald Richards</p>
+            </div>
+            
+          </div>
+
+        </div>
+
+
+
+        <div class="whiteboard__group whiteboard__group--tools">
+          <div class="whiteboard__element whiteboard__element--size">
+            <button class="whiteboard__button-size--1 whiteboard__button-size whiteboard__button--active whiteboard__button"></button>
+            <button class="whiteboard__button-size--2 whiteboard__button-size whiteboard__button"></button>
+            <button class="whiteboard__button-size--3 whiteboard__button-size whiteboard__button"></button>
+            <button class="whiteboard__button-size--4 whiteboard__button-size whiteboard__button"></button>
+            <button class="whiteboard__button-size--5 whiteboard__button-size whiteboard__button"></button>
+            <button class="whiteboard__button-size--6 whiteboard__button-size whiteboard__button"></button>
+          </div>
+  
+          <div class="whiteboard__element whiteboard__element--color">
+            <button class="whiteboard__button-color--black whiteboard__button-color whiteboard__button--active whiteboard__button"></button>
+            <button class="whiteboard__button-color--brown whiteboard__button-color whiteboard__button"></button>
+            <button class="whiteboard__button-color--red whiteboard__button-color whiteboard__button"></button>
+            <button class="whiteboard__button-color--yellow whiteboard__button-color whiteboard__button"></button>
+            <button class="whiteboard__button-color--green whiteboard__button-color whiteboard__button"></button>
+            <button class="whiteboard__button-color--blue whiteboard__button-color whiteboard__button"></button>
+          </div>
+  
+          <div class="whiteboard__element whiteboard__element--tool">
+            <button class="whiteboard__button-tool--pencil whiteboard__button-tool whiteboard__button--active whiteboard__button"></button>
+            <button class="whiteboard__button-tool--pen whiteboard__button-tool whiteboard__button"></button>
+            <button class="whiteboard__button-tool--text whiteboard__button-tool whiteboard__button"></button>
+            <div class="whiteboard__separator"></div>
+            <button class="whiteboard__button-tool--triangle whiteboard__button-tool whiteboard__button"></button>
+            <button class="whiteboard__button-tool--square whiteboard__button-tool whiteboard__button"></button>     
+            <button class="whiteboard__button-tool--ellipse whiteboard__button-tool whiteboard__button"></button>
+            <div class="whiteboard__separator"></div>
+            <button class="whiteboard__button-tool--eraser whiteboard__button-tool whiteboard__button"></button>
+            <button class="whiteboard__button-tool--trash whiteboard__button-tool whiteboard__button"></button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</body>
+
+</html>

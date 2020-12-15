@@ -1,0 +1,365 @@
+$whiteboard-color-dark-gray: transparentize(#404040, 0.1)
+$whiteboard-color-light-gray: #E3E3E3
+$whiteboard-color-black: #111111
+$whiteboard-color-brown: #7C5C5C
+$whiteboard-border-radius: 5px
+
+
+.whiteboard
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+
+
+.whiteboard__group
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+
+  &--controls
+    width: max-content
+    margin: 15px 0 0 15px
+    // 
+    grid-column-gap: 5px
+    //
+    position: absolute
+    top: 0
+    left: 0
+
+  &--users
+    width: max-content
+    margin: 15px 15px 0 0
+    // 
+    grid-auto-flow: row
+    grid-row-gap: 5px
+    //
+    position: absolute
+    top: 0
+    right: 0
+
+    .whiteboard__group-inner
+      display: grid
+      grid-auto-flow: column
+      grid-auto-columns: max-content
+      grid-column-gap: 5px
+      justify-content: end
+
+  &--tools
+    margin-bottom: 15px
+    // 
+    grid-column-gap: 15px
+    //
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+
+
+.whiteboard__element
+  height: 60px
+  padding: 10px 15px
+  border-radius: $border-radius-secondary
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  // 
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 5px
+  align-items: center
+
+  &--small
+    height: 30px
+    padding: 8px 10px
+    border-radius: $whiteboard-border-radius
+
+    .whiteboard__separator
+      height: 14px
+
+    .whiteboard__button
+      height: 14px
+      min-width: 14px
+   
+  &--square 
+    width: 30px
+    padding: 8px 0
+    justify-content: center
+
+
+.whiteboard__separator
+  width: 2px
+  height: 28px
+  border-radius: 2px
+  background: $whiteboard-color-dark-gray
+
+
+.whiteboard__button-control 
+  &:before
+    font-size: 14px
+    font-family: "font awesome 5 free"
+    content: ""
+    font-weight: $bold
+    color: $whiteboard-color-light-gray
+  
+  &--undo
+    &:before
+      content: "\f0e2"
+
+  &--redo
+    &:before
+      content: "\f01e"
+
+  &--minus
+    &:before
+      content: "\f068"
+
+  &--plus
+    &:before
+      content: "\f067"
+
+  &--lock
+    &:before
+      content: "\f023"
+      color: $color-reddish
+    
+  &--unlock
+    &:before
+      content: "\f09c"
+      color: $color-greenish
+
+      
+.whiteboard__scale-count
+  width: 50px
+  text-align: center
+  font-size: 14px
+  font-weight: $semibold
+  line-height: 1
+  color: $whiteboard-color-light-gray
+
+
+.whiteboard__button
+  height: 40px
+  min-width: 40px
+  // 
+  display: grid
+  align-items: center
+  justify-items: center
+  // 
+  background: transparent 
+  border-radius: $whiteboard-border-radius
+  // 
+  &--active
+    background: $whiteboard-color-dark-gray
+
+
+.whiteboard__button-online
+  color: $whiteboard-color-light-gray
+  font-size: 14px
+  font-weight: $semibold
+  line-height: 1
+  // 
+  display: grid
+  grid-auto-flow: column
+  align-items: center
+  grid-column-gap: 3px
+
+  &:after
+    font-family: "material icons round"
+    content: "arrow_drop_down"
+    color: inherit
+    font-size: 20px
+    height: 10px
+    width: 10px
+    // 
+    display: flex
+    justify-content: center
+    align-items: center
+    overflow: hidden
+
+
+// =======================
+// whiteboard size buttons
+// =======================
+
+.whiteboard__button-size
+  &:before
+    font-family: "material icons round"
+    content: "lens"
+    font-size: inherit
+    color: $whiteboard-color-light-gray
+
+  &--1
+    font-size: 8px
+
+  &--2
+    font-size: 12px
+
+  &--3
+    font-size: 16px
+
+  &--4
+    font-size: 20px
+
+  &--5
+    font-size: 24px
+
+  &--6
+    font-size: 28px
+
+// ========================
+// whiteboard color buttons
+// ========================
+
+.whiteboard__button-color
+  &:before
+    font-family: "material icons round"
+    content: "lens"
+    font-size: 28px
+    color: inherit
+
+  &--black
+    color: $whiteboard-color-black
+
+  &--brown
+    color: $whiteboard-color-brown
+
+  &--red
+    color: $color-reddish
+
+  &--yellow
+    color: $color-yellowish
+
+  &--green
+    color: $color-greenish
+
+  &--blue
+    color: $color-primary
+
+// =======================
+// whiteboard tool buttons
+// =======================
+
+.whiteboard__button-tool
+  &:before
+    font-family: "font awesome 5 free"
+    content: ""
+    font-size: 28px
+    font-weight: $semibold
+    color: $whiteboard-color-light-gray
+
+  &--pencil
+    &:before
+      content: "\f304"
+
+  &--pen
+    &:before
+      content: "\f5ac"
+
+  &--text
+    &:before
+      content: "\f031"
+
+  &--triangle
+    &:before
+      font-family: "en-icons"
+      content: "\e003"
+      font-weight: normal
+
+  &--square
+    &:before
+      font-family: "en-icons"
+      content: "\e002"
+      font-weight: normal
+
+  &--ellipse
+    &:before
+      font-family: "en-icons"
+      content: "\e001"
+      font-weight: normal
+
+  &--eraser
+    &:before
+      font-family: "en-icons"
+      content: "\e011"
+      font-weight: normal
+
+  &--trash
+    &:before
+      content: "\f1f8"
+
+// ==============
+// users dropdown
+// ==============
+
+.whiteboard__users-dropdown
+  border-radius: $whiteboard-border-radius
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  padding: 15px 25px  
+  // 
+  max-width: 300px
+  // 
+  display: grid
+  grid-row-gap: 15px
+  grid-auto-rows: max-content
+  // 
+  overflow: overlay
+  @include scroll-body
+  // temp
+  max-height: 250px
+
+  &--bannable
+    .whiteboard__user-avatar
+      &:before
+        content: "block"
+        cursor: pointer
+
+.whiteboard__user
+  overflow: hidden
+  // 
+  display: grid
+  grid-auto-flow: column
+  grid-template-columns: max-content 1fr
+  grid-column-gap: 10px
+  align-items: center
+
+.whiteboard__user-avatar
+  position: relative
+  height: 35px
+  width: 35px
+  width: 35px
+  border-radius: 100%
+  overflow: hidden
+  background-color: $color-semigray
+  @include background-image 
+
+  &:before
+    opacity: 0
+    font-family: "Material Icons Round"
+    content: none
+    font-size: 21px
+    color: $color-reddish
+    display: grid
+    justify-items: center
+    align-items: center
+    position: absolute
+    width: 100%
+    height: 100%
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.3) 100%)
+    transition: opacity .3s ease-in-out
+
+  &:hover
+    &:before
+      opacity: 1
+
+
+.whiteboard__user-name
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow: hidden
+  display: block
+  font-weight: $semibold
+  color: $whiteboard-color-light-gray
+  
