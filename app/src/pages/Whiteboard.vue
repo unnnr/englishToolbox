@@ -9,7 +9,7 @@
 
         <whiteboard-users/>
 
-        <whiteboard-tools/>
+        <whiteboard-config/>
       </div>
     </div>
   </section>
@@ -18,15 +18,15 @@
 <script>
 import WhiteboardControls from '@components/games/whiteboard/WhiteboardControls'
 import WhiteboardCanvas from '@components/games/whiteboard/WhiteboardCanvas'
+import WhiteboardConfig from '@components/games/whiteboard/WhiteboardConfig'
 import WhiteboardUsers from '@components/games/whiteboard/WhiteboardUsers'
-import WhiteboardTools from '@components/games/whiteboard/WhiteboardTools'
 
 export default {
   components: {
     WhiteboardControls,
     WhiteboardCanvas,
     WhiteboardUsers,
-    WhiteboardTools,
+    WhiteboardConfig,
   }
 }
 </script>

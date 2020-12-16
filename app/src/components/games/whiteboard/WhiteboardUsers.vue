@@ -9,7 +9,10 @@
       </div>
     </div>
 
-    <div class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
+    <div
+      v-if="active"
+      class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
+      
       <div class="whiteboard__user">
         <div class="whiteboard__user-avatar"></div>
         <p class="whiteboard__user-name text-fifth">Pepe Frog</p>
@@ -23,3 +26,13 @@
 
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      active: false
+    }
+  }
+}
+</script>
