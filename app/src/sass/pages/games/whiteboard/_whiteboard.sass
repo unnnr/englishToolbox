@@ -129,6 +129,11 @@ $whiteboard-border-radius: 5px
       content: "\f09c"
       color: $color-greenish
 
+  &--exit
+    &:before
+      content: "\f00d"
+      color: $color-reddish
+
       
 .whiteboard__scale-count
   width: 50px
@@ -150,20 +155,20 @@ $whiteboard-border-radius: 5px
   background: transparent 
   border-radius: $whiteboard-border-radius
   // 
-  &--active
+  transition: background .2s ease-in-out
+  &--selected
     background: $whiteboard-color-dark-gray
 
 
 .whiteboard__button-online
   color: $whiteboard-color-light-gray
-  font-size: 14px
   font-weight: $semibold
   line-height: 1
   // 
   display: grid
   grid-auto-flow: column
   align-items: center
-  grid-column-gap: 3px
+  grid-column-gap: 4px
 
   &:after
     font-family: "material icons round"
@@ -285,13 +290,21 @@ $whiteboard-border-radius: 5px
       content: "\e011"
       font-weight: normal
 
+  &--eraser-god
+    &:before
+      font-family: "en-icons"
+      content: "\e012"
+      font-weight: normal
+
   &--trash
     &:before
       content: "\f1f8"
 
+  
 // ==============
 // users dropdown
 // ==============
+
 
 .whiteboard__users-dropdown
   border-radius: $whiteboard-border-radius
@@ -316,6 +329,7 @@ $whiteboard-border-radius: 5px
         content: "block"
         cursor: pointer
 
+  
 .whiteboard__user
   overflow: hidden
   // 
@@ -324,6 +338,7 @@ $whiteboard-border-radius: 5px
   grid-template-columns: max-content 1fr
   grid-column-gap: 10px
   align-items: center
+
 
 .whiteboard__user-avatar
   position: relative
@@ -362,4 +377,3 @@ $whiteboard-border-radius: 5px
   display: block
   font-weight: $semibold
   color: $whiteboard-color-light-gray
-  
