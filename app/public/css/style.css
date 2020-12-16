@@ -129,6 +129,10 @@ main {
   content: "";
 }
 
+.en-eraser-god:before {
+  content: "";
+}
+
 body,
 textarea,
 input,
@@ -4840,6 +4844,11 @@ button:active {
   color: #1dd1bb;
 }
 
+.whiteboard__button-control--exit:before {
+  content: "\f00d";
+  color: #ff6688;
+}
+
 .whiteboard__scale-count {
   width: 50px;
   text-align: center;
@@ -4860,15 +4869,16 @@ button:active {
   justify-items: center;
   background: transparent;
   border-radius: 5px;
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
 }
 
-.whiteboard__button--active {
+.whiteboard__button--selected {
   background: rgba(64, 64, 64, 0.9);
 }
 
 .whiteboard__button-online {
   color: #E3E3E3;
-  font-size: 14px;
   font-weight: 600;
   line-height: 1;
   display: -ms-grid;
@@ -4877,7 +4887,7 @@ button:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  grid-column-gap: 3px;
+  grid-column-gap: 4px;
 }
 
 .whiteboard__button-online:after {
@@ -5005,6 +5015,12 @@ button:active {
   font-weight: normal;
 }
 
+.whiteboard__button-tool--eraser-god:before {
+  font-family: "en-icons";
+  content: "\e012";
+  font-weight: normal;
+}
+
 .whiteboard__button-tool--trash:before {
   content: "\f1f8";
 }
@@ -5116,6 +5132,403 @@ button:active {
   display: block;
   font-weight: 600;
   color: #E3E3E3;
+}
+
+.whiteboard__element-mobile {
+  height: 40px;
+  padding: 5px 5px 5px 10px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  grid-column-gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.whiteboard__button-mobile {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  grid-column-gap: 3px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.whiteboard__button-mobile:before {
+  height: 30px;
+  width: 30px;
+  background: transparent;
+  border-radius: 5px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  -webkit-transition: background .2s ease-in-out;
+  transition: background .2s ease-in-out;
+}
+
+.whiteboard__button-mobile:after {
+  font-family: "material icons round";
+  content: "arrow_drop_up";
+  color: #E3E3E3;
+  font-size: 25px;
+  height: 10px;
+  width: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+}
+
+.whiteboard__button-mobile--selected:before {
+  background: rgba(64, 64, 64, 0.9);
+}
+
+.whiteboard__button-mobile--active::after {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.whiteboard__button-size-mobile:before {
+  font-family: "material icons round";
+  content: "lens";
+  font-size: inherit;
+  -webkit-transition: font-size .3s ease-in-out;
+  transition: font-size .3s ease-in-out;
+  color: #E3E3E3;
+}
+
+.whiteboard__button-size-mobile--1 {
+  font-size: 5px;
+}
+
+.whiteboard__button-size-mobile--2 {
+  font-size: 8px;
+}
+
+.whiteboard__button-size-mobile--3 {
+  font-size: 11px;
+}
+
+.whiteboard__button-size-mobile--4 {
+  font-size: 14px;
+}
+
+.whiteboard__button-size-mobile--5 {
+  font-size: 17px;
+}
+
+.whiteboard__button-size-mobile--6 {
+  font-size: 20px;
+}
+
+.whiteboard__button-color-mobile:before {
+  font-family: "material icons round";
+  content: "lens";
+  font-size: 20px;
+  color: inherit;
+  -webkit-transition: color .3s ease-in-out;
+  transition: color .3s ease-in-out;
+}
+
+.whiteboard__button-color-mobile--black {
+  color: #111111;
+}
+
+.whiteboard__button-color-mobile--brown {
+  color: #7C5C5C;
+}
+
+.whiteboard__button-color-mobile--red {
+  color: #ff6688;
+}
+
+.whiteboard__button-color-mobile--yellow {
+  color: #f9a922;
+}
+
+.whiteboard__button-color-mobile--green {
+  color: #1dd1bb;
+}
+
+.whiteboard__button-color-mobile--blue {
+  color: #6666ff;
+}
+
+.whiteboard__button-tool-mobile:before {
+  font-family: "font awesome 5 free";
+  content: "";
+  font-size: 20px;
+  font-weight: 600;
+  color: #E3E3E3;
+}
+
+.whiteboard__button-tool-mobile--pencil:before {
+  content: "\f304";
+}
+
+.whiteboard__button-tool-mobile--pen:before {
+  content: "\f5ac";
+}
+
+.whiteboard__button-tool-mobile--text:before {
+  content: "\f031";
+}
+
+.whiteboard__button-tool-mobile--triangle:before {
+  font-family: "en-icons";
+  content: "\e003";
+  font-weight: normal;
+}
+
+.whiteboard__button-tool-mobile--square:before {
+  font-family: "en-icons";
+  content: "\e002";
+  font-weight: normal;
+}
+
+.whiteboard__button-tool-mobile--ellipse:before {
+  font-family: "en-icons";
+  content: "\e001";
+  font-weight: normal;
+}
+
+.whiteboard__button-tool-mobile--eraser:before {
+  font-family: "en-icons";
+  content: "\e011";
+  font-weight: normal;
+}
+
+.whiteboard__button-tool-mobile--eraser-god:before {
+  font-family: "en-icons";
+  content: "\e012";
+  font-weight: normal;
+}
+
+.whiteboard__button-tool-mobile--trash:before {
+  content: "\f1f8";
+}
+
+.whiteboard__separator-mobile {
+  width: 2px;
+  height: 20px;
+  border-radius: 2px;
+  background: rgba(64, 64, 64, 0.9);
+}
+
+.whiteboard__group-mobile {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+
+.whiteboard__group-mobile--controls {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 5px 0 0 5px;
+  grid-column-gap: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.whiteboard__group-mobile--users {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 5px 5px 0 0;
+  grid-auto-flow: row;
+  grid-row-gap: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.whiteboard__group-mobile--users .whiteboard__group-inner {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  grid-column-gap: 5px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.whiteboard__group-mobile--tools {
+  margin-bottom: 5px;
+  grid-column-gap: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.whiteboard__group-inner-mobile {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
+  grid-row-gap: 5px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+
+.whiteboard__group-inner-mobile--tool {
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr max-content;
+      grid-template-rows: 1fr -webkit-max-content;
+      grid-template-rows: 1fr max-content;
+}
+
+.whiteboard__group-inner-mobile--tool .whiteboard__element-dropup-mobile--active {
+  max-height: 70px;
+}
+
+.whiteboard__group-inner-mobile--tool .whiteboard__element-mobile {
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.whiteboard__element-dropup-mobile {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin-left: 5px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+  display: -ms-grid;
+  display: grid;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
+  grid-column-gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  max-height: 0;
+  padding: 0 5px;
+  overflow: hidden;
+  -webkit-transition: max-height .3s ease-in-out, padding .3s ease-in-out;
+  transition: max-height .3s ease-in-out, padding .3s ease-in-out;
+}
+
+.whiteboard__element-dropup-mobile--active {
+  max-height: 160px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.whiteboard__element-dropup-mobile .whiteboard__button-mobile:after {
+  content: none;
+}
+
+.whiteboard__users-dropdown-mobile {
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+  padding: 10px 15px;
+  max-width: 300px;
+  display: -ms-grid;
+  display: grid;
+  grid-row-gap: 15px;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
+  overflow: overlay;
+  max-height: 250px;
+}
+
+.whiteboard__users-dropdown-mobile::-webkit-scrollbar {
+  width: 15px;
+}
+
+@media (max-width: 770px) {
+  .whiteboard__users-dropdown-mobile::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.whiteboard__users-dropdown-mobile::-webkit-scrollbar-track {
+  width: 100%;
+  border-radius: 100px;
+}
+
+.whiteboard__users-dropdown-mobile::-webkit-scrollbar-thumb {
+  background: #a1a1b1;
+  border-radius: 100px;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.whiteboard__users-dropdown-mobile::-webkit-scrollbar-thumb:hover {
+  background: #85859a;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.whiteboard__users-dropdown-mobile--bannable .whiteboard__user-avatar:before {
+  content: "block";
+  cursor: pointer;
+}
+
+.whiteboard__user-mobile {
+  overflow: hidden;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
+  grid-column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.whiteboard__user-mobile .whiteboard__user-avatar {
+  height: 25px;
+  width: 25px;
 }
 
 .not-found {

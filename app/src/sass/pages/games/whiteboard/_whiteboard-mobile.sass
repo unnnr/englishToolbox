@@ -1,0 +1,306 @@
+// =================
+// whiteboard mobile
+// =================
+
+
+.whiteboard__element-mobile
+  height: 40px
+  padding: 5px 5px 5px 10px
+  border-radius: $whiteboard-border-radius
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  // 
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 5px
+  align-items: center
+
+
+.whiteboard__button-mobile
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 3px
+  align-items: center
+  // 
+  width: max-content
+
+  &:before
+    height: 30px
+    width: 30px
+    background: transparent
+    border-radius: $whiteboard-border-radius
+    // 
+    display: grid
+    align-items: center
+    justify-items: center
+    // 
+    transition: background .2s ease-in-out
+
+  &:after
+    font-family: "material icons round"
+    content: "arrow_drop_up"
+    color: $whiteboard-color-light-gray
+    font-size: 25px
+    height: 10px
+    width: 10px
+    // 
+    display: flex
+    justify-content: center
+    align-items: center
+    overflow: hidden
+    // 
+    transition: transform .3s ease-in-out
+
+  &--selected
+    &:before
+      background: $whiteboard-color-dark-gray
+  
+  &--active
+    &::after
+      transform: rotate(180deg)
+
+
+.whiteboard__button-size-mobile
+  &:before
+    font-family: "material icons round"
+    content: "lens"
+    font-size: inherit
+    transition: font-size .3s ease-in-out
+    color: $whiteboard-color-light-gray
+
+  &--1
+    font-size: 5px
+
+  &--2
+    font-size: 8px
+
+  &--3
+    font-size: 11px
+
+  &--4
+    font-size: 14px
+
+  &--5
+    font-size: 17px
+
+  &--6
+    font-size: 20px
+
+
+.whiteboard__button-color-mobile
+  &:before
+    font-family: "material icons round"
+    content: "lens"
+    font-size: 20px
+    color: inherit
+    transition: color .3s ease-in-out
+
+  &--black
+    color: $whiteboard-color-black
+
+  &--brown
+    color: $whiteboard-color-brown
+
+  &--red
+    color: $color-reddish
+
+  &--yellow
+    color: $color-yellowish
+
+  &--green
+    color: $color-greenish
+
+  &--blue
+    color: $color-primary
+
+
+.whiteboard__button-tool-mobile
+  &:before
+    font-family: "font awesome 5 free"
+    content: ""
+    font-size: 20px
+    font-weight: $semibold
+    color: $whiteboard-color-light-gray
+
+  &--pencil
+    &:before
+      content: "\f304"
+
+  &--pen
+    &:before
+      content: "\f5ac"
+
+  &--text
+    &:before
+      content: "\f031"
+
+  &--triangle
+    &:before
+      font-family: "en-icons"
+      content: "\e003"
+      font-weight: normal
+
+  &--square
+    &:before
+      font-family: "en-icons"
+      content: "\e002"
+      font-weight: normal
+
+  &--ellipse
+    &:before
+      font-family: "en-icons"
+      content: "\e001"
+      font-weight: normal
+
+  &--eraser
+    &:before
+      font-family: "en-icons"
+      content: "\e011"
+      font-weight: normal
+
+  &--eraser-god
+    &:before
+      font-family: "en-icons"
+      content: "\e012"
+      font-weight: normal
+
+  &--trash
+    &:before
+      content: "\f1f8"
+
+
+.whiteboard__separator-mobile
+  width: 2px
+  height: 20px
+  border-radius: 2px
+  background: $whiteboard-color-dark-gray
+
+
+.whiteboard__group-mobile
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  align-items: end 
+
+  &--controls
+    width: max-content
+    margin: 5px 0 0 5px
+    // 
+    grid-column-gap: 5px
+    //
+    position: absolute
+    top: 0
+    left: 0
+
+  &--users
+    width: max-content
+    margin: 5px 5px 0 0
+    // 
+    grid-auto-flow: row
+    grid-row-gap: 5px
+    //
+    position: absolute
+    top: 0
+    right: 0
+
+    .whiteboard__group-inner
+      display: grid
+      grid-auto-flow: column
+      grid-auto-columns: max-content
+      grid-column-gap: 5px
+      justify-content: end
+
+  &--tools
+    margin-bottom: 5px
+    // 
+    grid-column-gap: 5px
+    //
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+
+
+.whiteboard__group-inner-mobile
+  display: grid
+  grid-auto-rows: max-content
+  grid-row-gap: 5px  
+  align-items: end
+
+  &--tool
+    grid-template-columns: 1fr 1fr 1fr
+    grid-template-rows: 1fr max-content
+
+    .whiteboard__element-dropup-mobile
+      &--active
+        max-height: 70px
+
+    .whiteboard__element-mobile
+      grid-column-start: 1
+      grid-column-end: 4
+
+    
+.whiteboard__element-dropup-mobile
+  width: max-content
+  margin-left: 5px 
+  border-radius: $whiteboard-border-radius
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  // 
+  display: grid
+  grid-auto-rows: max-content
+  grid-column-gap: 5px
+  align-items: center
+  // 
+  height: max-content
+  max-height: 0
+  padding: 0 5px
+  overflow: hidden
+  transition: max-height .3s ease-in-out, padding .3s ease-in-out
+
+  &--active
+    max-height: 160px
+    padding-top: 5px
+    padding-bottom: 5px
+
+  .whiteboard__button-mobile
+    &:after
+      content: none
+
+.whiteboard__users-dropdown-mobile
+  border-radius: $whiteboard-border-radius
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  padding: 10px 15px  
+  // 
+  max-width: 300px
+  // 
+  display: grid
+  grid-row-gap: 15px
+  grid-auto-rows: max-content
+  // 
+  overflow: overlay
+  @include scroll-body
+  // temp
+  max-height: 250px
+
+  &--bannable
+    .whiteboard__user-avatar
+      &:before
+        content: "block"
+        cursor: pointer
+
+.whiteboard__user-mobile
+  overflow: hidden
+  // 
+  display: grid
+  grid-auto-flow: column
+  grid-template-columns: max-content 1fr
+  grid-column-gap: 10px
+  align-items: center
+
+  .whiteboard__user-avatar
+    height: 25px 
+    width: 25px
