@@ -46,10 +46,14 @@ export default {
     computeCoords(event) {
       let position = 
         event.target.getBoundingClientRect();
+
+      let canvas = this.$refs.activeLayer;
+      if (!!!canvas)
+        return;
       
       return {
-        x: event.clientX - position.left,
-        y: event.clientY - position.top
+        x: (event.clientX - position.left) * (this.width / canvas.offsetWidth),
+        y: (event.clientY - position.top) * (this.height / canvas.offsetHeight)
       }
     },
 
@@ -73,7 +77,14 @@ export default {
     },
 
     stop() {
+      if (!!!this.painting)
+        return;
+
       this.painting = false;
+      if (!!!this.tool.release())
+        return;
+
+      console.log(this.tool.compose());
     },
   }
 }
