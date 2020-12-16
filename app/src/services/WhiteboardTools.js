@@ -3,18 +3,6 @@ export class Pencil {
 
   previous = null;
 
-  appendCoords(coords) {
-    let last = 
-      this.path[this.path.length - 1];
-
-    let relative = {
-      x: last.x - coords.x,
-      y: last.y - coords.y, 
-    }
-    
-    this.path.push(relative);
-  }
-
   init(context, coords) {
     context.lineWidth = 15;
     context.lineCap = 'round';
@@ -36,7 +24,7 @@ export class Pencil {
     context.stroke();
 
     this.previous = coords;
-    this.appendCoords(coords);
+    this.path.push(coords);
   }
 
   release(context, coords) {
@@ -44,6 +32,22 @@ export class Pencil {
   }
 
   compose() {
-    return this.path;
+    if (!!!this.path.length)
+      return;
+
+    let previous = this.path[0];
+    let relative = {
+      x: [Math.round(previous.x)],
+      y: [Math.round(previous.y)]
+    };
+
+    for (let {x, y} of this.path.slice(1)) {
+      relative.x.push(Math.round(previous.x - x));
+      relative.y.push(Math.round(previous.y - y));
+
+      previous = {x, y};
+    }
+
+    return relative;
   }
 }

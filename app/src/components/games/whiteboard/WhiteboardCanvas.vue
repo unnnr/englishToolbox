@@ -24,7 +24,6 @@ export default {
     return {
       width: 1400,
       height: 600,
-      tool: null,
       painting: false
     }
   },
@@ -43,7 +42,7 @@ export default {
       return canvas.getContext("2d");
     },
 
-    computeCoords(event) {
+    computeCoords(event) {  
       let position = 
         event.target.getBoundingClientRect();
 
