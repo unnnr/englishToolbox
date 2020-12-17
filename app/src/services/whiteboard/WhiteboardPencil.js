@@ -16,8 +16,8 @@ export default class Pencil {
     };
 
     for (let {x, y} of this.path.slice(1)) {
-      relative.x.push(Math.round(previous.x - x));
-      relative.y.push(Math.round(previous.y - y));
+      relative.x.push((previous.x - x).toFixed(1));
+      relative.y.push((previous.y - y).toFixed(2));
 
       previous = {x, y};
     }
