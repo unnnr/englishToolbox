@@ -29,8 +29,8 @@ export default {
     return {
       config: {
         size: 0,
-        color: '0',
-        tool: new Pencil()
+        color: 'black',
+        tool: null
       }
     }
   },
