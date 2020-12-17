@@ -36,7 +36,7 @@ export default {
     },
 
     clear() {
-      console.log('clearing')
+      this.context.clearRect(0, 0, this.width, this.height);
     },
 
     computeCoords(event) {  

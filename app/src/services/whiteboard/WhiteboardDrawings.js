@@ -6,14 +6,17 @@ export default class WhiteboardDrawings {
   }
 
   async clear() {
+    // await Pusher->send
 
   }
 
   async remove() {
+    // await Pusher->send
 
   }
 
-  async append() {
-
+  async append(item) {
+    // await Pusher->send
+    this.collection.push(item);
   }
 }

@@ -22,7 +22,10 @@ export default class Pencil {
       previous = {x, y};
     }
 
-    return relative;
+    return {
+      type: 'pen',
+      path: relative
+    };
   }
 
   click(coords, context, drawings, config) {

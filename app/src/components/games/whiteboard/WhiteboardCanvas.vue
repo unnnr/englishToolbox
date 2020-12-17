@@ -1,6 +1,8 @@
 <template>
   <div class="whiteboard__canvas">
-    <whiteboard-drawings/>
+    <whiteboard-drawings
+      :drawings="drawings"/>
+      
     <whiteboard-active-layer
       :drawings="drawings"
       :tool="tool"/>
@@ -17,6 +19,12 @@ export default {
   components: { 
     WhiteboardActiveLayer,
     WhiteboardDrawings,
+  },
+
+  data() {
+    return {
+      drawings: []
+    }
   },
 
   beforeMount() {
