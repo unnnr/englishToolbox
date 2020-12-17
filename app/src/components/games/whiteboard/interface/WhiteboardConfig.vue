@@ -16,12 +16,6 @@ export default {
     WhiteboardColors,
     WhiteboardSizes,
     WhiteboardTools,
-  },
-
-  data() {
-    return {
-      disabled: true
-    }
   }
 }
 </script>

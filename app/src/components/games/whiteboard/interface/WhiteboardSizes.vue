@@ -1,10 +1,36 @@
 <template>
   <div class="whiteboard__element whiteboard__element--size">
-    <button class="whiteboard__button-size--1 whiteboard__button-size whiteboard__button--active whiteboard__button"></button>
-    <button class="whiteboard__button-size--2 whiteboard__button-size whiteboard__button"></button>
-    <button class="whiteboard__button-size--3 whiteboard__button-size whiteboard__button"></button>
-    <button class="whiteboard__button-size--4 whiteboard__button-size whiteboard__button"></button>
-    <button class="whiteboard__button-size--5 whiteboard__button-size whiteboard__button"></button>
-    <button class="whiteboard__button-size--6 whiteboard__button-size whiteboard__button"></button>
+    <button
+      v-for="key in sizes"
+      :key="key"
+
+      class="whiteboard__button-size whiteboard__button"
+      :class="[
+        'whiteboard__button-size--' + key, 
+        isSelected(key) ? 'whiteboard__button--selected': '']"
+
+      @click="select(key)">
+    </button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      selected: null,
+      sizes: 6
+    }
+  },
+
+  methods: {
+    isSelected(index) {
+      return index === this.selected;
+    },
+
+    select(index) {
+      this.selected = index;
+    }
+  }
+}
+</script>

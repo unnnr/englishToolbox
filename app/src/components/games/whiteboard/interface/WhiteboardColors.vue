@@ -1,10 +1,43 @@
 <template>
   <div class="whiteboard__element whiteboard__element--color">
-    <button class="whiteboard__button-color--black whiteboard__button-color whiteboard__button--active whiteboard__button"></button>
-    <button class="whiteboard__button-color--brown whiteboard__button-color whiteboard__button"></button>
-    <button class="whiteboard__button-color--red whiteboard__button-color whiteboard__button"></button>
-    <button class="whiteboard__button-color--yellow whiteboard__button-color whiteboard__button"></button>
-    <button class="whiteboard__button-color--green whiteboard__button-color whiteboard__button"></button>
-    <button class="whiteboard__button-color--blue whiteboard__button-color whiteboard__button"></button>
+    <button 
+      v-for="(color, index) in colors"
+      :key="index"
+
+      class="whiteboard__button-color whiteboard__button"
+      :class="[
+        'whiteboard__button-color--' + color.value,
+        isSelected(color) ? 'whiteboard__button--selected': '']"
+        
+      @click="select(color)">
+    </button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      selected: null,
+      colors: [
+        { value: 'black',  hex: '' },
+        { value: 'brown',  hex: '' },
+        { value: 'red',    hex: '' },
+        { value: 'yellow', hex: '' },
+        { value: 'green',  hex: '' },
+        { value: 'blue',   hex: '' }
+      ]
+    }
+  },
+
+  methods: {
+    isSelected(color) {
+      return color === this.selected;
+    },
+
+    select(color) {
+      this.selected = color;
+    }
+  }
+}
+</script>
