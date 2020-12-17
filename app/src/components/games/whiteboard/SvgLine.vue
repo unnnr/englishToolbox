@@ -1,19 +1,4 @@
 <template>
- <!--  <g>
-    <line 
-      v-for="{x1, y1, x2, y2, key} of parsed"
-      :key="key"
-
-      :x1="x1"
-      :y1="y1"
-      
-      :x2="x2"
-      :y2="y2"
-      
-      stroke-width="15"
-      stroke="black"
-      stroke-linecap="round"/>
-  </g> -->
 
   <polyline
     :points="points"
@@ -22,7 +7,6 @@
     stroke-width="15"
     stroke-linecap="round"
     stroke-linejoin="round"/>
-
 
 </template>
 
@@ -68,30 +52,6 @@ export default {
         points += `${x} ${y},`
 
       return points.slice(0, -1);
-    },
-
-    parsed() {
-      if (!!!this.path || !!!this.path.x || !!!this.path.x.length)
-        return [];
-
-      let parsed = [];
-      let x = this.path.x[0];
-      let y = this.path.y[0];
-
-      for (let i = 1; i < this.path.x.length; i++) {
-        let value = {
-          key: i,
-
-          x1: x, y1: y,
-
-          x2: x -= this.path.x[i],
-          y2: y -= this.path.y[i]
-        };
-  
-        parsed.push(value);
-      }
-
-      return parsed;
     }
   },
 
