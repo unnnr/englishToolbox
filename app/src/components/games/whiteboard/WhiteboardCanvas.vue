@@ -17,19 +17,19 @@
 </template>
 
 <script>
-import { Pencil } from '@services/WhiteboardTools'
+import Pencil from '@services/whiteboard/WhiteboardPencil'
 
 export default {
   data() {
     return {
       width: 1400,
       height: 600,
-      painting: false
     }
   },
 
   mounted() {
     this.tool = new Pencil();
+    this.drawings = new DrawingsCollection();
   },
 
 
@@ -40,6 +40,10 @@ export default {
         return null;
 
       return canvas.getContext("2d");
+    },
+
+    clear() {
+      console.log('clearing')
     },
 
     computeCoords(event) {  
@@ -60,30 +64,29 @@ export default {
       if (!!!this.tool)
         return;
 
-      let coords = this.computeCoords(event);
       this.context = this.createContext();
 
-      this.tool.init(this.context, coords);
-      this.painting = true; 
+      let coords = this.computeCoords(event);
+      this.tool.init(coords, this.context);
     },
 
     draw(event) {
-      if (!!!this.painting)
+      if (!!!this.tool)
         return;
 
       let coords = this.computeCoords(event);
-      this.tool.move(this.context, coords);
+      this.tool.move(coords, this.context);
     },
 
     stop() {
-      if (!!!this.painting)
+      if (!!!this.tool)
         return;
 
-      this.painting = false;
-      if (!!!this.tool.release())
-        return;
+      let coords = this.computeCoords(event);
+      let composend = this.tool.release();
 
-      console.log(this.tool.compose());
+      if (composed)
+        this.clear();
     },
   }
 }
