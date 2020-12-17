@@ -1,17 +1,23 @@
 <template>
   <polyline
-    :points="points"
     fill="none"
-    stroke="black"
-    stroke-width="15"
+
     stroke-linecap="round"
-    stroke-linejoin="round"/>
+    stroke-linejoin="round"
+
+    :points="points"
+    :stroke="color"
+    :stroke-width="size"/>
 </template>
 
 <script>
 export default {
   props: {
-    path: { type: Object, default: () => {} }
+    path: { type: Object, default: () => {} },
+
+    color: { type: String, default: 'black' },
+
+    size: { type: Number, default: 1 },
   },
 
   computed: {

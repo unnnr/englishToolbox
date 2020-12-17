@@ -23,6 +23,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.select(1);
+  },
+
   methods: {
     isSelected(index) {
       return index === this.selected;
@@ -32,10 +36,6 @@ export default {
       this.selected = value;
       this.$emit('change', value)
     },
-
-    mounted() {
-      this.select(1);
-    }
   }
 }
 </script>

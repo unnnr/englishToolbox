@@ -4,11 +4,14 @@
     viewBox="0 0 1400 600">
 
     <component
-      v-for="(paint, index) of collection"
+      :is="getComponent(type)"
+
+      v-for="({type, color, size, path}, index) of collection"
       :key="index"
-      :is="getComponent(paint)"
-      
-      :path="paint.path"> 
+
+      :color="color"
+      :size=size
+      :path="path"> 
     </component>
     
   </svg>
@@ -33,9 +36,11 @@ export default {
   },
 
   methods: {
-    getComponent(pen) {
-      if (pen.type == 'pen')
-        return PenLine;
+    getComponent(type) {
+      switch (type) {
+        case 'pen': 
+          return PenLine
+      }
 
       return 'path';
     }

@@ -5,6 +5,12 @@ export default class Pencil {
 
   paiting = false; 
 
+  color = 'black';
+
+  size = 1;
+
+  type = 'pen';
+
   compose() {
     if (!!!this.path.length)
       return;
@@ -25,24 +31,37 @@ export default class Pencil {
       previous = {x, y};
     }
 
+
     return {
-      type: 'pen',
+      type: this.type,
+      color: this.color,
+      size: this.size,
+
       path: relative
     };
   }
 
+  updateConfig(config) {
+    this.size = config.size * 10;
+    this.color = config.color;
+  }
+
   click(coords, context, drawings, config) {
-    context.lineWidth = 15;
+    this.updateConfig(config);
+
+    context.strokeStyle = this.color;
+    context.lineWidth = this.size;
     context.lineCap = 'round';
 
-    this.path = [];
     this.previous = coords;
-    this.paiting = true;
+    this.path = [];
 
     this.path.push({  
       x: coords.x,
       y: coords.y
     });
+
+    this.paiting = true;
   }
 
   move(coords, context, drawings, config) {
