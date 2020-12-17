@@ -28,8 +28,13 @@ export default {
       return index === this.selected;
     },
 
-    select(index) {
-      this.selected = index;
+    select(value) {
+      this.selected = value;
+      this.$emit('change', value)
+    },
+
+    mounted() {
+      this.select(1);
     }
   }
 }

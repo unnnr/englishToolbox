@@ -20,14 +20,18 @@ export default {
     return {
       selected: null,
       colors: [
-        { value: 'black',  hex: '' },
-        { value: 'brown',  hex: '' },
-        { value: 'red',    hex: '' },
-        { value: 'yellow', hex: '' },
-        { value: 'green',  hex: '' },
-        { value: 'blue',   hex: '' }
+        { value: 'black',  hex: '#111111' },
+        { value: 'brown',  hex: '#7C5C5C' },
+        { value: 'red',    hex: '#ff6688' },
+        { value: 'yellow', hex: '#f9a922' },
+        { value: 'green',  hex: '#1dd1bb' },
+        { value: 'blue',   hex: '#6666ff' }
       ]
     }
+  },
+
+  mounted() {
+    this.select(this.colors[0]);
   },
 
   methods: {
@@ -37,6 +41,7 @@ export default {
 
     select(color) {
       this.selected = color;
+      this.$emit('change', color.hex);
     }
   }
 }

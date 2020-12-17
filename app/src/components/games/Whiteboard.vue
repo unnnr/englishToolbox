@@ -1,15 +1,17 @@
 <template>
   <div class="whiteboard">
     <whiteboard-canvas  
-      ref="canvas"/>
+      ref="canvas"
+      :config="config"/>
     
     <whiteboard-events-grip
       v-if="canvas"
       :target="canvas"/>
 
-    <whiteboard-controls/>
+    <whiteboard-config
+      ref="config"/>
 
-    <whiteboard-config/>
+    <whiteboard-controls/>
 
     <whiteboard-users/>
   </div>
@@ -34,12 +36,14 @@ export default {
 
   data() {
     return {
-      canvas: null
+      canvas: null,
+      config: {}
     }
   },
 
   mounted() {
     this.canvas = this.$refs.canvas;
+    this.config = this.$refs.config.config;
   }
 }
 </script>

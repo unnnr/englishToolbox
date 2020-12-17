@@ -13,33 +13,34 @@
 <script>
 import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
 import Drawings from '@services/whiteboard/WhiteboardDrawings'
-import Pencil from '@services/whiteboard/WhiteboardPencil'
 
 export default {
   components: { 
     WhiteboardDrawings,
   },
 
+  props: {
+    config: { type: Object, deufault: {}}
+  },
+
+  computed: {
+    tool() {
+      return this.config.tool;
+    }
+  },
+
   data() {
     return {
-      drawings: [],
+      drawings: new Drawings(),
       width: 1400,
       height: 600,
     }
   },
 
-  beforeMount() {
-    this.drawings = new Drawings();
-    this.tool = new Pencil();
-  },
-
   methods: {
     createContext() {
       let canvas = this.$refs.canvas;
-      if (!!!canvas)
-        return null;
-
-      return canvas.getContext("2d");
+      return canvas ? canvas.getContext("2d") : null;
     },
 
     clear() {
@@ -67,7 +68,7 @@ export default {
       this.context = this.createContext();
 
       let coords = this.computeCoords(event);
-      this.tool.click(coords, this.context, this.drawings);
+      this.tool.click(coords, this.context, this.drawings, this.config);
     },
 
     draw(event) {
@@ -75,7 +76,7 @@ export default {
         return;
 
       let coords = this.computeCoords(event);
-      this.tool.move(coords, this.context, this.drawings);
+      this.tool.move(coords, this.context, this.drawings, this.config);
     },
 
     release() {
@@ -83,7 +84,8 @@ export default {
         return;
 
       let coords = this.computeCoords(event);
-      let composend = this.tool.release(coords, this.context, this.drawings);
+      let composend = this.tool.release(
+        coords, this.context, this.drawings, this.config);
 
       if (composend)
         this.clear();
