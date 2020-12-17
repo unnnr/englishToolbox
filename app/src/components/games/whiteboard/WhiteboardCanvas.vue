@@ -1,93 +1,27 @@
 <template>
   <div class="whiteboard__canvas">
-    <canvas 
-      ref="canvas"
-      :height="height"
-      :width="width"/>
-
-    <canvas 
-      ref="activeLayer"
-      :height="height"
-      :width="width"
-      @mousedown="start"
-      @mouseleave="stop"
-      @mouseup="stop"
-      @mousemove="draw"/>
+    <whiteboard-drawings/>
+    <whiteboard-active-layer
+      :drawings="drawings"
+      :tool="tool"/>
   </div>
 </template>
 
 <script>
+import WhiteboardActiveLayer from '@components/games/whiteboard/WhiteboardActiveLayer'
+import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
+import Drawings from '@services/whiteboard/WhiteboardDrawings'
 import Pencil from '@services/whiteboard/WhiteboardPencil'
 
 export default {
-  data() {
-    return {
-      width: 1400,
-      height: 600,
-    }
+  components: { 
+    WhiteboardActiveLayer,
+    WhiteboardDrawings,
   },
 
-  mounted() {
+  beforeMount() {
+    this.drawings = new Drawings();
     this.tool = new Pencil();
-    this.drawings = new DrawingsCollection();
-  },
-
-
-  methods: {
-    createContext() {
-      let canvas = this.$refs.activeLayer;
-      if (!!!canvas)
-        return null;
-
-      return canvas.getContext("2d");
-    },
-
-    clear() {
-      console.log('clearing')
-    },
-
-    computeCoords(event) {  
-      let position = 
-        event.target.getBoundingClientRect();
-
-      let canvas = this.$refs.activeLayer;
-      if (!!!canvas)
-        return;
-      
-      return {
-        x: (event.clientX - position.left) * (this.width / canvas.offsetWidth),
-        y: (event.clientY - position.top) * (this.height / canvas.offsetHeight)
-      }
-    },
-
-    start(event) {
-      if (!!!this.tool)
-        return;
-
-      this.context = this.createContext();
-
-      let coords = this.computeCoords(event);
-      this.tool.init(coords, this.context);
-    },
-
-    draw(event) {
-      if (!!!this.tool)
-        return;
-
-      let coords = this.computeCoords(event);
-      this.tool.move(coords, this.context);
-    },
-
-    stop() {
-      if (!!!this.tool)
-        return;
-
-      let coords = this.computeCoords(event);
-      let composend = this.tool.release();
-
-      if (composed)
-        this.clear();
-    },
   }
 }
 </script>
@@ -98,8 +32,8 @@ export default {
   position: relative
   height: 100%
   width: 100%
-
-.whiteboard__canvas canvas
+  
+.whiteboard__canvas > *
   position: absolute
   height: 100%
   width: 100%

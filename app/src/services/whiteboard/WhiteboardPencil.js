@@ -58,6 +58,8 @@ export default class Pencil {
       return;
       
     drawings.append(this.compose());
+    this.paiting = false;
+
     return true;
   }
 }
