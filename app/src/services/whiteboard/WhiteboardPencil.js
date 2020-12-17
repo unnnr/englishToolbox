@@ -16,8 +16,11 @@ export default class Pencil {
     };
 
     for (let {x, y} of this.path.slice(1)) {
-      relative.x.push((previous.x - x).toFixed(1));
-      relative.y.push((previous.y - y).toFixed(2));
+      let relativeX = Number((x - previous.x).toFixed(2));
+      relative.x.push(relativeX);
+
+      let relativeY = Number((y - previous.y).toFixed(2));
+      relative.y.push(relativeY);
 
       previous = {x, y};
     }
@@ -57,8 +60,8 @@ export default class Pencil {
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.paiting)
-      return;
+    if (!!!this.paiting || !!!this.path.length)
+      return false;
       
     drawings.append(this.compose());
     this.paiting = false;
