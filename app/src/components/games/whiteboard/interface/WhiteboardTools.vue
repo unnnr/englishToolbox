@@ -85,9 +85,10 @@ export default {
         case 'pencil':
           this.$emit('change', new Pencil());
           return;
-      }
 
-      return null;
+        default:
+          this.$emit('change', null);
+      }
     }
   }
 }
