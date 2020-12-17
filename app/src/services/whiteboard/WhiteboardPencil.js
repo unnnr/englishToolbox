@@ -3,7 +3,7 @@ export default class Pencil {
 
   previous = null;
 
-  paiting = false; 
+  painting = false; 
 
   color = 'black';
 
@@ -61,11 +61,11 @@ export default class Pencil {
       y: coords.y
     });
 
-    this.paiting = true;
+    this.painting = true;
   }
 
   move(coords, context, drawings, config) {
-    if (!!!this.paiting)
+    if (!!!this.painting)
       return;
 
     context.beginPath();
@@ -79,11 +79,11 @@ export default class Pencil {
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.paiting || !!!this.path.length)
+    if (!!!this.painting || !!!this.path.length)
       return false;
       
     drawings.append(this.compose());
-    this.paiting = false;
+    this.painting = false;
 
     return true;
   }

@@ -7,6 +7,8 @@
     @mouseup="release"
     @mouseleave="release"
 
+    @mouseenter="enter"
+
     @mousemove.self="draw"
     @mousedown.self="click">
   </div>
@@ -25,6 +27,11 @@ export default {
   },
 
   methods: {
+    enter(event) {
+      if (event.buttons === 1)
+        this.click(event);
+    },
+
     click(event) {
       this.active = true;
 
