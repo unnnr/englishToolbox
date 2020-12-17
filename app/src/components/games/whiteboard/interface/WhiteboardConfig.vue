@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import WhiteboardColors from '@components/games/whiteboard/WhiteboardColors'
-import WhiteboardSizes from '@components/games/whiteboard/WhiteboardSizes'
-import WhiteboardTools from '@components/games/whiteboard/WhiteboardTools'
+import WhiteboardColors from '@components/games/whiteboard/interface/WhiteboardColors'
+import WhiteboardSizes from '@components/games/whiteboard/interface/WhiteboardSizes'
+import WhiteboardTools from '@components/games/whiteboard/interface/WhiteboardTools'
 
 export default {
   components: {

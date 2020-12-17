@@ -1,5 +1,4 @@
 <template>
-
   <polyline
     :points="points"
     fill="none"
@@ -7,7 +6,6 @@
     stroke-width="15"
     stroke-linecap="round"
     stroke-linejoin="round"/>
-
 </template>
 
 <script>

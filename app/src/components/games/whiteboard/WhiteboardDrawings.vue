@@ -15,23 +15,17 @@
 </template>
 
 <script>
-import SvgLine from '@components/games/whiteboard/SvgLine'
+import PenLine from '@components/games/whiteboard/drawings/Penline'
 
 export default {
   components: {
-    SvgLine
+    PenLine
   },
 
   props: {
     drawings: { type: Object, required: true }
   },
-
-  data() {
-    return {
-      key: 0
-    }
-  },
-
+  
   computed: {
     collection() {
       return this.drawings.collection
@@ -41,7 +35,7 @@ export default {
   methods: {
     getComponent(pen) {
       if (pen.type == 'pen')
-        return SvgLine;
+        return PenLine;
 
       return 'path';
     }

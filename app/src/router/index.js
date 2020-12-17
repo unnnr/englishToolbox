@@ -58,7 +58,7 @@ const routes = [
   { path: '*', name: 'NotFound', component: () => import('@pages/NotFound') },
 
   // whiteboard -> 
-  { path: '/whiteboard', name: 'Whiteboard', component: () => import('@pages/Whiteboard') },
+  { path: '/games', name: 'Games', component: () => import('@pages/Games') },
 ]
 
 const router = new VueRouter({
