@@ -24,12 +24,8 @@ export default {
       let y = 0;
 
       for (let i = 0;  i < this.path.x.length; i++) {
-        console.log(x, this.path.x[i])
-
-
         x += this.path.x[i];
         y += this.path.y[i];
-
 
         coords.push({x, y});
       }
