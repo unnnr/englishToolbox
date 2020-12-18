@@ -1,4 +1,4 @@
-export default class Pencil {
+export default class Rectangle {
   width = null;
 
   height = null;
