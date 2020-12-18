@@ -4,20 +4,19 @@
     viewBox="0 0 1400 600">
 
     <component
-      :is="getComponent(type)"
+      :is="getComponent(paiting.type)"
 
-      v-for="({type, color, size, path}, index) of collection"
+      v-for="(paiting, index) of collection"
       :key="index"
-
-      :color="color"
-      :size=size
-      :path="path"> 
+      
+      v-bind="paiting"> 
     </component>
     
   </svg>
 </template>
 
 <script>
+import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
 
 export default {
@@ -40,6 +39,9 @@ export default {
       switch (type) {
         case 'pen': 
           return PenLine
+
+        case 'rectangle': 
+          return Rectangle
       }
 
       return 'path';

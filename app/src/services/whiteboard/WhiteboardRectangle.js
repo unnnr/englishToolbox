@@ -9,7 +9,7 @@ export default class Pencil {
 
   color = 'black';
 
-  type = 'recntagle';
+  type = 'rectangle';
 
   clear(context) {
     const OFFSET = 10;
@@ -41,9 +41,13 @@ export default class Pencil {
     return {
       type: this.type,
       color: this.color,
-      size: this.size,
 
-      coords: this.coords
+      x: this.coords.x,
+      y: this.coords.y,
+
+      width: this.width,
+      height: this.height,
+
     };
   }
 
