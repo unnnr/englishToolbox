@@ -12,8 +12,29 @@ export default class Pencil {
   type = 'recntagle';
 
   clear(context) {
-    context.clearRect(this.coords.x, this.coords.y, 
-      this.width * 1.1, this.height * 1.1);
+    const OFFSET = 10;
+    
+    let height, width, x, y;
+
+    if (this.width > 0) {
+      width = this.width + 2 *  OFFSET;
+      x = this.coords.x - OFFSET;
+    }
+    else {
+      width = this.width - 2 * OFFSET;
+      x = this.coords.x + OFFSET;
+    }
+
+    if (this.height > 0) {
+      height = this.height + 2 * OFFSET ;
+      y = this.coords.y - OFFSET;
+    }
+    else {
+      height = this.height - 2 *  OFFSET;
+      y = this.coords.y + OFFSET;
+    }
+
+    context.clearRect(x, y, width, height);
   }
   
   compose() {
@@ -49,7 +70,6 @@ export default class Pencil {
     context.fillStyle = this.color;
     context.fillRect(this.coords.x, this.coords.y,
                      this.width, this.height);
-
 
     console.log(this.coords.x, this.coords.y,
       this.width, this.height);
