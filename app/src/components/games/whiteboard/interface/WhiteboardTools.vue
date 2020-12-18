@@ -28,8 +28,8 @@
     
     <button 
       class="whiteboard__button-tool--square whiteboard__button-tool whiteboard__button"
-      :class="{'whiteboard__button--selected': isSelected('square')}"
-      @click="select('square')">
+      :class="{'whiteboard__button--selected': isSelected('rectangle')}"
+      @click="select('rectangle')">
     </button>     
   
     <button 
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import Pencil from '@services/whiteboard/WhiteboardPencil'
+import {Pencil, Rectangle} from '@services/whiteboard/WhiteboardTools'
 
 export default {
   data() {
@@ -72,7 +72,7 @@ export default {
 
   methods: {
     isSelected(type) {
-      return this.type === type;
+      return this.type === new Rectangle();
     },
 
     select(type) {
@@ -84,6 +84,10 @@ export default {
       switch (type) {
         case 'pencil':
           this.$emit('change', new Pencil());
+          return;
+
+        case 'rectangle':
+          this.$emit('change', new Rectangle());
           return;
 
         default:
