@@ -48,16 +48,21 @@ export default {
     },
 
     computeCoords(event) {  
-      let position = 
+      let offset = 
         event.target.getBoundingClientRect();
 
       let canvas = this.$refs.canvas;
       if (!!!canvas)
         return;
-      
+
+      let position = {
+        x: (event.clientX - offset.left) * (this.width / canvas.offsetWidth),
+        y: (event.clientY - offset.top) * (this.height / canvas.offsetHeight)
+      }
+
       return {
-        x: (event.clientX - position.left) * (this.width / canvas.offsetWidth),
-        y: (event.clientY - position.top) * (this.height / canvas.offsetHeight)
+        x: Number(position.x.toFixed(2)),
+        y: Number(position.y.toFixed(2))
       }
     },
 

@@ -68,15 +68,12 @@ export default class Pencil {
 
     this.clear(context);
 
-    this.width = coords.x - this.coords.x;
-    this.height = coords.y - this.coords.y;
+    this.width = Number((coords.x - this.coords.x).toFixed(2));
+    this.height = Number((coords.y - this.coords.y).toFixed(2));
 
     context.fillStyle = this.color;
     context.fillRect(this.coords.x, this.coords.y,
                      this.width, this.height);
-
-    console.log(this.coords.x, this.coords.y,
-      this.width, this.height);
   }
 
   release(coords, context, drawings, config) {
