@@ -1,5 +1,9 @@
 export default class Pencil {
-  coords  = null;
+  width = null;
+
+  height = null;
+
+  coords = null;
 
   painting = false; 
 
@@ -7,6 +11,11 @@ export default class Pencil {
 
   type = 'recntagle';
 
+  clear(context) {
+    context.clearRect(this.coords.x, this.coords.y, 
+      this.width * 1.1, this.height * 1.1);
+  }
+  
   compose() {
     return {
       type: this.type,
@@ -17,24 +26,13 @@ export default class Pencil {
     };
   }
 
-  updateConfig(config) {
-    this.color = config.color;
-  }
-
   click(coords, context, drawings, config) {
-    this.updateConfig(config);
+    this.color = config.color;
 
-    context.strokeStyle = this.color;
-    context.lineWidth = this.size;
-    context.lineCap = 'round';
-
-    this.previous = coords;
-    this.path = [];
-
-    this.path.push({  
+    this.coords = {
       x: coords.x,
       y: coords.y
-    });
+    }
 
     this.painting = true;
   }
@@ -43,18 +41,22 @@ export default class Pencil {
     if (!!!this.painting)
       return;
 
-    context.beginPath();
+    this.clear(context);
 
-    context.moveTo(this.previous.x, this.previous.y);
-    context.lineTo(coords.x, coords.y);
-    context.stroke();
+    this.width = coords.x - this.coords.x;
+    this.height = coords.y - this.coords.y;
 
-    this.previous = coords;
-    this.path.push(coords);
+    context.fillStyle = this.color;
+    context.fillRect(this.coords.x, this.coords.y,
+                     this.width, this.height);
+
+
+    console.log(this.coords.x, this.coords.y,
+      this.width, this.height);
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.painting || !!!this.path.length)
+    if (!!!this.painting)
       return false;
       
     drawings.append(this.compose());

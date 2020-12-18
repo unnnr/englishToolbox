@@ -70,9 +70,13 @@ export default {
     }
   },
 
+  mounted() {
+    this.select('rectangle');
+  },
+
   methods: {
     isSelected(type) {
-      return this.type === new Rectangle();
+      return this.type === type;
     },
 
     select(type) {
