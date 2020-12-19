@@ -18,11 +18,11 @@ export default class Ellipse {
       type: this.type,
       color: this.color,
 
-      x: this.coords.x,
-      y: this.coords.y,
+      x: this.coords.cx,
+      y: this.coords.cy,
 
-      width: this.width,
-      height: this.height,
+      radiusX: this.radiuses.x,
+      radiusY: this.radiuses.y,
 
     };
   }
@@ -51,18 +51,17 @@ export default class Ellipse {
     this.radiuses.y = Math.abs(coords.y - this.coords.y) / 2;
     this.clear(context, coords);
 
-    let x = this.coords.x + this.radiuses.x 
+    this.coords.cx = this.coords.x + this.radiuses.x 
       * (coords.x > this.coords.x ? 1 : -1);
 
-    let y = this.coords.y + this.radiuses.y 
+    this.coords.cy = this.coords.y + this.radiuses.y 
       * (coords.y > this.coords.y ? 1 : -1);
 
     context.beginPath();
+
     context.fillStyle = this.color;
-    context.ellipse(x, y, this.radiuses.x, this.radiuses.y, 0, 0, 2 * Math.PI);
+    context.ellipse(this.coords.cx, this.coords.cy, this.radiuses.x, this.radiuses.y, 0, 0, 2 * Math.PI);
     context.fill();
-
-
   }
 
   release(coords, context, drawings, config) {
