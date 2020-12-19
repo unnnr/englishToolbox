@@ -1,11 +1,6 @@
 <template>
-  <ellipse
-    :cx="x"
-    :cy="y" 
-
-    :rx="radiusX"
-    :ry="radiusY" 
-    
+  <polygon
+    :points="parsedPath"
     :fill="color"/>
 </template>
 
@@ -14,13 +9,19 @@ export default {
   props: {
     color: { type: String, default: 'black' },
 
-    radiusX: { type: Number, required: true  },
+    path: { type: Array, required: true }
+  },
 
-    radiusY: { type: Number, required: true  },
+  computed: {
+    parsedPath() {
+      let parsed = '';
 
-    x: { type: Number, required: true  },
+      for (let {x, y} of this.path) {
+        parsed += `${x} ${y},`
+      }
 
-    y: { type: Number, required: true  },
+      return parsed.slice(0, -1);
+    }
   }
 }
 </script>

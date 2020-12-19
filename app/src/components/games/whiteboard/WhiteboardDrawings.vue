@@ -17,6 +17,7 @@
 
 <script>
 import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
+import Triangle from '@components/games/whiteboard/drawings/Triangle'
 import Ellipse from '@components/games/whiteboard/drawings/Ellipse'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
 
@@ -46,6 +47,9 @@ export default {
 
         case 'ellipse': 
           return Ellipse
+
+        case 'triangle': 
+          return Triangle
       }
 
       return 'path';

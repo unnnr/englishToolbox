@@ -40,6 +40,12 @@ export default class Triangle {
     return {
       type: this.type,
       color: this.color,
+
+      path: [
+        {x: this.coords.x1, y: this.coords.y1 },
+        {x: this.coords.x2, y: this.coords.y2 },
+        {x: this.coords.x3, y: this.coords.y3 }
+      ]
     };
   }
 
@@ -48,7 +54,11 @@ export default class Triangle {
 
     this.coords = {
       x1: coords.x,
-      y1: coords.y
+      y1: coords.y,
+      x2: null,
+      y2: null,
+      x3: null,
+      y3: null,
     }
 
     this.painting = true;
@@ -82,7 +92,7 @@ export default class Triangle {
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.painting)
+    if (!!!this.painting || this.coords.x2 === null)
       return false;
       
     drawings.append(this.compose());
