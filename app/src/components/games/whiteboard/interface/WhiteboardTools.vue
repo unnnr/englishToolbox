@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {Pencil, Rectangle, Ellipse} from '@services/whiteboard/WhiteboardTools'
+import {Pencil, Rectangle, Ellipse, Triangle} from '@services/whiteboard/WhiteboardTools'
 
 export default {
   data() {
@@ -96,6 +96,10 @@ export default {
 
         case 'ellipse':
           this.$emit('change', new Ellipse());
+          return;
+
+        case 'triangle':
+          this.$emit('change', new Triangle());
           return;
 
         default:
