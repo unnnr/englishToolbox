@@ -16,8 +16,6 @@ import WhiteboardColors from '@components/games/whiteboard/interface/WhiteboardC
 import WhiteboardSizes from '@components/games/whiteboard/interface/WhiteboardSizes'
 import WhiteboardTools from '@components/games/whiteboard/interface/WhiteboardTools'
 
-import Pencil from '@services/whiteboard/WhiteboardPencil'
-
 export default {
   components: {
     WhiteboardColors,
@@ -28,9 +26,12 @@ export default {
   data() {
     return {
       config: {
-        size: 0,
-        color: 'black',
-        tool: null
+        tool: null,
+        size: null,
+        color: null,
+        
+        width: 1400,
+        height: 600,
       }
     }
   },

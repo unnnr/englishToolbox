@@ -11,30 +11,8 @@ export default class Rectangle {
 
   type = 'rectangle';
 
-  clear(context) {
-    const OFFSET = 10;
-    
-    let height, width, x, y;
-
-    if (this.width > 0) {
-      width = this.width + 2 *  OFFSET;
-      x = this.coords.x - OFFSET;
-    }
-    else {
-      width = this.width - 2 * OFFSET;
-      x = this.coords.x + OFFSET;
-    }
-
-    if (this.height > 0) {
-      height = this.height + 2 * OFFSET ;
-      y = this.coords.y - OFFSET;
-    }
-    else {
-      height = this.height - 2 *  OFFSET;
-      y = this.coords.y + OFFSET;
-    }
-
-    context.clearRect(x, y, width, height);
+  clear(context, config) {
+    context.clearRect(0, 0, config.width, config.height);
   }
   
   compose() {
@@ -47,7 +25,6 @@ export default class Rectangle {
 
       width: this.width,
       height: this.height,
-
     };
   }
 
@@ -59,6 +36,9 @@ export default class Rectangle {
       y: coords.y
     }
 
+    this.height = 0;
+    this.width = 0;
+
     this.painting = true;
   }
 
@@ -66,7 +46,7 @@ export default class Rectangle {
     if (!!!this.painting)
       return;
 
-    this.clear(context);
+    this.clear(context, config);
 
     this.width = Number((coords.x - this.coords.x).toFixed(2));
     this.height = Number((coords.y - this.coords.y).toFixed(2));
@@ -80,9 +60,11 @@ export default class Rectangle {
     if (!!!this.painting)
       return false;
       
-    drawings.append(this.compose());
     this.painting = false;
-
+    if (!!!this.width || !!!this.height)
+      return false;
+      
+    drawings.append(this.compose());
     return true;
   }
 }

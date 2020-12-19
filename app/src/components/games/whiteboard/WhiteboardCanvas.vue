@@ -26,15 +26,31 @@ export default {
   computed: {
     tool() {
       return this.config.tool;
-    }
+    },
+
+    width() {
+      return this.config.width;
+    },
+
+    height() {
+      return this.config.height;
+    },
   },
 
   data() {
     return {
-      drawings: new Drawings(),
-      width: 1400,
-      height: 600,
+      drawings: new Drawings()
     }
+  },
+
+  watch: {
+    config(value) {
+      value.canvas = this.$el
+    } 
+  },
+
+  mounted() {
+    this.config.canvas = this.$el
   },
 
   methods: {

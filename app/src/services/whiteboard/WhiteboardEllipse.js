@@ -9,8 +9,8 @@ export default class Ellipse {
 
   type = 'ellipse';
 
-  clear(context, coords) {
-    context.clearRect(0, 0, 2000, 1000);
+  clear(context, config) {
+    context.clearRect(0, 0, config.width, config.height);
   }
   
   compose() {
@@ -23,7 +23,6 @@ export default class Ellipse {
 
       radiusX: this.radiuses.x,
       radiusY: this.radiuses.y,
-
     };
   }
 
@@ -46,17 +45,17 @@ export default class Ellipse {
   move(coords, context, drawings, config) {
     if (!!!this.painting)
       return;
-
+      
     this.radiuses.x = Math.abs(coords.x - this.coords.x) / 2;
     this.radiuses.y = Math.abs(coords.y - this.coords.y) / 2;
-    this.clear(context, coords);
-
+      
     this.coords.cx = this.coords.x + this.radiuses.x 
       * (coords.x > this.coords.x ? 1 : -1);
-
+      
     this.coords.cy = this.coords.y + this.radiuses.y 
       * (coords.y > this.coords.y ? 1 : -1);
-
+      
+    this.clear(context, config);
     context.beginPath();
 
     context.fillStyle = this.color;
@@ -67,10 +66,12 @@ export default class Ellipse {
   release(coords, context, drawings, config) {
     if (!!!this.painting)
       return false;
+
+    this.painting = false;
+    if (!!!this.radiuses.x || !!!this.radiuses.y)
+      return false;
       
     drawings.append(this.compose());
-    this.painting = false;
-
     return true;
   }
 }
