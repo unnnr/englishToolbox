@@ -7,8 +7,33 @@ export default class Triangle {
 
   type = 'triangle';
 
-  clear(context, coords) {
-    context.clearRect(0, 0, 2000, 1000);
+  clear(context) {
+    const OFFSET = 400;
+
+    let x = this.coords.x1;
+    let y = this.coords.y1;
+    let height = this.coords.y3 - this.coords.y2;
+    let width = this.coords.x2 - this.coords.x1;
+
+    if (width > 0) {
+      width += 2 * OFFSET;
+      x -= OFFSET;
+    }
+    else {
+      width -= 2 * OFFSET;
+      x += OFFSET;
+    }
+
+    if (height > 0) {
+      height += 2 * OFFSET;
+      y -= OFFSET;
+    }
+    else {
+      height -= 2 * OFFSET;
+      y += OFFSET;
+    }
+    
+    context.clearRect(x, y, width, height);
   }
   
   compose() {
@@ -33,18 +58,19 @@ export default class Triangle {
     if (!!!this.painting)
       return;
 
-    this.clear(context);
-
     this.coords.x2 = coords.x; 
     this.coords.y2 = this.coords.y1; 
 
+    this.coords.y3 = coords.y;
     this.coords.x3 = 
       this.coords.x1 + (this.coords.x2 - this.coords.x1) / 2 ;
-    this.coords.y3 = coords.y;
      
-    
+
+    this.clear(context);
     context.beginPath();
     
+    context.fillStyle = this.color;
+
     context.moveTo(this.coords.x1, this.coords.y1);
     context.lineTo(this.coords.x2, this.coords.y2);
     context.lineTo(this.coords.x3, this.coords.y3);
