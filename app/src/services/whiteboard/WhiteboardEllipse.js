@@ -10,19 +10,7 @@ export default class Ellipse {
   type = 'ellipse';
 
   clear(context, coords) {
-    const OFFSET = 20;
-    
-    let x = this.coords.x + this.radiuses.x 
-      * (coords.x > this.coords.x ? 1 : -1);
-    
-    let y = this.coords.y + this.radiuses.y 
-      * (coords.y > this.coords.y ? 1 : -1);
-
-    context.fillStyle = 'orange';
-    context.fillRect(this.coords.x, 
-                     this.coords.y,
-                     coords.x - this.coords.x,
-                     coords.y - this.coords.y);
+    context.clearRect(0, 0, 2000, 1000);
   }
   
   compose() {
@@ -73,6 +61,8 @@ export default class Ellipse {
     context.fillStyle = this.color;
     context.ellipse(x, y, this.radiuses.x, this.radiuses.y, 0, 0, 2 * Math.PI);
     context.fill();
+
+
   }
 
   release(coords, context, drawings, config) {
