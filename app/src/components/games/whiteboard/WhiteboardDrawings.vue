@@ -11,6 +11,8 @@
       :key="index"
       
       v-bind="paiting"
+      :style="{'z-index': index}"
+      
       @click.native="onClick(paiting)"> 
     </component>
     
@@ -61,9 +63,6 @@ export default {
 </script>
 
 <style lang="sass">
-
-.penline
-  transition: stroke .2s
 
 .penline:hover
   stroke: #6666ff

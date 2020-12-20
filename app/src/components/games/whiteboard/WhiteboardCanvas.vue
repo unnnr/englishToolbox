@@ -77,8 +77,6 @@ export default {
 
       let coords = this.computeCoords(event);
 
-      console.log(coords);
-      
       this.tool.click(coords, this.context, this.drawings, this.config);
     },
 
