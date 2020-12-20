@@ -1,7 +1,8 @@
 <template>
   <svg 
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1400 600">
+    class="whiteboard__drawings"
+    viewBox="0 0 1400 600"
+    xmlns="http://www.w3.org/2000/svg">
 
     <component
       :is="getComponent(paiting.type)"
@@ -63,5 +64,10 @@ svg > *:hover
   stroke-dasharray: 2,2
   stroke-linejoin: round
 
+.whiteboard__drawings
+  position: absolute
+  left: 0
+  height: 100%
+  width: 100%
 
 </style>

@@ -18,22 +18,20 @@ export default {
     drawings() {
       return this.$drawings();
     },
-  },
 
-  computed: {
     tool() {
       return this.config.tool;
     },
 
     width() {
       return this.config.width;
-    },
+    },  
 
     height() {
       return this.config.height;
     },
   },
-  
+
   watch: {
     config(value) {
       value.canvas = this.$el

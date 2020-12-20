@@ -33,6 +33,8 @@ export default {
     },
 
     click(event) {
+      console.log('click');
+
       this.active = true;
 
       this.target.click(event);
