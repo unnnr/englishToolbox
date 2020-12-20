@@ -9,8 +9,7 @@
       v-for="(paiting, index) of collection"
       :key="index"
       
-      v-bind="paiting"
-      @click.native="hover"> 
+      v-bind="paiting"> 
     </component>
     
   </svg>
@@ -28,11 +27,13 @@ export default {
     PenLine
   },
 
-  props: {
-    drawings: { type: Object, required: true }
-  },
-  
+  inject: ['$drawings'], 
+
   computed: {
+    drawings() {
+      return this.$drawings();
+    },
+
     collection() {
       return this.drawings.collection
     }
@@ -48,10 +49,6 @@ export default {
         case 'rectangle': return Rectangle
         default: return 'path';
       }
-    },
-
-    hover(some) {
-      console.log(123);
     }
   }
 }

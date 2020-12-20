@@ -7,15 +7,17 @@
 </template>
 
 <script>
-import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
-
 export default {
-  components: { 
-    WhiteboardDrawings,
-  },
+  inject: ['$config', '$drawings'],
 
-  props: {
-    config: { type: Object, deufault: {}}
+  computed: {
+    config() {
+      return this.$config();
+    },
+
+    drawings() {
+      return this.$drawings();
+    },
   },
 
   computed: {
@@ -31,13 +33,7 @@ export default {
       return this.config.height;
     },
   },
-
-  data() {
-    return {
-      drawings: new DrawingsCollection()
-    }
-  },
-
+  
   watch: {
     config(value) {
       value.canvas = this.$el

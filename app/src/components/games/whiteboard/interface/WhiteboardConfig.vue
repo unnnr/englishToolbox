@@ -23,16 +23,11 @@ export default {
     WhiteboardTools,
   },
 
-  data() {
-    return {
-      config: {
-        tool: null,
-        size: null,
-        color: null,
+  inject: ['$config'],
 
-        width: 1400,
-        height: 600,
-      }
+  computed: {
+    config() {
+      return this.$config();
     }
   },
 

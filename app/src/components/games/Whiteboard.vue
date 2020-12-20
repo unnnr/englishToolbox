@@ -1,16 +1,15 @@
 <template>
   <div class="whiteboard">
-    <whiteboard-events-grip
-      v-if="greepShown"
-      :target="canvas"/>
-
     <whiteboard-ui/>
 
-    <whiteboard-canvas  
-      :config="config"/>
+    <whiteboard-events-grip
+      v-if="greepShown"
+      :target="greepTarget"/>
 
-    <whiteboar-drawings
-      :drawings="drawings"/>
+    <whiteboard-canvas
+      v-if="canvasShown"/>
+
+    <whiteboard-drawings/>
   </div>
 </template>
 
@@ -26,30 +25,43 @@ import DrawingsCollection from '@services/whiteboard/Drawings'
 export default {
   components: {
     WhiteboardEventsGrip,
-    WhiteboardControls,
-    WhiteboardConfig,
+    WhiteboardDrawings,
     WhiteboardCanvas,
-    WhiteboardCanvas,
-    WhiteboardUsers
+    WhiteboardUi
   },
 
-  provide() {
 
+  provide() {
+    const _this = this;
+
+    return {
+      $drawings: () => _this.drawings,
+
+      $config: () => _this.config
+    }
   },
 
   data() {
     return {
-      $drawings: new DrawingsCollection,
+      drawings: new DrawingsCollection,
+      config: {
+        tool: null,
+        size: null,
+        color: null,
 
-      canvas: null,
+        width: 1400,
+        height: 600,
+      },
+
+      greepTarget: null,
+      canvasShown: false,
       greepShown: false,
-      config: {}
     }
   },
 
   mounted() {
-    // this.canvas = this.$refs.canvas;
-    this.config = this.$refs.config.config;
+    // let component = this.$refs.canvas;
+    // this.greepTarget = component.canvas;
   }
 }
 </script>
