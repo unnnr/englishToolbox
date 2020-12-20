@@ -10,7 +10,8 @@
       v-for="(paiting, index) of collection"
       :key="index"
       
-      v-bind="paiting"> 
+      v-bind="paiting"
+      @click.native="onClick(paiting)"> 
     </component>
     
   </svg>
@@ -50,6 +51,10 @@ export default {
         case 'rectangle': return Rectangle
         default: return 'path';
       }
+    },
+
+    onClick(painting) {
+      this.drawings.remove(painting)
     }
   }
 }

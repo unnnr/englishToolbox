@@ -14,9 +14,12 @@ export default class WhiteboardDrawings {
     return removed;
   }
 
-  async remove() {
+  async remove(painting) {
     // await Pusher->send
 
+    let index = this.collection.indexOf(painting);
+    if (index !== -1)
+      this.collection.splice(index);
   }
 
   async append(item) {
