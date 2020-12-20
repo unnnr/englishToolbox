@@ -1,18 +1,18 @@
 export default class Clear {
   snapshot = null;
 
-  drawings = null;
+  collection = null;
 
-  constructor(drawings) {
-    this.snapshot = drawings.collection;
-    this.drawings= drawings;
+  constructor(collection) {
+    this.snapshot = collection.get();
+    this.collection= collection;
   }
 
   execute() {
-    this.drawings.clear();
+    this.collection.clear();
   }
 
   undo() {
-    this.drawings.clear(this.snapshot);
+    this.collection.clear(this.snapshot);
   }
 }

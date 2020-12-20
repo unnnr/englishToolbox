@@ -1,18 +1,18 @@
 export default class Append {
   element = null;
 
-  drawings = null;
+  collection = null;
 
-  constructor(element, drawings) {
-    this.drawings =  drawings;
+  constructor(element, collection) {
+    this.collection =  collection;
     this.element = element;
   }
 
   execute() {
-    this.drawings.push(this.element);
+    this.collection.push(this.element);
   }
 
   undo() {
-    this.drawings.remove(this.element);
+    this.collection.remove(this.element);
   }
 }

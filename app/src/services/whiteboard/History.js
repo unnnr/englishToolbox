@@ -5,7 +5,7 @@ export default class History {
 
   position = 0;
 
-  append(command) {
+  push(command) {
     // Creating new branch
     this.logs.splice(this.position);
 

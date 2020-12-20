@@ -1,29 +1,37 @@
-export default class WhiteboardDrawings {
-  collection = [];
+import DrawingsStorage from '@services/whiteboard/DrawingsStorage'
+import History from '@services/whiteboard/History'
+import Remove from '@services/whiteboard/commands/Remove'
+import Append from '@services/whiteboard/commands/Append'
+import Clear from '@services/whiteboard/commands/Clear'
 
-  constructor() {
-    // loading pusher
-  }
+
+export default class WhiteboardDrawings {
+  _history = new History();
+  
+  _collection = new DrawingsStorage();
 
   async clear() {
-    // await Pusher->send
+    let command = new Clear(this._collection);
+    command.execute();
 
-    let removed  = this.collection;
-    this.collection = []
-
-    return removed;
+    this._history.push(command);
   }
 
-  async remove(painting) {
-    // await Pusher->send
+  async remove(item) {
+    let command = new Remove(item, this._collection);
+    command.execute();
 
-    let index = this.collection.indexOf(painting);
-    if (index !== -1)
-      this.collection.splice(index);
+    this._history.push(command);
   }
 
   async append(item) {
-    // await Pusher->send
-    this.collection.push(item);
+    let command = new Append(item, this._collection);
+    command.execute();
+
+    this._history.push(command);
+  }
+
+  collection() {
+    return this._collection.get();
   }
 }
