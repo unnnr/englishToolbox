@@ -39,7 +39,6 @@ export default {
     },
 
     collection() {
-      console.log(this.drawings);
       return this.drawings.collection()
     }
   },

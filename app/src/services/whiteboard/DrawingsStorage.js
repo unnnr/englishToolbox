@@ -3,7 +3,6 @@ export default class DrawingsStorage {
 
   push(item) {
     this.collection.push(item);
-    console.log(this.collection);
   }
 
   remove(item) {
@@ -11,7 +10,7 @@ export default class DrawingsStorage {
       this.collection.indexOf(item);
 
     if (index !== -1)
-      this.collection.splice(item, 1);
+      this.collection.splice(index, 1);
   }
 
   get() {

@@ -10,25 +10,38 @@ export default class WhiteboardDrawings {
   
   _collection = new DrawingsStorage();
 
-  async clear() {
+  constructor() {
+    console.log('DRAWINGS CREATED');
+    window.drawings = this;
+  }
+
+  clear() {
     let command = new Clear(this._collection);
     command.execute();
 
     this._history.push(command);
   }
 
-  async remove(item) {
+  remove(item) {
     let command = new Remove(item, this._collection);
     command.execute();
 
     this._history.push(command);
   }
 
-  async append(item) {
+  append(item) {
     let command = new Append(item, this._collection);
     command.execute();
 
     this._history.push(command);
+  }
+
+  undo() {
+    this._history.undo();
+  }
+
+  redo() {
+    this._history.redo();
   }
 
   collection() {
