@@ -17,12 +17,23 @@
 <script>
 export default {
   props: {
-    target: { type: Object, required: true }
+    targetLoader: { type: Function, required: true }
   },
 
   data() {
     return {
+      target: null,
       active: false
+    }
+  },
+
+  watch: {
+    targetLoader: {
+      handler(value) {
+        this.target = value()
+      },
+
+      immediate: true
     }
   },
 

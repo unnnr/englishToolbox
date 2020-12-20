@@ -8,10 +8,12 @@
     
     <whiteboard-events-grip
       v-if="greepShown"
-      :target="greepTarget"/>
+      :target-loader="loadCanvas"/>
 
     <whiteboard-config/>
+
     <whiteboard-controls/>
+    
     <whiteboard-users/>
   </div>
 </template>
@@ -49,16 +51,16 @@ export default {
   },
 
   computed: {
-    canvasShown() {
-      return true;
+    inspecting() {
+      return this.config.inspecting;
     },
 
-    greepTarget() {
-      return this.$refs.canvas;
+    canvasShown(value) {
+      return !!!this.inspecting;
     },
 
     greepShown() {
-      return !!!this.loading && this.greepTarget;
+      return !!!this.inspecting && !!!this.loading;
     },
   },
 
@@ -72,16 +74,19 @@ export default {
 
         width: 1400,
         height: 600,
-
+        inspecting: false
       },
 
-      loading: true
+      loading: false,
     }
   },
 
-  mounted() {
-    this.loading = false;
+  methods: {
+    loadCanvas() {
+      return this.$refs.canvas
+    }
   }
+
 
 }
 </script>

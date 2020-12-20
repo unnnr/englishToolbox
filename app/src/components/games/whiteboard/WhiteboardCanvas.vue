@@ -32,26 +32,17 @@ export default {
     },
   },
 
-  watch: {
-    config(value) {
-      value.canvas = this.$el
-    } 
+  data() {
+    return {
+      context: null
+    }
   },
 
   mounted() {
-    this.config.canvas = this.$el
+    this.context = this.createContext();
   },
 
   methods: {
-    createContext() {
-      let canvas = this.$refs.canvas;
-      return canvas ? canvas.getContext("2d") : null;
-    },
-
-    clear() {
-      this.context.clearRect(0, 0, this.width, this.height);
-    },
-
     computeCoords(event) {  
       let offset = 
         event.target.getBoundingClientRect();
@@ -70,14 +61,24 @@ export default {
         y: Number(position.y.toFixed(2))
       }
     },
+    
+    createContext() {
+      let canvas = this.$refs.canvas;
+      return canvas ? canvas.getContext("2d") : null;
+    },
+
+    clear() {
+      this.context.clearRect(0, 0, this.width, this.height);
+    },
 
     click(event) {
       if (!!!this.tool)
         return;
 
-      this.context = this.createContext();
-
       let coords = this.computeCoords(event);
+
+      console.log(coords);
+      
       this.tool.click(coords, this.context, this.drawings, this.config);
     },
 

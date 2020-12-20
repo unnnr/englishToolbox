@@ -42,6 +42,10 @@ export default {
 
     setTool(tool) {
       console.log('new tool', tool);
+
+      this.config.inspecting = 
+        tool && (tool.type === 'inspector');
+
       this.config.tool = tool;
     },
   }

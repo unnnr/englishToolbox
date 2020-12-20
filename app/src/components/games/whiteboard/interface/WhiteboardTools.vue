@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle} from '@services/whiteboard/Tools'
+import {Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
 
 export default {
   data() {
@@ -108,6 +108,10 @@ export default {
 
         case 'rectangle':
           this.$emit('change', new Rectangle());
+          return;
+
+        case 'inspector':
+          this.$emit('change', new Inspector());
           return;
 
         default:
