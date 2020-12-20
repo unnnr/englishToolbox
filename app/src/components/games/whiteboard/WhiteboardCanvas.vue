@@ -1,18 +1,13 @@
 <template>
-  <div class="whiteboard__canvas">
-    <whiteboard-drawings
-      :drawings="drawings"/>
-      
-    <canvas 
-      ref="canvas"
-      :height="height"
-      :width="width"/>
-  </div>
+  <canvas 
+    ref="canvas"
+    class="whiteboard__canvas"
+    :height="height"
+    :width="width"/>
 </template>
 
 <script>
 import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
-import DrawingsCollection from '@services/whiteboard/Drawings'
 
 export default {
   components: { 
@@ -122,9 +117,4 @@ export default {
   height: 100%
   width: 100%
   
-.whiteboard__canvas > *
-  position: absolute
-  height: 100%
-  width: 100%
-
 </style>

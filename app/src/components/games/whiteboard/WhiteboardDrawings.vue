@@ -9,7 +9,8 @@
       v-for="(paiting, index) of collection"
       :key="index"
       
-      v-bind="paiting"> 
+      v-bind="paiting"
+      @click.native="hover"> 
     </component>
     
   </svg>
@@ -47,7 +48,23 @@ export default {
         case 'rectangle': return Rectangle
         default: return 'path';
       }
+    },
+
+    hover(some) {
+      console.log(123);
     }
   }
 }
 </script>
+
+<style lang="sass">
+
+svg > *:hover
+  fill: none
+  stroke: #646464
+  stroke-width: 1px
+  stroke-dasharray: 2,2
+  stroke-linejoin: round
+
+
+</style>

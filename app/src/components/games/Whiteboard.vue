@@ -1,28 +1,27 @@
 <template>
   <div class="whiteboard">
-    <whiteboard-canvas  
-      ref="canvas"
-      :config="config"/>
-    
     <whiteboard-events-grip
-      v-if="canvas"
+      v-if="greepShown"
       :target="canvas"/>
 
-    <whiteboard-config
-      ref="config"/>
+    <whiteboard-ui/>
 
-    <whiteboard-controls/>
+    <whiteboard-canvas  
+      :config="config"/>
 
-    <whiteboard-users/>
+    <whiteboar-drawings
+      :drawings="drawings"/>
   </div>
 </template>
 
 <script>
 import WhiteboardEventsGrip from '@components/games/whiteboard/WhiteboardEventsGrip'
-import WhiteboardControls from '@components/games/whiteboard/interface/WhiteboardControls'
-import WhiteboardConfig from '@components/games/whiteboard/interface/WhiteboardConfig'
+import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
 import WhiteboardCanvas from '@components/games/whiteboard/WhiteboardCanvas'
-import WhiteboardUsers from '@components/games/whiteboard/interface/WhiteboardUsers'
+import WhiteboardUi from '@components/games/whiteboard/WhiteboardUI'
+
+import DrawingsCollection from '@services/whiteboard/Drawings'
+
 
 export default {
   components: {
@@ -34,15 +33,22 @@ export default {
     WhiteboardUsers
   },
 
+  provide() {
+
+  },
+
   data() {
     return {
+      $drawings: new DrawingsCollection,
+
       canvas: null,
+      greepShown: false,
       config: {}
     }
   },
 
   mounted() {
-    this.canvas = this.$refs.canvas;
+    // this.canvas = this.$refs.canvas;
     this.config = this.$refs.config.config;
   }
 }
