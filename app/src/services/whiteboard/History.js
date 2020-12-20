@@ -31,8 +31,6 @@ export default class History {
     if (this.position < 0)
       return false;
     
-    // console.log('LOGS', this.logs.length - 1, this.position);
-
     let current = this.logs[this.position];
     this.position--;
 

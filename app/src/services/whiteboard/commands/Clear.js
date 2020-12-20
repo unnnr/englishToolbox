@@ -4,7 +4,7 @@ export default class Clear {
   collection = null;
 
   constructor(collection) {
-    this.snapshot = collection.get();
+    this.snapshot = [ ...collection.get() ];
     this.collection= collection;
   }
 

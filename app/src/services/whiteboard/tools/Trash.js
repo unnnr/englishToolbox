@@ -12,9 +12,10 @@ export default class Trash {
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.painting)
+    if (!!!this.painting || !!!drawings.collection().length)
       return;
 
+    this.painting = false
     drawings.clear();
   }
 }

@@ -1,6 +1,10 @@
 export default class DrawingsStorage {
   collection = [];
 
+  clear(withDefault = []) {
+    this.collection = withDefault;
+  }
+
   push(item) {
     this.collection.push(item);
   }
