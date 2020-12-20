@@ -1,5 +1,7 @@
 <template>
   <rect
+    class="shape"
+
     :height="parsedHeight"
     :width="parsedWidth"
 

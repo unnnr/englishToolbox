@@ -1,5 +1,6 @@
 <template>
   <polygon
+    class="shape"
     :points="parsedPath"
     :fill="color"/>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <polyline
+    class="penline"
     fill="none"
 
     stroke-linecap="round"
@@ -52,12 +53,6 @@ export default {
         points += `${x} ${y},`
 
       return points.slice(0, -1);
-    }
-  },
-
-  methods: {
-    some(index) {
-      console.log(index)
     }
   }
 }

@@ -57,13 +57,22 @@ export default {
 
 <style lang="sass">
 
-svg > *:hover
-  fill: none
-  stroke: #646464
-  stroke-width: 1px
-  stroke-dasharray: 2,2
-  stroke-linejoin: round
+.penline
+  transition: stroke .2s
 
+.penline:hover
+  stroke: #6666ff
+
+.shape
+  transition: fill .2s, stroke .2s
+
+.shape:hover
+  fill: #6666ffb0
+  stroke: #6666ff
+  stroke-width: 5px
+  stroke-dasharray: 15
+  stroke-linejoin: round
+  
 .whiteboard__drawings
   position: absolute
   left: 0

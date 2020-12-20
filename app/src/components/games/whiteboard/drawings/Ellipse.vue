@@ -1,5 +1,7 @@
 <template>
   <ellipse
+    class="shape"
+    
     :cx="x"
     :cy="y" 
 
