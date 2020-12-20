@@ -12,7 +12,7 @@
 
 <script>
 import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
-import Drawings from '@services/whiteboard/WhiteboardDrawings'
+import DrawingsCollection from '@services/whiteboard/Drawings'
 
 export default {
   components: { 
@@ -39,7 +39,7 @@ export default {
 
   data() {
     return {
-      drawings: new Drawings()
+      drawings: new DrawingsCollection()
     }
   },
 

@@ -8,6 +8,10 @@ export default class WhiteboardDrawings {
   async clear() {
     // await Pusher->send
 
+    let removed  = this.collection;
+    this.collection = []
+
+    return removed;
   }
 
   async remove() {

@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {Pencil, Rectangle, Ellipse, Triangle} from '@services/whiteboard/WhiteboardTools'
+import {Pencil, Rectangle, Ellipse, Trash, Triangle} from '@services/whiteboard/Tools'
 
 export default {
   data() {
@@ -86,12 +86,12 @@ export default {
       this.type = type;
 
       switch (type) {
-        case 'pencil':
-          this.$emit('change', new Pencil());
+        case 'trash':
+          this.$emit('change', new Trash());
           return;
 
-        case 'rectangle':
-          this.$emit('change', new Rectangle());
+        case 'pencil':
+          this.$emit('change', new Pencil());
           return;
 
         case 'ellipse':
@@ -100,6 +100,10 @@ export default {
 
         case 'triangle':
           this.$emit('change', new Triangle());
+          return;
+
+        case 'rectangle':
+          this.$emit('change', new Rectangle());
           return;
 
         default:
