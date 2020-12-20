@@ -20,6 +20,7 @@ import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
 import Triangle from '@components/games/whiteboard/drawings/Triangle'
 import Ellipse from '@components/games/whiteboard/drawings/Ellipse'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
+import Eraser from '@components/games/whiteboard/drawings/Eraser'
 
 export default {
   components: {
@@ -39,20 +40,13 @@ export default {
   methods: {
     getComponent(type) {
       switch (type) {
-        case 'pen': 
-          return PenLine
-
-        case 'rectangle': 
-          return Rectangle
-
-        case 'ellipse': 
-          return Ellipse
-
-        case 'triangle': 
-          return Triangle
+        case 'pen': return PenLine
+        case 'eraser': return Eraser
+        case 'ellipse': return Ellipse
+        case 'triangle': return Triangle
+        case 'rectangle': return Rectangle
+        default: return 'path';
       }
-
-      return 'path';
     }
   }
 }

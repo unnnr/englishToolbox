@@ -29,7 +29,7 @@ export default {
         tool: null,
         size: null,
         color: null,
-        
+
         width: 1400,
         height: 600,
       }
@@ -46,6 +46,7 @@ export default {
     },
 
     setTool(tool) {
+      console.log('new tool', tool);
       this.config.tool = tool;
     },
   }
