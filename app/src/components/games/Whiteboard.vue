@@ -9,22 +9,16 @@
       v-if="canvasShown"
       ref="canvas"/>
 
-    <whiteboard-config/>
-
-    <whiteboard-controls/>
-    
-    <whiteboard-users/>
+    <whiteboard-ui/>
 
   </whiteboard-events-grip>
 </template>
 
 <script>
 import WhiteboardEventsGrip from '@components/games/whiteboard/WhiteboardEventsGrip'
-import WhiteboardControls from '@components/games/whiteboard/interface/WhiteboardControls'
 import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
-import WhiteboardConfig from '@components/games/whiteboard/interface/WhiteboardConfig'
 import WhiteboardCanvas from '@components/games/whiteboard/WhiteboardCanvas'
-import WhiteboardUsers from '@components/games/whiteboard/interface/WhiteboardUsers'
+import WhiteboardUi from '@components/games/whiteboard/WhiteboardUI'
 
 import DrawingsCollection from '@services/whiteboard/Drawings'
 
@@ -33,10 +27,8 @@ export default {
   components: {
     WhiteboardEventsGrip,
     WhiteboardDrawings,
-    WhiteboardControls,
     WhiteboardCanvas,
-    WhiteboardConfig,
-    WhiteboardUsers
+    WhiteboardUi
   },
 
 
