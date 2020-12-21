@@ -13,7 +13,7 @@
       v-bind="paiting"
       :style="{'z-index': index}"
       
-      @click.native="onClick(paiting)"> 
+      @mousedown.native="event => onClick(paiting, event)"> 
     </component>
     
   </svg>
@@ -31,7 +31,7 @@ export default {
     PenLine
   },
 
-  inject: ['$drawings'], 
+  inject: ['$drawings', '$config'], 
 
   computed: {
     drawings() {
@@ -40,6 +40,14 @@ export default {
 
     collection() {
       return this.drawings.collection()
+    },
+
+    config() {
+      return this.$config();
+    },
+
+    tool() {
+      return this.config.tool;
     }
   },
 
@@ -55,8 +63,12 @@ export default {
       }
     },
 
-    onClick(painting) {
-      this.drawings.remove(painting)
+    onClick(painting, event) {
+      if (!!!this.tool || !!!this.tool.select)
+        return;
+
+      this.tool.select(painting, this.drawings);
+      event.stopPropagation();
     }
   }
 }

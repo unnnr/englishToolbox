@@ -6,7 +6,7 @@
     <whiteboard-drawings/>
 
     <whiteboard-canvas
-      v-if="canvasShown"
+      v-show="canvasShown"
       ref="canvas"/>
 
     <whiteboard-ui/>
