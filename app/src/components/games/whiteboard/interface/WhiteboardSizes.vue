@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__element whiteboard__element--size">
+  <whiteboard-panel class="whiteboard__element--size">
     <button
       v-for="key in sizes"
       :key="key"
@@ -11,11 +11,17 @@
 
       @click="select(key)">
     </button>
-  </div>
+  </whiteboard-panel>
 </template>
 
 <script>
+import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
+
 export default {
+  components: {
+    WhiteboardPanel
+  },
+
   data() {
     return {
       selected: null,

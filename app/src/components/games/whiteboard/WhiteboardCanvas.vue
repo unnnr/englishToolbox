@@ -56,6 +56,8 @@ export default {
         y: (event.clientY - offset.top) * (this.height / canvas.offsetHeight)
       }
 
+      console.log(position.x, position.y);
+
       return {
         x: Number(position.x.toFixed(2)),
         y: Number(position.y.toFixed(2))

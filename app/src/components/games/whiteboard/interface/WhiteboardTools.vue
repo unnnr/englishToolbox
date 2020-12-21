@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__element whiteboard__element--tool">
+  <whiteboard-panel class="whiteboard__element whiteboard__element--tool">
     <button 
       class="whiteboard__button-tool--pencil whiteboard__button-tool whiteboard__button"
       :class="{'whiteboard__button--selected': isSelected('pencil')}"
@@ -57,13 +57,18 @@
       :class="{'whiteboard__button--selected': isSelected('trash')}"
       @click="select('trash')">
     </button>
-  </div>
+  </whiteboard-panel>
 </template>
 
 <script>
 import {Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
 
 export default {
+  components: {
+    WhiteboardPanel
+  },
+
   data() {
     return {
       type: null

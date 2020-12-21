@@ -36,16 +36,16 @@ export default {
     },
 
     click(event) {
-      // if (!!!this.target)
-      //   return
+      if (!!!this.target)
+        return
         
       this.active = true;
       this.target.click(event);
     },
     
     draw(event) {
-      // if (!!!this.target)
-      //   return
+      if (!!!this.target)
+        return
         
       this.target.draw(event);
     },
@@ -53,8 +53,8 @@ export default {
     release() {
       this.active = false;
 
-      // if (!!!this.target)
-      //   return
+      if (!!!this.target)
+        return
 
       this.target.release(event);
     },
@@ -68,9 +68,7 @@ export default {
   position: absolute
   height: 100%
   width: 100%
-  top: 0
-
-.whitebord__overlay--active
   z-index: 10
+  top: 0
 
 </style>

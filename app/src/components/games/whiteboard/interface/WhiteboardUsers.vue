@@ -1,12 +1,13 @@
 <template>
   <div class="whiteboard__group whiteboard__group--users">
     <div class="whiteboard__group-inner">
-      <div class="whiteboard__element--square whiteboard__element--small whiteboard__element">
+      <whiteboard-panel class="whiteboard__element--square whiteboard__element--small">
         <button class="whiteboard__button-control--unlock whiteboard__button-control"></button>
-      </div>
-      <div class="whiteboard__element--small whiteboard__element">
+      </whiteboard-panel>
+
+      <whiteboard-panel class="whiteboard__element--small">
         <button class="whiteboard__button-online"><span class="whiteboard__online-count">5</span>users online</button>
-      </div>
+      </whiteboard-panel>
     </div>
 
     <div
@@ -28,7 +29,13 @@
 </template>
 
 <script>
+import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
+
 export default {
+  components: {
+    WhiteboardPanel
+  },
+
   data() {
     return {
       active: false

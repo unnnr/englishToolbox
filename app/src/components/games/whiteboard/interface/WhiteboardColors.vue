@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__element whiteboard__element--color">
+  <whiteboard-panel class="whiteboard__element--color">
     <button 
       v-for="(color, index) in colors"
       :key="index"
@@ -11,11 +11,17 @@
         
       @click="select(color)">
     </button>
-  </div>
+  </whiteboard-panel>
 </template>
 
 <script>
+import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
+
 export default {
+  components: {
+    WhiteboardPanel
+  },
+
   data() {
     return {
       selected: null,
