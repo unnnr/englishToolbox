@@ -1,21 +1,21 @@
 <template>
-  <div class="whiteboard">
+  <whiteboard-events-grip 
+    class="whiteboard"
+    :target="canvas">
+
     <whiteboard-drawings/>
 
     <whiteboard-canvas
       v-if="canvasShown"
       ref="canvas"/>
-    
-    <whiteboard-events-grip
-      v-if="greepShown"
-      :target-loader="loadCanvas"/>
 
     <whiteboard-config/>
 
     <whiteboard-controls/>
     
     <whiteboard-users/>
-  </div>
+
+  </whiteboard-events-grip>
 </template>
 
 <script>
@@ -78,15 +78,12 @@ export default {
       },
 
       loading: false,
+      canvas: null
     }
   },
 
-  methods: {
-    loadCanvas() {
-      return this.$refs.canvas
-    }
+  mounted() {
+    this.canvas = this.$refs.canvas;
   }
-
-
 }
 </script>

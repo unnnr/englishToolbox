@@ -1,39 +1,31 @@
 <template>
   <div 
-    class="whitebord__overlay"
-    :class="{
-      'whitebord__overlay--active': active}"
-
     @mouseup="release"
     @mouseleave="release"
 
     @mouseenter="enter"
 
-    @mousemove.self="draw"
-    @mousedown.self="click">
+    @mousemove="draw"
+    @mousedown="click">
+
+    <div 
+      v-if="active"
+      class="whitebord__overlay">
+    </div>
+
+    <slot/>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    targetLoader: { type: Function, required: true }
+    target: { type: Object, default: null}
   },
 
   data() {
     return {
-      target: null,
       active: false
-    }
-  },
-
-  watch: {
-    targetLoader: {
-      handler(value) {
-        this.target = value()
-      },
-
-      immediate: true
     }
   },
 
@@ -44,17 +36,25 @@ export default {
     },
 
     click(event) {
+      // if (!!!this.target)
+      //   return
+        
       this.active = true;
-
       this.target.click(event);
     },
     
     draw(event) {
+      // if (!!!this.target)
+      //   return
+        
       this.target.draw(event);
     },
 
     release() {
       this.active = false;
+
+      // if (!!!this.target)
+      //   return
 
       this.target.release(event);
     },
