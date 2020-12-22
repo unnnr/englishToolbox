@@ -108,19 +108,19 @@ export default {
 
 <style lang="sass">
 
-.penline:hover
-  stroke: #6666ff
-
 .shape
   transition: fill .2s, stroke .2s
 
-.shape:hover
+.inspecting .shape:hover
   fill: #6666ffb0
   stroke: #6666ff
   stroke-width: 5px
   stroke-dasharray: 15
   stroke-linejoin: round
   
+.inspecting  .penline:hover
+  stroke: #6666ff
+
 .whiteboard__drawings
   position: absolute
   left: 0

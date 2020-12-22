@@ -12,7 +12,7 @@ export default class DrawingsStorage {
   remove(item) {
     let index = 
       this.collection.indexOf(item);
-
+    
     if (index !== -1)
       this.collection.splice(index, 1);
   }

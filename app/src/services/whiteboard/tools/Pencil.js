@@ -47,7 +47,7 @@ export default class Pencil {
   }
 
   clear(context, config) {
-    context.clearRect(0 , 0, config.widht, config.height);
+    context.clearRect(0 , 0, config.width, config.height);
   }
 
   click(coords, context, drawings, config) {

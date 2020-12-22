@@ -1,6 +1,7 @@
 <template>
   <whiteboard-events-grip 
     class="whiteboard"
+    :class="{'inspecting': inspecting}"
     :active="drawing"
     @move="move"
     @click="click"

@@ -1,8 +1,9 @@
 export default class Inspector {
-  type = 'inspector';
+  type = '';
   
-  click(coords, context, drawings, config) {
-    // 
+  click(coords, context, drawings, config, el) {
+    if (el)
+      drawings.remove(el);
   }
 
   move(coords, context, drawings, config) {
@@ -11,9 +12,5 @@ export default class Inspector {
 
   release(coords, context, drawings, config) {
     // 
-  }
-
-  select(painting, drawings) {
-    drawings.remove(painting);
   }
 }

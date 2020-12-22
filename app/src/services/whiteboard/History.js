@@ -23,8 +23,6 @@ export default class History {
     let current = this.logs[this.position];
 
     current.execute();
-
-    console.log('REDO', this.position);
   }
 
   undo() {
@@ -35,7 +33,5 @@ export default class History {
     this.position--;
 
     current.undo();
-
-    console.log('UNDO', this.position);
   }
 }
