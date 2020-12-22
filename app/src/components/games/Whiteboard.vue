@@ -96,6 +96,9 @@ export default {
     },
     
     click(event, el) {
+      if (!!!this.tool)
+        return;
+        
       let context = this.canvas.context;
       let coords = this.computeCoords(event);
       let drawigns = this.drawigns;
@@ -119,6 +122,9 @@ export default {
     },
 
     release(event) {
+      if (!!!this.tool)
+        return;
+
       let drawigns = this.drawigns;
       let context = this.canvas.context;
       let coords = this.computeCoords(event);

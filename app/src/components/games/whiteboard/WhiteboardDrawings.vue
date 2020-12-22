@@ -7,15 +7,15 @@
 
     <component
       v-show="pending !== painting"
-      :is="getComponent(paiting.type)"
+      :is="getComponent(painting.type)"
 
-      v-for="(paiting, index) of collection"
+      v-for="(painting, index) of collection"
       :key="index"
       
-      v-bind="paiting"
+      v-bind="painting"
       :style="{'z-index': index}"
       
-      @mousedown.native.stop="event => onClick(event, paiting)"> 
+      @mousedown.native.stop="event => onClick(event, painting)"> 
     </component>
     
   </svg>
@@ -50,6 +50,10 @@ export default {
 
     tool() {
       return this.config.tool;
+    },
+
+    pending() {
+      return this.drawings.pending
     }
   },
 

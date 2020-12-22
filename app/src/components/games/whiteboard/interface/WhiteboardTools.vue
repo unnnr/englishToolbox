@@ -73,10 +73,6 @@ export default {
     value: { type: Object, default: null }
   },
 
-  mounted() {
-
-  },
-
   methods: {
     isSelected(type) {
       return this.value && this.value.type === type;

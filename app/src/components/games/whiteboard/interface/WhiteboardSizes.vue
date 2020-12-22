@@ -31,11 +31,7 @@ export default {
       sizes: 6
     }
   },
-
-  mounted() {
-    this.select(1);
-  },
-
+  
   methods: {
     isSelected(value) {
       return this.value === value;
