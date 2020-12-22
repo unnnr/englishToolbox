@@ -11,8 +11,6 @@ export default class text {
     else
       target = { type: 'text', value: '', x: coords.x, y: coords.y }
 
-    console.log(coords);
-    
     target.size = config.size;
     target.size = config.color;
 

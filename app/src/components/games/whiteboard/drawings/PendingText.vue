@@ -1,44 +1,61 @@
 <template>
-  <textarea
+  <input
+    v-model="target.value"
     ref="textarea"
+
     :style="{'left': left,
              'top': top}"
-    autofocus/>
+    autofocus
+
+    @blur="compute"
+    @keydown.enter="compute"/>
 </template>
 
 <script>
 export default {
-  inject: ['$config'],
+  inject: ['$config', '$drawings'],
 
   props: {
-    value: { type: String, default: '' },
-
-    x: { type: Number, default: 0 },
-
-    y: { type: Number, default: 0 },
+    target: { type: Object, default: null },
   },
-
+  
   computed: {
     config() {
       return this.$config();
     },
 
+    drawings() {
+      return this.$drawings();
+    },
+
     top() {
-      return this.y / this.config.height * 100+ '%';
+      return this.target.y / this.config.height * 100+ '%';
     },
     
     left() {
-      return this.x / this.config.width * 100 + '%';
+      return this.target.x / this.config.width * 100 + '%';
     },
   },
 
   mounted() {
-    this.$nextTick().then(focus)
+    this.$nextTick().then(this.focus)
   },
 
-  method: {
+  methods: {
     focus() {
-      this.$el.focus();
+      setTimeout(() => this.$el.focus(), 100);
+    },
+
+    compute() {
+      this.drawings.pending = null;
+
+      if (typeof this.target.id === 'number' && !!!this.target.value) {
+        this.drawings.remove(this.target)
+        return;
+      }
+
+      if (this.target.value)
+        this.drawings.append(this.target);
     }
   }
 }
@@ -46,7 +63,7 @@ export default {
 
 <style lang="sass" scoped>
 
-textarea
+input
   position: absolute
 
 </style>

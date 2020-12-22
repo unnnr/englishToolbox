@@ -1,30 +1,20 @@
 <template>
-  <textarea/> 
+  <text 
+    :x="x" 
+    :y="y">
+    
+    {{ value }}
+  </text>
 </template>
 
 <script>
 export default {
   props: {
-    value: ''
-  },
+    value: { type: String, default: '' },
+    
+    x: { type: Number, default: 0 },
 
-  computed: {
-    parsedX() {
-      return this.width < 0 ? this.x + this.width : this.x;
-    },
-
-    parsedY() {
-      return this.height < 0 ? this.y + this.height : this.y;
-    },
-
-    parsedWidth() {
-      return Math.abs(this.width)
-    },
-
-    parsedHeight() {
-      return Math.abs(this.height)
-    }
-
+    y: { type: Number, default: 0 },
   }
 }
 </script>

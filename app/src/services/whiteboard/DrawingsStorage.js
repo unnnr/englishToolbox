@@ -6,7 +6,7 @@ export default class DrawingsStorage {
   }
 
   push(item) {
-    this.collection.push(item);
+    item.id = this.collection.push(item);
   }
 
   remove(item) {

@@ -2,9 +2,11 @@
   <div class="whiteboard__drawings">
 
     <component
-      :is="getPending(pending.type)"
       v-if="pending"
-      v-bind="pending"/>
+      :is="getPending(pending.type)"
+      :key="pending.id"
+      :target="pending"/>
+      
 
     <svg 
       class="whiteboard__drawings-collection"
@@ -16,11 +18,11 @@
         :is="getComponent(painting.type)"
         v-show="pending !== painting"
 
-        v-for="(painting, index) of collection"
-        :key="index"
+        v-for="(painting, id) of collection"
+        :key="id"
         
         v-bind="painting"
-        :style="{'z-index': index}"
+        :style="{'z-index': id}"
         
         @mousedown.native.stop="event => onClick(event, painting)"> 
       </component>
@@ -36,7 +38,7 @@ import Triangle from '@components/games/whiteboard/drawings/Triangle'
 import Ellipse from '@components/games/whiteboard/drawings/Ellipse'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
 import Eraser from '@components/games/whiteboard/drawings/Eraser'
-import Text from '@components/games/whiteboard/drawings/PendingText'
+import Text from '@components/games/whiteboard/drawings/Text'
 
 
 export default {
@@ -126,6 +128,14 @@ export default {
   width: 100%
 
 .whiteboard__drawings-collection
+  height: 100%
+  width: 100%
+
+
+
+.whiteboard__drawings-collection text
+  font-family: 'Montserrat', sans-serif
+  color: #120099
   height: 100%
   width: 100%
 
