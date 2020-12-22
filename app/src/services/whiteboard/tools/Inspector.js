@@ -1,5 +1,7 @@
 export default class Inspector {
-  type = '';
+  type = 'inspector';
+
+  inspecting = true;
   
   click(coords, context, drawings, config, el) {
     if (el)

@@ -28,6 +28,16 @@ export default {
   computed: {
     config() {
       return this.$config();
+    },
+
+    tool() {
+      return this.config.tool
+    }
+  },
+
+  watch: {
+    tool(value) {
+      this.config.inspecting = value && value.inspecting; 
     }
   }
 }
