@@ -1,15 +1,13 @@
 export default class Pencil {
   path = null;
 
-  previous = null;
-
   painting = false; 
 
   color = 'black';
 
   size = 1;
 
-  type = 'pen';
+  type = 'pencil';
 
   compose() {
     if (!!!this.path.length)

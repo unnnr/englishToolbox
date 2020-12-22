@@ -68,61 +68,53 @@ export default {
   components: {
     WhiteboardPanel
   },
-
-  data() {
-    return {
-      type: null
-    }
+  
+  props: { 
+    value: { type: Object, default: null }
   },
 
   mounted() {
-    this.select('pencil');
+
   },
 
   methods: {
     isSelected(type) {
-      return this.type === type;
+      return this.value && this.value.type === type;
     },
 
     select(type) {
-      if (this.type === type)
+      if (this.isSelected(type))
         return;
-        
-      this.type = type;
+
+      let computed = null;
 
       switch (type) {
         case 'trash':
-          this.$emit('change', new Trash());
+          computed =  new Trash()
           return;
 
         case 'eraser':
-          this.$emit('change', new Eraser());
-          return;
+          computed = new Eraser(); break;
 
         case 'pencil':
-          this.$emit('change', new Pencil());
-          return;
+          computed = new Pencil(); break;
 
         case 'ellipse':
-          this.$emit('change', new Ellipse());
-          return;
+          computed = new Ellipse(); break;
 
         case 'triangle':
-          this.$emit('change', new Triangle());
-          return;
+          computed = new Triangle(); break;
 
         case 'rectangle':
-          this.$emit('change', new Rectangle());
-          return;
+          computed = new Rectangle(); break;
 
         case 'inspector':
-          this.$emit('change', new Inspector());
-          return;
-
-        default:
-          this.$emit('change', null);
+          computed = new Inspector(); break;
       }
+
+      this.$emit('input', computed);
     }
+
   }
 }
 </script>

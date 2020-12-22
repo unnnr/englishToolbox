@@ -22,9 +22,12 @@ export default {
     WhiteboardPanel
   },
 
+  props: { 
+    value: { type: Number, default: 1 }
+  },
+
   data() {
     return {
-      selected: null,
       sizes: 6
     }
   },
@@ -34,13 +37,12 @@ export default {
   },
 
   methods: {
-    isSelected(index) {
-      return index === this.selected;
+    isSelected(value) {
+      return this.value === value;
     },
 
     select(value) {
-      this.selected = value;
-      this.$emit('change', value)
+      this.$emit('input', value)
     },
   }
 }

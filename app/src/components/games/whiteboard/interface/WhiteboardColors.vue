@@ -22,6 +22,10 @@ export default {
     WhiteboardPanel
   },
 
+  props: { 
+    value: { type: Number, default: 1 }
+  },
+
   data() {
     return {
       selected: null,
@@ -36,18 +40,13 @@ export default {
     }
   },
 
-  mounted() {
-    this.select(this.colors[0]);
-  },
-
   methods: {
     isSelected(color) {
-      return color === this.selected;
+      return this.value === color.hex;
     },
 
     select(color) {
-      this.selected = color;
-      this.$emit('change', color.hex);
+      this.$emit('input', color.hex);
     }
   }
 }

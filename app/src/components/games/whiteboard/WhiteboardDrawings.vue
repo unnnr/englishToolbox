@@ -6,9 +6,10 @@
     @mousedown="onClick">
 
     <component
+      v-show="pending !== painting"
       :is="getComponent(paiting.type)"
 
-      v-for="(paiting, index) of svg.components"
+      v-for="(paiting, index) of collection"
       :key="index"
       
       v-bind="paiting"
@@ -60,7 +61,7 @@ export default {
       },
 
       svg: {
-        types: ['pen', 'eraser', 'ellips', 'triangle', 'rectangle'],
+        types: ['pencil', 'eraser', 'ellips', 'triangle', 'rectangle'],
         components: []
       }
     }
@@ -90,7 +91,7 @@ export default {
   methods: {
     getComponent(type) {
       switch (type) {
-        case 'pen': return PenLine
+        case 'pencil': return PenLine
         case 'eraser': return Eraser
         case 'ellipse': return Ellipse
         case 'triangle': return Triangle

@@ -1,13 +1,13 @@
 <template>
   <div class="whiteboard__group whiteboard__group--tools">
     <whiteboard-sizes
-      @change="setSize"/>
+      v-model="config.size"/>
 
     <whiteboard-colors
-      @change="setColor"/>
+      v-model="config.color"/>
 
     <whiteboard-tools
-      @change="setTool"/>
+      v-model="config.tool"/>
   </div>
 </template>
 
@@ -29,25 +29,6 @@ export default {
     config() {
       return this.$config();
     }
-  },
-
-  methods: {
-    setColor(color) {
-      this.config.color = color;
-    },
-
-    setSize(size) {
-      this.config.size = size;
-    },
-
-    setTool(tool) {
-      console.log('new tool', tool);
-
-      this.config.inspecting = 
-        tool && (tool.type === 'inspector');
-
-      this.config.tool = tool;
-    },
   }
 }
 </script>
