@@ -7,7 +7,7 @@
     <component
       :is="getComponent(paiting.type)"
 
-      v-for="(paiting, index) of collection"
+      v-for="(paiting, index) of svg.components"
       :key="index"
       
       v-bind="paiting"
@@ -48,6 +48,41 @@ export default {
 
     tool() {
       return this.config.tool;
+    }
+  },
+
+  data() {
+    return {
+      dom: {
+        types: ['text'],
+        components: []
+      },
+
+      svg: {
+        types: ['pen', 'eraser', 'ellips', 'triangle', 'rectangle'],
+        components: []
+      }
+    }
+  },
+
+  watch: {
+    collection: {
+      handler(value) {
+        let svg = [];
+        let dom = [];
+
+        for (let item of value) {
+          if (this.dom.types.indexOf(item.type) !== -1)
+            dom.push(item);
+          else
+            svg.push(item);
+        }
+        
+        this.svg.components = svg;
+        this.dom.components = dom;
+      },
+
+      immediate: true
     }
   },
 
