@@ -1,24 +1,25 @@
 <template>
-  <svg 
-    class="whiteboard__drawings"
-    viewBox="0 0 1400 600"
-    xmlns="http://www.w3.org/2000/svg"
-    @mousedown="onClick">
+  <div class="whiteboard__drawings">
+    <svg 
+      class="whiteboard__drawings-collection"
+      viewBox="0 0 1400 600"
+      xmlns="http://www.w3.org/2000/svg"
+      @mousedown="onClick">
 
-    <component
-      v-show="pending !== painting"
-      :is="getComponent(painting.type)"
+      <component
+        :is="getComponent(painting.type)"
 
-      v-for="(painting, index) of collection"
-      :key="index"
+        v-for="(painting, index) of collection"
+        :key="index"
+        
+        v-bind="painting"
+        :style="{'z-index': index}"
+        
+        @mousedown.native.stop="event => onClick(event, painting)"> 
+      </component>
       
-      v-bind="painting"
-      :style="{'z-index': index}"
-      
-      @mousedown.native.stop="event => onClick(event, painting)"> 
-    </component>
-    
-  </svg>
+    </svg>
+  </div>
 </template>
 
 <script>
@@ -59,37 +60,11 @@ export default {
 
   data() {
     return {
-      dom: {
-        types: ['text'],
-        components: []
-      },
-
-      svg: {
-        types: ['pencil', 'eraser', 'ellips', 'triangle', 'rectangle'],
-        components: []
-      }
     }
   },
 
   watch: {
-    collection: {
-      handler(value) {
-        let svg = [];
-        let dom = [];
-
-        for (let item of value) {
-          if (this.dom.types.indexOf(item.type) !== -1)
-            dom.push(item);
-          else
-            svg.push(item);
-        }
-        
-        this.svg.components = svg;
-        this.dom.components = dom;
-      },
-
-      immediate: true
-    }
+    
   },
 
   methods: {
@@ -129,6 +104,10 @@ export default {
 .whiteboard__drawings
   position: absolute
   left: 0
+  height: 100%
+  width: 100%
+
+.whiteboard__drawings-collection
   height: 100%
   width: 100%
 

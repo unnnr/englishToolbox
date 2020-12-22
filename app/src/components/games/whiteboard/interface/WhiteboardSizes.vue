@@ -23,7 +23,7 @@ export default {
   },
 
   props: { 
-    value: { type: Number, default: 1 }
+    value: { type: Number, default: -1 }
   },
 
   data() {
@@ -31,7 +31,7 @@ export default {
       sizes: 6
     }
   },
-  
+
   methods: {
     isSelected(value) {
       return this.value === value;

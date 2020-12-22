@@ -23,7 +23,7 @@ export default {
   },
 
   props: { 
-    value: { type: Number, default: 1 }
+    value: { type: String, default: '' }
   },
 
   data() {

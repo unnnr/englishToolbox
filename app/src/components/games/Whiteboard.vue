@@ -26,7 +26,7 @@ import WhiteboardCanvas from '@components/games/whiteboard/WhiteboardCanvas'
 import WhiteboardUi from '@components/games/whiteboard/WhiteboardUI'
 
 import DrawingsCollection from '@services/whiteboard/Drawings'
-
+import Config from '@services/whiteboard/Config'
 
 export default {
   components: {
@@ -60,15 +60,7 @@ export default {
   data() {
     return {
       drawings: new DrawingsCollection,
-      config: {
-        tool: null,
-        size: null,
-        color: null,
-
-        width: 1400,
-        height: 600,
-        inspecting: false
-      },
+      config: new Config(),
 
       drawing: false,
       canvas: null
@@ -98,7 +90,7 @@ export default {
     click(event, el) {
       if (!!!this.tool)
         return;
-        
+
       let context = this.canvas.context;
       let coords = this.computeCoords(event);
       let drawigns = this.drawigns;
