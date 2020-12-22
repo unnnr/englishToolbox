@@ -43,24 +43,6 @@ export default {
   },
 
   methods: {
-    computeCoords(event) {  
-      let offset = 
-        event.target.getBoundingClientRect();
-
-      let canvas = this.$refs.canvas;
-      if (!!!canvas)
-        return;
-
-      let position = {
-        x: (event.clientX - offset.left) * (this.width / canvas.offsetWidth),
-        y: (event.clientY - offset.top) * (this.height / canvas.offsetHeight)
-      }
-      
-      return {
-        x: Number(position.x.toFixed(2)),
-        y: Number(position.y.toFixed(2))
-      }
-    },
     
     createContext() {
       let canvas = this.$refs.canvas;

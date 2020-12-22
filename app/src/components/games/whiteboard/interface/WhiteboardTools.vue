@@ -76,7 +76,7 @@ export default {
   },
 
   mounted() {
-    this.select('rectangle');
+    this.select('pencil');
   },
 
   methods: {

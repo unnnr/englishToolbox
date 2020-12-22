@@ -1,12 +1,16 @@
 <template>
   <whiteboard-events-grip 
     class="whiteboard"
-    :target="canvas">
+    :active="drawing"
+    @move="move"
+    @click="click"
+    @release="release">
 
-    <whiteboard-drawings/>
+    <whiteboard-drawings
+      @select="select"/>
 
     <whiteboard-canvas
-      v-show="canvasShown"
+      v-show="drawing"
       ref="canvas"/>
 
     <whiteboard-ui/>
@@ -47,13 +51,9 @@ export default {
       return this.config.inspecting;
     },
 
-    canvasShown(value) {
-      return !!!this.inspecting;
-    },
-
-    greepShown() {
-      return !!!this.inspecting && !!!this.loading;
-    },
+    tool() {
+      return this.config.tool;
+    }
   },
 
   data() {
@@ -69,13 +69,68 @@ export default {
         inspecting: false
       },
 
-      loading: false,
+      drawing: false,
       canvas: null
     }
   },
 
   mounted() {
     this.canvas = this.$refs.canvas;
+  },
+
+  methods: {
+    computeCoords(event) {  
+      let offset = 
+        this.$el.getBoundingClientRect();
+
+      let position = {
+        x: (event.clientX - offset.left) * (this.config.width / this.$el.offsetWidth),
+        y: (event.clientY - offset.top) * (this.config.height / this.$el.offsetHeight)
+      }
+
+      return {
+        x: Number(position.x.toFixed(2)),
+        y: Number(position.y.toFixed(2))
+      }
+    },
+    
+    click(event, el) {
+      let context = this.canvas.context;
+      let coords = this.computeCoords(event);
+      let drawigns = this.drawigns;
+      let config = this.config
+
+      this.tool.click(coords, context, drawings, config, el);
+
+      this.drawing = this.tool.painting;
+    },
+
+    move(event) {
+      if (!!!this.drawing)
+        return;
+
+      let context = this.canvas.context;
+      let coords = this.computeCoords(event);
+      let drawigns = this.drawigns;
+      let config = this.config;
+
+      this.tool.move(coords, context, drawings, config);
+    },
+
+    release(event) {
+      let drawigns = this.drawigns;
+      let context = this.canvas.context;
+      let coords = this.computeCoords(event);
+      let config = this.config
+
+      this.tool.release(coords, context, drawings, config);
+
+      this.drawing = this.tool.painting;
+    },
+
+    select({event, el}) {
+      this.click(event, el);
+    }
   }
 }
 </script>

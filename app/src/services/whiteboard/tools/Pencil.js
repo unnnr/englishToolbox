@@ -46,6 +46,10 @@ export default class Pencil {
     this.color = config.color;
   }
 
+  clear(context, config) {
+    context.clearRect(0 , 0, config.widht, config.height);
+  }
+
   click(coords, context, drawings, config) {
     this.updateConfig(config);
 
@@ -62,6 +66,8 @@ export default class Pencil {
     });
 
     this.painting = true;
+
+    return true;
   }
 
   move(coords, context, drawings, config) {
@@ -82,9 +88,8 @@ export default class Pencil {
     if (!!!this.painting || !!!this.path.length)
       return false;
       
-    drawings.append(this.compose());
     this.painting = false;
-
-    return true;
+    this.clear(context, config);
+    drawings.append(this.compose());
   }
 }

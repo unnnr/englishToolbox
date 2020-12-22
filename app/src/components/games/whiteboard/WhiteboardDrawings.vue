@@ -2,7 +2,8 @@
   <svg 
     class="whiteboard__drawings"
     viewBox="0 0 1400 600"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+    @mousedown="onClick">
 
     <component
       :is="getComponent(paiting.type)"
@@ -13,7 +14,7 @@
       v-bind="paiting"
       :style="{'z-index': index}"
       
-      @mousedown.native="event => onClick(paiting, event)"> 
+      @mousedown.native.stop="event => onClick(event, paiting)"> 
     </component>
     
   </svg>
@@ -98,12 +99,8 @@ export default {
       }
     },
 
-    onClick(painting, event) {
-      if (!!!this.tool || !!!this.tool.select)
-        return;
-
-      this.tool.select(painting, this.drawings);
-      event.stopPropagation();
+    onClick(event, el) {
+      this.$emit('select', {el, event})
     }
   }
 }

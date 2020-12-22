@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="whiteboard__element"
-    @mouseup.stop=""
-    @mousedown.stop=""
-    @mousemove.stop=""
-    @mouseleave.stop="">
-
+  <div class="whiteboard__element">
     <slot/>
   </div>
 </template>

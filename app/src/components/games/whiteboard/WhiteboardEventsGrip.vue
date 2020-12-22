@@ -1,16 +1,14 @@
 <template>
   <div 
-    @mouseup="release"
-    @mouseleave="release"
-
     @mouseenter="enter"
-
-    @mousemove="draw"
-    @mousedown="click">
+    @mouseleave="release">
 
     <div 
       v-if="active"
-      class="whitebord__overlay">
+      class="whitebord__overlay"
+      @mouseup.self="release"
+      @mousemove.self="move"
+      @mousedown.self="click">
     </div>
 
     <slot/>
@@ -20,13 +18,7 @@
 <script>
 export default {
   props: {
-    target: { type: Object, default: null}
-  },
-
-  data() {
-    return {
-      active: false
-    }
+    active: { type: Boolean, default: false }
   },
 
   methods: {
@@ -36,27 +28,15 @@ export default {
     },
 
     click(event) {
-      if (!!!this.target)
-        return
-        
-      this.active = true;
-      this.target.click(event);
+      this.$emit('click', event);
     },
     
-    draw(event) {
-      if (!!!this.target)
-        return
-        
-      this.target.draw(event);
+    move(event) {
+      this.$emit('move', event);
     },
 
     release() {
-      this.active = false;
-
-      if (!!!this.target)
-        return
-
-      this.target.release(event);
+      this.$emit('release', event);
     },
   }
 }
