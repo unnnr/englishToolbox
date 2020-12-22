@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+import {Text, Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
 import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
 
 export default {
@@ -85,9 +85,11 @@ export default {
       let computed = null;
 
       switch (type) {
+        case 'text':
+          computed = new Text(); break;
+
         case 'trash':
-          computed =  new Trash()
-          return;
+          computed = new Trash(); break;
 
         case 'eraser':
           computed = new Eraser(); break;

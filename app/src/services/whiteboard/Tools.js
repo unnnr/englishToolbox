@@ -5,6 +5,7 @@ import Ellipse from  '@services/whiteboard/tools/Ellipse'
 import Pencil from  '@services/whiteboard/tools/Pencil'
 import Eraser from  '@services/whiteboard/tools/Eraser'
 import Trash from  '@services/whiteboard/tools/Trash'
+import Text from  '@services/whiteboard/tools/Text'
 
 export {
   Inspector,
@@ -13,5 +14,6 @@ export {
   Ellipse,
   Eraser,
   Pencil,
-  Trash
+  Trash,
+  Text
 }

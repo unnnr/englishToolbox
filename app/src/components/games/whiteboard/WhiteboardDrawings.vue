@@ -1,5 +1,11 @@
 <template>
   <div class="whiteboard__drawings">
+
+    <component
+      :is="getPending(pending.type)"
+      v-if="pending"
+      v-bind="pending"/>
+
     <svg 
       class="whiteboard__drawings-collection"
       viewBox="0 0 1400 600"
@@ -8,6 +14,7 @@
 
       <component
         :is="getComponent(painting.type)"
+        v-show="pending !== painting"
 
         v-for="(painting, index) of collection"
         :key="index"
@@ -23,11 +30,14 @@
 </template>
 
 <script>
+import PendingText from '@components/games/whiteboard/drawings/PendingText'
 import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
 import Triangle from '@components/games/whiteboard/drawings/Triangle'
 import Ellipse from '@components/games/whiteboard/drawings/Ellipse'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
 import Eraser from '@components/games/whiteboard/drawings/Eraser'
+import Text from '@components/games/whiteboard/drawings/PendingText'
+
 
 export default {
   components: {
@@ -70,12 +80,20 @@ export default {
   methods: {
     getComponent(type) {
       switch (type) {
+        case 'text': return Text
         case 'pencil': return PenLine
         case 'eraser': return Eraser
         case 'ellipse': return Ellipse
         case 'triangle': return Triangle
         case 'rectangle': return Rectangle
         default: return 'path';
+      }
+    },
+
+    getPending(type) {
+      switch (type) {
+        case 'text': return PendingText
+        default: return 'p';
       }
     },
 

@@ -4,10 +4,19 @@ export default class text {
   type = 'text';
 
   click(coords, context, drawings, config, el) {
-    drawings.pending = el;
+    let target;
 
-    el.size = config.size;
-    el.size = config.color;
+    if (el && el.type === 'text')
+      target = el;
+    else
+      target = { type: 'text', value: '', x: coords.x, y: coords.y }
+
+    console.log(coords);
+    
+    target.size = config.size;
+    target.size = config.color;
+
+    drawings.pending = target;
   }
 
   move(coords, context, drawings, config) {
