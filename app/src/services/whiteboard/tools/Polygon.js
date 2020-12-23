@@ -5,6 +5,8 @@ export default class Polygon {
 
   type = 'polygon';
 
+  painting = true;
+
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
   }
@@ -16,7 +18,6 @@ export default class Polygon {
       color: this.color
     });
 
-    this.painting = false;
     this.path = [];
   }
 
@@ -55,21 +56,22 @@ export default class Polygon {
   }
 
   click(coords, context, drawings, config, el) {
+    console.log('click');
+
     if (this.path.length && this.coordsCanMerge(coords, this.path[0])) {
       this.path.push(this.path[0]);
       this.draw(context, config, true);
       this.compute(drawings);
-      return
+      return;
     }
     
-    this.painting = true;
     this.path.push(coords);
     this.draw(context, config);
   }
 
 
   move(coords, context, drawings, config) {
-    if (!!!this.path.length || !!!this.painting)
+    if (!!!this.path.length)
       return;
 
     this.draw(context, config);

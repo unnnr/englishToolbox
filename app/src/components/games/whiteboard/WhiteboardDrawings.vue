@@ -34,6 +34,7 @@
 import PendingText from '@components/games/whiteboard/drawings/PendingText'
 import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
 import Triangle from '@components/games/whiteboard/drawings/Triangle'
+import Polygon from '@components/games/whiteboard/drawings/Polygon'
 import Ellipse from '@components/games/whiteboard/drawings/Ellipse'
 import PenLine from '@components/games/whiteboard/drawings/Penline'
 import Eraser from '@components/games/whiteboard/drawings/Eraser'
@@ -81,12 +82,13 @@ export default {
   methods: {
     getComponent(type) {
       switch (type) {
-        case 'text': return Text
-        case 'pencil': return PenLine
-        case 'eraser': return Eraser
-        case 'ellipse': return Ellipse
-        case 'triangle': return Triangle
-        case 'rectangle': return Rectangle
+        case 'text': return Text;
+        case 'eraser': return Eraser;
+        case 'pencil': return PenLine;
+        case 'polygon': return Polygon;
+        case 'ellipse': return Ellipse;
+        case 'triangle': return Triangle;
+        case 'rectangle': return Rectangle;
 
         default: return 'path';
       }
