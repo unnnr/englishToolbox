@@ -4,10 +4,12 @@
     ref="textarea"
 
     :style="{'left': left,
-             'top': top}"
+             'top': top,
+             'font-size': fontSize,
+             'color': color}"
     autofocus
 
-    @blur="compute"
+    @blur.native="compute"
     @keydown.enter="compute"/>
 </template>
 
@@ -35,16 +37,26 @@ export default {
     },
 
     top() {
-      return this.target.y / this.config.height * 100+ '%';
+      return this.cached.y / this.config.height * 100+ '%';
     },
     
     left() {
-      return this.target.x / this.config.width * 100 + '%';
+      return this.cached.x / this.config.width * 100 + '%';
     },
+
+    fontSize() {
+      return this.cached.size * this.scale + 'px';
+    },
+    
+    color() {
+      return this.cached.color;
+    }
   },
 
   mounted() {
     this.$nextTick().then(this.focus);
+
+    this.scale = this.$el.parentNode.offsetWidth / this.config.width;
 
     this.cached = this.target;
   },
@@ -78,5 +90,6 @@ export default {
 
 input
   position: absolute
+  margin-top: -8px
 
 </style>

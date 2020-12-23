@@ -11,8 +11,8 @@ export default class text {
     else
       target = { type: 'text', value: '', x: coords.x, y: coords.y }
 
-    target.size = config.size;
-    target.size = config.color;
+    target.size = config.size * 6;
+    target.color = config.color;
 
     drawings.pending = target;
   }
