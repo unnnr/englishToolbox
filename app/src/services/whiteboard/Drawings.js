@@ -24,18 +24,22 @@ export default class WhiteboardDrawings {
     this._history.push(command);
   }
 
-  remove(item) {
-    let command = new Remove(item, this._collection);
+  remove(el) {
+    let command = new Remove(el, this._collection);
     command.execute();
 
     this._history.push(command);
   }
 
-  append(item) {
-    let command = new Append(item, this._collection);
+  append(el) {
+    let command = new Append(el, this._collection);
     command.execute();
 
     this._history.push(command);
+  }
+
+  update(el) {
+    this._collection.update(el);
   }
 
   undo() {

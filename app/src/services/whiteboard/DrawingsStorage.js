@@ -5,13 +5,27 @@ export default class DrawingsStorage {
     this.collection = withDefault;
   }
 
-  push(item) {
-    item.id = this.collection.push(item);
+  find(target) {
+    for (let el of this.collection) {
+      if (el.id === target.id)
+        return el;
+    }
+
+    return null;
   }
 
-  remove(item) {
+  update(el) {
+    let saved = this.find(el);
+    Object.assign(saved, el);
+  }
+  
+  push(el) {
+    el.id = this.collection.push(el);
+  }
+
+  remove(el) {
     let index = 
-      this.collection.indexOf(item);
+      this.collection.indexOf(el);
     
     if (index !== -1)
       this.collection.splice(index, 1);

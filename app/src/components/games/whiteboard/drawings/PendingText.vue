@@ -49,8 +49,13 @@ export default {
     compute() {
       this.drawings.pending = null;
 
-      if (typeof this.target.id === 'number' && !!!this.target.value) {
-        this.drawings.remove(this.target)
+      if (typeof this.target.id == 'number') {
+
+        if (!!!this.target.value)
+          this.drawings.remove(this.target)
+        else
+          this.drawings.update(this.target)
+
         return;
       }
 
