@@ -134,3 +134,14 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.whiteboard__element
+  transition: opacity .3s
+
+.whiteboard--painting .whiteboard__element, 
+.whiteboard__element--disabled
+  opacity: .5
+
+</style>
