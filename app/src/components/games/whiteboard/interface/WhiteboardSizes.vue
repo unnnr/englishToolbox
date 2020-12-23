@@ -1,5 +1,8 @@
 <template>
-  <whiteboard-panel class="whiteboard__element--size">
+  <whiteboard-panel 
+    class="whiteboard__element--size"
+    :class="{'whiteboard__element--disabled': disabled}">
+    
     <button
       v-for="key in sizes"
       :key="key"
@@ -23,6 +26,8 @@ export default {
   },
 
   props: { 
+    disabled: { type: Boolean, default: false },
+
     value: { type: Number, default: -1 }
   },
 
@@ -34,7 +39,7 @@ export default {
 
   methods: {
     isSelected(value) {
-      return this.value === value;
+      return !!!this.disabled && this.value === value;
     },
 
     select(value) {

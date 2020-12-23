@@ -9,6 +9,8 @@ export default class Ellipse {
 
   type = 'ellipse';
 
+  sizeless = true;
+
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
   }

@@ -5,7 +5,9 @@ export default class Polygon {
 
   type = 'polygon';
 
-  painting = true;
+  painting = false;
+
+  sizeless = true;
 
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
@@ -19,6 +21,10 @@ export default class Polygon {
     });
 
     this.path = [];
+    this.painting = false;
+
+    this.computing = true;
+    setTimeout(() => this.computing = false, 200);
   }
 
   coordsCanMerge(first, second) {
@@ -56,7 +62,8 @@ export default class Polygon {
   }
 
   click(coords, context, drawings, config, el) {
-    console.log('click');
+    if (this.computing)
+      return;
 
     if (this.path.length && this.coordsCanMerge(coords, this.path[0])) {
       this.path.push(this.path[0]);
@@ -65,6 +72,8 @@ export default class Polygon {
       return;
     }
     
+    this.painting = true;
+
     this.path.push(coords);
     this.draw(context, config);
   }
@@ -73,7 +82,8 @@ export default class Polygon {
   move(coords, context, drawings, config) {
     if (!!!this.path.length)
       return;
-
+    
+    this.color = config.color;
     this.draw(context, config);
 
     let last = this.path[this.path.length - 1];
@@ -83,6 +93,6 @@ export default class Polygon {
   }
 
   release(coords, context, drawings, config) {
-    // 
+    //
   }
 }

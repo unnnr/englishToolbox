@@ -7,6 +7,8 @@ export default class Rectangle {
 
   painting = false; 
 
+  sizeless = true;
+
   color = 'black';
 
   type = 'rectangle';

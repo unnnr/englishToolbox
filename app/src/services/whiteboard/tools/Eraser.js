@@ -5,6 +5,8 @@ export default class Eraser {
 
   painting = false; 
 
+  colorless = true;
+
   size = 1;
 
   color = "#ffffff"

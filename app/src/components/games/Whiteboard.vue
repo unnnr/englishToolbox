@@ -1,7 +1,8 @@
 <template>
   <whiteboard-events-grip 
     class="whiteboard"
-    :class="{'inspecting': inspecting}"
+    :class="{'whiteboard--painting': drawing,
+             'inspecting': inspecting}"
     :active="drawing"
     @move="move"
     @click="click"
@@ -11,7 +12,7 @@
       @select="select"/>
 
     <whiteboard-canvas
-      v-show="drawing"
+      :active="drawing"
       ref="canvas"/>
 
     <whiteboard-ui/>

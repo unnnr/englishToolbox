@@ -1,5 +1,6 @@
 <template>
   <canvas 
+    v-show="active"
     ref="canvas"
     class="whiteboard__canvas"
     :height="height"
@@ -9,6 +10,16 @@
 <script>
 export default {
   inject: ['$config', '$drawings'],
+
+  props: {
+    active: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      context: null
+    }
+  },
 
   computed: {
     config() {
@@ -32,9 +43,10 @@ export default {
     },
   },
 
-  data() {
-    return {
-      context: null
+  watch: {
+    active(value) {
+      if (!!!value)
+        this.clear();
     }
   },
 
@@ -43,7 +55,6 @@ export default {
   },
 
   methods: {
-    
     createContext() {
       let canvas = this.$refs.canvas;
       return canvas ? canvas.getContext("2d") : null;
@@ -51,36 +62,7 @@ export default {
 
     clear() {
       this.context.clearRect(0, 0, this.width, this.height);
-    },
-
-    click(event) {
-      if (!!!this.tool)
-        return;
-
-      let coords = this.computeCoords(event);
-
-      this.tool.click(coords, this.context, this.drawings, this.config);
-    },
-
-    draw(event) {
-      if (!!!this.tool)
-        return;
-
-      let coords = this.computeCoords(event);
-      this.tool.move(coords, this.context, this.drawings, this.config);
-    },
-
-    release() {
-      if (!!!this.tool)
-        return;
-
-      let coords = this.computeCoords(event);
-      let composend = this.tool.release(
-        coords, this.context, this.drawings, this.config);
-
-      if (composend)
-        this.clear();
-    },
+    }
   }
 }
 </script>

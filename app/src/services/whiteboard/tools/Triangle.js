@@ -7,6 +7,8 @@ export default class Triangle {
 
   type = 'triangle';
 
+  sizeless = true;
+
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
   }

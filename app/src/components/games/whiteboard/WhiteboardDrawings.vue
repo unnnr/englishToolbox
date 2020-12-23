@@ -1,5 +1,6 @@
 <template>
-  <div class="whiteboard__drawings">
+  <div 
+    class="whiteboard__drawings">
 
     <component
       v-if="pending"

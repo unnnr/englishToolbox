@@ -1,5 +1,8 @@
 <template>
-  <whiteboard-panel class="whiteboard__element--color">
+  <whiteboard-panel 
+    class="whiteboard__element--color"
+    :class="{'whiteboard__element--disabled': disabled}">
+
     <button 
       v-for="(color, index) in colors"
       :key="index"
@@ -23,6 +26,8 @@ export default {
   },
 
   props: { 
+    disabled: { type: Boolean, default: false },
+
     value: { type: String, default: '' }
   },
 
@@ -42,7 +47,7 @@ export default {
 
   methods: {
     isSelected(color) {
-      return this.value === color.hex;
+      return !!!this.disabled && this.value === color.hex;
     },
 
     select(color) {

@@ -1,9 +1,11 @@
 <template>
   <div class="whiteboard__group whiteboard__group--tools">
     <whiteboard-sizes
+      :disabled="sizeless"
       v-model="config.size"/>
 
     <whiteboard-colors
+      :disabled="colorless"
       v-model="config.color"/>
 
     <whiteboard-tools
@@ -25,6 +27,13 @@ export default {
 
   inject: ['$config'],
 
+  data() {
+    return {
+      sizeless: false,
+      colorless: false
+    }
+  },
+
   computed: {
     config() {
       return this.$config();
@@ -37,7 +46,12 @@ export default {
 
   watch: {
     tool(value) {
-      this.config.inspecting = value && value.inspecting; 
+      if (!!!value)
+        return;
+
+      this.config.inspecting = value.inspecting; 
+      this.colorless = value.colorless;
+      this.sizeless = value.sizeless;
     }
   }
 }

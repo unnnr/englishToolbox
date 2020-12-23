@@ -2,6 +2,10 @@ export default class Trash {
   painting = false; 
 
   type = 'trash';
+
+  sizeless = true;
+
+  colorless = true;
   
   click(coords, context, drawings, config) {
     this.painting = true;
