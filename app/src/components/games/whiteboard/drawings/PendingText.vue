@@ -1,6 +1,6 @@
 <template>
   <input
-    v-model="target.value"
+    v-model="cached.value"
     ref="textarea"
 
     :style="{'left': left,
@@ -17,6 +17,12 @@ export default {
 
   props: {
     target: { type: Object, default: null },
+  },
+
+  data() {
+    return {
+      cached: {}
+    }
   },
   
   computed: {
@@ -38,7 +44,9 @@ export default {
   },
 
   mounted() {
-    this.$nextTick().then(this.focus)
+    this.$nextTick().then(this.focus);
+
+    this.cached = this.target;
   },
 
   methods: {
@@ -49,18 +57,18 @@ export default {
     compute() {
       this.drawings.pending = null;
 
-      if (typeof this.target.id == 'number') {
+      if (typeof this.cached.id == 'number') {
 
-        if (!!!this.target.value)
-          this.drawings.remove(this.target)
+        if (!!!this.cached.value)
+          this.drawings.remove(this.cached)
         else
-          this.drawings.update(this.target)
+          this.drawings.update(this.cached)
 
         return;
       }
 
-      if (this.target.value)
-        this.drawings.append(this.target);
+      if (this.cached.value)
+        this.drawings.append(this.cached);
     }
   }
 }

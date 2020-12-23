@@ -7,7 +7,6 @@
       :key="pending.id"
       :target="pending"/>
       
-
     <svg 
       class="whiteboard__drawings-collection"
       viewBox="0 0 1400 600"
