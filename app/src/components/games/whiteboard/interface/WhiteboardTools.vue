@@ -8,8 +8,8 @@
   
     <button 
       class="whiteboard__button-tool--pen whiteboard__button-tool whiteboard__button"
-      :class="{'whiteboard__button--selected': isSelected('pen')}"
-      @click="select('pen')">
+      :class="{'whiteboard__button--selected': isSelected('polygon')}"
+      @click="select('polygon')">
     </button>
     
     <button 
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {Text, Trash, Eraser, Pencil, Ellipse, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+import {Text, Trash, Eraser, Pencil, Ellipse, Polygon, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
 import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
 
 export default {
@@ -102,6 +102,9 @@ export default {
 
         case 'triangle':
           computed = new Triangle(); break;
+        
+        case 'polygon':
+          computed = new Polygon(); break;
 
         case 'rectangle':
           computed = new Rectangle(); break;

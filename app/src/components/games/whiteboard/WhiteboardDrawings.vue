@@ -87,6 +87,7 @@ export default {
         case 'ellipse': return Ellipse
         case 'triangle': return Triangle
         case 'rectangle': return Rectangle
+
         default: return 'path';
       }
     },

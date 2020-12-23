@@ -53,6 +53,7 @@ export default class Pencil {
 
     context.strokeStyle = this.color;
     context.lineWidth = this.size;
+    context.lineJoin = 'round';
     context.lineCap = 'round';
 
     this.previous = coords;

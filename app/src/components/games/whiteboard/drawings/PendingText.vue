@@ -11,6 +11,7 @@
     autofocus
 
     @input="input"
+    @blur="compute"
     @paste.prevent=""
     @keydown.enter="compute"/>
 </template>
