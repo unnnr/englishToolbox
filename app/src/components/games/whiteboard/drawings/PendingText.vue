@@ -5,11 +5,13 @@
 
     :style="{'left': left,
              'top': top,
-             'font-size': fontSize,
-             'color': color}"
+             'color': color,
+             'width': width,
+             'font-size': fontSize}"
     autofocus
 
-    @blur.native="compute"
+    @input="input"
+    @paste.prevent=""
     @keydown.enter="compute"/>
 </template>
 
@@ -23,7 +25,8 @@ export default {
 
   data() {
     return {
-      cached: {}
+      cached: {},
+      width: 0,
     }
   },
   
@@ -56,12 +59,18 @@ export default {
   mounted() {
     this.$nextTick().then(this.focus);
 
-    this.scale = this.$el.parentNode.offsetWidth / this.config.width;
-
     this.cached = this.target;
+
+    this.scale =  this.$el.parentNode.offsetWidth / this.config.width;
+    this.width =  (100 - this.cached.x / this.config.width * 100 - 1)  + '%';
   },
 
   methods: {
+    input() {
+      if (this.$el.scrollWidth > this.$el.clientWidth)
+        this.cached.value = this.cached.value.slice(0, -1);
+    },
+    
     focus() {
       setTimeout(() => this.$el.focus(), 100);
     },
