@@ -42,12 +42,37 @@ export default class DrawingsStorage {
 
   listen() {
     this.Echo.channel('whiteboard')
-      .listen('DrawingCreated', (el) => {
-        let parsed = this.parseResponse(el);
+      .listen('DrawingCreated', this.created.bind(this))
+      .listen('DrawingRemoved', this.removed.bind(this))
+      .listen('WhiteboardCleared', this.cleared.bind(this));
+  }
 
-        if (typeof this.onCreated === 'function')
-          this.onCreated(parsed);
-      });
+  removed(raw) {
+    let el = this.find(this.parseResponse(raw));
+    let index = this.collection.indexOf(el);
+
+    console.log(el);
+    if (index === -1)
+      return;
+
+    this.collection.splice(index, 1);
+    if (typeof this.onCreated === 'function')
+      this.onCreated();
+  }
+
+  created(raw) {
+    let el = this.parseResponse(raw);
+    this.collection.push(el);
+
+    if (typeof this.onCreated === 'function')
+      this.onCreated(el);
+  }
+
+  cleared() {
+    this.collection = [];
+
+    if (typeof this.onCreated === 'function')
+      this.onCreated();
   }
 
   async load() {
@@ -103,18 +128,18 @@ export default class DrawingsStorage {
   }
 
   async remove(el) {
+    let index = this.collection.indexOf(el);
+    if (index === -1)
+      return;
+
+    this.collection.splice(index, 1);
+
     let headers =  
       {'X-Socket-ID': this.Echo.socketId()};
 
     await Http.delete({
       headers, uri: 'whiteboard/drawings/' + el.id
     });
-
-    let index = 
-      this.collection.indexOf(el);
-    
-    if (index !== -1)
-      this.collection.splice(index, 1);
   }
 
   get() {

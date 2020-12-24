@@ -7,7 +7,7 @@ use App\Http\Requests\Whiteboard\ClearWhiteboard;
 use App\Http\Requests\Whiteboard\UpdateDrawing;
 use App\Http\Requests\Whiteboard\CreateDrawing;
 use App\Http\Requests\Whiteboard\DeleteDrawing;
-use App\Models\WhiteboardDrawing as Drawing;
+use App\Models\WhiteboardDrawing;
 
 
 class WhiteboardController extends Controller
@@ -50,7 +50,7 @@ class WhiteboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Drawing $model, UpdateDrawing $request)
+    public function update(WhiteboardDrawing $drawing, UpdateDrawing $request)
     {
         return $this->service->update($request, $model);
     }
@@ -61,9 +61,9 @@ class WhiteboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Drawing $model, DeleteDrawing $request)
+    public function destroy(WhiteboardDrawing $drawing, DeleteDrawing $request)
     {
-        return $this->service->delete($model);
+        return $this->service->delete($drawing);
     }
 
     /**

@@ -14,7 +14,9 @@ export default class WhiteboardDrawings {
     window.drawings = this;
 
     this._collection = new DrawingsStorage(
-      this.onCreated, this.onRemoved, this.onCleared);
+      this.onCreated.bind(this),
+      this.onRemoved.bind(this),
+      this.onCleared.bind(this));
   }
 
   clear() {
@@ -38,10 +40,6 @@ export default class WhiteboardDrawings {
     this._history.push(command);
   }
 
-  update(el) {
-    this._collection.update(el);
-  }
-
   undo() {
     this._history.undo();
   }
@@ -55,12 +53,16 @@ export default class WhiteboardDrawings {
   }
 
   onCleared() {
+    this._history = new History();
   }
 
   onCreated(el) {
+    let command = new Append(el, this._collection);
+    this._history.push(command);
   }
 
-  onRemoved() {
-
+  onRemoved(el) {
+    let command = new Remove(el, this._collection);
+    this._history.push(command);
   }
 }

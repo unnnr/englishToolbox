@@ -9,19 +9,33 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
 
-class WhiteboardUpdated
+class DrawingCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    private $drawing = null;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($action)
+    public function __construct($drawing)
     {
-        $this->action = $action;
+        $this->drawing = $drawing;
+    }
+
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return (new DrawingResource($this->drawing))->toArray(null);
     }
 
     /**
@@ -31,6 +45,6 @@ class WhiteboardUpdated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('whiteboard');
+        return new Channel('whiteboard');
     }
 }

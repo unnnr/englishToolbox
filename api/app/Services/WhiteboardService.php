@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\WhiteboardDrawing as Drawing;
 use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
+use App\Models\WhiteboardDrawing as Drawing;
+use App\Events\WhiteboardCleared;
+use App\Events\DrawingRemoved;
+use App\Events\DrawingCreated;
 
 
 class WhiteboardService 
@@ -22,6 +25,8 @@ class WhiteboardService
            'body' => $request->input('body')
         ]);
 
+        broadcast(new DrawingCreated($drawing))->toOthers();
+
        return new DrawingResource($drawing);
     }
 
@@ -34,11 +39,17 @@ class WhiteboardService
 
     public function delete(Drawing $drawing)
     {
+        logger($drawing);
+
+        broadcast(new DrawingRemoved($drawing))->toOthers();
+        
         $drawing->delete();
     }
 
     public function clear()
     {
         Drawing::truncate();
+
+        broadcast(new WhiteboardCleared($drawing))->toOthers();
     }
 }
