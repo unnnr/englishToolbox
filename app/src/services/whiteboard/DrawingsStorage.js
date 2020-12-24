@@ -119,12 +119,22 @@ export default class DrawingsStorage {
     let data = new FormData();
     data.append('body',  JSON.stringify(el));
 
+    let dummy = {
+      id: this.collection.length + 1000, 
+      loading: true,
+      body: el
+    };
+
+    this.collection.push(dummy);
     let response = await Http.post({
       headers, data, uri: 'whiteboard/drawings'
     });
     
     let created = this.parseResponse(response.data);
-    this.collection.push(created);
+    dummy.id = created.id;
+    dummy.loading = false;
+
+    return dummy;
   }
 
   async remove(el) {

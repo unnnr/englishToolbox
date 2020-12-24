@@ -1,18 +1,23 @@
 export default class Append {
-  element = null;
+  data = null;
+
+  el = null;
 
   collection = null;
 
-  constructor(element, collection) {
+  constructor(data, collection) {
     this.collection =  collection;
-    this.element = element;
+    this.data = data;
   }
 
-  execute() {
-    this.collection.push(this.element);
+  async execute() {
+    this.el = await this.collection.push(this.data);
   }
 
   undo() {
-    this.collection.remove(this.element);
+    if (!!!this.el)
+      return;
+
+    return this.collection.remove(this.el);
   }
 }

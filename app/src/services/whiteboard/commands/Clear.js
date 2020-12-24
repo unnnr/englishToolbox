@@ -1,18 +1,15 @@
 export default class Clear {
-  snapshot = null;
-
   collection = null;
 
   constructor(collection) {
-    this.snapshot = [ ...collection.get() ];
     this.collection= collection;
   }
 
-  execute() {
+  async execute() {
     this.collection.clear();
   }
 
-  undo() {
-    this.collection.clear(this.snapshot);
+  async undo() {
+
   }
 }

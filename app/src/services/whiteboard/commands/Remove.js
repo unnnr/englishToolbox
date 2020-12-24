@@ -1,18 +1,19 @@
 export default class Remove {
-  element = null;
-
+  el = null;
+  
   drawings = null;
 
-  constructor(element, drawings) {
+  constructor(el, drawings) {
     this.drawings = drawings
-    this.element = element;
+    this.el = el;
   }
 
   execute() {
-    this.drawings.remove(this.element);
+    return this.drawings.remove(this.el);
   }
 
-  undo() {
-    this.drawings.push(this.element);
+  async undo() {
+    this.el = 
+      await this.drawings.push(this.el.body);
   }
 }
