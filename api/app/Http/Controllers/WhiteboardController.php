@@ -10,7 +10,6 @@ use App\Http\Requests\Whiboard\DeleteDrawing;
 use App\Models\WhiteboardDrawing as Drawing;
 
 
-
 class WhiteboardController extends Controller
 {
     private $service;
@@ -75,7 +74,7 @@ class WhiteboardController extends Controller
      */
     public function clear(ClearWhiteboard $request)
     {
-        return $this->service->cler($video);
+        return $this->service->clear($video);
     }
 
 }

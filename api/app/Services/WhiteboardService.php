@@ -3,51 +3,42 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\User\MakeAction;
 use App\Models\WhiteboardDrawing as Drawing;
+use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
 
 
 class WhiteboardService 
 {
     public function all()
     {
-        return ReviewResource::collection(
-            Review::all()
-        );
+        $drawings =  Drawing::all();
+
+        return DrawingResource::collection($drawings);
     }
 
     public function create(Request $request)
     { 
-        $user = auth()->user();
-        
-        $avatar = $this->copyAvatar($user->avatar);
-        
-        $review  =  $user->reviews()->create([
-            'title' => $request->title,
-            'text' => $request->text,
-            'grade' => $request->grade,
-            'user_name' => $user->name,
-            'user_avatar' => $avatar,
+        $drawing = Drawing::create([
+           'body' => $request->input($body)
         ]);
 
+       return new DrawingResource($drawing);
+    }
+
+    public function update(Drawing $drawing, Request $request)
+    {
+        $drawings->body = $request->input('body');
+
         return new ReviewResource($review);
     }
 
-    public function verify(Review $review)
+    public function delete(Drawing $drawing)
     {
-        $review->verified = true;
-
-        $review->save();
-
-        return new ReviewResource($review);
+        $drawing->delete();
     }
 
-    public function delete(Review $model)
+    public function clear()
     {
-        // Removing avatar
-        $filepath = Review::AVATARS_PATH . '/' .  $model->user_avatar;
-        Storage::delete($filepath);
-
-        $model->delete();
+        Drawing::truncate();
     }
 }
