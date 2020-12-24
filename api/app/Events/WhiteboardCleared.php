@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class WhiteboardCleared
+class WhiteboardCleared implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,6 +31,6 @@ class WhiteboardCleared
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('whiteboard');
+        return new Channel('whiteboard');
     }
 }

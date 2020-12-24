@@ -39,17 +39,16 @@ class WhiteboardService
 
     public function delete(Drawing $drawing)
     {
-        logger($drawing);
-
         broadcast(new DrawingRemoved($drawing))->toOthers();
         
         $drawing->delete();
     }
+    
 
     public function clear()
     {
         Drawing::truncate();
 
-        broadcast(new WhiteboardCleared($drawing))->toOthers();
+        broadcast(new WhiteboardCleared())->toOthers();
     }
 }
