@@ -2,13 +2,6 @@
   <div 
     class="whiteboard__drawings">
 
-    <component
-      v-if="pending"
-      :is="getPending(pending)"
-      :key="pending.id"
-      :id="pending.id"
-      :target="pending"/>
-      
     <svg 
       class="whiteboard__drawings-collection"
       viewBox="0 0 1400 600"
@@ -16,11 +9,10 @@
       @mousedown="onClick">
 
       <component
+        :is="getComponent(painting)"
+
         v-for="painting of collection"
         :key="painting.id"
-
-        :is="getComponent(painting)"
-        v-show="notPending(painting)"
         
         v-bind="painting.body"
         :style="{'z-index': painting.id}"
@@ -33,7 +25,6 @@
 </template>
 
 <script>
-import PendingText from '@components/games/whiteboard/drawings/PendingText'
 import Rectangle from '@components/games/whiteboard/drawings/Rectangle'
 import Triangle from '@components/games/whiteboard/drawings/Triangle'
 import Polygon from '@components/games/whiteboard/drawings/Polygon'
@@ -73,27 +64,8 @@ export default {
   },
 
   methods: {
-    notPending(el) {
-      return !!!this.pending || el.id !== this.pending.id;
-    },
-
     onClick(event, el) {
       this.$emit('select', {el, event})
-    },
-
-    getPending(el) {
-      let type = 'default';
-
-      if (el && el.body)
-        type = el.body.type;
-      else (el)
-        type = el.type;
-
-
-      switch (type) {
-        case 'text': return PendingText
-        default: return 'p';
-      }
     },
 
     getComponent(el) {

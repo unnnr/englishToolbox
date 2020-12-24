@@ -10,8 +10,6 @@ export default class WhiteboardDrawings {
   
   _collection = new DrawingsStorage();
 
-  pending = null;
-
   constructor() {
     console.log('DRAWINGS CREATED');
     window.drawings = this;

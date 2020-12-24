@@ -55,7 +55,7 @@ export default class DrawingsStorage {
 
   async remove(el) {
     await Http.delete({
-      uri: 'whiteboard/drawings' + el.id
+      uri: 'whiteboard/drawings/' + el.id
     });
 
     let index = 

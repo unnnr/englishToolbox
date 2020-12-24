@@ -12,12 +12,6 @@
       @click="select('polygon')">
     </button>
     
-    <button 
-      class="whiteboard__button-tool--text whiteboard__button-tool whiteboard__button"
-      :class="{'whiteboard__button--selected': isSelected('text')}"
-      @click="select('text')">
-    </button>
-    
     <div class="whiteboard__separator"></div>
 
     <button 
@@ -61,7 +55,7 @@
 </template>
 
 <script>
-import {Text, Trash, Eraser, Pencil, Ellipse, Polygon, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+import {Trash, Eraser, Pencil, Ellipse, Polygon, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
 import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
 
 export default {
@@ -85,9 +79,6 @@ export default {
       let computed = null;
 
       switch (type) {
-        case 'text':
-          computed = new Text(); break;
-
         case 'trash':
           computed = new Trash(); break;
 
