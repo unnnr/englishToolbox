@@ -8,10 +8,13 @@ import Clear from '@services/whiteboard/commands/Clear'
 export default class WhiteboardDrawings {
   _history = new History();
   
-  _collection = new DrawingsStorage();
+  _collection = null
 
   constructor() {
     window.drawings = this;
+
+    this._collection = new DrawingsStorage(
+      this.onCreated, this.onRemoved, this.onCleared);
   }
 
   clear() {
@@ -49,5 +52,15 @@ export default class WhiteboardDrawings {
 
   collection() {
     return this._collection.get();
+  }
+
+  onCleared() {
+  }
+
+  onCreated(el) {
+  }
+
+  onRemoved() {
+
   }
 }

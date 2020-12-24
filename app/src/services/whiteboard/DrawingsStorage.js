@@ -1,11 +1,27 @@
+import Pusher from "pusher-js"
+import Echo from "laravel-echo"
 import Http from '@services/Http';
+
 
 export default class DrawingsStorage {
   collection = [];
 
+  Echo = null;
+  
+  constructor(onCreated, onRemoved, onCleared) {
+    this.onCreated = onCreated;
+    this.onRemoved = onRemoved;
+    this.onCleared = onCleared;
 
-  constructor() {
-    this.load();
+    this.Echo = new Echo({
+      broadcaster: 'pusher',
+      key: '6194830899e2ae7c1ec9',
+      cluster: 'eu',
+      encrypted: true
+    });
+    
+    this.load()
+        .then(this.listen.bind(this));
   }
 
   find(target) {
@@ -18,10 +34,20 @@ export default class DrawingsStorage {
   }
 
   parseResponse(response) {
-    let el = response.data;
+    let el = response;
     el.body = JSON.parse(el.body);
 
     return el;
+  }
+
+  listen() {
+    this.Echo.channel('whiteboard')
+      .listen('DrawingCreated', (el) => {
+        let parsed = this.parseResponse(el);
+
+        if (typeof this.onCreated === 'function')
+          this.onCreated(parsed);
+      });
   }
 
   async load() {
@@ -37,9 +63,9 @@ export default class DrawingsStorage {
     }
   }
 
-  async clear(withDefault = []) {
+  async clear() {
     await Http.delete({
-      uri: 'whiteboard'
+      uri: 'whiteboard/drawings'
     });
 
     this.collection = [];
@@ -47,32 +73,41 @@ export default class DrawingsStorage {
 
 
   async update(el) {
+    let headers =  
+      {'X-Socket-ID': this.Echo.socketId()};
+
     let data = new FormData();
     data.append('body', JSON.stringify(el.body));
 
     let response = await Http.patch({
-      data, uri: 'whiteboard/drawings/' + el.id
+      headers, data, uri: 'whiteboard/drawings/' + el.id
     });
 
-    let updated = this.parseResponse(response);
+    let updated = this.parseResponse(response.data);
     Object.assign(this.find(el), updated);
   }
   
   async push(el) {
+    let headers =  
+      {'X-Socket-ID': this.Echo.socketId()};
+
     let data = new FormData();
     data.append('body',  JSON.stringify(el));
 
     let response = await Http.post({
-      data, uri: 'whiteboard/drawings'
+      headers, data, uri: 'whiteboard/drawings'
     });
-
-    let created = this.parseResponse(response);
+    
+    let created = this.parseResponse(response.data);
     this.collection.push(created);
   }
 
   async remove(el) {
+    let headers =  
+      {'X-Socket-ID': this.Echo.socketId()};
+
     await Http.delete({
-      uri: 'whiteboard/drawings/' + el.id
+      headers, uri: 'whiteboard/drawings/' + el.id
     });
 
     let index = 
