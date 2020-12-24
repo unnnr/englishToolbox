@@ -32,7 +32,7 @@ Route::apiResource('audio', 'AudioController');
 Route::apiResource('tags', 'TagController');
 Route::apiResource('updates', 'UpdateController')
     ->only(['index']);
-    
+
 Route::apiResource('recommendations', 'RecommendationController')
     ->only(['index','update', 'store', 'destroy']);
 
@@ -89,4 +89,10 @@ Route::delete('profile/comments', 'CommentController@deleteAttachedToUser');
 Route::get('profile/avatar', 'AvatarController@index');
 Route::patch( 'profile/avatar', 'AvatarController@update');
 
-Route::get( 'profile/views', 'ViewController@index');
+Route::get('profile/views', 'ViewController@index');
+
+
+
+Route::delete('whiteboard/drawings', 'WhiteboardControlle@clear');
+Route::apiResource('whiteboard/drawings', 'WhiteboardControlle')
+    ->only(['index', 'store', 'update','destroy']);
