@@ -24,8 +24,7 @@ class UpdateDrawing extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|string',
-            'body' => 'json',
+            'body' => 'required|json',
         ];
     }
 }

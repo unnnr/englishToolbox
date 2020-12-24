@@ -3,11 +3,19 @@ import Http from '@services/Http';
 export default class DrawingsStorage {
   collection = [];
 
-  parseResponce(response) {
-    let data = response.data;
 
-    let el = JSON.parse(data.body);
-    el.id = data.id;
+  find(target) {
+    for (let el of this.collection) {
+      if (el.id === target.id)
+        return el;
+    }
+
+    return null;
+  }
+
+  parseResponse(response) {
+    let el = response.data;
+    el.body = JSON.parse(el.body);
 
     return el;
   }
@@ -20,27 +28,16 @@ export default class DrawingsStorage {
     this.collection = [];
   }
 
-  find(target) {
-    for (let el of this.collection) {
-      if (el.id === target.id)
-        return el;
-    }
-
-    return null;
-  }
 
   async update(el) {
-    let body = JSON.stringify(el).replace(/"id":\d+,?/, '');
-
     let data = new FormData();
-    data.append('body', body);
+    data.append('body', JSON.stringify(el.body));
 
-    let response = await Http.delete({
+    let response = await Http.patch({
       data, uri: 'whiteboard/drawings/' + el.id
     });
 
-    let updated = this.parseResponce(response);
-
+    let updated = this.parseResponse(response);
     Object.assign(this.find(el), updated);
   }
   
@@ -52,8 +49,7 @@ export default class DrawingsStorage {
       data, uri: 'whiteboard/drawings'
     });
 
-    let created = this.parseResponce(response);
-
+    let created = this.parseResponse(response);
     this.collection.push(created);
   }
 

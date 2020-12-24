@@ -4,7 +4,7 @@
 
     <component
       v-if="pending"
-      :is="getPending(pending.type)"
+      :is="getPending(pending)"
       :key="pending.id"
       :target="pending"/>
       
@@ -15,14 +15,14 @@
       @mousedown="onClick">
 
       <component
-        :is="getComponent(painting.type)"
-        v-show="pending !== painting"
+        v-for="painting of collection"
+        :key="painting.id"
 
-        v-for="(painting, id) of collection"
-        :key="id"
+        :is="getComponent(painting)"
+        v-show="pending.id !== painting.id"
         
-        v-bind="painting"
-        :style="{'z-index': id}"
+        v-bind="painting.body"
+        :style="{'z-index': painting.id}"
         
         @mousedown.native.stop="event => onClick(event, painting)"> 
       </component>
@@ -67,7 +67,7 @@ export default {
     },
 
     pending() {
-      return this.drawings.pending
+      return this.drawings.pending || {};
     }
   },
 
@@ -81,7 +81,9 @@ export default {
   },
 
   methods: {
-    getComponent(type) {
+    getComponent(el) {
+      let type = el.body.type;
+
       switch (type) {
         case 'text': return Text;
         case 'eraser': return Eraser;
@@ -95,7 +97,9 @@ export default {
       }
     },
 
-    getPending(type) {
+    getPending(el) {
+      let type = (el && el.body) ? el.body.type : 'default';
+
       switch (type) {
         case 'text': return PendingText
         default: return 'p';
