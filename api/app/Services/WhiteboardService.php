@@ -19,7 +19,7 @@ class WhiteboardService
     public function create(Request $request)
     { 
         $drawing = Drawing::create([
-           'body' => $request->input($body)
+           'body' => $request->input('body')
         ]);
 
        return new DrawingResource($drawing);

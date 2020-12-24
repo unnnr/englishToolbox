@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Posts\WhiteboardService;
-use App\Http\Requests\Whiboard\ClearWhiteboard;
-use App\Http\Requests\Whiboard\UpdateDrawing;
-use App\Http\Requests\Whiboard\CreateDrawing;
-use App\Http\Requests\Whiboard\DeleteDrawing;
+use App\Services\WhiteboardService;
+use App\Http\Requests\Whiteboard\ClearWhiteboard;
+use App\Http\Requests\Whiteboard\UpdateDrawing;
+use App\Http\Requests\Whiteboard\CreateDrawing;
+use App\Http\Requests\Whiteboard\DeleteDrawing;
 use App\Models\WhiteboardDrawing as Drawing;
 
 
