@@ -4,6 +4,10 @@ export default class DrawingsStorage {
   collection = [];
 
 
+  constructor() {
+    this.load();
+  }
+
   find(target) {
     for (let el of this.collection) {
       if (el.id === target.id)
@@ -18,6 +22,19 @@ export default class DrawingsStorage {
     el.body = JSON.parse(el.body);
 
     return el;
+  }
+
+  async load() {
+    let response  = await Http.get({
+      uri: 'whiteboard/drawings'
+    });
+
+    let drawings = response.data;
+
+    for (let el of drawings) {
+      el.body = JSON.parse(el.body);
+      this.collection.push(el);
+    }
   }
 
   async clear(withDefault = []) {

@@ -76,5 +76,4 @@ class WhiteboardController extends Controller
     {
         return $this->service->clear();
     }
-
 }
