@@ -22,6 +22,8 @@ export default {
 
   props: {
     target: { type: Object, default: null },
+
+    id: { type: Number, default: null }
   },
 
   data() {
@@ -61,6 +63,7 @@ export default {
     this.$nextTick().then(this.focus);
 
     this.cached = this.target;
+    this.savedId = this.id;
 
     this.scale =  this.$el.parentNode.offsetWidth / this.config.width;
     this.width =  (100 - this.cached.x / this.config.width * 100 - 1)  + '%';
@@ -79,12 +82,12 @@ export default {
     compute() {
       this.drawings.pending = null;
 
-      if (typeof this.cached.id == 'number') {
+      if (this.savedId !== null) {
 
         if (!!!this.cached.value)
-          this.drawings.remove(this.cached)
+          this.drawings.remove({id: this.savedId })
         else
-          this.drawings.update(this.cached)
+          this.drawings.update({id: this.savedId, body: this.cached })
 
         return;
       }

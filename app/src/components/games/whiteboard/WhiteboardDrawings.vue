@@ -6,6 +6,7 @@
       v-if="pending"
       :is="getPending(pending)"
       :key="pending.id"
+      :id="pending.id"
       :target="pending"/>
       
     <svg 
@@ -19,7 +20,7 @@
         :key="painting.id"
 
         :is="getComponent(painting)"
-        v-show="pending.id !== painting.id"
+        v-show="notPending(painting)"
         
         v-bind="painting.body"
         :style="{'z-index': painting.id}"
@@ -67,20 +68,34 @@ export default {
     },
 
     pending() {
-      return this.drawings.pending || {};
+      return this.drawings.pending;
     }
-  },
-
-  data() {
-    return {
-    }
-  },
-
-  watch: {
-    
   },
 
   methods: {
+    notPending(el) {
+      return !!!this.pending || el.id !== this.pending.id;
+    },
+
+    onClick(event, el) {
+      this.$emit('select', {el, event})
+    },
+
+    getPending(el) {
+      let type = 'default';
+
+      if (el && el.body)
+        type = el.body.type;
+      else (el)
+        type = el.type;
+
+
+      switch (type) {
+        case 'text': return PendingText
+        default: return 'p';
+      }
+    },
+
     getComponent(el) {
       let type = el.body.type;
 
@@ -95,19 +110,6 @@ export default {
 
         default: return 'path';
       }
-    },
-
-    getPending(el) {
-      let type = (el && el.body) ? el.body.type : 'default';
-
-      switch (type) {
-        case 'text': return PendingText
-        default: return 'p';
-      }
-    },
-
-    onClick(event, el) {
-      this.$emit('select', {el, event})
     }
   }
 }
