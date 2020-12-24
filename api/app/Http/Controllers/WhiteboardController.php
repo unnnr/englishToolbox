@@ -63,7 +63,7 @@ class WhiteboardController extends Controller
      */
     public function destroy(Drawing $model, DeleteDrawing $request)
     {
-        return $this->service->destroy($model);
+        return $this->service->delete($model);
     }
 
     /**
@@ -74,7 +74,7 @@ class WhiteboardController extends Controller
      */
     public function clear(ClearWhiteboard $request)
     {
-        return $this->service->clear($video);
+        return $this->service->clear();
     }
 
 }
