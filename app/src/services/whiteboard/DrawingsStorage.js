@@ -1,8 +1,14 @@
+import Http from '@services/Http';
+
 export default class DrawingsStorage {
   collection = [];
 
-  clear(withDefault = []) {
-    this.collection = withDefault;
+  async clear(withDefault = []) {
+    await Http.delete({
+      uri: 'whiteboard'
+    });
+
+    this.collection = [];
   }
 
   find(target) {
@@ -14,16 +20,28 @@ export default class DrawingsStorage {
     return null;
   }
 
-  update(el) {
-    let saved = this.find(el);
-    Object.assign(saved, el);
+  async update(el) {
+    let response = await Http.delete({
+      uri: 'whiteboard/drawings/' + el.id
+    });
+
+    Object.assign(this.find(el), response.data);
   }
   
-  push(el) {
-    el.id = this.collection.push(el);
+  async push(el) {
+    let response = await Http.post({
+      uri: 'whiteboard/drawings',
+      data: el,
+    });
+
+    this.collection.push(response.data);
   }
 
-  remove(el) {
+  async remove(el) {
+    await Http.delete({
+      uri: 'whiteboard/drawings' + el.id
+    });
+
     let index = 
       this.collection.indexOf(el);
     

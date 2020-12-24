@@ -93,6 +93,6 @@ Route::get('profile/views', 'ViewController@index');
 
 
 
-Route::delete('whiteboard/drawings', 'WhiteboardControlle@clear');
-Route::apiResource('whiteboard/drawings', 'WhiteboardControlle')
+Route::delete('whiteboard/drawings', 'WhiteboardController@clear');
+Route::apiResource('whiteboard/drawings', 'WhiteboardController')
     ->only(['index', 'store', 'update','destroy']);

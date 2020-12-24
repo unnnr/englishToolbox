@@ -21,7 +21,7 @@ export default class WhiteboardDrawings {
     let command = new Clear(this._collection);
     command.execute();
 
-    this._history.push(command);
+    this._history = new History();
   }
 
   remove(el) {
