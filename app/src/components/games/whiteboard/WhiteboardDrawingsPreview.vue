@@ -57,22 +57,22 @@ export default {
         let data = el.body;
 
         switch (type) {
-          case 'rect' : this.drawRect(data); break;
           case 'pencil' : this.drawLine(data); break;
           case 'ellipse' : this.drawEllipse(data); break;
-          case 'pollygon' : this.drawPolygon(data); break;
+          case 'polygon' : this.drawPolygon(data); break;
           case 'triangle' : this.drawTriangle(data); break;
+          case 'rectangle' : this.drawRect(data); break;
         }
       }
     },
 
     drawRect(data) {
-      console.log('rect')
+      this.context.fillStyle = data.color;
+      this.context.fillRect(data.x, data.y,
+                            data.width, data.height);
     },
 
     drawLine(data) {
-      console.log(data);
-
       this.context.beginPath();
       this.context.strokeStyle = data.color;
       this.context.lineWidth = data.size;
@@ -88,8 +88,6 @@ export default {
         x += data.path.x[i];
         y += data.path.y[i];
 
-        console.log(x, y);
-
         this.context.lineTo(x, y);
       }
 
@@ -97,15 +95,37 @@ export default {
     },
 
     drawEllipse(data) {
+      this.context.fillStyle = data.color;
+      this.context.ellipse(
+        data.x, data.y, data.radiusX, data.radiusY, 0, 0, 2 * Math.PI);
 
+      this.context.fill();
     },
 
     drawPolygon(data) {
+      this.context.beginPath();
 
+      let x = data.path[0].x;
+      let y = data.path[0].y;
+      
+      this.context.moveTo(x, y);
+
+      for (let {x, y} of data.path.slice(1))
+        this.context.lineTo(x, y);
+
+      this.context.fillStyle = data.color;
+      this.context.fill();
     },
 
     drawTriangle(data) {
+      this.context.beginPath();
 
+      this.context.moveTo(data.path[0].x, data.path[0].y);
+      this.context.lineTo(data.path[1].x, data.path[1].y);
+      this.context.lineTo(data.path[2].x, data.path[2].y);
+
+      this.context.fillStyle = data.color;
+      this.context.fill();
     }
   }
 }
