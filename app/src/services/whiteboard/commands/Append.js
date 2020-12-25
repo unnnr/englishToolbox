@@ -5,9 +5,10 @@ export default class Append {
 
   collection = null;
 
-  constructor(data, collection) {
+  constructor(data, collection, el = null) {
     this.collection =  collection;
     this.data = data;
+    this.el = el;
   }
 
   async execute() {

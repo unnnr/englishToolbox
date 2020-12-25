@@ -57,7 +57,7 @@ export default class WhiteboardDrawings {
   }
 
   onCreated(el) {
-    let command = new Append(el, this._collection);
+    let command = new Append(el.body, this._collection, el);
     this._history.push(command);
   }
 

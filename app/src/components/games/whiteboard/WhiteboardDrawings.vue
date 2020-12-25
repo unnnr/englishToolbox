@@ -33,7 +33,6 @@ import PenLine from '@components/games/whiteboard/drawings/Penline'
 import Eraser from '@components/games/whiteboard/drawings/Eraser'
 import Text from '@components/games/whiteboard/drawings/Text'
 
-
 export default {
   components: {
     PenLine
@@ -56,10 +55,6 @@ export default {
 
     tool() {
       return this.config.tool;
-    },
-
-    pending() {
-      return this.drawings.pending;
     }
   },
 

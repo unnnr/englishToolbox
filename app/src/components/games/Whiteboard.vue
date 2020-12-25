@@ -1,40 +1,22 @@
 <template>
-  <whiteboard-events-grip 
-    class="whiteboard"
-    :class="{'whiteboard--painting': drawing,
-             'inspecting': inspecting}"
-    :active="drawing"
-    @move="move"
-    @click="click"
-    @release="release">
-
-    <whiteboard-drawings
-      @select="select"/>
-
-    <whiteboard-canvas
-      :active="drawing"
-      ref="canvas"/>
-
-    <whiteboard-ui/>
-
-  </whiteboard-events-grip>
+  <whiteboard-editor v-if="admin"/>
+  <whiteboard-presentor v-else/>
 </template>
 
 <script>
-import WhiteboardEventsGrip from '@components/games/whiteboard/WhiteboardEventsGrip'
-import WhiteboardDrawings from '@components/games/whiteboard/WhiteboardDrawings'
-import WhiteboardCanvas from '@components/games/whiteboard/WhiteboardCanvas'
-import WhiteboardUi from '@components/games/whiteboard/WhiteboardUI'
-
 import DrawingsCollection from '@services/whiteboard/Drawings'
 import Config from '@services/whiteboard/Config'
+import Auth from '@services/Auth';
+
+import WhiteboardEventsGrip from '@components/games/whiteboard/WhiteboardPresentor'
+import WhiteboardEditor from '@components/games/whiteboard/WhiteboardEditor'
+import WhiteboardPresentor from './whiteboard/WhiteboardPresentor.vue';
+
 
 export default {
   components: {
-    WhiteboardEventsGrip,
-    WhiteboardDrawings,
-    WhiteboardCanvas,
-    WhiteboardUi
+    WhiteboardPresentor,
+    WhiteboardEditor
   },
 
 
@@ -48,90 +30,20 @@ export default {
     }
   },
 
-  computed: {
-    inspecting() {
-      return this.config.inspecting;
-    },
-
-    tool() {
-      return this.config.tool;
-    }
-  },
-
   data() {
     return {
       drawings: new DrawingsCollection,
       config: new Config(),
 
-      drawing: false,
-      canvas: null
+      admin: false,
     }
   },
 
-  mounted() {
-    this.canvas = this.$refs.canvas;
-  },
 
-  methods: {
-    computeCoords(event) {  
-      let offset = 
-        this.$el.getBoundingClientRect();
-
-      let position = {
-        x: (event.clientX - offset.left) * (this.config.width / this.$el.offsetWidth),
-        y: (event.clientY - offset.top) * (this.config.height / this.$el.offsetHeight)
-      }
-
-      return {
-        x: Number(position.x.toFixed(2)),
-        y: Number(position.y.toFixed(2))
-      }
-    },
-    
-    click(event, el) {
-      if (!!!this.tool)
-        return;
-
-      let context = this.canvas.context;
-      let coords = this.computeCoords(event);
-      let drawigns = this.drawigns;
-      let config = this.config
-
-      this.tool.click(coords, context, drawings, config, el);
-
-      this.drawing = this.tool.painting;
-    },
-
-    move(event) {
-      if (!!!this.drawing)
-        return;
-
-      let context = this.canvas.context;
-      let coords = this.computeCoords(event);
-      let drawigns = this.drawigns;
-      let config = this.config;
-
-      this.tool.move(coords, context, drawings, config);
-    },
-
-    release(event) {
-      if (!!!this.tool)
-        return;
-
-      let drawigns = this.drawigns;
-      let context = this.canvas.context;
-      let coords = this.computeCoords(event);
-      let config = this.config
-
-      this.tool.release(coords, context, drawings, config);
-
-      this.drawing = this.tool.painting;
-    },
-
-    select({event, el}) {
-      this.click(event, el);
-    }
-  }
+  beforeMount() {
+    Auth.user.get().then(user => 
+      this.admin = user && user.admin);
+	},
 }
 </script>
 
