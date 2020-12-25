@@ -45,6 +45,6 @@ class DrawingCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('whiteboard');
+        return new PrivateChannel('whiteboard');
     }
 }

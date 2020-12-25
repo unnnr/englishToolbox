@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('whiteboard');
+Broadcast::channel('whiteboard', function ($user) {
+    return (bool) $user;
+});
