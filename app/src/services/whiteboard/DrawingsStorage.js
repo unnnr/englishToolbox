@@ -1,7 +1,7 @@
+import Cookies from 'js-cookie'
 import Pusher from "pusher-js"
 import Echo from "laravel-echo"
 import Http from '@services/Http';
-
 
 export default class DrawingsStorage {
   collection = [];
@@ -17,7 +17,13 @@ export default class DrawingsStorage {
       broadcaster: 'pusher',
       key: '6194830899e2ae7c1ec9',
       cluster: 'eu',
-      encrypted: true
+      authEndpoint: 'http://etoolbox/api/broadcasting/auth',
+      encrypted: true,
+      auth: {
+        headers: {
+            Authorization: 'Bearer ' + Cookies.get('auth'),
+        },
+      },
     });
     
     this.load()
@@ -41,7 +47,7 @@ export default class DrawingsStorage {
   }
 
   listen() {
-    this.Echo.channel('whiteboard')
+    this.Echo.private('whiteboard')
       .listen('DrawingCreated', this.created.bind(this))
       .listen('DrawingRemoved', this.removed.bind(this))
       .listen('WhiteboardCleared', this.cleared.bind(this));
