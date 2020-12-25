@@ -10,29 +10,32 @@
           class="whiteboard__button-online"
           @click="toggle">
 
-          <span class="whiteboard__online-count">5</span>users online
+          <span class="whiteboard__online-count">{{ usersCount }}</span> `users` online
           
         </button>
       </div>
     </div>
 
-    <div
-      v-if="opened"
-      class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
-
-      <div 
-        class="whiteboard__user"
-        v-for="user of users"
-        :key="user.id">
+    <transition name="fade">
+      <div
+        v-if="opened"
+        v-click-outside="close"
+        class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
 
         <div 
-          class="whiteboard__user-avatar"
-          :style="{'background-image': 'url(' + user.avatar + ')'}">
-        </div>
+          class="whiteboard__user"
+          v-for="user of users"
+          :key="user.id">
 
-        <p class="whiteboard__user-name text-fifth">{{ user.name }}</p>
+          <div 
+            class="whiteboard__user-avatar"
+            :style="{'background-image': 'url(' + user.avatar + ')'}">
+          </div>
+
+          <p class="whiteboard__user-name text-fifth">{{ user.name }}</p>
+        </div>
       </div>
-    </div>
+    </transition>
 
   </div>
 </template>
@@ -54,16 +57,16 @@ export default {
 
     users() {
       return this.drawings.users();
+    },
+    
+    usersCount() {
+      return this.users.length
     }
   },
 
   methods: {
-    open() {
-
-    },
-
     close() {
-
+      this.opened = false;
     },
 
     toggle() {

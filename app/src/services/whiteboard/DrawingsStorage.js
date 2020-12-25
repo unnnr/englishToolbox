@@ -60,7 +60,7 @@ export default class DrawingsStorage {
     .joining((user) => this.users.push(user))
     .leaving((leaved) => {
         for (let i = 0; i < this.users.length; i++) {
-          if (user.id !== leaved.id)
+          if (this.users[i].id !== leaved.id)
             continue;
 
           this.users.splice(i, 1);
