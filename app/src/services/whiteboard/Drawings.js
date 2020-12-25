@@ -52,6 +52,10 @@ export default class WhiteboardDrawings {
     return this._collection.get();
   }
 
+  users() {
+    return this._collection.users;
+  }
+
   onCleared() {
     this._history = new History();
   }

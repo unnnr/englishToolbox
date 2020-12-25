@@ -18,5 +18,10 @@ Broadcast::channel('whiteboard', function ($user) {
 });
 
 Broadcast::channel('whiteboard-online', function ($user) {
-    return (new App\Http\Resources\UserResource($user))->toArray(null);
+    return [
+        'avatar' => $user->avatar->url,
+        'admin' => $user->admin, 
+        'name' => $user->name,
+        'id' => $user->id
+    ];
 });

@@ -26,8 +26,8 @@ class UserResource extends JsonResource
             'banned' => $this->banned,
 
             'canReview' => $this->canReview,
-
-            'verified' => $this->hasVerifiedEmail()
+            
+            'verified' => $this->hasVerifiedEmail(),
         ];
     }
 }

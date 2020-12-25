@@ -1,9 +1,11 @@
 import Cookies from 'js-cookie'
-import Pusher from "pusher-js"
 import Echo from "laravel-echo"
+import Pusher from 'pusher-js'
 import Http from '@services/Http';
 
 export default class DrawingsStorage {
+  users = [];
+
   collection = [];
 
   Echo = null;
@@ -54,14 +56,16 @@ export default class DrawingsStorage {
       .listen('WhiteboardCleared', this.cleared.bind(this));
 
     this.Echo.join('whiteboard-online')
-    .here((users) => {
-        console.log(users);
-    })
-    .joining((user) => {
-        console.log(user);
-    })
-    .leaving((user) => {
-        console.log(user);
+    .here((users) => this.users = users)
+    .joining((user) => this.users.push(user))
+    .leaving((leaved) => {
+        for (let i = 0; i < this.users.length; i++) {
+          if (user.id !== leaved.id)
+            continue;
+
+          this.users.splice(i, 1);
+          return;
+        }
     });
   }
 
