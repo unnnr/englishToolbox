@@ -58,6 +58,7 @@ export default {
 
         switch (type) {
           case 'pencil' : this.drawLine(data); break;
+          case 'eraser' : this.drawEraser(data); break;
           case 'ellipse' : this.drawEllipse(data); break;
           case 'polygon' : this.drawPolygon(data); break;
           case 'triangle' : this.drawTriangle(data); break;
@@ -70,6 +71,11 @@ export default {
       this.context.fillStyle = data.color;
       this.context.fillRect(data.x, data.y,
                             data.width, data.height);
+    },
+
+    drawEraser(data) {
+      data.color = 'white'
+      this.drawLine(data);
     },
 
     drawLine(data) {
