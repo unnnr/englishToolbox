@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('whiteboard', function ($user) {
     return (bool) $user;
 });
+
+Broadcast::channel('whiteboard-online', function ($user) {
+    return (new App\Http\Resources\UserResource($user))->toArray(null);
+});

@@ -22,6 +22,7 @@ export default class DrawingsStorage {
       auth: {
         headers: {
             Authorization: 'Bearer ' + Cookies.get('auth'),
+           'X-Requested-With': 'XMLHttpRequest',
         },
       },
     });
@@ -51,6 +52,17 @@ export default class DrawingsStorage {
       .listen('DrawingCreated', this.created.bind(this))
       .listen('DrawingRemoved', this.removed.bind(this))
       .listen('WhiteboardCleared', this.cleared.bind(this));
+
+    this.Echo.join('whiteboard-online')
+    .here((users) => {
+        console.log(users);
+    })
+    .joining((user) => {
+        console.log(user);
+    })
+    .leaving((user) => {
+        console.log(user);
+    });
   }
 
   removed(raw) {
