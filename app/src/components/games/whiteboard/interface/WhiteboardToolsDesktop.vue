@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__element whiteboard__element whiteboard__element--tool">
+  <div class="whiteboard__element whiteboard__element--tool">
     <button 
       class="whiteboard__button-tool--pencil whiteboard__button-tool whiteboard__button"
       :class="{'whiteboard__button--selected': isSelected('pencil')}"

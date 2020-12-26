@@ -7,6 +7,7 @@
 
 <script>
 import DrawingsCollection from '@services/whiteboard/Drawings'
+import Resolution from '@services/Resolution'
 import Config from '@services/whiteboard/Config'
 import Auth from '@services/Auth';
 
@@ -21,7 +22,6 @@ export default {
     WhiteboardEditor
   },
 
-
   provide() {
     const _this = this;
 
@@ -32,7 +32,9 @@ export default {
 
       $locked: () => _this.locked,
 
-      $admin: () => _this.admin
+      $admin: () => _this.admin,
+
+      $mobile: () => _this.mobile
     }
   },
 
@@ -43,7 +45,8 @@ export default {
 
       locked: false,
       admin: false,
-      banned: false
+      banned: false,
+      mobile: false,
     }
   },
 
@@ -59,6 +62,9 @@ export default {
       this.admin = user && user.admin;
     });
 
+		Resolution.bind(type => 
+      this.mobile = Resolution.DESKTOP !== type);
+
     let handler = this.drawings._collection;
 
     handler.whenLocked = 
@@ -68,7 +74,8 @@ export default {
       () => this.locked = false; 
 
     this.locked = handler.locked;
-	},
+
+  },
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <whiteboard-panel 
-    class="whiteboard__element--color"
+  <div 
+    class="whiteboard__element whiteboard__element--color"
     :class="{'whiteboard__element--disabled': disabled}">
 
     <button 
@@ -14,17 +14,12 @@
         
       @click="select(color)">
     </button>
-  </whiteboard-panel>
+  </div>
 </template>
 
 <script>
-import WhiteboardPanel from '@components/games/whiteboard/interface/WhiteboardPanel'
 
 export default {
-  components: {
-    WhiteboardPanel
-  },
-
   props: { 
     disabled: { type: Boolean, default: false },
 
