@@ -1,46 +1,46 @@
 <template>
-  <div class="whiteboard__group whiteboard__group--tools">
-    <whiteboard-sizes
-      :disabled="sizeless"
-      v-model="config.size"/>
+  <whiteboard-config-mobile 
+    v-if="mobile"
+    :colorless="colorless"
+    :sizeless="sizeless"/>
 
-    <whiteboard-colors
-      :disabled="colorless"
-      v-model="config.color"/>
-
-    <whiteboard-tools
-      v-model="config.tool"/>
-  </div>
+  <whiteboard-config-desktop
+    v-else
+    :colorless="colorless"
+    :sizeless="sizeless"/>
 </template>
 
 <script>
-import WhiteboardColors from '@components/games/whiteboard/interface/WhiteboardColors'
-import WhiteboardSizes from '@components/games/whiteboard/interface/WhiteboardSizes'
-import WhiteboardTools from '@components/games/whiteboard/interface/WhiteboardTools'
+import WhiteboardConfigDesktop from '@components/games/whiteboard/interface/desktop/WhiteboardConfigDesktop'
+import WhiteboardConfigMobile from '@components/games/whiteboard/interface/mobile/WhiteboardConfigMobile'
+
 
 export default {
   components: {
-    WhiteboardColors,
-    WhiteboardSizes,
-    WhiteboardTools,
+    WhiteboardConfigDesktop,
+    WhiteboardConfigMobile,
   },
 
-  inject: ['$config'],
-
-  data() {
-    return {
-      sizeless: false,
-      colorless: false
-    }
-  },
+  inject: ['$mobile', '$config'],
 
   computed: {
+    mobile() {
+      return this.$mobile();
+    },
+
     config() {
       return this.$config();
     },
 
     tool() {
       return this.config.tool
+    }
+  },
+
+  data() {
+    return {
+      colorless: false,
+      sizeless: false
     }
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__element whiteboard__group whiteboard__group--controls">
+  <div class="whiteboard__group whiteboard__group--controls">
     <div class="whiteboard__element--small whiteboard__element">
       <button 
         class="whiteboard__button-control--undo whiteboard__button-control whiteboard__button"
