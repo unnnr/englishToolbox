@@ -194,15 +194,21 @@ export default class DrawingsStorage {
       loading: true,
       body: el
     };
-
     this.collection.push(dummy);
+
     let response = await Http.post({
       headers, data, uri: 'whiteboard/drawings'
+    })
+    .then(() => {
+      let created = this.parseResponse(response.data);
+      dummy.id = created.id;
+      dummy.loading = false;
+    })
+    .catch(() => {
+      let index = this.collection.indexOf(dummy);
+      if (index !== -1)
+        this.collection.splice(index, 1);
     });
-    
-    let created = this.parseResponse(response.data);
-    dummy.id = created.id;
-    dummy.loading = false;
 
     return dummy;
   }

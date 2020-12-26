@@ -25,16 +25,21 @@
       <div
         v-if="opened"
         v-click-outside="close"
-        class="whiteboard__users-dropdown whiteboard__users-dropdown--bannable">
+        class="whiteboard__users-dropdown"
+        :class="{'whiteboard__users-dropdown--bannable': admin}">
 
         <div 
-          class="whiteboard__user"
           v-for="user of users"
-          :key="user.id">
+          :key="user.id"
+
+          class="whiteboard__user"
+          :class="{'whiteboard__user--banned': user.banned,
+                   'whiteboard__user--persistent': user.admin}">
 
           <div 
             class="whiteboard__user-avatar"
-            :style="{'background-image': 'url(' + user.avatar + ')'}">
+            :style="{'background-image': 'url(' + user.avatar + ')'}"
+            @click="tryToBan(user)">
           </div>
 
           <p class="whiteboard__user-name text-fifth">{{ user.name }}</p>
@@ -46,6 +51,10 @@
 </template>
 
 <script>
+import Bans from '@models/Bans'
+import bus from '@services/eventbus'
+
+
 export default {
   inject: ['$drawings', '$locked', '$admin'],
 
@@ -78,6 +87,26 @@ export default {
   },
 
   methods: {
+    tryToBan(user) {
+      if (user.banned || !!!this.admin || user.admin)
+        return;
+
+      bus.dispatch('alert-warning', {
+        message: user.name + ' will be banned',
+        okay: this.ban.bind(this, user)
+      });
+    },
+
+     async ban(user) {
+      let data = new FormData();
+      data.append('user', user.id);
+      data.append('reason', 'Messes up whiteboard');
+        
+      await Bans.create(data);
+
+      user.banned = true;
+    },
+
     unlock() {
       this.drawings.unlock();
     },
@@ -106,3 +135,16 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.whiteboard__user--banned .whiteboard__user-avatar:before
+  content: "block"
+  cursor: pointer
+  opacity: 1
+
+.whiteboard__user--persistent .whiteboard__user-avatar:before
+  cursor: default !important
+  opacity: 0 !important
+  
+</style>

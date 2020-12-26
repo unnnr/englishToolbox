@@ -20,8 +20,9 @@ Broadcast::channel('whiteboard', function ($user) {
 Broadcast::channel('whiteboard-online', function ($user) {
     return [
         'avatar' => $user->avatar->url,
+        'banned' => $user->banned,
         'admin' => $user->admin, 
         'name' => $user->name,
-        'id' => $user->id
+        'id' => $user->id,
     ];
 });

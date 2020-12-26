@@ -43,18 +43,21 @@ export default {
 
       locked: false,
       admin: false,
+      banned: false
     }
   },
 
   computed: {
     canEdit() {
-      return this.admin || !!!this.locked
+      return this.admin || (!!!this.banned && !!!this.locked)
     }
   },
 
   beforeMount() {
-    Auth.user.get().then(user => 
-      this.admin = user && user.admin);
+    Auth.user.get().then(user => {
+      this.banned = user && user.banned;
+      this.admin = user && user.admin;
+    });
 
     let handler = this.drawings._collection;
 
