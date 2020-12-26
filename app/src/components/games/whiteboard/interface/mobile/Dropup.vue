@@ -1,27 +1,32 @@
 <template>
   <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--color">
-    <div 
-      v-if="opened"
-      class="whiteboard__element-dropup-mobile whiteboard__element-dropup-mobile--active"
+    <transition
+      name="whiteboard__element"
+      @before-leave="$emit('close')"
+      @before-enter="$emit('open')">
 
-      v-click-outside="close"
-      @click="close">
+      <div 
+        v-if="opened"
+        class="whiteboard__element-dropup-mobile"
 
-      <div ref="list" v-show="false">
-        <slot name="list"/>
+        v-click-outside="close"
+        @click="close">
+
+        <slot v-if="opened" name="list"/>
       </div>
-
-      {{ listCopy }}
-    </div>
+    </transition>
 
     <div 
       ref="button"
       class="whiteboard__element-mobile"
       @click="toggle">
       
-      <template name="fade">
+      <transition
+        mode="out-in" 
+        name="fade">
+
         <slot name="button"/> 
-      </template>
+      </transition>
     </div>
   </div>
 </template>
@@ -30,21 +35,16 @@
 export default {
   data() {
     return {
-      listCopy: '',
       opened: false
     }
   },
 
-
   methods: {
     close() {
-      if (!!!this.opened)
-        return;
-
       this.opened = false;
     },
 
-    show() {
+    async show() {
       this.opened = true;
     },
 
@@ -57,3 +57,16 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.whiteboard__element-dropup-mobile
+  max-height: 160px
+  padding-top: 5px
+  padding-bottom: 5px
+
+.whiteboard__element-enter, .whiteboard__element-leave-active
+  max-height: 0
+  padding: 0 5px
+  
+</style>

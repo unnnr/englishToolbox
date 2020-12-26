@@ -1,15 +1,28 @@
 <template>
-  <dropup>
+  <dropup 
+    ref="dropup"
+    @open="open"
+    @close="close">
+
     <template #list>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--black whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--brown whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--red whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--yellow whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--green whiteboard__button-mobile"></button>
+      <button 
+        v-for="(color, index) of shownColors"
+        :key="index"
+
+        class="whiteboard__button-color-mobile whiteboard__button-mobile"
+        :class="'whiteboard__button-color-mobile--' + color.name"
+
+        @click="select(color)">
+      </button>
     </template>
 
     <template #button>
-      <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--blue whiteboard__button-mobile whiteboard__button-mobile--selected whiteboard__button-mobile--active"></button>
+      <button 
+        :key="selectedKey"
+        class="whiteboard__button-color-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
+        :class="['whiteboard__button-color-mobile--' + selectedColor, 
+                 opened ? 'whiteboard__button-mobile--active' : '']">
+      </button>
     </template>
   </dropup>
 </template>
@@ -24,6 +37,9 @@ export default {
 
   data() {
     return {
+      selected: null,
+      opened: false,
+      shownColors: [],
       colors: [
         { value: '', name: 'black'},
         { value: '', name: 'brown'},
@@ -36,8 +52,42 @@ export default {
   },
 
   computed: {
-    parsedColors() {
-      return 123
+    selectedColor() {
+      return this.selected ? this.selected.name : 'black'
+    },
+
+    selectedKey() {
+      return this.selected ? this.selected.name : null
+    },
+  },
+
+  beforeMount() {
+    this.select(this.colors[0]);
+    this.updateList();
+  },
+
+  methods: {
+    open() {
+      this.updateList();
+      this.opened = true;
+    },
+
+    close() {
+      this.opened = false;
+    },
+
+    select(color) {
+      this.selected = color;
+    },
+
+    updateList() {
+      let shown = [...this.colors];
+
+      let index = shown.indexOf(this.selected);
+      if (index !== -1)
+        shown.splice(index, 1);
+
+      this.shownColors = shown;
     }
   }
 }
