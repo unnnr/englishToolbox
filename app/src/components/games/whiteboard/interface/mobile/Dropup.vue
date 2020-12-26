@@ -1,5 +1,8 @@
 <template>
-  <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--color">
+  <div 
+    class="whiteboard__group-inner-mobile"
+    :class="{'whiteboard__element--disabled': disabled }">
+
     <transition
       name="whiteboard__element"
       @before-leave="$emit('close')"
@@ -33,6 +36,10 @@
 
 <script>
 export default {
+  props: { 
+    disabled: { type: Boolean, default: false },
+  },
+
   data() {
     return {
       opened: false
@@ -45,6 +52,9 @@ export default {
     },
 
     async show() {
+      if (this.disabled)
+        return;
+
       this.opened = true;
     },
 

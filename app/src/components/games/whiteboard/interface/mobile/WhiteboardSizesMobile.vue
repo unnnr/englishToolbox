@@ -1,6 +1,8 @@
 <template>
   <dropup 
     ref="dropup"
+    class="whiteboard__group-inner-mobile--sizes"
+    :disabled="disabled"
     @open="open"
     @close="close">
 

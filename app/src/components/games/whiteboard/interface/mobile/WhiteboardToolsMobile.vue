@@ -12,6 +12,7 @@
       <div
         class="whiteboard__element-dropup-mobile"
         :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
+        v-click-outside="() => close(group)"
         @click="close(group)">
 
         <button 
@@ -50,6 +51,8 @@
 </template>
 
 <script>
+import {Trash, Eraser, Pencil, Ellipse, Polygon, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+
 export default {
   data() {
     return {
@@ -59,8 +62,8 @@ export default {
           opened: false, 
           shown: [],
           list: [
-            {name: 'pencil'},
-            {name: 'pen'},
+            {value: Pencil, name: 'pencil'},
+            {value: Polygon, name: 'pen'},
           ],
         },
         { 
@@ -68,9 +71,9 @@ export default {
           selected: null,
           shown: [],
           list: [
-            {name: 'square'},
-            {name: 'ellipse'},
-            {name: 'triangle'},
+            {value: Rectangle, name: 'square'},
+            {value: Ellipse, name: 'ellipse'},
+            {value: Triangle, name: 'triangle'},
           ],
         },
         {
@@ -78,9 +81,9 @@ export default {
           opened: false, 
           shown: [],
           list: [
-            {name: 'eraser'},
-            {name: 'eraser-god'},
-            {name: 'trash'},
+            {value: Eraser, name: 'eraser'},
+            {value: Inspector, name: 'eraser-god'},
+            {value: Trash, name: 'trash'},
           ],
         },
       ],
@@ -102,12 +105,19 @@ export default {
     },
 
     close(group) {
-      group.opened = false;
+      if (group.opened && !!!this.$options.opening)
+        group.opened = false;
     },
 
     open(group) {
       this.updateList(group);
+      if (!!!this.isSelected(this.groupSelected(group)))
+        this.select(this.groupSelected(group), group);
+        
       group.opened = true;
+
+      this.$options.opening = true;
+      setTimeout(() => this.$options.opening = false, 500);
     },
 
     toggle(group) {
@@ -118,8 +128,12 @@ export default {
     },
 
     select(tool, group) {
+      console.log(tool, group);
+
       this.selected = tool;
       group.selected = tool;
+
+      this.$emit('input', tool && new tool.value);
     },
 
     isSelected(tool) {

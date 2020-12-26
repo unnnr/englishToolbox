@@ -97,8 +97,8 @@ export default class DrawingsStorage {
   cleared() {
     this.collection = [];
 
-    if (typeof this.onCreated === 'function')
-      this.onCreated();
+    if (typeof this.onCleared === 'function')
+      this.onCleared();
   }
 
   onUnlocked() {

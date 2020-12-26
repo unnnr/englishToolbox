@@ -1,6 +1,8 @@
 <template>
   <dropup 
     ref="dropup"
+    class="whiteboard__group-inner-mobile--color"
+    :disabled="disabled"
     @open="updateList">
 
     <template #list>
@@ -34,6 +36,10 @@ export default {
 
   components: {
     Dropup
+  },
+
+  props: { 
+    value: { type: String, default: null },
   },
 
   data() {

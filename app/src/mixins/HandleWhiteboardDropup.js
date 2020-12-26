@@ -1,5 +1,11 @@
 const HandleWhiteboardDropup = {
-	data() {
+  props: { 
+    disabled: { type: Boolean, default: false },
+
+    value: { type: Number, default: -1 }
+  },
+
+  data() {
 		return {
       list: [],
       shownList: [],
@@ -35,8 +41,10 @@ const HandleWhiteboardDropup = {
       this.opened = false;
     },
 
-    select(value) {
-      this.selected = value;
+    select(el) {
+      this.selected = el;
+
+      this.$emit('input', el && el.value)
     },
 
     updateList() {
