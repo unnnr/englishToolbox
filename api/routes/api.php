@@ -20,12 +20,7 @@ use App\Models\Video;
 |
 */
 
-/*
-|--------------------------------------------------------------------------
-| Reosouces
-|--------------------------------------------------------------------------
-*/
-
+// Resources
 Route::apiResource('charts', 'ChartController');
 Route::apiResource('videos', 'VideoController');
 Route::apiResource('audio', 'AudioController');
@@ -51,12 +46,7 @@ Route::apiResource('reviews', 'ReviewController')
     ->except(['show']);
 
 
-/*
-|--------------------------------------------------------------------------
-| Auth
-|--------------------------------------------------------------------------
-*/
-
+// Auth
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
@@ -68,12 +58,7 @@ Route::post('recovery', 'AuthController@createRecovery');
 Route::post('recovery/resend', 'AuthController@resendRecovery');
 Route::post('recovery/confirm', 'AuthController@changePassword');
 
-/*
-|--------------------------------------------------------------------------
-| Profile routes
-|--------------------------------------------------------------------------
-*/
-
+// Profile
 Route::get('profile', 'UserController@index');
 Route::patch('profile', 'UserController@update');
 Route::delete('profile', 'UserController@destroy');
@@ -91,8 +76,9 @@ Route::patch( 'profile/avatar', 'AvatarController@update');
 
 Route::get('profile/views', 'ViewController@index');
 
-
-
+// Whiteboard
+Route::post('whiteboard/lock', 'WhiteboardController@lock');
+Route::post('whiteboard/unlock', 'WhiteboardController@unlock');
 Route::delete('whiteboard/drawings', 'WhiteboardController@clear');
 Route::apiResource('whiteboard/drawings', 'WhiteboardController')
     ->only(['index', 'store', 'update','destroy']);

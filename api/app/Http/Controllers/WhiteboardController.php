@@ -76,4 +76,26 @@ class WhiteboardController extends Controller
     {
         return $this->service->clear();
     }
+
+    /**
+     * Allowes not admins to edit whiteboard
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function lock(ToggleWhiteboard $request)
+    {
+        return $this->service->unlock();
+    }
+
+    /**
+     * Allowes not admins to edit whiteboard
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function unlock(ToggleWhiteboard $request)
+    {
+        return $this->service->unlock();
+    }
 }

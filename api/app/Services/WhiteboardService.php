@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
 use App\Models\WhiteboardDrawing as Drawing;
 use App\Events\WhiteboardCleared;
+use App\Events\WhiteboardUnlocked;
+use App\Events\WhiteboardLocked;
 use App\Events\DrawingRemoved;
 use App\Events\DrawingCreated;
+use App\Models\Status;
 
 
 class WhiteboardService 
@@ -50,5 +53,17 @@ class WhiteboardService
         Drawing::truncate();
 
         broadcast(new WhiteboardCleared())->toOthers();
+    }
+
+    public function lock() {
+        Status::of('whietboard')->set('locked');
+
+        broadcast(new WhiteboardLocked())->toOthers();
+    }
+
+    public function unlock() {
+        Status::of('whietboard')->set('unlocked');
+
+        broadcast(new WhiteboardUnlocked())->toOthers();
     }
 }
