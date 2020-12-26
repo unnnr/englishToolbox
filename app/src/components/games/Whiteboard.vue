@@ -85,6 +85,7 @@ export default {
   transition: opacity .3s
 
 .whiteboard--painting .whiteboard__element, 
+.whiteboard--painting .whiteboard__element-mobile,
 .whiteboard__element--disabled
   opacity: .5
 
