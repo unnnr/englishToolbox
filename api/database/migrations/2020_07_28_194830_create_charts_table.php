@@ -36,6 +36,6 @@ class CreateChartsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('charts');
-        Storage::deleteDirectory(Audio::IMAGE_PATH);
+        Storage::deleteDirectory(Chart::IMAGE_PATH);
     }
 }

@@ -35,8 +35,8 @@ const HandleWhiteboardDropup = {
       this.opened = false;
     },
 
-    select(color) {
-      this.selected = color;
+    select(value) {
+      this.selected = value;
     },
 
     updateList() {

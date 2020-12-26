@@ -6,13 +6,13 @@
 
     <template #list>
       <button 
-        v-for="(color, index) of shownList"
+        v-for="(size, index) of shownList"
         :key="index"
 
         class="whiteboard__button-size-mobile whiteboard__button-mobile"
-        :class="'whiteboard__button-size-mobile--' + color.value"
+        :class="'whiteboard__button-size-mobile--' + size.value"
 
-        @click="select(color)">
+        @click="select(size)">
       </button>
     </template>
 
