@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  inject: ['$drawings'],
+  inject: ['$drawings', '$locked', '$admin'],
 
   data() {
     return {
@@ -61,7 +61,11 @@ export default {
     },
 
     locked() {
-      return this.drawings._collection.locked;
+      return this.$locked();
+    },
+
+    admin() {
+      return this.$admin();
     },
 
     users() {
@@ -83,6 +87,9 @@ export default {
     },
 
     toggleLock() {
+      if (!!!this.admin)
+        return;
+
       if (this.locked)
         this.unlock();
       else

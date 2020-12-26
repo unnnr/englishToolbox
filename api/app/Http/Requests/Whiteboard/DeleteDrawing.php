@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Whiteboard;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Status;
 
 class DeleteDrawing extends FormRequest
 {
@@ -13,7 +14,8 @@ class DeleteDrawing extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->admin;
+        return auth()->user()->admin ||
+            Status::of('whiteboard')->is('unlocked');
     }
 
     /**

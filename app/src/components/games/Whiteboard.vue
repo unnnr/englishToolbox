@@ -1,6 +1,8 @@
 <template>
-  <whiteboard-editor v-if="admin"/>
-  <whiteboard-presentor v-else/>
+  <transition name="fade">
+    <whiteboard-editor v-if="canEdit"/>
+    <whiteboard-presentor v-else/>
+  </transition>
 </template>
 
 <script>
@@ -26,7 +28,11 @@ export default {
     return {
       $drawings: () => _this.drawings,
 
-      $config: () => _this.config
+      $config: () => _this.config,
+
+      $locked: () => _this.locked,
+
+      $admin: () => _this.admin
     }
   },
 
@@ -35,14 +41,30 @@ export default {
       drawings: new DrawingsCollection,
       config: new Config(),
 
+      locked: false,
       admin: false,
     }
   },
 
+  computed: {
+    canEdit() {
+      return this.admin || !!!this.locked
+    }
+  },
 
   beforeMount() {
     Auth.user.get().then(user => 
       this.admin = user && user.admin);
+
+    let handler = this.drawings._collection;
+
+    handler.whenLocked = 
+      () => this.locked = true;
+
+    handler.whenUnlocked = 
+      () => this.locked = false; 
+
+    this.locked = handler.locked;
 	},
 }
 </script>

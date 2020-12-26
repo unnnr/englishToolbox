@@ -103,10 +103,16 @@ export default class DrawingsStorage {
 
   onUnlocked() {
     this.locked = false;
+
+    if (typeof this.whenUnlocked === 'function')
+      this.whenUnlocked();
   } 
 
   onLocked() {
     this.locked = true;
+
+    if (typeof this.whenLocked === 'function')
+      this.whenLocked();
   }
 
   async load() {
@@ -124,8 +130,10 @@ export default class DrawingsStorage {
       uri: 'whiteboard/status'
     });
 
-    this.locked = 
-      response.data.status !== 'unlocked';
+    if(response.data.status !== 'unlocked')
+      this.onLocked();
+    else  
+      this.onUnlocked();
   }
 
   async lock() {
@@ -136,7 +144,7 @@ export default class DrawingsStorage {
       headers, uri: 'whiteboard/lock'
     });
 
-    this.locked = true;
+    this.onLocked();
   }
 
   async unlock() {
@@ -147,7 +155,7 @@ export default class DrawingsStorage {
       headers, uri: 'whiteboard/unlock'
     });
 
-    this.locked = false;
+    this.onUnlocked();
   }
 
   async clear() {
