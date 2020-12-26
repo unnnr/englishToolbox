@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Status extends Model
     ];
 
     public static  function of($name) {
-        return self::where('of', $name)->get();
+        return self::where('of', $name)->first();
     }
 
     public function is($value) {

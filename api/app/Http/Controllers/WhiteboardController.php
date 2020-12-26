@@ -19,7 +19,7 @@ class WhiteboardController extends Controller
         $this->service = new WhiteboardService();
 
         $this->middleware('auth:sanctum')
-            ->only(['store', 'update', 'destroy', 'clear']);
+            ->only(['store', 'update', 'destroy', 'clear', 'lock', 'unlock']);
     }
     
     /**
@@ -68,9 +68,6 @@ class WhiteboardController extends Controller
 
     /**
      * Remove the specified all drawings
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function clear(ClearWhiteboard $request)
     {
@@ -79,9 +76,6 @@ class WhiteboardController extends Controller
 
     /**
      * Allowes not admins to edit whiteboard
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function lock(ToggleWhiteboard $request)
     {
@@ -90,12 +84,18 @@ class WhiteboardController extends Controller
 
     /**
      * Allowes not admins to edit whiteboard
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function unlock(ToggleWhiteboard $request)
     {
         return $this->service->unlock();
+    }
+
+
+    /**
+     * Returns current status
+     */
+    public function status()
+    {
+        return $this->service->status();
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
 
-class DrawingCreated implements ShouldBroadcast
+class WhiteboardUnlocked implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

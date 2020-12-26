@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\WhiteboardDrawingResource as DrawingResource;
+use App\Http\Resources\WhiteboardStatusResource as StatusResource;
 use App\Models\WhiteboardDrawing as Drawing;
 use App\Events\WhiteboardCleared;
 use App\Events\WhiteboardUnlocked;
@@ -56,14 +57,20 @@ class WhiteboardService
     }
 
     public function lock() {
-        Status::of('whietboard')->set('locked');
+        Status::of('whiteboard')->set('locked');
 
         broadcast(new WhiteboardLocked())->toOthers();
     }
 
     public function unlock() {
-        Status::of('whietboard')->set('unlocked');
+        Status::of('whiteboard')->set('unlocked');
 
         broadcast(new WhiteboardUnlocked())->toOthers();
+    }
+
+    public function status() {
+        $status = Status::of('whiteboard');
+
+        return new StatusResource($status);
     }
 }

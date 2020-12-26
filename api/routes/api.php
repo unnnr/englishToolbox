@@ -77,6 +77,7 @@ Route::patch( 'profile/avatar', 'AvatarController@update');
 Route::get('profile/views', 'ViewController@index');
 
 // Whiteboard
+Route::get('whiteboard/status', 'WhiteboardController@status');
 Route::post('whiteboard/lock', 'WhiteboardController@lock');
 Route::post('whiteboard/unlock', 'WhiteboardController@unlock');
 Route::delete('whiteboard/drawings', 'WhiteboardController@clear');
