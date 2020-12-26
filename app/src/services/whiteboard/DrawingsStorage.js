@@ -4,6 +4,8 @@ import Pusher from 'pusher-js'
 import Http from '@services/Http';
 
 export default class DrawingsStorage {
+  locked = true;
+  
   users = [];
 
   collection = [];
@@ -53,20 +55,22 @@ export default class DrawingsStorage {
     this.Echo.private('whiteboard')
       .listen('DrawingCreated', this.created.bind(this))
       .listen('DrawingRemoved', this.removed.bind(this))
-      .listen('WhiteboardCleared', this.cleared.bind(this));
+      .listen('WhiteboardCleared', this.cleared.bind(this))
+      .listen('WhiteboardUnlocked', this.onUnlocked.bind(this))
+      .listen('WhiteboardLocked', this.onLocked.bind(this));
 
     this.Echo.join('whiteboard-online')
-    .here((users) => this.users = users)
-    .joining((user) => this.users.push(user))
-    .leaving((leaved) => {
-        for (let i = 0; i < this.users.length; i++) {
-          if (this.users[i].id !== leaved.id)
-            continue;
+      .here((users) => this.users = users)
+      .joining((user) => this.users.push(user))
+      .leaving((leaved) => {
+          for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].id !== leaved.id)
+              continue;
 
-          this.users.splice(i, 1);
-          return;
-        }
-    });
+            this.users.splice(i, 1);
+            return;
+          }
+        });
   }
 
   removed(raw) {
@@ -97,17 +101,53 @@ export default class DrawingsStorage {
       this.onCreated();
   }
 
+  onUnlocked() {
+    this.locked = false;
+  } 
+
+  onLocked() {
+    this.locked = true;
+  }
+
   async load() {
-    let response  = await Http.get({
+    let response = await Http.get({
       uri: 'whiteboard/drawings'
     });
 
     let drawings = response.data;
-
     for (let el of drawings) {
       el.body = JSON.parse(el.body);
       this.collection.push(el);
     }
+
+    response = await Http.get({
+      uri: 'whiteboard/status'
+    });
+
+    this.locked = 
+      response.data.status !== 'unlocked';
+  }
+
+  async lock() {
+    let headers =  
+      {'X-Socket-ID': this.Echo.socketId()};
+
+    await Http.post({
+      headers, uri: 'whiteboard/lock'
+    });
+
+    this.locked = true;
+  }
+
+  async unlock() {
+    let headers =  
+      {'X-Socket-ID': this.Echo.socketId()};
+
+    await Http.post({
+      headers, uri: 'whiteboard/unlock'
+    });
+
+    this.locked = false;
   }
 
   async clear() {
