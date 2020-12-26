@@ -1,14 +1,44 @@
 <template>
-  <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--color">
-    <div class="whiteboard__element-dropup-mobile whiteboard__element-dropup-mobile--active">
+  <dropup>
+    <template #list>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--black whiteboard__button-mobile"></button>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--brown whiteboard__button-mobile"></button>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--red whiteboard__button-mobile"></button>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--yellow whiteboard__button-mobile"></button>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--green whiteboard__button-mobile"></button>
-    </div>
-    <div class="whiteboard__element-mobile">
+    </template>
+
+    <template #button>
       <button class="whiteboard__button-color-mobile whiteboard__button-color-mobile--blue whiteboard__button-mobile whiteboard__button-mobile--selected whiteboard__button-mobile--active"></button>
-    </div>
-  </div>
+    </template>
+  </dropup>
 </template>
+
+<script>
+import Dropup from '@components/games/whiteboard/interface/mobile/Dropup'
+
+export default {
+  components: {
+    Dropup
+  },
+
+  data() {
+    return {
+      colors: [
+        { value: '', name: 'black'},
+        { value: '', name: 'brown'},
+        { value: '', name: 'red'},
+        { value: '', name: 'yellow'},
+        { value: '', name: 'green'},
+        { value: '', name: 'blue'},
+      ]
+    }
+  },
+
+  computed: {
+    parsedColors() {
+      return 123
+    }
+  }
+}
+</script>
