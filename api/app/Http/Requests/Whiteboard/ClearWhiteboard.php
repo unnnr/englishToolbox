@@ -14,8 +14,15 @@ class ClearWhiteboard extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->admin ||
-            Status::of('whiteboard')->is('unlocked');
+        $user = auth()->user();
+
+        if ($user->admin)
+            return true;
+
+        if (!!!$user->banned &&  Status::of('whiteboard')->is('unlocked'))
+            return true;
+
+        return false;
     }
 
     /**
