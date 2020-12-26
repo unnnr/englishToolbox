@@ -196,15 +196,15 @@ export default class DrawingsStorage {
     };
     this.collection.push(dummy);
 
-    let response = await Http.post({
+    await Http.post({
       headers, data, uri: 'whiteboard/drawings'
     })
-    .then(() => {
+    .then((response) => {
       let created = this.parseResponse(response.data);
       dummy.id = created.id;
       dummy.loading = false;
     })
-    .catch(() => {
+    .catch((error) => {
       let index = this.collection.indexOf(dummy);
       if (index !== -1)
         this.collection.splice(index, 1);

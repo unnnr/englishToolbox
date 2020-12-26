@@ -7,13 +7,12 @@ trait HasRoles
 {
     public function getBannedAttribute() 
     {
-        return $this->ban()
-                    ->exists();
+        return (bool) $this->ban()->exists();
     }
 
     public function getAdminAttribute() 
     {
-        return $this->roles()
+        return (bool) $this->roles()
                     ->where('name', 'admin')
                     ->exists();
     }
