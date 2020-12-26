@@ -47,7 +47,6 @@ class WhiteboardService
         
         $drawing->delete();
     }
-    
 
     public function clear()
     {

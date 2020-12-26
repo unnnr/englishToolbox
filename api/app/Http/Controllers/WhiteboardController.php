@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\WhiteboardService;
+use App\Http\Requests\Whiteboard\ToggleWhiteboard;
 use App\Http\Requests\Whiteboard\ClearWhiteboard;
 use App\Http\Requests\Whiteboard\UpdateDrawing;
 use App\Http\Requests\Whiteboard\CreateDrawing;
@@ -79,7 +80,7 @@ class WhiteboardController extends Controller
      */
     public function lock(ToggleWhiteboard $request)
     {
-        return $this->service->unlock();
+        return $this->service->lock();
     }
 
     /**
@@ -89,7 +90,6 @@ class WhiteboardController extends Controller
     {
         return $this->service->unlock();
     }
-
 
     /**
      * Returns current status
