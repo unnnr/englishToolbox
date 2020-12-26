@@ -11,13 +11,17 @@
 
       <div
         class="whiteboard__element-dropup-mobile"
-        :class="{'whiteboard__element-dropup-mobile--active': group.opened}">
+        :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
+        @click="close(group)">
+
         <button 
           v-for="(tool, index) of group.shown"
           :key="index"
 
           class="whiteboard__button-tool-mobile whiteboard__button-mobile"
-          :class="'whiteboard__button-tool-mobile--' + tool.name">
+          :class="'whiteboard__button-tool-mobile--' + tool.name"
+          
+          @click="select(tool, group)">
         </button>
       </div>
     </transition>
@@ -89,7 +93,7 @@ export default {
     for (let group of this.groups)
       this.updateList(group)
 
-    this.selected = this.groups[0].list[0];
+    this.select(this.groups[0].list[0], this.groups[0]);
   },
 
   methods: {
@@ -102,6 +106,7 @@ export default {
     },
 
     open(group) {
+      this.updateList(group);
       group.opened = true;
     },
 
@@ -112,8 +117,9 @@ export default {
         this.open(group)
     },
 
-    select(tool) {
+    select(tool, group) {
       this.selected = tool;
+      group.selected = tool;
     },
 
     isSelected(tool) {

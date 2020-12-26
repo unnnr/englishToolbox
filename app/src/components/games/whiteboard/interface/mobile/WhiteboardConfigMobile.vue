@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard__group whiteboard__group--tools">
+  <div class="whiteboard__group-mobile whiteboard__group-mobile--tools">
     <whiteboard-sizes-mobile
       :disabled="sizeless"
       v-model="config.size"/>
