@@ -1,12 +1,11 @@
 <template>
   <dropup 
     ref="dropup"
-    @open="open"
-    @close="close">
+    @open="updateList">
 
     <template #list>
       <button 
-        v-for="(color, index) of shownColors"
+        v-for="(color, index) of shownList"
         :key="index"
 
         class="whiteboard__button-color-mobile whiteboard__button-mobile"
@@ -18,9 +17,8 @@
 
     <template #button>
       <button 
-        :key="selectedKey"
         class="whiteboard__button-color-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
-        :class="['whiteboard__button-color-mobile--' + selectedColor, 
+        :class="['whiteboard__button-color-mobile--' + selectedValue, 
                  opened ? 'whiteboard__button-mobile--active' : '']">
       </button>
     </template>
@@ -28,66 +26,26 @@
 </template>
 
 <script>
+import HandleWhiteboardDropup from '@mixins/HandleWhiteboardDropup'
 import Dropup from '@components/games/whiteboard/interface/mobile/Dropup'
 
 export default {
+  mixins: [ HandleWhiteboardDropup ],
+
   components: {
     Dropup
   },
 
   data() {
     return {
-      selected: null,
-      opened: false,
-      shownColors: [],
-      colors: [
-        { value: '', name: 'black'},
-        { value: '', name: 'brown'},
-        { value: '', name: 'red'},
-        { value: '', name: 'yellow'},
-        { value: '', name: 'green'},
-        { value: '', name: 'blue'},
+      list: [
+        { value: 'black', name: 'black'},
+        { value: 'brown', name: 'brown'},
+        { value: 'red', name: 'red'},
+        { value: 'yellow', name: 'yellow'},
+        { value: 'green', name: 'green'},
+        { value: 'blue', name: 'blue'},
       ]
-    }
-  },
-
-  computed: {
-    selectedColor() {
-      return this.selected ? this.selected.name : 'black'
-    },
-
-    selectedKey() {
-      return this.selected ? this.selected.name : null
-    },
-  },
-
-  beforeMount() {
-    this.select(this.colors[0]);
-    this.updateList();
-  },
-
-  methods: {
-    open() {
-      this.updateList();
-      this.opened = true;
-    },
-
-    close() {
-      this.opened = false;
-    },
-
-    select(color) {
-      this.selected = color;
-    },
-
-    updateList() {
-      let shown = [...this.colors];
-
-      let index = shown.indexOf(this.selected);
-      if (index !== -1)
-        shown.splice(index, 1);
-
-      this.shownColors = shown;
     }
   }
 }

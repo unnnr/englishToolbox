@@ -1,14 +1,53 @@
 <template>
-  <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--size">
-    <div class="whiteboard__element-dropup-mobile whiteboard__element-dropup-mobile--active">
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--1 whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--2 whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--3 whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--4 whiteboard__button-mobile"></button>
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--5 whiteboard__button-mobile"></button>
-    </div>
-    <div class="whiteboard__element-mobile">
-      <button class="whiteboard__button-size-mobile whiteboard__button-size-mobile--6 whiteboard__button-mobile whiteboard__button-mobile--selected whiteboard__button-mobile--active"></button>
-    </div>
-  </div>
+  <dropup 
+    ref="dropup"
+    @open="open"
+    @close="close">
+
+    <template #list>
+      <button 
+        v-for="(color, index) of shownList"
+        :key="index"
+
+        class="whiteboard__button-size-mobile whiteboard__button-mobile"
+        :class="'whiteboard__button-size-mobile--' + color.value"
+
+        @click="select(color)">
+      </button>
+    </template>
+
+    <template #button>
+      <button 
+        class="whiteboard__button-size-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
+        :class="['whiteboard__button-size-mobile--' + selectedValue, 
+                 opened ? 'whiteboard__button-mobile--active' : '']">
+      </button>
+    </template>
+  </dropup>
 </template>
+
+<script>
+import HandleWhiteboardDropup from '@mixins/HandleWhiteboardDropup'
+import Dropup from '@components/games/whiteboard/interface/mobile/Dropup'
+
+export default {
+  components: {
+    Dropup
+  },
+
+  mixins: [ HandleWhiteboardDropup ],
+
+  data() {
+    return {
+      list: [
+        { value: 1 },
+        { value: 2 },
+        { value: 3 },
+        { value: 4 },
+        { value: 5 },
+        { value: 6 },
+      ]
+    }
+  }
+}
+</script>
