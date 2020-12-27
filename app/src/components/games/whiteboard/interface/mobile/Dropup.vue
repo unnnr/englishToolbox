@@ -12,7 +12,6 @@
         v-if="opened"
         class="whiteboard__element-dropup-mobile"
 
-        v-click-outside="close"
         @click="close">
 
         <slot v-if="opened" name="list"/>
@@ -44,6 +43,16 @@ export default {
     return {
       opened: false
     }
+  },
+
+  mounted() {
+    this.$options.binded = this.close.bind(this);
+
+    document.body.addEventListener('mousedown', this.$options.binded);
+  },
+
+  beforeDestroy() {
+    document.body.removeEventListener('mousedown', this.$options.binded);
   },
 
   methods: {

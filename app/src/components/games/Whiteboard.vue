@@ -8,6 +8,7 @@
 <script>
 import DrawingsCollection from '@services/whiteboard/Drawings'
 import Resolution from '@services/Resolution'
+import Shortcuts from '@services/whiteboard/Shortcuts';
 import Config from '@services/whiteboard/Config'
 import Auth from '@services/Auth';
 
@@ -65,17 +66,20 @@ export default {
 		Resolution.bind(type => 
       this.mobile = Resolution.DESKTOP !== type);
 
-    let handler = this.drawings._collection;
+    Shortcuts.bind();
 
+    let handler = this.drawings._collection;
     handler.whenLocked = 
       () => this.locked = true;
-
     handler.whenUnlocked = 
       () => this.locked = false; 
 
     this.locked = handler.locked;
-
   },
+
+  beforeDestroy() {
+    Shortcuts.unbind();
+  }
 }
 </script>
 

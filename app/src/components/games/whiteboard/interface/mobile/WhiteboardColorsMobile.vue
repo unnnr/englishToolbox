@@ -45,12 +45,12 @@ export default {
   data() {
     return {
       list: [
-        { value: 'black', name: 'black'},
-        { value: 'brown', name: 'brown'},
-        { value: 'red', name: 'red'},
-        { value: 'yellow', name: 'yellow'},
-        { value: 'green', name: 'green'},
-        { value: 'blue', name: 'blue'},
+        { value: '#111111', name: 'black'},
+        { value: '#7C5C5C', name: 'brown'},
+        { value: '#ff6688', name: 'red'},
+        { value: '#f9a922', name: 'yellow'},
+        { value: '#1dd1bb', name: 'green'},
+        { value: '#6666ff', name: 'blue'},
       ]
     }
   }

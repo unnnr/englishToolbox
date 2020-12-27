@@ -97,6 +97,17 @@ export default {
       this.updateList(group)
 
     this.select(this.groups[0].list[0], this.groups[0]);
+
+    this.$options.binded = () => {
+      for (let group of this.groups)
+        this.close(group);
+    }
+
+    document.body.addEventListener('mousedown', this.$options.binded);
+  },
+
+  beforeDestroy() {
+    this.$options.binded = this.close.bind(this);
   },
 
   methods: {
