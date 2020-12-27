@@ -1,49 +1,28 @@
 <template>
-  <div class="whiteboard__group whiteboard__group--controls">
-    <div class="whiteboard__element--small whiteboard__element">
-      <button 
-        class="whiteboard__button-control--undo whiteboard__button-control whiteboard__button"
-        @click="undo">
-      </button>
+  <whiteboard-controls-mobile 
+    v-if="mobile"/>
 
-      <div class="whiteboard__separator"></div>
-      <button 
-        class="whiteboard__button-control--redo whiteboard__button-control whiteboard__button"
-        @click="redo">
-      </button>
-    </div>
-  </div>
+  <whiteboard-controls-desktop
+    v-else/>
 </template>
 
 <script>
-import Shortcuts from '@services/whiteboard/Shortcuts'
+import WhiteboardControlsDesktop from '@components/games/whiteboard/interface/desktop/WhiteboardControlsDesktop'
+import WhiteboardControlsMobile from '@components/games/whiteboard/interface/mobile/WhiteboardControlsMobile'
+
 
 export default {
-  inject: ['$drawings'], 
+  components: {
+    WhiteboardControlsDesktop,
+    WhiteboardControlsMobile,
+  },
+
+  inject: ['$mobile'],
 
   computed: {
-    drawings() {
-      return this.$drawings();
-    }
-  },
-
-  mounted() {
-    this.$options.$udno = this.undo;
-    Shortcuts.listen(Shortcuts.BACK, this.$options.$udno);
-  },
-
-  beforeDestroy() {
-    Shortcuts.forgot(Shortcuts.BACK, this.$options.$udno);
-  },
-
-  methods: {
-    redo() {
-      drawings.redo();
+    mobile() {
+      return this.$mobile();
     },
-
-    undo() {
-      drawings.undo();
-    }
   }
 }
 </script>

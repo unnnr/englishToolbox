@@ -97,4 +97,14 @@ export default {
 .whiteboard__element--disabled
   opacity: .5
 
+
+
+.whiteboard__user--banned .whiteboard__user-avatar:before
+  content: "block"
+  cursor: pointer
+  opacity: 1
+
+.whiteboard__user--persistent .whiteboard__user-avatar:before
+  cursor: default !important
+  opacity: 0 !important
 </style>
