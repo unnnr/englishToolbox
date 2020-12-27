@@ -19,8 +19,9 @@
 
     <template #button>
       <button 
-        class="whiteboard__button-color-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
+        class="whiteboard__button-color-mobile whiteboard__button-mobile"
         :class="['whiteboard__button-color-mobile--' + seletedOrFirst.name, 
+                 !!!disabled ? 'whiteboard__button-mobile--selected': '',
                  opened ? 'whiteboard__button-mobile--active' : '']">
       </button>
     </template>

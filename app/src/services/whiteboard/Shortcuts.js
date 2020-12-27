@@ -1,5 +1,5 @@
 class Shortcuts {
-  CLOSE = 'Esc'; 
+  CLOSE = 'Escape'; 
   
   BACK = 'z';
 
@@ -38,7 +38,7 @@ class Shortcuts {
   }
 
   prcoceed(event) {
-    if (!!!event.ctrlKey)
+    if (!!!event.ctrlKey && event.key !== 'Escape')
       return;
 
     let list = this.listeners[event.key];

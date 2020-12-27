@@ -1,30 +1,24 @@
 <template>
   <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--tool">
-    <transition
+    <div
       v-for="(group, index) of groups"
       :key="index"
 
-      name="whiteboard__element"
+      class="whiteboard__element-dropup-mobile"
+      :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
 
-      @before-enter="open(group)"
-      @before-leave="close(group)">
+      @mousedown.stop="close(group)">
 
-      <div
-        class="whiteboard__element-dropup-mobile"
-        :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
-        @mousedown.stop="close(group)">
+      <button 
+        v-for="(tool, index) of group.shown"
+        :key="index"
 
-        <button 
-          v-for="(tool, index) of group.shown"
-          :key="index"
-
-          class="whiteboard__button-tool-mobile whiteboard__button-mobile"
-          :class="'whiteboard__button-tool-mobile--' + tool.name"
-          
-          @mousedown.stop="select(tool, group)">
-        </button>
-      </div>
-    </transition>
+        class="whiteboard__button-tool-mobile whiteboard__button-mobile"
+        :class="'whiteboard__button-tool-mobile--' + tool.name"
+        
+        @mousedown.stop="select(tool, group)">
+      </button>
+    </div>
     
     <div class="whiteboard__element-mobile">
       <template
@@ -98,10 +92,15 @@ export default {
     this.select(this.groups[0].list[0], this.groups[0]);
 
     this.$options.binded = () => {
-      console.log('binded');
+      let saved = this.opened;
 
-      for (let group of this.groups)
-        this.close(group);
+      setTimeout(() => {
+        if (this.opened !== saved)
+          return;
+
+        for (let group of this.groups)
+          this.close(group);
+      }, 100)
     }
 
     document.body.addEventListener('mousedown', this.$options.binded, true);

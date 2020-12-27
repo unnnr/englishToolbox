@@ -86,8 +86,9 @@ export default {
 <style lang="sass">
 
 .whiteboard__element,
-.whiteboard__element-dropup-mobile,
-.whiteboard__element-mobile
+.whiteboard__element-mobile,
+.whiteboard__group-inner-mobile
+  opacity: 1
   transition: opacity .3s
 
 .whiteboard--painting .whiteboard__element, 

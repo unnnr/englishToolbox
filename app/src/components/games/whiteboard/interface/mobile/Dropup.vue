@@ -46,7 +46,7 @@ export default {
   },
 
   mounted() {
-    this.$options.binded = this.close.bind(this);
+    this.$options.binded = this.ouside.bind(this);
     document.body.addEventListener('mousedown', this.$options.binded, true);
   },
 
@@ -55,6 +55,15 @@ export default {
   },
 
   methods: {
+    ouside() {
+      let saved = this.opened;
+
+      setTimeout(() => {
+        if (this.opened === saved)
+          this.close();
+      }, 100)
+    },
+
     close() {
       this.opened = false;
     },
