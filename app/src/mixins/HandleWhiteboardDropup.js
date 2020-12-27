@@ -16,15 +16,19 @@ const HandleWhiteboardDropup = {
   },
 
   computed: {
-    selectedValue() {
+    seletedOrFirst() {
       if (this.selected)
-        return this.selected.value;
+        return this.selected;
 
       if (this.list.length)
-        return this.list[0].value
-        
-      return null; 
-    }
+        return this.list[0]
+
+      return null;
+    },
+
+    selectedValue() {
+      return this.seletedOrFirst && this.seletedOrFirst.value; 
+    },
   },
   
   beforeMount() {

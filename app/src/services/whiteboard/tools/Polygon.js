@@ -9,6 +9,20 @@ export default class Polygon {
 
   sizeless = true;
 
+  constructor() {
+    this.$close = () => {
+      this.painting = false;
+      this.clear();
+      this.path = [];
+    }
+
+    Shortcuts.listen(Shortcuts.ClOSE, this.$close)
+  }
+
+  resolve() {
+    Shortcuts.forgot(Shortcuts.ClOSE, this.$close);
+  }
+
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
   }

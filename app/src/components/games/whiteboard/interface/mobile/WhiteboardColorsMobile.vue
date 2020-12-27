@@ -13,14 +13,14 @@
         class="whiteboard__button-color-mobile whiteboard__button-mobile"
         :class="'whiteboard__button-color-mobile--' + color.name"
 
-        @click="select(color)">
+        @mousedown.stop="select(color)">
       </button>
     </template>
 
     <template #button>
       <button 
         class="whiteboard__button-color-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
-        :class="['whiteboard__button-color-mobile--' + selectedValue, 
+        :class="['whiteboard__button-color-mobile--' + seletedOrFirst.name, 
                  opened ? 'whiteboard__button-mobile--active' : '']">
       </button>
     </template>

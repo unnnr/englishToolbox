@@ -45,13 +45,15 @@ export default {
   },
 
   watch: {
-    tool(value) {
-      if (!!!value)
-        return;
+    tool(value, previous) {
+      if (previous && previous.resolve)
+        previous.resolve();
 
-      this.config.inspecting = value.inspecting; 
-      this.colorless = value.colorless;
-      this.sizeless = value.sizeless;
+      if (value) {
+        this.config.inspecting = value.inspecting; 
+        this.colorless = value.colorless;
+        this.sizeless = value.sizeless;
+      }
     }
   }
 }

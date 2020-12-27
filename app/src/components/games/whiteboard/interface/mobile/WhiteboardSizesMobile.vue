@@ -14,7 +14,7 @@
         class="whiteboard__button-size-mobile whiteboard__button-mobile"
         :class="'whiteboard__button-size-mobile--' + size.value"
 
-        @click="select(size)">
+        @mousedown.prevent="select(size)">
       </button>
     </template>
 

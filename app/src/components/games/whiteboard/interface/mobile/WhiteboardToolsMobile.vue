@@ -12,8 +12,7 @@
       <div
         class="whiteboard__element-dropup-mobile"
         :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
-        v-click-outside="() => close(group)"
-        @click="close(group)">
+        @mousedown.stop="close(group)">
 
         <button 
           v-for="(tool, index) of group.shown"
@@ -22,7 +21,7 @@
           class="whiteboard__button-tool-mobile whiteboard__button-mobile"
           :class="'whiteboard__button-tool-mobile--' + tool.name"
           
-          @click="select(tool, group)">
+          @mousedown.stop="select(tool, group)">
         </button>
       </div>
     </transition>
@@ -37,7 +36,7 @@
           :class="['whiteboard__button-tool-mobile--' + groupSelected(group).name,
                    isSelected(groupSelected(group)) ? 'whiteboard__button-mobile--selected' : '',
                    group.opened ? 'whiteboard__button-mobile--active': '']"
-          @click="toggle(group)">
+          @mousedown.stop="toggle(group)">
         </button>
 
         <div 
@@ -99,15 +98,18 @@ export default {
     this.select(this.groups[0].list[0], this.groups[0]);
 
     this.$options.binded = () => {
+      console.log('binded');
+
       for (let group of this.groups)
         this.close(group);
     }
 
-    document.body.addEventListener('mousedown', this.$options.binded);
+    document.body.addEventListener('mousedown', this.$options.binded, true);
   },
 
   beforeDestroy() {
     this.$options.binded = this.close.bind(this);
+    document.body.removeEventListener('mousedown', this.$options.binded, true);
   },
 
   methods: {
