@@ -3,9 +3,8 @@ export default class Engine {
 
   _previosTime = null;
   
-  constructor(update, render) {
-    this.update = update;
-    this.render = render;
+  constructor(callback) {
+    this.callback = callback;
   }
 
   loop() {
@@ -13,10 +12,8 @@ export default class Engine {
       return;
     
     let delta = Date.now() - this._previosTime;
-    this.update(delta);
+    this.callback(delta);
 
-    this.render();
-    
     this._previosTime = Date.now();
     requestAnimationFrame(this.loop);
   }
