@@ -5,6 +5,10 @@ export default class EventGreep {
     this.world = world;
   }
 
+  start() {
+    
+  }
+
   update() {
     console.log('updating');
   }

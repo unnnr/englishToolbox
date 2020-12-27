@@ -15,7 +15,7 @@ export default class Engine {
     this.callback(delta);
 
     this._previosTime = Date.now();
-    requestAnimationFrame(this.loop);
+    requestAnimationFrame(this.loop.bind(this));
   }
 
   fire() {

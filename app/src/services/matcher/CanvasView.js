@@ -1,7 +1,11 @@
 export default class CanvasView {
+
   world = null;
 
-  constructor(world) {
+  canvas = null;
+
+  constructor(world, canvas) {
+    this.canvas = canvas;
     this.world = world;
   }
 

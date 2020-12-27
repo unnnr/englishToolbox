@@ -8,12 +8,12 @@ export default class Matcher {
 
   world = {};
 
-  constructor() {
+  constructor(canvas) {
     this.input = new EventsGreep(this.world);
-    this.view = new CanvasView(this.world);
+    this.view = new CanvasView(this.world, canvas);
     this.game = new Game(this.world);
 
-    this.engine = new Engine(this.loop);
+    this.engine = new Engine(this.loop.bind(this));
   }
 
   update(time) {
