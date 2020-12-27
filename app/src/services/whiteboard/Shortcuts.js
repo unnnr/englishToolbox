@@ -1,23 +1,54 @@
 class Shortcuts {
-  listen() {
+  CLOSE = 'Esc'; 
+  
+  BACK = 'z';
 
+  listeners = {
+    //
+  };
+
+  listen(name, event) {
+    if (!!!this.listeners[name])
+      this.listeners[name] = [];
+
+    this.listeners[name].push(event);
   }
 
-  forgot() {
-    
+  forgot(name, event) {
+    if (!!!this.listeners[name])
+      return;
+
+    let index = this.listeners[name].indexOf(event);
+    if (index === -1)
+      return;
+    this.listeners[name].splice(index, -1);
+
+    if (!!!Object.entries(this.listeners).length)
+      delete this.listeners[name]
   }
 
   bind() {
-    window.addEventListener('keyup', this.prcoceed);
+    this.$prooced = this.prcoceed.bind(this);
+
+    window.addEventListener('keyup', this.$prooced);
   }
 
   unbind() {
-    window.removeEventListener('keyup', this.prcoceed);
+    window.removeEventListener('keyup', this.$prcoceed);
   }
 
   prcoceed(event) {
-    console.log(event);
+    if (!!!event.ctrlKey)
+      return;
+
+    let list = this.listeners[event.key];
+    if (!!!list)
+      return;
+      
+    for (let lisnter of list)
+      lisnter();
   }
 }
 
-export default new Shortcuts();
+window.Shortcuts = new Shortcuts();
+export default window.Shortcuts;

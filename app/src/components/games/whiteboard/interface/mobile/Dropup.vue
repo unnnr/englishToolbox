@@ -47,7 +47,6 @@ export default {
 
   mounted() {
     this.$options.binded = this.close.bind(this);
-
     document.body.addEventListener('mousedown', this.$options.binded);
   },
 

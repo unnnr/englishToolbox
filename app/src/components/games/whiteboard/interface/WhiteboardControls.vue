@@ -28,11 +28,12 @@ export default {
   },
 
   mounted() {
-    Shortcuts.listen();
+    this.$options.$udno = this.undo;
+    Shortcuts.listen(Shortcuts.BACK, this.$options.$udno);
   },
 
   beforeDestroy() {
-
+    Shortcuts.forgot(Shortcuts.BACK, this.$options.$udno);
   },
 
   methods: {
