@@ -22,6 +22,10 @@ export default class Game {
       x: 0, y: 0
     }
 
+    brick.velocity = {
+      x: 0, y: 0
+    }
+
     brick.size = {
       width: word.verb.length * Config.brick.fontSize * Config.brick.widthScale,
       height: Config.brick.fontSize * Config.brick.heightScale
@@ -66,12 +70,14 @@ export default class Game {
   }
 
   init() {
+    // Setting up global vars
     this.world.height = 
       Config.world.height;
 
     this.world.width = 
       Config.world.width;
 
+    // Creating entities
     let words = 
       IrregularVerbs.slice(Config.deckLength);
 
@@ -79,11 +85,47 @@ export default class Game {
       this.generateBricks(words);
 
     this.shufflePositions(this.bricks);
-
     this.world.entities = this.bricks;
+
+    setInterval(this.giveRandomVelocity.bind(this), 500);
   }
 
-  update() {
-    
+  move(time) {
+    for (let brick of this.bricks) {
+      brick.position.x += brick.velocity.x * time * Config.brick.speed;
+      brick.position.y += brick.velocity.y * time * Config.brick.speed;
+
+      if (brick.velocity.x > 0) {
+        brick.velocity.x = 
+          Math.max(brick.velocity.x - Config.brick.friction, 0);
+      }
+      else if (brick.velocity.x < 0) {
+        brick.velocity.x = 
+          Math.min(brick.velocity.x + Config.brick.friction, 0);
+      }
+
+      if (brick.velocity.y > 0) {
+        brick.velocity.y = 
+          Math.max(brick.velocity.y - Config.brick.friction, 0);
+      }
+      else if (brick.velocity.y < 0) {
+        brick.velocity.y = 
+          Math.min(brick.velocity.y + Config.brick.friction, 0);
+      }
+    }
+  }
+
+  update(event, delta) {
+    this.move(delta);
+  }
+
+  giveRandomVelocity() {
+    let index = 
+      Math.floor(Math.random() * (this.bricks.length - 1));
+
+    this.bricks[index].velocity = {
+      x: Math.random() * 60 - 30,
+      y: Math.random() * 60 - 30,
+    }
   }
 }

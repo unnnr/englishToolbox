@@ -13,6 +13,9 @@ export default class Matcher {
     this.view = new CanvasView(this.world, canvas);
     this.game = new Game(this.world);
 
+
+    window.game = this.game;
+    
     this.engine = new Engine(this.loop.bind(this));
   }
 
