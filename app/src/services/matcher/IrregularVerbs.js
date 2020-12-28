@@ -22,6 +22,8 @@ class IrregularVerbs {
 
     if (length > this.wordList.length)
       throw Error('Incorrect words count')
+
+    return length;
   }
 
   parse(count) {
