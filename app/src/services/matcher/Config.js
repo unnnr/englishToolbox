@@ -2,16 +2,13 @@ class Config {
   deckLength = null;
 
   world = {
-    height: 1600,
-
-    width: 1200,
+    width: 1400,
+    height: 600
   }
 
   brick = {
-    heightScale: 10,
-
-    widthScale: 10,
-
+    heightScale: 1.1,
+    widthScale: 1.1,
     fontSize: 20
   }
 }
