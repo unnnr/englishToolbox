@@ -1,46 +1,38 @@
-import EventsGreep from '@services/matcher/EventsGreep'
-import CanvasView from '@services/matcher/CanvasView'
-import Engine from '@services/matcher/Engine'
-import Game from '@services/matcher/Game'
+import {Engine, Render, World, Bodies} from 'matter-js'
 
 export default class Matcher {
   engine = null;
 
-  world = {};
+  render = null;
 
   constructor(canvas) {
-    this.input = new EventsGreep(this.world);
-    this.view = new CanvasView(this.world, canvas);
-    this.game = new Game(this.world);
-
-
-    window.game = this.game;
+    this.engine = Engine.create();
     
-    this.engine = new Engine(this.loop.bind(this));
-  }
+    this.render = Render.create({
+        element: canvas,
+        engine: this.engine,
+        options: {
+          width: 1400,
+          height: 600,
+      }
+    });
 
-  update(time) {
-    let event = this.input.proceed();
-    this.game.update(event, time);
-  }
-
-  render() {
-    this.view.draw();
-  }
+    Render.lookAt(this.render, {
+      min: { x: 0, y: 0 },
+      max: { x: 1400, y: 600 }
+    });
+  } 
 
   start() {
-    this.game.init();
-    this.view.init();
-    this.engine.fire();
-  }
+    // create two boxes and a ground
+    var boxA = Bodies.rectangle(400, 200, 80, 80);
+    var boxB = Bodies.rectangle(450, 50, 80, 80);
+    var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-  stop() {
-    this.world = {};
-    this.input.unbind();
-  }
+    // add all of the bodies to the world
+    World.add(this.engine.world, [boxA, boxB, ground]);
 
-  loop(time) {
-    this.update(time);
-    this.render()
+    Engine.run(this.engine);
+    Render.run(this.render);
   }
 }

@@ -87,36 +87,42 @@ export default class Game {
     this.shufflePositions(this.bricks);
     this.world.entities = this.bricks;
 
-    setInterval(this.giveRandomVelocity.bind(this), 500);
+    window.grv = this.giveRandomVelocity.bind(this);
+    // setInterval(this.giveRandomVelocity.bind(this), 500);
   }
 
-  move(time) {
-    for (let brick of this.bricks) {
-      brick.position.x += brick.velocity.x * time * Config.brick.speed;
-      brick.position.y += brick.velocity.y * time * Config.brick.speed;
+  move(brick, time) {
+    brick.position.x += time * brick.velocity.x * Config.brick.speed;
+    brick.position.y += time * brick.velocity.y * Config.brick.speed;
 
-      if (brick.velocity.x > 0) {
-        brick.velocity.x = 
-          Math.max(brick.velocity.x - Config.brick.friction, 0);
-      }
-      else if (brick.velocity.x < 0) {
-        brick.velocity.x = 
-          Math.min(brick.velocity.x + Config.brick.friction, 0);
-      }
+    if (brick.velocity.x > 0) {
+      brick.velocity.x = 
+        Math.max(brick.velocity.x - Config.brick.friction, 0);
+    }
+    else if (brick.velocity.x < 0) {
+      brick.velocity.x = 
+        Math.min(brick.velocity.x + Config.brick.friction, 0);
+    }
 
-      if (brick.velocity.y > 0) {
-        brick.velocity.y = 
-          Math.max(brick.velocity.y - Config.brick.friction, 0);
-      }
-      else if (brick.velocity.y < 0) {
-        brick.velocity.y = 
-          Math.min(brick.velocity.y + Config.brick.friction, 0);
-      }
+    if (brick.velocity.y > 0) {
+      brick.velocity.y = 
+        Math.max(brick.velocity.y - Config.brick.friction, 0);
+    }
+    else if (brick.velocity.y < 0) {
+      brick.velocity.y = 
+        Math.min(brick.velocity.y + Config.brick.friction, 0);
     }
   }
 
   update(event, delta) {
-    this.move(delta);
+    for (let i = 0; i < this.bricks.length; i++) {
+      this.move(this.bricks[i], delta);
+      
+      for (let j = 0; j < this.bricks.length; j++) {
+        if (i !== j && Collisions.collideEntity(this.bricks[i], this.bricks[j]))
+          console.log(12);
+      }
+    }
   }
 
   giveRandomVelocity() {
