@@ -10,6 +10,5 @@ export default class CanvasView {
   }
 
   draw() {
-    console.log('drawing')
   }
 }

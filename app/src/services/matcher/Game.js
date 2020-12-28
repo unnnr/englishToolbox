@@ -1,4 +1,7 @@
+import IrregularVerbs from '@services/matcher/IrregularVerbs'
+
 export default class EventGreep {
+
   world = null;
 
   constructor(world) {
@@ -6,10 +9,9 @@ export default class EventGreep {
   }
 
   start() {
-    
+    this.world 
   }
 
   update() {
-    console.log('updating');
   }
 }
