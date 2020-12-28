@@ -1,8 +1,8 @@
 <template>
   <section class="games container">
     <div class="games__selected">
-      <div class="games__player">
-        <canvas ref="canvas"/>
+      <div class="matcher">
+        <canvas class="matcher__canvas" ref="canvas"/>
       </div>
     </div>
   </section>
@@ -22,3 +22,13 @@ export default {
 }
 </script>
 
+<style lang="sass" scoped>
+
+.matcher
+  position: absolute
+  
+.matcher__canvas
+  width: 100%
+  height: 100%
+
+</style>

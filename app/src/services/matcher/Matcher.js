@@ -26,7 +26,8 @@ export default class Matcher {
   }
 
   start() {
-    this.game.start();
+    this.game.init();
+    this.view.init();
     this.engine.fire();
   }
 

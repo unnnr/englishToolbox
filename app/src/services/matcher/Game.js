@@ -20,11 +20,15 @@ export default class Game {
       Config.brick.fontSize * Config.brick.heightScale;
 
     for (let word of words) {
+      let position= {x: 100, y: 300};
+
       let width = 
         word.verb.length * Config.brick.fontSize * Config.brick.widthScale;
 
       let brick = {
-        height, width, word
+        size: { height, width },
+        position,
+        word, 
       };
 
       bricks.push(brick);
@@ -33,7 +37,7 @@ export default class Game {
     return bricks;
   }
 
-  start() {
+  init  () {
     let words = 
       IrregularVerbs.slice(Config.deckLength);
 
