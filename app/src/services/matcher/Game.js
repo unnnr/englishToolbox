@@ -44,55 +44,30 @@ export default class Game {
       bottom: secondBrick.position.y + secondBrick.size.height
     };
 
-    if (first.left >= second.left
-      && first.left <= second.right
-      && first.top >= second.top
-      && first.top <= second.bottom)
-      return console.log('left top') || true;
+    if (first.left >= second.left              // ╔════════════╗
+      && first.left <= second.right            //      s ┌────────────┐
+      && first.top >= second.top               //              f
+      && first.top <= second.bottom)           // ╚════════════╝
+      return true;                             //        └────────────┘
 
-    if (first.left >= second.left
-      && first.left <= second.right
-      && first.bottom >= second.top
-      && first.bottom <= second.bottom)
-      return console.log('left bottom') || true;
+    if (first.left >= second.left              //        ┌────────────┐
+      && first.left <= second.right            // ╔════════════╗
+      && first.bottom >= second.top            //             f
+      && first.bottom <= second.bottom)        //      s └────────────┘
+      return true;                             // ╚════════════╝
 
     
-    if (first.right >= second.left
-      && first.right <= second.right
-      && first.top >= second.top
-      && first.top <= second.bottom)
-      return console.log('right top') || true;
+    if (first.right >= second.left             //        ╔════════════╗
+      && first.right <= second.right           // ┌────────────┐
+      && first.top >= second.top               //              s
+      && first.top <= second.bottom)           //      f ╚════════════╝
+      return true;                             // └────────────┘
 
-    if (first.right >= second.left
-      && first.right <= second.right
-      && first.bottom >= second.top
-      && first.bottom <= second.bottom)
-      return console.log('right bottom') ||  true;
-
-    return false;
-    if (first.left >= second.left         // ╔════════════╗
-      && first.position.x <= secondRight        //      s ┌────────────┐
-      && first.position.y >= second.position.y  //              f
-      && first.position.y <= secondBottom)      // ╚════════════╝
-      return true;                              //        └────────────┘
-    
-    if (first.position.x >= second.position.x             //        ┌────────────┐
-      && first.position.x <= secondRight         // ╔════════════╗
-      && firstBottom >= second.position.y        //              f
-      && firstBottom <= secondBottom)   //      s └────────────┘
-      return true;                      // ╚════════════╝
-
-    if (firstRight >= second.position.x          //        ╔════════════╗
-      && firstRight <= secondRight      // ┌────────────┐
-      && first.position.y <= second.position.y            //              s
-      && first.position.y >= secondBottom)       //      f ╚════════════╝
-      return true;                      // └────────────┘
-
-    if (firstRight >= second.position.x          // ┌────────────┐
-      && firstRight <= secondRight      //      f ╔════════════╗
-      && firstBottom >= second.position.y        //              s
-      && firstBottom <= secondBottom)   // └────────────┘
-      return true;                      //        ╚════════════╝
+    if (first.right >= second.left             // ┌────────────┐
+      && first.right <= second.right           //      f ╔════════════╗
+      && first.bottom >= second.top            //              s
+      && first.bottom <= second.bottom)        // └────────────┘
+      return true;                             //        ╚════════════╝
 
     return false;
   }
