@@ -6,32 +6,49 @@ export default class Game {
 
   world = null;
 
+  bricks = null;
+
   constructor(world) {
     this.world = world;
   }
 
   createBricks(words) {
     let bricks = [];
+    
+    // Same for all bricks
+    let height = 
+      Config.brick.fontSize * Config.brick.heightScale;
 
     for (let word of words) {
-      let brick = {};
+      let width = 
+        word.verb.length * Config.brick.fontSize * Config.brick.widthScale;
 
-      // brick.height = 
+      let brick = {
+        height, width, word
+      };
+
+      bricks.push(brick);
     }
+
+    return bricks;
   }
 
   start() {
+    let words = 
+      IrregularVerbs.slice(Config.deckLength);
+
+    this.bricks = 
+      this.createBricks(words);
+
+    this.world.entities = this.bricks;
+
     this.world.height = 
       Config.world.height;
 
     this.world.width = 
       Config.world.width;
 
-    let words = 
-      IrregularVerbs.slice(Config.deckLength);
-
-    this.world.entities = 
-      this.createBricks(words);
+    console.log(this);
   }
 
   update() {

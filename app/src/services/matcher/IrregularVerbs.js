@@ -32,11 +32,11 @@ class IrregularVerbs {
     for (let key = 0; key < count; key++) {
       let rawGroup = this.wordList[key].split(' - ');
 
-      let group = rawGroup.map(name => ({
-        name, key
+      let group = rawGroup.map(verb => ({
+        verb, key
       }))
 
-      words.push(group);
+      words.push(...group);
     }
 
     return words;
