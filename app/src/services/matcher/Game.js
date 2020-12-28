@@ -29,68 +29,61 @@ export default class Game {
     return brick;
   }
 
-  getBoundingRect(brick) {
-    return {
-      leftUp: {
-        x: brick.x,
-        y: brick.y
-      },
-
-      leftDown: {
-        x: brick.x,
-        y: brick.y + brick.height
-      },
-
-      rightUp: {
-        x: brick.x + brick.width,
-        y: brick.y
-      },
-
-      rightDown: {
-        x: brick.x + brick.width,
-        y: brick.y + brick.height
-      }
-    }
-  }
-
   collide(first, second) {
-    let firstRightX = first.x + first.width;
-    let secondRightY = 0;
-
-    if (first.x > second.x
-      && first.y > second.y 
-      && first.width > second.width
-      && first.height > second.height) 
-      return true;
-
-    if (first.x > second.x
-      && first.y > second.y 
-      && first.width > second.width
-      && first.height > second.height) 
-      return true;
-
+    let secondRight= second.position.x + second.size.width;
+    let secondBottom = second.position.y + second.size.height;
     
+    let firstRight = first.position.x + first.size.width;
+    let firstBottom = first.position.y + first.size.height;
+
+    if (first.position.x >= second.position.x            // ╔════════════╗
+      && first.position.x <= secondRight        //      s ┌────────────┐
+      && first.position.y >= second.position.y           //              f
+      && first.position.y <= secondBottom)      // ╚════════════╝
+      return true;                     //        └────────────┘
+    
+    if (first.position.x >= second.position.x             //        ┌────────────┐
+      && first.position.x <= secondRight         // ╔════════════╗
+      && firstBottom >= second.position.y        //              f
+      && firstBottom <= secondBottom)   //      s └────────────┘
+      return true;                      // ╚════════════╝
+
+    if (firstRight >= second.position.x          //        ╔════════════╗
+      && firstRight <= secondRight      // ┌────────────┐
+      && first.position.y <= second.position.y            //              s
+      && first.position.y >= secondBottom)       //      f ╚════════════╝
+      return true;                      // └────────────┘
+
+    if (firstRight >= second.position.x          // ┌────────────┐
+      && firstRight <= secondRight      //      f ╔════════════╗
+      && firstBottom >= second.position.y        //              s
+      && firstBottom <= secondBottom)   // └────────────┘
+      return true;                      //        ╚════════════╝
+
+    return false;
   }
 
   shufflePositions(bricks) {
     for (let i = 0; i < bricks.length; i++) {
       // Generating coords
-      let brick = bricks[i]; 
+      let current = bricks[i]; 
       
-      brick.position.x = 
-        Math.floor(Math.random() * (this.world.width - brick.size.width)); 
+      current.position.x = 
+        Math.floor(Math.random() * (this.world.width - current.size.width)); 
 
-      brick.position.y = 
-        Math.floor(Math.random() * (this.world.height - brick.size.height)); 
+      current.position.y = 
+        Math.floor(Math.random() * (this.world.height - current.size.height)); 
 
-        console.log(brick.position, brick.size);
-      
-      continue;
       // Checking collision
-      let current = this.getBoundingRect(brick);
       for (let j = 0; j < i; j++) {
-     
+        let preivous = this.bricks[j];
         
+        if (this.collide(current, preivous))
+          preivous.color = 'red';
+        else 
+          preivous.color = 'black'
+
+        console.log(this.collide(current, preivous));
       }
     }
   }
