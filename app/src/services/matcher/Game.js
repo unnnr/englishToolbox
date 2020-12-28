@@ -29,18 +29,52 @@ export default class Game {
     return brick;
   }
 
-  collide(first, second) {
-    let secondRight= second.position.x + second.size.width;
-    let secondBottom = second.position.y + second.size.height;
-    
-    let firstRight = first.position.x + first.size.width;
-    let firstBottom = first.position.y + first.size.height;
+  collide(firstBrick, secondBrick) {
+    let first = {
+      top: firstBrick.position.y,
+      left: firstBrick.position.x,
+      right: firstBrick.position.x + firstBrick.size.width,
+      bottom: firstBrick.position.y + firstBrick.size.height
+    };
 
-    if (first.position.x >= second.position.x            // ╔════════════╗
+    let second = {
+      top: secondBrick.position.y,
+      left: secondBrick.position.x,
+      right: secondBrick.position.x + secondBrick.size.width,
+      bottom: secondBrick.position.y + secondBrick.size.height
+    };
+
+    if (first.left >= second.left
+      && first.left <= second.right
+      && first.top >= second.top
+      && first.top <= second.bottom)
+      return console.log('left top') || true;
+
+    if (first.left >= second.left
+      && first.left <= second.right
+      && first.bottom >= second.top
+      && first.bottom <= second.bottom)
+      return console.log('left bottom') || true;
+
+    
+    if (first.right >= second.left
+      && first.right <= second.right
+      && first.top >= second.top
+      && first.top <= second.bottom)
+      return console.log('right top') || true;
+
+    if (first.right >= second.left
+      && first.right <= second.right
+      && first.bottom >= second.top
+      && first.bottom <= second.bottom)
+      return console.log('right bottom') ||  true;
+
+    return false;
+    if (first.left >= second.left         // ╔════════════╗
       && first.position.x <= secondRight        //      s ┌────────────┐
-      && first.position.y >= second.position.y           //              f
+      && first.position.y >= second.position.y  //              f
       && first.position.y <= secondBottom)      // ╚════════════╝
-      return true;                     //        └────────────┘
+      return true;                              //        └────────────┘
     
     if (first.position.x >= second.position.x             //        ┌────────────┐
       && first.position.x <= secondRight         // ╔════════════╗
@@ -66,7 +100,7 @@ export default class Game {
   shufflePositions(bricks) {
     for (let i = 0; i < bricks.length; i++) {
       // Generating coords
-      let current = bricks[i]; 
+      let current = bricks[i]; current
       
       current.position.x = 
         Math.floor(Math.random() * (this.world.width - current.size.width)); 
@@ -75,15 +109,23 @@ export default class Game {
         Math.floor(Math.random() * (this.world.height - current.size.height)); 
 
       // Checking collision
+      continue;
       for (let j = 0; j < i; j++) {
         let preivous = this.bricks[j];
         
-        if (this.collide(current, preivous))
-          preivous.color = 'red';
-        else 
-          preivous.color = 'black'
+        preivous.color = 
+          this.collide(current, preivous) ? 'red' : 'black';
+      }
+    }
 
-        console.log(this.collide(current, preivous));
+    for (let i = 0; i < bricks.length; i++) {
+      for (let j = 0; j < bricks.length; j++) {
+        if (i === j || !!!this.collide(bricks[i], bricks[j]))
+          continue;
+        
+        console.log(bricks[i], bricks[j]);
+        bricks[i].color = 'red';
+        break;
       }
     }
   }

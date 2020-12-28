@@ -7,8 +7,8 @@ class Config {
   }
 
   brick = {
-    heightScale: 3,
-    widthScale: 3,
+    heightScale: 1,
+    widthScale: 1,
     fontSize: 20
   }
 }

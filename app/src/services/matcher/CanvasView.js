@@ -24,7 +24,7 @@ export default class CanvasView {
     this.context.beginPath();
 
     for (let brick of this.world.entities) {
-      this.context.strokeStyle = brick.color;
+      this.context.strokeStyle = brick.color || 'black';
       this.context.strokeRect(brick.position.x, brick.position.y, brick.size.width, brick.size.height);
 
       //this.context.fillText(brick.word.verb, brick.position.x, brick.position.y)
