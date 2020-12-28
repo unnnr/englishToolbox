@@ -9,7 +9,8 @@ class Config {
   brick = {
     heightScale: 1,
     widthScale: 1,
-    fontSize: 20
+    fontSize: 20,
+    groupRadius: 100
   }
 }
 
