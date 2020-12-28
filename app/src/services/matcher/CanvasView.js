@@ -13,15 +13,19 @@ export default class CanvasView {
   }
 
   init() {
-    this.canvas.height = Config.world.height;
-    this.canvas.width = Config.world.width;
+    this.canvas.height = this.world.height;
+    this.canvas.width = this.world.width;
 
     this.context = this.canvas.getContext('2d');  
+    this.context.font = Config.brick.fontSize + 'px serief';
   }
 
   draw() {
     this.context.beginPath();
 
-    this.context.fillRect(12, 12, 100, 100);
+
+    for (let brick of this.world.entities) {
+      this.context.fillText(brick.word.verb, brick.position.x, brick.position.y)
+    }
   }
 }

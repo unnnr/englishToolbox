@@ -12,7 +12,7 @@ class Config {
 
     widthScale: 10,
 
-    fontSize: 15
+    fontSize: 20
   }
 }
 
