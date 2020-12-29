@@ -79,9 +79,6 @@ class Bricks {
     });
 
     window.el = el;
-    
-    this.bricks.push(el);
-
     return el;
   }
 }
