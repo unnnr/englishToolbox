@@ -1,11 +1,23 @@
 import {Bodies, Events} from 'matter-js'
 import Config from '@services/matcher/Config'
 
+function randomColor() {
+  return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
+}
+
 class Bricks {
   bind(engine) {
     Events.on(engine, 'collisionStart', function(event) {
-      for (let pair of event.pairs)
-        console.log(pair.bodyA, pair.bodyB)
+      for (let pair of event.pairs) {
+        let second = pair.bodyA;
+        let first = pair.bodyB;
+
+        if (first.label !==  'brick' || second.label !== 'brick')
+          break;
+
+        first.render.fillStyle = randomColor();
+        second.render.fillStyle = randomColor();
+      }
     });
   }
 
@@ -13,9 +25,22 @@ class Bricks {
     let x = Math.floor(Math.random() * Config.world.width);
     let y = Math.floor(Math.random() * Config.world.height);
 
-    let radius = Config.brick.borderRadius;
+    let width = 80;
+    let height = 50;
 
-    let el = Bodies.rectangle(x, y, 80, 50, {chamfer: { radius }});
+    let chamfer =  {
+      radius: Config.brick.borderRadius
+    };
+
+    let render = {
+      fillStyle: randomColor()
+    }
+
+    let el = Bodies.rectangle(x, y, width, height, {
+      label: 'brick', chamfer, render,
+    });
+
+    window.el = el;
 
     return el;
   }

@@ -18,6 +18,7 @@ export default class Matcher {
         options: {
           width: 1400,
           height: 600,
+          wireframes: false
       }
     })
   } 
