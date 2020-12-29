@@ -79,7 +79,7 @@ class Bricks {
     let y = Math.floor(Math.random() * Config.world.height);
 
     let width = word.verb.length * Config.font.size * Config.brick.widthScale;
-    let height = Config.font.size  * Config.brick.heightScale;
+    let height = Config.font.size * Config.brick.heightScale;
 
     let chamfer =  {
       radius: Config.brick.borderRadius

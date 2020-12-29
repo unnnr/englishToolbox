@@ -1,12 +1,12 @@
-class Config {
-  deckLength = null;
+const Config  = {
+  deckLengt: null,
 
-  world = {
+  world: {
     width: 1400,
     height: 600
-  }
+  },
 
-  brick = {
+  brick: {
     borderRadius: 10,
 
     exposionVelocity: 10,
@@ -14,12 +14,12 @@ class Config {
     heightScale: 1.2,
 
     widthScale: 1,
-  }
+  },
 
-  font = {
+  font: {
     size: 20,
-    color: 'red'
+    color: 'white'
   }
 }
 
-export default new Config();
+export default Config;
