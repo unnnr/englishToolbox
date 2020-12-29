@@ -1,5 +1,6 @@
 import {Bodies, Body, Events} from 'matter-js'
 import Config from '@services/matcher/Config'
+import Group from '@services/matcher/Group'
 
 function randomColor() {
   return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
@@ -51,7 +52,8 @@ class Bricks {
         if (first.label !==  'brick' || second.label !== 'brick')
           break;
 
-        this.throwPair(first, second);
+        if (!!!Group.merge(first, second))
+          this.throwPair(first, second);
       }
     });
   }
@@ -74,7 +76,7 @@ class Bricks {
     };
 
     let render = {
-      fillStyle: createColor(group)
+      fillStyle: Group.createColor(group)
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
