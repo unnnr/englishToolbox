@@ -1,10 +1,13 @@
-import {Engine, Render, World, Bodies, Mouse, MouseConstraint} from 'matter-js'
+import {Engine, Render, World, Bodies, Mouse, MouseConstraint, Events} from 'matter-js'
 import Config from '@services/matcher/Config'
+import Bricks from '@services/matcher/Bricks'
 
 export default class Matcher {
   engine = null;
 
   render = null;
+
+  world = null;
 
   constructor(canvas) {
     this.engine = Engine.create();
@@ -29,7 +32,7 @@ export default class Matcher {
         right = Bodies.rectangle(width + size / 2, height / 2, size, height, { isStatic: true }),
         bottom = Bodies.rectangle(width / 2, height + size / 2, width, size, { isStatic: true });
 
-    World.add(this.engine.world, [top, bottom, right, left]);
+    World.add(this.world, [top, bottom, right, left]);
   }
 
   initMouse() {
@@ -38,7 +41,7 @@ export default class Matcher {
     let mouseConstraint = MouseConstraint.create(this.engine, {
         mouse: mouse,
         constraint: {
-            stiffness: 0.005,
+            stiffness: 0.1,
             render: {
                 visible: true
             }
@@ -46,24 +49,20 @@ export default class Matcher {
     });
       
     this.render.mouse = mouse;
-    World.add(this.engine.world, mouseConstraint);
+    World.add(this.world, mouseConstraint);
   }
 
   start() {
-    Engine.clear(this.engine)
+    Engine.clear(this.engine);
+    Bricks.bind(this.engine);
 
+    this.world = this.engine.world;
+    this.world.gravity.y = 0;
+    
     this.createWalls();
     this.initMouse();
     
-
-    this.engine.world.gravity.y = 0;
-    // create two boxes and a ground
-    var boxA = Bodies.rectangle(400, 200, 80, 80);
-    var boxB = Bodies.rectangle(450, 50, 80, 80);
-
-    World.add(this.engine.world, [boxA, boxB]);
-
-
+    World.add(this.world, [Bricks.create(), Bricks.create()]);
 
     Engine.run(this.engine);
     Render.run(this.render);

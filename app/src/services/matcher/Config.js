@@ -7,14 +7,7 @@ class Config {
   }
 
   brick = {
-    heightScale: 1,
-    widthScale: 1,
-    fontSize: 20,
-
-    groupRadius: 100,
-
-    speed: 0.03,
-    friction: 1
+    borderRadius: 23
   }
 }
 
