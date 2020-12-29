@@ -20,7 +20,7 @@ export default class Matcher {
           height: 600,
           wireframes: false
       }
-    })
+    });
   } 
 
   createWalls() {
@@ -56,6 +56,8 @@ export default class Matcher {
   start() {
     Engine.clear(this.engine);
     Bricks.bind(this.engine);
+
+    this.engine.timing.timeScale = 1
 
     this.world = this.engine.world;
     this.world.gravity.y = 0;

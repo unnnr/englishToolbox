@@ -7,7 +7,9 @@ class Config {
   }
 
   brick = {
-    borderRadius: 23
+    borderRadius: 23,
+
+    exposionVelocity: 10
   }
 }
 
