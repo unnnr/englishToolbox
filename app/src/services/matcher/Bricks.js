@@ -4,7 +4,10 @@ import Config from '@services/matcher/Config'
 function randomColor() {
   return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
 }
-window.Body =Body;
+
+function createColor(key) {
+  return '#' + ('' + key).repeat(6);
+}
 
 class Bricks {
   throwPair(first, second) {
@@ -49,33 +52,33 @@ class Bricks {
           break;
 
         this.throwPair(first, second);
-
-        // second.explosion = center
-        // first.explosion = center;
-
-        first.render.fillStyle = randomColor();
-        second.render.fillStyle = randomColor();
       }
     });
   }
 
+  collection(words) {
+    return words.map(word => this.create(word))
+  }
+
   create(word) {
+    let group = word.key;
+
     let x = Math.floor(Math.random() * Config.world.width);
     let y = Math.floor(Math.random() * Config.world.height);
 
-    let width = 80;
-    let height = 50;
+    let width = word.verb.length * Config.fontSize  * Config.brick.widthScale;
+    let height = Config.fontSize * Config.brick.heightScale;
 
     let chamfer =  {
       radius: Config.brick.borderRadius
     };
 
     let render = {
-      fillStyle: randomColor()
+      fillStyle: createColor(group)
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
-      label: 'brick', chamfer, render,
+      label: 'brick', chamfer, render, group
     });
 
     window.el = el;

@@ -1,4 +1,5 @@
 import {Engine, Render, World, Bodies, Mouse, MouseConstraint, Events} from 'matter-js'
+import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
 
@@ -36,6 +37,13 @@ export default class Matcher {
     World.add(this.world, [top, bottom, right, left]);
   }
 
+  createBricks() {
+    let words = IrregularVerbs.slice(10);
+    let bricks = Bricks.collection(words);
+
+    World.add(this.world, bricks);
+  }
+
   initMouse() {
     var mouse = Mouse.create(this.render.canvas);
 
@@ -57,16 +65,13 @@ export default class Matcher {
     Engine.clear(this.engine);
     Bricks.bind(this.engine);
 
-    this.engine.timing.timeScale = 1
-
     this.world = this.engine.world;
     this.world.gravity.y = 0;
     
     this.createWalls();
+    this.createBricks();
     this.initMouse();
     
-    World.add(this.world, [Bricks.create(), Bricks.create()]);
-
     Engine.run(this.engine);
     Render.run(this.render);
   }
