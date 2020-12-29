@@ -46,7 +46,7 @@ class Bricks {
         if (first.label !== 'brick' || second.label !== 'brick')
           break;
 
-        if (!!!Group.merge(first, second))
+        if (!!!Group.merge(first, second, engine.world))
           this.throwPair(first, second);
       }
     });

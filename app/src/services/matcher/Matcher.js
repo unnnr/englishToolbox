@@ -29,7 +29,7 @@ export default class Matcher {
   createWalls() {
     let width = Config.world.width,
         height = Config.world.height,
-        size = 100;
+        size = 1000;
     
     let top = Bodies.rectangle( width / 2, size / -2, width, size, { isStatic: true }),
         left = Bodies.rectangle(size / -2, height / 2, size, height, { isStatic: true }),
