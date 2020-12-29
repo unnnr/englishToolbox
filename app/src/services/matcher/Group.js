@@ -7,7 +7,7 @@ function randomColor() {
 
 class Group {
   canGroup(first, second) {
-    return first.group === second.group;
+    return first.word.key === second.word.key;
   }
 
   createColor(key) {

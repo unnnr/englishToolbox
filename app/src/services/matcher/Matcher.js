@@ -63,7 +63,7 @@ export default class Matcher {
 
   start() {
     Engine.clear(this.engine);
-    Bricks.bind(this.engine);
+    Bricks.bind(this.engine, this.render);
 
     this.world = this.engine.world;
     this.world.gravity.y = 0;

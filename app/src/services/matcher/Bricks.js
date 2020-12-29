@@ -2,15 +2,9 @@ import {Bodies, Body, Events} from 'matter-js'
 import Config from '@services/matcher/Config'
 import Group from '@services/matcher/Group'
 
-function randomColor() {
-  return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
-}
-
-function createColor(key) {
-  return '#' + ('' + key).repeat(6);
-}
-
 class Bricks {
+  bricks = [];
+
   throwPair(first, second) {
     // Computing center between pair
     let center = {
@@ -43,7 +37,7 @@ class Bricks {
     });
   }
 
-  bind(engine) {
+  bind(engine, render) {
     Events.on(engine, 'collisionStart', (event) => {
       for (let pair of event.pairs) {
         let second = pair.bodyA;
@@ -56,6 +50,24 @@ class Bricks {
           this.throwPair(first, second);
       }
     });
+
+    Events.on(render, 'afterRender', (event) => {
+      let context =  render.context;
+      context.textBaseline = 'middle';
+      context.textAlign = 'center';
+
+      context.font = 
+        Config.font.size + 'px Arial';
+
+      context.fillStyle = 
+        Config.font.color;
+
+      for (let brick of this.bricks) {
+        context.fillText(brick.word.verb,
+                         brick.position.x,
+                         brick.position.y);
+      }
+   });
   }
 
   collection(words) {
@@ -63,27 +75,30 @@ class Bricks {
   }
 
   create(word) {
-    let group = word.key;
-
     let x = Math.floor(Math.random() * Config.world.width);
     let y = Math.floor(Math.random() * Config.world.height);
 
-    let width = word.verb.length * Config.fontSize  * Config.brick.widthScale;
-    let height = Config.fontSize * Config.brick.heightScale;
+    let width = word.verb.length * Config.font.size * Config.brick.widthScale;
+    let height = Config.font.size  * Config.brick.heightScale;
 
     let chamfer =  {
       radius: Config.brick.borderRadius
     };
 
     let render = {
-      fillStyle: Group.createColor(group)
+      fillStyle: Group.createColor(word.key)
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
-      label: 'brick', chamfer, render, group
+      chamfer, render, word, 
+      inertia: Infinity,
+      label: 'brick', 
     });
 
     window.el = el;
+
+    this.bricks.push(el);
+
     return el;
   }
 }
