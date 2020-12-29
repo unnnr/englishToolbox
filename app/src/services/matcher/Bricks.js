@@ -7,9 +7,6 @@ function randomColor() {
 window.Body =Body;
 
 class Bricks {
-
-  bricks = [];
-
   throwPair(first, second) {
     // Computing center between pair
     let center = {
@@ -58,19 +55,6 @@ class Bricks {
 
         first.render.fillStyle = randomColor();
         second.render.fillStyle = randomColor();
-      }
-    });
-
-    Events.on(engine, 'beforeUpdate123', (event) => {
-      for (let i = 0; i < this.bricks.length; i++) {
-        let brick = this.bricks[i];
-        if (!!!brick.explosion)
-          continue;
-
-        Body.applyForce(brick, brick.explosion, {x: 0.2, y: 0.2,});
-        console.log(brick.explosion);
-        brick.explosion = null;
-
       }
     });
   }
