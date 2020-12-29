@@ -6,12 +6,17 @@ function randomColor() {
 
 
 class Group {
+  colorMap = {};
+
   canGroup(first, second) {
     return first.word.key === second.word.key;
   }
 
   createColor(key) {
-    return '#' + ('' + key).repeat(6);
+    if (!!!this.colorMap[key])
+      this.colorMap[key] = randomColor();
+    
+    return this.colorMap[key];
   }
 
   merge(first, second) {

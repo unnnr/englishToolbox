@@ -19,7 +19,9 @@ export default class Matcher {
         options: {
           width: 1400,
           height: 600,
-          wireframes: false
+          wireframes: false,
+          showVelocity: true
+          // background: 'white',
       }
     });
   } 
@@ -38,7 +40,7 @@ export default class Matcher {
   }
 
   createBricks() {
-    let words = IrregularVerbs.slice(10);
+    let words = IrregularVerbs.slice(2);
     let bricks = Bricks.collection(words);
 
     World.add(this.world, bricks);

@@ -43,7 +43,7 @@ class Bricks {
         let second = pair.bodyA;
         let first = pair.bodyB;
 
-        if (first.label !==  'brick' || second.label !== 'brick')
+        if (first.label !== 'brick' || second.label !== 'brick')
           break;
 
         if (!!!Group.merge(first, second))
