@@ -4,11 +4,10 @@ import Config from '@services/matcher/Config'
 
 class Collisions {
   collideGroup(group, brick) {
-    // Computing center between pair
     let center = {
-      x: brick.position.x + (group.position.x - brick.position.x) / 2,
-      y: brick.position.y + (group.position.y - brick.position.y) / 2,
-    };
+      x: group.position.x,
+      y: group.position.y,
+    }
 
     let direction = {
       x: brick.position.x < center.x ? -1 : 1,
@@ -16,8 +15,8 @@ class Collisions {
     };
 
     Body.setVelocity(brick, {
-      x: Config.brick.exposionVelocity * direction.x + brick.velocity.x,
-      y: Config.brick.exposionVelocity * direction.y + brick.velocity.y,
+      x: Config.brick.exposionVelocity * direction.x,
+      y: Config.brick.exposionVelocity * direction.y,
     });
   }
 
