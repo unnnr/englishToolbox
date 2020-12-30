@@ -1,10 +1,10 @@
-import {Engine, Render, World, Bodies, Events, Mouse, MouseConstraint} from 'matter-js'
+import {Engine, Render, World, Bodies, Events} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
 import Groups from '@services/matcher/Groups'
-
+import Mouse from '@services/matcher/Mouse'
 
 
 export default class Matcher {
@@ -13,6 +13,8 @@ export default class Matcher {
   render = null;
 
   world = null;
+
+  mouse = null;
 
   constructor(canvas) {
     this.engine = Engine.create();
@@ -49,24 +51,6 @@ export default class Matcher {
 
     World.add(this.world, bricks);
   }
-
-  initMouse() {
-    var mouse = Mouse.create(this.render.canvas);
-
-    let mouseConstraint = MouseConstraint.create(this.engine, {
-        mouse: mouse,
-        constraint: {
-            stiffness: 0.1,
-            render: {
-                visible: true
-            }
-        }
-    });
-      
-    this.render.mouse = mouse;
-    World.add(this.world, mouseConstraint);
-  }
-
 
   collisionStart(event) {
     for (let pair of event.pairs) {
@@ -114,7 +98,8 @@ export default class Matcher {
     
     this.createWalls();
     this.createBricks();
-    this.initMouse();
+
+    Mouse.create(this.render, this.engine);
     
     Engine.run(this.engine);
     Render.run(this.render);
