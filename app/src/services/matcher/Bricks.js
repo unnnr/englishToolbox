@@ -18,7 +18,7 @@ class Bricks {
       Config.font.color;
 
     for (let brick of this.bricks) {
-      context.fillText(brick.word.verb,
+      context.fillText(brick.group.verb,
                        brick.position.x,
                        brick.position.y);
     }
@@ -28,11 +28,11 @@ class Bricks {
     return words.map(word => this.create(word))
   }
 
-  create(word) {
+  create(group) {
     let x = Math.floor(Math.random() * Config.world.width);
     let y = Math.floor(Math.random() * Config.world.height);
 
-    let width = word.verb.length * Config.font.size * Config.brick.widthScale;
+    let width = group.verb.length * Config.font.size * Config.brick.widthScale;
     let height = Config.font.size * Config.brick.heightScale;
 
     let chamfer =  {
@@ -40,13 +40,15 @@ class Bricks {
     };
 
     let render = {
-      fillStyle: Groups.createColor(word.key)
+      fillStyle: Groups.createColor(group.key)
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
-      chamfer, render, word, 
       inertia: Infinity,
       label: 'brick', 
+      chamfer, 
+      render,
+      group, 
     });
 
     window.el = el;

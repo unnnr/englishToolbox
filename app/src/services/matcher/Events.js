@@ -5,13 +5,13 @@ import Bricks from '@services/matcher/Bricks'
 
 
 class Events {
-  collisionStart(event) {
+  collisionStart(event, engine) {
     for (let pair of event.pairs) {
       let second = pair.bodyA;
       let first = pair.bodyB;
 
       if (first.label === 'brick' && second.label === 'brick') {
-        if (!!!Groups.merge(first, second))
+        if (!!!Groups.merge(first, second, engine.world))
           Collisions.collideBricks(first, second);
         return;
       }
@@ -30,13 +30,16 @@ class Events {
     }
   }
 
-  afterRender(render) {
+  afterRender(event, render) {
     Bricks.drawText(render)
   }
 
   bind(engine, render) {
-    MatterJs.Events.on(engine, 'collisionStart', this.collisionStart);
-    MatterJs.Events.on(render, 'afterRender',this.afterRender.bind(this, render));
+    MatterJs.Events.on(engine, 'collisionStart', 
+      (event) => this.collisionStart(event, engine));
+      
+    MatterJs.Events.on(render, 'afterRender',
+      (event) => this.afterRender(event, render));
   }
 }
 
