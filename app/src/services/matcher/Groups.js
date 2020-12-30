@@ -18,33 +18,48 @@ class Groups {
     
     return this.colorMap[key];
   }
-  
-  merge(first, second, world) {
-      if (!!!this.canGroup(first, second))
-    return false;
 
-    let group = Bodies.rectangle(first.position.x, first.position.y, 300, 200, {
-      render: {
-        fillStyle: 'white'
-      }, 
+  create(bricks) {
+    let height = 300;
+    let width = 300;
 
+    let x = bricks[0].position.x;
+    let y = bricks[0].position.y;
+
+    let render = {
+      fillStyle: 'white'
+    }
+
+    let el = Bodies.rectangle(x, y, width, height, {
       isSensor: true,
       isStatic: true,
 
-      words: [
-        second, first
-      ],
-
       label: 'group', 
+      key : bricks[0].group.key,
+
+      bricks,
+      render, 
     });
 
+    return el;
+  }
+  
+  merge(first, second, world) {
+    if (!!!this.canGroup(first, second))
+      return false;
+
+    let group = this.create([first, second]);
     world.bodies.unshift(group);
 
     return true;
   }
 
   append(group, brick) {
+    console.log(brick.group.key, group.key);
+    if (group.key !== brick.group.key)
+      return false;
 
+    return true;
   }
 }
 
