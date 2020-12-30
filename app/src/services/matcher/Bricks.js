@@ -37,39 +37,22 @@ class Bricks {
     });
   }
 
+  drawText(render) {
+    let context =  render.context;
+    context.textBaseline = 'middle';
+    context.textAlign = 'center';
 
+    context.font = 
+      Config.font.size + 'px Arial';
 
-  bind(engine, render) {
-    Events.on(engine, 'collisionStart', (event) => {
-      for (let pair of event.pairs) {
-        let second = pair.bodyA;
-        let first = pair.bodyB;
+    context.fillStyle = 
+      Config.font.color;
 
-        if (first.label !== 'brick' || second.label !== 'brick')
-          break;
-
-        if (!!!Group.create(first, second, engine.world))
-          this.throwPair(first, second);
-      }
-    });
-
-    Events.on(render, 'afterRender', (event) => {
-      let context =  render.context;
-      context.textBaseline = 'middle';
-      context.textAlign = 'center';
-
-      context.font = 
-        Config.font.size + 'px Arial';
-
-      context.fillStyle = 
-        Config.font.color;
-
-      for (let brick of this.bricks) {
-        context.fillText(brick.word.verb,
-                         brick.position.x,
-                         brick.position.y);
-      }
-   });
+    for (let brick of this.bricks) {
+      context.fillText(brick.word.verb,
+                       brick.position.x,
+                       brick.position.y);
+    }
   }
 
   collection(words) {

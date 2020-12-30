@@ -38,7 +38,6 @@ class Group {
   }
   
   merege(brick, group) {
-    if ()
   }
 
   create(first, second, world) {

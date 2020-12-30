@@ -1,7 +1,9 @@
-import {Engine, Render, World, Bodies, Mouse, MouseConstraint, Events} from 'matter-js'
+import {Engine, Render, World, Bodies, Mouse, MouseConstraint} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
+import Events from '@services/matcher/Events'
+
 
 export default class Matcher {
   engine = null;
@@ -65,7 +67,7 @@ export default class Matcher {
 
   start() {
     Engine.clear(this.engine);
-    Bricks.bind(this.engine, this.render);
+    Events.bind(this.engine, this.render);
 
     this.world = this.engine.world;
     this.world.gravity.y = 0;
