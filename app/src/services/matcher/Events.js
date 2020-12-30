@@ -1,6 +1,8 @@
 import MatterJs from 'matter-js'
 import Collisions from '@services/matcher/Collisions'
+import Groups from '@services/matcher/Groups'
 import Bricks from '@services/matcher/Bricks'
+
 
 class Events {
   collisionStart(event) {
@@ -9,19 +11,19 @@ class Events {
       let first = pair.bodyB;
 
       if (first.label === 'brick' && second.label === 'brick') {
-        if (!!!Group.merge(first, second))
+        if (!!!Groups.merge(first, second))
           Collisions.collideBricks(first, second);
         return;
       }
 
       if (first.label === 'group' && second.label === 'brick') {
-        if (!!!Group.append(first, second))
+        if (!!!Groups.append(first, second))
           Collisions.collideGroup(first, second);
         return
       }
 
       if (second.label === 'group' && first.label === 'brick') {
-        if (!!!Group.append(second, first))
+        if (!!!Groups.append(second, first))
           Collisions.collideGroup(second, first);
         return
       }

@@ -5,7 +5,7 @@ function randomColor() {
   return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
 }
 
-class Group {
+class Groups {
   colorMap = {};
 
   throwPair(brick, group) {
@@ -37,7 +37,8 @@ class Group {
     return this.colorMap[key];
   }
   
-  merege(brick, group) {
+  merge(brick, group) {
+
   }
 
   create(first, second, world) {
@@ -65,4 +66,4 @@ class Group {
   }
 }
 
-export default new Group();
+export default new Groups();

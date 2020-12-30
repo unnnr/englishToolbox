@@ -1,41 +1,10 @@
-import {Bodies, Body, Events} from 'matter-js'
+import {Bodies} from 'matter-js'
 import Config from '@services/matcher/Config'
-import Group from '@services/matcher/Group'
+import Groups from '@services/matcher/Groups'
+
 
 class Bricks {
   bricks = [];
-
-  throwPair(first, second) {
-    // Computing center between pair
-    let center = {
-      x: first.position.x + (second.position.x - first.position.x) / 2,
-      y: first.position.y + (second.position.y - first.position.y) / 2,
-    };
-
-    let direction = null;
-
-    // Throwing first away from center
-    direction = {
-      x: first.position.x < center.x ? -1 : 1,
-      y: first.position.y < center.y ? -1 : 1,
-    };
-
-    Body.setVelocity(first, {
-      x: Config.brick.exposionVelocity * direction.x + first.velocity.x,
-      y: Config.brick.exposionVelocity * direction.y + first.velocity.y,
-    });
-
-    // Throwing second away from center
-    direction = {
-      x: second.position.x < center.x ? -1 : 1,
-      y: second.position.y < center.y ? -1 : 1,
-    };
-
-    Body.setVelocity(second, {
-      x: Config.brick.exposionVelocity * direction.x + second.velocity.x,
-      y: Config.brick.exposionVelocity * direction.y + second.velocity.y,
-    });
-  }
 
   drawText(render) {
     let context =  render.context;
@@ -71,7 +40,7 @@ class Bricks {
     };
 
     let render = {
-      fillStyle: Group.createColor(word.key)
+      fillStyle: Groups.createColor(word.key)
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
