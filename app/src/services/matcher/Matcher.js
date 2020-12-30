@@ -64,14 +64,20 @@ export default class Matcher {
       }
 
       if (first.label === 'group' && second.label === 'brick') {
-        if (!!!Groups.append(first, second))
+        if (!!!Groups.append(first, second)) { 
           Collisions.collideGroup(first, second);
+          Mouse.stopDrag(this.mouse)
+        }
+
         return
       }
 
       if (second.label === 'group' && first.label === 'brick') {
-        if (!!!Groups.append(second, first))
+        if (!!!Groups.append(second, first)){
           Collisions.collideGroup(second, first);
+          Mouse.stopDrag(this.mouse)
+        }
+        
         return
       }
     }
@@ -99,7 +105,7 @@ export default class Matcher {
     this.createWalls();
     this.createBricks();
 
-    Mouse.create(this.render, this.engine);
+    this.mouse = Mouse.create(this.render, this.engine);
     
     Engine.run(this.engine);
     Render.run(this.render);

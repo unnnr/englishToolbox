@@ -20,11 +20,19 @@ class Mouse {
 
     MatterJs.World.add(engine.world, mouseConstraint);
 
-    MatterJs.Events.on(mouseConstraint, 'startdrag', () => {
-      setTimeout(() => {
-        // mouseConstraint.mouse.mouseup( { changedTouches: null });
-      }, 500);
-    })
+    return mouseConstraint;
+  }
+
+  stopDrag(mouseConstraint) {
+    let mouse = mouseConstraint.mouse;
+    
+    mouse.button = -1;
+    mouse.absolute.x = position.x;
+    mouse.absolute.y = position.y;
+    mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+    mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+    mouse.mouseupPosition.x = mouse.position.x;
+    mouse.mouseupPosition.y = mouse.position.y;
   }
 }
 
