@@ -1,6 +1,8 @@
 <template>
   <dropup 
     ref="dropup"
+    class="whiteboard__group-inner-mobile--color"
+    :disabled="disabled"
     @open="updateList">
 
     <template #list>
@@ -11,14 +13,15 @@
         class="whiteboard__button-color-mobile whiteboard__button-mobile"
         :class="'whiteboard__button-color-mobile--' + color.name"
 
-        @click="select(color)">
+        @mousedown.stop="select(color)">
       </button>
     </template>
 
     <template #button>
       <button 
-        class="whiteboard__button-color-mobile whiteboard__button-mobile whiteboard__button-mobile--selected"
-        :class="['whiteboard__button-color-mobile--' + selectedValue, 
+        class="whiteboard__button-color-mobile whiteboard__button-mobile"
+        :class="['whiteboard__button-color-mobile--' + seletedOrFirst.name, 
+                 !!!disabled ? 'whiteboard__button-mobile--selected': '',
                  opened ? 'whiteboard__button-mobile--active' : '']">
       </button>
     </template>
@@ -36,15 +39,19 @@ export default {
     Dropup
   },
 
+  props: { 
+    value: { type: String, default: null },
+  },
+
   data() {
     return {
       list: [
-        { value: 'black', name: 'black'},
-        { value: 'brown', name: 'brown'},
-        { value: 'red', name: 'red'},
-        { value: 'yellow', name: 'yellow'},
-        { value: 'green', name: 'green'},
-        { value: 'blue', name: 'blue'},
+        { value: '#111111', name: 'black'},
+        { value: '#7C5C5C', name: 'brown'},
+        { value: '#ff6688', name: 'red'},
+        { value: '#f9a922', name: 'yellow'},
+        { value: '#1dd1bb', name: 'green'},
+        { value: '#6666ff', name: 'blue'},
       ]
     }
   }

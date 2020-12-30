@@ -1,26 +1,24 @@
 <template>
   <div class="whiteboard__group-inner-mobile whiteboard__group-inner-mobile--tool">
-    <transition
+    <div
       v-for="(group, index) of groups"
       :key="index"
 
-      name="whiteboard__element"
+      class="whiteboard__element-dropup-mobile"
+      :class="{'whiteboard__element-dropup-mobile--active': group.opened}"
 
-      @before-enter="open(group)"
-      @before-leave="close(group)">
+      @mousedown.stop="close(group)">
 
-      <div
-        class="whiteboard__element-dropup-mobile"
-        :class="{'whiteboard__element-dropup-mobile--active': group.opened}">
-        <button 
-          v-for="(tool, index) of group.shown"
-          :key="index"
+      <button 
+        v-for="(tool, index) of group.shown"
+        :key="index"
 
-          class="whiteboard__button-tool-mobile whiteboard__button-mobile"
-          :class="'whiteboard__button-tool-mobile--' + tool.name">
-        </button>
-      </div>
-    </transition>
+        class="whiteboard__button-tool-mobile whiteboard__button-mobile"
+        :class="'whiteboard__button-tool-mobile--' + tool.name"
+        
+        @mousedown.stop="select(tool, group)">
+      </button>
+    </div>
     
     <div class="whiteboard__element-mobile">
       <template
@@ -32,7 +30,7 @@
           :class="['whiteboard__button-tool-mobile--' + groupSelected(group).name,
                    isSelected(groupSelected(group)) ? 'whiteboard__button-mobile--selected' : '',
                    group.opened ? 'whiteboard__button-mobile--active': '']"
-          @click="toggle(group)">
+          @mousedown.stop="toggle(group)">
         </button>
 
         <div 
@@ -46,6 +44,8 @@
 </template>
 
 <script>
+import {Trash, Eraser, Pencil, Ellipse, Polygon, Triangle, Rectangle, Inspector} from '@services/whiteboard/Tools'
+
 export default {
   data() {
     return {
@@ -55,8 +55,8 @@ export default {
           opened: false, 
           shown: [],
           list: [
-            {name: 'pencil'},
-            {name: 'pen'},
+            {value: Pencil, name: 'pencil'},
+            {value: Polygon, name: 'pen'},
           ],
         },
         { 
@@ -64,9 +64,9 @@ export default {
           selected: null,
           shown: [],
           list: [
-            {name: 'square'},
-            {name: 'ellipse'},
-            {name: 'triangle'},
+            {value: Rectangle, name: 'square'},
+            {value: Ellipse, name: 'ellipse'},
+            {value: Triangle, name: 'triangle'},
           ],
         },
         {
@@ -74,9 +74,9 @@ export default {
           opened: false, 
           shown: [],
           list: [
-            {name: 'eraser'},
-            {name: 'eraser-god'},
-            {name: 'trash'},
+            {value: Eraser, name: 'eraser'},
+            {value: Inspector, name: 'eraser-god'},
+            {value: Trash, name: 'trash'},
           ],
         },
       ],
@@ -89,7 +89,26 @@ export default {
     for (let group of this.groups)
       this.updateList(group)
 
-    this.selected = this.groups[0].list[0];
+    this.select(this.groups[0].list[0], this.groups[0]);
+
+    this.$options.binded = () => {
+      let saved = this.opened;
+
+      setTimeout(() => {
+        if (this.opened !== saved)
+          return;
+
+        for (let group of this.groups)
+          this.close(group);
+      }, 100)
+    }
+
+    document.body.addEventListener('mousedown', this.$options.binded, true);
+  },
+
+  beforeDestroy() {
+    this.$options.binded = this.close.bind(this);
+    document.body.removeEventListener('mousedown', this.$options.binded, true);
   },
 
   methods: {
@@ -98,11 +117,19 @@ export default {
     },
 
     close(group) {
-      group.opened = false;
+      if (group.opened && !!!this.$options.opening)
+        group.opened = false;
     },
 
     open(group) {
+      this.updateList(group);
+      if (!!!this.isSelected(this.groupSelected(group)))
+        this.select(this.groupSelected(group), group);
+        
       group.opened = true;
+
+      this.$options.opening = true;
+      setTimeout(() => this.$options.opening = false, 500);
     },
 
     toggle(group) {
@@ -112,8 +139,13 @@ export default {
         this.open(group)
     },
 
-    select(tool) {
+    select(tool, group) {
+      console.log(tool, group);
+
       this.selected = tool;
+      group.selected = tool;
+
+      this.$emit('input', tool && new tool.value);
     },
 
     isSelected(tool) {

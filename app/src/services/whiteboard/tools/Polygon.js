@@ -9,6 +9,12 @@ export default class Polygon {
 
   sizeless = true;
 
+  resolve(context, config) {
+    this.painting = false;
+    this.clear(context, config);
+    this.path = [];
+  }
+
   clear(context, config) {
     context.clearRect(0, 0, config.width, config.height);
   }

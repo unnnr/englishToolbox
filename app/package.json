@@ -17,6 +17,7 @@
     "instantsearch.js": "^4.9.0",
     "js-cookie": "^2.2.1",
     "laravel-echo": "^1.10.0",
+    "matter-js": "^0.15.0",
     "pusher-js": "^7.0.2",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",

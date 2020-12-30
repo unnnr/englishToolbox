@@ -20,6 +20,7 @@ const routes = [
 
   { path: '/profile', name: 'Profile', component: () => import('@pages/Profile') },
 
+  
   // Auth pages
   
   { path: '/login', name: 'Login', component: () => import('@pages/Login'),
@@ -41,6 +42,8 @@ const routes = [
     }
   },
 
+
+  { path: '/matcher', name: 'Matcher', component: () => import('@pages/Matcher') },
 
   // Post pages
   

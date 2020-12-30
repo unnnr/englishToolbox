@@ -12,6 +12,7 @@
         'whiteboard__button-size--' + key, 
         isSelected(key) ? 'whiteboard__button--selected': '']"
 
+      :disabled="disabled"
       @click="select(key)">
     </button>
   </div>

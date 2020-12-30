@@ -8,6 +8,7 @@
 <script>
 import DrawingsCollection from '@services/whiteboard/Drawings'
 import Resolution from '@services/Resolution'
+import Shortcuts from '@services/whiteboard/Shortcuts';
 import Config from '@services/whiteboard/Config'
 import Auth from '@services/Auth';
 
@@ -65,27 +66,45 @@ export default {
 		Resolution.bind(type => 
       this.mobile = Resolution.DESKTOP !== type);
 
-    let handler = this.drawings._collection;
+    Shortcuts.bind();
 
+    let handler = this.drawings._collection;
     handler.whenLocked = 
       () => this.locked = true;
-
     handler.whenUnlocked = 
       () => this.locked = false; 
 
     this.locked = handler.locked;
-
   },
+
+  beforeDestroy() {
+    Shortcuts.unbind();
+  }
 }
 </script>
 
 <style lang="sass">
 
-.whiteboard__element
+.whiteboard__element,
+.whiteboard__element-mobile,
+.whiteboard__group-inner-mobile
+  opacity: 1
   transition: opacity .3s
 
 .whiteboard--painting .whiteboard__element, 
+.whiteboard--painting .whiteboard__element-mobile,
+.whiteboard--painting .whiteboard__element-dropup-mobile,
 .whiteboard__element--disabled
   opacity: .5
 
+
+
+.whiteboard__user--banned .whiteboard__user-avatar:before
+  content: "block"
+  cursor: pointer
+  opacity: 1
+
+.whiteboard__user--persistent .whiteboard__user-avatar:before
+  cursor: default !important
+  opacity: 0 !important
 </style>
