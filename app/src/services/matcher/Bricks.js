@@ -37,6 +37,8 @@ class Bricks {
     });
   }
 
+
+
   bind(engine, render) {
     Events.on(engine, 'collisionStart', (event) => {
       for (let pair of event.pairs) {
@@ -46,7 +48,7 @@ class Bricks {
         if (first.label !== 'brick' || second.label !== 'brick')
           break;
 
-        if (!!!Group.merge(first, second, engine.world))
+        if (!!!Group.create(first, second, engine.world))
           this.throwPair(first, second);
       }
     });

@@ -8,6 +8,24 @@ function randomColor() {
 class Group {
   colorMap = {};
 
+  throwPair(brick, group) {
+    // Computing center between pair
+    let center = {
+      x: brick.position.x + (group.position.x - brick.position.x) / 2,
+      y: brick.position.y + (group.position.y - brick.position.y) / 2,
+    };
+
+    let direction = {
+      x: brick.position.x < center.x ? -1 : 1,
+      y: brick.position.y < center.y ? -1 : 1,
+    };
+
+    Body.setVelocity(brick, {
+      x: Config.brick.exposionVelocity * direction.x + brick.velocity.x,
+      y: Config.brick.exposionVelocity * direction.y + brick.velocity.y,
+    });
+  }
+
   canGroup(first, second) {
     return first.word.key === second.word.key;
   }
@@ -18,8 +36,12 @@ class Group {
     
     return this.colorMap[key];
   }
+  
+  merege(brick, group) {
+    if ()
+  }
 
-  merge(first, second, world) {
+  create(first, second, world) {
     if (!!!this.canGroup(first, second))
       return false;
 
@@ -27,9 +49,13 @@ class Group {
         render: {
           fillStyle: 'white'
         }, 
-        isSensor: true,
 
+        isSensor: true,
         isStatic: true,
+
+        words: [
+          second, first
+        ],
 
         label: 'group', 
       });
