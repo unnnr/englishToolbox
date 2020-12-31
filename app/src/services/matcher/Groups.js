@@ -108,6 +108,11 @@ class Groups {
     if (group.key !== brick.group.key)
       return false;
 
+    if (brick.group.merged)
+      return true;
+
+    brick.group.merged = true;
+    group.bricks.push(brick);
     return true;
   }
 }
