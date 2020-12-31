@@ -47,7 +47,9 @@ class Bricks {
       inertia: Infinity,
       label: 'brick', 
       chamfer, 
+      height,
       render,
+      width,
       group, 
     });
 

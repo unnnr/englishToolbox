@@ -11,12 +11,38 @@ class Groups {
   groups = [];
 
   reshape(group) {
-    Body.setVertices(group, [
-      { x: -100, y: -100 },
-      { x: 120, y: -100 },
-      { x: 100, y: 100 },
-      { x: -100, y: 100 }
-    ]);
+    Body.setCentre(group, {x: 600, y: 400});
+
+    group.render.fillStyle = randomColor();
+
+    let center =  {x: 600, y: 400};
+    let path = [];
+
+    for (let brick of group.bricks.slice(1)) {
+      path.push({
+        x: center.x - brick.position.x + brick.width / 2,
+        y: center.y - brick.position.y + brick.height / 2,
+      })
+
+      path.push({
+        x: center.x - brick.position.x - brick.width / 2,
+        y: center.y - brick.position.y + brick.height / 2
+      })
+
+      path.push({
+        x: center.x - brick.position.x - brick.width / 2,
+        y: center.y - brick.position.y - brick.height / 2
+       })
+
+       path.push({
+        x: center.x - brick.position.x + brick.width / 2,
+        y: center.y - brick.position.y - brick.height / 2
+       })
+    }
+
+    console.log(path, group);
+
+    Body.setVertices(group, path);
   }
 
   update() {
@@ -43,7 +69,7 @@ class Groups {
     let y = bricks[0].position.y;
 
     let render = {
-      fillStyle: 'white'
+      fillStyle: '#333344'
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
@@ -68,8 +94,9 @@ class Groups {
       return false;
 
     let group = this.create([first, second]);
-    world.bodies.unshift(group);
-
+    //world.bodies.unshift(group);
+    world.bodies.push(group);
+    
     return true;
   }
 
