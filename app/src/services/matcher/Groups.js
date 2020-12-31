@@ -15,7 +15,7 @@ class Groups {
 
     group.render.fillStyle = randomColor();
 
-    // let center =  {x: 600, y: 400};
+    // let centr =  {x: 600, y: 400};
     
     // Computing all points
     let points = [];
@@ -44,40 +44,35 @@ class Groups {
     let byY = [...points].sort((first, second) =>
       first.y <= second.y ? -1 : 1);
 
-    // Computing center
-    let height = 
-      byY[byY.length - 1].y - byY[0].y;
-
-    let width = 
-      byY[byY.length - 1].x - byY[0].x;
-
-    let center = {
-      x: byX[0].x + width / 2,
-      y: byY[0].y + height / 2,
+    // Computing centr
+    let min = {
+      x: byX[0].x, y: byY[0].y
     };
-    
-    // Computing top part of path
-    let path = [];
-    for (let i = 0; i < byX.length; i++) {
-      let point = byX[i];
 
-      if (point.y > center.y)
-        continue;
+    let max = {
+      x: byX[byX.length - 1].x, y: byY[byY.length - 1].y
+    };
 
-      path.push({
-        x: point.x, //- center.x,
-        y: point.y //- center.y
-      })
-    }
-    console.log('changed', path);
-    Body.setCentre(group, center);
-    
-    console.log('Poinst', points);
-    console.log('X', byX);
-    console.log('Y', byY);
-    
+    let centr = {
+      x: min.x + (max.x - min.x) / 2,
+      y: min.y + (max.y - min.y) / 2,
+    };
+
+    Body.setCentre(group, centr);;
+    Body.setVertices(group, [
+      {x: centr.x - min.x, y: centr.y - min.y },
+      {x: centr.x - max.x, y: centr.y - min.y },
+      {x: centr.x - max.x, y: centr.y - max.y },
+      {x: centr.x - min.x, y: centr.y - max.y },
+    ]);
+
+    console.log(  '----');
+    console.log({x: centr.x - min.x, y: centr.y - min.y });
+    console.log({x: centr.x - max.x, y: centr.y - min.y });
+    console.log({x: centr.x - max.x, y: centr.y - max.y });
+    console.log({x: centr.x - min.x, y: centr.y - max.y });
+
     return;
-    Body.setVertices(group, path);
 
 
     return;
@@ -92,10 +87,10 @@ class Groups {
       };
 
       shapes.push([ 
-        { x: center.x - bounds.left,  y: center.y - bounds.top },
-        { x: center.x - bounds.right, y: center.y - bounds.top },
-        { x: center.x - bounds.right, y: center.y - bounds.bottom }, 
-        { x: center.x - bounds.left,  y: center.y - bounds.bottom }
+        { x: centr.x - bounds.left,  y: centr.y - bounds.top },
+        { x: centr.x - bounds.right, y: centr.y - bounds.top },
+        { x: centr.x - bounds.right, y: centr.y - bounds.bottom }, 
+        { x: centr.x - bounds.left,  y: centr.y - bounds.bottom }
       ])
     }
 
@@ -161,8 +156,7 @@ class Groups {
       return false;
 
     let group = this.create([first, second]);
-    //world.bodies.unshift(group);
-    world.bodies.push(group);
+    world.bodies.unshift(group);
 
     return true;
   }
