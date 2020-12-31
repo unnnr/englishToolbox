@@ -1,4 +1,4 @@
-import {Bodies} from 'matter-js'
+import {Bodies, Body} from 'matter-js'
 import Config from '@services/matcher/Config'
 
 function randomColor() {
@@ -7,6 +7,22 @@ function randomColor() {
 
 class Groups {
   colorMap = {};
+  
+  groups = [];
+
+  reshape(group) {
+    Body.setVertices(group, [
+      { x: -100, y: -100 },
+      { x: 120, y: -100 },
+      { x: 100, y: 100 },
+      { x: -100, y: 100 }
+    ]);
+  }
+
+  update() {
+    for (let group of this.groups)
+      this.reshape(group);
+  } 
 
   canGroup(first, second) {
     return first.group.key === second.group.key;
@@ -41,6 +57,9 @@ class Groups {
       render, 
     });
 
+    this.reshape(el);
+    this.groups.push(el);
+
     return el;
   }
   
@@ -55,7 +74,6 @@ class Groups {
   }
 
   append(group, brick) {
-    console.log(brick.group.key, group.key);
     if (group.key !== brick.group.key)
       return false;
 

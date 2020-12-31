@@ -25,6 +25,7 @@ class Mouse {
 
   stopDrag(mouseConstraint) {
     let mouse = mouseConstraint.mouse;
+    let position = mouse.position;
     
     mouse.button = -1;
     mouse.absolute.x = position.x;
