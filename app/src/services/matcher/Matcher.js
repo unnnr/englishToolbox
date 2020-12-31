@@ -83,11 +83,18 @@ export default class Matcher {
     }
   }
 
+  beforeUpdate() {
+    Groups.update();
+  }
+
   afterRender(event) {
     Bricks.drawText(this.render)
   }
 
   bind() {
+    Events.on(this.engine, 'beforeUpdate', 
+      (event) => this.beforeUpdate(event));
+
     Events.on(this.engine, 'collisionStart', 
       (event) => this.collisionStart(event));
       

@@ -67,17 +67,11 @@ class Groups {
   }
 
   create(bricks) {
-    let height = 300;
-    let width = 300;
-
-    let x = bricks[0].position.x;
-    let y = bricks[0].position.y;
-
     let render = {
       fillStyle: '#333344'
     }
 
-    let el = Bodies.rectangle(x, y, width, height, {
+    let el = Bodies.rectangle(0, 0, 0, 0, {
       isSensor: true,
       isStatic: true,
 
@@ -88,6 +82,9 @@ class Groups {
       render, 
     });
 
+    for (let brick of bricks)
+      brick.group.merged = true;
+
     this.reshape(el);
     this.groups.push(el);
 
@@ -95,6 +92,9 @@ class Groups {
   }
   
   merge(first, second, world) {
+    if (first.group.merged || second.group.merged)
+      return true;
+
     if (!!!this.canGroup(first, second))
       return false;
 
