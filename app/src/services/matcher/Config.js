@@ -19,6 +19,10 @@ const Config  = {
   font: {
     size: 20,
     color: 'white'
+  },
+
+  group: {
+    padding: 10
   }
 }
 
