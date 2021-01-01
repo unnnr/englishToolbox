@@ -1,6 +1,7 @@
 import {Engine, Render, World, Bodies, Events} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
+import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
 import Groups from '@services/matcher/Groups'
@@ -88,6 +89,7 @@ export default class Matcher {
   beforeUpdate(event) {
     Groups.update(event);
     Bricks.update(event);
+    Animations.update(event);
   }
 
   afterRender(event) {

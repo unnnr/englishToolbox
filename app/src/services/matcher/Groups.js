@@ -1,5 +1,7 @@
 import {Bodies, Body, World, Vertices} from 'matter-js'
+import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
+
 
 function randomColor() {
   return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
@@ -25,7 +27,11 @@ class Groups {
     for (let brick of group.bricks)
       brick.group.merged = false;
 
-    World.remove(world, group);
+    let index = this.groups.indexOf(group);
+    if (index !== -1)
+      this.groups.splice(index, 1);
+      
+    Animations.fade(group, world)
   }
 
   groupeIsBroken(group) {
@@ -65,26 +71,31 @@ class Groups {
         max.x = right + padding; 
     }
 
-    let centr = {
+    let centre = {
       x: min.x + (max.x - min.x) / 2,
       y: min.y + (max.y - min.y) / 2,
     };
     
     let vertices = Vertices.create([
-      {x: centr.x - min.x, y: centr.y - min.y },
-      {x: centr.x - max.x, y: centr.y - min.y },
-      {x: centr.x - max.x, y: centr.y - max.y },
-      {x: centr.x - min.x, y: centr.y - max.y },
+      {x: centre.x - min.x, y: centre.y - min.y },
+      {x: centre.x - max.x, y: centre.y - min.y },
+      {x: centre.x - max.x, y: centre.y - max.y },
+      {x: centre.x - min.x, y: centre.y - max.y },
     ])
 
     vertices = 
       Vertices.chamfer(vertices, Config.group.borderRadius);
     
-    Body.setCentre(group, centr);;
+    Body.setCentre(group, centre);;
     Body.setVertices(group, vertices);
   }
 
   create(bricks) {
+    for (let brick of bricks) {
+      if (brick.group.merged)
+        return;
+    }
+    
     let {key} =  
       bricks[0].group;
 
