@@ -83,8 +83,8 @@ export default class Matcher {
     }
   }
 
-  beforeUpdate() {
-    Groups.update();
+  beforeUpdate(event) {
+    Groups.update(event);
   }
 
   afterRender(event) {

@@ -1,4 +1,4 @@
-import {Bodies, Body} from 'matter-js'
+import {Bodies, Body, World} from 'matter-js'
 import Config from '@services/matcher/Config'
 
 function randomColor() {
@@ -9,6 +9,26 @@ class Groups {
   colorMap = {};
   
   groups = [];
+
+  remove(group, world) {
+    for (let brick of group.bricks)
+      brick.group.merged = false;
+
+    World.remove(world, group);
+  }
+
+  groupeIsBroken(group) {
+    for (let brick of group.bricks) {
+      let distance = 
+        Math.sqrt(Math.pow(group.position.x - brick.position.x, 2) +
+                  Math.pow(group.position.y - brick.position.y, 2));
+
+      if (distance > Config.group.radius)
+        return true;
+    }
+
+    return false;
+  }
 
   reshape(group) {
     let padding = Config.group.padding
@@ -50,9 +70,15 @@ class Groups {
     ]);
   }
 
-  update() {
-    for (let group of this.groups)
+  update(event) {
+    let world = event.source.world;
+
+    for (let group of this.groups) {
       this.reshape(group);
+
+      if (this.groupeIsBroken(group))
+        this.remove(group, world);
+    }
   } 
 
   canGroup(first, second) {

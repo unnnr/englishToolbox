@@ -22,7 +22,8 @@ const Config  = {
   },
 
   group: {
-    padding: 10
+    padding: 10,
+    radius: 100
   }
 }
 
