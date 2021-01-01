@@ -1,4 +1,4 @@
-import {Bodies} from 'matter-js'
+import {Bodies, Body} from 'matter-js'
 import Config from '@services/matcher/Config'
 import Groups from '@services/matcher/Groups'
 
@@ -24,10 +24,6 @@ class Bricks {
     }
   }
 
-  collection(words) {
-    return words.map(word => this.create(word))
-  }
-
   create(group) {
     let x = Math.floor(Math.random() * Config.world.width);
     let y = Math.floor(Math.random() * Config.world.height);
@@ -44,13 +40,11 @@ class Bricks {
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
-      inertia: Infinity,
-      label: 'brick', 
-      chamfer, 
-      height,
-      render,
-      width,
-      group, 
+      group, label: 'brick',
+
+      chamfer, render,
+
+      height, width,      
     });
 
     window.el = el;
@@ -58,6 +52,15 @@ class Bricks {
     this.bricks.push(el);
 
     return el;
+  }
+
+  collection(words) {
+    return words.map(word => this.create(word))
+  }
+
+  update() {
+    for (let brick of this.bricks)
+      Body.setAngle(brick, 0)
   }
 }
 

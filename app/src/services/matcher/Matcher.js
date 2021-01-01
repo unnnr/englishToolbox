@@ -85,6 +85,7 @@ export default class Matcher {
 
   beforeUpdate(event) {
     Groups.update(event);
+    Bricks.update(event);
   }
 
   afterRender(event) {
