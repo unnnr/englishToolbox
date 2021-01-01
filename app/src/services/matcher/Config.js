@@ -3,16 +3,14 @@ const Config  = {
 
   world: {
     width: 1400,
-    height: 600
+    height: 600,
+    background: 'white'
   },
 
   brick: {
     borderRadius: 10,
-
     exposionVelocity: 10,
-
     heightScale: 1.2,
-
     widthScale: 1,
   },
 
@@ -23,7 +21,8 @@ const Config  = {
 
   group: {
     padding: 10,
-    radius: 100
+    radius: 150,
+    opacity: .5
   }
 }
 

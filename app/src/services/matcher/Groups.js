@@ -1,4 +1,4 @@
-import {Bodies, Body, World} from 'matter-js'
+import {Bodies, Body, World, Vertices} from 'matter-js'
 import Config from '@services/matcher/Config'
 
 function randomColor() {
@@ -9,6 +9,17 @@ class Groups {
   colorMap = {};
   
   groups = [];
+
+  canGroup(first, second) {
+    return first.group.key === second.group.key;
+  }
+
+  createColor(key) {
+    if (!!!this.colorMap[key])
+      this.colorMap[key] = randomColor();
+    
+    return this.colorMap[key];
+  }
 
   remove(group, world) {
     for (let brick of group.bricks)
@@ -58,54 +69,41 @@ class Groups {
       x: min.x + (max.x - min.x) / 2,
       y: min.y + (max.y - min.y) / 2,
     };
-
-    group.render.fillStyle = randomColor();
-
-    Body.setCentre(group, centr);;
-    Body.setVertices(group, [
+    
+    let vertices = Vertices.create([
       {x: centr.x - min.x, y: centr.y - min.y },
       {x: centr.x - max.x, y: centr.y - min.y },
       {x: centr.x - max.x, y: centr.y - max.y },
       {x: centr.x - min.x, y: centr.y - max.y },
-    ]);
-  }
+    ])
 
-  update(event) {
-    let world = event.source.world;
-
-    for (let group of this.groups) {
-      this.reshape(group);
-
-      if (this.groupeIsBroken(group))
-        this.remove(group, world);
-    }
-  } 
-
-  canGroup(first, second) {
-    return first.group.key === second.group.key;
-  }
-
-  createColor(key) {
-    if (!!!this.colorMap[key])
-      this.colorMap[key] = randomColor();
+    vertices = 
+      Vertices.chamfer(vertices, Config.group.borderRadius);
     
-    return this.colorMap[key];
+    Body.setCentre(group, centr);;
+    Body.setVertices(group, vertices);
   }
 
   create(bricks) {
+    let {key} =  
+      bricks[0].group;
+
+    let opacity =
+       Math.floor(Config.group.opacity * 100).toString(16).padStart(2, '0');
+    
+    let color = 
+      this.createColor(key);
+
     let render = {
-      fillStyle: '#333344'
+      strokeStyle: color,
+      fillStyle: color + opacity,
+      lineWidth: 3
     }
 
     let el = Bodies.rectangle(0, 0, 0, 0, {
-      isSensor: true,
-      isStatic: true,
-
+      isSensor: true, isStatic: true,
+      key, bricks, render,
       label: 'group', 
-      key : bricks[0].group.key,
-
-      bricks,
-      render, 
     });
 
     for (let brick of bricks)
@@ -141,6 +139,16 @@ class Groups {
     group.bricks.push(brick);
     return true;
   }
+
+  update(event) {
+    let world = event.source.world;
+    for (let group of this.groups) {
+      this.reshape(group);
+
+      if (this.groupeIsBroken(group))
+        this.remove(group, world);
+    }
+  } 
 }
 
 export default new Groups();

@@ -26,10 +26,12 @@ export default class Matcher {
           width: 1400,
           height: 600,
           wireframes: false,
-          showVelocity: true
-          // background: 'white',
+          showVelocity: true,
+          background: Config.world.background,
       }
     });
+
+    this.render.context.setLineDash([2, 4]);
   } 
 
   createWalls() {
