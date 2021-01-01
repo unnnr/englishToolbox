@@ -8,7 +8,7 @@ class User
 
     path = 'profile';
 
-    __user = null;
+    __user = 'loading';
     
     __parseResponse(response)
     {
@@ -39,8 +39,10 @@ class User
 
     async get() 
     { 
-        if (this.__user)
+        if (this.__user !== 'loading')
             return this.__user;
+
+        this._user = null;
 
         this.__user = await Http.get({ uri: this.path })
         .then(this.__parseResponse)
