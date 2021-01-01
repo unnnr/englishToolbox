@@ -11,7 +11,7 @@ class Animations {
     let duration = seconds * 1000;
 
     let animation = {
-      duration, remained: duration, 
+      duration, remained: duration,
       
       fire: () => 
         World.remove(world, el),
@@ -19,6 +19,8 @@ class Animations {
       update: (progress) =>
         el.render.opacity = progress / 100
     }
+
+    el.label = 'fade_animation';
 
     this.animations.push(animation);
   }

@@ -96,6 +96,7 @@ class Groups {
         return;
     }
     
+    // Group render
     let {key} =  
       bricks[0].group;
 
@@ -111,11 +112,12 @@ class Groups {
       lineWidth: 3
     }
 
+    //  Creating body
     let el = Bodies.rectangle(0, 0, 0, 0, {
+      key, bricks, render, label: 'group',
       isSensor: true, isStatic: true,
-      key, bricks, render,
-      label: 'group', 
     });
+
 
     for (let brick of bricks)
       brick.group.merged = true;
