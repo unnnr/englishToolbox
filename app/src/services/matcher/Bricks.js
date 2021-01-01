@@ -1,10 +1,15 @@
 import {Bodies, Body} from 'matter-js'
 import Config from '@services/matcher/Config'
 import Groups from '@services/matcher/Groups'
+import Animations from '@services/matcher/Animations'
 
 
 class Bricks {
   bricks = [];
+
+  clear() {
+    this.bricks = [];
+  }
 
   drawText(render) {
     let context =  render.context;
@@ -22,6 +27,14 @@ class Bricks {
                        brick.position.x,
                        brick.position.y);
     }
+  }
+
+  remove(brick, world) {
+    let index = this.bricks.indexOf(brick);
+    if (index !== -1)
+      this.bricks.splice(index, 1);
+
+    Animations.fade(brick, world)
   }
 
   create(group) {

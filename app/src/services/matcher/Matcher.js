@@ -17,6 +17,8 @@ export default class Matcher {
 
   mouse = null;
 
+  running = false;
+
   constructor(canvas) {
     this.engine = Engine.create();
 
@@ -49,40 +51,83 @@ export default class Matcher {
   }
 
   createBricks() {
-    let words = IrregularVerbs.slice(2);
+    let words = IrregularVerbs.slice(Config.deckLength);
     let bricks = Bricks.collection(words);
 
     World.add(this.world, bricks);
   }
 
+  increaseMatched() {
+    this.matched++;
+
+    if (this.matched === Config.deckLength)
+      console.log(123);
+  }
+
+  getBricksFromPair({bodyA, bodyB}) {
+    if (bodyA.label === 'brick' && bodyB.label === 'brick')
+      return [bodyA, bodyB];
+
+    return [null, null];
+  }
+
+  getGroupBrickFromPair({bodyA, bodyB}) {
+    let group = null,
+        brick = null;
+
+    if (bodyA.label === 'group')
+      group = bodyA;
+    else if (bodyB.label === 'group') 
+      group = bodyB;
+
+    if (bodyA.label === 'brick') 
+      brick = bodyA;
+    else if (bodyB.label === 'brick') 
+      brick = bodyB;
+
+    return [group, brick];
+  }
+
+
+  tryCollideBricks(pair) {
+    let [first, second] = this.getBricksFromPair(pair);
+    if (!!!first || !!!second)
+      return false;
+
+    if (Groups.merge(first, second, this.world))
+      return true
+
+    Collisions.collideBricks(first, second);
+    return false;  
+  }
+
+
+  tryCollideGroup(pair) {
+    let [group, brick] = this.getGroupBrickFromPair(pair);
+    if (!!!brick || !!!group)
+      return false;
+
+    if (!!!Groups.append(group, brick)) { 
+      Collisions.collideGroup(group, brick);
+      Mouse.stopDrag(this.mouse)
+      return false;
+    }
+
+    if (group.bricks.length === 3) {
+      Groups.release(group, this.world);
+      this.increaseMatched();      
+    }
+
+    return true
+  }
+
   collisionStart(event) {
     for (let pair of event.pairs) {
-      let second = pair.bodyA;
-      let first = pair.bodyB;
-
-      if (first.label === 'brick' && second.label === 'brick') {
-        if (!!!Groups.merge(first, second, this.world))
-          Collisions.collideBricks(first, second);
-        return;
-      }
-
-      if (first.label === 'group' && second.label === 'brick') {
-        if (!!!Groups.append(first, second)) { 
-          Collisions.collideGroup(first, second);
-          Mouse.stopDrag(this.mouse)
-        }
-
-        return
-      }
-
-      if (second.label === 'group' && first.label === 'brick') {
-        if (!!!Groups.append(second, first)){
-          Collisions.collideGroup(second, first);
-          Mouse.stopDrag(this.mouse)
-        }
-        
-        return
-      }
+      if (this.tryCollideBricks(pair))
+        continue;
+      
+      if (this.tryCollideGroup(pair))
+        continue
     }
   }
 
@@ -109,16 +154,19 @@ export default class Matcher {
 
   start() {
     Engine.clear(this.engine);
-    this.bind()
-
+    Animations.clear();
+    Bricks.clear();
+    Groups.clear();
+    
+    this.mouse = Mouse.create(this.render, this.engine);
     this.world = this.engine.world;
     this.world.gravity.y = 0;
+    this.running = true;
     
     this.createWalls();
     this.createBricks();
-
-    this.mouse = Mouse.create(this.render, this.engine);
-    
+    this.bind()
+  
     Engine.run(this.engine);
     Render.run(this.render);
   }

@@ -1,6 +1,7 @@
 import {Bodies, Body, World, Vertices} from 'matter-js'
 import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
+import Bricks from '@services/matcher/Bricks'
 
 
 function randomColor() {
@@ -11,6 +12,10 @@ class Groups {
   colorMap = {};
   
   groups = [];
+
+  clear() {
+    this.groups = [];
+  }
 
   canGroup(first, second) {
     return first.group.key === second.group.key;
@@ -32,6 +37,13 @@ class Groups {
       this.groups.splice(index, 1);
       
     Animations.fade(group, world)
+  }
+
+  release(group, world) {
+    for (let brick of group.bricks)
+      Bricks.remove(brick, world);
+
+    this.remove(group, world);
   }
 
   groupeIsBroken(group) {
@@ -162,6 +174,10 @@ class Groups {
         this.remove(group, world);
     }
   } 
+
+  lenght() {
+    this.groups.length;
+  }
 }
 
 export default new Groups();

@@ -7,6 +7,10 @@ class Animations {
 
   previousStamp = 0;
 
+  clear() {
+    this.animations = [];
+  }
+
   fade(el, world, seconds = .3) {
     let duration = seconds * 1000;
 
