@@ -11,20 +11,54 @@ class Animations {
     this.animations = [];
   }
 
-  fade(el, world, seconds = .3) {
+  blink(target, seconds = .3) {
     let duration = seconds * 1000;
+    let initial = el.render.fillStyle;
 
-    let animation = {
-      duration, remained: duration,
-      
-      fire: () => 
-        World.remove(world, el),
+    for (let animation of this.animations) {
+      if (animation.type !== 'blink' || target.id !== animation.target.id)
+        continue;
 
-      update: (progress) =>
-        el.render.opacity = progress / 100
+      el.remained = el.duration = seconds * 1000;
+      return;
     }
 
-    el.label = 'fade_animation';
+    let animation = {
+      remained: duration,
+      type: 'blink',
+
+      duration,
+      target,
+      
+      fire: () => {
+        target.render.fillStyle = initial; 
+      },
+
+      update: (progress) =>{
+        target.render.fillStyle = 'red'; 
+      }
+    }
+
+    this.animations.push(animation);
+  }
+
+  fade(target, world, seconds = .3) {
+    let duration = seconds * 1000;
+    let animation = {
+      remained: duration,
+      type: 'fade',
+      
+      duration, 
+      target,
+
+      fire: () => 
+        World.remove(world, target),
+
+      update: (progress) =>
+        target.render.opacity = progress / 100
+    }
+
+    target.label = 'fade_animation';
 
     this.animations.push(animation);
   }

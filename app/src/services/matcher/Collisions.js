@@ -4,8 +4,6 @@ import Config from '@services/matcher/Config'
 
 class Collisions {
   throwBrick(brick, center, strength) {
-    console.log(strength);
-
     if (strength === null)
       return;
 
