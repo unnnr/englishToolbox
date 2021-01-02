@@ -28,8 +28,6 @@ class MatcherWorld {
   increaseMatched() {
     this.matches++;
 
-    console.log(this.matches, Config.deckLength);
-
     if (this.matches === Config.deckLength)
       this.finished = true;
   }
