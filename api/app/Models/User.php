@@ -79,12 +79,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasntViewed(Model $post) 
     {
-        $view = $this->views()->where([
-            'viewable_type'=> get_class($post),
-            'viewable_id' => $post->id
-        ]);
+        return !!!$this->views()
+                        ->where([
+                            'viewable_type'=> get_class($post),
+                            'viewable_id' => $post->id])
+                        ->exists();
 
-        return !!!$view;
     }
 
     public function avatar()

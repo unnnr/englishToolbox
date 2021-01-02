@@ -77,7 +77,7 @@ abstract class PostService
             {
                 $post->update(['views' => $post->views + 1]);
     
-                $post->views()->create([
+                $post->viewList()->create([
                     'user_id' => auth('sanctum')->user()->id
                 ]);
             }
