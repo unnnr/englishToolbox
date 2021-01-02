@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="card"
+    class="card  skeleton-loading"
     :class="{
       'card--rectangle': rectangular}">
 
@@ -13,12 +13,8 @@
         @click.self="select">
 
       </div>
-      <div class="card__title"></div>
+      <div class="card__title" style="z-index: 10"></div>
     </div>
-
-    <div class="card__text"></div>
-
-    <div class="card__footer"></div>
   </div>
 </template>
 
@@ -36,3 +32,16 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.card 
+  animation: card-fade-in 1s ease-in
+
+@keyframes card-fade-in
+  from
+    opacity: 0
+  to 
+    opacity: 1
+
+</style>

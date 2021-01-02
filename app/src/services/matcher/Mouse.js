@@ -25,6 +25,7 @@ class Mouse {
 
   stopDrag(mouseConstraint) {
     let mouse = mouseConstraint.mouse;
+    let position = mouse.position;
     
     mouse.button = -1;
     mouse.absolute.x = position.x;
@@ -33,6 +34,12 @@ class Mouse {
     mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
     mouse.mouseupPosition.x = mouse.position.x;
     mouse.mouseupPosition.y = mouse.position.y;
+  }
+
+  drop(mouse, brick) {
+    console.log( mouse.body , brick);
+    if (!!!brick || mouse.body.id === brick.id)
+      this.stopDrag(mouse)
   }
 }
 

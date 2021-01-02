@@ -1,10 +1,14 @@
-import {Bodies} from 'matter-js'
+import {Bodies, Body} from 'matter-js'
 import Config from '@services/matcher/Config'
-import Groups from '@services/matcher/Groups'
+import Animations from '@services/matcher/Animations'
 
 
 class Bricks {
   bricks = [];
+
+  clear() {
+    this.bricks = [];
+  }
 
   drawText(render) {
     let context =  render.context;
@@ -24,8 +28,12 @@ class Bricks {
     }
   }
 
-  collection(words) {
-    return words.map(word => this.create(word))
+  remove(brick, world) {
+    let index = this.bricks.indexOf(brick);
+    if (index !== -1)
+      this.bricks.splice(index, 1);
+
+    Animations.fade(brick, world)
   }
 
   create(group) {
@@ -40,22 +48,28 @@ class Bricks {
     };
 
     let render = {
-      fillStyle: Groups.createColor(group.key)
+      fillStyle: Config.brick.color
     }
 
     let el = Bodies.rectangle(x, y, width, height, {
-      inertia: Infinity,
-      label: 'brick', 
-      chamfer, 
-      render,
-      group, 
+      group, label: 'brick',
+
+      chamfer, render,
+
+      height, width,      
     });
 
-    window.el = el;
-
     this.bricks.push(el);
-
     return el;
+  }
+
+  collection(words) {
+    return words.map(word => this.create(word))
+  }
+
+  update() {
+    for (let brick of this.bricks)
+      Body.setAngle(brick, 0)
   }
 }
 
