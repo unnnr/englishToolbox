@@ -7,21 +7,34 @@ class Animations {
 
   previousStamp = 0;
 
+  _hexToRgb(hex) {
+    console.log(hex);
+    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, (m, r, g, b) => {
+      return r + r + g + g + b + b;
+    });
+
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+
   clear() {
     this.animations = [];
   }
 
-  blink(target, seconds = .3) {
+  blink(target, seconds = .5) {
     let duration = seconds * 1000;
     let initial = el.render.fillStyle;
 
-    for (let animation of this.animations) {
-      if (animation.type !== 'blink' || target.id !== animation.target.id)
-        continue;
+    let from = this._hexToRgb('#ff0000');
+    let to = this._hexToRgb(initial);
 
-      el.remained = el.duration = seconds * 1000;
-      return;
-    }
+    if (!!!el.cachedColor)
+      el.cachedColor = initial;
 
     let animation = {
       remained: duration,
@@ -31,11 +44,25 @@ class Animations {
       target,
       
       fire: () => {
-        target.render.fillStyle = initial; 
+        target.render.fillStyle = el.cachedColor; 
       },
 
       update: (progress) =>{
-        target.render.fillStyle = 'red'; 
+        if (!!!to || !!!from) {
+          target.render.fillStyle = 'red'; 
+          return;
+        }
+
+        let color = {
+          r: to.r + (from.r - to.r) * progress / 100,
+          g: to.g + (from.g - to.g) * progress / 100,
+          b: to.b + (from.b - to.b) * progress / 100,
+        }
+
+        console.log(`rgb(${color.r},${color.g},${color.b})` );
+
+        target.render.fillStyle = 
+          `rgb(${color.r},${color.g},${color.b})` 
       }
     }
 
