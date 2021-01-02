@@ -8,16 +8,19 @@ class Collisions {
       x: group.position.x,
       y: group.position.y,
     }
+ 
+    let bricks = [...group.bricks, brick];
+    for (let brick of bricks) {
+      let direction = {
+        x: brick.position.x < center.x ? -1 : 1,
+        y: brick.position.y < center.y ? -1 : 1,
+      };
 
-    let direction = {
-      x: brick.position.x < center.x ? -1 : 1,
-      y: brick.position.y < center.y ? -1 : 1,
-    };
-
-    Body.setVelocity(brick, {
-      x: Config.brick.exposionVelocity * direction.x,
-      y: Config.brick.exposionVelocity * direction.y,
-    });
+      Body.setVelocity(brick, {
+        x: Config.brick.exposionVelocity * direction.x,
+        y: Config.brick.exposionVelocity * direction.y,
+      });
+    }
   }
 
   collideBricks(first, second) {
