@@ -1,6 +1,5 @@
 import {Bodies, Body} from 'matter-js'
 import Config from '@services/matcher/Config'
-import Groups from '@services/matcher/Groups'
 import Animations from '@services/matcher/Animations'
 
 
@@ -49,7 +48,7 @@ class Bricks {
     };
 
     let render = {
-      fillStyle: Groups.createColor(group.key)
+      fillStyle: Config.brick.color
     }
 
     let el = Bodies.rectangle(x, y, width, height, {

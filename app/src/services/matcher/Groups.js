@@ -29,8 +29,10 @@ class Groups {
   }
 
   remove(group, world) {
-    for (let brick of group.bricks)
+    for (let brick of group.bricks){
+      brick.render.fillStyle = Config.brick.color;
       brick.group.merged = false;
+    }
 
     let index = this.groups.indexOf(group);
     if (index !== -1)
@@ -131,8 +133,10 @@ class Groups {
     });
 
 
-    for (let brick of bricks)
+    for (let brick of bricks) {
       brick.group.merged = true;
+      brick.render.fillStyle = color;
+    }
 
     this.reshape(el);
     this.groups.push(el);

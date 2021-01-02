@@ -12,6 +12,7 @@ const Config  = {
     exposionVelocity: 10,
     heightScale: 1.2,
     widthScale: 1,
+    color: '#9999aa'
   },
 
   font: {
