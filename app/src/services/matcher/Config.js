@@ -1,10 +1,11 @@
 const Config  = {
-  deckLength: 2,
+  deckLength: 10,
 
   world: {
     width: 1620,
     height: 694,
-    background: 'white'
+    background: 'white',
+    spawnMargin: 40,
   },
 
   brick: {

@@ -1,4 +1,4 @@
-import {Bodies, World} from 'matter-js'
+import {Bodies, Body, World} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
 import Groups from '@services/matcher/Groups'
@@ -31,6 +31,37 @@ class MatcherWorld {
     if (this.matches === Config.deckLength)
       this.finished = true;
   }
+
+  locateBricks(bricks) {
+    let margin = Config.world.spawnMargin;
+
+    for (let i = 0; i < bricks.length; i++) {
+      let brick = bricks[i];
+      let position = {
+        x: Math.floor(Math.random() * (Config.world.width - brick.width - 2 * margin) + margin),
+        y: Math.floor(Math.random() * (Config.world.height - brick.height - 2 * margin)  + margin),
+      }
+
+      Body.setPosition(brick, position);
+
+      // Looking for intersections
+      for (let j = 0; j < i; j++) {
+        let previous = bricks[j];
+        let x = Math.max(brick.position.x, previous.position.x - margin);
+        let y = Math.max(brick.position.y, previous.position.y - margin);
+        let x2 = Math.min(brick.position.x + brick.width, previous.position.x + previous.width + margin);
+        let y2 = Math.min(brick.position.y + brick.height, previous.position.y + previous.height + margin);
+
+        if (x2 < x || y2 < y) 
+          continue;
+
+        i--;
+        break;
+      }
+    } 
+
+    return bricks;
+  }
   
   createWalls() {
     let width = Config.world.width,
@@ -48,6 +79,8 @@ class MatcherWorld {
   createBricks() {
     let words = IrregularVerbs.slice(Config.deckLength);
     let bricks = Bricks.collection(words);
+
+    this.locateBricks(bricks);
 
     World.add(this.world, bricks);
   }

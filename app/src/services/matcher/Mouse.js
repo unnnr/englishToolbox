@@ -37,8 +37,7 @@ class Mouse {
   }
 
   drop(mouse, brick) {
-    console.log( mouse.body , brick);
-    if (!!!brick || mouse.body.id === brick.id)
+    if (brick && mouse.body && mouse.body.id === brick.id)
       this.stopDrag(mouse)
   }
 }
