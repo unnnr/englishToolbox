@@ -25,8 +25,8 @@ export default class Matcher {
         element: canvas,
         engine: this.engine,
         options: {
-          width: 1400,
-          height: 600,
+          width: Config.world.width,
+          height: Config.world.height,
           wireframes: false,
           showVelocity: true,
           background: Config.world.background,
@@ -86,7 +86,7 @@ export default class Matcher {
   }
 
   stop() {
-    
+    this.start();
   }
 
   clear() {

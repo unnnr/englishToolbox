@@ -97,7 +97,7 @@ class MatcherWorld {
 
     if (!!!Groups.append(group, brick)) { 
       Collisions.collideGroup(group, brick);
-      Mouse.stopDrag(this.mouse)
+      Mouse.drop(this.mouse, brick);
       return false;
     }
 

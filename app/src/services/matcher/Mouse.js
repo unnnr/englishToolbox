@@ -35,6 +35,12 @@ class Mouse {
     mouse.mouseupPosition.x = mouse.position.x;
     mouse.mouseupPosition.y = mouse.position.y;
   }
+
+  drop(mouse, brick) {
+    console.log( mouse.body , brick);
+    if (!!!brick || mouse.body.id === brick.id)
+      this.stopDrag(mouse)
+  }
 }
 
 export default new Mouse();

@@ -2,8 +2,8 @@ const Config  = {
   deckLength: 2,
 
   world: {
-    width: 1400,
-    height: 600,
+    width: 1620,
+    height: 694,
     background: 'white'
   },
 
