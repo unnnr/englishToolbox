@@ -9,8 +9,9 @@ const Config  = {
   },
 
   brick: {
+    explosionActive: 10,
+    explosionPassive: null,
     borderRadius: 10,
-    exposionVelocity: 10,
     heightScale: 1.2,
     widthScale: 1,
     color: '#9999aa'
@@ -22,6 +23,8 @@ const Config  = {
   },
 
   group: {
+    explosionActive: 10,
+    explosionPassive: 3,
     padding: 10,
     radius: 150,
     opacity: .5

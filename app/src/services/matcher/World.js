@@ -117,17 +117,23 @@ class MatcherWorld {
     if (Groups.merge(first, second, this.world))
       return true
 
-    Collisions.collideBricks(first, second);
+    let captured = Mouse.captured(this.mouse, first)
+      || Mouse.captured(this.mouse, second);
+
+    Collisions.collideBricks(first, second, captured);
+
     return false;  
   }
 
   tryCollideGroup(pair) {
     let [group, brick] = this.getGroupBrickFromPair(pair);
+    let captured = Mouse.captured(this.mouse, brick);
+
     if (!!!brick || !!!group)
       return false;
 
     if (!!!Groups.append(group, brick)) { 
-      Collisions.collideGroup(group, brick);
+      Collisions.collideGroup(group, brick, captured);
       Mouse.drop(this.mouse, brick);
       return false;
     }

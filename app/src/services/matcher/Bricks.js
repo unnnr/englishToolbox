@@ -59,6 +59,7 @@ class Bricks {
       height, width,      
     });
 
+    window.el = el;
     this.bricks.push(el);
     return el;
   }
