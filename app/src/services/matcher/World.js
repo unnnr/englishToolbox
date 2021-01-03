@@ -1,6 +1,7 @@
 import {Bodies, Body, World} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
+import Animations from '@services/matcher/Animations'
 import Groups from '@services/matcher/Groups'
 import Bricks from '@services/matcher/Bricks'
 import Config from '@services/matcher/Config'
@@ -114,21 +115,37 @@ class MatcherWorld {
     if (!!!first || !!!second)
       return false;
 
+    let captured = Mouse.captured(this.mouse, first)
+      || Mouse.captured(this.mouse, second);
+
+    if (!!!captured)
+      return;
+
     if (Groups.merge(first, second, this.world))
       return true
 
-    Collisions.collideBricks(first, second);
+    Collisions.collideBricks(first, second, captured);
+
+    if (!!!first.group.merged)
+      Animations.blink(first);
+
+    if (!!!second.group.merged)
+      Animations.blink(second);
+
     return false;  
   }
 
   tryCollideGroup(pair) {
     let [group, brick] = this.getGroupBrickFromPair(pair);
+    let captured = Mouse.captured(this.mouse, brick);
+
     if (!!!brick || !!!group)
       return false;
 
     if (!!!Groups.append(group, brick)) { 
-      Collisions.collideGroup(group, brick);
+      Collisions.collideGroup(group, brick, captured);
       Mouse.drop(this.mouse, brick);
+      Animations.blink(brick);
       return false;
     }
 

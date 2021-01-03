@@ -36,8 +36,12 @@ class Mouse {
     mouse.mouseupPosition.y = mouse.position.y;
   }
 
-  drop(mouse, brick) {
-    if (brick && mouse.body && mouse.body.id === brick.id)
+  captured(mouse, el) {
+    return el && mouse.body && mouse.body.id === el.id;
+  }
+
+  drop(mouse, el) {
+    if (this.captured(mouse, el))
       this.stopDrag(mouse)
   }
 }
