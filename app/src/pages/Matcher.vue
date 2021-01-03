@@ -3,16 +3,19 @@
     <div class="games__selected">
       <div class="matcher" ref="canvas">
         <div class="matcher__progress-bar">
-          <div class="matcher__progress-bar-current"></div>
+          <div 
+            class="matcher__progress-bar-current"
+            :style="{'width': progressWidth}">
+          </div>
         </div>
 
         <div class="matcher__controls">
           <button class="matcher__element matcher__exit-button"></button>
-          <div class="matcher__element matcher__timer">100sec</div>
-          <div class="matcher__element matcher__counter">35/35</div>
+          <div class="matcher__element matcher__timer">{{ seconds }}</div>
+          <div class="matcher__element matcher__counter">{{ counter }}</div>
         </div>
 
-        <div class="matcher__results">
+      <!--   <div class="matcher__results">
           <div class="matcher__results-body">
             <div class="matcher__results-scrollable">
               <h4 class="matcher__results-heading heading-fourth">
@@ -151,7 +154,7 @@
               </table>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -159,15 +162,84 @@
 
 <script>
 import Matcher from "@services/matcher/Matcher";
+import Config from "@services/matcher/Config";
+import SlideTransitonVue from '../components/transitions/SlideTransiton.vue';
 
 export default {
-  mounted() {
-    let canvas = this.$refs.canvas;
-
-    this.game = new Matcher(canvas);
-
-    this.game.start();
+  data() {
+    return {
+      time: 0,
+      timer: null,
+      game: null
+    }
   },
+
+  computed: {
+    matched() {
+      if (!!!this.game || !!!this.game.world)
+        return 0;
+
+      return this.game.world.matches;
+    },
+
+    deckLength() {
+      return Config.deckLength;
+    },
+
+    progress() {
+      return this.matched * 100 / this.deckLength; 
+    },
+
+    progressWidth() {
+      return this.progress + '%';
+    },
+
+    counter() {
+      return this.matched + '/' + this.deckLength;
+    },
+
+    seconds() {
+      return this.time + 'sec';
+    }
+  },
+
+  mounted() {
+    this.start();
+  },
+
+  methods: {
+    startTimer() {
+      this.timer = setInterval(() => this.time++, 1000);
+    },
+    
+    stopTimer() {
+      if (this.timer !== null)
+        this.timer = setInterval(() => this.time++, 1000);
+    },
+
+    start() {
+      let canvas = this.$refs.canvas;
+
+      this.game = new Matcher(canvas);
+
+      this.game.start();
+      this.startTimer();
+    },
+
+    restart() {
+      this.game.start();
+
+      this.stopTimer();
+      this.startTimer();
+      this.time = 0;
+    },
+
+    clear() {
+      this.stopTimer();
+      clearInterval(this.timer)        
+      this.game.clear();
+    }
+  }
 };
 </script>
 
@@ -180,4 +252,8 @@ export default {
 .matcher canvas
   width: 100%
   height: 100%
+
+.matcher__progress-bar-current
+  transition: width .3s
+  
 </style>
