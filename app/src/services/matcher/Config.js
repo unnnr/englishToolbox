@@ -6,6 +6,11 @@ const Config  = {
     height: 694,
     background: 'white',
     spawnMargin: 40,
+    uiCutout: {
+      x: 0, y: 0,
+      width: 400, 
+      height: 70
+    }
   },
 
   brick: {
