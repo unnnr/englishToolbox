@@ -23,7 +23,8 @@
         <result-screen
           v-if="ended"
           :seconds="time"
-          :words="words"/>
+          :words="words"
+          @restart="restart"/>
       </transition>
     </div>
   </section>

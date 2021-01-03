@@ -53,7 +53,11 @@ export default {
       let seconds = this.seconds;
       let minutes =  Math.floor(seconds / 60);
 
-      seconds = seconds - 60 * minutes; 
+      seconds = seconds - 60 * minutes;
+      
+      seconds = seconds.toString().padStart(2, '0');
+      minutes = minutes.toString().padStart(2, '0');
+
 
       return `${minutes}:${seconds}`;
     },
