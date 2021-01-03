@@ -9,7 +9,10 @@
           </div>
         </div>
 
-        <div class="matcher__controls">
+        <div 
+          class="matcher__controls"
+          ref="controlls">
+
           <button class="matcher__element matcher__exit-button"></button>
           <div class="matcher__element matcher__timer">{{ seconds }}</div>
           <div class="matcher__element matcher__counter">{{ counter }}</div>
@@ -222,11 +225,13 @@ export default {
 
       this.game = new Matcher(canvas);
 
+      this.initCutout();
       this.game.start();
       this.startTimer();
     },
 
     restart() {
+      this.initCutout();
       this.game.start();
 
       this.stopTimer();
@@ -238,6 +243,21 @@ export default {
       this.stopTimer();
       clearInterval(this.timer)        
       this.game.clear();
+    },
+
+    initCutout() {
+      let controlls = this.$refs.controlls;
+
+      let k = Config.world.width / (this.$el.offsetWidth);
+
+      console.log(k);
+
+      Config.world.uiCutout = {
+        x: 0, y: 0,
+
+        height: (controlls.offsetHeight + 20) * k,
+        width: (controlls.offsetWidth + 40) * k,
+      }
     }
   }
 };
@@ -255,5 +275,5 @@ export default {
 
 .matcher__progress-bar-current
   transition: width .3s
-  
+
 </style>

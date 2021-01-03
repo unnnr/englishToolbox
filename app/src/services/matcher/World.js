@@ -35,12 +35,23 @@ class MatcherWorld {
 
   locateBricks(bricks) {
     let margin = Config.world.spawnMargin;
+    let uiCutout =  Config.world.uiCutout;
 
     for (let i = 0; i < bricks.length; i++) {
       let brick = bricks[i];
       let position = {
         x: Math.floor(Math.random() * (Config.world.width - brick.width - 2 * margin) + margin),
         y: Math.floor(Math.random() * (Config.world.height - brick.height - 2 * margin)  + margin),
+      }
+
+      
+      if (position.x > uiCutout.x - margin 
+          && position.y > uiCutout.y - margin 
+          && position.x < uiCutout.x + uiCutout.width + margin
+          && position.y < uiCutout.y + uiCutout.height + margin) {
+          i--;
+          
+        continue;
       }
 
       Body.setPosition(brick, position);
@@ -67,14 +78,27 @@ class MatcherWorld {
   createWalls() {
     let width = Config.world.width,
         height = Config.world.height,
+        ui = Config.world.uiCutout,
         size = 1000;
-    
-    let top = Bodies.rectangle( width / 2, size / -2, width, size, { isStatic: true }),
-        left = Bodies.rectangle(size / -2, height / 2, size, height, { isStatic: true }),
-        right = Bodies.rectangle(width + size / 2, height / 2, size, height, { isStatic: true }),
-        bottom = Bodies.rectangle(width / 2, height + size / 2, width, size, { isStatic: true });
 
-    World.add(this.world, [top, bottom, right, left]);
+    let options = {
+      isStatic: true,
+      render: {visible: false}  
+    }
+    
+    let top = Bodies.rectangle( width / 2, size / -2, width, size, options),
+        left = Bodies.rectangle(size / -2, height / 2, size, height, options),
+        right = Bodies.rectangle(width + size / 2, height / 2, size, height, options),
+        bottom = Bodies.rectangle(width / 2, height + size / 2, width, size, options);
+
+    let uiEl = Bodies.rectangle(
+        ui.width / 2 + ui.x, 
+        ui.height / 2 - ui.y, 
+        ui.width, 
+        ui.height,
+        options);
+
+    World.add(this.world, [top, bottom, right, left, uiEl]);
   }
 
   createBricks() {
