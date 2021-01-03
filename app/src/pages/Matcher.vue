@@ -155,6 +155,7 @@
                   <td>awoken</td>
                 </tr>
               </table>
+              <button class="matcher__results-restart-button button-secondary">again</button>
             </div>
           </div>
         </div> -->

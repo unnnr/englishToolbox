@@ -4882,6 +4882,10 @@ button:active {
   font-weight: 500;
 }
 
+.matcher__results-restart-button {
+  border-radius: 5px;
+}
+
 .whiteboard {
   position: absolute;
   top: 0;
