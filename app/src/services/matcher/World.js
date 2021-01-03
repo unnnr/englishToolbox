@@ -17,6 +17,8 @@ class MatcherWorld {
 
   finshed = false;
 
+  words  = [];
+
   constructor(world, mouse) {
     this.mouse = mouse
     this.world = world
@@ -107,6 +109,7 @@ class MatcherWorld {
     let bricks = Bricks.collection(words);
 
     this.locateBricks(bricks);
+    this.words = words;
 
     World.add(this.world, bricks);
   }

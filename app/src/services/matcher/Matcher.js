@@ -90,7 +90,7 @@ export default class Matcher {
 
   stop() {
     this.world.clear();
-    this.start();
+    // this.start();
   }
 
   clear() {

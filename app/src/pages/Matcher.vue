@@ -17,159 +17,28 @@
           <div class="matcher__element matcher__timer">{{ seconds }}</div>
           <div class="matcher__element matcher__counter">{{ counter }}</div>
         </div>
-
-      <!--   <div class="matcher__results">
-          <div class="matcher__results-body">
-            <div class="matcher__results-scrollable">
-              <h4 class="matcher__results-heading heading-fourth">
-                well done!
-              </h4>
-              <p class="matcher__results-time text-fourth">
-                Your time: <span>15:69</span>
-              </p>
-              <table class="matcher__results-table">
-                <tr>
-                  <th>№</th>
-                  <th>infinitive</th>
-                  <th>past simple</th>
-                  <th>past participle</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>arise</td>
-                  <td>arose</td>
-                  <td>arisen</td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>awake</td>
-                  <td>awoke</td>
-                  <td>awoken</td>
-                </tr>
-              </table>
-              <button class="matcher__results-restart-button button-secondary">again</button>
-            </div>
-          </div>
-        </div> -->
       </div>
+
+      <transition name="fade">
+        <result-screen
+          v-if="ended"
+          :seconds="time"
+          :words="words"/>
+      </transition>
     </div>
   </section>
 </template>
 
 <script>
+import ResultScreen from '@components/games/matcher/ResultScreen'
 import Matcher from "@services/matcher/Matcher";
 import Config from "@services/matcher/Config";
-import SlideTransitonVue from '../components/transitions/SlideTransiton.vue';
 
 export default {
+  components: {
+    ResultScreen
+  },
+
   data() {
     return {
       time: 0,
@@ -184,6 +53,13 @@ export default {
         return 0;
 
       return this.game.world.matches;
+    },
+
+    words() {
+      if (!!!this.game || !!!this.game.world)
+        return [];
+
+      return this.game.world.words;
     },
 
     deckLength() {
@@ -204,6 +80,17 @@ export default {
 
     seconds() {
       return this.time + 'sec';
+    },
+
+    ended() {
+      return this.matched === this.deckLength;
+    }
+  },
+
+  watch: {
+    ended(value) {
+      if (value)
+        this.stopTimer();
     }
   },
 
@@ -217,8 +104,11 @@ export default {
     },
     
     stopTimer() {
-      if (this.timer !== null)
-        this.timer = setInterval(() => this.time++, 1000);
+      if (this.timer === null)
+        return;
+      
+      clearInterval(this.timer);
+      this.timer = null;
     },
 
     start() {
@@ -248,7 +138,6 @@ export default {
 
     initCutout() {
       let controlls = this.$refs.controlls;
-
       let k = Config.world.width / (this.$el.offsetWidth);
 
       Config.world.uiCutout = {
@@ -270,9 +159,11 @@ export default {
 
 .matcher canvas
   width: 100%
-  height: 100%
 
 .matcher__progress-bar-current
   transition: width .3s
 
+.matcher__progress-bar
+  position: relative
+  
 </style>
