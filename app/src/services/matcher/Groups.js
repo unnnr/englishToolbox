@@ -1,4 +1,4 @@
-import {Bodies, Body, World, Vertices} from 'matter-js'
+import {Bodies, Body, Vertices} from 'matter-js'
 import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
@@ -59,6 +59,28 @@ class Groups {
     }
 
     return false;
+  }
+
+  shrink(group) {
+    for (let brick of group.bricks) {
+      let distance = 
+        Math.sqrt(Math.pow(group.position.x - brick.position.x, 2) +
+                  Math.pow(group.position.y - brick.position.y, 2));
+
+      let percentage = distance / Config.group.radius;
+      if (percentage < .5)
+        continue;
+
+      let direction = {
+        x: brick.position.x < group.position.x ? 1: -1,
+        y: brick.position.y < group.position.y ? 1: -1,
+      };
+
+      Body.setVelocity(brick, {
+        x: Config.group.magnet * direction.x * Math.sqrt(percentage),
+        y: Config.group.magnet * direction.y * Math.sqrt(percentage),
+      });
+    }
   }
 
   reshape(group) {
@@ -176,6 +198,8 @@ class Groups {
 
       if (this.groupeIsBroken(group))
         this.remove(group, world);
+      else 
+        this.shrink(group);
     }
   } 
 

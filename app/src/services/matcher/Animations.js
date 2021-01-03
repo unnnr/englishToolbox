@@ -8,7 +8,6 @@ class Animations {
   previousStamp = 0;
 
   _hexToRgb(hex) {
-    console.log(hex);
     let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, (m, r, g, b) => {
       return r + r + g + g + b + b;
@@ -58,8 +57,6 @@ class Animations {
           g: to.g + (from.g - to.g) * progress / 100,
           b: to.b + (from.b - to.b) * progress / 100,
         }
-
-        console.log(`rgb(${color.r},${color.g},${color.b})` );
 
         target.render.fillStyle = 
           `rgb(${color.r},${color.g},${color.b})` 
