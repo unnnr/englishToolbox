@@ -115,15 +115,22 @@ class MatcherWorld {
     if (!!!first || !!!second)
       return false;
 
-    if (Groups.merge(first, second, this.world))
-      return true
-
     let captured = Mouse.captured(this.mouse, first)
       || Mouse.captured(this.mouse, second);
 
+    if (!!!captured)
+      return;
+
+    if (Groups.merge(first, second, this.world))
+      return true
+
     Collisions.collideBricks(first, second, captured);
-    Animations.blink(first);
-    Animations.blink(second);
+
+    if (!!!first.group.merged)
+      Animations.blink(first);
+
+    if (!!!second.group.merged)
+      Animations.blink(second);
 
     return false;  
   }
