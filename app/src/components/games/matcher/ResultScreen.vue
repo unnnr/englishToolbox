@@ -22,7 +22,6 @@
               :key="index">
 
                 <td>{{ index }}.</td>
-                
                 <td>{{ first }}</td>
                 <td>{{ second }}</td>
                 <td>{{ third }}</td>

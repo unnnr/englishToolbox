@@ -32,8 +32,9 @@
 
 <script>
 import ResultScreen from '@components/games/matcher/ResultScreen'
-import Matcher from "@services/matcher/Matcher";
-import Config from "@services/matcher/Config";
+import Resolution from '@services/Resolution'
+import Matcher from '@services/matcher/Matcher'
+import Config from '@services/matcher/Config'
 
 export default {
   components: {
@@ -97,6 +98,11 @@ export default {
 
   mounted() {
     this.start();
+
+    Resolution.listen(() => {
+      this.initCutout()
+      this.game && this.game.resize()
+    }, true);
   },
 
   methods: {
@@ -139,13 +145,16 @@ export default {
 
     initCutout() {
       let controlls = this.$refs.controlls;
-      let k = Config.world.width / (this.$el.offsetWidth);
+      let canvas = this.$refs.canvas;
 
       Config.world.uiCutout = {
         x: 0, y: 0,
 
-        height: (controlls.offsetHeight + 20) * k,
-        width: (controlls.offsetWidth + 40) * k,
+        height: (controlls.offsetHeight + 5) 
+          * (Config.world.height / canvas.offsetHeight),
+
+        width: (controlls.offsetWidth + 20) 
+          * (Config.world.width / canvas.offsetWidth),
       }
     }
   }

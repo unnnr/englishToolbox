@@ -98,4 +98,8 @@ export default class Matcher {
     Engine.clear(this.engine);
     Render.stop(this.render);
   }
+
+  resize() {
+    this.world.resize();
+  }
 }

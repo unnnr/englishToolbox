@@ -1,4 +1,4 @@
-import {Bodies, Body, World} from 'matter-js'
+import {Bodies, Body, World, Vertices} from 'matter-js'
 import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
 import Animations from '@services/matcher/Animations'
@@ -10,6 +10,8 @@ import Mouse from '@services/matcher/Mouse'
 
 class MatcherWorld {
   world = null;
+
+  ui = null;
 
   mouse = null;
 
@@ -76,17 +78,29 @@ class MatcherWorld {
 
     return bricks;
   }
+
+  uiOptions() {
+    let config = Config.world.uiCutout;
+
+    let ui = {
+      x: config.width / 2 + config.x, 
+      y: config.height / 2 - config.y, 
+      width: config.width, 
+      height: config.height
+    };
+
+    return ui;
+  }
   
   createWalls() {
     let width = Config.world.width,
         height = Config.world.height,
-        ui = Config.world.uiCutout,
         size = 1000;
 
     let options = {
       label: 'edge',
       isStatic: true,
-      render: {visible: false}  
+      render: {fillStyle: 'green', svisible: false}  
     }
     
     let top = Bodies.rectangle( width / 2, size / -2, width, size, options),
@@ -94,14 +108,18 @@ class MatcherWorld {
         right = Bodies.rectangle(width + size / 2, height / 2, size, height, options),
         bottom = Bodies.rectangle(width / 2, height + size / 2, width, size, options);
 
-    let uiEl = Bodies.rectangle(
-        ui.width / 2 + ui.x, 
-        ui.height / 2 - ui.y, 
-        ui.width, 
-        ui.height,
-        options);
 
-    World.add(this.world, [top, bottom, right, left, uiEl]);
+    let uiOptions = this.uiOptions();
+    let ui = Bodies.rectangle(
+      uiOptions.x,
+      uiOptions.y,
+      uiOptions.width,
+      uiOptions.height,
+      options);
+
+    this.ui = ui;
+
+    World.add(this.world, [top, bottom, right, left, ui]);
   }
 
   createBricks() {
@@ -205,6 +223,25 @@ class MatcherWorld {
 
   clear() {
     World.clear(this.world);
+  }
+
+  resize() {
+    let options = this.uiOptions();
+
+    let centre = {
+      x: options.x + options.width / 2,
+      y: options.y + options.height / 2,
+    }
+
+    let vertices = Vertices.create([
+      {x: centre.x - options.width / 2, y: centre.y - options.height / 2 },
+      {x: centre.x + options.width / 2, y: centre.y - options.height / 2 },
+      {x: centre.x + options.width / 2, y: centre.y + options.height / 2 },
+      {x: centre.x - options.width / 2, y: centre.y + options.height / 2 },
+    ])
+
+    Body.setCentre(this.ui, options);
+    Body.setVertices(this.ui, vertices);
   }
 }
 
