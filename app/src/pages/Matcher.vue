@@ -250,8 +250,6 @@ export default {
 
       let k = Config.world.width / (this.$el.offsetWidth);
 
-      console.log(k);
-
       Config.world.uiCutout = {
         x: 0, y: 0,
 

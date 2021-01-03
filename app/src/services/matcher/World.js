@@ -82,6 +82,7 @@ class MatcherWorld {
         size = 1000;
 
     let options = {
+      label: 'edge',
       isStatic: true,
       render: {visible: false}  
     }
@@ -132,6 +133,23 @@ class MatcherWorld {
       brick = bodyB;
 
     return [group, brick];
+  }
+
+  getEdgeFromPair({bodyA, bodyB}) {
+    if (bodyA.label === 'edge' && bodyB.label !== 'edge')
+      return [bodyA, bodyB];
+
+    if (bodyB.label === 'edge' && bodyA.label !== 'edge')
+      return [bodyB, bodyA];
+
+    return [null, null];
+  }
+
+  tryCollideEdge(pair) {
+    let [edge, brick] = this.getEdgeFromPair(pair);
+
+    if (edge && brick)
+      Mouse.drop(this.mouse, brick);
   }
 
   tryCollideBricks(pair) {

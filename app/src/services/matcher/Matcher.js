@@ -54,6 +54,9 @@ export default class Matcher {
       
       if (this.world.tryCollideGroup(pair))
         continue
+
+      if (this.world.tryCollideEdge(pair))
+        continue
     }
 
     if (this.world.finished)
