@@ -4886,6 +4886,148 @@ button:active {
   border-radius: 5px;
 }
 
+.recorder {
+  padding: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
+.recorder__title {
+  font-weight: 700;
+}
+
+.recorder__card {
+  padding: 25px;
+  background: #fafafa;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column-gap: 25px;
+}
+
+.recorder__card--disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.recorder__card-button {
+  height: 75px;
+  width: 75px;
+  color: #fff;
+  background: #6666ff;
+  border-radius: 100%;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+.recorder__card-button:before {
+  font-family: "material icons round";
+  color: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.recorder__card-button--play:before {
+  content: "play_arrow";
+  font-size: 56px;
+}
+
+.recorder__card-button--pause:before {
+  content: "pause";
+  font-size: 50px;
+}
+
+.recorder__card-button--record:before {
+  content: "mic";
+  font-size: 36px;
+}
+
+.recorder__card-status-bar {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column-gap: 10px;
+  overflow: hidden;
+}
+
+.recorder__card-status-bar-element {
+  width: 10px;
+  height: 50px;
+  border-radius: 100px;
+  background: #e1e1e1;
+}
+
+.recorder__button-group {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  grid-column-gap: 5px;
+  margin-top: auto;
+}
+
+.recorder__button {
+  font-size: 16px;
+  height: 30px;
+  padding: 0 20px;
+  border-radius: 100px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.recorder__button--prev {
+  background: #848499;
+}
+
+.recorder__button--next {
+  background: #6666ff;
+}
+
+.recorder__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .whiteboard {
   position: absolute;
   top: 0;

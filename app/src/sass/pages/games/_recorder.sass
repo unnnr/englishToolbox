@@ -1,0 +1,113 @@
+.recorder
+  padding: 50px
+  // 
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+
+
+.recorder__title
+  font-weight: $bold
+
+
+.recorder__card
+  padding: 25px
+  background: $color-almost-white
+  border-radius: $border-radius-secondary
+  // 
+  display: grid
+  grid-template-columns: max-content 1fr
+  align-items: center
+  grid-column-gap: 25px
+  // 
+  &--disabled
+    cursor: default
+    opacity: 0.5
+
+
+.recorder__card-button
+  height: 75px
+  width: 75px
+  color: $color-white
+  background: $color-primary
+  border-radius: 100%
+  // 
+  display: grid
+  align-items: center
+  justify-items: center
+  // 
+  &:before
+    font-family: "material icons round"
+    color: inherit
+    // 
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 30px
+    height: 30px
+    overflow: hidden
+  // 
+  &--play
+    &:before
+      content: "play_arrow"
+      font-size: 56px
+
+  &--pause
+    &:before
+      content: "pause"
+      font-size: 50px
+
+  &--record
+    &:before
+      content: "mic"
+      font-size: 36px
+      
+.recorder__card-status-bar
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  align-items: center
+  grid-column-gap: 10px
+  overflow: hidden
+
+
+.recorder__card-status-bar-element
+  width: 10px
+  height: 50px
+  border-radius: 100px
+  background: darken($color-almost-white, 10)
+
+
+.recorder__button-group
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  justify-content: center
+  grid-column-gap: 5px  
+  margin-top: auto
+
+
+.recorder__button
+  font-size: 16px
+  height: 30px
+  padding: 0 20px
+  border-radius: 100px
+  color: $color-white
+  font-weight: $semibold
+  // 
+  &--prev
+    background: $color-gray
+  
+  &--next
+    background: $color-primary
+  // 
+  &:disabled 
+    opacity: 0.5
+    cursor: not-allowed
+
