@@ -98,7 +98,7 @@ class MatcherWorld {
     let options = {
       label: 'edge',
       isStatic: true,
-      render: {fillStyle: 'green', svisible: false}  
+      render: {visible: false}  
     }
     
     let top = Bodies.rectangle( width / 2, size / -2, width, size, options),

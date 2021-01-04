@@ -161,7 +161,6 @@ export default {
       }
 
       let progress = this.$refs.progress;
-      console.log(  this.worldWidth  );
       Config.world.height = 
         this.worldHeight - this.worldHeight / (canvas.offsetHeight / progress.offsetHeight)
     
