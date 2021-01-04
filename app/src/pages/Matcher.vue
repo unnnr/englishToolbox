@@ -4,6 +4,7 @@
       <div class="matcher" ref="canvas">
         <div class="matcher__progress-bar">
           <div 
+            ref="progress"
             class="matcher__progress-bar-current"
             :style="{'width': progressWidth}">
           </div>
@@ -69,7 +70,7 @@ export default {
     },
 
     progress() {
-      return this.matched * 100 / this.deckLength; 
+      return this.matchedprogress * 100 / this.deckLength; 
     },
 
     progressWidth() {
@@ -97,6 +98,8 @@ export default {
   },
 
   mounted() {
+    this.worldHeight = Config.world.height;
+    this.worldWidth = Config.world.width; 
     this.start();
 
     Resolution.listen(() => {
@@ -144,18 +147,24 @@ export default {
     },
 
     initCutout() {
-      let controlls = this.$refs.controlls;
       let canvas = this.$refs.canvas;
 
+      let controlls = this.$refs.controlls;
       Config.world.uiCutout = {
         x: 0, y: 0,
 
         height: (controlls.offsetHeight + 5) 
-          * (Config.world.height / canvas.offsetHeight),
+          * (this.worldHeight / canvas.offsetHeight),
 
         width: (controlls.offsetWidth + 20) 
-          * (Config.world.width / canvas.offsetWidth),
+          * (this.worldWidth / canvas.offsetWidth),
       }
+
+      let progress = this.$refs.progress;
+      console.log(  this.worldWidth  );
+      Config.world.height = 
+        this.worldHeight - this.worldHeight / (canvas.offsetHeight / progress.offsetHeight)
+    
     }
   }
 };

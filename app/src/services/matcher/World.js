@@ -11,8 +11,6 @@ import Mouse from '@services/matcher/Mouse'
 class MatcherWorld {
   world = null;
 
-  ui = null;
-
   mouse = null;
 
   matches = 0;
@@ -109,7 +107,13 @@ class MatcherWorld {
         bottom = Bodies.rectangle(width / 2, height + size / 2, width, size, options);
 
 
-    let uiOptions = this.uiOptions();
+    let uiOptions = {
+      x: Config.world.uiCutout.width / 2 + Config.world.uiCutout.x, 
+      y: Config.world.uiCutout.height / 2 - Config.world.uiCutout.y, 
+      width: Config.world.uiCutout.width, 
+      height: Config.world.uiCutout.height
+    };
+
     let ui = Bodies.rectangle(
       uiOptions.x,
       uiOptions.y,
@@ -117,9 +121,9 @@ class MatcherWorld {
       uiOptions.height,
       options);
 
-    this.ui = ui;
+    this.walls = [top, bottom, right, left, ui];
 
-    World.add(this.world, [top, bottom, right, left, ui]);
+    World.add(this.world, this.walls);
   }
 
   createBricks() {
@@ -224,24 +228,12 @@ class MatcherWorld {
   clear() {
     World.clear(this.world);
   }
-
+  
   resize() {
-    let options = this.uiOptions();
+    for (let wall of this.walls)
+      World.remove(this.world, wall);
 
-    let centre = {
-      x: options.x + options.width / 2,
-      y: options.y + options.height / 2,
-    }
-
-    let vertices = Vertices.create([
-      {x: centre.x - options.width / 2, y: centre.y - options.height / 2 },
-      {x: centre.x + options.width / 2, y: centre.y - options.height / 2 },
-      {x: centre.x + options.width / 2, y: centre.y + options.height / 2 },
-      {x: centre.x - options.width / 2, y: centre.y + options.height / 2 },
-    ])
-
-    Body.setCentre(this.ui, options);
-    Body.setVertices(this.ui, vertices);
+    this.createWalls();
   }
 }
 
