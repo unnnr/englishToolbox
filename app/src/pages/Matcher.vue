@@ -70,7 +70,7 @@ export default {
     },
 
     progress() {
-      return this.matchedprogress * 100 / this.deckLength; 
+      return this.matched * 100 / this.deckLength; 
     },
 
     progressWidth() {
