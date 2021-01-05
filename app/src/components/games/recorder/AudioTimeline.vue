@@ -15,7 +15,7 @@ import Resolution from '@services/Resolution'
 
 export default {
   props: {
-    src: { type: String, default: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3'},
+    src: { type: String, default: ''},
 
     value: { type: Number, default: 0 }
   },
@@ -37,11 +37,18 @@ export default {
   },
 
   watch: {
+    src(value) {
+      if (value)
+        this.computeShape(this.ticksCount);
+      else 
+        this.fillDummy(this.ticksCount);
+    },
+    
     ticksCount(count) {
       if (this.disabled)
         this.fillDummy(count)
       else
-        this.comuteShape(count);
+        this.computeShape(count);
     }
   },
 
@@ -62,10 +69,8 @@ export default {
         Math.floor(this.$el.offsetWidth / (this.tickWidth + this.gap)) 
     },
 
-    async comuteShape(count) {
+    computeShape(count) {
       let audioContext = new AudioContext();
-
-      await new Promise(resolve => setTimeout(resolve, 2000))
 
       fetch(this.src)
         .then(response => response.arrayBuffer())
