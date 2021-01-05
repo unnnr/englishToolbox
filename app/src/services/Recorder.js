@@ -1,11 +1,11 @@
 class Recorder {
   samples = [
-    {text: '0 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {text: '1 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {text: '2 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {text: '3 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {text: '4 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {text: '5 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '0 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '1 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '2 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '3 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '4 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '5 Some text, some text, some text, some text, some text, some text, some text, some text' },
   ];
 
   history = [];
