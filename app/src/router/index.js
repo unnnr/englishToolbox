@@ -45,6 +45,8 @@ const routes = [
 
   { path: '/matcher', name: 'Matcher', component: () => import('@pages/Matcher') },
 
+  { path: '/recorder', name: 'Recorder', component: () => import('@pages/Recorder') },
+  
   // Post pages
   
   { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},
