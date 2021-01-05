@@ -14,31 +14,40 @@
 import Resolution from '@services/Resolution'
 
 export default {
+  props: {
+    src: { type: String, default: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3'},
+
+    value: { type: Number, default: 0 }
+  },
+
   data() {
     return {
       ticksCount: 0,
       ticks: [],
 
-      tickWidth: 10,
-      gap: 10,
+      tickWidth: 8,
+      gap: 8,
+    }
+  },
 
-      src: 'https://cors-anywhere.herokuapp.com/https://www.w3schools.com/tags/horse.mp3',
-      player: new Audio()
+  computed: {
+    disabled() {
+      return !!!this.src;
     }
   },
 
   watch: {
     ticksCount(count) {
-      this.comuteShape(count);
+      if (this.disabled)
+        this.fillDummy(count)
+      else
+        this.comuteShape(count);
     }
   },
 
   mounted() {
     window.AudioContext = 
       window.AudioContext || window.webkitAudioContext;
-        
-
-    this.player.source = this.src;
 
     Resolution.bind(this.computeLength, true);
   },
@@ -52,9 +61,11 @@ export default {
       this.ticksCount = 
         Math.floor(this.$el.offsetWidth / (this.tickWidth + this.gap)) 
     },
-    
-    comuteShape(count) {
+
+    async comuteShape(count) {
       let audioContext = new AudioContext();
+
+      await new Promise(resolve => setTimeout(resolve, 2000))
 
       fetch(this.src)
         .then(response => response.arrayBuffer())
@@ -102,6 +113,14 @@ export default {
         this.normalize(chuncked);
 
       this.visualize(normalised, ticksCount);
+    },
+
+    fillDummy(count) {
+      let list = [];
+      for (let i = 0 ; i < count; i++)
+        list.push(100);
+
+      this.ticks = list;
     }
   }
 }
