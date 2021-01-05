@@ -94,7 +94,7 @@ main {
 
 @font-face {
   font-family: "en-icons";
-  src: url("../../public/fonts/en-icons.ttf?kh7edm") format("truetype"), url("../../public/fonts/en-icons.woff?kh7edm") format("woff"), url("../../public/fonts/en-icons.svg?kh7edm#en-icons") format("svg");
+  src: url("../fonts/en-icons.ttf?kh7edm") format("truetype"), url("../fonts/en-icons.woff?kh7edm") format("woff"), url("../fonts/en-icons.svg?kh7edm#en-icons") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1326,7 +1326,6 @@ button:active {
 }
 
 .button--loading:after {
-  content: url("/app/public/img/svg/spinner.svg");
   margin-left: 10px;
   opacity: 1;
   width: 25px;
@@ -4887,7 +4886,7 @@ button:active {
 }
 
 .recorder {
-  padding: 50px;
+  padding: 40px;
   position: absolute;
   top: 0;
   left: 0;
@@ -4903,12 +4902,18 @@ button:active {
   gap: 20px;
 }
 
+@media (max-width: 1400px) {
+  .recorder {
+    gap: 15px;
+  }
+}
+
 .recorder__title {
   font-weight: 700;
 }
 
 .recorder__card {
-  padding: 25px;
+  padding: 20px;
   background: #fafafa;
   border-radius: 10px;
   display: -ms-grid;
@@ -4922,14 +4927,9 @@ button:active {
   grid-column-gap: 25px;
 }
 
-.recorder__card--disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
 .recorder__card-button {
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
   color: #fff;
   background: #6666ff;
   border-radius: 100%;
@@ -4953,24 +4953,47 @@ button:active {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   overflow: hidden;
 }
 
 .recorder__card-button--play:before {
   content: "play_arrow";
-  font-size: 56px;
+  font-size: 46px;
 }
 
 .recorder__card-button--pause:before {
   content: "pause";
-  font-size: 50px;
+  font-size: 42px;
 }
 
 .recorder__card-button--record:before {
   content: "mic";
-  font-size: 36px;
+  font-size: 28px;
+}
+
+@media (max-width: 1400px) {
+  .recorder__card-button {
+    height: 40px;
+    width: 40px;
+  }
+  .recorder__card-button:before {
+    width: 18px;
+    height: 18px;
+  }
+  .recorder__card-button--play:before {
+    content: "play_arrow";
+    font-size: 32px;
+  }
+  .recorder__card-button--pause:before {
+    content: "pause";
+    font-size: 30px;
+  }
+  .recorder__card-button--record:before {
+    content: "mic";
+    font-size: 23px;
+  }
 }
 
 .recorder__card-status-bar {
@@ -4982,15 +5005,28 @@ button:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  grid-column-gap: 10px;
+  grid-column-gap: 8px;
   overflow: hidden;
+  height: 60px;
+}
+
+@media (max-width: 1400px) {
+  .recorder__card-status-bar {
+    height: 40px;
+  }
 }
 
 .recorder__card-status-bar-element {
-  width: 10px;
-  height: 50px;
+  width: 8px;
+  height: 100%;
   border-radius: 100px;
   background: #e1e1e1;
+  -webkit-transition: background .2s ease-in-out, height .2s ease-in-out;
+  transition: background .2s ease-in-out, height .2s ease-in-out;
+}
+
+.recorder__card-status-bar-element--active {
+  background: #6666ff;
 }
 
 .recorder__button-group {
