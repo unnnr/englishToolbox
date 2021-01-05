@@ -2,33 +2,39 @@
    <section class="games container">
     <div class="games__selected">
 
-      <div class="recorder">
-        <h4 class="heading-fourth recorder__title">Audio recorder</h4>
-        <p class="text-third recorder__hint">Volutpat libero sodales ultrices fermentum. <br> Lectus purus vitae, molestie suspendisse congue elit. </p>
-       
-        <q class="heading-fifth recorder__passage"><i>{{ sample.text }}</i></q>
-       
-        <audio-recorder/>
-        <audio-player/>
+      <transition 
+        name="slide-right"
+        mode="out-in">
 
-        <div class="recorder__button-group">
-          <button 
-            class="recorder__button recorder__button--prev" 
-            :disabled="!!!undoable"
-            @click="prev">
-            
-            prev
-          </button>
+        <div class="recorder"
+          :key="sample.text">
+          <h4 class="heading-fourth recorder__title">Audio recorder</h4>
+          <p class="text-third recorder__hint">Volutpat libero sodales ultrices fermentum. <br> Lectus purus vitae, molestie suspendisse congue elit. </p>
+        
+          <q class="heading-fifth recorder__passage"><i>{{ sample.text }}</i></q>
+        
+          <audio-recorder/>
+          <audio-player/>
 
-          <button 
-            class="recorder__button recorder__button--next"
-            @click="next">
-            
-            next
-          </button>
+          <div class="recorder__button-group">
+            <button 
+              class="recorder__button recorder__button--prev" 
+              :disabled="!!!undoable"
+              @click="prev">
+              
+              prev
+            </button>
+
+            <button 
+              class="recorder__button recorder__button--next"
+              @click="next">
+              
+              next
+            </button>
+          </div>
         </div>
-      </div>
-      
+      </transition>
+
     </div>
   </section>
 </template>
