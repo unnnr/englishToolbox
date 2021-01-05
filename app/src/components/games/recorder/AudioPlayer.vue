@@ -1,5 +1,5 @@
 <template>
-  <div class="recorder__card recorder__card--disabled">
+  <div class="recorder__card">
     <button
       class="recorder__card-button"
       :class="{'recorder__card-button--play': !!!playing,
@@ -10,8 +10,9 @@
     </button>
     
     <audio-timeline
+      :duration="duration"
+      :value="position"
       :src="src"/>
-
   </div>
 </template>
 
@@ -32,13 +33,14 @@ export default {
       player: null,
       position: 0,
 
-      playing: false
+      playing: false,
+      duration: 0
     }
   },
 
   computed: {
     disabled() {
-      return !!!this.src;
+      return !!!this.src || !!!this.duration;
     }
   },
 
@@ -47,15 +49,20 @@ export default {
 
     this.player.addEventListener('canplaythrough', this.load);
     this.player.addEventListener('timeupdate', this.updateTimeline);
+    this.player.addEventListener('ended', this.end);
   },
 
   methods: {
     load() {
-      console.log('loaded')
+      this.duration = this.player.duration;
     },
 
-    updateTimeline(event) {
-      console.log(event);
+    end() {
+      this.playing = false
+    },
+
+    updateTimeline() {
+      this.position = this.player.currentTime;
     },
 
     toggle() {

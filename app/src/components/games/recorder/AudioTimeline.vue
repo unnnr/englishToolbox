@@ -2,9 +2,12 @@
   <div class="recorder__card-status-bar">
     <!-- <p class="recorder__card-status-bar-hint text-second">record your reading the text above</p> -->
     <div
-      class="recorder__card-status-bar-element"
       v-for="(height, index) of ticks"
       :key="index"
+
+      class="recorder__card-status-bar-element"
+      :class="{'recorder__card-status-bar-element--active': tickSelected(index)}"
+
       :style="{'height': height + '%'}">
     </div>
   </div>
@@ -17,7 +20,9 @@ export default {
   props: {
     src: { type: String, default: ''},
 
-    value: { type: Number, default: 0 }
+    value: { type: Number, default: 0 },
+
+    duration: { type: Number, default: 0 },
   },
 
   data() {
@@ -26,7 +31,7 @@ export default {
       ticks: [],
 
       tickWidth: 8,
-      gap: 8,
+      gap: 8
     }
   },
 
@@ -64,6 +69,14 @@ export default {
   },
   
   methods: {
+    tickSelected(index) {
+      let position = 0;
+      if (this.value)
+        position = this.ticksCount * this.value / this.duration;
+
+      return index <= position;
+    },
+
     computeLength() {
       this.ticksCount = 
         Math.floor(this.$el.offsetWidth / (this.tickWidth + this.gap)) 
@@ -135,7 +148,6 @@ export default {
 
 .recorder__card-status-bar-element
   min-height: 20%
-  transition: height .3s
 
 .recorder__card-status-bar
   height: 50px
