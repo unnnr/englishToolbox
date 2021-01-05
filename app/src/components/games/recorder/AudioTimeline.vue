@@ -71,6 +71,9 @@ export default {
   
   methods: {
     moveto(position) {
+      if (this.disabled)
+        return;
+
       let timestamp = 
         this.duration * (position + 1) / this.ticksCount;
 
@@ -78,6 +81,9 @@ export default {
     },
 
     tickSelected(index) {
+      if (this.disabled)
+        return false;
+        
       let position = 0;
       if (this.value)
         position = this.ticksCount * this.value / this.duration;

@@ -1,11 +1,11 @@
 class Recorder {
   samples = [
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '0 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '1 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '2 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '3 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '4 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://github.com/mdn/webaudio-examples/blob/master/audio-analyser/viper.mp3', text: '5 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '0 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '1 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '2 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '3 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '4 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '5 Some text, some text, some text, some text, some text, some text, some text, some text' },
   ];
 
   history = [];

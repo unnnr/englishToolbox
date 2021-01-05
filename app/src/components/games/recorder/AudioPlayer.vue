@@ -26,7 +26,7 @@ export default {
   },
 
   props: {
-    src: { type: String, default: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3' }
+    src: { type: String, default: null }
   },
 
   data() {

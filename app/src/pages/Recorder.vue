@@ -14,7 +14,8 @@
           <q class="heading-sixth recorder__passage"><i>{{ sample.text }}</i></q>
         
           <audio-recorder/>
-          <audio-player/>
+          <audio-player
+            :src="sample.audio"/>
 
           <div class="recorder__button-group">
             <button 
