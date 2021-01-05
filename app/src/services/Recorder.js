@@ -35,7 +35,9 @@ class Recorder {
       index = Math.floor(Math.random() * (this.samples.length - 1));
     while (this.current === index)
 
-    this.remeber(index);
+    if (this.current > -1)
+      this.remeber(this.current);
+      
     this.current = index;
     
     return this.samples[index];

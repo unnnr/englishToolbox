@@ -5,34 +5,16 @@
       <div class="recorder">
         <h4 class="heading-fourth recorder__title">Audio recorder</h4>
         <p class="text-third recorder__hint">Volutpat libero sodales ultrices fermentum. <br> Lectus purus vitae, molestie suspendisse congue elit. </p>
-        <q class="heading-fifth recorder__passage"><i>Amet dui urna, netus duis porttitor. Tortor sed eleifend in in est et pellentesque gravida risus. At quis eget neque, mattis tortor amet dui risus, et.</i></q>
-        <div class="recorder__card">
-          <button class="recorder__card-button recorder__card-button--record material-icons"></button>
-          <div class="recorder__card-status-bar">
-            <!-- <p class="recorder__card-status-bar-hint text-second">record your reading the text above</p> -->
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-          </div>
-        </div>
-        <div class="recorder__card recorder__card--disabled">
-          <button class="recorder__card-button recorder__card-button--play material-icons"></button>
-          <div class="recorder__card-status-bar">
-            <!-- <p class="recorder__card-status-bar-hint text-second">example will be available after recording</p> -->
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-            <div class="recorder__card-status-bar-element"></div>
-          </div>
-        </div>
+       
+        <q class="heading-fifth recorder__passage"><i>{{ sample.text }}</i></q>
+       
+        <audio-recorder/>
+        <audio-player/>
 
         <div class="recorder__button-group">
           <button 
             class="recorder__button recorder__button--prev" 
-            :disabled="undoable"
+            :disabled="!!!undoable"
             @click="prev">
             
             prev
@@ -52,9 +34,16 @@
 </template>
 
 <script>
+import AudioRecorder from '@components/games/recorder/AudioRecorder'
+import AudioPlayer from '@components/games/recorder/AudioPlayer'
 import Recorder from '@services/Recorder'
 
 export default {
+  components: {
+    AudioRecorder,
+    AudioPlayer
+  },
+
   data() {
     return {
       sample: {
@@ -71,22 +60,23 @@ export default {
     
   },
 
+  mounted() {
+    this.next()
+  },
+
   methods: {
     prev() {
       this.sample = Recorder.prev();
-
       this.undoable = this.computeUndoable();
     },
 
     next() {
       this.sample = Recorder.next();
-
       this.undoable = this.computeUndoable();
     },
 
     computeUndoable() {
-        return !!!Recorder.history.length;
-
+      return Boolean(Recorder.history.length);
     }
   }
 }
