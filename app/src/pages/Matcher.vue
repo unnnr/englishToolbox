@@ -102,10 +102,12 @@ export default {
     this.worldWidth = Config.world.width; 
     this.start();
 
-    Resolution.listen(() => {
-      this.initCutout()
-      this.game && this.game.resize()
-    }, true);
+    Resolution.listen(this.resize, true);
+  },
+
+  beforeDestroy() {
+    Resolution.detach(this.resize);
+    this.clear();
   },
 
   methods: {
@@ -144,6 +146,11 @@ export default {
       this.stopTimer();
       clearInterval(this.timer)        
       this.game.clear();
+    },
+
+    resize() {
+      this.initCutout()
+      this.game && this.game.resize()
     },
 
     initCutout() {
