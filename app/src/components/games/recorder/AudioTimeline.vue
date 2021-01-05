@@ -8,7 +8,8 @@
       class="recorder__card-status-bar-element"
       :class="{'recorder__card-status-bar-element--active': tickSelected(index)}"
 
-      :style="{'height': height + '%'}">
+      :style="{'height': height + '%'}"
+      @click="moveto(index)">
     </div>
   </div>
 </template>
@@ -69,6 +70,13 @@ export default {
   },
   
   methods: {
+    moveto(position) {
+      let timestamp = 
+        this.duration * (position + 1) / this.ticksCount;
+
+      this.$emit('input', timestamp);
+    },
+
     tickSelected(index) {
       let position = 0;
       if (this.value)
@@ -111,7 +119,7 @@ export default {
     },
 
     normalize(audioBuffer) {
-      const multiplier = Math.pow(Math.max(...audioBuffer), -1);
+      let multiplier = Math.pow(Math.max(...audioBuffer), -1);
       return audioBuffer.map(n => n * multiplier);
     },
 

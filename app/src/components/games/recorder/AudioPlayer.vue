@@ -12,7 +12,8 @@
     <audio-timeline
       :duration="duration"
       :value="position"
-      :src="src"/>
+      :src="src"
+      @input="moveto"/>
   </div>
 </template>
 
@@ -63,6 +64,10 @@ export default {
 
     updateTimeline() {
       this.position = this.player.currentTime;
+    },
+
+    moveto(timestamp) {
+      this.player.currentTime = timestamp;
     },
 
     toggle() {
