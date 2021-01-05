@@ -28,9 +28,22 @@
             <div class="recorder__card-status-bar-element"></div>
           </div>
         </div>
+
         <div class="recorder__button-group">
-          <button class="recorder__button recorder__button--prev" disabled>prev</button>
-          <button class="recorder__button recorder__button--next">next</button>
+          <button 
+            class="recorder__button recorder__button--prev" 
+            :disabled="undoable"
+            @click="prev">
+            
+            prev
+          </button>
+
+          <button 
+            class="recorder__button recorder__button--next"
+            @click="next">
+            
+            next
+          </button>
         </div>
       </div>
       
@@ -49,23 +62,31 @@ export default {
         text: null,
       },
 
-      recorded: null
+      recorded: null,
+      undoable: true
     }
   },
 
   computed: {
-    undoable() {
-      return Recorder.undoable();
-    },
+    
   },
 
   methods: {
     prev() {
       this.sample = Recorder.prev();
+
+      this.undoable = this.computeUndoable();
     },
 
     next() {
       this.sample = Recorder.next();
+
+      this.undoable = this.computeUndoable();
+    },
+
+    computeUndoable() {
+        return !!!Recorder.history.length;
+
     }
   }
 }

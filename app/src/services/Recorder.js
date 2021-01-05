@@ -17,16 +17,17 @@ class Recorder {
   }
 
   prev() {
-    let index = this.history.pop();
-    return this.history[index];
-  }
+    if (!!!this.history.length)
+      return null;
 
-  undoable() {
-    return Boolean(this.history.length);
+    let index = 
+      this.history.pop();
+
+    return this.samples[index];
   }
 
   next() {
-    if (this.samples.length === 1)
+    if (this.samples.length < 2)
       return this.samples[0];
 
     let index;
