@@ -9,9 +9,9 @@
         <div class="recorder"
           :key="sample.text">
           <h4 class="heading-fourth recorder__title">Audio recorder</h4>
-          <p class="text-third recorder__hint">Volutpat libero sodales ultrices fermentum. <br> Lectus purus vitae, molestie suspendisse congue elit. </p>
+          <p class="text-fourth recorder__hint">Click the button below to record your speech and compare it to the sample.</p>
         
-          <q class="heading-fifth recorder__passage"><i>{{ sample.text }}</i></q>
+          <q class="heading-sixth recorder__passage"><i>{{ sample.text }}</i></q>
         
           <audio-recorder/>
           <audio-player/>
