@@ -66,36 +66,11 @@ export default {
   },
 
   methods: {
-    async startRecord() {
-      let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const audioChunks = [];
-      
-
-      this.recorder = new MediaRecorder(stream);
-
-      this.recorder.addEventListener("dataavailable", ({ data }) =>
-        audioChunks.push(data));
-
-      this.recorder.addEventListener("stop", () => {
-        let blob = new Blob(audioChunks);
-        this.blob = URL.createObjectURL(blob);
-        this.loadPlayer();
-      });
-
-      this.recorder.start();
-      this.recording = true;
-    },
-
     loadPlayer() {
       this.player = new Audio(this.blob);
       this.player.addEventListener('canplaythrough', this.loaded);
       this.player.addEventListener('timeupdate', this.updateTimeline);
       this.player.addEventListener('ended', this.end);
-    },
-
-    stopRecording() {
-      this.recorder.stop();
-      this.recording = false;
     },
 
     loaded() {
@@ -114,41 +89,71 @@ export default {
       this.player.currentTime = timestamp;
     },
 
+    async startRecord() {
+      let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const audioChunks = [];
+      
+
+      this.recorder = new MediaRecorder(stream);
+
+      this.recorder.addEventListener("dataavailable", ({ data }) =>
+        audioChunks.push(data));
+
+      this.recorder.addEventListener("stop", () => {
+        let blob = new Blob(audioChunks);
+        this.blob = URL.createObjectURL(blob);
+        
+        this.loadPlayer();
+      });
+
+      this.recorder.start();
+      this.recording = true;
+    },
+
+    stopRecording() {
+      if (!!!this.recorder)
+        return;
+
+      this.recorder.stop();
+      this.recording = false;
+    },
+
     pause() {
+      if (!!!this.player)
+        return;
+
       this.player.pause();
       this.playing = false;
     },
 
     play() {
+      if (!!!this.player)
+        return;
+
       this.player.play();
       this.playing = true;
     },
 
     rerecord() {
       this.pause();
+      this.player = null;
+      
       URL.revokeObjectURL(this.blob);
+      this.blob = null;
     },
 
     toggle() {
-      if (!!!this.blob && !!!this.recording) {
-        this.startRecord();
-        return;
-      }
+      if (!!!this.blob && !!!this.recording)
+        return this.startRecord();
 
-      if (!!!this.blob && this.recording) {
-        this.stopRecording();
-        return;
-      }
+      if (!!!this.blob && this.recording)
+        return this.stopRecording();
 
-      if (this.blob && !!!this.playing) {
-        this.play();
-        return;
-      }
+      if (this.blob && !!!this.playing)
+        return this.play();
 
-      if (this.blob && this.playing) {
-        this.pause();
-        return;
-      }
+      if (this.blob && this.playing)
+        return this.pause();
     }
   }
 }

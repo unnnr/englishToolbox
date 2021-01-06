@@ -82,18 +82,23 @@ export default {
 
     moveto(timestamp) {
       this.player.currentTime = timestamp;
+    },
 
-      if (!!!this.playing)
-        this.player.play();
+    play() {
+      this.player.play();
+      this.playing = true;
+    },
+
+    pause() {
+      this.player.pause();
+      this.playing = false;
     },
 
     toggle() {
-      this.playing = !!!this.playing;
-
-      if (this.playing)
-        this.player.play();
+      if (!!!this.playing)
+        this.play();
       else
-        this.player.pause();
+        this.pause();
     }
   }
 }
