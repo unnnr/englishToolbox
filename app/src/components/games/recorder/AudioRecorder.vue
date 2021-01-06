@@ -1,7 +1,17 @@
 <template>
   <div class="recorder__card recorder__card--record">
-    <button class="recorder__card-button recorder__card-button--record"></button>
+    <button 
+      class="recorder__card-button"
+      :class="{
+        'recorder__card-button--record': !!!blob && !!!recording,
+        'recorder__card-button--stop': !!!blob && recording,
+        'recorder__card-button--pause': blob && playing,
+        'recorder__card-button--play': blob && !!!playing  }"
+
+      @click="toggle">
+    </button>
       <!-- record your reading the text above -->
+
     <audio-timeline
       :recording="recording"
       :duration="duration"
@@ -10,7 +20,11 @@
       @input="moveto"/>
 
 
-    <button class="recorder__card-button recorder__card-button--rerecord" disabled></button>
+    <button
+      class="recorder__card-button recorder__card-button--rerecord"
+      :disabled="!!!blob"
+      @click="rerecord">
+    </button>
   </div>
 </template>
 
@@ -25,7 +39,8 @@ export default {
 
   data() {
     return {
-      recording: true,
+      recording: false,
+      recorder: null,
 
       player: null,
       position: 0,
@@ -51,12 +66,36 @@ export default {
   },
 
   methods: {
-    load() {
-      this.player = new Audio(this.src);
+    async startRecord() {
+      let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const audioChunks = [];
+      
 
+      this.recorder = new MediaRecorder(stream);
+
+      this.recorder.addEventListener("dataavailable", ({ data }) =>
+        audioChunks.push(data));
+
+      this.recorder.addEventListener("stop", () => {
+        let blob = new Blob(audioChunks);
+        this.blob = URL.createObjectURL(blob);
+        this.loadPlayer();
+      });
+
+      this.recorder.start();
+      this.recording = true;
+    },
+
+    loadPlayer() {
+      this.player = new Audio(this.blob);
       this.player.addEventListener('canplaythrough', this.loaded);
       this.player.addEventListener('timeupdate', this.updateTimeline);
       this.player.addEventListener('ended', this.end);
+    },
+
+    stopRecording() {
+      this.recorder.stop();
+      this.recording = false;
     },
 
     loaded() {
@@ -73,18 +112,43 @@ export default {
 
     moveto(timestamp) {
       this.player.currentTime = timestamp;
+    },
 
-      if (!!!this.playing)
-        this.player.play();
+    pause() {
+      this.player.pause();
+      this.playing = false;
+    },
+
+    play() {
+      this.player.play();
+      this.playing = true;
+    },
+
+    rerecord() {
+      this.pause();
+      URL.revokeObjectURL(this.blob);
     },
 
     toggle() {
-      this.playing = !!!this.playing;
+      if (!!!this.blob && !!!this.recording) {
+        this.startRecord();
+        return;
+      }
 
-      if (this.playing)
-        this.player.play();
-      else
-        this.player.pause();
+      if (!!!this.blob && this.recording) {
+        this.stopRecording();
+        return;
+      }
+
+      if (this.blob && !!!this.playing) {
+        this.play();
+        return;
+      }
+
+      if (this.blob && this.playing) {
+        this.pause();
+        return;
+      }
     }
   }
 }
