@@ -20,7 +20,7 @@ class Bricks {
 
     for (let brick of this.bricks) {
       context.fillStyle = 
-        brick.render.fontColor;
+        brick.render.strokeStyle;
 
       context.fillText(brick.group.verb,
                        brick.position.x,
@@ -51,7 +51,6 @@ class Bricks {
       fillStyle: '#ffffff',
       lineWidth: Config.brick.borderSize,
       strokeStyle: Config.brick.color,
-      fontColor: Config.brick.color, 
     }
 
     let el = Bodies.rectangle(x, y, width, height, {

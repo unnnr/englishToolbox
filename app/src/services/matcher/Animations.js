@@ -27,7 +27,7 @@ class Animations {
 
   blink(target, seconds = .5) {
     let duration = seconds * 1000;
-    let initial = el.render.fillStyle;
+    let initial = el.render.strokeStyle;
 
     let from = this._hexToRgb('#ff0000');
     let to = this._hexToRgb(initial);
@@ -43,12 +43,12 @@ class Animations {
       target,
       
       fire: () => {
-        target.render.fillStyle = el.cachedColor; 
+        target.render.strokeStyle = el.cachedColor; 
       },
 
       update: (progress) =>{
         if (!!!to || !!!from) {
-          target.render.fillStyle = 'red'; 
+          target.render.strokeStyle = 'red'; 
           return;
         }
 
@@ -58,7 +58,7 @@ class Animations {
           b: to.b + (from.b - to.b) * progress / 100,
         }
 
-        target.render.fillStyle = 
+        target.render.strokeStyle = 
           `rgb(${color.r},${color.g},${color.b})` 
       }
     }

@@ -33,7 +33,6 @@ class Groups {
   remove(group, world) {
     for (let brick of group.bricks){
       brick.render.strokeStyle = Config.brick.color;
-      brick.render.fontColor = Config.brick.color;
       brick.group.merged = false;
     }
 
@@ -161,7 +160,6 @@ class Groups {
     for (let brick of bricks) {
       brick.group.merged = true;
       brick.render.strokeStyle = color;
-      brick.render.fontColor = color;
       brick.render.fillStyle = '#ffffffdf'
     }
 
