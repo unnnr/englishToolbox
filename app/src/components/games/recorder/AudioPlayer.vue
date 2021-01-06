@@ -12,7 +12,7 @@
     <audio-timeline
       :duration="duration"
       :value="position"
-      :src="src"
+      :src="blob"
       @input="moveto"/>
   </div>
 </template>
@@ -35,7 +35,9 @@ export default {
       position: 0,
 
       playing: false,
-      duration: 0
+      duration: 0,
+
+      blob: null
     }
   },
 
@@ -46,15 +48,27 @@ export default {
   },
 
   mounted() {
-    this.player = new Audio(this.src);
+    fetch(this.src)
+      .then(response => response.blob())
+      .then(blob => this.blob = URL.createObjectURL(blob))
+      .then(this.load)
+  },
 
-    this.player.addEventListener('canplaythrough', this.load);
-    this.player.addEventListener('timeupdate', this.updateTimeline);
-    this.player.addEventListener('ended', this.end);
+  beforeDestroy() {
+    if (this.blob)
+      URL.revokeObjectURL(this.blob);
   },
 
   methods: {
     load() {
+      this.player = new Audio(this.src);
+
+      this.player.addEventListener('canplaythrough', this.loaded);
+      this.player.addEventListener('timeupdate', this.updateTimeline);
+      this.player.addEventListener('ended', this.end);
+    },
+
+    loaded() {
       this.duration = this.player.duration;
     },
 
@@ -68,6 +82,9 @@ export default {
 
     moveto(timestamp) {
       this.player.currentTime = timestamp;
+
+      if (!!!this.playing)
+        this.player.play();
     },
 
     toggle() {
