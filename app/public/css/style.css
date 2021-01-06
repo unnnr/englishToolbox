@@ -4927,6 +4927,12 @@ button:active {
   grid-column-gap: 25px;
 }
 
+.recorder__card--record {
+  -ms-grid-columns: max-content 1fr max-content;
+      grid-template-columns: -webkit-max-content 1fr -webkit-max-content;
+      grid-template-columns: max-content 1fr max-content;
+}
+
 .recorder__card-button {
   height: 60px;
   width: 60px;
@@ -4939,6 +4945,11 @@ button:active {
       -ms-flex-align: center;
           align-items: center;
   justify-items: center;
+}
+
+.recorder__card-button:disabled {
+  opacity: 0.1;
+  cursor: not-allowed;
 }
 
 .recorder__card-button:before {
@@ -4973,6 +4984,21 @@ button:active {
   font-size: 28px;
 }
 
+.recorder__card-button--stop:before {
+  content: "stop";
+  font-size: 40px;
+}
+
+.recorder__card-button--rerecord {
+  height: 40px;
+  width: 40px;
+}
+
+.recorder__card-button--rerecord:before {
+  content: "settings_backup_restore";
+  font-size: 22px;
+}
+
 @media (max-width: 1400px) {
   .recorder__card-button {
     height: 40px;
@@ -4983,16 +5009,16 @@ button:active {
     height: 18px;
   }
   .recorder__card-button--play:before {
-    content: "play_arrow";
     font-size: 32px;
   }
   .recorder__card-button--pause:before {
-    content: "pause";
     font-size: 30px;
   }
   .recorder__card-button--record:before {
-    content: "mic";
     font-size: 23px;
+  }
+  .recorder__card-button--stop:before {
+    font-size: 34px;
   }
 }
 
@@ -5023,6 +5049,7 @@ button:active {
   background: #e1e1e1;
   -webkit-transition: background .2s ease-in-out, height .2s ease-in-out;
   transition: background .2s ease-in-out, height .2s ease-in-out;
+  cursor: pointer;
 }
 
 .recorder__card-status-bar-element--active {
@@ -5046,7 +5073,7 @@ button:active {
   font-size: 16px;
   height: 30px;
   padding: 0 20px;
-  border-radius: 100px;
+  border-radius: 5px;
   color: #fff;
   font-weight: 600;
 }
@@ -5060,7 +5087,7 @@ button:active {
 }
 
 .recorder__button:disabled {
-  opacity: 0.5;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 

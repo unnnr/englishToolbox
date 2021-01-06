@@ -19,8 +19,8 @@ const Config  = {
     explosionActive: 10,
     explosionPassive: null,
 
-    borderRadius: 5,
-    borderSize: 10,
+    borderRadius: 3,
+    borderSize: 5,
 
     heightScale: 1.5,
     widthScale: 0.8,
@@ -37,11 +37,11 @@ const Config  = {
     explosionPassive: 3,
 
     radius: 150,
-    magnet: 0.9,
+    magnet: 1.5,
     
     borderSize: 3,
     padding: 10,
-    opacity: .5,
+    opacity: .2,
   }
 }
 
