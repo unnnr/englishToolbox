@@ -146,7 +146,7 @@ class Groups {
     let render = {
       strokeStyle: color,
       fillStyle: color + opacity,
-      lineWidth: 3
+      lineWidth: Config.group.borderSize,
     }
 
     //  Creating body

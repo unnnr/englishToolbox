@@ -49,7 +49,7 @@ class Bricks {
 
     let render = {
       fillStyle: '#ffffff',
-      lineWidth: 3,
+      lineWidth: Config.brick.borderSize,
       strokeStyle: Config.brick.color,
       fontColor: Config.brick.color, 
     }
