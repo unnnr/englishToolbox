@@ -28,12 +28,9 @@ export default class Matcher {
           width: Config.world.width,
           height: Config.world.height,
           wireframes: false,
-          showVelocity: true,
           background: Config.world.background,
       }
     });
-
-    this.render.context.setLineDash([2, 4]);
   } 
 
   bind() {

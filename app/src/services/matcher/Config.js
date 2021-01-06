@@ -1,5 +1,5 @@
 const Config  = {
-  deckLength: 1,
+  deckLength: 2,
 
   world: {
     width: 1620,
@@ -16,10 +16,10 @@ const Config  = {
   brick: {
     explosionActive: 10,
     explosionPassive: null,
-    borderRadius: 10,
-    heightScale: 1.2,
+    borderRadius: 5,
+    heightScale: 1.5,
     widthScale: 0.8,
-    color: '#9999aa'
+    color: '#A1A1B1'
   },
 
   font: {

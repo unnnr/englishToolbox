@@ -8,11 +8,11 @@ class Mouse {
     let mouseConstraint = MatterJs.MouseConstraint.create(engine, {
         mouse: mouse,
         constraint: {
-            stiffness: 0.6,
-            damping: 1,
-            render: {
-                visible: true
-            }
+          stiffness: 0.6,
+          damping: 1,
+          render: {
+            visible: false
+          }
         }
     });
       
