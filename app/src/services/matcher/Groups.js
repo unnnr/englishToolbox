@@ -3,13 +3,15 @@ import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
 import Bricks from '@services/matcher/Bricks'
 
-
-function randomColor() {
-  return'#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0'); 
-}
-
 class Groups {
-  colorMap = {};
+
+  colorMap = [
+    '#949cdf', '#9f5f80', 
+    '#ffacb7', '#63b7af', 
+    '#ea86b6', '#0779e4', 
+    '#ad62aa', '#8bbabb', 
+    '#ffbd69', '#fa4252',
+  ];
   
   groups = [];
 
@@ -22,10 +24,10 @@ class Groups {
   }
 
   createColor(key) {
-    if (!!!this.colorMap[key])
-      this.colorMap[key] = randomColor();
-    
-    return this.colorMap[key];
+    let index = 
+      key % (this.colorMap.length - 1);
+
+    return this.colorMap[index];
   }
 
   remove(group, world) {

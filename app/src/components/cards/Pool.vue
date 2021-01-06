@@ -1,5 +1,5 @@
 <template>
-  <scale-group-transition class="pool">
+  <div class="pool">
 
     <new-card 
       v-if="canCreate"
@@ -27,17 +27,15 @@
       @select="select(card)"
       @favorite-toggle="toggleFavorite(card)"/>
 
-  </scale-group-transition>
+  </div>
 </template>
 
 <script>
-import ScaleGroupTransition from '@components/transitions/ScaleGroupTransition'
 import NewCard from '@components/cards/NewCard'
 import Card from '@components/cards/Card'
 
 export default {
   components: {
-    ScaleGroupTransition,
     NewCard,
     Card
   },
