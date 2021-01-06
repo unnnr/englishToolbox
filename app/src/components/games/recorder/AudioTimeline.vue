@@ -1,14 +1,20 @@
 <template>
-  <div class="recorder__card-status-bar">
+  <div 
+    class="recorder__card-status-bar">
     <!-- <p class="recorder__card-status-bar-hint text-second">record your reading the text above</p> -->
     <div
       v-for="(height, index) of ticks"
       :key="index"
 
       class="recorder__card-status-bar-element"
-      :class="{'recorder__card-status-bar-element--active': tickSelected(index)}"
+      :class="{
+        'recorder__card-status-bar-element--active': tickSelected(index),
+        'recorder__card-status-bar-element--recording': recording}"
 
-      :style="{'height': height + '%'}"
+      :style="{
+        'height': height + '%',
+        'animation-delay': index * 20 + 'ms'}"
+
       @click="moveto(index)">
     </div>
   </div>
@@ -24,6 +30,8 @@ export default {
     value: { type: Number, default: 0 },
 
     duration: { type: Number, default: 0 },
+
+    recording: { type: Boolean, default: false }
   },
 
   data() {
@@ -81,7 +89,7 @@ export default {
     },
 
     tickSelected(index) {
-      if (this.disabled)
+      if (this.disabled || this.recording)
         return false;
         
       let position = 0;
@@ -166,4 +174,15 @@ export default {
 .recorder__card-status-bar
   height: 50px
 
+.recorder__card-status-bar-element--recording
+  animation: shrink 1s infinite
+
+@keyframes shrink 
+  0%
+    height: 100%
+  50%
+    height: 30%
+  100%
+    height: 100%
+  
 </style>
