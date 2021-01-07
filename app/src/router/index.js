@@ -47,6 +47,8 @@ const routes = [
 
   { path: '/recorder', name: 'Recorder', component: () => import('@pages/Recorder') },
   
+  { path: '/builder', name: 'Builder', component: () => import('@pages/Builder') },
+
   // Post pages
   
   { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},
