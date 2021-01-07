@@ -5201,7 +5201,7 @@ button:active {
 }
 
 .recorder {
-  padding: 40px;
+  padding: 30px 40px 40px;
   position: absolute;
   top: 0;
   left: 0;
@@ -5377,11 +5377,7 @@ button:active {
   grid-auto-flow: column;
   grid-auto-columns: -webkit-max-content;
   grid-auto-columns: max-content;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   grid-column-gap: 5px;
-  margin-top: auto;
 }
 
 .recorder__button {
@@ -5404,6 +5400,157 @@ button:active {
 .recorder__button:disabled {
   opacity: 0.25;
   cursor: not-allowed;
+}
+
+.recorder__element {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 600;
+  color: #E3E3E3;
+  padding: 0px 10px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  grid-auto-flow: column;
+  grid-column-gap: 5px;
+  height: 30px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+}
+
+.recorder__element:after, .recorder__element:before {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: "material icons round";
+  color: inherit;
+}
+
+.recorder__element:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.recorder__exit-button {
+  width: 30px;
+  padding: 0;
+}
+
+.recorder__exit-button:after {
+  color: #ff6688;
+  content: "close";
+}
+
+.recorder__menu-button:after {
+  content: "menu";
+}
+
+.recorder__next-button:after {
+  content: "arrow_right_alt";
+}
+
+.recorder__prev-button:before {
+  content: "arrow_right_alt";
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.recorder__controls {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.recorder-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+  overflow: auto;
+}
+
+.recorder-list::-webkit-scrollbar {
+  width: 15px;
+}
+
+@media (max-width: 770px) {
+  .recorder-list::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.recorder-list::-webkit-scrollbar-track {
+  width: 100%;
+  border-radius: 100px;
+}
+
+.recorder-list::-webkit-scrollbar-thumb {
+  background: #a1a1b1;
+  border-radius: 100px;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.recorder-list::-webkit-scrollbar-thumb:hover {
+  background: #85859a;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.recorder-list__card {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -ms-grid-columns: 1fr max-content;
+      grid-template-columns: 1fr -webkit-max-content;
+      grid-template-columns: 1fr max-content;
+  grid-column-gap: 15px;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.recorder-list__button {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background: #6666ff;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+.recorder-list__button::before {
+  font-family: "material icons round";
+  font-size: 28px;
+  content: "arrow_right_alt";
+  color: #fff;
+}
+
+.recorder-list__text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .whiteboard {
