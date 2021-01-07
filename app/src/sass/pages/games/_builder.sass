@@ -1,0 +1,240 @@
+.builder
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  // 
+  display: grid
+  justify-content: center
+  grid-template-rows: 1fr 1fr 1fr
+
+
+.builder__controls
+  z-index: $z-third
+  position: absolute
+  top: 0
+  left: 0
+  // 
+  margin-top: 10px
+  margin-left: 10px
+  // 
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 5px
+
+ 
+.builder__element
+  font-size: 14px
+  line-height: 1
+  font-weight: $semibold
+  color: #E3E3E3
+  padding: 0px 10px
+  // 
+  display: grid
+  align-items: center
+  justify-items: center
+  grid-auto-flow: column
+  grid-column-gap: 5px
+  // 
+  height: 30px
+  border-radius: 5px
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+
+  &:after
+    font-weight: $medium
+    font-size: 18px
+    font-family: "material icons round"
+    color: inherit
+    content: "close"
+
+.builder__exit-button
+  width: 30px
+  padding: 0
+
+  &:after
+    color: $color-reddish
+    content: "close"
+
+
+.builder__timer
+  &:after
+    content: "timer"
+
+
+.builder__counter
+  &:after
+    content: "fast_forward"
+
+
+.builder__group
+  grid-row-start: 2
+  display: grid
+  align-items: center
+  align-self: center
+  justify-self: center
+  grid-auto-rows: max-content
+  grid-row-gap: 15px
+
+.builder__areas
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 10px
+  align-items: center
+  justify-self: center
+
+.builder__group-placeholder 
+  height: 50px
+  width: 100px
+  border-radius: $border-radius-secondary
+  background: darken($color-almost-white, 2)
+  display: grid
+  align-items: center
+  justify-items: center
+
+
+.builder__group-button 
+  height: 40px
+  width: 40px
+  border-radius: 5px
+  display: grid
+  align-items: center
+  justify-items: center
+  // 
+  &::before
+    font-family: "material icons round"
+    font-size: 25px
+
+    color: $color-white
+  // 
+  &--listen
+    background: $color-primary
+
+    &::before
+      content: "volume_up"
+  
+  &--done
+    background: $color-greenish
+
+    &::before
+      content: "done"
+
+  &:disabled
+    opacity: 0.25
+    cursor: not-allowed
+
+.builder__pool
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  justify-self: center
+  grid-column-gap: 10px
+  min-height: 30px
+
+.builder__brick
+  padding: 5px 10px
+  border-radius: 5px
+  background: #FAFAFA
+  border: 2px solid #A1A1B1
+  font-size: 16px
+  font-weight: $semibold
+  line-height: 1
+  width: max-content
+  color: #848499
+  font-weight: 500
+
+.builder__alert
+  grid-row-start: 3
+  display: grid
+  grid-template-columns 1fr max-content
+  grid-auto-rows: 1fr
+  grid-auto-flow: column
+  grid-column-gap: 10px
+  grid-auto-rows: max-content
+  align-items: center
+  justify-content: space-between
+  align-content: center
+  align-self: end
+  border-top-left-radius: $border-radius-primary
+  border-top-right-radius: $border-radius-primary
+  padding: 0 30px
+  height: 0
+  opacity: 0
+  overflow: hidden
+  transition: height .2s ease-in-out, opacity .3s ease-in-out
+
+  &--active 
+    height: 100px
+    opacity: 1
+
+  &--error
+    background: transparentize($color-reddish, 0.75)
+
+    .builder__alert-group
+      &:before
+        content: "highlight_off"
+        color: $color-reddish
+
+    .builder__alert-error-title
+      display: block
+
+    .builder__alert-button
+      background: $color-reddish
+
+  &--success
+    background: transparentize($color-greenish, 0.75)
+
+    .builder__alert-group
+      &:before
+        content: "check_circle"
+        color: $color-greenish 
+
+    .builder__alert-button
+      background: $color-greenish
+
+
+.builder__alert-button
+  height: 30px
+  padding: 0 15px
+  font-size: 16px
+  font-weight: $semibold
+  color: $color-white
+  border-radius: 5px
+
+
+.builder__alert-group
+  display: grid
+  grid-template-columns: max-content 1fr
+  align-items: center
+  grid-column-gap: 10px
+
+  &:before
+    font-family: "material icons round"
+    font-size: 47px
+    height: 40px
+    width: 40px
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+
+.builder__alert-text
+  display: grid
+  grid-row-gap: 5px
+    
+.builder__alert-error-title
+  user-select: none
+  line-height: 1
+  display: none
+  font-size: 14px
+  color: $color-reddish
+  font-weight: $medium
+
+.builder__alert-title
+  line-height: 1
+  font-size: 16px
+  color: $color-dark
+  font-weight: $semibold
