@@ -71,7 +71,13 @@ export default {
 
   mounted() {
     this.dragger = new Dragger();
-    this.dragger.addArea(this.$refs.placeholder)
+    this.dragger.addArea({
+      el: this.$refs.placeholder,
+      put(el) {
+        console.log('animating');
+        return true;
+      }
+    })
   },
 
   methods: {

@@ -87,26 +87,29 @@ export default class Dragger {
 
     for (let area of this.areas) {
       let boundary =   
-        area.getBoundingClientRect();
+        area.el.getBoundingClientRect();
       
-      if (boundary.left   <= mouse.x &&
-          boundary.right  >= mouse.x &&
-          boundary.bottom >= mouse.y &&
-          boundary.top    <= mouse.y)
-      console.log(123);
+      let intesects = 
+        boundary.left   <= mouse.x &&
+        boundary.right  >= mouse.x &&
+        boundary.bottom >= mouse.y &&
+        boundary.top    <= mouse.y;
+
+      if (intesects && area.put(this.target)) {
+        this.target = null;
+        return;
+      }
     }
+
+    this.el().remove();
+    this.target = null;
   }
 
   endDrag(event) {
     this.dragging = false;
 
-
-    this.resolveTarget(event);
-
-    this.el().remove();
     this.resovleEvents();
-
-    this.target = null;
+    this.resolveTarget(event);
   }
 
   moveTarget(event) {
