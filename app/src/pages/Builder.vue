@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       dragger: null,
-      words: [],
+      words: ['a', 's', 'word', 'b'],
     }
   },
 
@@ -75,14 +75,7 @@ export default {
 
   beforeMount() {
     this.pool = this.words;
-
     this.dragger = new Dragger();
-  },
-
-  methods: {
-    drag({target, event}) {
-      this.dragger.drag(target, event);
-    }
   }
 }
 </script>

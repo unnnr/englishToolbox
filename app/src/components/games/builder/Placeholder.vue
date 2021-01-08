@@ -2,15 +2,13 @@
   <div class="builder__areas">
     <button class="builder__group-button builder__group-button--listen"></button>
     
-    <div class="builder__group-placeholder">
-      <div class="builder__brick">asdasd</div>
-    </div>
+    <div 
+      ref="words"
+      class="builder__group-placeholder"
 
-    <div class="builder__group-placeholder"></div>
-    <div class="builder__group-placeholder"></div>
-    <div class="builder__group-placeholder"></div>
-    <div class="builder__group-placeholder"></div>
-    <div ref="placeholder" class="builder__group-placeholder"></div>
+      v-for="index in length"
+      :key="index">
+    </div>
     
     <button class="builder__group-button builder__group-button--done" disabled></button>
     
@@ -19,6 +17,35 @@
 
 <script>
 export default {
-  inject: [ '$dragger' ]
+  props: {
+    length: { type: Number, default: 0}
+  },
+  
+  inject: ['$dragger'],
+
+  computed: {
+    dragger() {
+      return this.$dragger();
+    }
+  },
+
+  mounted() {
+    let els = this.$refs.words;
+
+    console.log(this.$refs);
+    for (let i = 0; i < els.length; i++) {
+      this.dragger.addArea({
+        put: this.put.bind(this, i),
+        el: els[i],
+      });
+    }
+  },
+
+  methods: {
+    put(wordIndex, el) {
+      console.log(wordIndex, el)
+      return true;
+    }
+  }
 }
 </script>
