@@ -2,8 +2,11 @@
   <div class="builder__pool">
 
     <word 
-      :text="'nWord'"
-      @drag="drag"/>
+      v-for="(word, index) in words"
+      :key="index"
+
+      :text="word"
+      @drag="(options) => drag(index, options)"/>
 
   </div>
 </template>
@@ -33,12 +36,20 @@ export default {
   },
 
   methods: {
-    drag({target, event}) {
+    remove(index) {
+      this.words.splice(index, 1);
+    },
+
+    drag(index, options) {
+      let {target, event} = options;
+
+      this.remove(index);
       this.dragger.drag(target, event);
     },
 
-    put(el) {
-      console.log(el);
+    put(target) {
+      target.el.remove();
+      this.words.push(target.word)
     }
   }
 }

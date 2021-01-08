@@ -20,7 +20,7 @@
               :length="length"/>
 
             <pool 
-              :words="words"/>
+              :words="pool"/>
 
           </div>
 
@@ -64,6 +64,7 @@ export default {
     return {
       dragger: null,
       words: ['a', 's', 'word', 'b'],
+      pool: []
     }
   },
 
@@ -74,7 +75,7 @@ export default {
   },
 
   beforeMount() {
-    this.pool = this.words;
+    this.pool = [...this.words];
     this.dragger = new Dragger();
   }
 }
