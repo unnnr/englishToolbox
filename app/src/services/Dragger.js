@@ -49,23 +49,6 @@ export default class Dragger {
     this.context.removeEventListener('mouseleave', this.endDrag);
   }
 
-  drag(target, event) {
-    if (this.target)
-      this.endDrag();
-
-    this.target = target;
-
-    this.createEl(target);
-    this.startDrag(event);
-  }
-
-  startDrag(event) {
-    this.offset = this.computeCoords(this.el(), event);
-    this.dragging = true;
-
-    this.bindEvents();
-  }
-
   createEl(target) {
     let el = target.el.cloneNode(true);
     
@@ -103,6 +86,23 @@ export default class Dragger {
 
     this.el().remove();
     this.target = null;
+  }
+  
+  drag(target, event) {
+    if (this.target)
+      this.endDrag();
+
+    this.target = target;
+
+    this.createEl(target);
+    this.startDrag(event);
+  }
+
+  startDrag(event) {
+    this.offset = this.computeCoords(this.el(), event);
+    this.dragging = true;
+
+    this.bindEvents();
   }
 
   endDrag(event) {

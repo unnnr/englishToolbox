@@ -15,26 +15,13 @@
           </div>
 
           <div class="builder__group">
-            <div class="builder__areas">
-              <button class="builder__group-button builder__group-button--listen"></button>
-              <div class="builder__group-placeholder">
-                <div class="builder__brick">asdasd</div>
-              </div>
-              <div class="builder__group-placeholder"></div>
-              <div class="builder__group-placeholder"></div>
-              <div class="builder__group-placeholder"></div>
-              <div class="builder__group-placeholder"></div>
-              <div ref="placeholder" class="builder__group-placeholder"></div>
-              <button class="builder__group-button builder__group-button--done" disabled></button>
-            </div>
 
-            <div class="builder__pool">
+            <placeholder 
+              :length="length"/>
 
-              <word 
-                :text="'nWord'"
-                @drag="drag"/>
+            <pool 
+              :words="words"/>
 
-            </div>
           </div>
 
           <div class="builder__alert builder__alert--active builder__alert--success">
@@ -55,29 +42,41 @@
 </template>
 
 <script>
+import Placeholder from '@components/games/builder/Placeholder'
+import Pool from '@components/games/builder/Pool'
 import Dragger from '@services/Dragger'
-import Word from '@components/games/builder/Word'
 
 export default {
   components: {
-    Word
+    Placeholder,
+    Pool,
+  },
+
+  provide() {
+    const _this = this;
+
+    return {
+      $dragger: () => _this.dragger,
+    }
   },
 
   data() {
     return {
-      dragger: null
+      dragger: null,
+      words: [],
     }
   },
 
-  mounted() {
+  computed: {
+    length() {
+      return this.words.length;
+    }
+  },
+
+  beforeMount() {
+    this.pool = this.words;
+
     this.dragger = new Dragger();
-    this.dragger.addArea({
-      el: this.$refs.placeholder,
-      put(el) {
-        console.log('animating');
-        return true;
-      }
-    })
   },
 
   methods: {
