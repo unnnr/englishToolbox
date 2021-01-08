@@ -18,13 +18,13 @@
             <div class="builder__areas">
               <button class="builder__group-button builder__group-button--listen"></button>
               <div class="builder__group-placeholder">
-                <div class="builder__brick">nWord</div>
+                <div class="builder__brick">asdasd</div>
               </div>
               <div class="builder__group-placeholder"></div>
               <div class="builder__group-placeholder"></div>
               <div class="builder__group-placeholder"></div>
               <div class="builder__group-placeholder"></div>
-              <div class="builder__group-placeholder"></div>
+              <div ref="placeholder" class="builder__group-placeholder"></div>
               <button class="builder__group-button builder__group-button--done" disabled></button>
             </div>
 
@@ -71,6 +71,7 @@ export default {
 
   mounted() {
     this.dragger = new Dragger();
+    this.dragger.addArea(this.$refs.placeholder)
   },
 
   methods: {

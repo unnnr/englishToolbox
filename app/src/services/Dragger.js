@@ -1,5 +1,7 @@
 export default class Dragger {
-  context =null;
+  areas = [];
+
+  context = null;
   
   target = null;
   
@@ -19,6 +21,10 @@ export default class Dragger {
     return this.target ? this.target.el : null;
   }
 
+  addArea(target) {
+    this.areas.push(target);
+  }
+
   computeCoords(el, event) {
     let offset = 
       el.getBoundingClientRect();
@@ -31,7 +37,7 @@ export default class Dragger {
     return position;
   }
 
-  bindEvents(event) {
+  bindEvents() {
     this.context.addEventListener('mousemove', this.moveTarget);
     this.context.addEventListener('mouseup', this.endDrag);
     this.context.addEventListener('mouseleave', this.endDrag);
@@ -56,6 +62,7 @@ export default class Dragger {
   startDrag(event) {
     this.offset = this.computeCoords(this.el(), event);
     this.dragging = true;
+
     this.bindEvents();
   }
 
@@ -68,11 +75,33 @@ export default class Dragger {
 
     this.context = target.el.offsetParent;
     this.context.appendChild(el);
+
     this.target.el = el;
   }
 
-  endDrag() {
+  resolveTarget(event) {
+    let mouse = {
+      x: event.clientX, 
+      y: event.clientY
+    };
+
+    for (let area of this.areas) {
+      let boundary =   
+        area.getBoundingClientRect();
+      
+      if (boundary.left   <= mouse.x &&
+          boundary.right  >= mouse.x &&
+          boundary.bottom >= mouse.y &&
+          boundary.top    <= mouse.y)
+      console.log(123);
+    }
+  }
+
+  endDrag(event) {
     this.dragging = false;
+
+
+    this.resolveTarget(event);
 
     this.el().remove();
     this.resovleEvents();
