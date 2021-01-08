@@ -28,9 +28,17 @@ export default {
     }
   },
 
+  mounted() {
+    this.dragger.remove = this.put.bind(this);
+  },
+
   methods: {
     drag({target, event}) {
       this.dragger.drag(target, event);
+    },
+
+    put(el) {
+      console.log(el);
     }
   }
 }

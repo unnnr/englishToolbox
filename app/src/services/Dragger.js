@@ -4,6 +4,8 @@ export default class Dragger {
   context = null;
   
   target = null;
+
+  remove = null;
   
   dragging = false;
   
@@ -68,6 +70,9 @@ export default class Dragger {
       y: event.clientY
     };
 
+    let target = this.target;
+    this.target = null;
+
     for (let area of this.areas) {
       let boundary =   
         area.el.getBoundingClientRect();
@@ -78,16 +83,18 @@ export default class Dragger {
         boundary.bottom >= mouse.y &&
         boundary.top    <= mouse.y;
 
-      if (intesects && area.put(this.target)) {
-        this.target = null;
+      if (intesects && area.put(target))
         return;
-      }
     }
 
-    this.el().remove();
-    this.target = null;
+    if (typeof this.remove === 'function') {
+      this.remove(target);
+      return;
+    }
+
+    target.el().remove();
   }
-  
+
   drag(target, event) {
     if (this.target)
       this.endDrag();
