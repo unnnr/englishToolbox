@@ -110,11 +110,7 @@
       &:before
         font-size: 34px
 
-
-
-    
   
-
 .recorder__card-status-bar
   display: grid
   grid-auto-flow: column
@@ -217,6 +213,10 @@
     content: "arrow_right_alt"
     transform: rotate(180deg)
 
+.recorder__random-button
+  &::after
+    content: "shuffle"
+
 .recorder__controls
   display: grid
   grid-auto-flow: column
@@ -245,7 +245,7 @@
 .recorder-list__button
   height: 40px
   width: 40px
-  border-radius: 100%
+  border-radius: 5px
   background: $color-primary
   display: grid
   align-items: center

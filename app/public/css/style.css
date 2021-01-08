@@ -4798,50 +4798,51 @@ button:active {
 }
 
 .matcher__results-body {
+  display: -ms-grid;
+  display: grid;
   background: #fff;
-  padding: 30px;
-  border-radius: 10px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  border-radius: 10px;
+  padding: 15px;
+  justify-items: center;
+  grid-row-gap: 10px;
+  -ms-grid-rows: max-content max-content 1fr max-content;
+      grid-template-rows: -webkit-max-content -webkit-max-content 1fr -webkit-max-content;
+      grid-template-rows: max-content max-content 1fr max-content;
+  overflow: hidden;
+}
+
+.matcher__results-scrollable {
   overflow: overlay;
 }
 
-.matcher__results-body::-webkit-scrollbar {
+.matcher__results-scrollable::-webkit-scrollbar {
   width: 15px;
 }
 
 @media (max-width: 770px) {
-  .matcher__results-body::-webkit-scrollbar {
+  .matcher__results-scrollable::-webkit-scrollbar {
     display: none;
   }
 }
 
-.matcher__results-body::-webkit-scrollbar-track {
+.matcher__results-scrollable::-webkit-scrollbar-track {
   width: 100%;
   border-radius: 100px;
 }
 
-.matcher__results-body::-webkit-scrollbar-thumb {
+.matcher__results-scrollable::-webkit-scrollbar-thumb {
   background: #a1a1b1;
   border-radius: 100px;
   background-clip: padding-box;
   border: 5px rgba(0, 0, 0, 0) solid;
 }
 
-.matcher__results-body::-webkit-scrollbar-thumb:hover {
+.matcher__results-scrollable::-webkit-scrollbar-thumb:hover {
   background: #85859a;
   background-clip: padding-box;
   border: 5px rgba(0, 0, 0, 0) solid;
-}
-
-.matcher__results-scrollable {
-  display: -ms-grid;
-  display: grid;
-  justify-items: center;
-  grid-row-gap: 10px;
 }
 
 .matcher__results-heading {
@@ -4849,6 +4850,8 @@ button:active {
   display: grid;
   justify-items: center;
   grid-row-gap: 5px;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
 }
 
 .matcher__results-heading::before {
@@ -4868,7 +4871,7 @@ button:active {
 }
 
 .matcher__results-table th, .matcher__results-table td {
-  padding: 4px 8px;
+  padding: 4px 12px;
   border: 2px solid whitesmoke;
 }
 
@@ -5070,6 +5073,10 @@ button:active {
   width: max-content;
   color: #848499;
   font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .builder__alert {
@@ -5459,6 +5466,10 @@ button:active {
           transform: rotate(180deg);
 }
 
+.recorder__random-button::after {
+  content: "shuffle";
+}
+
 .recorder__controls {
   display: -ms-grid;
   display: grid;
@@ -5530,7 +5541,7 @@ button:active {
 .recorder-list__button {
   height: 40px;
   width: 40px;
-  border-radius: 100%;
+  border-radius: 5px;
   background: #6666ff;
   display: -ms-grid;
   display: grid;

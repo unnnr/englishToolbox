@@ -86,25 +86,27 @@
   background: rgba(0, 0, 0, 0.50)
   backdrop-filter: saturate(180%) blur(10px)
   z-index: $z-second
-  
-.matcher__results-body
-  background: $color-white
-  padding: 30px
-  border-radius: $border-radius-secondary
-  box-shadow: $box-shadow-primary
-  width: max-content
-  overflow: overlay
-  @include scroll-body
 
-.matcher__results-scrollable
+.matcher__results-body
   display: grid
+  background: $color-white
+  box-shadow: $box-shadow-primary
+  border-radius: $border-radius-secondary
+  padding: 15px
   justify-items: center
   grid-row-gap: 10px
+  grid-template-rows: max-content max-content 1fr max-content
+  overflow: hidden
 
+.matcher__results-scrollable
+  overflow: overlay
+  @include scroll-body
+   
 .matcher__results-heading
   display: grid
   justify-items: center
   grid-row-gap: 5px
+  grid-auto-rows: max-content
 
   &::before
     font-family: "material icons round"
@@ -122,7 +124,7 @@
   border-collapse: collapse
   font-size: 16px
   th,td
-    padding: 4px 8px
+    padding: 4px 12px
     border: 2px solid darken($color-almost-white, 2 )
 
   th
