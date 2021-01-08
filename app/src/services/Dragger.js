@@ -1,5 +1,5 @@
 export default class Dragger {
-  context = null;
+  context =null;
   
   target = null;
   
@@ -9,20 +9,19 @@ export default class Dragger {
     x: 0, y: 0
   };
 
-  position = {
-    x: 0, y: 0
-  }
-
-  constructor(context = null) {
-    this.context = context
-
+  constructor() {
+    this.endDrag = this.endDrag.bind(this);
     this.bindEvents = this.bindEvents.bind(this);
-    this.resovleEvents = this.resovleEvents.bind(this);
+    this.moveTarget = this.moveTarget.bind(this);
   } 
 
-  comutedCoords(context, event) {
+  el() {
+    return this.target ? this.target.el : null;
+  }
+
+  computeCoords(el, event) {
     let offset = 
-      context.getBoundingClientRect();
+      el.getBoundingClientRect();
 
     let position = {
       x: event.clientX - offset.left,
@@ -33,41 +32,61 @@ export default class Dragger {
   }
 
   bindEvents(event) {
-    this.context.addEventListener('mousemove', this. );
-    this.context.addEventListener('mouseup', this.stopDrag);
-    this.context.addEventListener('mouseleave', this.stopDrag);
+    this.context.addEventListener('mousemove', this.moveTarget);
+    this.context.addEventListener('mouseup', this.endDrag);
+    this.context.addEventListener('mouseleave', this.endDrag);
   }
 
   resovleEvents() {
-    this.context.removeEventListener('mousemove', this.move);
-    this.context.removeEventListener('mouseup', this.stopDrag);
-    this.context.removeEventListener('mouseleave', this.stopDrag);
+    this.context.removeEventListener('mousemove', this.moveTarget);
+    this.context.removeEventListener('mouseup', this.endDrag);
+    this.context.removeEventListener('mouseleave', this.endDrag);
   }
-
 
   drag(target, event) {
     if (this.target)
       this.endDrag();
 
-    this.target = target.cloneNode(true);
-    this.startDrag();
+    this.target = target;
+
+    this.createEl(target);
+    this.startDrag(event);
   }
 
   startDrag(event) {
-    this.offset = this.comutedCoords(this.$el, event);
-    this.coords = this.comutedCoords(this.parent, event);
     this.dragging = true;
 
+    this.moveTarget(event);
     this.bindEvents();
+  }
+
+  createEl(target) {
+    let el = target.el.cloneNode(true);
+    
+    el.style.position = 'absolute';
+    el.style.left = target.el.offsetLeft + 'px';
+    el.style.top = target.el.offsetTop + 'px';
+
+    this.context = target.el.offsetParent;
+    this.context.appendChild(el);
+    this.target.el = el;
   }
 
   endDrag() {
     this.dragging = false;
+
+    this.el().remove();
     this.resovleEvents();
+
+    this.target = null;
   }
 
-  moveTarget() {
-    this.coords = 
-      this.comutedCoords(this.parent);
+  moveTarget(event) {
+    let {x, y} = this.computeCoords(this.context, event);
+    let style = this.el().style;
+    
+    style.top = (y - this.offset.y) + 'px';
+    style.left = (x - this.offset.x) + 'px';
+    console.log(style.top, style.left);
   }
 }

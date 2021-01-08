@@ -27,9 +27,13 @@
               <div class="builder__group-placeholder"></div>
               <button class="builder__group-button builder__group-button--done" disabled></button>
             </div>
+
             <div class="builder__pool">
-              <word
-                :text="'nWord'"/>
+
+              <word 
+                :text="'nWord'"
+                @drag="drag"/>
+
             </div>
           </div>
 
@@ -51,11 +55,28 @@
 </template>
 
 <script>
+import Dragger from '@services/Dragger'
 import Word from '@components/games/builder/Word'
 
 export default {
   components: {
     Word
+  },
+
+  data() {
+    return {
+      dragger: null
+    }
+  },
+
+  mounted() {
+    this.dragger = new Dragger();
+  },
+
+  methods: {
+    drag({target, event}) {
+      this.dragger.drag(target, event);
+    }
   }
 }
 </script>
