@@ -54,9 +54,8 @@ export default class Dragger {
   }
 
   startDrag(event) {
+    this.offset = this.computeCoords(this.el(), event);
     this.dragging = true;
-
-    this.moveTarget(event);
     this.bindEvents();
   }
 
@@ -87,6 +86,5 @@ export default class Dragger {
     
     style.top = (y - this.offset.y) + 'px';
     style.left = (x - this.offset.x) + 'px';
-    console.log(style.top, style.left);
   }
 }
