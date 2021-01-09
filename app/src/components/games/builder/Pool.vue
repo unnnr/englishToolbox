@@ -1,9 +1,7 @@
 <template>
-  <transition-group 
+  <shrink-transition 
     class="builder__pool"
-    name="words"
-    @before-leave="beforeLeave"
-    @before-enter="beforeEnter">
+    group>
 
     <div 
       v-for="word in words"
@@ -17,11 +15,17 @@
       {{ word.text }}
     </div>
 
-  </transition-group>
+  </shrink-transition>
 </template>
 
 <script>
+import ShrinkTransition from '@components/games/builder/ShrinkTransition'
+
 export default {
+  components: {
+    ShrinkTransition,
+  },
+
   props: {
     words: { type: Array, default: () => [] },
   },
@@ -33,67 +37,7 @@ export default {
       this.words.splice(index, 1);
 
       this.$emit('resolve', word);
-    },
-
-    async beforeLeave(el) {
-      el.style.width = el.offsetWidth + 'px';
-      el.style.maxHeight = el.offsetHeight + 'px';
-
-      await this.$nextTick();
-      el.style.width = 0;
-    },
-
-    async beforeEnter(el) {
-      // Computing sizes
-      el.style.position = 'absolute';
-      document.body.append(el);
-
-      let width = el.offsetWidth;
-      document.body.removeChild(el);
-
-      el.style.position = '';
-      el.style.width = '0';
-      el.style.padding = '0';
-
-      await this.$nextTick();
-      el.style.padding = ''
-      el.style.width = width + 'px';
-
-      // Waiting for animation
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      el.style.width = '';
-    },
+    }
   }
 }
 </script>
-
-<style lang="sass">
-
-.builder__brick--disabled
-  font-size: 0
-
-.builder__brick
-  transition: opacity .5s, margin .7s, height .7s, width .7s, padding .7s
-  cursor: pointer
-
-.words-leave-active,
-.words-enter-active
-  overflow: hidden
-  text-overflow: clip
-  white-space: nowrap
-  
-.words-enter,
-.words-leave-active
-  opacity: 0
-  border-width: 0
-  padding: 5px 0,
-  margin-left: 0 !important
-
-.builder__pool
-  grid-column-gap: 0
-
-.builder__brick:not(:first-child)
-  margin-left: 10px
-  
-
-</style>

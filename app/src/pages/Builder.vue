@@ -58,7 +58,7 @@ export default {
     return {
       words: [ 
         {text: 'a', key: 1},
-        {text: 'asdasd', key: 2},
+        {text: 'asdasdasdasdasdsa', key: 2},
         {text: 'some', key: 3},
         {text: 'to', key: 4},
       ],
@@ -95,3 +95,12 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.builder__group-placeholder
+  width: 'auto'
+  min-width: 80px
+  padding: 0 10px
+
+</style>
