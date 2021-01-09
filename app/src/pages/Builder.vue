@@ -17,10 +17,13 @@
           <div class="builder__group">
 
             <placeholder 
-              :words="sentance"/>
+              :words="sentance"
+              :length="length"
+              @resolved="remove"/>
 
             <pool 
-              :words="pool"/>
+              :words="pool"
+              @resolved="append"/>
 
           </div>
 
@@ -59,6 +62,7 @@ export default {
         {text: 'some', key: 3},
         {text: 'to', key: 4},
       ],
+      
       sentance: [],
       pool: [],
     }
@@ -78,8 +82,15 @@ export default {
     update() {
       this.pool = [ ...this.words];
 
-      this.sentance = 
-        this.pool.map(() => '');
+      this.sentance = [];
+    },
+
+    append(word) {
+      this.sentance.push(word);
+    },
+
+    remove(word) {
+
     }
   }
 }

@@ -38,7 +38,6 @@ export default {
     async beforeLeave(el) {
       el.style.width = el.offsetWidth + 'px';
       el.style.maxHeight = el.offsetHeight + 'px';
-      
 
       await this.$nextTick();
       el.style.width = 0;
@@ -50,19 +49,18 @@ export default {
       document.body.append(el);
 
       let width = el.offsetWidth;
-
       document.body.removeChild(el);
+
       el.style.position = '';
       el.style.width = '0';
       el.style.padding = '0';
 
       await this.$nextTick();
-      el.style.padding = '5px 10px';
+      el.style.padding = ''
       el.style.width = width + 'px';
 
       // Waiting for animation
       await new Promise(resolve => setTimeout(resolve, 1000))
-      el.style.padding = '';
       el.style.width = '';
     },
   }
