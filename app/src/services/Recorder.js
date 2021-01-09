@@ -12,6 +12,19 @@ class Recorder {
 
   current = -1;
 
+  list() {
+    return this.samples;
+  }
+
+  select(index) {
+    if (index !== this.current && this.current > -1)
+      this.remeber(this.current);
+    
+    this.current = index;
+  
+    return this.samples[index];
+  }
+
   remeber(index) {
     this.history.push(index);
   }
@@ -44,4 +57,4 @@ class Recorder {
   }
 }
 
-export default new Recorder();
+export default Recorder;

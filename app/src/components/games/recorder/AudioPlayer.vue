@@ -43,7 +43,7 @@ export default {
 
   computed: {
     disabled() {
-      return !!!this.src || !!!this.duration;
+      return !!!this.src || !!!this.duration || this.duration === Infinity;
     }
   },
 
@@ -63,14 +63,21 @@ export default {
     load() {
       this.player = new Audio(this.src);
 
-      this.player.addEventListener('canplaythrough', this.loaded);
+      this.player.addEventListener('durationchange', this.loaded);
       this.player.addEventListener('timeupdate', this.updateTimeline);
       this.player.addEventListener('ended', this.end);
     },
 
-    loaded() {
+    async loaded() {
+      while (this.player.duration === Infinity) {
+        await new Promise(r => setTimeout(r, 1000));
+        this.player.currentTime = 10000000 * Math.random();
+      }
+
+      this.player.currentTime = 0;
       this.duration = this.player.duration;
     },
+
 
     end() {
       this.playing = false

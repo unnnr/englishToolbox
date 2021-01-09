@@ -52,6 +52,7 @@
 <script>
 import AudioRecorder from '@components/games/recorder/AudioRecorder'
 import AudioPlayer from '@components/games/recorder/AudioPlayer'
+import AudioList from '@components/games/recorder/AudioList'
 import Recorder from '@services/Recorder'
 
 export default {
@@ -67,32 +68,34 @@ export default {
         text: null,
       },
 
-      recorded: null,
+      records: [],
+      recorder: new Recorder(),
       undoable: true
     }
   },
 
-  computed: {
-    
-  },
-
-  mounted() {
+  beforeMount() {
+    this.records = this.recorder.list();
     this.next()
   },
 
   methods: {
+    select() {
+
+    },
+    
     prev() {
-      this.sample = Recorder.prev();
+      this.sample = this.recorder.prev();
       this.undoable = this.computeUndoable();
     },
 
     next() {
-      this.sample = Recorder.next();
+      this.sample = this.recorder.next();
       this.undoable = this.computeUndoable();
     },
 
     computeUndoable() {
-      return Boolean(Recorder.history.length);
+      return Boolean(this.recorder.history.length);
     }
   }
 }

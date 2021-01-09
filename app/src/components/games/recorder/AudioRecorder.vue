@@ -7,7 +7,7 @@
         'recorder__card-button--stop': !!!blob && recording,
         'recorder__card-button--pause': blob && playing,
         'recorder__card-button--play': blob && !!!playing  }"
-
+      :disabled="disabled"
       @click="toggle">
     </button>
       <!-- record your reading the text above -->
@@ -52,6 +52,12 @@ export default {
     }
   },
 
+  computed: {
+    disabled() {
+      return this.blob && (this.duration === 0 || this.duration === Infinity);
+    }
+  },
+
   mounted() {
     return;
     fetch(this.src)
@@ -67,13 +73,23 @@ export default {
 
   methods: {
     loadPlayer() {
+      console.log('load p');
+      this.position = 0;
+      this.playing = false;
+
       this.player = new Audio(this.blob);
-      this.player.addEventListener('canplaythrough', this.loaded);
+      this.player.addEventListener('durationchange', this.loaded);
       this.player.addEventListener('timeupdate', this.updateTimeline);
       this.player.addEventListener('ended', this.end);
     },
 
-    loaded() {
+    async loaded() {
+      while (this.player.duration === Infinity) {
+        await new Promise(r => setTimeout(r, 1000));
+        this.player.currentTime = 10000000 * Math.random();
+      }
+
+      this.player.currentTime = 0;
       this.duration = this.player.duration;
     },
 
@@ -93,7 +109,7 @@ export default {
       let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       const audioChunks = [];
       
-
+      this.pause();
       this.recorder = new MediaRecorder(stream);
 
       this.recorder.addEventListener("dataavailable", ({ data }) =>

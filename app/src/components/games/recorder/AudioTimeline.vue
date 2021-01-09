@@ -158,7 +158,7 @@ export default {
     fillDummy(count) {
       let list = [];
       for (let i = 0 ; i < count; i++)
-        list.push(100);
+        list.push(0);
 
       this.ticks = list;
     }
