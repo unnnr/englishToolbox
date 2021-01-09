@@ -21,7 +21,7 @@
           v-for="([first, second, third], index) in parsed"
           :key="index">
 
-          <td>{{ index }}.</td>
+          <td>{{ index + 1 }}.</td>
           <td>{{ first }}</td>
           <td>{{ second }}</td>
           <td>{{ third }}</td>

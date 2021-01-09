@@ -2,7 +2,7 @@
   <transition 
     name="result"
     appear>
-
+      
     <div 
       class="builder__alert"
       :class="{
