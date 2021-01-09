@@ -49,7 +49,7 @@ class Builder {
     let words = raw.map((text, key) => ({
       text, key
     }));
-
+    
     return { audio, words }
   }
 }

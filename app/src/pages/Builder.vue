@@ -97,8 +97,8 @@ export default {
   methods: {
     reset() {
       this.sample = this.builder.next();
-      this.pool = [ ...this.sample.words];
       this.sentance = [];
+      this.pool = [ ...this.sample.words].sort(() => .5 - Math.random());
 
       this.completed = false;
       this.seconds = 0;
