@@ -1,0 +1,128 @@
+.verbs
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  padding: 30px 40px 40px
+  display: grid
+  grid-template-rows: max-content 1fr
+  grid-row-gap: 10px
+  overflow: hidden
+
+.verbs__scrollable
+  overflow: overlay
+  @include scroll-body
+
+.verbs__controls
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  justify-content: space-between
+  margin-bottom: 10px
+
+.verbs__element
+  font-size: 14px
+  line-height: 1
+  font-weight: $semibold
+  color: #E3E3E3
+  padding: 0px 10px
+  // 
+  display: grid
+  align-items: center
+  justify-items: center
+  grid-auto-flow: column
+  grid-column-gap: 5px
+  // 
+  height: 30px
+  border-radius: 5px
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+
+  &:after,
+  &:before
+    font-weight: $medium
+    font-size: 18px
+    font-family: "material icons round"
+    color: inherit
+
+  &:disabled
+    opacity: 0.3
+    cursor: not-allowed
+
+
+.verbs__exit-button
+  width: 30px
+  padding: 0
+
+  &:after
+    color: $color-reddish
+    content: "close"
+
+.verbs__button-group
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  grid-column-gap: 5px
+
+.verbs__search
+  height: 30px
+  border-radius: 5px
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+  padding-left: 6px
+  padding-right: 6px
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content 1fr
+  width: 250px
+  grid-column-gap: 5px
+  align-items: center
+
+  &::before
+    font-family: "material icons round"
+    content: "search"
+    font-size: 18px
+    color:#E3E3E3
+
+  input
+    font-size: 14px
+    color:#E3E3E3
+    font-weight: $medium
+      
+    &::placeholder
+      color: darken(#E3E3E3, 10)
+        
+.verbs__table
+  width: 100%
+  border-top: 2px darken($color-almost-white, 5) solid
+  border-bottom: 1px darken($color-almost-white, 1) solid
+  border-left: 1px darken($color-almost-white, 1) solid
+  border-right: 1px darken($color-almost-white, 1) solid
+  text-align: center
+  border-collapse: collapse
+
+  th, td
+    padding: 12px
+    border-top: 1px darken($color-almost-white, 5) solid
+
+  th
+    color: $color-dark
+    font-size: 20px
+    font-weight: $semibold
+    border-bottom: 2px darken($color-almost-white, 5) solid
+
+  tr 
+    transition: background-color .2s ease-in-out
+    &:nth-child(even)
+      background-color: darken($color-almost-white, 1)
+  td
+    font-size: 18px
+    font-weight: $medium
+    color: darken($color-gray, 5)
+    transition: color .2s ease-in-out
+
+.verbs__tr-active
+  background-color: transparentize($color-primary, 0.25) !important
+  td
+    color: $color-white
