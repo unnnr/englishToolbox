@@ -6,13 +6,25 @@
         name="slide-right"
         mode="out-in">
 
-        <div class="recorder"
+        <audio-list
+          v-if="menuShown"
+          :list="records"
+          @select="select"/>
+
+        <div 
+          v-else
+          class="recorder"
           :key="sample.text">
 
           <div class="recorder__controls">
             <div class="recorder__button-group">
               <button class="recorder__element recorder__exit-button"></button>
-              <button class="recorder__element recorder__menu-button">menu</button>
+              <button 
+                class="recorder__element recorder__menu-button"
+                @click="showMenu">
+                
+                menu
+              </button>
             </div>
 
             <div class="recorder__button-group">
@@ -58,7 +70,8 @@ import Recorder from '@services/Recorder'
 export default {
   components: {
     AudioRecorder,
-    AudioPlayer
+    AudioPlayer,
+    AudioList
   },
 
   data() {
@@ -70,7 +83,9 @@ export default {
 
       records: [],
       recorder: new Recorder(),
-      undoable: true
+
+      undoable: true,
+      menuShown: false
     }
   },
 
@@ -80,10 +95,16 @@ export default {
   },
 
   methods: {
-    select() {
-
+    select(index) {
+      this.sample = this.recorder.select(index);
+      this.undoable = this.computeUndoable();
+      this.menuShown = false;
     },
-    
+
+    showMenu() {
+      this.menuShown = true;
+    },
+
     prev() {
       this.sample = this.recorder.prev();
       this.undoable = this.computeUndoable();

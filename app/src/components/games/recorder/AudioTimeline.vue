@@ -89,7 +89,7 @@ export default {
     },
 
     tickSelected(index) {
-      if (this.disabled || this.recording)
+      if (this.disabled || this.recording || !!!this.value)
         return false;
         
       let position = 0;
