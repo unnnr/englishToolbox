@@ -28,10 +28,15 @@ export default {
 
   props: {
     words: { type: Array, default: () => [] },
+
+    disabled: { type: Boolean, default: false },
   },
 
   methods: {
     resolve(target) {
+      if (this.disabled)
+        return;
+
       let index = this.words.indexOf(target);
       let word = this.words[index];
       this.words.splice(index, 1);

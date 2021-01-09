@@ -17,6 +17,7 @@
           <div class="builder__group">
 
             <placeholder 
+              :disabled="completed"
               :audio="sample.audio"
               :words="sentance"
               :length="length"
@@ -25,20 +26,16 @@
 
             <pool 
               :words="pool"
+              :disabled="completed"
               @resolve="append"/>
 
           </div>
 
-          <div class="builder__alert builder__alert--active builder__alert--success">
-            <div class="builder__alert-group">
-              <div class="builder__alert-text">
-                <h6 class="builder__alert-error-title">Сorrect answer:</h6>
-                <h5 class="builder__alert-title">Arcu nibh volutpat imperdiet nulla nibh</h5>
-              </div>
-            </div>
-            <button class="builder__alert-button">next</button>
-          </div>
-
+          <result-screen 
+            v-if="completed"
+            :sample="sample.words"
+            :correct="correct"
+            :time="seconds"/>
         </div>
       </transition>
 
@@ -47,6 +44,7 @@
 </template>
 
 <script>
+import ResultScreen from '@components/games/builder/ResultScreen'
 import Placeholder from '@components/games/builder/Placeholder'
 import Pool from '@components/games/builder/Pool'
 import Builder from '@services/Builder'
@@ -54,8 +52,9 @@ import Builder from '@services/Builder'
 
 export default {
   components: {
+    ResultScreen,
     Placeholder,
-    Pool,
+    Pool
   },
 
   data() {
@@ -69,6 +68,9 @@ export default {
       
       sentance: [],
       pool: [],
+
+      completed: false,
+      correct: false,
     }
   },
 
@@ -90,20 +92,21 @@ export default {
   methods: {
     reset() {
       this.sample = this.builder.next();
-      
       this.pool = [ ...this.sample.words];
-
       this.sentance = [];
 
+      this.completed = false;
       this.seconds = 0;
+
       this.timer = setInterval(() => this.seconds++, 1000);
     },
 
     check(sentance) {
       clearInterval(this.timer);
 
+      this.correct = 
+        this.builder.check(sentance, this.sample.words);
       this.completed = true;
-      console.log(this.builder.check(sentance, this.sample.words));
     },
     
     append(word) {

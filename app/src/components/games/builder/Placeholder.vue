@@ -82,6 +82,10 @@ export default {
       () => this.loaded = true);
   },
 
+  beforeDestroy() {
+    this.player.pause();
+  },
+
   methods: {
     play() {
       this.player.currentTime = 0;
@@ -89,6 +93,9 @@ export default {
     },
 
     resolve(word) {
+      if (this.disabled)
+        return;
+
       let index = this.words.indexOf(word);
       this.words.splice(index, 1);
 
