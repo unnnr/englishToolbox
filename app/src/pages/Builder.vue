@@ -1,43 +1,46 @@
 <template>
    <section class="games container">
     <div class="games__selected">
+      <div class="builder">
 
-      <transition 
-        name="slide-right"
-        mode="out-in">
+        <div class="builder__controls" ref="controlls">
+          <button class="builder__element builder__exit-button"></button>
+          <div class="builder__element builder__timer">{{ seconds }}</div>
+          <div class="builder__element builder__counter">{{ streak }}</div>
+        </div>
 
-        <div class="builder">
+        <transition 
+          name="slide-right"
+          mode="out-in">
 
-          <div class="builder__controls" ref="controlls">
-            <button class="builder__element builder__exit-button"></button>
-            <div class="builder__element builder__timer">{{ seconds }}</div>
-            <div class="builder__element builder__counter">{{ streak }}</div>
-          </div>
+            <div 
+              class="builder__group"
+              :key="counter">
 
-          <div class="builder__group">
+              <placeholder 
+                :disabled="completed"
+                :audio="sample.audio"
+                :words="sentance"
+                :length="length"
+                @complete="check"
+                @resolve="remove"/>
 
-            <placeholder 
-              :disabled="completed"
-              :audio="sample.audio"
-              :words="sentance"
-              :length="length"
-              @complete="check"
-              @resolve="remove"/>
+              <pool 
+                :words="pool"
+                :disabled="completed"
+                @resolve="append"/>
 
-            <pool 
-              :words="pool"
-              :disabled="completed"
-              @resolve="append"/>
-
-          </div>
+            </div>
+          </transition>
 
           <result-screen 
             v-if="completed"
             :sample="sample.words"
             :correct="correct"
-            :time="seconds"/>
+            :time="seconds"
+            @next="reset"/>
+
         </div>
-      </transition>
 
     </div>
   </section>
@@ -71,6 +74,8 @@ export default {
 
       completed: false,
       correct: false,
+
+      counter: 0
     }
   },
 
@@ -97,6 +102,7 @@ export default {
 
       this.completed = false;
       this.seconds = 0;
+      this.counter++;
 
       this.timer = setInterval(() => this.seconds++, 1000);
     },
@@ -104,8 +110,12 @@ export default {
     check(sentance) {
       clearInterval(this.timer);
 
-      this.correct = 
-        this.builder.check(sentance, this.sample.words);
+      this.correct = this.builder.check(sentance, this.sample.words);
+      if (this.correct)
+        this.streak++;
+      else
+        this.streak = 0;
+
       this.completed = true;
     },
     
