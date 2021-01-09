@@ -10,8 +10,8 @@
 
           <div class="builder__controls" ref="controlls">
             <button class="builder__element builder__exit-button"></button>
-            <div class="builder__element builder__timer">123</div>
-            <div class="builder__element builder__counter">453</div>
+            <div class="builder__element builder__timer">{{ seconds }}</div>
+            <div class="builder__element builder__counter">{{ streak }}</div>
           </div>
 
           <div class="builder__group">
@@ -62,6 +62,12 @@ export default {
         {text: 'some', key: 3},
         {text: 'to', key: 4},
       ],
+
+      sample: null,
+
+      seconds: 0,
+      streak: 0,
+      timer: null,
       
       sentance: [],
       pool: [],
@@ -75,16 +81,30 @@ export default {
   },
 
   beforeMount() {
-    this.update();
+    this.reset();
+  },
+
+  beforeDestroy() {
+    if (this.timer !== null)
+      clearInterval(this.timer);
   },
 
   methods: {
-    update() {
+    reset() {
       this.pool = [ ...this.words];
 
       this.sentance = [];
+
+      this.seconds = 0;
+      this.timer = setInterval(() => this.seconds++, 1000);
     },
 
+    check(word) {
+      clearInterval(this.timer);
+
+      this.compleuted = true;
+    },
+    
     append(word) {
       this.sentance.push(word);
     },

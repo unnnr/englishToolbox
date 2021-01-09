@@ -24,7 +24,8 @@
     
     <button 
       class="builder__group-button builder__group-button--done"
-      disabled>
+      :disabled="cantComplete"
+      @click="complete">
     </button>
     
   </div>
@@ -41,7 +42,9 @@ export default {
   props: {
     words: { type: Array, default: () => []},
 
-    length: { type: Number, default: () => []}
+    length: { type: Number, default: () => []},
+
+    disabled: { type: Boolean, default: false } 
   },
 
   computed: {
@@ -50,10 +53,14 @@ export default {
       for (let word of this.words)
         list.push(word)
 
-      for (let i = list.length; i <= this.length; i++)
+      for (let i = list.length; i < this.length; i++)
         list.push(null);
 
       return list;
+    },
+
+    cantComplete() {
+      return this.disabled || this.words.length !== this.length;
     }
   },
 
@@ -63,6 +70,10 @@ export default {
       this.words.splice(index, 1);
 
       this.$emit('resolve', word);
+    },
+
+    complete() {
+      this.$emit('complete', this.words);
     }
   }
 }
