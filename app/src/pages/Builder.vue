@@ -19,6 +19,7 @@
             <placeholder 
               :words="sentance"
               :length="length"
+              @complete="check"
               @resolve="remove"/>
 
             <pool 
@@ -47,6 +48,8 @@
 <script>
 import Placeholder from '@components/games/builder/Placeholder'
 import Pool from '@components/games/builder/Pool'
+import Builder from '@services/Builder'
+
 
 export default {
   components: {
@@ -56,13 +59,7 @@ export default {
 
   data() {
     return {
-      words: [ 
-        {text: 'a', key: 1},
-        {text: 'asdasdasdasdasdsa', key: 2},
-        {text: 'some', key: 3},
-        {text: 'to', key: 4},
-      ],
-
+      builder: new Builder,
       sample: null,
 
       seconds: 0,
@@ -76,7 +73,7 @@ export default {
 
   computed: {
     length() {
-      return this.words.length;
+      return this.sample.words.length;
     }
   },
 
@@ -91,7 +88,9 @@ export default {
 
   methods: {
     reset() {
-      this.pool = [ ...this.words];
+      this.sample = this.builder.next();
+      
+      this.pool = [ ...this.sample.words];
 
       this.sentance = [];
 
@@ -99,10 +98,11 @@ export default {
       this.timer = setInterval(() => this.seconds++, 1000);
     },
 
-    check(word) {
+    check(sentance) {
       clearInterval(this.timer);
 
-      this.compleuted = true;
+      this.completed = true;
+      this.builder.check(sentance, this.sample.words);
     },
     
     append(word) {
