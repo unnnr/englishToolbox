@@ -4700,6 +4700,214 @@ button:active {
   overflow: hidden;
 }
 
+.verbs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px 40px 40px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content 1fr;
+      grid-template-rows: -webkit-max-content 1fr;
+      grid-template-rows: max-content 1fr;
+  grid-row-gap: 10px;
+  overflow: hidden;
+}
+
+.verbs__scrollable {
+  overflow: overlay;
+}
+
+.verbs__scrollable::-webkit-scrollbar {
+  width: 15px;
+}
+
+@media (max-width: 770px) {
+  .verbs__scrollable::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.verbs__scrollable::-webkit-scrollbar-track {
+  width: 100%;
+  border-radius: 100px;
+}
+
+.verbs__scrollable::-webkit-scrollbar-thumb {
+  background: #a1a1b1;
+  border-radius: 100px;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.verbs__scrollable::-webkit-scrollbar-thumb:hover {
+  background: #85859a;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.verbs__controls {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.verbs__element {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 600;
+  color: #E3E3E3;
+  padding: 0px 10px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  grid-auto-flow: column;
+  grid-column-gap: 5px;
+  height: 30px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+}
+
+.verbs__element:after, .verbs__element:before {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: "material icons round";
+  color: inherit;
+}
+
+.verbs__element:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.verbs__exit-button {
+  width: 30px;
+  padding: 0;
+}
+
+.verbs__exit-button:after {
+  color: #ff6688;
+  content: "close";
+}
+
+.verbs__button-group {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  grid-column-gap: 5px;
+}
+
+.verbs__search {
+  height: 30px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+          backdrop-filter: blur(5px) saturate(150%);
+  background-color: rgba(18, 18, 18, 0.9);
+  padding-left: 6px;
+  padding-right: 6px;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content 1fr;
+  grid-auto-columns: max-content 1fr;
+  width: 250px;
+  grid-column-gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.verbs__search::before {
+  font-family: "material icons round";
+  content: "search";
+  font-size: 18px;
+  color: #E3E3E3;
+}
+
+.verbs__search input {
+  font-size: 14px;
+  color: #E3E3E3;
+  font-weight: 500;
+}
+
+.verbs__search input::-webkit-input-placeholder {
+  color: #cacaca;
+}
+
+.verbs__search input:-ms-input-placeholder {
+  color: #cacaca;
+}
+
+.verbs__search input::-ms-input-placeholder {
+  color: #cacaca;
+}
+
+.verbs__search input::placeholder {
+  color: #cacaca;
+}
+
+.verbs__table {
+  width: 100%;
+  border-top: 2px #ededed solid;
+  border-bottom: 1px #f7f7f7 solid;
+  border-left: 1px #f7f7f7 solid;
+  border-right: 1px #f7f7f7 solid;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.verbs__table th, .verbs__table td {
+  padding: 12px;
+  border-top: 1px #ededed solid;
+}
+
+.verbs__table th {
+  color: #2f2e44;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 2px #ededed solid;
+}
+
+.verbs__table tr {
+  -webkit-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+}
+
+.verbs__table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.verbs__table td {
+  font-size: 18px;
+  font-weight: 500;
+  color: #76768d;
+  -webkit-transition: color .2s ease-in-out;
+  transition: color .2s ease-in-out;
+}
+
+.verbs__tr-active {
+  background-color: rgba(102, 102, 255, 0.75) !important;
+}
+
+.verbs__tr-active td {
+  color: #fff;
+}
+
 .matcher {
   position: relative;
 }
