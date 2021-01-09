@@ -1,5 +1,5 @@
 const Config  = {
-  deckLength: 10,
+  deckLength: 1,
 
   world: {
     width: 1620,

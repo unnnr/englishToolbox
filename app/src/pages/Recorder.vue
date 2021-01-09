@@ -8,7 +8,32 @@
 
         <div class="recorder"
           :key="sample.text">
-          <h4 class="heading-fourth recorder__title">Audio recorder</h4>
+
+          <div class="recorder__controls">
+            <div class="recorder__button-group">
+              <button class="recorder__element recorder__exit-button"></button>
+              <button class="recorder__element recorder__menu-button">menu</button>
+            </div>
+
+            <div class="recorder__button-group">
+              <button 
+                class="recorder__element  recorder__prev-button" 
+                :disabled="!!!undoable"
+                @click="prev">
+                
+                prev
+              </button>
+
+              <button 
+                class="recorder__element  recorder__next-button"
+                @click="next">
+                
+                next
+              </button>
+            </div>
+          </div>
+          
+          <h5 class="heading-fifth recorder__title">Audio recorder</h5>
           <p class="text-fourth recorder__hint">Click the button below to record your speech and compare it to the sample.</p>
         
           <q class="heading-sixth recorder__passage"><i>{{ sample.text }}</i></q>
@@ -17,22 +42,6 @@
           <audio-player
             :src="sample.audio"/>
 
-          <div class="recorder__button-group">
-            <button 
-              class="recorder__button recorder__button--prev" 
-              :disabled="!!!undoable"
-              @click="prev">
-              
-              prev
-            </button>
-
-            <button 
-              class="recorder__button recorder__button--next"
-              @click="next">
-              
-              next
-            </button>
-          </div>
         </div>
       </transition>
 

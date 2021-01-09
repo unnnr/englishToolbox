@@ -1,42 +1,42 @@
 <template>
   <div class="matcher__results">
-      <div class="matcher__results-body">
-        <div class="matcher__results-scrollable">
-          <h4 class="matcher__results-heading heading-fourth">
-            well done!
-          </h4>
-          <p class="matcher__results-time text-fourth">
-            Your time: <span> {{ time }}</span>
-          </p>
-          
-          <table class="matcher__results-table">
-            <tr>
-              <th>№</th>
-              <th>infinitive</th>
-              <th>past simple</th>
-              <th>past participle</th>
-            </tr>
+    <div class="matcher__results-body">
+      <h4 class="matcher__results-heading heading-fourth">
+      well done!
+    </h4>
+    <p class="matcher__results-time text-fourth">
+      Your time: <span> {{ time }}</span>
+    </p>
+    
+    <div class="matcher__results-scrollable">
+      <table class="matcher__results-table">
+        <tr>
+          <th>№</th>
+          <th>infinitive</th>
+          <th>past simple</th>
+          <th>past participle</th>
+        </tr>
 
-            <tr 
-              v-for="([first, second, third], index) in parsed"
-              :key="index">
+        <tr 
+          v-for="([first, second, third], index) in parsed"
+          :key="index">
 
-                <td>{{ index }}.</td>
-                <td>{{ first }}</td>
-                <td>{{ second }}</td>
-                <td>{{ third }}</td>
-              </tr>
-          </table>
-          
-          <button 
-            class="matcher__results-restart-button button-secondary"
-            @click="restart">
-            
-            again
-          </button>
-        </div>
-      </div>
+          <td>{{ index }}.</td>
+          <td>{{ first }}</td>
+          <td>{{ second }}</td>
+          <td>{{ third }}</td>
+        </tr>
+      </table>
     </div>
+    
+    <button 
+      class="matcher__results-restart-button button-secondary"
+      @click="restart">
+      
+      again
+    </button>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 .recorder
-  padding: 40px
+  padding: 30px 40px 40px
   // 
   position: absolute
   top: 0
@@ -110,11 +110,7 @@
       &:before
         font-size: 34px
 
-
-
-    
   
-
 .recorder__card-status-bar
   display: grid
   grid-auto-flow: column
@@ -143,9 +139,7 @@
   display: grid
   grid-auto-flow: column
   grid-auto-columns: max-content
-  justify-content: center
-  grid-column-gap: 5px  
-  margin-top: auto
+  grid-column-gap: 5px
 
 
 .recorder__button
@@ -165,3 +159,105 @@
   &:disabled 
     opacity: 0.25
     cursor: not-allowed
+
+
+.recorder__element
+  font-size: 14px
+  line-height: 1
+  font-weight: $semibold
+  color: #E3E3E3
+  padding: 0px 10px
+  // 
+  display: grid
+  align-items: center
+  justify-items: center
+  grid-auto-flow: column
+  grid-column-gap: 5px
+  // 
+  height: 30px
+  border-radius: 5px
+  backdrop-filter: blur(5px) saturate(150%)
+  background-color: transparentize($color-almost-black, 0.1)
+
+  &:after,
+  &:before
+    
+    font-weight: $medium
+    font-size: 18px
+    font-family: "material icons round"
+    color: inherit
+
+  &:disabled
+    opacity: 0.3
+    cursor: not-allowed
+
+.recorder__exit-button
+  width: 30px
+  padding: 0
+
+  &:after
+    color: $color-reddish
+    content: "close"
+
+
+.recorder__menu-button
+  &:after
+    content: "menu"
+
+.recorder__next-button
+  &:after
+    content: "arrow_right_alt"
+
+.recorder__prev-button
+  &:before
+    content: "arrow_right_alt"
+    transform: rotate(180deg)
+
+.recorder__random-button
+  &::after
+    content: "shuffle"
+
+.recorder__controls
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  justify-content: space-between
+  margin-bottom: 10px
+
+
+.recorder-list 
+  display: flex
+  flex-direction: column
+  gap: 15px
+  overflow: auto
+  @include scroll-body
+
+.recorder-list__card
+  display: grid
+  grid-auto-flow: column
+  grid-template-columns: 1fr max-content
+  grid-column-gap: 15px
+  background: $color-almost-white
+  border-radius: $border-radius-secondary
+  padding: 30px
+  align-items: center
+
+.recorder-list__button
+  height: 40px
+  width: 40px
+  border-radius: 5px
+  background: $color-primary
+  display: grid
+  align-items: center
+  justify-items: center
+  
+  &::before
+    font-family: "material icons round"
+    font-size: 28px
+    content: "arrow_right_alt"
+    color: $color-white
+
+.recorder-list__text
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow: hidden
