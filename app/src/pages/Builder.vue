@@ -19,11 +19,11 @@
             <placeholder 
               :words="sentance"
               :length="length"
-              @resolved="remove"/>
+              @resolve="remove"/>
 
             <pool 
               :words="pool"
-              @resolved="append"/>
+              @resolve="append"/>
 
           </div>
 
@@ -90,7 +90,7 @@ export default {
     },
 
     remove(word) {
-
+      this.pool.push(word);
     }
   }
 }

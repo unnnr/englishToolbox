@@ -32,7 +32,7 @@ export default {
       let word = this.words[index];
       this.words.splice(index, 1);
 
-      this.$emit('resolved', word);
+      this.$emit('resolve', word);
     },
 
     async beforeLeave(el) {

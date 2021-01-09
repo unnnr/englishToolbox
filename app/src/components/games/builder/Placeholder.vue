@@ -11,7 +11,8 @@
 
       <div 
         v-if="word"
-        class="builder__brick">
+        class="builder__brick"
+        @click="resolve(word)">
         {{ word.text }}
       </div>
     </div>
@@ -40,6 +41,15 @@ export default {
         list.push(null);
 
       return list;
+    }
+  },
+
+  methods: {
+    resolve(word) {
+      let index = this.words.indexOf(word);
+      this.words.splice(index, 1);
+
+      this.$emit('resolve', word);
     }
   }
 }
