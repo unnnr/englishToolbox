@@ -1,24 +1,23 @@
 <template>
-  <div class="builder__pool">
+  <transition-group 
+    class="builder__pool"
+    name="words"
+    @before-leave="beforeLeave"
+    @before-enter="beforeEnter">
 
     <div 
-      v-for="(brick, index) in bricks"
-      :key="index"
+      v-for="word in words"
+      :key="word.key"
 
-      ref="words"
       class="builder__brick"
-      
-      :style="{
-        'opacity': computeOpacity(brick),
-        'height': computeHeight(brick),
-        'width': computeWidth(brick)}"
+      ref="words"
 
-      @mousedown="(event) => drag(index, event)">
+      @click="resolve(word)">
 
-      {{ brick.word }}
+      {{ word.text }}
     </div>
 
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -27,94 +26,73 @@ export default {
     words: { type: Array, default: () => [] },
   },
 
-  data() {
-    return  {
-      bricks: []
-    }
-  },
-
-  inject: ['$dragger'],
-
-  computed: {
-    dragger() {
-      return this.$dragger();
-    }
-  },
-
-  mounted() {
-    this.dragger.remove = this.put.bind(this);
-    this.parseWords();
-  },
-
   methods: {
-    parseWords() {
-      let bricks = [];
-      for (let word of this.words) {
-        let brick = {
-          word, disabled: false
-        };
+    resolve(target) {
+      let index = this.words.indexOf(target);
+      let word = this.words[index];
+      this.words.splice(index, 1);
 
-        bricks.push(brick);
-      }
-
-      this.bricks = bricks;
+      this.$emit('resolved', word);
     },
 
-    remove(index) {
-      this.bricks.splice(index, 1);
-    },
+    async beforeLeave(el) {
+      el.style.width = el.offsetWidth + 'px';
+      el.style.maxHeight = el.offsetHeight + 'px';
+      
 
-    drag(index, event) {
-      let target = {
-        word: this.bricks[index].word,
-        el: this.$refs.words[index]
-      };
-
-      this.remove(index);
-      this.dragger.drag(target, event);
-    },
-
-    async put(target) {
-      let brick = {
-        disabled: true,
-      }
-
-      brick.word = target.word;
-      brick.width = target.el.offsetWidth;
-      brick.height = target.el.offsetHeight;
-      let index = this.bricks.push(brick) - 1;
-
-      // Waiting for dom update
       await this.$nextTick();
+      el.style.width = 0;
+    },
 
-      let el = this.$refs.words[index];
-      let dummy = target.el;
+    async beforeEnter(el) {
+      // Computing sizes
+      el.style.position = 'absolute';
+      document.body.append(el);
 
-      dummy.style.transition = 'left 1s, top 1s';
-      dummy.style.left = el.offsetLeft + 'px';
-      dummy.style.top = el.offsetTop + 'px';
+      let width = el.offsetWidth;
+
+      document.body.removeChild(el);
+      el.style.position = '';
+      el.style.width = '0';
+      el.style.padding = '0';
+
+      await this.$nextTick();
+      el.style.padding = '5px 10px';
+      el.style.width = width + 'px';
 
       // Waiting for animation
       await new Promise(resolve => setTimeout(resolve, 1000))
-
-      dummy.remove();
-      brick.disabled = false;
+      el.style.padding = '';
+      el.style.width = '';
     },
-
-    computeWidth(brick) {
-      return brick.disabled ? 
-        brick.width + 'px' : 'auto';
-    },
-
-    computeHeight(brick) {
-      return brick.disabled ? 
-        brick.height + 'px' : 'auto';
-    },
-
-    computeOpacity(brick) {
-      return brick.disabled ? 
-        '0' : '1';
-    }
   }
 }
 </script>
+
+<style lang="sass">
+
+.builder__brick--disabled
+  font-size: 0
+
+.words-enter-active, 
+  
+
+.words-leave-active
+  overflow: hidden
+  text-overflow: clip
+  white-space: nowrap
+  opacity: 0
+  color: transparent
+  border-width: 0
+  padding: 5px 0,
+  margin-left: 0 !important
+  transition: opacity .5s, color .5s, border .7s, margin .7s, height .7s, width .7s, padding .7s
+
+.builder__pool
+  grid-column-gap: 0
+
+.builder__brick:not(:first-child)
+  margin-left: 10px
+  
+
+</style>

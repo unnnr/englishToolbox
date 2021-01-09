@@ -17,7 +17,7 @@
           <div class="builder__group">
 
             <placeholder 
-              :length="length"/>
+              :words="sentance"/>
 
             <pool 
               :words="pool"/>
@@ -44,7 +44,6 @@
 <script>
 import Placeholder from '@components/games/builder/Placeholder'
 import Pool from '@components/games/builder/Pool'
-import Dragger from '@services/Dragger'
 
 export default {
   components: {
@@ -52,19 +51,16 @@ export default {
     Pool,
   },
 
-  provide() {
-    const _this = this;
-
-    return {
-      $dragger: () => _this.dragger,
-    }
-  },
-
   data() {
     return {
-      dragger: null,
-      words: ['a', 's', 'word', 'b'],
-      pool: []
+      words: [ 
+        {text: 'a', key: 1},
+        {text: 'asdasd', key: 2},
+        {text: 'some', key: 3},
+        {text: 'to', key: 4},
+      ],
+      sentance: [],
+      pool: [],
     }
   },
 
@@ -75,8 +71,16 @@ export default {
   },
 
   beforeMount() {
-    this.pool = [...this.words];
-    this.dragger = new Dragger();
+    this.update();
+  },
+
+  methods: {
+    update() {
+      this.pool = [ ...this.words];
+
+      this.sentance = 
+        this.pool.map(() => '');
+    }
   }
 }
 </script>
