@@ -72,19 +72,22 @@ export default {
 .builder__brick--disabled
   font-size: 0
 
-.words-enter-active, 
-  
+.builder__brick
+  transition: opacity .5s, margin .7s, height .7s, width .7s, padding .7s
+  cursor: pointer
 
-.words-leave-active
+.words-leave-active,
+.words-enter-active
   overflow: hidden
   text-overflow: clip
   white-space: nowrap
+  
+.words-enter,
+.words-leave-active
   opacity: 0
-  color: transparent
   border-width: 0
   padding: 5px 0,
   margin-left: 0 !important
-  transition: opacity .5s, color .5s, border .7s, margin .7s, height .7s, width .7s, padding .7s
 
 .builder__pool
   grid-column-gap: 0
