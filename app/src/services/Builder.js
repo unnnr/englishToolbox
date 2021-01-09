@@ -1,11 +1,11 @@
 class Builder {
   samples = [
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '0 Some text, some text, some text, some text, some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '1 Some text, some text, some text, some text, some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '2 Some text, some text, some text, some text, some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '3 Some text, some text, some text, some text, some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '4 Some text, some text, some text, some text, some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '5 Some text, some text, some text, some text, some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '0 some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '1 some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '2 some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '3 some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '4 some text?' },
+    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '5 some text?' },
   ];
 
   history = [];
@@ -26,8 +26,19 @@ class Builder {
     return this.compute(this.samples[index]);
   }
 
-  check(words, sample) {
-    console.log(words, sample);
+  check(words, sampleWords) {
+    if (words.length !== sampleWords.length)
+      return false;
+
+    for (let i = 0; i < words.length; i++) {
+      let sample = sampleWords[i].text;
+      let builded = words[i].text;
+
+      if (sample.toLowerCase() !== builded.toLowerCase())
+        return false;
+    } 
+
+    return true;
   }
 
   compute(sample) {

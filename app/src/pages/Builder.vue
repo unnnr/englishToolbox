@@ -102,7 +102,7 @@ export default {
       clearInterval(this.timer);
 
       this.completed = true;
-      this.builder.check(sentance, this.sample.words);
+      console.log(this.builder.check(sentance, this.sample.words));
     },
     
     append(word) {
