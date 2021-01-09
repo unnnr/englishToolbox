@@ -17,6 +17,7 @@
           <div class="builder__group">
 
             <placeholder 
+              :audio="sample.audio"
               :words="sentance"
               :length="length"
               @complete="check"

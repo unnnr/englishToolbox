@@ -1,11 +1,11 @@
 class Builder {
   samples = [
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '0 some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '1 some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '2 some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '3 some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '4 some text?' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '5 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '0 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '1 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '2 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '3 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '4 some text?' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '5 some text?' },
   ];
 
   history = [];

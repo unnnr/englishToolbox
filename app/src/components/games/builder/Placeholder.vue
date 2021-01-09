@@ -1,7 +1,9 @@
 <template>
   <div class="builder__areas">
     <button 
-      class="builder__group-button builder__group-button--listen">
+      class="builder__group-button builder__group-button--listen"
+      :disabled="!!!loaded"
+      @click="play">
     </button>
 
     <div 
@@ -42,9 +44,18 @@ export default {
   props: {
     words: { type: Array, default: () => []},
 
-    length: { type: Number, default: () => []},
+    audio: { type: String, default: null }, 
+
+    length: { type: Number, default: 0},
 
     disabled: { type: Boolean, default: false } 
+  },
+
+  data() {
+    return {
+      player: null,
+      loaded: false,
+    }
   },
 
   computed: {
@@ -64,7 +75,19 @@ export default {
     }
   },
 
+  mounted() {
+    this.player = new Audio(this.audio);
+
+    this.player.addEventListener('canplaythrough', 
+      () => this.loaded = true);
+  },
+
   methods: {
+    play() {
+      this.player.currentTime = 0;
+      this.player.play();
+    },
+
     resolve(word) {
       let index = this.words.indexOf(word);
       this.words.splice(index, 1);
