@@ -6,7 +6,12 @@
         <div class="verbs__button-group">
           <button class="verbs__element verbs__exit-button"></button>
           <div class="verbs__search">
-            <input type="text" placeholder="search">
+            <input 
+              v-model="entry"
+              type="text" 
+              placeholder="search" 
+              @input="search">
+
           </div>
         </div>
 
@@ -22,7 +27,11 @@
               
               <tr 
                 v-for="([first, second, third], index) of verbs"
-                :key="index">
+                :key="index"
+
+                ref="rows"
+                :class="isSelected(index) ? 'verbs__tr-active' : ''">
+
                 <td>{{index + 1}}</td>
                 <td>{{ first }}</td>
                 <td>{{ second }}</td>
@@ -43,8 +52,34 @@ import Verbs from '@services/IrregularVerbs'
 export default {
   data() {
     return {
-      verbs: Verbs.list()
+      verbs: Verbs.list(),
+      entry: '',
+      selected: -1
+    }
+  },
+
+  methods: {
+    search() {
+      this.selected =
+        Verbs.search(this.entry);
+
+      if (this.selected === -1)
+        return;
+
+      let el = this.$refs.rows[this.selected];
+      el.scrollIntoView();
+    },
+
+    isSelected(index) {
+      return index === this.selected;
     }
   }
 }
 </script>
+
+<style lang="sass">
+
+.verbs__table
+  scroll-behavior: 'smooth'
+  
+</style>
