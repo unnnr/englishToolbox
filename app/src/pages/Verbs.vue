@@ -38,18 +38,12 @@
 </template>
 
 <script>
+import Verbs from '@services/IrregularVerbs'
+
 export default {
   data() {
     return {
-      verbs: [
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-        ['be', 'was, were', 'been'],
-      ]
+      verbs: Verbs.list()
     }
   }
 }
