@@ -49,6 +49,8 @@ const routes = [
   
   { path: '/builder', name: 'Builder', component: () => import('@pages/Builder') },
 
+  { path: '/verbs', name: 'Verbs', component: () => import('@pages/Verbs') },
+
   // Post pages
   
   { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},
