@@ -67,7 +67,7 @@ export default {
         return;
 
       let el = this.$refs.rows[this.selected];
-      el.scrollIntoView();
+      el.scrollIntoView({ block: 'center' });
     },
 
     isSelected(index) {
@@ -81,5 +81,5 @@ export default {
 
 .verbs__table
   scroll-behavior: 'smooth'
-  
+
 </style>
