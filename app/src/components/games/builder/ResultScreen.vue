@@ -12,7 +12,9 @@
       <div class="builder__alert-group">
         <div class="builder__alert-text">
           <h6 class="builder__alert-error-title">Сorrect answer:</h6>
-          <h5 class="builder__alert-title">{{ sentance }}</h5>
+          <h5 class="builder__alert-title">
+            {{ message }}
+          </h5>
         </div>
       </div>
 
@@ -44,6 +46,11 @@ export default {
         sentance += ' ' + word.text;
 
       return sentance;
+    },
+
+    message() {
+      return !!!this.correct ? 
+        this.sentance : 'Great job, keep it up!'
     }
   },
 
