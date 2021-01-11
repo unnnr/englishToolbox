@@ -87,11 +87,11 @@ export default class Matcher {
 
   stop() {
     this.world.clear();
-    // this.start();
   }
 
   clear() {
     this.world.clear();
+    Mouse.clear(this.render);
     Engine.clear(this.engine);
     Render.stop(this.render);
   }

@@ -17,11 +17,20 @@ class Mouse {
     });
       
     render.mouse = mouse;
-
+    
     MatterJs.World.add(engine.world, mouseConstraint);
+
+    MatterJs.Events.on(mouseConstraint, 'startdrag', () => {
+      render.canvas.style.cursor = 'grabbing';
+    });
+
+    MatterJs.Events.on(mouseConstraint, 'enddrag', () => {
+      render.canvas.style.cursor = '';
+    });
 
     return mouseConstraint;
   }
+
 
   stopDrag(mouseConstraint) {
     let mouse = mouseConstraint.mouse;
@@ -43,6 +52,11 @@ class Mouse {
   drop(mouse, el) {
     if (this.captured(mouse, el))
       this.stopDrag(mouse)
+  }
+
+
+  clear(render) {
+    render.canvas.style.cursor = '';
   }
 }
 

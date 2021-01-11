@@ -158,7 +158,7 @@ export default {
         height: (controlls.offsetHeight + 5) 
           * (this.worldHeight / canvas.offsetHeight),
 
-        width: (controlls.offsetWidth + 20) 
+        width: (controlls.offsetWidth + 5) 
           * (this.worldWidth / canvas.offsetWidth),
       }
 
