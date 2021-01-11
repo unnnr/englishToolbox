@@ -1,10 +1,12 @@
 <template>
-  <div class="builder">
+  <div class="game builder">
 
-    <div class="builder__controls" ref="controlls">
-      <button class="builder__element builder__exit-button"></button>
-      <div class="builder__element builder__timer">{{ seconds }}</div>
-      <div class="builder__element builder__counter">{{ streak }}</div>
+    <div class="game__controls" ref="controlls">
+      <div class="game__elements">
+        <button class="game__element game__element--exit"></button>
+        <div class="game__element game__element--timer">{{ seconds }}</div>
+        <div class="game__element game__element--counter">{{ streak }}</div>
+      </div>
     </div>
 
     <transition 

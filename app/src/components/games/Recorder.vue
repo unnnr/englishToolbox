@@ -1,5 +1,5 @@
 <template>
-  <div class="recorder">
+  <div class="game recorder">
     <transition 
       name="slide-right"
       mode="out-in">
@@ -12,22 +12,22 @@
       <div 
         v-else
         :key="sample.text"
-        class="recorder">
+        class="recorder__body">
 
-        <div class="recorder__controls">
-          <div class="recorder__button-group">
-            <button class="recorder__element recorder__exit-button"></button>
+        <div class="game__controls">
+          <div class="game__elements">
+            <button class="game__element game__element--exit"></button>
             <button 
-              class="recorder__element recorder__menu-button"
+              class="game__element game__element--menu"
               @click="showMenu">
               
               menu
             </button>
           </div>
 
-          <div class="recorder__button-group">
+          <div class="game__elements">
             <button 
-              class="recorder__element  recorder__prev-button" 
+              class="game__element game__element--prev" 
               :disabled="!!!undoable"
               @click="prev">
               
@@ -35,7 +35,7 @@
             </button>
 
             <button 
-              class="recorder__element  recorder__next-button"
+              class="game__element game__element--next"
               @click="next">
               
               next

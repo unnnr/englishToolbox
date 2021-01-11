@@ -1,10 +1,10 @@
 <template>
     <div class="recorder-list">
-      <div class="recorder__controls">
-        <div class="recorder__button-group">
-          <button class="recorder__element recorder__exit-button"></button>
+      <div class="game__controls">
+        <div class="game__elements">
+          <button class="game__element game__element--exit"></button>
           <button 
-            class="recorder__element recorder__random-button"
+            class="game__element game__element--random"
             @click="random">
 
             random

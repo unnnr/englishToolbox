@@ -1,0 +1,93 @@
+.bubbles
+  padding: 0 100px 
+  
+  .game__controls
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    padding: 10px 10px 0
+    margin-bottom: 0
+
+  
+.bubbles__body
+  height: 100%
+  // 
+  display: grid
+  justify-content: center
+  grid-template-rows: 1fr 1fr 1fr
+
+
+.bubbles__area
+  height: max-content
+  // 
+  display: flex
+  flex-wrap: wrap
+  gap: 5px
+  // 
+  grid-row-start: 2
+  align-self: center
+  justify-self: center
+  // 
+  overflow: overlay
+
+
+.bubbles__bubble,
+.bubbles__bubble-input
+  display: grid
+  align-items: center
+  // 
+  height: 40px
+  padding: 10px
+  width: max-content
+  font-size: 16px
+  line-height: 1
+  font-weight: $semibold
+  border-radius: $border-radius-secondary
+  background: darken($color-almost-white, 2)
+
+
+.bubbles__bubble
+  color: $color-primary
+
+
+.bubbles__bubble-input
+  color: $color-gray
+  // 
+  input
+    width: 100%
+    color: inherit
+    font-size: inherit
+    font-weight: inherit
+
+    &::placeholder
+      color: $color-lightgray
+      text-align: center
+  // 
+  &--error
+    input
+      color: $color-reddish
+
+  &--success
+    input
+      color: $color-greenish
+  // 
+  &--sm
+    width: 50px
+    border-bottom: 2px solid $color-lightgray
+  
+  &--md
+    width: 75px
+    border-bottom: 2px solid $color-lightgray
+  
+  &--lg
+    width: 100px
+    border-bottom: 2px solid $color-lightgray
+
+  
+.bubbles__alert.game__alert--error
+  .game__alert-title
+    display: none  
+
+  .game__alert-error
+    font-size: 16px

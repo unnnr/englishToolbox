@@ -1,52 +1,17 @@
 .matcher
-  position: relative
-
-
-.matcher__controls
-  z-index: $z-third
-  position: absolute
-  top: 0
-  left: 0
-  // 
-  margin-top: 10px
-  margin-left: 5px
-  // 
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  grid-column-gap: 5px
-  user-select: none
-
- 
-.matcher__element
-  font-size: 14px
-  line-height: 1
-  font-weight: $semibold
-  color: #E3E3E3
-  padding: 0px 10px
-  // 
-  display: grid
-  align-items: center
-  justify-items: center
-  grid-auto-flow: column
-  grid-column-gap: 5px
-  // 
-  height: 30px
-  border-radius: 5px
-  backdrop-filter: blur(5px) saturate(150%)
-  background-color: transparentize($color-almost-black, 0.1)
-
-  &:after
-    font-weight: $medium
-    font-size: 18px
-    font-family: "material icons round"
-    color: inherit
-    content: "close"
+  .game__elements
+    position: absolute
+    top: 0
+    left: 0
+    width: max-content
+    z-index: $z-second + 1
+    // 
+    padding: 15px 0 0 10px
 
 
 .matcher__progress-bar 
   z-index: $z-second
-  position: absolute
+  position: relative
   top: 0
   // 
   width: 100%
@@ -57,30 +22,14 @@
   height: 5px
   width: 50%
   background: $color-greenish
+  transition: width .3s
 
-
-.matcher__exit-button
-  width: 30px
-  padding: 0
-
-  &:after
-    color: $color-reddish
-    content: "close"
-
-
-.matcher__timer
-  &:after
-    content: "timer"
-
-
-.matcher__counter
-  &:after
-    content: "check"
 
 .matcher__results
   position: absolute
   height: 100%
   width: 100%
+  top: 0 
   display: grid
   justify-content: center
   padding: 15px 0
@@ -99,9 +48,11 @@
   grid-template-rows: max-content max-content 1fr max-content
   overflow: hidden
 
+
 .matcher__results-scrollable
   overflow: overlay
   @include scroll-body
+   
    
 .matcher__results-heading
   display: grid

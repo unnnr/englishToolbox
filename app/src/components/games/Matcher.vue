@@ -1,5 +1,5 @@
 <template>
-  <div class="matcher" ref="canvas">
+  <div class="game matcher" ref="canvas">
     <div class="matcher__progress-bar">
       <div 
         ref="progress"
@@ -9,12 +9,11 @@
     </div>
 
     <div 
-      class="matcher__controls"
+      class="game__elements"
       ref="controlls">
-
-      <button class="matcher__element matcher__exit-button"></button>
-      <div class="matcher__element matcher__timer">{{ seconds }}</div>
-      <div class="matcher__element matcher__counter">{{ counter }}</div>
+        <button class="game__element game__element--exit"></button>
+        <div class="game__element game__element--timer">{{ seconds }}</div>
+        <div class="game__element game__element--matches">{{ counter }}</div>
     </div>
 
     <transition name="fade">
@@ -173,18 +172,8 @@ export default {
 </script>
 
 <style lang="sass">
-.matcher
-  position: absolute
-  width: 100%
-  height: 100%
 
 .matcher canvas
   width: 100%
 
-.matcher__progress-bar-current
-  transition: width .3s
-
-.matcher__progress-bar
-  position: relative
-  
 </style>

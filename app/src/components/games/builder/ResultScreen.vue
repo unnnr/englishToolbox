@@ -4,22 +4,22 @@
     appear>
       
     <div 
-      class="builder__alert"
+      class="game__alert"
       :class="{
-        'builder__alert--success': correct,
-        'builder__alert--error': !!!correct}">
+        'game__alert--success': correct,
+        'game__alert--error': !!!correct}">
 
-      <div class="builder__alert-group">
-        <div class="builder__alert-text">
-          <h6 class="builder__alert-error-title">Сorrect answer:</h6>
-          <h5 class="builder__alert-title">
+      <div class="game__alert-group">
+        <div class="game__alert-text">
+          <h6 class="game__alert-error">Сorrect answer:</h6>
+          <h5 class="game__alert-title">
             {{ message }}
           </h5>
         </div>
       </div>
 
       <button
-        class="builder__alert-button"
+        class="game__alert-button"
         @click="next">
         
         next
@@ -64,7 +64,7 @@ export default {
 
 <style lang="sass">
 
-.builder__alert
+.game__alert
   opacity: 1
   height: 100px
 

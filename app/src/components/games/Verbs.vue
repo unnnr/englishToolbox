@@ -1,7 +1,7 @@
 <template>
-  <div class="verbs">
-    <div class="verbs__button-group">
-      <button class="verbs__element verbs__exit-button"></button>
+  <div class="game verbs">
+    <div class="game__elements">
+      <button class="game__element game__element--exit"></button>
       <div class="verbs__search">
         <input 
           v-model="entry"

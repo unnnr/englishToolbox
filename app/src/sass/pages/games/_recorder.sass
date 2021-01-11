@@ -1,15 +1,19 @@
 .recorder
   padding: 30px 40px 40px
   // 
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  display: flex
-  flex-direction: column
-  gap: 20px
+  display: grid
+  grid-template-columns: 1fr
+  // 
+  .game__controls
+    position: static
+    padding: 0
 
+
+.recorder__body
+  display: grid
+  grid-auto-rows: max-content
+  grid-row-gap: 15px
+  // 
   @include xl-devices
     gap: 15px
 
@@ -135,102 +139,13 @@
     background: $color-primary
 
 
-.recorder__button-group
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  grid-column-gap: 5px
-
-
-.recorder__button
-  font-size: 16px
-  height: 30px
-  padding: 0 20px
-  border-radius: 5px
-  color: $color-white
-  font-weight: $semibold
-  // 
-  &--prev
-    background: $color-gray
-  
-  &--next
-    background: $color-primary
-  // 
-  &:disabled 
-    opacity: 0.25
-    cursor: not-allowed
-
-
-.recorder__element
-  font-size: 14px
-  line-height: 1
-  font-weight: $semibold
-  color: #E3E3E3
-  padding: 0px 10px
-  // 
-  display: grid
-  align-items: center
-  justify-items: center
-  grid-auto-flow: column
-  grid-column-gap: 5px
-  // 
-  height: 30px
-  border-radius: 5px
-  backdrop-filter: blur(5px) saturate(150%)
-  background-color: transparentize($color-almost-black, 0.1)
-
-  &:after,
-  &:before
-    
-    font-weight: $medium
-    font-size: 18px
-    font-family: "material icons round"
-    color: inherit
-
-  &:disabled
-    opacity: 0.3
-    cursor: not-allowed
-
-.recorder__exit-button
-  width: 30px
-  padding: 0
-
-  &:after
-    color: $color-reddish
-    content: "close"
-
-
-.recorder__menu-button
-  &:after
-    content: "menu"
-
-.recorder__next-button
-  &:after
-    content: "arrow_right_alt"
-
-.recorder__prev-button
-  &:before
-    content: "arrow_right_alt"
-    transform: rotate(180deg)
-
-.recorder__random-button
-  &::after
-    content: "shuffle"
-
-.recorder__controls
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  justify-content: space-between
-  margin-bottom: 10px
-
-
 .recorder-list 
   display: flex
   flex-direction: column
   gap: 15px
   overflow: auto
   @include scroll-body
+
 
 .recorder-list__card
   display: grid
@@ -241,6 +156,7 @@
   border-radius: $border-radius-secondary
   padding: 30px
   align-items: center
+
 
 .recorder-list__button
   height: 40px
@@ -256,6 +172,7 @@
     font-size: 28px
     content: "arrow_right_alt"
     color: $color-white
+
 
 .recorder-list__text
   white-space: nowrap
