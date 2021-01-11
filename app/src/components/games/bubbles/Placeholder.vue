@@ -1,0 +1,94 @@
+<template>
+  <div 
+    class="bubbles__bubble-input"
+    :class="{
+      'bubbles__bubble-input--empty': empty,
+      'bubbles__bubble-input--sm': small,
+      'bubbles__bubble-input--md': medium,
+      'bubbles__bubble-input--lg': large}">
+
+    <input
+      v-model="entry"
+      placeholder="ー"
+
+      :style="{'width': width}"
+
+      @focus="prepareCopy"
+      @input="resize"
+      @blur="resolveCopy"/>
+
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    words: { type: Array, default: () => [] }
+  },
+
+  data() {
+    return {
+      entry: '',
+      width: '',
+      copy: null
+    }
+  },
+
+  computed: {
+    small() {
+      return this.words.length < 2;
+    },
+
+    medium() {
+      return this.words.length === 2;
+    },
+
+    large() {
+      return this.words.length > 2;
+    },
+
+    empty() {
+      return !!!this.entry.length;
+    } 
+  },
+
+  methods: {
+    prepareCopy(event) {
+      let copy = event.target.cloneNode();
+      
+      Object.assign(copy.style, {
+        fontWeight: '600',
+        fontSize: '16px',
+        position: 'absolute',
+        opacity: '0',
+        width: '0',
+        top: '-1000px',
+      })
+
+      this.copy = copy;
+      document.body.append(copy);
+    },
+
+    resize() {
+      console.log(this.copy.scrollWidth);
+      this.copy.value = this.entry;
+      this.width = this.copy.scrollWidth + 'px';
+    },
+
+    resolveCopy() {
+      this.copy.remove();
+    }
+  }
+}
+</script>
+
+<style lang="sass" scoped>
+
+
+.bubbles__bubble-input:not(.bubbles__bubble-input--empty)
+  width: auto
+
+.bubbles__bubble-input--empty input
+  min-width: 100%
+
+</style>s

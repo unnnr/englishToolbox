@@ -1,10 +1,12 @@
 <template>
   <div class="bubbles__body">
     <div class="bubbles__area">
-      <span class="bubbles__bubble">linguistics</span>
-      <div class="bubbles__bubble-input bubbles__bubble-input--sm">
-        <input type="text" placeholder="ー">
-      </div>
+      <keyword
+        :text="'asdasd'"/>
+
+      <placeholder
+        :words="['asd']"/>
+   
       <div class="bubbles__bubble-input bubbles__bubble-input--md">
         <input type="text" placeholder="ー">
       </div>
@@ -32,7 +34,23 @@
 </template>
 
 <script>
+import Placeholder from '@components/games/bubbles/Placeholder'
+import Keyword from '@components/games/bubbles/Keyword'
+
 export default {
-  
+  components: {
+    Placeholder,
+    Keyword
+  },
+
+  data() {
+    return {
+      parsed: [
+        { keyword: null,       placehodler: ['it`s', 'the'] },
+        { keyword: 'stoopid',  placehodler: ['for', 'some', 'reason'] },
+        { keyword: 'text',     placehodler: null },
+      ]
+    }
+  }
 }
 </script>

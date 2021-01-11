@@ -23,12 +23,6 @@ export default {
     return {
       time: 0,
       timer: null,
-
-      text: [
-        { keyword: null,       placehodler: 'It is' },
-        { keyword: 'stoopid',  placehodler: 'for some reason' },
-        { keyword: 'text',     placehodler: null },
-      ]
     }
   },
 
