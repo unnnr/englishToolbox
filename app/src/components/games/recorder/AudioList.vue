@@ -1,5 +1,4 @@
 <template>
-  <div class="recorder">
     <div class="recorder-list">
       <div class="recorder__controls">
         <div class="recorder__button-group">
@@ -28,7 +27,6 @@
         </button>
       </div>
     </div>
-  </div>
 </template>
 
 

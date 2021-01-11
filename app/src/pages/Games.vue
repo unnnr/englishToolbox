@@ -1,17 +1,33 @@
 <template>
   <section class="games container">
-    <div class="games__selected">
-      <whiteboard/>
-    </div>
+    <games-player
+      :game="game"/>
+    
+    <games-pool
+      @select="select"/>
   </section>
 </template>
 
 <script>
-import Whiteboard from '@components/games/Whiteboard'
+import GamesPlayer from '@pages/games/GamesPlayer'
+import GamesPool from '@pages/games/GamesPool'
 
 export default {
   components: {
-    Whiteboard
+    GamesPlayer,
+    GamesPool
+  },
+
+  data() {
+    return {
+      game: null
+    }
+  },
+
+  methods: {
+    async select(component) {
+      this.game = component;
+    }
   }
 }
 </script>

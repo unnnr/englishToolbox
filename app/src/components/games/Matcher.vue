@@ -1,34 +1,30 @@
 <template>
-  <section class="games container">
-    <div class="games__selected">
-      <div class="matcher" ref="canvas">
-        <div class="matcher__progress-bar">
-          <div 
-            ref="progress"
-            class="matcher__progress-bar-current"
-            :style="{'width': progressWidth}">
-          </div>
-        </div>
-
-        <div 
-          class="matcher__controls"
-          ref="controlls">
-
-          <button class="matcher__element matcher__exit-button"></button>
-          <div class="matcher__element matcher__timer">{{ seconds }}</div>
-          <div class="matcher__element matcher__counter">{{ counter }}</div>
-        </div>
+  <div class="matcher" ref="canvas">
+    <div class="matcher__progress-bar">
+      <div 
+        ref="progress"
+        class="matcher__progress-bar-current"
+        :style="{'width': progressWidth}">
       </div>
-
-      <transition name="fade">
-        <result-screen
-          v-if="ended"
-          :seconds="time"
-          :words="words"
-          @restart="restart"/>
-      </transition>
     </div>
-  </section>
+
+    <div 
+      class="matcher__controls"
+      ref="controlls">
+
+      <button class="matcher__element matcher__exit-button"></button>
+      <div class="matcher__element matcher__timer">{{ seconds }}</div>
+      <div class="matcher__element matcher__counter">{{ counter }}</div>
+    </div>
+
+    <transition name="fade">
+      <result-screen
+        v-if="ended"
+        :seconds="time"
+        :words="words"
+        @restart="restart"/>
+    </transition>
+  </div>
 </template>
 
 <script>

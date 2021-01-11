@@ -42,15 +42,6 @@ const routes = [
     }
   },
 
-
-  { path: '/matcher', name: 'Matcher', component: () => import('@pages/Matcher') },
-
-  { path: '/recorder', name: 'Recorder', component: () => import('@pages/Recorder') },
-  
-  { path: '/builder', name: 'Builder', component: () => import('@pages/Builder') },
-
-  { path: '/verbs', name: 'Verbs', component: () => import('@pages/Verbs') },
-
   // Post pages
   
   { path: '/charts', name: 'Charts', redirect: { path: '/charts/first' }},

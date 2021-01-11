@@ -1,49 +1,44 @@
 <template>
-   <section class="games container">
-    <div class="games__selected">
-      <div class="builder">
+  <div class="builder">
 
-        <div class="builder__controls" ref="controlls">
-          <button class="builder__element builder__exit-button"></button>
-          <div class="builder__element builder__timer">{{ seconds }}</div>
-          <div class="builder__element builder__counter">{{ streak }}</div>
-        </div>
+    <div class="builder__controls" ref="controlls">
+      <button class="builder__element builder__exit-button"></button>
+      <div class="builder__element builder__timer">{{ seconds }}</div>
+      <div class="builder__element builder__counter">{{ streak }}</div>
+    </div>
 
-        <transition 
-          name="slide-right"
-          mode="out-in">
+    <transition 
+      name="slide-right"
+      mode="out-in">
 
-            <div 
-              class="builder__group"
-              :key="counter">
+        <div 
+          class="builder__group"
+          :key="counter">
 
-              <placeholder 
-                :disabled="completed"
-                :audio="sample.audio"
-                :words="sentance"
-                :length="length"
-                @complete="check"
-                @resolve="remove"/>
+          <placeholder 
+            :disabled="completed"
+            :audio="sample.audio"
+            :words="sentance"
+            :length="length"
+            @complete="check"
+            @resolve="remove"/>
 
-              <pool 
-                :words="pool"
-                :disabled="completed"
-                @resolve="append"/>
-
-            </div>
-          </transition>
-
-          <result-screen 
-            v-if="completed"
-            :sample="sample.words"
-            :correct="correct"
-            :time="seconds"
-            @next="reset"/>
+          <pool 
+            :words="pool"
+            :disabled="completed"
+            @resolve="append"/>
 
         </div>
+      </transition>
+
+      <result-screen 
+        v-if="completed"
+        :sample="sample.words"
+        :correct="correct"
+        :time="seconds"
+        @next="reset"/>
 
     </div>
-  </section>
 </template>
 
 <script>
