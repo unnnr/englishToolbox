@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    game: { type: Object, default: null }
+    game: { default: null }
   },
 
   data() {

@@ -3,14 +3,14 @@
     <games-player
       :game="game"/>
     
-    <games-pool/>
+    <games-pool
+      @select="select"/>
   </section>
 </template>
 
 <script>
-import Whiteboard from '@components/games/Whiteboard'
-import GamesPlayer from '@pages/games/GamesPlayer.vue'
-import GamesPool from '@pages/games/GamesPool.vue'
+import GamesPlayer from '@pages/games/GamesPlayer'
+import GamesPool from '@pages/games/GamesPool'
 
 export default {
   components: {
@@ -20,13 +20,14 @@ export default {
 
   data() {
     return {
-      game: Whiteboard
+      game: null
     }
   },
 
   methods: {
-    select() {
-
+    async select(component) {
+      console.log(component);
+      this.game = component;
     }
   }
 }

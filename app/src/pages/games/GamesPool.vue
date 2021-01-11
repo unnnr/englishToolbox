@@ -26,14 +26,8 @@ export default {
   data() {
     return {
       games: [
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
-        { name: 'Whiteboard', component: '@componetns/games/Whiteboard', color: randomColor()},
+        { name: 'Whiteboard', loader: () => import('@components/games/Whiteboard') },
+        { name: 'Matcher', loader: () => import('@components/games/Whiteboard') },
       ],
 
       color: randomRgb()
@@ -41,8 +35,11 @@ export default {
   },
 
   methods: {
-    select(game) {
-      this.$emit('select', game);
+    async select(game) {
+      let module = await game.loader();
+      let component = module.default;
+
+      this.$emit('select', component);
     },
 
     computeColor(index) {
