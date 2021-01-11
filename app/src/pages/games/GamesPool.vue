@@ -30,11 +30,16 @@ export default {
         { name: 'Recorder', loader: () => import('@components/games/Recorder') },
         { name: 'Matcher', loader: () => import('@components/games/Matcher') },
         { name: 'Builder', loader: () => import('@components/games/Builder') },
+        { name: 'Bubbles', loader: () => import('@components/games/Bubbles') },
         { name: 'Verbs', loader: () => import('@components/games/Verbs') },
       ],
 
       color: randomRgb()
     }
+  },
+
+  mounted() {
+    this.select(this.games[4]);
   },
 
   methods: {

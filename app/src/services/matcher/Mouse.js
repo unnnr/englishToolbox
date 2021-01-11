@@ -28,6 +28,10 @@ class Mouse {
       render.canvas.style.cursor = '';
     });
 
+    render.canvas.addEventListener('mouseleave', () => {
+      render.canvas.style.cursor = '';
+    })
+
     return mouseConstraint;
   }
 
