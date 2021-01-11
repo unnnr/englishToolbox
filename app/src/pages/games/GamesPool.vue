@@ -65,11 +65,11 @@ div
 
 button
   margin: 3px 6px
-  height: 40px
+  height: 32px
   font-size: 18px
   border-radius: 20px
   background: #f0f0f0
-  padding: 0 10px 
+  padding: 0 14px 
   color: white
 
 </style>

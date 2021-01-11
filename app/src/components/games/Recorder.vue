@@ -1,58 +1,59 @@
 <template>
-  <transition 
-    name="slide-right"
-    mode="out-in">
+  <div class="recorder">
+    <transition 
+      name="slide-right"
+      mode="out-in">
 
-    <audio-list
-      v-if="menuShown"
-      :list="records"
-      @select="select"/>
+      <audio-list
+        v-if="menuShown"
+        :list="records"
+        @select="select"/>
 
-    <div 
-      v-else
-      class="recorder"
-      :key="sample.text">
+      <div 
+        v-else
+        :key="sample.text"
+        class="recorder">
 
-      <div class="recorder__controls">
-        <div class="recorder__button-group">
-          <button class="recorder__element recorder__exit-button"></button>
-          <button 
-            class="recorder__element recorder__menu-button"
-            @click="showMenu">
-            
-            menu
-          </button>
+        <div class="recorder__controls">
+          <div class="recorder__button-group">
+            <button class="recorder__element recorder__exit-button"></button>
+            <button 
+              class="recorder__element recorder__menu-button"
+              @click="showMenu">
+              
+              menu
+            </button>
+          </div>
+
+          <div class="recorder__button-group">
+            <button 
+              class="recorder__element  recorder__prev-button" 
+              :disabled="!!!undoable"
+              @click="prev">
+              
+              prev
+            </button>
+
+            <button 
+              class="recorder__element  recorder__next-button"
+              @click="next">
+              
+              next
+            </button>
+          </div>
         </div>
-
-        <div class="recorder__button-group">
-          <button 
-            class="recorder__element  recorder__prev-button" 
-            :disabled="!!!undoable"
-            @click="prev">
-            
-            prev
-          </button>
-
-          <button 
-            class="recorder__element  recorder__next-button"
-            @click="next">
-            
-            next
-          </button>
-        </div>
-      </div>
+        
+        <h5 class="heading-fifth recorder__title">Audio recorder</h5>
+        <p class="text-fourth recorder__hint">Click the button below to record your speech and compare it to the sample.</p>
       
-      <h5 class="heading-fifth recorder__title">Audio recorder</h5>
-      <p class="text-fourth recorder__hint">Click the button below to record your speech and compare it to the sample.</p>
-    
-      <q class="heading-sixth recorder__passage"><i>{{ sample.text }}</i></q>
-    
-      <audio-recorder/>
-      <audio-player
-        :src="sample.audio"/>
-
-    </div>
-  </transition>
+        <q class="heading-sixth recorder__passage"><i>{{ sample.text }}</i></q>
+      
+        <audio-recorder/>
+        <audio-player
+          :src="sample.audio"/>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -115,3 +116,7 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+</style>
