@@ -26,7 +26,6 @@ export default {
 
   methods: {
     async select(component) {
-      console.log(component);
       this.game = component;
     }
   }

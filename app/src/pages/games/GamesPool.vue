@@ -27,7 +27,10 @@ export default {
     return {
       games: [
         { name: 'Whiteboard', loader: () => import('@components/games/Whiteboard') },
-        { name: 'Matcher', loader: () => import('@components/games/Whiteboard') },
+        { name: 'Recorder', loader: () => import('@components/games/Recorder') },
+        { name: 'Matcher', loader: () => import('@components/games/Matcher') },
+        { name: 'Builder', loader: () => import('@components/games/Builder') },
+        { name: 'Verbs', loader: () => import('@components/games/Verbs') },
       ],
 
       color: randomRgb()
