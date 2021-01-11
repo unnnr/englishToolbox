@@ -1,9 +1,11 @@
 <template>
   <div class="bubbles game">
-    <controls/>
-
+    <controls
+      :time="time"/>
 
     <builder/>
+
+    <!-- input grabber -->
   </div>
 </template>
 
@@ -19,12 +21,37 @@ export default {
 
   data() {
     return {
-      
+      time: 0,
+      timer: null,
+
+      text: [
+        { keyword: null,       placehodler: 'It is' },
+        { keyword: 'stoopid',  placehodler: 'for some reason' },
+        { keyword: 'text',     placehodler: null },
+      ]
     }
   },
 
-  methods: {
+  mounted() {
+    this.startGame();
+  },
 
+  beforeDestroy() {
+    this.clearTimer();
+  },  
+
+  methods: {
+    clearTimer() {
+      if (this.timer !== null)
+        clearInterval(this.timer);
+
+      this.time = 0;
+    },
+
+    startGame() {
+      this.clearTimer();
+      this.timer = setInterval(() => this.time++, 1000);
+    }
   }
 };
 </script>
