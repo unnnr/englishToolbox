@@ -33,7 +33,7 @@ trait CreatesDefaultAvatar
     {
         do {
             $name = '/default_' . Str::random(40) . '.svg';
-            $path = Storage::path(Avatar::STORAGE_PATH . '/'. $name);
+            $path = Storage::path(Avatar::STORAGE_PATH . $name);
         }
         while (file_exists($path));
 
