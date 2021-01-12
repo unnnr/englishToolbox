@@ -1,7 +1,7 @@
 <template>
   <div class="bubbles__body">
     <div class="bubbles__area">
-      <template v-for="(group, index) of lines">
+      <template v-for="(group, index) of []">
 
         <keyword
           v-if="group.keyword"
@@ -16,6 +16,8 @@
         
       </template> 
     </div>
+    
+    {{ lines }}
 
     <result-screen/>
   </div>
@@ -25,6 +27,7 @@
 import MissingWords from '@components/games/bubbles/MissingWords'
 import ResultScreen from '@components/games/bubbles/ResultScreen'
 import Keyword from '@components/games/bubbles/Keyword'
+import Bubbles from '@services/Bubbles'
 
 export default {
   components: {
@@ -33,13 +36,18 @@ export default {
     Keyword
   },
 
+  props: {
+    text: { type: String, default:'I\'m THE stoopid game' }
+  },
+
   data() {
     return {
-      lines: [
-        { keyword: null,       entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid',  entry: 'game',     missing: ['game']  },
-        { keyword: 'Hello',    entry: '',         missing: null      },
-      ]
+    }
+  },
+
+  computed: {
+    lines() {
+      return Bubbles.parse(this.text);
     }
   },
 
