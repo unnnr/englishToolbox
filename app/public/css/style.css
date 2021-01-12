@@ -5627,6 +5627,9 @@ button:active {
   -ms-flex-item-align: center;
       align-self: center;
   justify-self: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   overflow: overlay;
 }
 
