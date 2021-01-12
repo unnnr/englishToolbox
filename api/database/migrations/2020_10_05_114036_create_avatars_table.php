@@ -15,6 +15,8 @@ class CreateAvatarsTable extends Migration
      */
     public function up()
     {
+        Storage::makeDirectory(Avatar::STORAGE_PATH);
+
         Schema::create('avatars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();

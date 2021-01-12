@@ -39,7 +39,6 @@ export default {
         { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
         { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
         { keyword: 'Hello',   entry: '',         missing: null },
-<<<<<<< HEAD
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
@@ -48,29 +47,6 @@ export default {
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
         { keyword: 'Keyword',   entry: '',         missing: ['dummy'] },
-=======
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
-                { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
-        { keyword: 'Hello',   entry: '',         missing: null },
->>>>>>> ad5e01609cd218da44af4435f4e50b6bfaba856c
       ]
     }
   },

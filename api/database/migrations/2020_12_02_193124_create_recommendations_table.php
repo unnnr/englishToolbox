@@ -15,6 +15,8 @@ class CreateRecommendationsTable extends Migration
      */
     public function up()
     {
+        Storage::makeDirectory(Recommendation::STORAGE_PATH);
+
         Schema::create('recommendations', function (Blueprint $table) {
             $table->id();
             $table->string('link');
