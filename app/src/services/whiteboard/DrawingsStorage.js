@@ -19,7 +19,7 @@ export default class DrawingsStorage {
 
     this.Echo = new Echo({
       broadcaster: 'pusher',
-      key: '6194830899e2ae7c1ec9',
+      key: '546cc2506c4883dfb50f',
       cluster: 'eu',
       authEndpoint: 'http://etoolbox/api/broadcasting/auth',
       encrypted: true,
