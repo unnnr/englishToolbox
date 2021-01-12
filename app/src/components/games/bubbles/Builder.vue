@@ -1,54 +1,52 @@
 <template>
   <div class="bubbles__body">
     <div class="bubbles__area">
-      <template
-        v-for="(group, index) of parsed">
+      <template v-for="(group, index) of parsed">
 
         <keyword
           v-if="group.keyword"
           :key="'key_' + index"
           :text="group.keyword"/>
 
-        <placeholder
-          v-if="group.placeholder"
-          ref="placeholders"
-
+        <missing-words
+          v-if="group.missing"
+          v-model="group.entry"
           :key="'placeholder_' + index"
-          :words="group.placeholder"/>
+          :missing="group.missing"/>
         
       </template> 
     </div>
 
-    <div class="bubbles__alert game__alert game__alert--active game__alert--success">
-      <div class="game__alert-group">
-        <div class="game__alert-text">
-          <h6 class="game__alert-error">You was too close!</h6>
-          <h5 class="game__alert-title">Arcu nibh volutpat imperdiet nulla nibh</h5>
-        </div>
-      </div>
-      <button class="game__alert-button">next</button>
-    </div>
+    <result-screen/>
   </div>
 </template>
 
 <script>
-import Placeholder from '@components/games/bubbles/Placeholder'
+import MissingWords from '@components/games/bubbles/MissingWords'
+import ResultScreen from '@components/games/bubbles/ResultScreen'
 import Keyword from '@components/games/bubbles/Keyword'
 
 export default {
   components: {
-    Placeholder,
+    ResultScreen,
+    MissingWords,
     Keyword
   },
 
   data() {
     return {
       parsed: [
-        { keyword: null,       placeholder: ['I`am', 'THE'] },
-        { keyword: 'stoopid',  placeholder: ['game'] },
-        { keyword: 'Hello',     placeholder: null },
+        { keyword: null,      entry: '', missing: ['I`am', 'THE'] },
+        { keyword: 'stoopid', entry: '', missing: ['game'] },
+        { keyword: 'Hello',   entry: '', missing: null },
       ]
     }
+  },
+
+  methods: {
+    compare() {
+      
+    },
   }
 }
 </script>

@@ -1,9 +1,11 @@
 <template>
   <div class="bubbles game">
     <controls
-      :time="time"/>
+      :time="time"
+      @done="check"/>
 
-    <builder/>
+    <builder
+      ref="builder"/>
 
     <!-- input grabber -->
   </div>
@@ -45,6 +47,11 @@ export default {
     startGame() {
       this.clearTimer();
       this.timer = setInterval(() => this.time++, 1000);
+    },
+
+    check() {
+      let game = this.$refs.builder;
+      game.compare();
     }
   }
 };

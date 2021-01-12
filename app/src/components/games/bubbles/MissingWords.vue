@@ -18,7 +18,7 @@
 
       @focus="prepareCopy"
       @keyup="onKeyup"
-      @input="resize"
+      @input="onInput"
       @blur="resolveCopy"/>
 
   </div>
@@ -27,7 +27,9 @@
 <script>
 export default {
   props: {
-    words: { type: Array, default: () => [] },
+    value: { type: String, default: '' },
+
+    missing: { type: Array, default: () => [] },
 
     correct: { type: Boolean, default: false },
 
@@ -44,20 +46,26 @@ export default {
 
   computed: {
     small() {
-      return this.words.length < 2;
+      return this.missing.length < 2;
     },
 
     medium() {
-      return this.words.length === 2;
+      return this.missing.length === 2;
     },
 
     large() {
-      return this.words.length > 2;
+      return this.missing.length > 2;
     },
 
     empty() {
       return !!!this.entry.length;
     } 
+  },
+
+  watch: {
+    value(entry) {
+      this.entry = entry
+    }
   },
 
   beforeDestroy() {
@@ -89,6 +97,11 @@ export default {
 
     resolveCopy() {
       this.copy.remove();
+    },
+
+    onInput() {
+      this.$emit('input', this.entry);
+      this.resize();
     },
 
     onKeyup(event) {
