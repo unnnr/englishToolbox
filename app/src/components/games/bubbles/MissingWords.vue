@@ -65,7 +65,17 @@ export default {
   watch: {
     value(entry) {
       this.entry = entry
-    }
+    },
+  },
+
+  mounted() {
+    if (!!!this.value)
+      return;
+
+    this.entry = this.value;
+    this.prepareCopy();
+    this.resize();
+    this.resolveCopy();
   },
 
   beforeDestroy() {

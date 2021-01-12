@@ -36,9 +36,9 @@ export default {
   data() {
     return {
       parsed: [
-        { keyword: null,      entry: '', missing: ['I`am', 'THE'] },
-        { keyword: 'stoopid', entry: '', missing: ['game'] },
-        { keyword: 'Hello',   entry: '', missing: null },
+        { keyword: null,      entry: 'I`am THE', missing: ['I`am', 'THE'] },
+        { keyword: 'stoopid', entry: 'game',     missing: ['game'] },
+        { keyword: 'Hello',   entry: '',         missing: null },
       ]
     }
   },
