@@ -2,6 +2,8 @@
   <div 
     class="bubbles__bubble-input"
     :class="{
+      'bubbles__bubble-input--success': correct,
+      'bubbles__bubble-input--error': incorrect, 
       'bubbles__bubble-input--empty': empty,
       'bubbles__bubble-input--sm': small,
       'bubbles__bubble-input--md': medium,
@@ -9,11 +11,13 @@
 
     <input
       v-model="entry"
+      ref="input"
+      
       placeholder="ー"
-
       :style="{'width': width}"
 
       @focus="prepareCopy"
+      @keyup="onKeyup"
       @input="resize"
       @blur="resolveCopy"/>
 
@@ -23,7 +27,11 @@
 <script>
 export default {
   props: {
-    words: { type: Array, default: () => [] }
+    words: { type: Array, default: () => [] },
+
+    correct: { type: Boolean, default: false },
+
+    incorrect: { type: Boolean, default: false },
   },
 
   data() {
@@ -52,9 +60,14 @@ export default {
     } 
   },
 
+  beforeDestroy() {
+    if (this.copy)
+      this.resolveCopy();
+  },
+
   methods: {
-    prepareCopy(event) {
-      let copy = event.target.cloneNode();
+    prepareCopy() {
+      let copy = this.$refs.input.cloneNode();
       
       Object.assign(copy.style, {
         fontWeight: '600',
@@ -70,13 +83,22 @@ export default {
     },
 
     resize() {
-      console.log(this.copy.scrollWidth);
       this.copy.value = this.entry;
       this.width = this.copy.scrollWidth + 'px';
     },
 
     resolveCopy() {
       this.copy.remove();
+    },
+
+    onKeyup(event) {
+      if (event.key === 'Enter')
+        this.$emit('resolve');
+    },
+
+    focus() {
+      let input = this.$refs.input;
+      input.focus();
     }
   }
 }

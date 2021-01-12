@@ -1,24 +1,22 @@
 <template>
   <div class="bubbles__body">
     <div class="bubbles__area">
-      <keyword
-        :text="'asdasd'"/>
+      <template
+        v-for="(group, index) of parsed">
 
-      <placeholder
-        :words="['asd']"/>
-   
-      <div class="bubbles__bubble-input bubbles__bubble-input--md">
-        <input type="text" placeholder="ー">
-      </div>
-      <div class="bubbles__bubble-input bubbles__bubble-input--lg">
-        <input type="text" placeholder="ー">
-      </div>
-      <div class="bubbles__bubble-input bubbles__bubble-input--error">
-        <input type="text">
-      </div>
-      <div class="bubbles__bubble-input bubbles__bubble-input--success">
-        <input type="text">
-      </div>        
+        <keyword
+          v-if="group.keyword"
+          :key="'key_' + index"
+          :text="group.keyword"/>
+
+        <placeholder
+          v-if="group.placeholder"
+          ref="placeholders"
+
+          :key="'placeholder_' + index"
+          :words="group.placeholder"/>
+        
+      </template> 
     </div>
 
     <div class="bubbles__alert game__alert game__alert--active game__alert--success">
@@ -46,9 +44,9 @@ export default {
   data() {
     return {
       parsed: [
-        { keyword: null,       placehodler: ['it`s', 'the'] },
-        { keyword: 'stoopid',  placehodler: ['for', 'some', 'reason'] },
-        { keyword: 'text',     placehodler: null },
+        { keyword: null,       placeholder: ['I`am', 'THE'] },
+        { keyword: 'stoopid',  placeholder: ['game'] },
+        { keyword: 'Hello',     placeholder: null },
       ]
     }
   }
