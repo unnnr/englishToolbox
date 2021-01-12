@@ -15,6 +15,8 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
+        Storage::makeDirectory(Review::AVATARS_PATH);
+
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
 
