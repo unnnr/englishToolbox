@@ -70,8 +70,6 @@ export default {
       handler(text) {
         let lines = Bubbles.parse(text);
 
-        console.log(123);
-
         for (let line of lines) {
           Object.assign(line, {
             incorrect: false,
@@ -97,13 +95,21 @@ export default {
         if (!!!missing)
           continue;
 
-        if (Bubbles.compare(entry, missing))
+        if (Bubbles.compare(entry, missing)) {
           this.$set(line, 'correct', true);
-        else
-          this.$set(line, 'incorrect', true);
-
-        console.log(Bubbles.compare(entry, missing));
+          continue;
+        }
+        
+        this.$set(line, 'incorrect', true);
+        this.showSample(line);
       }
+    },
+
+    showSample(line) {
+      let sample = line.missing.join(' ');
+
+      let message = line.entry + ' 🠒 ' + sample;
+      this.$set(line, 'entry', message);
     }
   }
 }

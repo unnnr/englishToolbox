@@ -70,6 +70,14 @@ export default {
   watch: {
     value(entry) {
       this.entry = entry
+
+      let input = this.$refs.input;
+      if (!!!input)
+        return;
+
+      this.prepareCopy();
+      this.resize();
+      this.resolveCopy();
     },
   },
 
