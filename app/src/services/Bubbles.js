@@ -28,7 +28,24 @@ class Bubless {
   }
 
   isKeyword(word) {
-    return Math.random() > 0.5;
+    let regex;
+
+    regex = new RegExp(/^[A-Z]/);
+    if (regex.test(word))
+      return true;
+
+    regex = new RegExp(/`s$/);
+    if (regex.test(word))
+      return true;
+  
+    let suffixes =
+      'ation|dom|er|hood|ism|ist|ity|ness|or|ee';
+
+    regex = new RegExp(endings + '$');
+    if (regex.test(word))
+      return true;
+
+    let 
   }
 
   selectKeywords(words) {
