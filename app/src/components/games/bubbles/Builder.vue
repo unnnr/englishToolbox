@@ -37,7 +37,7 @@ export default {
   },
 
   props: {
-    text: { type: String, default:'I\'m THE stoopid game' }
+    text: { type: String, default:'I\'m THE stoopid -  game -' }
   },
 
   data() {

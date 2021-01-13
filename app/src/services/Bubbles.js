@@ -1,6 +1,6 @@
 class Bubless {
-  removeShortcuts(entry) {
-    let parsed = entry
+  clear(text) {
+    let parsed = text
       .replace(/'ll/, ' will')
       .replace(/'ve/, ' have')
       .replace(/'re/, ' are')
@@ -13,8 +13,26 @@ class Bubless {
     return parsed;
   }
 
+  split(text) {
+    let splitted = text.split(/(?:(?:\s+|^)-(?:\s+|$))|(?:\s+)/);
+
+    let first = splitted[0];
+    if (!!!first.length)
+      splitted.shift();
+    
+    let last = splitted[splitted.length - 1];
+    if (!!!last.length)
+      splitted.pop();
+    
+    return splitted;
+  }
+
   parse(entry) {
-    return this.removeShortcuts(entry);
+    let cleared = this.clear(entry);
+    let lines = this.split(cleared);
+
+    console.log(lines);
+    return lines;
   }
 }
 
