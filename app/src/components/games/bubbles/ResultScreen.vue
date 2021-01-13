@@ -46,7 +46,7 @@ export default {
 
   methods: {
     next() {
-      this.$emit('next');
+      this.$emit('reset');
     }
   }
 }

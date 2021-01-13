@@ -13,7 +13,7 @@
           v-model="group.entry"
 
           :key="'placeholder_' + index"
-          :length="group.missing.length"
+          :missing="group.missing"
           
           :correct="group.correct"
           :incorrect="group.incorrect"/>
@@ -23,7 +23,8 @@
 
     <result-screen
       v-if="disabled"
-      :correct="corrrect"/>
+      :correct="corrrect"
+      @reset="reset"/>
   </div>
 </template>
 
@@ -68,17 +69,7 @@ export default {
   watch: {
     text: {
       handler(text) {
-        let lines = Bubbles.parse(text);
-
-        for (let line of lines) {
-          Object.assign(line, {
-            incorrect: false,
-            correct: false,
-            entry: ''
-          })
-        }
-
-        this.lines = lines;
+        this.reset();
       },
 
       immediate: true
@@ -95,22 +86,38 @@ export default {
         if (!!!missing)
           continue;
 
-        if (Bubbles.compare(entry, missing)) {
+        if (Bubbles.compare(entry, missing))
           this.$set(line, 'correct', true);
-          continue;
-        }
-        
-        this.$set(line, 'incorrect', true);
-        this.showSample(line);
+        else
+          this.$set(line, 'incorrect', true);
       }
     },
 
     showSample(line) {
       let sample = line.missing.join(' ');
-
       let message = line.entry + ' 🠒 ' + sample;
+
       this.$set(line, 'entry', message);
-    }
+    },
+
+    reset(text) {
+      let lines = Bubbles.parse(this.text);
+
+      for (let line of lines) {
+        Object.assign(line, {
+          incorrect: false,
+          correct: false,
+          entry: ''
+        })
+      }
+
+      this.lines = lines;
+      this.disabled = false;
+    },
+
+    next() {
+
+    },
   }
 }
 </script>

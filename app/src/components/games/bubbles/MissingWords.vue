@@ -30,11 +30,11 @@ export default {
   props: {
     value: { type: String, default: '' },
 
-    length: { type: Number, default: 1 },
-
     correct: { type: Boolean, default: false },
 
     incorrect: { type: Boolean, default: false },
+
+    missing: { type: Array, default: () => [] },
   },
 
   data() {
@@ -51,15 +51,15 @@ export default {
     },
 
     small() {
-      return !!!this.filled && this.length < 2;
+      return !!!this.filled && this.missing.length < 2;
     },
 
     medium() {
-      return !!!this.filled && this.length === 2;
+      return !!!this.filled && this.missing.length === 2;
     },
 
     large() {
-      return !!!this.filled && this.length > 2;
+      return !!!this.filled && this.missing.length > 2;
     },
 
     filled() {
@@ -71,24 +71,29 @@ export default {
     value(entry) {
       this.entry = entry
 
-      let input = this.$refs.input;
-      if (!!!input)
+      if (!!!this.$refs.input)
         return;
 
       this.prepareCopy();
       this.resize();
       this.resolveCopy();
     },
-  },
 
-  mounted() {
-    if (!!!this.value)
-      return;
+    incorrect(value) {
+      if (!!!value){
+        this.entry = this.value;
+        return;
+      }
 
-    this.entry = this.value;
-    this.prepareCopy();
-    this.resize();
-    this.resolveCopy();
+      let sample = this.missing.join(' ');
+      let message = this.entry + ' 🠒 ' + sample;
+
+      this.entry = message;
+      
+      this.prepareCopy();
+      this.resize();
+      this.resolveCopy();
+    }
   },
 
   beforeDestroy() {
