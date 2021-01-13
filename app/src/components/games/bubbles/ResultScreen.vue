@@ -23,7 +23,8 @@
 
       <div class="game__alert-button-group">
         <button
-          class="game__alert-button game__alert-button--restart">
+          class="game__alert-button game__alert-button--restart"
+          @click="reset">
         </button>
 
         <button
@@ -52,8 +53,12 @@ export default {
   },
 
   methods: {
-    next() {
+    reset() {
       this.$emit('reset');
+    },
+
+    next() {
+      this.$emit('next');
     }
   }
 }

@@ -17,6 +17,8 @@
       :disabled="disabled"
       :style="{'width': width}"
 
+      :maxlength="50"
+
       @focus="prepareCopy"
       @keyup="onKeyup"
       @input="onInput"
@@ -86,9 +88,10 @@ export default {
       }
 
       let sample = this.missing.join(' ');
-      let message = this.entry + ' 🠒 ' + sample;
-
-      this.entry = message;
+      let message =  this.entry.length ?  
+        this.entry +  ' ➞ ' : ''
+      
+      this.entry = message + sample;
       
       this.prepareCopy();
       this.resize();

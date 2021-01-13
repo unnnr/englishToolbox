@@ -1,25 +1,33 @@
 <template>
   <div class="bubbles__body">
-    <div class="bubbles__area">
-      <template v-for="(group, index) of lines">
+    <transition
+      name="fade"
+      mode="out-in"
+      appear="">
+      
+      <div 
+        :key="counter"
+        class="bubbles__area">
 
-        <keyword
-          v-if="group.keyword"
-          :key="'key_' + index"
-          :text="group.keyword"/>
+        <template v-for="(group, index) of lines">
+          <keyword
+            v-if="group.keyword"
+            :key="'key_' + index"
+            :text="group.keyword"/>
 
-        <missing-words
-          v-if="group.missing"
-          v-model="group.entry"
+          <missing-words
+            v-if="group.missing"
+            v-model="group.entry"
 
-          :key="'placeholder_' + index"
-          :missing="group.missing"
-          
-          :correct="group.correct"
-          :incorrect="group.incorrect"/>
-        
-      </template> 
-    </div>
+            :key="'placeholder_' + index"
+            :missing="group.missing"
+            
+            :correct="group.correct"
+            :incorrect="group.incorrect"/>
+        </template> 
+
+      </div>
+    </transition>
 
     <result-screen
       v-if="disabled"
@@ -48,7 +56,8 @@ export default {
   data() {
     return {
       lines: [],
-      disabled: false
+      disabled: false,
+      counter: 0
     }
   },
 
@@ -113,6 +122,7 @@ export default {
 
       this.lines = lines;
       this.disabled = false;
+      this.counter++;
     },
 
     next() {
