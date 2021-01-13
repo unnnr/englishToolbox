@@ -5286,6 +5286,108 @@ button:active {
   border-radius: 5px;
 }
 
+.matcher-groups {
+  padding: 30px 40px 40px;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content max-content max-content 1fr;
+      grid-template-rows: -webkit-max-content -webkit-max-content -webkit-max-content 1fr;
+      grid-template-rows: max-content max-content max-content 1fr;
+  grid-row-gap: 15px;
+}
+
+.matcher-groups .game__controls {
+  position: static;
+  padding: 0;
+}
+
+.matcher-groups .game__elements {
+  position: static;
+  padding: 0;
+}
+
+.matcher-groups__cards {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 15px;
+}
+
+.matcher-groups__card {
+  background: #fafafa;
+  border-radius: 15px;
+  padding: 15px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content 1fr max-content;
+      grid-template-rows: -webkit-max-content 1fr -webkit-max-content;
+      grid-template-rows: max-content 1fr max-content;
+  grid-row-gap: 10px;
+}
+
+.matcher-groups__card .matcher-groups__card-button {
+  min-height: 35px;
+  border-radius: 5px;
+}
+
+.matcher-groups__card-words {
+  overflow: overlay;
+}
+
+.matcher-groups__card-words::-webkit-scrollbar {
+  width: 15px;
+}
+
+@media (max-width: 770px) {
+  .matcher-groups__card-words::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.matcher-groups__card-words::-webkit-scrollbar-track {
+  width: 100%;
+  border-radius: 100px;
+}
+
+.matcher-groups__card-words::-webkit-scrollbar-thumb {
+  background: #a1a1b1;
+  border-radius: 100px;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.matcher-groups__card-words::-webkit-scrollbar-thumb:hover {
+  background: #85859a;
+  background-clip: padding-box;
+  border: 5px rgba(0, 0, 0, 0) solid;
+}
+
+.matcher-groups__card-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.matcher-groups__card-table th, .matcher-groups__card-table td {
+  padding: 4px 10px;
+  border: 2px solid whitesmoke;
+}
+
+.matcher-groups__card-table th {
+  color: #2f2e44;
+}
+
+.matcher-groups__card-table td {
+  color: #848499;
+  font-weight: 500;
+}
+
+.matcher-groups__card-table td:nth-child(1) {
+  width: 5px;
+}
+
 .builder {
   display: -ms-grid;
   display: grid;

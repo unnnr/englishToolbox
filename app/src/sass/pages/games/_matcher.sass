@@ -95,3 +95,60 @@
 .matcher__results-restart-button
   border-radius: 5px
 
+
+.matcher-groups
+  padding: 30px 40px 40px
+  height: 100%
+  // 
+  display: grid
+  grid-template-rows: max-content max-content max-content 1fr
+  grid-row-gap: 15px
+
+  .game__controls
+    position: static
+    padding: 0
+
+  .game__elements
+    position: static
+    padding: 0
+
+
+.matcher-groups__cards
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  grid-column-gap: 15px
+
+.matcher-groups__card
+  background: $color-almost-white
+  border-radius: $border-radius-primary
+  padding: 15px
+  //
+  display: grid
+  grid-template-rows: max-content 1fr max-content
+  grid-row-gap: 10px
+
+  .matcher-groups__card-button
+    min-height: 35px
+    border-radius: 5px
+
+.matcher-groups__card-words
+  overflow: overlay
+  @include scroll-body
+
+.matcher-groups__card-table
+  width: 100%
+  border-collapse: collapse
+  font-size: 14px
+  th,td
+    padding: 4px 10px
+    border: 2px solid darken($color-almost-white, 2 )
+
+  th
+    color: $color-dark
+
+  td
+    color: $color-gray
+    font-weight: $medium
+    &:nth-child(1)
+      width: 5px
+      
