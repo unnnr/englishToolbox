@@ -1,24 +1,25 @@
 <template>
   <section class="banned container">
     <h3 class="banned__title heading-third">Banned users</h3>
-    <swiper
-      class="banned__body"
-			:key="resolution.type"
-			:cleanup-styles-on-destroy="false"
-			:options="swiperOptions">
-  
-      <swiper-slide 
-        v-for="{id, user, reason, createdAt} in comments"
-        :key="id">
-        
-        <banned-user
-          :created-at="createdAt"
-          :reason="reason"
-          :user="user"
-          @unban="onUnbanning(id)"/>
+    <div class="banned__body">
+      <swiper
+        :key="resolution.type"
+        :cleanup-styles-on-destroy="false"
+        :options="swiperOptions">
+      
+        <swiper-slide 
+          v-for="{id, user, reason, createdAt} in comments"
+          :key="id">
+          
+          <banned-user
+            :created-at="createdAt"
+            :reason="reason"
+            :user="user"
+            @unban="onUnbanning(id)"/>
 
-      </swiper-slide>
-    </swiper>
+        </swiper-slide>
+      </swiper>
+    </div>
   </section>
 </template>
 

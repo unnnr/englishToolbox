@@ -32,8 +32,9 @@ button
     background: darken($color-primary, 5)
     box-shadow: $box-shadow-focus-core transparentize($color-primary, 0.80)
 
-  &:after
-    content: ""
+  span
+    background-position: center
+    background-size: contain
     overflow: hidden
     width: 0
     opacity: 0
@@ -48,7 +49,7 @@ button
 // button loading
 
 .button--loading
-  &:after
+  span
     margin-left: 10px
     opacity: 1
     width: 25px

@@ -12,10 +12,14 @@
   background: $color-white
   border-radius: $border-radius-primary
   box-shadow: $box-shadow-primary
-  min-height: 200px
+  min-height: 150px
 
 .banned__comment
   display: grid
+  height: 100%
+  grid-template-rows: 1fr max-content
   grid-row-gap: 15px
-  // temp
-  width: 25%
+
+  .comment__name
+    display: block
+    margin-bottom: 2px

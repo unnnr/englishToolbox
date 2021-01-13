@@ -6,16 +6,16 @@
         :style="{'background-image': url}">
       </div>
 
-      <h5 class="reviews__card-name heading-fifth">
+      <h5 class="reviews__card-name heading-sixth">
         {{ authorName }}
       </h5>
     </div>
 
-    <h5 class="reviews__card-title heading-fifth">
+    <h5 class="reviews__card-title heading-sixth">
       {{ title }}
     </h5>
 
-    <p class="reviews__card-text text-third"> 
+    <p class="reviews__card-text text-fourth"> 
       {{ text }}
     </p>
     

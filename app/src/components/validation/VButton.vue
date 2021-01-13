@@ -6,12 +6,13 @@
       'button-primary': primary,
       'button--loading': spinerShown
       }"
-
-    :dept-style="{'content': spinerUrl}"
     
     :disabled="disabled || loading">
     
     {{ label }}
+    <span
+      :style="{'background-image': spinerUrl}">
+    </span>
   </button>
 </template>
 

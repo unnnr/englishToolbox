@@ -1308,9 +1308,10 @@ button:active {
           box-shadow: 0 15px 30px 0 rgba(102, 102, 255, 0.2);
 }
 
-.button-primary:after,
-.button-secondary:after {
-  content: "";
+.button-primary span,
+.button-secondary span {
+  background-position: center;
+  background-size: contain;
   overflow: hidden;
   width: 0;
   opacity: 0;
@@ -1325,7 +1326,7 @@ button:active {
   pointer-events: none;
 }
 
-.button--loading:after {
+.button--loading span {
   margin-left: 10px;
   opacity: 1;
   width: 25px;
@@ -2533,72 +2534,70 @@ button:active {
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
   border-radius: 15px;
-  padding: 75px 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  padding: 50px 25px;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content max-content 1fr max-content;
+      grid-template-rows: -webkit-max-content -webkit-max-content 1fr -webkit-max-content;
+      grid-template-rows: max-content max-content 1fr max-content;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
+  grid-row-gap: 15px;
+}
+
+.reviews__card-person {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column-gap: 10px;
 }
 
 .reviews__card-photo {
   height: 75px;
   width: 75px;
   border-radius: 100%;
-  margin-right: 15px;
   background: #a1a1b1;
-  -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
-          box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.reviews__card-person {
+.reviews__card-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: 35px;
-}
-
-.reviews__card-title {
-  margin-bottom: 15px;
-}
-
-.reviews__card-text {
-  margin-bottom: 30px;
-  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .review__grade {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  grid-column-gap: 5px;
 }
 
 .review__stars {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.review__star {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-right: 15px;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  grid-column-gap: 10px;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
 }
 
 .review__star:before {
@@ -2606,9 +2605,9 @@ button:active {
   content: "\f005";
   font-weight: 700;
   color: #ffdd6e;
-  max-height: 30px;
-  max-width: 30px;
-  font-size: 28px;
+  max-height: 25px;
+  max-width: 25px;
+  font-size: 23px;
   opacity: 0.25;
 }
 
@@ -2617,13 +2616,13 @@ button:active {
 }
 
 .review__rating {
-  font-size: 25px;
+  font-size: 20px;
   background: #ffdd6e;
   color: #fff;
   font-weight: 600;
   border-radius: 30px;
-  width: 50px;
-  height: 30px;
+  width: 40px;
+  height: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3317,14 +3316,22 @@ button:active {
   border-radius: 15px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
-  min-height: 200px;
+  min-height: 150px;
 }
 
 .banned__comment {
   display: -ms-grid;
   display: grid;
+  height: 100%;
+  -ms-grid-rows: 1fr max-content;
+      grid-template-rows: 1fr -webkit-max-content;
+      grid-template-rows: 1fr max-content;
   grid-row-gap: 15px;
-  width: 25%;
+}
+
+.banned__comment .comment__name {
+  display: block;
+  margin-bottom: 2px;
 }
 
 .reviews-management {
@@ -3346,7 +3353,7 @@ button:active {
   border-radius: 15px;
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
-  min-height: 400px;
+  min-height: 300px;
 }
 
 .reviews-management__card {
@@ -5136,6 +5143,11 @@ button:active {
 
 .verbs__tr-active td {
   color: #fff;
+}
+
+.matcher canvas {
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 .matcher .game__elements {

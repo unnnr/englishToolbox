@@ -16,10 +16,10 @@ const HandleDynamicSlides = {
         },
 
         space: {
-          mobile: 15,
-          smalTablet: 15,
-          tablet: 20,
-          desktop: 30
+          mobile: 10,
+          smalTablet: 10,
+          tablet: 15,
+          desktop: 15
         }
       },
     }
