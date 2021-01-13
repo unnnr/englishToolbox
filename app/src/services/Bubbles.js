@@ -74,8 +74,6 @@ class Bubless {
     let cleared = this.clear(entry);
     let words = this.split(cleared);
 
-    console.log(cleared);
-
     if (words.length !== missing.length)
       return false;
 

@@ -11,8 +11,12 @@
         <missing-words
           v-if="group.missing"
           v-model="group.entry"
+
           :key="'placeholder_' + index"
-          :missing="group.missing"/>
+          :length="group.missing.length"
+          
+          :correct="group.correct"
+          :incorrect="group.incorrect"/>
         
       </template> 
     </div>
@@ -35,28 +39,35 @@ export default {
   },
 
   props: {
-    text: { type: String, default:'I\'m the stoopid -  game -' }
+    text: { type: String, default: '' }
   },
 
   data() {
     return {
-      
+      lines: []
     }
   },
 
-  computed: {
-    lines() {
-      let lines = Bubbles.parse(this.text);
+  watch: {
+    text: {
+      handler(text) {
+        let lines = Bubbles.parse(text);
 
-      for (let line of lines) {
-        Object.assign(line, {
-          incorrect: false,
-          correct: false,
-          entry: ''
-        })
-      }
+        console.log(123);
 
-      return lines;
+        for (let line of lines) {
+          Object.assign(line, {
+            incorrect: false,
+            correct: false,
+            entry: ''
+          })
+        }
+
+
+        this.lines = lines;
+      },
+
+      immediate: true
     }
   },
 
@@ -68,9 +79,12 @@ export default {
         if (!!!missing)
           continue;
 
+        if (Bubbles.compare(entry, missing))
+          this.$set(line, 'correct', );
+        else 
+          this.$set(line, 'incorrect', true);
 
-
-        console.log(Bubbles.compare(entry, missing));
+        console.log(line.incorrect);
       }
     }
   }

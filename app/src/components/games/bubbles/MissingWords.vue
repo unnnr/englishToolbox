@@ -4,7 +4,7 @@
     :class="{
       'bubbles__bubble-input--success': correct,
       'bubbles__bubble-input--error': incorrect, 
-      'bubbles__bubble-input--empty': empty,
+      'bubbles__bubble-input--filled': filled,
       'bubbles__bubble-input--sm': small,
       'bubbles__bubble-input--md': medium,
       'bubbles__bubble-input--lg': large}">
@@ -14,6 +14,7 @@
       ref="input"
       
       placeholder="ー"
+      :disabled="disabled"
       :style="{'width': width}"
 
       @focus="prepareCopy"
@@ -29,7 +30,7 @@ export default {
   props: {
     value: { type: String, default: '' },
 
-    missing: { type: Array, default: () => [] },
+    length: { type: Number, default: 1 },
 
     correct: { type: Boolean, default: false },
 
@@ -45,20 +46,24 @@ export default {
   },
 
   computed: {
+    disabled() {
+      return this.correct || this.incorrect;
+    },
+
     small() {
-      return this.missing.length < 2;
+      return !!!this.filled && this.length < 2;
     },
 
     medium() {
-      return this.missing.length === 2;
+      return !!!this.filled && this.length === 2;
     },
 
     large() {
-      return this.missing.length > 2;
+      return !!!this.filled && this.length > 2;
     },
 
-    empty() {
-      return !!!this.entry.length;
+    filled() {
+      return this.entry.length;
     } 
   },
 
@@ -129,11 +134,7 @@ export default {
 
 <style lang="sass" scoped>
 
-
-.bubbles__bubble-input:not(.bubbles__bubble-input--empty)
-  width: auto
-
-.bubbles__bubble-input--empty input
+.bubbles__bubble-input input
   min-width: 100%
 
 </style>s

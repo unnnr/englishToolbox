@@ -5,6 +5,7 @@
       @done="check"/>
 
     <builder
+      :text="'I\'m the stoopid -  game -'"
       ref="builder"/>
 
     <!-- input grabber -->
