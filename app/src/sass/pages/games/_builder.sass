@@ -1,84 +1,28 @@
 .builder
+  padding: 0 100px
+
+
+.builder__body
   display: grid
   justify-content: center
   grid-template-rows: 1fr 1fr 1fr
-
-
-.builder__controls
-  z-index: $z-third
-  position: absolute
-  top: 0
-  left: 0
-  // 
-  margin-top: 10px
-  margin-left: 10px
-  // 
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  grid-column-gap: 5px
-
- 
-.builder__element
-  font-size: 14px
-  line-height: 1
-  font-weight: $semibold
-  color: #E3E3E3
-  padding: 0px 10px
-  // 
-  display: grid
-  align-items: center
-  justify-items: center
-  grid-auto-flow: column
-  grid-column-gap: 5px
-  // 
-  height: 30px
-  border-radius: 5px
-  backdrop-filter: blur(5px) saturate(150%)
-  background-color: transparentize($color-almost-black, 0.1)
-
-  &:after
-    font-weight: $medium
-    font-size: 18px
-    font-family: "material icons round"
-    color: inherit
-    content: "close"
-
-.builder__exit-button
-  width: 30px
-  padding: 0
-
-  &:after
-    color: $color-reddish
-    content: "close"
-
-
-.builder__timer
-  &:after
-    content: "timer"
-
-
-.builder__counter
-  &:after
-    content: "fast_forward"
+  height: 100%
 
 
 .builder__group
   grid-row-start: 2
-  display: grid
-  align-items: center
+  display: flex
+  flex-direction: column
+  gap: 15px
   align-self: center
-  justify-self: center
-  grid-auto-rows: max-content
-  grid-row-gap: 15px
+
 
 .builder__areas
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  grid-column-gap: 10px
-  align-items: center
-  justify-self: center
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  gap: 5px
+  
 
 .builder__group-placeholder 
   height: 50px
@@ -92,7 +36,7 @@
 
 .builder__group-button 
   height: 40px
-  width: 40px
+  min-width: 40px
   border-radius: 5px
   display: grid
   align-items: center
@@ -121,12 +65,11 @@
     cursor: not-allowed
 
 .builder__pool
-  display: grid
-  grid-auto-flow: column
-  grid-auto-columns: max-content
-  justify-self: center
-  grid-column-gap: 10px
   min-height: 30px
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  row-gap: 10px
 
 .builder__brick
   padding: 5px 10px

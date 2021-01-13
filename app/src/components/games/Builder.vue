@@ -1,17 +1,20 @@
 <template>
   <div class="game builder">
 
-    <div class="game__controls" ref="controlls">
-      <div class="game__elements">
-        <button class="game__element game__element--exit"></button>
-        <div class="game__element game__element--timer">{{ seconds }}</div>
-        <div class="game__element game__element--counter">{{ streak }}</div>
+    <div class="builder__body">
+      <div class="game__controls" ref="controlls">
+        <div class="game__elements">
+          <button class="game__element game__element--exit"></button>
+          <div class="game__element game__element--timer">{{ seconds }}</div>
+          <div class="game__element game__element--counter">{{ streak }}</div>
+          <button class="game__element game__element--listen"></button>
+        </div>
+        <button class="game__element game__element--done">done</button>
       </div>
-    </div>
 
-    <transition 
-      name="slide-right"
-      mode="out-in">
+      <transition 
+        name="slide-right"
+        mode="out-in">
 
         <div 
           class="builder__group"
@@ -39,8 +42,9 @@
         :correct="correct"
         :time="seconds"
         @next="reset"/>
-
     </div>
+
+  </div>
 </template>
 
 <script>

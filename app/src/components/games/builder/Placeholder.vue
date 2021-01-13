@@ -1,10 +1,5 @@
 <template>
   <div class="builder__areas">
-    <button 
-      class="builder__group-button builder__group-button--listen"
-      :disabled="!!!loaded"
-      @click="play">
-    </button>
 
     <div 
       ref="words"
@@ -24,13 +19,7 @@
       </shrink-transition>
     </div>
     
-    <button 
-      class="builder__group-button builder__group-button--done"
-      :disabled="cantComplete"
-      @click="complete">
-    </button>
-    
-  </div>
+  </div>  
 </template>
 
 <script>
