@@ -16,12 +16,19 @@
         @click.self="select">
 
         <button 
+          v-if="favoriteShown"
           class="card__favorite-button"
           :class="{'card__favorite-button--active': favorite}"
           @click="favoriteToggle">
         </button>
 
-        <span class="card__views">{{ views }}</span>
+        <span 
+          v-if="viewsShown"
+          class="card__views">
+          
+          {{ views }}
+        </span>
+
       </div>
       <div class="card__title">
         <h6 class="heading-sixth">{{ title }}</h6>
@@ -58,7 +65,7 @@ export default {
 
     description: { type: String, default: '' },
 
-    views: { type: Number, default: 0 },
+    views: { type: Number, default: null },
 
     tags: { type: Array, default: () => [] },
 
@@ -68,7 +75,7 @@ export default {
 
     video: { tpye: Boolean, default: false},
 
-    favorite: { type: Boolean, default: false },
+    favorite: { type: Boolean, default: null },
 
     selected: { type: Boolean, default: false },
 
@@ -78,7 +85,15 @@ export default {
   computed: {
     src() {
       return 'url(' + this.img + ')';
-    }
+    },
+
+    viewsShown() {
+      return this.views !== null;
+    },
+
+    favoriteShown() {
+      return this.favorite !== null;
+    },
   },
 
   methods: {
