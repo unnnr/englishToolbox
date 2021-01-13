@@ -51,16 +51,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-
-.card 
-  animation: card-fade-in 1s ease-in
-
-@keyframes card-fade-in
-  from
-    opacity: 0
-  to 
-    opacity: 1
-
-</style>
