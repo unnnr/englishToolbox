@@ -1,3 +1,5 @@
+import nouns from 'noun-json'
+
 class Bubless {
   clear(text) {
     let parsed = text
@@ -28,24 +30,16 @@ class Bubless {
   }
 
   isKeyword(word) {
-    let regex;
-
-    regex = new RegExp(/^[A-Z]/);
-    if (regex.test(word))
+    if (/^[A-Z]/.test(word))
       return true;
 
-    regex = new RegExp(/`s$/);
-    if (regex.test(word))
+    if (/`s$/.test(word))
       return true;
   
-    let suffixes =
-      'ation|dom|er|hood|ism|ist|ity|ness|or|ee';
+    if (nouns.indexOf(word) !== -1)
+      return true
 
-    regex = new RegExp(endings + '$');
-    if (regex.test(word))
-      return true;
-
-    let 
+    return false
   }
 
   selectKeywords(words) {
@@ -64,7 +58,7 @@ class Bubless {
         continue
       }
 
-      line = {  keyword: word, missing: [] };
+      line = {  keyword: word, missing: null };
       splitted.push(line);
     }
 
