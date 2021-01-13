@@ -27,12 +27,41 @@ class Bubless {
     return splitted;
   }
 
+  isKeyword(word) {
+    return Math.random() > 0.5;
+  }
+
+  selectKeywords(words) {
+    let splitted = [];
+
+    let line = { keyword: null, missing: null };
+    splitted.push(line);
+
+    for (let word of words) {
+
+      if (!!!this.isKeyword(word)) {
+        if (line.missing === null)
+          line.missing = [];
+
+        line.missing.push(word);
+        continue
+      }
+
+      line = {  keyword: word, missing: [] };
+      splitted.push(line);
+    }
+
+    return splitted;
+  }
+
   parse(entry) {
     let cleared = this.clear(entry);
     let lines = this.split(cleared);
+    let keyworded = this.selectKeywords(lines);
 
-    console.log(lines);
-    return lines;
+    console.log(keyworded);
+
+    return keyworded;
   }
 }
 

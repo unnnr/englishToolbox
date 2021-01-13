@@ -1,7 +1,7 @@
 <template>
   <div class="bubbles__body">
     <div class="bubbles__area">
-      <template v-for="(group, index) of []">
+      <template v-for="(group, index) of lines">
 
         <keyword
           v-if="group.keyword"
@@ -16,8 +16,6 @@
         
       </template> 
     </div>
-    
-    {{ lines }}
 
     <result-screen/>
   </div>
