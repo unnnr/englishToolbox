@@ -70,15 +70,18 @@ class Bubless {
     return splitted;
   }
 
-  compare(entry, missing) {
+  compare(entry, missed) {
     let cleared = this.clear(entry);
     let words = this.split(cleared);
 
-    if (words.length !== missing.length)
+    if (words.length !== missed.length)
       return false;
 
     for (let i = 0; i < words.length; i++) {
-      if (words[i] !== missing[i])
+      let sample = missed[i].toLowerCase();
+      let entry = words[i].toLowerCase();
+
+      if (entry !== sample)
         return false;
     }
 

@@ -51,6 +51,8 @@ export default {
     },
 
     check() {
+      clearInterval(this.timer);
+      
       let game = this.$refs.builder;
       game.compare();
     }

@@ -31,26 +31,23 @@
 <script>
 export default {
   props: {
-    
-    time: { type: Number, default: 0 },
-
     sample: { type: Array, default: () => [] },
 
     correct: { type: Boolean, default: false },
   },
 
   computed: {
-    sentance() {
-      let sentance = '';
+    sentence() {
+      let sentence = '';
       for (let word of this.sample)
-        sentance += ' ' + word.text;
+        sentence += ' ' + word.text;
 
-      return sentance;
+      return sentence;
     },
 
     message() {
       return !!!this.correct ? 
-        this.sentance : 'Great job, keep it up!'
+        this.sentence : 'Great job, keep it up!'
     }
   },
 

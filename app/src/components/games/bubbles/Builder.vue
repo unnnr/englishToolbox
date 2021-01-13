@@ -21,7 +21,9 @@
       </template> 
     </div>
 
-    <result-screen/>
+    <result-screen
+      v-if="disabled"
+      :correct="corrrect"/>
   </div>
 </template>
 
@@ -44,7 +46,22 @@ export default {
 
   data() {
     return {
-      lines: []
+      lines: [],
+      disabled: false
+    }
+  },
+
+  computed: {
+    corrrect() {
+      if (!!!this.disabled)
+        return false;
+
+      for (let line of this.lines) {
+        if (line.incorrect)
+          return false;
+      }
+
+      return true;
     }
   },
 
@@ -63,7 +80,6 @@ export default {
           })
         }
 
-
         this.lines = lines;
       },
 
@@ -73,6 +89,8 @@ export default {
 
   methods: {
     compare() {
+      this.disabled = true;
+
       for (let line of this.lines) {
         let {entry, missing} = line;
 
@@ -80,11 +98,11 @@ export default {
           continue;
 
         if (Bubbles.compare(entry, missing))
-          this.$set(line, 'correct', );
-        else 
+          this.$set(line, 'correct', true);
+        else
           this.$set(line, 'incorrect', true);
 
-        console.log(line.incorrect);
+        console.log(Bubbles.compare(entry, missing));
       }
     }
   }
