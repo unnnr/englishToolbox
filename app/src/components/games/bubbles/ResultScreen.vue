@@ -21,12 +21,19 @@
         </div>
       </div>
 
-      <button
-        class="game__alert-button"
-        @click="next">
-        
-        next
-      </button>
+      <div class="game__alert-button-group">
+        <button
+          class="game__alert-button game__alert-button--restart">
+        </button>
+
+        <button
+          class="game__alert-button"
+          @click="next">
+          
+          next
+        </button>
+      </div>
+
     </div>
   </transition>
 </template>

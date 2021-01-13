@@ -12,6 +12,7 @@
       class="game__elements"
       ref="controlls">
         <button class="game__element game__element--exit"></button>
+        <button class="game__element game__element--menu">menu</button>
         <div class="game__element game__element--timer">{{ seconds }}</div>
         <div class="game__element game__element--matches">{{ counter }}</div>
     </div>
