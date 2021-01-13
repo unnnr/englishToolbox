@@ -19,11 +19,11 @@ class Bubless {
     let splitted = text.split(/(?:(?:\s+|^)-(?:\s+|$))|(?:\s+)/);
 
     let first = splitted[0];
-    if (!!!first.length)
+    if (splitted.length && !!!first.length)
       splitted.shift();
     
     let last = splitted[splitted.length - 1];
-    if (!!!last.length)
+    if (splitted.length && !!!last.length)
       splitted.pop();
     
     return splitted;
@@ -57,22 +57,44 @@ class Bubless {
         line.missing.push(word);
         continue
       }
+      
+      if (line.keyword) {
+        line = { keyword: word, missing: null };
+        splitted.push(line);
+        continue;
+      }
 
-      line = {  keyword: word, missing: null };
-      splitted.push(line);
+      line.keyword = word;
     }
 
     return splitted;
   }
 
+  compare(entry, missing) {
+    let cleared = this.clear(entry);
+    let words = this.split(cleared);
+
+    console.log(cleared);
+
+    if (words.length !== missing.length)
+      return false;
+
+    for (let i = 0; i < words.length; i++) {
+      if (words[i] !== missing[i])
+        return false;
+    }
+
+    return true;
+  }
+
   parse(entry) {
     let cleared = this.clear(entry);
-    let lines = this.split(cleared);
-    let keyworded = this.selectKeywords(lines);
+    let words = this.split(cleared);
+    let lines = this.selectKeywords(words);
 
-    console.log(keyworded);
+    console.log(lines);
 
-    return keyworded;
+    return lines;
   }
 }
 

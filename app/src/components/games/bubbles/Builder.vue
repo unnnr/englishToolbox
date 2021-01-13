@@ -40,28 +40,38 @@ export default {
 
   data() {
     return {
+      
     }
   },
 
   computed: {
     lines() {
-      return Bubbles.parse(this.text);
+      let lines = Bubbles.parse(this.text);
+
+      for (let line of lines) {
+        Object.assign(line, {
+          incorrect: false,
+          correct: false,
+          entry: ''
+        })
+      }
+
+      return lines;
     }
   },
 
   methods: {
     compare() {
       for (let line of this.lines) {
-        let {keyword, missing} = line;
+        let {entry, missing} = line;
 
-        let words = this.parse(line.entry)
+        if (!!!missing)
+          continue;
 
-        console.log(words);
+
+
+        console.log(Bubbles.compare(entry, missing));
       }
-    },
-
-    parse(line) {
-      return line.split(/\s/);
     }
   }
 }
