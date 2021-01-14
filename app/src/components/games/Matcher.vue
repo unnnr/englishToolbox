@@ -1,5 +1,10 @@
 <template>
   <div class="game matcher" ref="canvas">
+
+    <menu
+      v-if="false"
+      @start="start"/>
+
     <progress-bar
       ref="progress"
       :progress="progress"/>
@@ -8,7 +13,7 @@
       ref="controls"
       :time="time"
       :counter="counter"
-      @menu-shown="showMenu"/>
+      @menu-shown="stop"/>
 
     <transition name="fade">
       <result-screen
@@ -24,6 +29,8 @@
 import ResultScreen from '@components/games/matcher/ResultScreen'
 import ProgressBar from '@components/games/matcher/ProgressBar'
 import Controls from '@components/games/matcher/Controls'
+import Menu from '@components/games/matcher/Menu'
+import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Resolution from '@services/Resolution'
 import Matcher from '@services/matcher/Matcher'
 import Config from '@services/matcher/Config'
@@ -39,7 +46,8 @@ export default {
     return {
       time: 0,
       timer: null,
-      game: null
+      game: null,
+      started: false
     }
   },
 
@@ -82,22 +90,30 @@ export default {
     }
   },
 
-  mounted() {
-    this.worldHeight = Config.world.height;
-    this.worldWidth = Config.world.width; 
-    this.start();
-
-    Resolution.listen(this.resize, true);
-  },
 
   beforeDestroy() {
     Resolution.detach(this.resize);
     this.clear();
   },
 
-  methods: {
-    showMenu() {
+  mounted() {
+    this.start();
+  },
 
+  methods: {
+    stop() {
+      this.clear();
+      this.started = false;
+    },
+
+    start() {
+      this.worldHeight = Config.world.height;
+      this.worldWidth = Config.world.width; 
+
+      this.startGame();
+      this.startTimer();
+
+      Resolution.listen(this.resize, true);
     },
 
     startTimer() {
@@ -112,14 +128,14 @@ export default {
       this.timer = null;
     },
 
-    start() {
+    startGame() {
+      this.initCutout();
+      
+      let words = IrregularVerbs.slice(Config.deckLength);
       let canvas = this.$refs.canvas;
 
       this.game = new Matcher(canvas);
-
-      this.initCutout();
-      this.game.start();
-      this.startTimer();
+      this.game.start(words);
     },
 
     restart() {

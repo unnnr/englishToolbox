@@ -1,5 +1,4 @@
 import {Bodies, Body, World, Vertices} from 'matter-js'
-import IrregularVerbs from '@services/matcher/IrregularVerbs'
 import Collisions from '@services/matcher/Collisions'
 import Animations from '@services/matcher/Animations'
 import Groups from '@services/matcher/Groups'
@@ -19,13 +18,13 @@ class MatcherWorld {
 
   words  = [];
 
-  constructor(world, mouse) {
+  constructor(world, mouse, words) {
     this.mouse = mouse
     this.world = world
     this.world.gravity.y = 0;
 
     this.createWalls();
-    this.createBricks();
+    this.createBricks(words);
   }
 
   increaseMatched() {
@@ -126,8 +125,7 @@ class MatcherWorld {
     World.add(this.world, this.walls);
   }
 
-  createBricks() {
-    let words = IrregularVerbs.slice(Config.deckLength);
+  createBricks(words) {
     let bricks = Bricks.collection(words);
 
     this.locateBricks(bricks);

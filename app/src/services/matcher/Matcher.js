@@ -70,14 +70,14 @@ export default class Matcher {
     Bricks.drawText(this.render)
   }
 
-  start() {
+  start(words) {
     Engine.clear(this.engine);
     Animations.clear();
     Bricks.clear();
     Groups.clear();
     
     this.mouse = Mouse.create(this.render, this.engine);
-    this.world = new World(this.engine.world, this.mouse);
+    this.world = new World(this.engine.world, this.mouse, words);
     this.running = true;
     this.bind()
   
