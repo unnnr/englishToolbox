@@ -2,15 +2,11 @@
   <div class="game builder">
 
     <div class="builder__body">
-      <div class="game__controls" ref="controlls">
-        <div class="game__elements">
-          <button class="game__element game__element--exit"></button>
-          <div class="game__element game__element--timer">{{ seconds }}</div>
-          <div class="game__element game__element--counter">{{ streak }}</div>
-          <button class="game__element game__element--listen"></button>
-        </div>
-        <button class="game__element game__element--done">done</button>
-      </div>
+      <controls
+        :streak="streak"
+        :time="seconds"
+        @done="done"
+        @listen="listen"/>
 
       <transition 
         name="slide-right"
@@ -21,11 +17,11 @@
           :key="counter">
 
           <placeholder 
+            ref="placeholder"
             :disabled="completed"
             :audio="sample.audio"
             :words="sentance"
             :length="length"
-            @complete="check"
             @resolve="remove"/>
 
           <pool 
@@ -50,6 +46,7 @@
 <script>
 import ResultScreen from '@components/games/builder/ResultScreen'
 import Placeholder from '@components/games/builder/Placeholder'
+import Controls from '@components/games/builder/Controls'
 import Pool from '@components/games/builder/Pool'
 import Builder from '@services/Builder'
 
@@ -58,6 +55,7 @@ export default {
   components: {
     ResultScreen,
     Placeholder,
+    Controls,
     Pool
   },
 
@@ -65,6 +63,7 @@ export default {
     return {
       builder: new Builder,
       sample: null,
+      player: null,
 
       seconds: 0,
       streak: 0,
@@ -76,7 +75,7 @@ export default {
       completed: false,
       correct: false,
 
-      counter: 0
+      counter: 0,
     }
   },
 
@@ -90,9 +89,19 @@ export default {
     this.reset();
   },
 
+  mounted() {
+    let player = new Audio(this.sample.audio);
+
+    player.addEventListener('canplaythrough', 
+      () => this.player = player);
+  },
+
+
   beforeDestroy() {
     if (this.timer !== null)
       clearInterval(this.timer);
+
+    this.player.pause();
   },
 
   methods: {
@@ -108,10 +117,12 @@ export default {
       this.timer = setInterval(() => this.seconds++, 1000);
     },
 
-    check(sentance) {
+    done() {
       clearInterval(this.timer);
 
+      let sentance = this.$refs.placeholder.words;
       this.correct = this.builder.check(sentance, this.sample.words);
+
       if (this.correct)
         this.streak++;
       else
@@ -126,7 +137,15 @@ export default {
 
     remove(word) {
       this.pool.push(word);
-    }
+    },
+
+    listen() {
+      if (!!!this.player)
+        return;
+
+      this.player.currentTime = 0;
+      this.player.play();
+    },
   }
 }
 </script>

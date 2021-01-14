@@ -80,7 +80,7 @@ export default {
       recorder: new Recorder(),
 
       undoable: true,
-      menuShown: false
+      menuShown: true
     }
   },
 

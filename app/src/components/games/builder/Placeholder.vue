@@ -33,18 +33,9 @@ export default {
   props: {
     words: { type: Array, default: () => []},
 
-    audio: { type: String, default: null }, 
-
     length: { type: Number, default: 0},
 
     disabled: { type: Boolean, default: false } 
-  },
-
-  data() {
-    return {
-      player: null,
-      loaded: false,
-    }
   },
 
   computed: {
@@ -64,23 +55,7 @@ export default {
     }
   },
 
-  mounted() {
-    this.player = new Audio(this.audio);
-
-    this.player.addEventListener('canplaythrough', 
-      () => this.loaded = true);
-  },
-
-  beforeDestroy() {
-    this.player.pause();
-  },
-
   methods: {
-    play() {
-      this.player.currentTime = 0;
-      this.player.play();
-    },
-
     resolve(word) {
       if (this.disabled)
         return;
@@ -89,10 +64,6 @@ export default {
       this.words.splice(index, 1);
 
       this.$emit('resolve', word);
-    },
-
-    complete() {
-      this.$emit('complete', this.words);
     }
   }
 }
