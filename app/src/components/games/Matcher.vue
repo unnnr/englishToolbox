@@ -1,21 +1,14 @@
 <template>
   <div class="game matcher" ref="canvas">
-    <div class="matcher__progress-bar">
-      <div 
-        ref="progress"
-        class="matcher__progress-bar-current"
-        :style="{'width': progressWidth}">
-      </div>
-    </div>
+    <progress-bar
+      ref="progress"
+      :progress="progress"/>
 
-    <div 
-      class="game__elements"
-      ref="controlls">
-        <button class="game__element game__element--exit"></button>
-        <button class="game__element game__element--menu">menu</button>
-        <div class="game__element game__element--timer">{{ seconds }}</div>
-        <div class="game__element game__element--matches">{{ counter }}</div>
-    </div>
+    <controls
+      ref="controls"
+      :time="time"
+      :counter="counter"
+      @menu-shown="showMenu"/>
 
     <transition name="fade">
       <result-screen
@@ -29,13 +22,17 @@
 
 <script>
 import ResultScreen from '@components/games/matcher/ResultScreen'
+import ProgressBar from '@components/games/matcher/ProgressBar'
+import Controls from '@components/games/matcher/Controls'
 import Resolution from '@services/Resolution'
 import Matcher from '@services/matcher/Matcher'
 import Config from '@services/matcher/Config'
 
 export default {
   components: {
-    ResultScreen
+    ResultScreen,
+    ProgressBar,
+    Controls
   },
 
   data() {
@@ -69,16 +66,8 @@ export default {
       return this.matched * 100 / this.deckLength; 
     },
 
-    progressWidth() {
-      return this.progress + '%';
-    },
-
     counter() {
       return this.matched + '/' + this.deckLength;
-    },
-
-    seconds() {
-      return this.time + 'sec';
     },
 
     ended() {
@@ -107,6 +96,10 @@ export default {
   },
 
   methods: {
+    showMenu() {
+
+    },
+
     startTimer() {
       this.timer = setInterval(() => this.time++, 1000);
     },
@@ -152,21 +145,20 @@ export default {
     initCutout() {
       let canvas = this.$refs.canvas;
 
-      let controlls = this.$refs.controlls;
+      let controls = this.$refs.controls.$el;
       Config.world.uiCutout = {
         x: 0, y: 0,
 
-        height: (controlls.offsetHeight + 5) 
+        height: (controls.offsetHeight + 5) 
           * (this.worldHeight / canvas.offsetHeight),
 
-        width: (controlls.offsetWidth + 5) 
+        width: (controls.offsetWidth + 5) 
           * (this.worldWidth / canvas.offsetWidth),
       }
 
-      let progress = this.$refs.progress;
+      let progress = this.$refs.progress.$el;
       Config.world.height = 
         this.worldHeight - this.worldHeight / (canvas.offsetHeight / progress.offsetHeight)
-    
     }
   }
 };
