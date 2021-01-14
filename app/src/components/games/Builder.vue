@@ -1,51 +1,56 @@
 <template>
   <div class="game builder">
+    <transition name="fade" mode="out-in">
+      <prescreen 
+        v-if="!!!started"
+        @start="start"/>
 
-    <div class="builder__body">
-      <controls
-        :streak="streak"
-        :time="seconds"
-        @done="done"
-        @listen="listen"/>
+      <div v-else class="builder__body">
+        <controls
+          :streak="streak"
+          :time="seconds"
+          @done="done"
+          @listen="listen"/>
 
-      <transition 
-        name="slide-right"
-        mode="out-in">
+        <transition 
+          name="slide-right"
+          mode="out-in">
 
-        <div 
-          class="builder__group"
-          :key="counter">
+          <div 
+            class="builder__group"
+            :key="counter">
 
-          <placeholder 
-            ref="placeholder"
-            :disabled="completed"
-            :audio="sample.audio"
-            :words="sentance"
-            :length="length"
-            @resolve="remove"/>
+            <placeholder 
+              ref="placeholder"
+              :disabled="completed"
+              :audio="sample.audio"
+              :words="sentance"
+              :length="length"
+              @resolve="remove"/>
 
-          <pool 
-            :words="pool"
-            :disabled="completed"
-            @resolve="append"/>
+            <pool 
+              :words="pool"
+              :disabled="completed"
+              @resolve="append"/>
 
-        </div>
-      </transition>
+          </div>
+        </transition>
 
-      <result-screen 
-        v-if="completed"
-        :sample="sample.words"
-        :correct="correct"
-        :time="seconds"
-        @next="reset"/>
-    </div>
-
+        <result-screen 
+          v-if="completed"
+          :sample="sample.words"
+          :correct="correct"
+          :time="seconds"
+          @next="reset"/>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import ResultScreen from '@components/games/builder/ResultScreen'
 import Placeholder from '@components/games/builder/Placeholder'
+import Prescreen from '@components/games/builder/Prescreen'
 import Controls from '@components/games/builder/Controls'
 import Pool from '@components/games/builder/Pool'
 import Builder from '@services/Builder'
@@ -55,6 +60,7 @@ export default {
   components: {
     ResultScreen,
     Placeholder,
+    Prescreen,
     Controls,
     Pool
   },
@@ -74,6 +80,7 @@ export default {
 
       completed: false,
       correct: false,
+      started: false,
 
       counter: 0,
     }
@@ -146,6 +153,10 @@ export default {
       this.player.currentTime = 0;
       this.player.play();
     },
+
+    start() {
+      this.started = true;
+    }
   }
 }
 </script>

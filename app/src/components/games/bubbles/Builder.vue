@@ -2,8 +2,7 @@
   <div class="bubbles__body">
     <transition
       name="fade"
-      mode="out-in"
-      appear="">
+      mode="out-in">
       
       <div 
         :key="counter"
