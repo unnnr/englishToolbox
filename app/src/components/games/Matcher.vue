@@ -49,8 +49,11 @@ export default {
   data() {
     return {
       time: 0,
+      deckLength: 0,
+
       timer: null,
       game: null,
+
       started: false,
       words: []
     }
@@ -64,10 +67,6 @@ export default {
       return this.game.world.matches;
     },
 
-    deckLength() {
-      return Config.deckLength;
-    },
-
     progress() {
       return this.matched * 100 / this.deckLength; 
     },
@@ -77,7 +76,7 @@ export default {
     },
 
     ended() {
-      return this.matched === this.deckLength;
+      return this.started && this.matched === this.deckLength;
     }
   },
 
@@ -99,8 +98,11 @@ export default {
       this.started = false;
     },
 
-    async start() {
+    async start(words) {
+      this.deckLength = Config.deckLength = words.length / 3;
+      this.words = words;
       this.started = true;
+
       await this.$nextTick();
 
       this.worldHeight = Config.world.height;
@@ -124,14 +126,13 @@ export default {
       this.timer = null;
     },
 
-    startGame(words) {
+    startGame() {
       this.initCutout();
-      this.words = words;
 
       let canvas = this.$refs.canvas;
-
       this.game = new Matcher(canvas);
       this.game.start(this.words);
+
     },
 
     restart() {

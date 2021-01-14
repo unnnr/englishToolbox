@@ -19,12 +19,13 @@ class MatcherWorld {
   words  = [];
 
   constructor(world, mouse, words) {
-    this.mouse = mouse
-    this.world = world
+    this.mouse = mouse;
+    this.world = world;
+    this.words = words;
     this.world.gravity.y = 0;
 
     this.createWalls();
-    this.createBricks(words);
+    this.createBricks();
   }
 
   increaseMatched() {
@@ -125,11 +126,10 @@ class MatcherWorld {
     World.add(this.world, this.walls);
   }
 
-  createBricks(words) {
-    let bricks = Bricks.collection(words);
-
+  createBricks() {
+    let bricks = Bricks.collection(this.words)
+    
     this.locateBricks(bricks);
-    this.words = words;
 
     World.add(this.world, bricks);
   }

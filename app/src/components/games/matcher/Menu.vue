@@ -4,7 +4,10 @@
         <div class="game__controls">
           <div class="game__elements">
             <button class="game__element game__element--exit"></button>
-            <button class="game__element game__element--random">random</button>
+
+            <button class="game__element game__element--random" @click="random">
+              random
+            </button>
           </div>
         </div>
 
@@ -17,13 +20,15 @@
           :key="index">
 
           <div class="matcher-list__text">
-            <h5 class="heading-fifth matcher-list__title">Group 1</h5>
+            <h5 class="heading-fifth matcher-list__title">Group {{ index }}</h5>
             <p class="text-third matcher-list__words">
               {{ computeWords(group) }} 
             </p>
           </div>
 
-          <button class="matcher-list__button">
+          <button 
+            class="matcher-list__button"
+            @click="start(group)">
           </button>
         </div>
 
@@ -42,17 +47,38 @@ export default {
   },
 
   methods: {
-    start() {
-      let words = IrregularVerbs.slice(Config.deckLength);
+    start(group) {
+      let shuffled = [ ...group].sort(() => .5 - Math.random());
+      let words = [];
 
-      this.$emit('start', words);
+      for (let i = 0; i < shuffled.length; i++) {
+        let key = i;
+
+        for (let verb of group[i]) {
+          words.push({
+            verb, key
+          });
+        }
+      }
+
+      this.$emit('start', words)
+    },
+
+    random() {
+      let random = Math.floor(Math.random() * (this.groups.length - 1));
+      let group = this.groups[random]; 
+      this.start(group);
     },
 
     computeWords(group) {
       let message = '';
 
-      for (let pair of group)
-        message += pair[0] + ', '
+      for (let i = 0; i < group.length; i ++){
+        message += group[i][0]
+
+        if (i !== group.length - 1)
+         message += ', '
+      }
       
       return message;
     }
