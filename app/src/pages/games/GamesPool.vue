@@ -18,14 +18,6 @@
 <script>
 import Card from '@components/cards/EmptyCard'
 
-function randomColor() {
-  return '#' + Math.floor(Math.random() * Math.pow(16, 6)).toString(16).padStart(6, '0')
-}
-
-function randomRgb() {
-  return [1, 2, 3].map(() => Math.floor(Math.random() * 250));
-}
-
 export default {
   components: {
     Card
@@ -43,20 +35,16 @@ export default {
       ],
 
       selected: null,
-
-      color: randomRgb()
     }
   },
 
   mounted() {
-    this.select(this.games[4]);
+    this.select(this.games[2]);
     let image = new Image();
 
     image.src = 'img/hq720.webp';
 
     image.onload = () => {
-     
-
       for (let el of this.$el.querySelectorAll('.card__image')) {
         var width = image.width;
         var height = image.height;
@@ -66,15 +54,12 @@ export default {
         canvas.width = image.naturalWidth;
         canvas.height = image.naturalHeight;
 
-
-        
         let angle = (Math.random() * 360) * Math.PI / 180;
         ctx.translate(canvas.width / 2, canvas.height / 2);
         ctx.rotate(angle);
         ctx.drawImage(image, -width / 2,  -height / 2, width, height);
         ctx.rotate(-angle);
         ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
 
         let url = canvas.toDataURL();
         Object.assign(el.style, {
@@ -98,23 +83,7 @@ export default {
 
     isSelected(game) {
       return this.selected === game;
-    },
-
-    computeColor(index) {
-      const STEP = 8;
-
-      let [r, g, b] = this.color;
-      let k = (this.games.length - index - 1) * STEP
-
-      return `rgb(${r - k}, ${g - k}, ${b - k})`
     }
   }
 }
 </script>
-
-<style lang="sass">
-
-.games__pool .card__image
-  background-size: 180%
-
-</style>

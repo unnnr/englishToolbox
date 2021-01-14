@@ -1,9 +1,13 @@
 <template>
-  <div class="game matcher" ref="canvas">
-
-    <menu
-      v-if="false"
+  <div 
+    v-if="!!!started" 
+    class="game matcher">
+    
+    <verbs-list
       @start="start"/>
+  </div>
+
+  <div v-else class="game matcher" ref="canvas">
 
     <progress-bar
       ref="progress"
@@ -29,8 +33,7 @@
 import ResultScreen from '@components/games/matcher/ResultScreen'
 import ProgressBar from '@components/games/matcher/ProgressBar'
 import Controls from '@components/games/matcher/Controls'
-import Menu from '@components/games/matcher/Menu'
-import IrregularVerbs from '@services/matcher/IrregularVerbs'
+import VerbsList from '@components/games/matcher/Menu'
 import Resolution from '@services/Resolution'
 import Matcher from '@services/matcher/Matcher'
 import Config from '@services/matcher/Config'
@@ -39,7 +42,8 @@ export default {
   components: {
     ResultScreen,
     ProgressBar,
-    Controls
+    VerbsList,
+    Controls,
   },
 
   data() {
@@ -47,7 +51,8 @@ export default {
       time: 0,
       timer: null,
       game: null,
-      started: false
+      started: false,
+      words: []
     }
   },
 
@@ -57,13 +62,6 @@ export default {
         return 0;
 
       return this.game.world.matches;
-    },
-
-    words() {
-      if (!!!this.game || !!!this.game.world)
-        return [];
-
-      return this.game.world.words;
     },
 
     deckLength() {
@@ -90,14 +88,9 @@ export default {
     }
   },
 
-
   beforeDestroy() {
     Resolution.detach(this.resize);
     this.clear();
-  },
-
-  mounted() {
-    this.start();
   },
 
   methods: {
@@ -106,7 +99,10 @@ export default {
       this.started = false;
     },
 
-    start() {
+    async start() {
+      this.started = true;
+      await this.$nextTick();
+
       this.worldHeight = Config.world.height;
       this.worldWidth = Config.world.width; 
 
@@ -128,19 +124,19 @@ export default {
       this.timer = null;
     },
 
-    startGame() {
+    startGame(words) {
       this.initCutout();
-      
-      let words = IrregularVerbs.slice(Config.deckLength);
+      this.words = words;
+
       let canvas = this.$refs.canvas;
 
       this.game = new Matcher(canvas);
-      this.game.start(words);
+      this.game.start(this.words);
     },
 
     restart() {
       this.initCutout();
-      this.game.start();
+      this.game.start(this.words);
 
       this.stopTimer();
       this.startTimer();
@@ -149,8 +145,10 @@ export default {
 
     clear() {
       this.stopTimer();
-      clearInterval(this.timer)        
-      this.game.clear();
+      clearInterval(this.timer)  
+      
+      if (this.game)
+        this.game.clear();
     },
 
     resize() {
