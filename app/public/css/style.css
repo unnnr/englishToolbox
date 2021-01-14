@@ -895,20 +895,81 @@ body {
 }
 
 .copyright {
-  height: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   background: #f0f0f0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -ms-grid-columns: max-content;
+      grid-template-columns: -webkit-max-content;
+      grid-template-columns: max-content;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  grid-column-gap: 15px;
+}
+
+@media (max-width: 770px) {
+  .copyright {
+    grid-auto-flow: row;
+    grid-auto-rows: -webkit-max-content;
+    grid-auto-rows: max-content;
+    grid-row-gap: 10px;
+    justify-items: center;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
 }
 
 .copyright__text {
-  font-size: 1.6em;
+  font-size: 14px;
   font-weight: 500;
   color: #a1a1b1;
+}
+
+@media (max-width: 770px) {
+  .copyright__text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 370px) {
+  .copyright__text {
+    font-size: 10px;
+  }
+}
+
+.copyright__development {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column-gap: 10px;
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+}
+
+.copyright__development-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: #2f2e44;
+}
+
+.copyright__development-text span {
+  font-weight: 700;
+}
+
+.copyright__development-logo {
+  height: 25px;
 }
 
 .modal {
@@ -2244,6 +2305,7 @@ button:active {
   margin-right: 5px;
   font-weight: 600;
   color: #2f2e44;
+  overflow-wrap: anywhere;
 }
 
 .comment__date {
@@ -3298,6 +3360,10 @@ button:active {
   grid-area: "title";
 }
 
+.banned .swiper-slide, .reviews-management .swiper-slide {
+  height: auto;
+}
+
 .banned {
   display: -ms-grid;
   display: grid;
@@ -3361,9 +3427,13 @@ button:active {
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr max-content;
+      grid-template-rows: 1fr -webkit-max-content;
+      grid-template-rows: 1fr max-content;
   grid-row-gap: 30px;
   grid-column-gap: 7.5px;
       grid-template-areas: "review review" "accept decline";
+  height: 100%;
 }
 
 .reviews-management__card .reviews__card {
@@ -3960,6 +4030,14 @@ button:active {
 
 .editor__footer {
   gap: 7.5px;
+}
+
+.comments.addition__tab {
+  -ms-grid-rows: max-content 1fr;
+      grid-template-rows: -webkit-max-content 1fr;
+      grid-template-rows: max-content 1fr;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
 }
 
 .comments__body {
