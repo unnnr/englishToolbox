@@ -63,7 +63,7 @@ class IrreguarVerbs {
     ['have','had','had'],
     ['take','took','taken'],
     ['sit','sat','sat'],
-    ['can','could', ' 空の '],
+    ['can','could', ' 空の '], // —
     ['leave','left','left'],
     
     ['forget','forgot','forgotten'],

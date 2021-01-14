@@ -1,7 +1,8 @@
 <template>
   <div 
     v-if="!!!started" 
-    class="game matcher">
+    class="game matcher"
+    key="list">
     
     <verbs-list
       @start="start"/>
@@ -114,6 +115,7 @@ export default {
     },
 
     startTimer() {
+      this.time = 0;
       this.timer = setInterval(() => this.time++, 1000);
     },
     

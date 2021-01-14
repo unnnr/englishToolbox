@@ -51,7 +51,7 @@ export default {
       selected: -1
     }
   },
-
+  
   methods: {
     search() {
       this.selected =
