@@ -20,7 +20,7 @@
           :key="index">
 
           <div class="matcher-list__text">
-            <h5 class="heading-fifth matcher-list__title">Group {{ index }}</h5>
+            <h5 class="heading-fifth matcher-list__title">Group {{ index + 1 }}</h5>
             <p class="text-third matcher-list__words">
               {{ computeWords(group) }} 
             </p>

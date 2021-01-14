@@ -1,5 +1,5 @@
 class IrreguarVerbs {
-  grouplength = 7;
+  groupLength = 7;
 
   search(input) {
     let trimed = input.trim();

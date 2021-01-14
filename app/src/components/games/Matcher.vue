@@ -17,7 +17,7 @@
       ref="controls"
       :time="time"
       :counter="counter"
-      @menu-shown="stop"/>
+      @show-menu="stop"/>
 
     <transition name="fade">
       <result-screen
@@ -88,7 +88,6 @@ export default {
   },
 
   beforeDestroy() {
-    Resolution.detach(this.resize);
     this.clear();
   },
 
@@ -132,7 +131,6 @@ export default {
       let canvas = this.$refs.canvas;
       this.game = new Matcher(canvas);
       this.game.start(this.words);
-
     },
 
     restart() {
@@ -146,10 +144,18 @@ export default {
 
     clear() {
       this.stopTimer();
-      clearInterval(this.timer)  
+      clearInterval(this.timer)
+
+      Resolution.detach(this.resize);
       
-      if (this.game)
-        this.game.clear();
+      if (!!!this.game)
+        return;
+
+      this.game.clear();
+      
+      let canvas = this.$el.querySelector('canvas');
+      if (canvas)
+        canvas.remove();
     },
 
     resize() {

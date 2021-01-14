@@ -29,7 +29,7 @@ export default {
 
   methods: {
     toMenu() {
-      this.$emit('showMenu'); 
+      this.$emit('show-menu'); 
     }
   }
 }
