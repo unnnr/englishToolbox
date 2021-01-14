@@ -1,6 +1,12 @@
 <template>
   <div class="games__selected">
-    <component :is="game"/>
+    <transition
+      name="fade"
+      mode="out-in">
+
+      <component :is="game"/>
+
+    </transition>
   </div>
 </template>
 

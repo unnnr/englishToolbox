@@ -1,16 +1,13 @@
 <template>
-  <transition name="fade">
-    <whiteboard-prescreen
-      v-if="!!!started"
-      @start="start"/>
+  <whiteboard-prescreen
+    v-if="!!!started"
+    @start="start"/>
 
-    <whiteboard-editor 
-      v-else-if="canEdit"/>
+  <whiteboard-editor 
+    v-else-if="canEdit"/>
 
-    <whiteboard-presentor 
-      v-else/>
-
-  </transition>
+  <whiteboard-presentor 
+    v-else/>
 </template>
 
 <script>
