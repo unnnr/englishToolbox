@@ -152,7 +152,7 @@ export default {
         return;
 
       this.game.clear();
-      
+
       let canvas = this.$el.querySelector('canvas');
       if (canvas)
         canvas.remove();

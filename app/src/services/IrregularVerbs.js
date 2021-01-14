@@ -59,11 +59,11 @@ class IrreguarVerbs {
     ['get','got','got'],
     
     ['drink','drank','drunk'],
-    ['Eat','ate','eaten'],
+    ['eat','ate','eaten'],
     ['have','had','had'],
     ['take','took','taken'],
     ['sit','sat','sat'],
-    ['can','could'],
+    ['can','could', ' 空の '],
     ['leave','left','left'],
     
     ['forget','forgot','forgotten'],
@@ -77,7 +77,7 @@ class IrreguarVerbs {
     ['read','read','read'],
     ['write','wrote','written'],
     ['choose','chose','chosen'],
-    ['begin','','began','begun'],
+    ['begin','began','begun'],
     ['send','sent','sent'],
     ['win','won','won'],
     ['shut','shut','shut'],
@@ -135,7 +135,7 @@ class IrreguarVerbs {
     ['rise','rose','risen'],
     ['smell','smelt','smelt'],
     ['speak','spoke','spoken'],
-    ['tear','tore','torn\t'],
+    ['tear','tore','tornt'],
     ['steal','stole','stolen'],
     
     ['spread','spread','spread'],

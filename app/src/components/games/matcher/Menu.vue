@@ -77,7 +77,7 @@ export default {
         message += group[i][0]
 
         if (i !== group.length - 1)
-         message += ', '
+          message += ', '
       }
       
       return message;
