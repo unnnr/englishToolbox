@@ -1,7 +1,15 @@
 <template>
   <transition name="fade">
-    <whiteboard-editor v-if="canEdit"/>
-    <whiteboard-presentor v-else/>
+    <whiteboard-prescreen
+      v-if="!!!started"
+      @start="start"/>
+
+    <whiteboard-editor 
+      v-else-if="canEdit"/>
+
+    <whiteboard-presentor 
+      v-else/>
+
   </transition>
 </template>
 
@@ -12,13 +20,14 @@ import Shortcuts from '@services/whiteboard/Shortcuts';
 import Config from '@services/whiteboard/Config'
 import Auth from '@services/Auth';
 
-import WhiteboardEventsGrip from '@components/games/whiteboard/WhiteboardPresentor'
+import WhiteboardPresentor from '@components/games/whiteboard/WhiteboardPresentor'
+import WhiteboardPrescreen from '@components/games/whiteboard/WhiteboardPrescreen'
 import WhiteboardEditor from '@components/games/whiteboard/WhiteboardEditor'
-import WhiteboardPresentor from './whiteboard/WhiteboardPresentor.vue';
 
 
 export default {
   components: {
+    WhiteboardPrescreen,
     WhiteboardPresentor,
     WhiteboardEditor
   },
@@ -48,6 +57,8 @@ export default {
       admin: false,
       banned: false,
       mobile: false,
+
+      started: false
     }
   },
 
@@ -57,28 +68,33 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    Shortcuts.unbind();
+  },
+
   beforeMount() {
     Auth.user.get().then(user => {
       this.banned = user && user.banned;
       this.admin = user && user.admin;
     });
-
-		Resolution.bind(type => 
-      this.mobile = Resolution.DESKTOP !== type);
-
-    Shortcuts.bind();
-
-    let handler = this.drawings._collection;
-    handler.whenLocked = 
-      () => this.locked = true;
-    handler.whenUnlocked = 
-      () => this.locked = false; 
-
-    this.locked = handler.locked;
   },
 
-  beforeDestroy() {
-    Shortcuts.unbind();
+  methods: {
+    start() {
+      Resolution.bind(type => 
+        this.mobile = Resolution.DESKTOP !== type);
+
+      Shortcuts.bind();
+
+      let handler = this.drawings._collection;
+      handler.whenLocked = 
+        () => this.locked = true;
+      handler.whenUnlocked = 
+        () => this.locked = false; 
+
+      this.locked = handler.locked;
+      this.started = true;
+    }
   }
 }
 </script>

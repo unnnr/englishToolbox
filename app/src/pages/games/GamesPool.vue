@@ -79,7 +79,7 @@ export default {
         let url = canvas.toDataURL();
         Object.assign(el.style, {
           'background-image': 'url(' + url+ ')',
-          'background-size': (180 + Math.random() * 120) +'%',
+          'background-size': (180 + Math.random() * 500) +'%',
         });
       }
     }
