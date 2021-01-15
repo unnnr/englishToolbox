@@ -1,10 +1,13 @@
 <template>
   <div class="whiteboard__group-mobile whiteboard__group-mobile--controls">
     <div class="whiteboard__element--square whiteboard__element--small whiteboard__element">
-      <button class="whiteboard__button-control--exit whiteboard__button-control"></button>
+      <button 
+        class="whiteboard__button-control--exit whiteboard__button-control" 
+        @click="close">
+      </button>
     </div>
 
-    <div class="whiteboard__element--small whiteboard__element">
+    <div  class="whiteboard__element--small whiteboard__element">
       <button 
         class="whiteboard__button-control--undo whiteboard__button-control whiteboard__button"
         @click="undo">
@@ -31,7 +34,6 @@ export default {
       return this.$drawings();
     }
   },
-
   mounted() {
     this.$options.$udno = this.undo;
     Shortcuts.listen(Shortcuts.BACK, this.$options.$udno);
@@ -48,6 +50,10 @@ export default {
 
     undo() {
       drawings.undo();
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }
