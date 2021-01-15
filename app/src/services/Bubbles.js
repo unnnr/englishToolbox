@@ -49,22 +49,16 @@ class Bubless {
     splitted.push(line);
 
     for (let word of words) {
-
-      if (!!!this.isKeyword(word)) {
-        if (line.missing === null)
-          line.missing = [];
-
-        line.missing.push(word);
+      
+      if (this.isKeyword(word)) {
+        line = { keyword: word, missing: null };
+        splitted.push(line);
         continue
       }
       
-      if (line.keyword) {
-        line = { keyword: word, missing: null };
-        splitted.push(line);
-        continue;
-      }
-
-      line.keyword = word;
+      if (line.missing === null)
+        line.missing = [];
+      line.missing.push(word);
     }
 
     return splitted;
@@ -92,6 +86,7 @@ class Bubless {
     let cleared = this.clear(entry);
     let words = this.split(cleared);
     let lines = this.selectKeywords(words);
+    console.log(words);
 
     return lines;
   }
