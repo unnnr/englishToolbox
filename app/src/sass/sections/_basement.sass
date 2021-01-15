@@ -75,12 +75,48 @@
     content: "\f17e" 
 
 .copyright
-  height: 50px
+  padding-top: 15px 
+  padding-bottom: 15px
   background: darken($color-almost-white, 4)
-  display: flex
+  display: grid
+  grid-auto-flow: column
+  grid-template-columns: max-content
+  justify-content: space-between
   align-items: center
+  grid-column-gap: 15px
+  @include sm-devices 
+    grid-auto-flow: row
+    grid-auto-rows: max-content
+    grid-row-gap: 10px
+    justify-items: center
+    grid-template-columns: 1fr
+
 
 .copyright__text
-  font-size: 1.6em
+  font-size: 14px
   font-weight: $medium
   color: $color-semigray
+  @include sm-devices
+    font-size: 12px
+  @include xxs-devices 
+    font-size: 10px
+
+.copyright__development
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: max-content
+  align-items: center
+  grid-column-gap: 10px
+  grid-row-start: 1
+
+.copyright__development-text
+  font-size: 14px
+  font-weight: $semibold
+  line-height: 1
+  color: $color-dark
+
+  span
+    font-weight: $bold
+
+.copyright__development-logo
+  height: 25px

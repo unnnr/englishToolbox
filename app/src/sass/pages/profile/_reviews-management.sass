@@ -18,9 +18,11 @@
 .reviews-management__card
   display: grid
   grid-template-columns: 1fr 1fr
+  grid-template-rows: 1fr max-content
   grid-row-gap: 30px
   grid-column-gap: 7.5px
   grid-template-areas: "review review" "accept decline"
+  height: 100%
 
   .reviews__card
     grid-area: review
