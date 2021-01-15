@@ -22,6 +22,10 @@ export default {
   components: {
     Card
   },
+
+  props: {
+    game: { default: null },
+  },
   
   data() {
     return {
@@ -33,13 +37,11 @@ export default {
         { name: 'Bubbles',    loader: () => import('@components/games/Bubbles'),    image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
         { name: 'Verbs',      loader: () => import('@components/games/Verbs'),      image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
       ],
-
-      selected: null,
     }
   },
 
   mounted() {
-    this.select(this.games[2]);
+    // this.select(this.games[2]);
     let image = new Image();
 
     image.src = 'img/hq720.webp';
@@ -82,7 +84,7 @@ export default {
     },
 
     isSelected(game) {
-      return this.selected === game;
+      return this.game === game;
     }
   }
 }

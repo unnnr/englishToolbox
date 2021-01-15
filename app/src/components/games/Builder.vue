@@ -108,7 +108,8 @@ export default {
     if (this.timer !== null)
       clearInterval(this.timer);
 
-    this.player.pause();
+    if (this.player)
+      this.player.pause();
   },
 
   methods: {
