@@ -18,11 +18,14 @@
             v-if="group.missing"
             v-model="group.entry"
 
+            ref="placeholders"
             :key="'placeholder_' + index"
             :missing="group.missing"
             
             :correct="group.correct"
-            :incorrect="group.incorrect"/>
+            :incorrect="group.incorrect"
+            
+            @resolve="resolve(index)"/>
         </template> 
 
       </div>
@@ -102,12 +105,21 @@ export default {
       }
     },
 
-    showSample(line) {
-      let sample = line.missing.join(' ');
-      let message = line.entry + ' 🠒 ' + sample;
+    resolve(index) {
+      if (index >= this.lines.length - 1) {
+        this.compare();
+        return;
+      }
+        
+      let next = 0;
+      for (let i = 0; i < index + 1; i++) {
+        if (this.lines[i].missing)
+          next++;
+      }
 
-      this.$set(line, 'entry', message);
-    },
+      let input = this.$refs.placeholders[next];
+      input.focus();
+    }, 
 
     reset(text) {
       let lines = Bubbles.parse(this.text);

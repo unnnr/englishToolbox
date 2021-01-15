@@ -86,7 +86,6 @@ class Bubless {
     let cleared = this.clear(entry);
     let words = this.split(cleared);
     let lines = this.selectKeywords(words);
-    console.log(words);
 
     return lines;
   }
