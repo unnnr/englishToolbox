@@ -29,6 +29,8 @@ export default {
     WhiteboardEditor
   },
 
+  inject: ['$mobile'],
+
   provide() {
     const _this = this;
 
@@ -40,8 +42,6 @@ export default {
       $locked: () => _this.locked,
 
       $admin: () => _this.admin,
-
-      $mobile: () => _this.mobile
     }
   },
 
@@ -51,15 +51,18 @@ export default {
       config: new Config(),
 
       locked: false,
-      admin: false,
       banned: false,
-      mobile: false,
+      admin: false,
 
       started: false
     }
   },
 
   computed: {
+    mobile() {
+      return this.$mobile();
+    },
+
     canEdit() {
       return this.admin || (!!!this.banned && !!!this.locked)
     }
@@ -78,9 +81,6 @@ export default {
 
   methods: {
     start() {
-      Resolution.bind(type => 
-        this.mobile = Resolution.DESKTOP !== type);
-
       Shortcuts.bind();
 
       let handler = this.drawings._collection;

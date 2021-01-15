@@ -39,7 +39,7 @@ export default {
   },
 
   mounted() {
-    this.context = this.$refs.canvas.getContext("2d");
+    this.context = this.$el.getContext("2d");
 
     this.draw();
   },

@@ -25,11 +25,20 @@ export default {
     game: { default: null }
   },
 
+  provide() {
+    const _this = this;
+
+    return {
+      $mobile: () => _this.mobile,
+    }
+  },
+
   data() {
     return {
       mobile: true
     }
   },
+  
 
   beforeMount() {
 		Resolution.bind(this.resolutionChanged);
@@ -41,8 +50,7 @@ export default {
 
   methods: {
     resolutionChanged(type) {
-      this.mobile = Resolution.SMAL_TABLET === type
-                 || Resolution.MOBILE === type;
+      this.mobile = Resolution.DESKTOP !== type
     },
     
     close() {
