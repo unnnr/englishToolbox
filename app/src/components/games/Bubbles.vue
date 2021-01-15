@@ -13,7 +13,6 @@
       ref="builder"
       @next="reset"/>
 
-    <!-- input grabber -->
   </div>
 </template>
 

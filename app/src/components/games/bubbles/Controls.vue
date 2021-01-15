@@ -2,6 +2,7 @@
   <div class="game__controls">
     <div class="game__elements">
       <button 
+        v-if="mobile"
         class="game__element game__element--exit"
         @click="close">
       </button>
@@ -25,7 +26,13 @@ export default {
     time: { type: Number, default: 0 }
   },
 
+   inject: ['$mobile'], 
+
   computed: {
+    mobile() {
+      return this.$mobile();
+    },
+
     seconds() {
       return this.time + 's'
     }
@@ -37,7 +44,7 @@ export default {
     },
 
     close() {
-      this.$emit('close');
+      document.exitFullscreen();
     }
   }
 }

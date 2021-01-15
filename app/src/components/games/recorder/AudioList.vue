@@ -2,7 +2,12 @@
     <div class="recorder-list">
       <div class="game__controls">
         <div class="game__elements">
-          <button class="game__element game__element--exit"></button>
+          <button 
+            v-if="mobile"
+            class="game__element game__element--exit"
+            @click="close">
+          </button>
+
           <button 
             class="game__element game__element--random"
             @click="random">
@@ -35,6 +40,14 @@ export default {
   props: {
     list: { type: Array, default: () => [] }
   },
+  
+  inject: ['$mobile'], 
+
+  computed: {
+    mobile() {
+      return this.$mobile();
+    }
+  },
 
   methods: {
     random() {
@@ -46,6 +59,10 @@ export default {
 
     select(index) {
       this.$emit('select', index);
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }

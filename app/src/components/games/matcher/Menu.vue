@@ -3,7 +3,11 @@
       <div class="matcher-list__body">
         <div class="game__controls">
           <div class="game__elements">
-            <button class="game__element game__element--exit"></button>
+            <button 
+              v-if="mobile"
+              class="game__element game__element--exit"
+              @click="close">
+            </button>
 
             <button class="game__element game__element--random" @click="random">
               random
@@ -40,7 +44,13 @@
 import IrregularVerbs from '@services/IrregularVerbs'
 
 export default {
+  inject: ['$mobile'], 
+
   computed: {
+    mobile() {
+      return this.$mobile();
+    },
+
     groups() {
       return IrregularVerbs.groups()
     }
@@ -81,6 +91,10 @@ export default {
       }
       
       return message;
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }

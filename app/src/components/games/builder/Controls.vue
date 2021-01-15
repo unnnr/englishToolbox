@@ -1,8 +1,12 @@
 <template>
   <div class="game__controls" ref="controlls">
     <div class="game__elements">
-      <button class="game__element game__element--exit"></button>
-      
+      <button 
+        v-if="mobile"
+        class="game__element game__element--exit"
+        @click="close">
+      </button>      
+
       <div class="game__element game__element--timer">{{ seconds }}</div>
       <div class="game__element game__element--counter">{{ streak }}</div>
 
@@ -26,9 +30,15 @@ export default {
     streak: { type: Number, default: 0 },
   },
 
+  inject: ['$mobile'], 
+
   computed: {
     seconds() {
       return this.time + 's'
+    },
+      
+    mobile() {
+      return this.$mobile();
     }
   },
 
@@ -39,6 +49,10 @@ export default {
 
     listen() {
       this.$emit('listen');
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }

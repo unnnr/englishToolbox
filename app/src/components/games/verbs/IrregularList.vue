@@ -1,7 +1,12 @@
 <template>
   <div class="game verbs" key="list">
     <div class="game__elements">
-      <button class="game__element game__element--exit"></button>
+      <button 
+        v-if="mobile"
+        class="game__element game__element--exit"
+        @click="close">
+      </button>
+
       <div class="verbs__search">
         <input 
           v-model="entry"
@@ -51,6 +56,14 @@ export default {
       selected: -1
     }
   },
+
+  inject: ['$mobile'], 
+
+  computed: {
+    mobile() {
+      return this.$mobile();
+    }
+  },
   
   methods: {
     search() {
@@ -66,6 +79,10 @@ export default {
 
     isSelected(index) {
       return index === this.selected;
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }

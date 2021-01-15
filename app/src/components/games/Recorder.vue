@@ -16,7 +16,12 @@
 
         <div class="game__controls">
           <div class="game__elements">
-            <button class="game__element game__element--exit"></button>
+            <button 
+              v-if="mobile"
+              class="game__element game__element--exit"
+              @click="close">
+            </button>
+
             <button 
               class="game__element game__element--menu"
               @click="showMenu">
@@ -84,6 +89,14 @@ export default {
     }
   },
 
+  inject: ['$mobile'], 
+
+  computed: {
+    mobile() {
+      return this.$mobile();
+    }
+  },
+
   beforeMount() {
     this.records = this.recorder.list();
     this.next()
@@ -112,6 +125,10 @@ export default {
 
     computeUndoable() {
       return Boolean(this.recorder.history.length);
+    },
+
+    close() {
+      document.exitFullscreen();
     }
   }
 }

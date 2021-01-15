@@ -34,6 +34,7 @@ export default {
       return this.$drawings();
     }
   },
+  
   mounted() {
     this.$options.$udno = this.undo;
     Shortcuts.listen(Shortcuts.BACK, this.$options.$udno);

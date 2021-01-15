@@ -140,8 +140,6 @@ export default {
     },
 
     select(tool, group) {
-      console.log(tool, group);
-
       this.selected = tool;
       group.selected = tool;
 
