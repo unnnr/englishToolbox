@@ -1,23 +1,31 @@
 <template>
-  <div class="bubbles game">
+  <prescreen 
+    v-if="!!!started"
+    @start="start"/>
+
+  <div v-else class="bubbles game">
     <controls
       :time="time"
       @done="check"/>
 
     <builder
-      :text="'I\'m the stoopid -  game -'"
-      ref="builder"/>
+      :text="text"
+      ref="builder"
+      @next="reset"/>
 
     <!-- input grabber -->
   </div>
 </template>
 
 <script>
+import Prescreen from '@components/games/bubbles/Prescreen'
 import Controls from '@components/games/bubbles/Controls'
 import Builder from '@components/games/bubbles/Builder'
 
+
 export default {
   components: {
+    Prescreen,
     Controls,
     Builder
   },
@@ -26,11 +34,10 @@ export default {
     return {
       time: 0,
       timer: null,
-    }
-  },
 
-  mounted() {
-    this.startGame();
+      started: false,
+      text: ''
+    }
   },
 
   beforeDestroy() {
@@ -55,6 +62,16 @@ export default {
       
       let game = this.$refs.builder;
       game.compare();
+    },
+    
+    reset() {
+      this.started = false;
+    },
+
+    start(text) {
+      this.text = text;
+      this.started = true;
+      this.startGame();
     }
   }
 };

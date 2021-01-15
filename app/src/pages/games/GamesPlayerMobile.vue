@@ -2,7 +2,7 @@
   <div v-show="shown">
     <div 
       ref="player"
-      class="games__selected">
+      class="games__selected games__mobile">
 
       <transition
         name="fade"

@@ -31,6 +31,7 @@
     <result-screen
       v-if="disabled"
       :correct="corrrect"
+      @next="next"
       @reset="reset"/>
   </div>
 </template>
@@ -125,7 +126,7 @@ export default {
     },
 
     next() {
-
+      this.$emit('next');
     },
   }
 }

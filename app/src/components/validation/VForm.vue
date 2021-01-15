@@ -163,6 +163,9 @@ export default {
       if (this.preventRedundant && !!!hasChanges)
         return;
 
+      console.log(123);
+      
+
       if (hasChanges && this.requirePassword) {
         this.appendPassword(password => {
           this.sendWith(() => {

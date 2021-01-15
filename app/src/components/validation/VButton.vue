@@ -21,7 +21,7 @@ export default {
   inject: ['secondary'],
   
   props: {
-    mesasge: { type: String, default: 'Confirm'},
+    message: { type: String, default: 'Confirm'},
 
     withoutLabel: { type: Boolean, default: false },
 
@@ -55,7 +55,7 @@ export default {
       if (this.loading)
         return 'Loading';
 
-      return this.mesasge;
+      return this.message;
     }
   }
 }

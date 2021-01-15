@@ -1,5 +1,7 @@
 <template>
-  <v-button v-validate/>
+  <v-button
+    v-validate
+    v-bind="$attrs"/>
 </template>
 
 <script>
