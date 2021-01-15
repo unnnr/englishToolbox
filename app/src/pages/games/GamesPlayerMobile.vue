@@ -60,6 +60,11 @@ export default {
 
     fullscreenToggled() {
       this.shown = Boolean(document.fullscreenElement); 
+
+      if (this.shown)
+        screen.orientation.lock('landscape').catch(() => {});
+      else
+        screen.orientation.unlock();
     }
   }
 }
