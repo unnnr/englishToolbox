@@ -51,6 +51,7 @@ export default {
 				{ name: '/videos', label: 'videos'},
 				{ name: '/audio', label: 'audio'},
 				{ name: '/charts', label: 'charts'},
+				{ name: '/games', label: 'games'},
 				{ name: '/recommendations', label: 'I recommend'},
 			]
 		}
