@@ -35,7 +35,7 @@ export default {
 
     selected: { type: Boolean, default: false },
 
-    image: { type: String, default: '123' }
+    image: { type: String, default: '' }
   },
 
   computed: {
