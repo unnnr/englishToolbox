@@ -142,7 +142,7 @@ export default {
     append(word) {
       this.sentance.push(word);
     },
-
+  
     remove(word) {
       this.pool.push(word);
     },

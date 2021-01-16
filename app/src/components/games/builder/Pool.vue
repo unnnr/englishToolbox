@@ -32,15 +32,27 @@ export default {
     disabled: { type: Boolean, default: false },
   },
 
+  data() {
+    return {
+      removing: false
+    }
+  },
+
   methods: {
+    removed() {
+      this.removing = false;
+    },
+
     resolve(target) {
-      if (this.disabled)
+      if (this.disabled || this.removing)
         return;
 
       let index = this.words.indexOf(target);
+      if (index === -1)
+        return;
+
       let word = this.words[index];
       this.words.splice(index, 1);
-
       this.$emit('resolve', word);
     }
   }
