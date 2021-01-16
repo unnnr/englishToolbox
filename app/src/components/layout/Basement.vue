@@ -4,22 +4,32 @@
       <h5 class="footer__title heading-fifth">Contacts</h5>
       <h5 class="footer__title heading-fifth">links</h5>
       <div class="footer__contacts">
-        <a href="#" class="footer__contact footer__contact--youtube text-fourth">youtube</a>
-        <a href="#" class="footer__contact footer__contact--twetter text-fourth">@twetter</a>
-        <a href="#" class="footer__contact footer__contact--facebook text-fourth">@facebook</a>
-        <a href="#" class="footer__contact footer__contact--mail text-fourth">mailadress@mail.com</a>
-        <a href="#" class="footer__contact footer__contact--discord text-fourth">discord#3221</a>
-        <a href="#" class="footer__contact footer__contact--skype text-fourth">@skype</a>
+        <a  
+          v-for="(contact, index) of contacts" 
+          :key="index"     
+
+          class="footer__contact text-fourth"
+          :class="contact.class">
+
+          {{ contact.name }}
+        </a>
+
       </div>
+      
       <div class="footer__links">
-        <a href="#" class="footer__link text-fourth">about me</a>
-        <a href="#" class="footer__link text-fourth">videos</a>
-        <a href="#" class="footer__link text-fourth">audios</a>
-        <a href="#" class="footer__link text-fourth">schemas</a>
-        <a href="#" class="footer__link text-fourth">games</a>
-        <a href="#" class="footer__link text-fourth">i recomend</a>
+        <router-link 
+          class="footer__link text-fourth"
+          
+          v-for="(link, index) in links" 
+          :key="index"
+
+          :to="link.name">
+
+          {{ link.label }}
+        </router-link>
       </div>
     </footer>
+
     <div class="copyright container">
       <p class="copyright__text">
         © Copyright 2021 englishnerd − All Rights Reserved
@@ -34,6 +44,26 @@
 
 <script>
 export default {
-  name: 'basemenrt'
+  data() {
+    return {
+      contacts: [
+        { name: 'youtube',             class: 'footer__contact--youtube' },
+        { name: '@twetter',            class: 'footer__contact--twetter' },
+        { name: '@facebook',           class: 'footer__contact--facebook' },
+        { name: 'mailadress@mail.com', class: 'footer__contact--mail' },
+        { name: 'discord#3221',        class: 'footer__contact--discord'},
+        { name: '@skype',              class: 'footer__contact--skype'},
+      ],
+
+      links: [
+				{ name: '/home#about', label: 'about me'},
+				{ name: '/videos', label: 'videos'},
+				{ name: '/audio', label: 'audio'},
+				{ name: '/charts', label: 'charts'},
+				{ name: '/games', label: 'games'},
+				{ name: '/recommendations', label: 'I recommend'},
+			]
+    }
+  },
 }
 </script>
