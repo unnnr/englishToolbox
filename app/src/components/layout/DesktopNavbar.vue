@@ -19,28 +19,30 @@
 			</router-link>
 		</nav>
 
-		<aside class="navbar-desktop__aside">
-			<router-link v-if="!!!profileShown"
-				class="navbar-desktop__aside-login-in"
-				to="/login">
-					
-				login in
-			</router-link>
+		<transition name="fade">
+			<aside v-if="loaded" class="navbar-desktop__aside">
+				<router-link v-if="!!!profileShown"
+					class="navbar-desktop__aside-login-in"
+					to="/login">
+						
+					login in
+				</router-link>
 
-			<router-link v-if="!!!profileShown"
-				class="navbar-desktop__aside-sign-up"
-				to="/register"> 
-					
-				sing up
-			</router-link>
+				<router-link v-if="!!!profileShown"
+					class="navbar-desktop__aside-sign-up"
+					to="/register"> 
+						
+					sing up
+				</router-link>
 
-			<router-link
-				class="navbar-desktop__account-link"
-				v-if="profileShown"
-				to="/profile"
-				:style="{'background-image': avatar}">
-			</router-link>
-		</aside>	
+				<router-link
+					class="navbar-desktop__account-link"
+					v-if="profileShown"
+					to="/profile"
+					:style="{'background-image': avatar}">
+				</router-link>
+			</aside>	
+		</transition>
 	</div>
 </template>
 
@@ -53,7 +55,9 @@ export default {
   
 		links: { type: Array, default: () => [] },
   
-    profileShown: { type: Boolean, default: false }
+    profileShown: { type: Boolean, default: false },
+
+		loaded: { type: Boolean, default: false }
 	}
 }
 </script>

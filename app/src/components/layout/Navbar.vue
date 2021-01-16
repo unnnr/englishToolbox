@@ -2,17 +2,23 @@
 	<section class="navbar container">
 		<desktop-navbar 
 			v-if="desktop"
-			:profileShown="profileShown"
+
 			:app-name="appName"
 			:avatar="avatarUrl"
-			:links="links"/>
+			:links="links"
+
+			:profile-shown="profileShown"
+			:loaded="loaded"/>
 		
 		<mobile-navbar 
 			v-else
-			:profileShown="profileShown"
+
 			:app-name="appName"
 			:avatar="avatarUrl"
-			:links="links"/>
+			:links="links"
+
+			:profile-shown="profileShown"
+			:loaded="loaded"/>
 	</section>
 </template>
 
@@ -43,15 +49,16 @@ export default {
 			appName: 'EnglishNerd',
 			avatar: '#',
 
-			profileShown: false,
+			profileShown: null,
 			desktop: true,
+			loaded: false,
 
 			links: [
-				{ name: '/home#about', label: 'about me'},
-				{ name: '/videos', label: 'videos'},
-				{ name: '/audio', label: 'audio'},
-				{ name: '/charts', label: 'charts'},
-				{ name: '/games', label: 'games'},
+				{ name: '/home#about', 			label: 'about me'},
+				{ name: '/videos', 					label: 'videos'},
+				{ name: '/audio', 					label: 'audio'},
+				{ name: '/charts', 					label: 'charts'},
+				{ name: '/games', 					label: 'games'},
 				{ name: '/recommendations', label: 'I recommend'},
 			]
 		}
@@ -84,8 +91,10 @@ export default {
 		},
 
 		async authChanged(authenticated) {
-			this.avatar = await Avatar.get();
+			this.loaded = true;
 			this.profileShown = authenticated
+
+			this.avatar = authenticated ? await Avatar.get() : '';
 		}
 	},
 
