@@ -107,16 +107,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass">
-
-.card__image
-  background-size: 178.2%
-
-.card--rectangle .card__image
-  background-size: 100%
-
-.card--rectangle--temp .card__image
-  background-size: 133.4% !important
-
-</style>
