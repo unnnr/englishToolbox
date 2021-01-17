@@ -50,6 +50,7 @@
       <div class="profile__editor-footer">
 
         <password-input 
+          ref="password"
           class="input-group--password-new"
           autocomplete="new-password"
           label="New passoword"
@@ -57,6 +58,7 @@
           optional/>
 
         <confirmation-input 
+          ref="confirmation"
           v-confirm="'newPassword'"
           autocomplete="new-password"
           with-prefix/>
@@ -140,16 +142,10 @@ export default {
       if (!!!form)
         return;
 
-      if (!!!form.hasChanges()) {
-        this.disabled = true;
-        form.reset();
-        return;
-      }
-
-      this.showAlert(() => {
-        this.disabled = true;
-        form.reset();
-      });
+      this.disabled = true;
+      
+      this.clear();
+      form.reset();
     },
 
     show() {
@@ -195,13 +191,17 @@ export default {
         message: 'Incorrect password'
       }); 
     },
+    
+    clear() {
+      this.$refs.password.clear();
+      this.$refs.confirmation.clear();
+    },
 
     async submit(data, hasChanges) { 
       if (hasChanges)
         this.user = await Auth.user.edit(data);
 
       this.hide();
-      console.log(111); 
     }
   }
 }

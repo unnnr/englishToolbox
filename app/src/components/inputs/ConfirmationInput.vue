@@ -120,6 +120,10 @@ export default {
       let entry = this.$refs.input.entry;
 
       data.append(this.name, entry);
+    },
+    
+    clear() {
+      this.$refs.input.entry = ''
     }
   }
 }

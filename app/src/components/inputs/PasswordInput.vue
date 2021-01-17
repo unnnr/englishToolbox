@@ -54,6 +54,12 @@ export default {
     autocomplete() {
       return this.withoutAutocomplete ? 
         'new-password' : 'current-password'
+    },
+  },
+
+  methods: {
+    clear() {
+      this.$refs.input.entry = ''
     }
   }
 }

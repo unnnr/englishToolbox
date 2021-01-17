@@ -220,10 +220,6 @@ const HandleTextValidation = {
       data.append(this.name, this.entry);
     },
 
-  /*   submitted() {
-      this.$options.defaultValue = this.entry;
-    }, */
-
     handleError(errors) {
       this.$options.defaultValue = 
         this.$options.previousValue;

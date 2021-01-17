@@ -21,7 +21,7 @@ trait CreatesDefaultAvatar
 
         return $path;
     }    
-    
+
     public function randomColor($saturation = 60, $lightness = 60, $count = 1000) : string
     {
         // Range of colors cut out of the spectrum 
@@ -40,16 +40,17 @@ trait CreatesDefaultAvatar
         return "hsl({$hue}, {$saturation}%, {$lightness}%)";
     }
 
-    public function createAvatar() : string
+    public function createAvatar($color = null) : string
     {
-        $color = self::randomColor();
+        if ($color === null)
+            $color = self::randomColor();
+
         $name = self::randomAvatarName();
+        $anchor = '/(id="background")/';
+        $replacement = "$1 fill=\"{$color}\"";
 
         $defaultAvatar =  
             Storage::get(Avatar::PRESET_PATH);
-
-        $anchor = '/(id="background")/';
-        $replacement = "$1 fill=\"{$color}\"";
         
         $newAvatar = 
             preg_replace($anchor, $replacement, $defaultAvatar, 1);

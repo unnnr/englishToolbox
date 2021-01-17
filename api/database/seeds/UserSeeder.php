@@ -25,7 +25,8 @@ class UserSeeder extends Seeder
 
 
         $admin->avatar()->create([
-            'name' => app(\App\Services\Auth\AuthService::class)->createAvatar()
+            'name' => app(\App\Services\Auth\AuthService::class)
+                ->createAvatar('hsl(0, 60%, 60%)')
         ]);
 
         $admin->markEmailAsVerified();
