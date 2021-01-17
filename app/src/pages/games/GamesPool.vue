@@ -11,7 +11,9 @@
 
       :selected="isSelected(game)"
       :image="game.image"
-      @select="select(game)"/>
+      @select="select(game)"
+      
+      rectangular/>
 
   </div>
 </template>
