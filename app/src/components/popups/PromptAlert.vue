@@ -91,7 +91,7 @@ export default {
   },
     
   props: { 
-    type: { type: String, default: 'Your confirmation' },
+    type: { type: String, default: 'password' },
   },
 
   data() {

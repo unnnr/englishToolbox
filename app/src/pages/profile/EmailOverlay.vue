@@ -32,7 +32,7 @@
 					<button 
 						class="register-overlay__confirm-button button-secondary" 
 						:disabled="buttonDisabled"
-						@click.prevent="request">
+						@click.prevent="onConfirm">
 						
 						confirm
 					</button>
@@ -140,7 +140,7 @@ export default {
 
 			bus.dispatch('alert-prompt', {
 				message: 'Write here your new email',
-				label: 'Email',
+				type: 'email',
 				visible: true,
 				
 				cancel: async () => {
