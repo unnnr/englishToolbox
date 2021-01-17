@@ -2031,6 +2031,7 @@ button:active {
 .card--rectangle .card__image {
   border: 5px solid #fff;
   padding-bottom: 56.25%;
+  background-size: 105% !important;
 }
 
 .card--add {
@@ -2074,6 +2075,7 @@ button:active {
   border: 5px solid #fff;
   padding-bottom: 56.25%;
   margin: 0;
+  background-size: 105% !important;
 }
 
 .card--selected .card__image {
@@ -2091,7 +2093,7 @@ button:active {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-size: 105%;
+  background-size: 178.2%;
   margin-bottom: 30px;
   cursor: pointer;
   -webkit-transition: border .3s ease-in-out;
