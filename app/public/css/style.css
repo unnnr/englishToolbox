@@ -4801,6 +4801,10 @@ button:active {
   overflow: hidden;
 }
 
+.game__selected--none {
+  background-image: none;
+}
+
 .games__pool .card__image {
   border: 5px solid #fff;
 }
