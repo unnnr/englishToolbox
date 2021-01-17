@@ -10,7 +10,7 @@
   </post-details-desktop>
   
   <post-details-mobile 
-    v-else
+    v-else-if="mobileShown"
     :canCreate="canCreate"
     :editing="editing"
     :creating="creating">
@@ -31,7 +31,7 @@ export default {
       () => import('@components/posts/PostDetailsMobile')
   },
 
-   props: {
+  props: {
     creating: { type: Boolean, default: false },
 
     editing: { type: Boolean, default: false }
@@ -41,6 +41,18 @@ export default {
     return {
       desktop: false,
       canCreate: false,
+    }
+  },
+
+  inject: [ '$target' ],
+
+  computed: {
+    target() {
+      return this.$target();
+    },
+
+    mobileShown() {
+      return this.target || this.editing;
     }
   },
 
