@@ -1,4 +1,4 @@
-import {Engine, Render, Events} from 'matter-js'
+import {Engine, Render, Events, Runner} from 'matter-js'
 import Animations from '@services/matcher/Animations'
 import Config from '@services/matcher/Config'
 import Groups from '@services/matcher/Groups'
@@ -16,6 +16,8 @@ export default class Matcher {
 
   mouse = null;
 
+  runner = null;
+
   running = false;
 
   constructor(canvas) {
@@ -31,6 +33,8 @@ export default class Matcher {
           background: Config.world.background,
       }
     });
+
+    this.runner = Runner.create();
   } 
 
   bind() {
@@ -81,8 +85,8 @@ export default class Matcher {
     this.running = true;
     this.bind()
   
-    Engine.run(this.engine);
     Render.run(this.render);
+    Runner.run(this.runner, this.engine);
   }
 
   stop() {
@@ -91,9 +95,15 @@ export default class Matcher {
 
   clear() {
     this.world.clear();
+
     Mouse.clear(this.render);
     Engine.clear(this.engine);
     Render.stop(this.render);
+    Runner.stop(this.runner)
+
+    this.render.canvas.remove();
+    this.render.canvas = null;
+    this.render.context = null;
   }
 
   resize() {
