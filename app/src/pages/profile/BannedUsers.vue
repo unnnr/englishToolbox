@@ -93,3 +93,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.banned__body
+    overflow: hidden
+
+</style>
