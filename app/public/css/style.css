@@ -2066,6 +2066,16 @@ button:active {
   margin: auto auto;
 }
 
+.card--game .card__title {
+  display: none;
+}
+
+.card--game .card__image {
+  border: 5px solid #fff;
+  padding-bottom: 56.25%;
+  margin: 0;
+}
+
 .card--selected .card__image {
   border-color: #6666ff;
 }
@@ -4781,6 +4791,10 @@ button:active {
   -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
           box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
   border-radius: 15px;
+  background-image: url("http://localhost:8080/img/svg/overlay-games.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50%;
   position: relative;
   overflow: hidden;
 }

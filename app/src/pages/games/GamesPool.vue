@@ -3,13 +3,14 @@
 
     <card
       v-for="(game, index) of games"
+      class="card--game"
       :key="index"
 
       :loading="false"
       :title="game.name"
 
       :selected="isSelected(game)"
-      :imageasda="game.image"
+      :image="game.image"
       @select="select(game)"/>
 
   </div>
@@ -30,12 +31,12 @@ export default {
   data() {
     return {
       games: [
-        { name: 'Whiteboard', loader: () => import('@components/games/Whiteboard'), image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
-        { name: 'Recorder',   loader: () => import('@components/games/Recorder'),   image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
-        { name: 'Matcher',    loader: () => import('@components/games/Matcher'),    image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
-        { name: 'Builder',    loader: () => import('@components/games/Builder'),    image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
-        { name: 'Bubbles',    loader: () => import('@components/games/Bubbles'),    image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
-        { name: 'Verbs',      loader: () => import('@components/games/Verbs'),      image: 'https://i.ytimg.com/vi/TVoGKvVBC6Q/hq720.jpg?sqp=-oaymwEZCOgCEMoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLA9f1IunybABCyFGmRRvVocue5fqw' },
+        { name: 'Whiteboard', loader: () => import('@components/games/Whiteboard'), image: 'img/svg/whiteboard.svg' },
+        { name: 'Recorder',   loader: () => import('@components/games/Recorder'),   image: 'img/svg/recorder.svg' },
+        { name: 'Builder',    loader: () => import('@components/games/Builder'),    image: 'img/svg/builder.svg' },
+        { name: 'Matcher',    loader: () => import('@components/games/Matcher'),    image: 'img/svg/matcher.svg' },
+        { name: 'Bubbles',    loader: () => import('@components/games/Bubbles'),    image: 'img/svg/bubbles.svg' },
+        { name: 'Verbs',      loader: () => import('@components/games/Verbs'),      image: 'img/svg/table.svg' },
       ],
     }
   },
@@ -54,4 +55,4 @@ export default {
     }
   }
 }
-</script>w
+</script>
