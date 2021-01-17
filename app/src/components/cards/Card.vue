@@ -16,7 +16,7 @@
         @click.self="select">
 
         <button 
-          v-if="favoriteShown"
+          v-if="favoritable"
           class="card__favorite-button"
           :class="{'card__favorite-button--active': favorite}"
           @click="favoriteToggle">
@@ -75,9 +75,11 @@ export default {
 
     video: { tpye: Boolean, default: false},
 
-    favorite: { type: Boolean, default: null },
-
     selected: { type: Boolean, default: false },
+
+    favorite: { type: Boolean, default: false },
+
+    favoritable: { type: Boolean, default: true },
 
     rectangular: { type: Boolean, default: false },
   },
@@ -89,11 +91,7 @@ export default {
 
     viewsShown() {
       return this.views !== null;
-    },
-
-    favoriteShown() {
-      return this.favorite !== null;
-    },
+    }
   },
 
   methods: {

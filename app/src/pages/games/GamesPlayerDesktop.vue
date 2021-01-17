@@ -1,5 +1,8 @@
 <template>
-  <div class="games__selected">
+  <div 
+    class="games__selected"
+    :class="{'games_selected--none': none}">
+
     <transition
       name="fade"
       mode="out-in">
@@ -14,6 +17,12 @@
 export default {
   props: {
     game: { default: null }
+  },
+
+  computed: {
+    none() {
+      return !!!this.game;
+    }
   }
 }
 </script>

@@ -8,6 +8,7 @@
 
       :loading="false"
       :title="game.name"
+      :favoritable="false"
 
       :selected="isSelected(game)"
       :image="game.image"
