@@ -55,6 +55,7 @@ import ConfirmButton from '@components/buttons/ConfirmButton'
 import TitleInput from '@components/inputs/TitleInput'
 import GradeInput from '@components/inputs/GradeInput'
 import VForm from '@components/validation/VForm'
+import bus from '@services/eventbus'
 
 
 export default {
@@ -103,6 +104,7 @@ export default {
       await Reviews.create(data)
      
       this.shown = false;
+      bus.dispatch('review-uploaded');
     }
   }
 }

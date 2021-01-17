@@ -40,11 +40,13 @@ import { Swiper as SwiperClass, Pagination } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import Reviews from '@models/Reviews'
 import Auth from '@services/Auth'
+import User from '@models/User'
 import bus from '@services/eventbus'
 
 // mixins
 import HandleDynamicSlides from '@mixins/HandleDynamicSlides'
 import HandleRequests from '@mixins/HandleRequests'
+import HandleEvents from '@mixins/HandleEvents'
 
 // components
 import Review from '@components/reviews/Review'
@@ -62,7 +64,8 @@ export default {
 
   mixins: [ 
     HandleDynamicSlides,
-    HandleRequests
+    HandleRequests,
+    HandleEvents,
   ],
 
   data() {
@@ -70,15 +73,26 @@ export default {
       reviews: [],
 
       canUpload: false,
-      canDelete: true,
+      canDelete: false,
     }
   },
 
   beforeMount() {
-    Auth.user.get().then(user => 
-			this.canUpload = user && user.canReview);
+    Auth.user.get().then(user => {
+      this.canUpload = user && user.canReview;
+      this.canDelete = user && user.admin
+    });
     
     this.load();
+  },
+
+   mounted() {
+    this.listen({
+      'review-uploaded': () => {
+        User.__user.canReview = false;
+        this.canUpload = false;
+      }
+    });
   },
 
   methods: {

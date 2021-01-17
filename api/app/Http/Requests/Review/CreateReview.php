@@ -13,7 +13,7 @@ class CreateReview extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->canReview;        ;
+        return auth()->user()->canReview;
     }
 
     /**

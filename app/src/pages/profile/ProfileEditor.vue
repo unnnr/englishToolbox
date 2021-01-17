@@ -174,12 +174,18 @@ export default {
     },
 
     logout() {
-      let form = this.$refs.form;
+      function okay() {
+        let form = this.$refs.form;
+        
+        form.sendWith(async () => {
+          await Auth.logout();
+			    this.$router.push({name: 'home'});
+        });
+      }
 
-      form.sendWith(async () => {
-        await Auth.logout();
-
-			  this.$router.push({name: 'home'});
+      bus.dispatch('alert-warning', {
+        message: 'Press "Ok" to confirm this action',
+        okay: okay.bind(this),
       });
     },
 

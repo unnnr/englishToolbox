@@ -19,7 +19,7 @@ trait HasRoles
 
     public function getCanReviewAttribute() 
     {
-        if ($this->banned)
+        if ($this->banned || $this->admin)
             return false;
 
         return !!!$this->reviews()
