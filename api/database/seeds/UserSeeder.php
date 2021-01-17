@@ -22,5 +22,7 @@ class UserSeeder extends Seeder
         $admin->roles()->create([
             'name' => 'admin'
         ]);
+
+        $admin->markEmailAsVerified();
     }
 }
