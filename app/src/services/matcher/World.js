@@ -224,6 +224,10 @@ class MatcherWorld {
 
 
   clear() {
+    Animations.clear();
+    Groups.clear(); 
+    Bricks.clear(); 
+    
     World.clear(this.world);
   }
   

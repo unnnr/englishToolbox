@@ -1,5 +1,4 @@
 import {World} from 'matter-js'
-import Config from '@services/matcher/Config'
 
 
 class Animations {
@@ -23,6 +22,7 @@ class Animations {
 
   clear() {
     this.animations = [];
+    this.previousStamp = 0;
   }
 
   blink(target, seconds = .5) {
