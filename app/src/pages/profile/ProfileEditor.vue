@@ -172,7 +172,7 @@ export default {
           data.append('password', password);
 
           await Auth.user.delete(data);
-			    this.$router.push({name: 'Home'});
+			    this.$router.push({name: 'home'});
         });
       });
     },
@@ -183,7 +183,7 @@ export default {
       form.sendWith(async () => {
         await Auth.logout();
 
-			  this.$router.push({name: 'Home'});
+			  this.$router.push({name: 'home'});
       });
     },
 

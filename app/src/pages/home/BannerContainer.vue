@@ -135,9 +135,9 @@ export default {
 			return this.path + fileName + '-mobile.svg';
 		},
 
-		createRedirect(path) {
+		createRedirect(to) {
 			return () => 
-				this.$router.push(path) 
+				this.$router.push({name: to}) 
 		},
 	}
 }

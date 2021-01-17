@@ -72,7 +72,7 @@ export default {
 
 	methods: {
 		redirect() {
-			this.$router.push('home');
+			this.$router.push({name: 'home'});
 		},
 
 		async submit(data) {
