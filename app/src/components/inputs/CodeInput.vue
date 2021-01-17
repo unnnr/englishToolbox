@@ -14,7 +14,7 @@
       maxlength="1" 
       placeholder="-"
       
-      @keydown.prevent.stop="event => onKeyDown(input, event)"
+      @keydown="event => onKeyDown(input, event)"
       @copy="copy">
 
       <v-hidden/>
@@ -147,6 +147,9 @@ export default {
     onKeyDown(input, event) {
       let key = event.key;
 
+      if (key === 'v' && event.ctrlKey)
+        return;
+
       // Detecting special keys
       switch (key) {
         case 'Backspace': 
@@ -166,11 +169,14 @@ export default {
           this.focusePrevios(input);
           return true;
       }
+      
 
       let changed = input.set(key); 
       if (changed)
         this.focusNext(input);
 
+      event.stopPropagation();
+      event.preventDefault();
       return changed;
     },
 
