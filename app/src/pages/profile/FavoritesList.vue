@@ -2,12 +2,26 @@
   <section class="favorites container">
     <h3 class="favorites__title heading-third">Favorite list</h3>
 
-    <pool
-      :cards="posts"
-      :context="createContext"
-      square-cards
-      @favorite-toggle="unfavorite"
-      @select="goToPost"/>
+    <transition name="fade" mode="out-in">
+      <div key="overlay" v-if="empty" class="pool">
+        <div class="card">
+          <div 
+            class="card__image"
+            :style="{'background-image': overlaySrc}">
+          </div>
+        </div>
+      </div>
+      
+      <pool
+        v-else
+        :cards="posts"
+        :context="createContext"
+
+        square-cards
+        @favorite-toggle="unfavorite"
+        @select="goToPost"/>
+    </transition>
+    
   </section>
 </template>
 
@@ -33,7 +47,8 @@ export default {
 
   data() {
     return {
-      favorites: []  
+      favorites: [],
+      overlay: 'img/svg/whiteboard.svg'
     }
   },
 
@@ -48,6 +63,14 @@ export default {
       }
 
       return posts;
+    },
+
+    empty() {
+      return !!!this.posts.length;
+    },
+
+    overlaySrc() {
+      return 'url(' + this.overlay + ')';
     }
   },
 
