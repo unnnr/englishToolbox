@@ -10,7 +10,18 @@ use App\Models\Avatar;
 use Illuminate\Support\Facades\Log;
 
 trait CreatesDefaultAvatar
-{     
+{  
+    private function randomAvatarName() : string
+    {
+        do {
+            $name = '/default_' . Str::random(40) . '.svg';
+            $path = Storage::path(Avatar::STORAGE_PATH . $name);
+        }
+        while (file_exists($path));
+
+        return $path;
+    }    
+    
     public function randomColor($saturation = 60, $lightness = 60, $count = 1000) : string
     {
         // Range of colors cut out of the spectrum 
@@ -29,18 +40,7 @@ trait CreatesDefaultAvatar
         return "hsl({$hue}, {$saturation}%, {$lightness}%)";
     }
 
-    private function randomAvatarName() : string
-    {
-        do {
-            $name = '/default_' . Str::random(40) . '.svg';
-            $path = Storage::path(Avatar::STORAGE_PATH . $name);
-        }
-        while (file_exists($path));
-
-        return $path;
-    } 
-
-    private function createAvatar() : string
+    public function createAvatar() : string
     {
         $color = self::randomColor();
         $name = self::randomAvatarName();

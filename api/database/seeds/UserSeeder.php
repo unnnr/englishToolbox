@@ -23,6 +23,11 @@ class UserSeeder extends Seeder
             'name' => 'admin'
         ]);
 
+
+        $admin->avatar()->create([
+            'name' => app(\App\Services\Auth\AuthService::class)->createAvatar()
+        ]);
+
         $admin->markEmailAsVerified();
     }
 }
