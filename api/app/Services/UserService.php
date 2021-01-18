@@ -65,6 +65,7 @@ class UserService
         // Removing one to many relationship
         $user->verificationCodes()->delete();
         $user->comments()->delete();
+        $user->tokens()->delete();
         $user->views()->delete();
 
         $user->delete();

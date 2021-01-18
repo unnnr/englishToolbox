@@ -58,7 +58,7 @@ class AuthService
 
         $user = auth()->user();
         
-        $user->tokens('name', $this->authTokenName)->delete();
+        // $user->tokens('name', $this->authTokenName)->delete();
         $user->withAccessToken(
             $user->createToken($this->authTokenName)
         );

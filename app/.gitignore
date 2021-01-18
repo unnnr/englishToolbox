@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-
+/app/src/services/Http.js
 
 # local env files
 .env.local

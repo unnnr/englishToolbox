@@ -112,7 +112,7 @@ export default {
   width: 100%
 
 .whiteboard__drawings-collection
-  width: 100%
+  height: 100%
 
 
 .whiteboard__drawings-collection text
