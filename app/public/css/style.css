@@ -4812,6 +4812,10 @@ button:active {
   display: block;
 }
 
+.games__pool {
+  padding-top: 30px;
+}
+
 .games__pool .card__image {
   border: 5px solid #fff;
 }
@@ -4847,6 +4851,12 @@ button:active {
       -ms-user-select: none;
           user-select: none;
   padding: 10px 10px 0;
+}
+
+@media (max-width: 1000px) {
+  .game__controls {
+    padding: 15px;
+  }
 }
 
 .game__elements {
@@ -5153,6 +5163,12 @@ button:active {
   overflow: hidden;
 }
 
+@media (max-width: 1000px) {
+  .verbs {
+    padding: 20px;
+  }
+}
+
 .verbs__scrollable {
   overflow: overlay;
 }
@@ -5444,6 +5460,12 @@ button:active {
   height: 100%;
   left: 0;
   top: 0;
+}
+
+@media (max-width: 1000px) {
+  .matcher-list {
+    padding: 20px;
+  }
 }
 
 .matcher-list .game__controls, .matcher-list .game__elements {
@@ -5811,6 +5833,12 @@ button:active {
   margin-bottom: 0;
 }
 
+@media (max-width: 1000px) {
+  .bubbles .game__controls {
+    padding: 15px;
+  }
+}
+
 .bubbles__body {
   height: 100%;
   display: -ms-grid;
@@ -5966,6 +5994,12 @@ button:active {
   display: grid;
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
+}
+
+@media (max-width: 1000px) {
+  .recorder {
+    padding: 20px;
+  }
 }
 
 .recorder .game__controls {
@@ -6871,6 +6905,12 @@ button:active {
   left: 0;
 }
 
+@media (max-width: 1000px) {
+  .whiteboard__group-mobile--controls {
+    margin: 5px 0 0 15px;
+  }
+}
+
 .whiteboard__group-mobile--users {
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -6881,6 +6921,12 @@ button:active {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+@media (max-width: 1000px) {
+  .whiteboard__group-mobile--users {
+    padding-right: 15px;
+  }
 }
 
 .whiteboard__group-mobile--users .whiteboard__group-inner {
