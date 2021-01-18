@@ -98,7 +98,7 @@ class Model
         return  this.__cache.set(instance);
     }
 
-    async edit(id, data) 
+    async edit(id, data, notCached) 
     {
         // Removing redundunt fields
         let saved = this.__cache.get(id);

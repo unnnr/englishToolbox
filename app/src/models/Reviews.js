@@ -34,7 +34,7 @@ class Reviews extends Model
             
             let instaces = this.__parseCollection(response.data); 
             
-            reviews = this.__cache.set(instaces);
+            reviews = this.__cache.concut(instaces);
             this.verifiedLoaded = true;
         }
 
