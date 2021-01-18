@@ -139,7 +139,7 @@ const HandleTextValidation = {
 
     onKeyDown(event) {
       // Preventing form submittin on enter 
-      if (event.key === 'Enter') { 
+      if (event.key === 'Enter' && !!!event.shiftKey) { 
         this.$refs.input.blur();
         event.preventDefault();
 

@@ -17,7 +17,6 @@
 
       @mousemove.self="mouseMove"
       @touchmove.self="touchMove">
-      
     </div>
 
     <slot/>
