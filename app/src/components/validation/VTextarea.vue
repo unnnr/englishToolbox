@@ -28,15 +28,12 @@
     </span>
 
     <textarea 
+      v-model="entry"
+
       class="textarea-group__textarea"
       ref="input" 
 
-      v-model="entry"
-
       :maxlength="max"
-      :style="{ 
-        'height': this.height
-      }"
 
       @focus="onFocus"
       @input="onInput"
@@ -60,8 +57,6 @@ export default {
     return {
       counting: true,
 
-      /// can be 'auto'
-      height: 0
     }
   },
 
@@ -69,24 +64,26 @@ export default {
     autoGrow(value) {
       if (value)
         this.onInput();
-      else
-        this.height = '';
     },
   },
 
-  mounted() {
-    this.onInput();
+  mounted() { 
+    setTimeout(() => this.autoGrow && this.adjust(), 100);
   },
 
   methods: {
-    async onInput() {
+    onInput(passive) {
       if (!!!this.autoGrow)
         return;
+  
+      this.adjust();
+      this.$emit('input');
+    },
 
+    adjust() {
       let textarea = this.$refs.input;
 
       textarea.style.height = 'auto';
-
       textarea.style.height = this.$refs.input.scrollHeight + 'px';
     }
   }

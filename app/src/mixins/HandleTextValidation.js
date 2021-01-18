@@ -142,7 +142,6 @@ const HandleTextValidation = {
       if (event.key === 'Enter' && !!!event.shiftKey) { 
         this.$refs.input.blur();
         event.preventDefault();
-
         return;
       }
     },
@@ -152,6 +151,7 @@ const HandleTextValidation = {
         clearTimeout(this.$options.focusing);
 
       this.focused = true;
+      this.$emit('focus');
     },
 
     onBlur() {
@@ -165,7 +165,8 @@ const HandleTextValidation = {
         setTimeout(() => {
           this.focused = false;
           this.$options.focusing = null;
-
+          
+          this.$emit('blur');
           this.validate();
         }, DELAY);
 		},

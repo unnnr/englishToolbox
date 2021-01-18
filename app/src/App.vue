@@ -48,7 +48,7 @@ export default {
   },
   
   errorCaptured(error) {
-    bus.dispatch('alert-error')
+    bus.dispatch('alert-error');
   },
 }
 </script>
