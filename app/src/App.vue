@@ -48,14 +48,7 @@ export default {
   },
   
   errorCaptured(error) {
-    let options;
-
-    if (!!!event || typeof event === 'string')
-       options = { message: error };
-    else
-      options = error;
-      
-    bus.dispatch('alert-error', options)
+    bus.dispatch('alert-error')
   },
 }
 </script>

@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import FakeData from '@services/FakeData'
-
 export default {
   props: {
     text: { type: String, default: '奴ら はちまき 奉仕 備える ひきざん あう じぶん ぼうず むぜい しょうゆ 戦没 体重 特殊 おかね しゃくや' },
