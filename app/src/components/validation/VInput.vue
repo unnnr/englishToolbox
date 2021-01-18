@@ -38,7 +38,8 @@
         v-model="entry"
         
         :autocomplete="autocomplete"
-        :type=" hidden ? 'password' : null"
+        :type="type"
+
         :placeholder="placeholder"
         :maxlength="max"
         :disabled="disabled || loading"
@@ -95,6 +96,16 @@ export default {
   },
 
   computed: {
+    type() {
+      if (this.isPassword && this.hidden)
+        return 'password'
+
+      if (this.isEmail)
+        return 'email'
+
+      return 'text';
+    },
+
     isPassword() {
       return this.icon === 'password'
     },

@@ -40,7 +40,8 @@
 
       @focus="onFocus"
       @input="onInput"
-      @blur="onBlur">
+      @blur="onBlur"
+      @keydown="onKeyDown">
     </textarea>
   </div>
 </template>
@@ -74,8 +75,7 @@ export default {
   },
 
   mounted() {
-    if (this.autoGrow)
-      this.onInput();
+    this.onInput();
   },
 
   methods: {
