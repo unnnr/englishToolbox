@@ -123,7 +123,7 @@ export default {
 
     // If user authenticated -> showing input
     Auth.user.get().then(user => {
-      this.canPost = Boolean(user);
+      this.canPost = user && !!!user.banned;
       this.canBan = user && user.admin;
       this.authenticatedId = user && user.id;
     });
