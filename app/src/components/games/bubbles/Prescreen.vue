@@ -10,7 +10,7 @@
       secondary>
       
       <h2 class="heading-second">Bubbles</h2>
-      <p class="text-fourth">Enter the text below you want to memorise</p>
+      <p ref="description" class="text-fourth">Enter the text below you want to memorise</p>
 
       <v-textarea
         ref="textarea"
@@ -19,7 +19,7 @@
         v-validate
         @focus="capture"
         @blur="release"
-        @input="capture"/>
+        @input="adjust"/>
 
       <confirm-button 
         class="button-secondary" 
@@ -45,13 +45,19 @@ export default {
     return {
       top: 0,
       shift: 0,
-      shiftToY: 100
+      shiftToY: 150
     }
   },
+
+  inject: ['$mobile'],
 
   computed: {
     marginTop() {
       return -this.shift + 'px';
+    },
+
+    mobile() {
+      return this.$mobile;
     }
   },
 
@@ -63,6 +69,19 @@ export default {
     },
 
     capture() {
+      if (!!!this.mobile)
+        return;
+
+      let description = 
+        this.$refs.description;
+
+      this.shiftToY = 
+        description.getBoundingClientRect().top
+
+      this.adjust();
+    },
+
+    adjust() {
       let textarea = 
         this.$refs.textarea.$el;
         
@@ -70,12 +89,6 @@ export default {
         textarea.getBoundingClientRect().bottom;
 
       this.shift = this.shift  + top - this.shiftToY;
-
-      console.log(top - this.shiftToY);
-    },
-
-    adjust() {
-
     },
 
     release() {
@@ -84,3 +97,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.bubbles
+  transition: margin .3s 
+
+</style>
