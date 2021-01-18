@@ -13,7 +13,9 @@ class CreateComment extends FormRequest
      */
     public function authorize()
     {
-        return !!!auth()->user()->banned;
+        $user = auth()->user();
+        
+        return $user->verified && !!! $user->banned;
     }
 
     /**

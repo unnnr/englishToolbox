@@ -37,8 +37,10 @@
 						:main-tag="update.mainTag"
 						:tags="update.tags"
 						
-    				@favorite-toggle="toggleFavorite(update)"
+						@favorite-toggle="toggleFavorite(update)"
 						@select="goTo(update)"/>
+
+
 					
 				</swiper-slide>
 			</swiper>
@@ -194,7 +196,7 @@ export default {
 <style lang="sass">
 
 .updates .card 
-  animation: card-fade-in 1s ease-in
+  animation: card-fade-in .5s ease-in
 
 @keyframes card-fade-in
   from

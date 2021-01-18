@@ -19,11 +19,15 @@ trait HasRoles
 
     public function getCanReviewAttribute() 
     {
-        if ($this->banned || $this->admin)
+        if (!!!$this->verified || $this->banned || $this->admin)
             return false;
 
         return !!!$this->reviews()
                     ->where('verified', 0)
                     ->exists();
+    }
+
+    public function getVerifiedAttribute() {
+        return $this->hasVerifiedEmail();
     }
 }   
