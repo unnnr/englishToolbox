@@ -16,10 +16,14 @@ export default class Trash {
   }
 
   release(coords, context, drawings, config) {
-    if (!!!this.painting || !!!drawings.collection().length)
+    if (!!!this.painting)
       return;
 
     this.painting = false
+    
+    if (!!!drawings.collection().length)
+      return;
+      
     drawings.clear();
   }
 }

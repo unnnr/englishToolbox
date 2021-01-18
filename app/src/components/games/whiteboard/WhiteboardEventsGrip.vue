@@ -45,13 +45,10 @@ export default {
 
     touchMove(event) {
       let { touches } = event;
-
-      console.log(touches[0]);
       this.$emit('move', touches[0]);
     },
 
     release() {
-      console.log('release')
       this.$emit('release', event);
     },
   }

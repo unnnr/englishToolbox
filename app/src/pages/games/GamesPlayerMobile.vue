@@ -39,6 +39,16 @@ export default {
     } 
   },
 
+  computed: {
+    orientation() {
+      let orientation = screen.orientation; 
+      if (!!!orientation.type)
+        orientation = screen.mozOrientation || screen.msOrientation;
+
+      return orientation;
+    }
+  },
+
   mounted() {
     this.fullscreenToggled = 
       this.fullscreenToggled.bind(this);
@@ -59,12 +69,16 @@ export default {
     },
 
     fullscreenToggled() {
-      this.shown = Boolean(document.fullscreenElement); 
-
+      if (!!!this.orientation)
+        return;
+        
+      this.shown = 
+        Boolean(document.fullscreenElement); 
+      
       if (this.shown)
-        screen.orientation.lock('landscape').catch(() => {});
+        this.orientation.lock('landscape').catch(() => {});
       else
-        screen.orientation.unlock();
+        this.orientation.unlock();
     }
   }
 }

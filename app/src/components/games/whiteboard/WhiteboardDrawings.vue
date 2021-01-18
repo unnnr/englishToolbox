@@ -62,15 +62,11 @@ export default {
 
   methods: {
     onClick(event, el) {
-      console.log('click');
-
       this.$emit('select', {el, event})
     },
 
     onTouch(event, el) {
       let { touches } = event;
-
-      console.log('touchMove');
 
       this.$emit('select', {el, event: touches[0]})
     },
@@ -116,9 +112,7 @@ export default {
   width: 100%
 
 .whiteboard__drawings-collection
-  height: 100%
   width: 100%
-
 
 
 .whiteboard__drawings-collection text

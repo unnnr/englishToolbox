@@ -21,7 +21,7 @@ export default class DrawingsStorage {
       broadcaster: 'pusher',
       key: '546cc2506c4883dfb50f',
       cluster: 'eu',
-      authEndpoint: 'http://etoolbox/api/broadcasting/auth',
+      authEndpoint: Http.origin + 'broadcasting/auth',
       encrypted: true,
       auth: {
         headers: {
