@@ -57,7 +57,7 @@ export default {
     },
 
     mobile() {
-      return this.$mobile;
+      return this.$mobile();
     }
   },
 
@@ -69,9 +69,6 @@ export default {
     },
 
     capture() {
-      if (!!!this.mobile)
-        return;
-
       let description = 
         this.$refs.description;
 
@@ -82,6 +79,9 @@ export default {
     },
 
     adjust() {
+      if (!!!this.mobile)
+        return;
+
       let textarea = 
         this.$refs.textarea.$el;
         
