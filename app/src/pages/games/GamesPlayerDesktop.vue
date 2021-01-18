@@ -1,7 +1,5 @@
 <template>
-  <div 
-    class="games__selected">
-
+  <div class="games__selected">
 
     <transition
       name="fade"
@@ -10,9 +8,12 @@
       <img 
         v-if="none" 
         class="game__overlay"
-        src="img/svg/overlay-games.svg" alt="">
+        src="img/svg/overlay-games.svg" 
+        alt="">
 
-      <component :is="game"/>
+      <component 
+        v-else
+        :is="game"/>
 
     </transition>
   </div>
@@ -32,7 +33,14 @@ export default {
 
   watch: {
     game(value) {
-      console.log(value);
+      if (value)
+        this.scroll();
+    }
+  },
+
+  methods: {
+    scroll() {
+      window.scroll({ top: 0, behavior: 'smooth'})
     }
   }
 }
