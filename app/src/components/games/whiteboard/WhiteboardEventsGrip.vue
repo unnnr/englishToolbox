@@ -1,14 +1,23 @@
 <template>
   <div 
     @mouseenter="enter"
-    @mouseleave="release">
+    @mouseleave="release"
+    @touchcancel="release"
+    @touchmove="touchMove"
+    @touchend="release">
 
     <div 
       v-if="active"
       class="whitebord__overlay"
+
+      @mousedown.self="click"
+      
       @mouseup.self="release"
-      @mousemove.self="move"
-      @mousedown.self="click">
+      @touchend.self="release"
+
+      @mousemove.self="mouseMove"
+      @touchmove.self="touchMove">
+      
     </div>
 
     <slot/>
@@ -30,12 +39,20 @@ export default {
     click(event) {
       this.$emit('click', event);
     },
-    
-    move(event) {
+
+    mouseMove(event) {
       this.$emit('move', event);
     },
 
+    touchMove(event) {
+      let { touches } = event;
+
+      console.log(touches[0]);
+      this.$emit('move', touches[0]);
+    },
+
     release() {
+      console.log('release')
       this.$emit('release', event);
     },
   }

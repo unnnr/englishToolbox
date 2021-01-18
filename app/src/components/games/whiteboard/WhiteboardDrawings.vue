@@ -6,7 +6,8 @@
       class="whiteboard__drawings-collection"
       viewBox="0 0 1400 600"
       xmlns="http://www.w3.org/2000/svg"
-      @mousedown="onClick">
+      @mousedown="onClick"
+      @touchstart="onTouch">
 
       <component
         :is="getComponent(painting)"
@@ -16,8 +17,9 @@
         
         v-bind="painting.body"
         :style="{'z-index': painting.id}"
-        
-        @mousedown.native.stop="event => onClick(event, painting)"> 
+
+        @mousedown.native.stop="event => onClick(event, painting)"
+        @touchstart.native.stop="event => onTouch(event, painting)"> 
       </component>
       
     </svg>
@@ -60,7 +62,17 @@ export default {
 
   methods: {
     onClick(event, el) {
+      console.log('click');
+
       this.$emit('select', {el, event})
+    },
+
+    onTouch(event, el) {
+      let { touches } = event;
+
+      console.log('touchMove');
+
+      this.$emit('select', {el, event: touches[0]})
     },
 
     getComponent(el) {
