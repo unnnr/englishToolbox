@@ -193,6 +193,8 @@
     position: absolute
     top: 0
     left: 0
+    @include md-devices
+      margin: 5px 0 0 15px
 
   &--users
     width: max-content
@@ -204,6 +206,8 @@
     position: absolute
     top: 0
     right: 0
+    @include md-devices
+      padding-right: 15px
 
     .whiteboard__group-inner
       display: grid
