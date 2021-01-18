@@ -29,8 +29,8 @@
             <button
               class="audio-player__toggler"
               :class="{
-                'audio-player__toggler--play': playing,
-                'audio-player__toggler--pause': !!!playing}"
+                'audio-player__toggler--play': !!!playing,
+                'audio-player__toggler--pause': playing}"
               :disabled="disabled"
               @click="togglePlauPause">
             </button>

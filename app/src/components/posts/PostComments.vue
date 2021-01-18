@@ -7,7 +7,7 @@
 
       <shrink-button 
         class="addition__tab-shrink-button"
-        :disabled="empty"
+        :disabled="togglable"
         :shrinked="shrinked"
         @click.native="toggle">
       </shrink-button>
@@ -103,6 +103,10 @@ export default {
 
     empty() {
       return !!!this.comments.length;
+    },
+
+    togglable() {
+      return this.comments.length < 2;
     },
 
     commentsShown() {
