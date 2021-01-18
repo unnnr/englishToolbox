@@ -1,11 +1,16 @@
 <template>
   <div 
-    class="games__selected"
-    :class="{'games_selected--none': none}">
+    class="games__selected">
+
 
     <transition
       name="fade"
       mode="out-in">
+
+      <img 
+        v-if="none" 
+        class="game__overlay"
+        src="img/svg/overlay-games.svg" alt="">
 
       <component :is="game"/>
 

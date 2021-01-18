@@ -1,5 +1,5 @@
 <template>
-  <div class="whiteboard">
+  <div class="whiteboard game">
     <whiteboard-drawings-preview/>
 
     <whiteboard-users/>

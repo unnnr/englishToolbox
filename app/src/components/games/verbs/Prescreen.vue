@@ -1,7 +1,7 @@
 <template>
   <div class="games__overlay">
     <h2 class="games__overlay-title heading-second">Irregular Verbs</h2>
-    <p class="games__overlay-description text-second">description description</p>
+    <p class="games__overlay-description text-second">Table of most usefull irregular words</p>
     
     <button class="games__overlay-button" @click="start">
       start

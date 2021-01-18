@@ -16,7 +16,7 @@
         </div>
 
         <h5 class="heading-fifth">Matcher</h5>
-        <p class="text-fourth">Tempor sit morbi et eleifend aliquam habitant in vitae gravida.</p>
+        <p class="text-fourth">Choose the group of words to start the game.</p>
         
         <div 
           class="matcher-list__card" 

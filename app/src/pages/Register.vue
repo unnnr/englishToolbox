@@ -20,12 +20,6 @@
 			<confirm-button
 				class="button-primary"/>
 
-			<p class="auth__subtitle text-fourth">Or login with</p>
-			<div class="auth__buttons">
-				<button class="auth__button auth__button--google" type="button"></button>
-				<button class="auth__button auth__button--facebook" type="button"></button>
-				<button class="auth__button auth__button--twitter" type="button"></button>
-			</div>
 
 			<div class="auth__links">
 				<router-link

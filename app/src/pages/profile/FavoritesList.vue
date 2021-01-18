@@ -4,9 +4,9 @@
 
     <transition name="fade" mode="out-in">
       <div key="overlay" v-if="empty" class="pool">
-        <div class="card">
+        <div class="card card--favorites">
           <div 
-            class="card__image"
+            class="card__image "
             :style="{'background-image': overlaySrc}">
           </div>
         </div>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       favorites: [],
-      overlay: 'img/svg/whiteboard.svg'
+      overlay: 'img/svg/overlay-favorites.svg'
     }
   },
 

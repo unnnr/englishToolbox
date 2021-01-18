@@ -1,6 +1,6 @@
 <template>
   <whiteboard-events-grip 
-    class="whiteboard"
+    class="whiteboard game"
     :class="{'whiteboard--painting': drawing,
              'inspecting': inspecting}"
     :active="drawing"

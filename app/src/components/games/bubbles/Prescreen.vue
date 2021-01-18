@@ -7,7 +7,7 @@
       secondary>
       
       <h2 class="heading-second">Bubbles</h2>
-      <p class="text-fourth">Id elit habitasse pellentesque proin <br> nulla quis dui faucibus</p>
+      <p class="text-fourth">Enter the text below you want to memorise</p>
 
       <v-textarea
         name="text"

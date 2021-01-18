@@ -5,16 +5,18 @@
   background: $color-white
   box-shadow: $box-shadow-primary
   border-radius: $border-radius-primary
-  background-image: url("http://localhost:8080/img/svg/overlay-games.svg")
-  background-repeat: no-repeat
-  background-position: center
-  background-size: auto 50%
   // 
   position: relative
   overflow: hidden  
 
-.game__selected--none 
-  background-image: none
+.game__overlay
+  position: absolute
+  left: 50%
+  top: 50%
+  height: 60%
+  transform: translate(-50%, -50%)
+  display: block
+
   
 .games__pool
   .card__image
@@ -31,6 +33,7 @@
   width: 100%
   left: 0
   top: 0
+  background: $color-white
 
 
 .game__controls

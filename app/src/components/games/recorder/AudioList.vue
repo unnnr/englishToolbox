@@ -17,7 +17,7 @@
         </div>
       </div>
       <h5 class="heading-fifth">Audio recorder</h5>
-      <p class="text-fourth">Tempor sit morbi et eleifend aliquam habitant in vitae gravida.</p>
+      <p class="text-fourth">Choose the sample to practice your pronunciation.</p>
 
       <div 
         class="recorder-list__card"

@@ -34,10 +34,6 @@
       <p class="copyright__text">
         © Copyright 2021 englishnerd − All Rights Reserved
       </p>
-      <button class="copyright__development">
-        <p class="copyright__development-text">website by <span>olverica</span></p>
-        <img class="copyright__development-logo" src="img/svg/olverica.svg" alt="">
-      </button>
     </div>
   </section>
 </template>
