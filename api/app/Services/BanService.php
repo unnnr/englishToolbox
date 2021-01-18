@@ -51,6 +51,7 @@ class BanService
         $reason = $request->input('reason');
         $ban = $user->ban()->create([
             'reason' => $reason,
+            'email' => $user->email
         ]);
 
         // Deleting all user comment

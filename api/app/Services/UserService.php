@@ -57,12 +57,16 @@ class UserService
         $user->avatar->delete();  
         
         $ban = $user->ban;
-        if ($ban)
-            $ban->delete();
+        if ($ban) {
+            $ban->user_id = null;
+            $ban->update();
+        }
 
         // Removing one to many relationship
         $user->verificationCodes()->delete();
         $user->comments()->delete();
         $user->views()->delete();
+
+        $user->delete();
     }
 }

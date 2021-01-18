@@ -13,7 +13,7 @@ class UpdateUser extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !!!auth()->user()->banned;
     }
 
     /**

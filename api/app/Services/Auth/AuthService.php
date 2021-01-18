@@ -10,6 +10,7 @@ use App\Services\Traits\CreatesDefaultAvatar;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Ban;
 
 class AuthService
 {
@@ -19,6 +20,13 @@ class AuthService
 
     public function register(Request $request)
     {
+        if (Ban::where('email', $request->input('email'))->exists())
+        {
+            throw ValidationException::withMessages([
+                'email' => ['This email has been banned']
+            ]);
+        }
+
         $user = User::create($request->validated());
         
         $user->withAccessToken(
@@ -44,7 +52,7 @@ class AuthService
         if (!!!auth()->attempt($credionals))
         {
             throw ValidationException::withMessages([
-                'email' => [trans('auth.failed')]
+                'email' => [trans('auth.failed')],
             ]);
         }
 
