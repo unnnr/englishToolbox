@@ -68,6 +68,7 @@
         <button 
           class="profile__tab-button profile__tab-button--delete-profile text-sixth"
           type="button"
+          v-if="!!!admin"
           @click="deleteProfile">
           
           delete profile
@@ -117,7 +118,11 @@ export default {
     
     userEmail() {
       return this.user ? this.user.email : 'some@email.com';
-    }
+    },
+
+    admin() {
+      return this.user ? this.user.admin : false;
+    } 
   },
 
   mounted() {
