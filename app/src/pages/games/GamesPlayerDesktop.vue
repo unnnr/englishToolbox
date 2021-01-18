@@ -28,6 +28,12 @@ export default {
     none() {
       return !!!this.game;
     }
+  },
+
+  watch: {
+    game(value) {
+      console.log(value);
+    }
   }
 }
 </script>

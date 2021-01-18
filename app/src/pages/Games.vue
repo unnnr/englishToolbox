@@ -1,7 +1,7 @@
 <template>
   <section class="games container">
     <games-player
-      :game="game"
+      :game="component"
       @close="close"/>
     
     <games-pool
@@ -22,17 +22,24 @@ export default {
 
   data() {
     return {
-      game: null
+      game: null,
+      component: null
     }
   },
 
   methods: {
-    async select(component) {
-      this.game = component;
+    async select(game) {
+      this.game = game;
+
+      let module = await game.loader();
+      this.component = module.default;
+
+      this.$emit('select', game);
     },
 
     close() {
       this.game = null;
+      this.component = null;
     }
   }
 }

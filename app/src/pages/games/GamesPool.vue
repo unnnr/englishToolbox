@@ -45,12 +45,8 @@ export default {
   },
 
   methods: {
-    async select(game) {
-      let module = await game.loader();
-      let component = module.default;
-
-      this.selected = game;
-      this.$emit('select', component);
+    select(game) {
+      this.$emit('select', game);
     },
 
     isSelected(game) {
