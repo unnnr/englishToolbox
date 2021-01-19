@@ -50,8 +50,9 @@ import NumberCell from '@components/inputs/NumberCell'
     code: {
       get() {
         let code = '';
+
         for (let entry of this.inputs)
-          code += entry || '0';
+          code += entry;
 
         return code;
       },
@@ -68,7 +69,9 @@ import NumberCell from '@components/inputs/NumberCell'
 
           this.$set(this.inputs, i, char)
         }
-      }
+      },
+
+      cache: false
     },
   },
 
@@ -120,11 +123,12 @@ import NumberCell from '@components/inputs/NumberCell'
         event.clipboardData.getData('text').trim();
 
       this.code = value;
+      this.$emit('input', this.code);
+
       event.preventDefault();
     },
 
     onInput(index, value) {
-      console.log('onINput');
       this.inputs[index] = value; 
       this.$emit('input', this.code)
     },

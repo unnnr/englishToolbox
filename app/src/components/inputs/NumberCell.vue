@@ -60,23 +60,21 @@ export default {
           this.previous();
           return;
 
-        case 'Delete':
-          this.previous();
-          return;
-
         case 'Backspace':
-          this.previous();
+          if (!!!this.entry)
+            this.previous();
           return;
       }
     },
 
     update(data) {
-      if (data) {
+      if (data && data !== '-') {
         this.entry = data[0];
         this.next();
       }
       else {
         this.entry = '';
+        this.previous();
       }
       
       this.$el.value = this.entry;
@@ -85,8 +83,8 @@ export default {
     onInput(event) {
       let data = event.data;
 
+      this.$emit('input',  data ?  data[0] : '');
       this.update(data);
-      this.$emit('input', this.entry);
     },
   }
 }
