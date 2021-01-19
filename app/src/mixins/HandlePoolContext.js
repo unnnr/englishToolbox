@@ -35,7 +35,7 @@ const HandlePoolContext = {
 		},
 
 		contextFavorite(post) {
-			this.this.toggleFavorite(post);
+			this.toggleFavorite(post);
 		},
 
 		contextDelete(post) {
