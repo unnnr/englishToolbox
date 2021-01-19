@@ -10,8 +10,10 @@
       <div class="verbs__search">
         <input 
           v-model="entry"
-          type="text" 
+          ref="search"
           placeholder="search" 
+          type="text" 
+          @keydown="some"
           @input="search">
 
       </div>
@@ -66,6 +68,13 @@ export default {
   },
   
   methods: {
+    some(event) {
+      let { key } = event;
+
+      if (key === 'Enter')
+        this.$refs.search.blur();
+    },
+
     search() {
       this.selected =
         Verbs.search(this.entry);
