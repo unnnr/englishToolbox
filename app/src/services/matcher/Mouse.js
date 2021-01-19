@@ -60,7 +60,8 @@ class Mouse {
 
 
   clear(render) {
-    render.canvas.style.cursor = '';
+    if (render.canvas)
+      render.canvas.style.cursor = '';
   }
 }
 

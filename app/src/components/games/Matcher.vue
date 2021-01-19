@@ -60,12 +60,18 @@ export default {
     }
   },
 
+  inject: ['$mobile'],
+
   computed: {
     matched() {
       if (!!!this.game || !!!this.game.world)
         return 0;
 
       return this.game.world.matches;
+    },
+
+    mobile() {
+      return this.$mobile();
     },
 
     progress() {
@@ -85,6 +91,17 @@ export default {
     ended(value) {
       if (value)
         this.stopTimer();
+    }
+  },
+
+  mounted() {
+    if (this.mobile) {
+      Config.font.size =
+        Config.font.mobile
+    }
+    else {
+      Config.font.size =
+        Config.font.desktop
     }
   },
 
@@ -189,7 +206,8 @@ export default {
 
 <style lang="sass">
 
-.matcher canvas
+.matcher, .matcher canvas
   width: 100%
+  height: 100%
 
 </style>

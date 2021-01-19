@@ -30,6 +30,8 @@ const Config  = {
 
   font: {
     size: 20,
+    desktop: 30,
+    mobile: 40,
   },
 
   group: {
