@@ -31,7 +31,7 @@ const Config  = {
   font: {
     size: 20,
     desktop: 30,
-    mobile: 40,
+    mobile: 50,
   },
 
   group: {

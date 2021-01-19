@@ -87,6 +87,18 @@ class Animations {
     this.animations.push(animation);
   }
 
+  remove(target) {
+    for (let i = 0; i < this.animations.length; i++) {
+      let animation = this.animations[i];
+
+      if (animation.target !== target)
+        continue;
+      
+      this.animations.splice(i, 1);
+      return;
+    }
+  }
+
   fireAnimation(animation) {
     let index = this.animations.indexOf(animation);
     if (index !== -1)

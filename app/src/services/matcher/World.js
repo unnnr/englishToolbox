@@ -186,8 +186,11 @@ class MatcherWorld {
     if (!!!captured)
       return;
 
-    if (Groups.merge(first, second, this.world))
-      return true
+    if (Groups.merge(first, second, this.world)) {
+      Animations.remove(first);
+      Animations.remove(second);
+      return;
+    }
 
     Collisions.collideBricks(first, second, captured);
 
