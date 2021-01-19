@@ -54,7 +54,13 @@ export default {
 
   computed: {
     disabled() {
-      return this.blob && (this.duration === 0 || this.duration === Infinity);
+      if (this.blob && (this.duration === 0 || this.duration === Infinity))
+        return true;
+
+      if (!!!this.blob && !!!navigator.mediaDevices)
+        return true;
+
+      return false; 
     }
   },
 
