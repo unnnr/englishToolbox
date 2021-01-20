@@ -1,5 +1,9 @@
 <template>
-  <div class="bubbles__body">
+  <div 
+    class="bubbles__body"
+    :style="{'margin-top': marginTop}"
+    @transitionend="moved">
+
     <transition
       name="fade"
       mode="out-in">
@@ -16,16 +20,19 @@
 
           <missing-words
             v-if="group.missing"
-            v-model="group.entry"
-
             ref="placeholders"
+
             :key="'placeholder_' + index"
             :missing="group.missing"
+            :value="group.entry"
             
             :correct="group.correct"
             :incorrect="group.incorrect"
             
-            @resolve="resolve(index)"/>
+            @resolve="resolve(index)"
+            @focus="onFocus"
+            @blur="onBlur"
+            @input="options => onInput(index, options)"/>
         </template> 
 
       </div>
@@ -60,9 +67,15 @@ export default {
     return {
       lines: [],
       disabled: false,
-      counter: 0
+      counter: 0,
+
+      shift: 0,
+      shiftToY: 100,
+      shiftFrom: 0,
     }
   },
+
+  inject: ['$mobile'],
 
   computed: {
     corrrect() {
@@ -75,6 +88,14 @@ export default {
       }
 
       return true;
+    },
+
+    marginTop() {
+      return -this.shift + 'px';
+    },
+
+    mobile() {
+      return this.$mobile();
     }
   },
 
@@ -89,6 +110,36 @@ export default {
   },
 
   methods: {
+    onFocus(event) {
+      if (!!!this.moving)
+        this.shiftFrom = event.target.offsetTop;
+
+      this.adjust();
+    },
+
+    adjust() {
+      if (!!!this.mobile)
+        return;
+
+      let top = this.shiftToY;
+      this.shift = this.shiftFrom - this.shiftToY;
+    },
+
+    onBlur(event) {
+      this.shift = 0;
+      this.moving = true;
+    },
+
+    moved() {
+      this.moving = false;
+    },
+
+    onInput(index, {entry, event}) {
+      this.lines[index].entry = entry;
+      this.adjust(event);
+    },
+
+
     compare() {
       this.disabled = true;
 
@@ -106,11 +157,6 @@ export default {
     },
 
     resolve(index) {
-      if (index >= this.lines.length - 1) {
-        this.compare();
-        return;
-      }
-        
       let next = 0;
       for (let i = 0; i < index + 1; i++) {
         if (this.lines[i].missing)
@@ -118,6 +164,11 @@ export default {
       }
 
       let input = this.$refs.placeholders[next];
+      if (!!!input) {
+        this.compare();
+        return;
+      }
+
       input.focus();
     }, 
 
@@ -143,3 +194,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+
+.bubbles__body
+  transition: margin .3s 
+
+</style>

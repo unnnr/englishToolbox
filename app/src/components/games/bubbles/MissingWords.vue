@@ -19,10 +19,10 @@
 
       :maxlength="50"
 
-      @focus="prepareCopy"
+      @focus="onFocus"
       @keyup="onKeyup"
       @input="onInput"
-      @blur="resolveCopy"/>
+      @blur="onBlur"/>
 
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
 
       this.prepareCopy();
       this.resize();
-      this.resolveCopy();
+      this.resolveCopy();      
     },
 
     incorrect(value) {
@@ -130,9 +130,9 @@ export default {
       this.copy.remove();
     },
 
-    onInput() {
-      this.$emit('input', this.entry);
+    onInput(event) {
       this.resize();
+      this.$emit('input', {entry: this.entry, event});
     },
 
     onKeyup(event) {
@@ -140,9 +140,19 @@ export default {
         this.$emit('resolve');
     },
 
-    focus() {
+    focus(event) {
       let input = this.$refs.input;
       input.focus();
+    },
+
+    onFocus() {
+      this.prepareCopy();
+      this.$emit('focus', event);
+    },
+
+    onBlur(event) {
+      this.resolveCopy();
+      this.$emit('blur', event);
     }
   }
 }

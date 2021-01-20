@@ -43,7 +43,6 @@ export default {
 
   data() {
     return {
-      top: 0,
       shift: 0,
       shiftToY: 150
     }
