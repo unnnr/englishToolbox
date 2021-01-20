@@ -7510,10 +7510,11 @@ button:active {
 }
 
 .cookies {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   margin-bottom: 30px;
   width: 100%;
+  z-index: 60;
 }
 
 .cookies__body {
