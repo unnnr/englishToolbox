@@ -305,15 +305,21 @@ body
 
 .cookies__body
   padding: 15px
+  padding-left: 30px
   border-radius: $border-radius-primary
   display: grid
   grid-auto-flow: column
   justify-content: space-between
   align-items: center
   grid-template-columns: 1fr max-content
-  background-color: $color-white
+  background-color: transparentize($color-almost-black, 0.1)
+  backdrop-filter: blur(5px) saturate(150%)
   box-shadow: $box-shadow-primary
   grid-column-gap: 15px
+
+.cookies__text
+  color: #e3e3e3
+  font-weight: $medium
 
 .cookies__button
   padding: 0 25px
