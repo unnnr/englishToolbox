@@ -141,8 +141,9 @@ class Links {
       routes: this.compute(),
 
       scrollBehavior: this.scrollBehavior,
-      beforeEach: this.scrollToTop
     });
+
+    this.router.beforeEach(this.scrollToTop);
   }
 }
 
