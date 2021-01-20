@@ -20,7 +20,6 @@
 			<confirm-button
 				class="button-primary"/>
 
-
 			<div class="auth__links">
 				<router-link
 					class="auth__link text-fifth"
@@ -29,12 +28,20 @@
 					Already have an account?
 				</router-link>
 			</div>
+
 			
 		</v-form>
 
 		<img 
 			class="auth__poster" 
 			:src="imageUrl">
+
+		<button 
+			style="width: 100px; height: 300px; background: red"
+			@click="som"/>
+
+
+		<captcha ref="captcha"/>
 
 	</main>
 </template>
@@ -45,6 +52,7 @@ import ConfirmButton from '@components/buttons/ConfirmButton'
 import PasswordInput from '@components/inputs/PasswordInput'
 import EmailInput from '@components/inputs/EmailInput'
 import NameInput from '@components/inputs/NameInput'
+import Captcha from '@components/Captcha'
 import VForm from '@components/validation/VForm'
 import Auth from '@services/Auth'
 
@@ -55,6 +63,7 @@ export default {
 		PasswordInput,
 		EmailInput,
 		NameInput,
+		Captcha,
 		VForm
 	},
 
@@ -69,7 +78,18 @@ export default {
 			this.$router.push({name: 'home'});
 		},
 
+		som() {
+			this.submit();
+		},
+
 		async submit(data) {
+
+			let captcha = this.$refs.captcha;
+			let key = await captcha.validate();
+
+			console.log(key);
+			return;
+
 			await Auth.register(data);
 
 			this.redirect();
