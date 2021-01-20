@@ -28,18 +28,12 @@
 					Already have an account?
 				</router-link>
 			</div>
-
 			
 		</v-form>
 
 		<img 
 			class="auth__poster" 
 			:src="imageUrl">
-
-		<button 
-			style="width: 100px; height: 300px; background: red"
-			@click="som"/>
-
 
 		<captcha ref="captcha"/>
 
@@ -78,14 +72,14 @@ export default {
 			this.$router.push({name: 'home'});
 		},
 
-		som() {
-			this.submit();
+		async appedRecaptcha(data) {
+			let captcha = this.$refs.captcha;
+			let key = await captcha.validate();
+			data.append('g-recaptcha-response', key);
 		},
 
 		async submit(data) {
-			let captcha = this.$refs.captcha;
-			let key = await captcha.validate();
-
+			await this.appedRecaptcha(data);
 			await Auth.register(data);
 
 			this.redirect();

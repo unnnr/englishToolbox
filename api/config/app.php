@@ -167,6 +167,7 @@ return [
          */
         Alaouy\Youtube\YoutubeServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
         'Image' => Intervention\Image\Facades\Image::class
     ],

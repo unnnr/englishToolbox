@@ -28,6 +28,7 @@ class RegisterUser extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required|string|between:5,64',
             'confirmation' => 'required|same:password',
+            'g-recaptcha-response' => 'required|recaptcha'
         ];
     }
 }
