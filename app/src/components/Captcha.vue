@@ -16,7 +16,7 @@ export default {
   },
 
   computed: {
-    loaded() {
+    rendered() {
       return this.widgetId !== null;
     },
 
@@ -28,23 +28,35 @@ export default {
   mounted() {
     this.load()
   },
+
+  beforeDestroy() {
+    if (this.rendered)
+      window.grecaptcha.reset(this.widgetId);
+  },
   
   methods: {
   	load() {
-			let script = document.createElement('script');
+      console.log(window.grecaptcha);
+      if (window.grecaptcha) {
+        this.loaded();
+        return
+      }
 
+			let script = document.createElement('script');
 			script.setAttribute('async', true);
 			script.setAttribute('defer', true);
       script.setAttribute('src', this.captchaHref);
-      script.addEventListener('load', () => {
-        grecaptcha.ready(this.render)
-      });
+      script.addEventListener('load', this.loaded);
 
 			document.body.append(script);
     },
 
+    loaded() {
+      window.grecaptcha.ready(this.render)
+    },
+
     render() {
-      this.widgetId = grecaptcha.render(this.id, {
+      this.widgetId = window.grecaptcha.render(this.id, {
         'sitekey': this.key,
         'size': "invisible",
         'callback': this.submit,
@@ -63,11 +75,11 @@ export default {
     },
 
     execute() {
-      return grecaptcha.execute(this.widgetId, {action: 'login'});
+      return window.grecaptcha.execute(this.widgetId, {action: 'login'});
     },
 
     validate(passed) {
-      if (!!!this.loaded)
+      if (!!!this.rendered)
         return null;
 
       let promise = new Promise( resolve => {

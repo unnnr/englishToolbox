@@ -83,12 +83,8 @@ export default {
 		},
 
 		async submit(data) {
-
 			let captcha = this.$refs.captcha;
 			let key = await captcha.validate();
-
-			console.log(key);
-			return;
 
 			await Auth.register(data);
 
