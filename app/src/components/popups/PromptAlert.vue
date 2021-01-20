@@ -109,14 +109,6 @@ export default {
       return input.entry;
     },
 
-    validated() {
-      let input = this.$refs.input;
-      if (!!!input)
-        return false;
-
-      return input.validated;
-    },
-
     password() {
       return this.type === 'password';
     },
@@ -150,7 +142,7 @@ export default {
       if (!!!input)
         return false;
 
-      return input.validate();
+      return input.validated;
     },
 
     cancel() {
@@ -158,7 +150,7 @@ export default {
     },
 
 		confirm() {
-      if (!!!this.validated)
+      if (!!!this.validate())
         return;
 
       this.$emit('confirm', { 

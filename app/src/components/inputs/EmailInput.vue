@@ -36,8 +36,8 @@ export default {
       if (!!!input)
         return false;
 
-      return input.validated;
-    }
+      return input.validate();
+    },
   },
 
   methods: {

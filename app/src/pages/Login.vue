@@ -75,7 +75,6 @@ export default {
 				
 				bus.dispatch('alert-error', {	message });
 			}
-
 			let data = new FormData();
 			data.append('email', email);
 
