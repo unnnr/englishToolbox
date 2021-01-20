@@ -19,7 +19,7 @@
           :grade="grade"
           :disabled="loading"
           
-          v-context:items="createContext(id)"/>
+          v-context:items="() => createContext(id)"/>
 
       </swiper-slide>
     </swiper>
@@ -113,9 +113,7 @@ export default {
 
       let _this = this;
 
-      return () => {
-        return { 'Delete': showAlert }
-      };
+      return { 'Delete': showAlert }
     },
 
     showEditor() {
