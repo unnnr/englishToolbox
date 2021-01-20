@@ -7508,3 +7508,35 @@ button:active {
   -webkit-transition-delay: .55s !important;
           transition-delay: .55s !important;
 }
+
+.cookies {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.cookies__body {
+  padding: 15px;
+  border-radius: 15px;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: 1fr max-content;
+      grid-template-columns: 1fr -webkit-max-content;
+      grid-template-columns: 1fr max-content;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+          box-shadow: 0 5px 25px 0 rgba(132, 132, 153, 0.15);
+  grid-column-gap: 15px;
+}
+
+.cookies__button {
+  padding: 0 25px;
+}
