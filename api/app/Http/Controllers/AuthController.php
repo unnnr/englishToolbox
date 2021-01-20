@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')
-            ->except(['register', 'login']);
+            ->except(['register', 'login', 'createRecovery']);
     }
     
     public function register(AuthService $service, RegisterUser $request)
