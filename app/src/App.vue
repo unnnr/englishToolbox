@@ -1,5 +1,6 @@
 <template>
   <div class="root" id="app">
+    <cookie-popup/>
     <profile-popup/>
     <context-menu/>
     <tooltip/>
@@ -27,10 +28,12 @@ import ValidationLinker from '@plugins/ValidationLinker'
 import Context from '@plugins/ContextMenu'
 import ToolTip from '@plugins/ToolTip'
 
-import ProfilePopup from '@components/popups/ProfilePopup.vue';
+import ProfilePopup from '@components/popups/ProfilePopup'
+import CookiePopup from '@components/popups/CookiePopup'
 import Basement from '@components/layout/Basement'
 import Navbar from '@components/layout/Navbar'
 import Alert from '@components/popups/Alert'
+
 
 import bus from '@services/eventbus';
 
@@ -42,6 +45,7 @@ Vue.use(ToolTip);
 export default {
   components: {
     ProfilePopup,
+    CookiePopup,
     Basement,
     Navbar,
     Alert,
