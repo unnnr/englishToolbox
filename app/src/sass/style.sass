@@ -292,6 +292,27 @@ body
 @import pages/not-found
 @import presets/vue-styles
 
-// =====
-//  temp
-// =====
+// ========
+//  cookies
+// ========
+
+.cookies
+  position: absolute
+  bottom: 0
+  margin-bottom: 30px
+  width: 100%
+
+.cookies__body
+  padding: 15px
+  border-radius: $border-radius-primary
+  display: grid
+  grid-auto-flow: column
+  justify-content: space-between
+  align-items: center
+  grid-template-columns: 1fr max-content
+  background-color: $color-white
+  box-shadow: $box-shadow-primary
+  grid-column-gap: 15px
+
+.cookies__button
+  padding: 0 25px
