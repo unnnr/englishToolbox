@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
 
-class AuthenticatedUserResource extends JsonResource
+class AuthenticatedUserResource extends UserResource
 {
     /**
      * Transform the resource into an array.
@@ -14,18 +15,11 @@ class AuthenticatedUserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
+        $data = parent::toArray($request);
 
-            'name' => $this->name,
+        $data['auth'] =
+            $this->currentAccessToken()->plainTextToken;
 
-            'email' => $this->email,
-
-            'verified' => $this->hasVerifiedEmail(),
-    
-            'auth' => $this->currentAccessToken()->plainTextToken,
-
-            'admin' => true
-        ];
+        return $data;
     }
 }

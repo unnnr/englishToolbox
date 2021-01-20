@@ -39,6 +39,8 @@ class AuthService
 
         event(new Registered($user));
 
+        logger()->error($user->id);
+
         return (new AuthenticatedUserResource($user))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED); 
