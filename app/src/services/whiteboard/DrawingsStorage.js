@@ -77,7 +77,6 @@ export default class DrawingsStorage {
     let el = this.find(this.parseResponse(raw));
     let index = this.collection.indexOf(el);
 
-    console.log(el);
     if (index === -1)
       return;
 

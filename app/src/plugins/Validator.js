@@ -139,9 +139,6 @@ export default {
        
         Vue.directive('rule', {
             bind(el, binding) {
-
-                console.log(el, binding);
-
                 let option = {
                     name: binding.arg,
                     value: binding.value

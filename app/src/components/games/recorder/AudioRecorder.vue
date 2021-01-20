@@ -79,7 +79,6 @@ export default {
 
   methods: {
     loadPlayer() {
-      console.log('load p');
       this.position = 0;
       this.playing = false;
 

@@ -41,8 +41,6 @@ class Model
 
         for (let [name, value] of data.entries())
         {
-            console.log(PREFIX + this.__capitalizeFirst(name));
-
             // Comput comparing function
             let compare = this[PREFIX + this.__capitalizeFirst(name)];
             

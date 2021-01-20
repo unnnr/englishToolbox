@@ -11,8 +11,6 @@ export default class History {
 
     this.logs.splice(this.position);
     this.logs.push(command);
-
-    console.log('PUSH', this.position, this.logs);
   }
 
   redo() {

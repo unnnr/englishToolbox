@@ -36,7 +36,6 @@ export default {
   
   methods: {
   	load() {
-      console.log(window.grecaptcha);
       if (window.grecaptcha) {
         this.loaded();
         return

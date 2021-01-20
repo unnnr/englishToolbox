@@ -13,7 +13,8 @@
 
 				<div 
 					class="banner__slide"
-					:class="additionalClass">
+					:class="additionalClass"
+					@click="onClick(action)">
 					
 					<picture>
 						<source 
@@ -47,6 +48,7 @@
 <script>
 import { Swiper as SwiperClass, Pagination, Autoplay, Scrollbar } from 'swiper/core'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import Resolution from '@services/Resolution'
 import 'swiper/swiper-bundle.css'
 
 SwiperClass.use([Pagination, Autoplay, Scrollbar]);
@@ -55,8 +57,8 @@ const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass)
 
 export default {
 	components: {
+		SwiperSlide,
 		Swiper,
-		SwiperSlide
 	},
     
 	data() {
@@ -67,7 +69,7 @@ export default {
 			
 				speed: 900,
 				autoplay: { 
-					delay: 5000000,
+					delay: 4000,
 					disableOnInteraction: false
 				},
 
@@ -84,7 +86,7 @@ export default {
 				loop: true,
 			},
 
-			freezed: true,
+			mobile: false,
 
 			banners: [
 				{ 
@@ -93,22 +95,33 @@ export default {
 				},
 				{ 
 					name: 'banner-audios',
-					action: this.createRedirect('videos'),
+					action: this.createRedirect('audio'),
 				},
 				{ 
 					name: 'banner-charts',
-					action: this.createRedirect('videos'),
+					action: this.createRedirect('charts'),
 				},
 				{ 
 					name: 'banner-games',
-					action: this.createRedirect('videos'),
+					action: this.createRedirect('games'),
+				},
+				{ 
+					name: 'banner-recommendations',
+					action: this.createRedirect('recommendations'),
 				},
 			]
 		}
 	},  
 
+
+	mounted() {
+		Resolution.bind(this.resize);
+	},
+
 	beforeDestroy() {
 		let swiper = this.$refs.swiper;
+
+		Resolution.detach(this.resize);
 	},
 
 	computed: {
@@ -118,9 +131,13 @@ export default {
 	},
 
 	methods: {
-		freezeWidth() {
-			this.freezed = true;
+		onClick(action) {
+			if (this.mobile)
+				action();
+		},
 
+		resize(type) {
+			this.mobile = type === Resolution.MOBILE;
 		},
 
 		desktopUrl(fileName) {

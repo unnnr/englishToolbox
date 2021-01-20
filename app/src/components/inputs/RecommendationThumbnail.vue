@@ -72,7 +72,6 @@ export default {
 
   methods: {
     hasChanged() {
-      console.log(12312);
       return Boolean(this.file);
     },
     

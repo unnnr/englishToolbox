@@ -3,7 +3,6 @@ export function isName(options)
 {
     const {target, min, max} = options;
     
-    console.log(target);
     if (!!!target || typeof target.length !== 'number')
         return new Response(false, `Name is incorrect`);
 

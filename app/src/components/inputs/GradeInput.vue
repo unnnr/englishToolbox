@@ -80,7 +80,7 @@ export default {
 
         let task;
         while(task = this.list.shift())
-          await task() && console.log(task);
+          await task();
 
         this.pending = false;
       }
