@@ -26,7 +26,7 @@ class CreateComment extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required|string'
+            'message' => 'required|string|max:300'
         ];
     }
 }

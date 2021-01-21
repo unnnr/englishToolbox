@@ -24,13 +24,10 @@ class UpdateRecommendation extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'image',
-
-            'link' => 'string|url|max:100',
-
-            'title' => 'string|between:5,100',
-
-            'description' => 'string|between:5,300',
+            'image' => 'image|max:10240',
+            'link' => 'string|max:120',
+            'title' => 'string|max:100',
+            'description' => 'string|max:300',
         ];
     }
 }

@@ -25,6 +25,7 @@
           <description-input
             label="Text of review"
             name="text"
+            :max="256"
             required/>
         
           <h6 class="heading-sixth">Grade of review</h6>

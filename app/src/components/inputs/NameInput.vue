@@ -6,7 +6,7 @@
     icon="name"
     name="name"
     
-    :max="40"
+    :max="32"
     :min="3"
     
     v-bind="$attrs"

@@ -24,7 +24,7 @@ class VerifyReview extends FormRequest
     public function rules()
     {
         return [
-            
+            //
         ];
     }
 }
