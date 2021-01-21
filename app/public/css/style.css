@@ -384,7 +384,6 @@ body {
   grid-row-gap: 30px;
   margin-bottom: 100px;
   position: relative;
-  overflow: hidden;
 }
 
 @media (max-width: 1200px) {
