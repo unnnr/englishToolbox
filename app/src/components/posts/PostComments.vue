@@ -251,7 +251,7 @@ export default {
     },
 
     async loadComments() {
-      if (!!!this.target || !!!this.model)
+      if (!!!this.target || !!!this.target.id || !!!this.model)
         return;
 
       let postId = this.target.id;
