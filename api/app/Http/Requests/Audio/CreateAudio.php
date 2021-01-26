@@ -20,7 +20,7 @@ class CreateAudio extends CreatePost
         $audio = [
             'audioFile' => 'required|max:10240|mimes:mpga,wav',
             'imageFile' => 'required|max:10240|mimes:png,jpeg,gif',
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:65',
         ];
 
         return array_merge($post, $audio);
