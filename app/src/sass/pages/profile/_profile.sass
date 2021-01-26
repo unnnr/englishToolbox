@@ -5,8 +5,10 @@
   width: 100%
   height: 100%
   background: transparentize($color-almost-white, 0.3)
-  backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px)
   z-index: $z-second
+  @supports (-moz-appearance:none)
+    background: $color-almost-white
 
 .register-overlay__body
   height: calc( 100vh - 50px )
@@ -67,6 +69,7 @@
   height: 90px
   border: transparent 3px solid
   transition: border-color .2s ease-in-out
+  -moz-appearance: textfield
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button 
     -webkit-appearance: none
