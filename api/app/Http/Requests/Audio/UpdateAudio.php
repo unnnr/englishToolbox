@@ -20,7 +20,7 @@ class UpdateAudio extends UpdatePost
         $audio = [
             'imageFile' => 'max:10240|mimes:png,jpeg,gif',
             'audioFile' => 'max:10240|mimes:mpga,wav',
-            'title' => 'max:50',
+            'title' => 'max:65',
         ];
 
         return array_merge($post, $audio);
