@@ -15,6 +15,8 @@ class Audio extends Post implements CreatesThumbnail
 
     public const DEFAULT_TAG = 'audio';
 
+    protected $type = 'audio';
+
     protected $fillable = [
         'title', 'description', 'imageFile', 'audioFile', 'views'
     ];
