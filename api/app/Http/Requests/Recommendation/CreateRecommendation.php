@@ -24,13 +24,10 @@ class CreateRecommendation extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image',
-
-            'link' => 'required|string|url|max:100',
-
+            'image' => 'required|image|max:10240',
+            'link' => 'required|string|max:120',
             'title' => 'required|string|between:5,100',
-
-            'description' => 'required|string|between:5,300',
+            'description' => 'required|string|max:300',
         ];
     }
 }

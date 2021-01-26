@@ -24,7 +24,8 @@
               :title="hit.title"
 
               :main-tag="hit.mainTag"
-              :tags="hit.tags"/>
+              :tags="hit.tags"
+              @click.native="redirectTo(hit)"/>
 					</div>
 				</div>
 			</div>
@@ -123,11 +124,20 @@ export default {
       this.hits = response.hits.slice(0, 5);
     },
 
+    redirectTo(hit) {
+      let id = hit.objectID;
+      let type = hit.type;
+
+      this.$router.push({
+        path: '/'  + type + '/' + id
+      }).catch(() => null);
+    },
+
     onInput() {
       let callback = this.preparedRequest;
       if (typeof callback === 'function')
         callback();
-    },
+    }
   }
 }
 </script>

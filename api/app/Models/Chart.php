@@ -11,6 +11,8 @@ class Chart extends Post implements CreatesThumbnail
 
     public const DEFAULT_TAG = 'chart';
 
+    protected $type = 'charts';
+
     protected $fillable = [
         'title', 'description', 'image', 'views'
     ];

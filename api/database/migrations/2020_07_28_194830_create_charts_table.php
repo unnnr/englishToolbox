@@ -17,6 +17,7 @@ class CreateChartsTable extends Migration
     public function up()
     {
         Storage::makeDirectory(Chart::IMAGE_PATH);
+        Storage::makeDirectory(Chart::THUMBNAIL_PATH);
 
         Schema::create('charts', function (Blueprint $table) {
             $table->id();

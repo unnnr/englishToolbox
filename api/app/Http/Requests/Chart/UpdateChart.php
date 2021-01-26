@@ -19,7 +19,7 @@ class UpdateChart extends UpdatePost
         // Only chart rules
         $chart = [
             'image' => 'max:10240|file|mimes:png,jpeg,gif',
-            'title' => 'string|max:50',
+            'title' => 'string|max:65',
         ];
 
         return array_merge($post, $chart);

@@ -17,7 +17,7 @@ class CreateAudioTable extends Migration
     public function up()
     {
         Storage::makeDirectory(Audio::IMAGE_PATH);
-        Storage::makeDirectory(Audio::AUDIO_PATH);
+        Storage::makeDirectory(Audio::THUMBNAIL_PATH);
         
         Schema::create('audio', function (Blueprint $table) {
             $table->id();

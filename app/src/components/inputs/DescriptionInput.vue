@@ -5,7 +5,7 @@
 
     :optional="optional"    
     :label="label"
-    :max="180"
+    :max="max"
 
     v-bind="$attrs"
     v-validate/> 
@@ -18,13 +18,15 @@ export default {
   components: { VTextarea },
 
   props: {
-    defaultValue: { type: String, default: '' },
+    required: { type: Boolean, default: false },
     
+    defaultValue: { type: String, default: '' },
+
     label: { type: String, default: 'Post description' },
 
     name: { type: String, default: 'description'},
 
-    required: { type: Boolean, default: false },
+    max: { type: Number, default: 180 },
   },
 
   computed: {

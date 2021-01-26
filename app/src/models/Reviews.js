@@ -25,7 +25,7 @@ class Reviews extends Model
         let reviews = [];
 
         if (this.verifiedLoaded)
-            reviews = this.__cache.get();
+            reviews = this.__cache.get() || [];
         else
         {
             let response = await Http.get({

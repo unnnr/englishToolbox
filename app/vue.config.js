@@ -29,14 +29,6 @@ module.exports = {
 
                 // Bridges between frondend and backend
                 '@models': path.resolve(__dirname, 'src/models'),
-
-                //  |--------------------------------------------------------------------------
-                //  | TEMPORARY TEMPORARY TEMPORARY TEMPORARY TEMPORARY TEMPORARY TEMPORARY
-                //  |--------------------------------------------------------------------------
-                //  |
-
-
-                '@states': path.resolve(__dirname, 'src/states'),
             }
         }
     }

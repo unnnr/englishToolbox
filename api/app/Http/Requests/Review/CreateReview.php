@@ -26,7 +26,7 @@ class CreateReview extends FormRequest
         return [
             'grade' => ['required', 'integer', 'between:1,5'],
             'title' => ['required', 'string', 'between:1,100'],
-            'text' => ['required', 'string'],
+            'text' => ['required', 'string', 'max:300'],
         ];
     }
 }

@@ -19,7 +19,7 @@ class CreateChart extends CreatePost
         // Only chart rules
         $chart = [
             'image' => 'required|max:10240|mimes:png,jpeg,gif',
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:65',
         ];
 
         return array_merge($post, $chart);

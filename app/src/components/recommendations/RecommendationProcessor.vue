@@ -18,6 +18,7 @@
       class="i-recommend__card-textarea"
       :default-value="description"
       :autoGrow="false"
+      :max="256"
       required/>
 
     <link-input 

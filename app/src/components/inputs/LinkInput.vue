@@ -5,9 +5,7 @@
     name="link"
     
     :value="defaultValue"
-
-    :max="64"
-    :min="3"
+    :max="100"
 
     v-validate/>
 </template>
