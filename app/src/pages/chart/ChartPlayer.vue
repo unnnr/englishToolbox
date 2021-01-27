@@ -43,7 +43,7 @@ export default {
     },
 
     overlayUrl() {
-      return 'url(' + this.overlay + ')'
+      return 'url(' + window.origin + '/' + this.overlay + ')'
     },
 
     image() {
