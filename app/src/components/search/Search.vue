@@ -103,10 +103,12 @@ export default {
   methods: {
     show() {
       this.shown = true;
+      this.$emit('open');
     },
 
     hide() {
       this.shown = false;
+      this.$emit('close');
     },
 
     request(helper) {

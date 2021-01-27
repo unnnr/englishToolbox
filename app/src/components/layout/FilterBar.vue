@@ -2,7 +2,8 @@
 	<section class="filter container">
 		<div class="filter__body">
 
-			<search/>
+			<search
+				@open="close"/>
 
 			<button 
 				class="filter__shrink-button"
@@ -132,7 +133,11 @@ export default {
 				return;
 
 			shrinkable.toggle();
-		}
+		},
+
+		close() {
+			this.$refs.shrinkable.close();
+		},
 	}
 }
 </script>
