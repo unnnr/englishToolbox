@@ -102,7 +102,6 @@ export default {
     }
   },
 
-
   computed: {
     target() {
       return this.$target();
@@ -173,6 +172,15 @@ export default {
   watch: {
     volume(value) {
       return this.player.volume = value;
+    },
+
+    target(value) {
+      if (!!!value)
+        return;
+
+      this.progress = 0;
+      this.blurred = true;
+      this.playing = false;
     },
     
     audio: {
