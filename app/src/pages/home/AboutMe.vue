@@ -2,7 +2,10 @@
   <section class="about-me container">
 
     <div class="about-me__person">
-      <div class="abot-me__photo">
+      <div 
+        class="abot-me__photo"
+        :style="{'background-image': getUrl(photo)}">
+        
         <h4 class="about-me__name heading-fourth">Irina Ivanova</h4>
       </div>
     </div>
@@ -16,17 +19,20 @@
 
     <div 
       class="about-me__merit"
-      v-for="({description, title}, index) in achivments"
+      v-for="(merit, index) in achivments"
       :key="index">
 
-      <div class="about-me__merit-picture about-me__picture--first">
+      <div 
+        class="about-me__merit-picture about-me__picture--first"
+        :style="{'background-image': getUrl(merit.image)}">
+
         <h5 class="about-me__merit-title heading-fifth">
-          {{ title }}
+          {{ merit.title }}
         </h5>
       </div>
       
       <p class="about-me__merit-text text-second">
-        {{ description }}
+        {{ merit.description }}
       </p>
     </div>
 
@@ -37,7 +43,7 @@
 export default {
   data() {
     return {
-      image: '',
+      photo: 'img/about_me_photo.png',
 
      /*  description: 'My name is Mary Cousins, lorem ipsum dolor sit amet, consectetur adipiscing '
                  + 'elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere morbi leo urna molestie at '
@@ -47,18 +53,27 @@ export default {
     
       achivments: [
         {
+          image: 'img/about_me_merit_1.png',
           title: 'Grammar practice',
           description: `"Their" or 'there"? "What's up?" or "WhatsApp"? "Lie" or "lay"? All those tine but critical nuances can be sometimes annoying. Learn the difference and practise using them with confidence.`
         },
         {
+          image: 'img/about_me_merit_2.png',
           title: 'Real Life English',
           description: 'All the exercises on our website are based on American, Canadian, Australian, and British TV shows, movies, series, ans real-life situations.'
         },
          {
+          image: 'img/about_me_merit_3.png',
           title: 'Grammar practice',
           description: 'Master all four essential skills (listening, speaking, writing, reading) with us to boost your exam scores.'
         },
       ],
+    }
+  },
+
+  methods: {
+    getUrl(link) {
+      return 'url(' + link + ')';
     }
   }
 }

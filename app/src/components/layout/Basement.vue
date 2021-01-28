@@ -52,12 +52,12 @@ export default {
   data() {
     return {
       contacts: [
-        { name: 'youtube',            class: 'footer__contact--youtube', link:'https://youtube.com' },
-        { name: '@Lerankara',         class: 'footer__contact--twetter', link:'https://twitter.com/Lerankara' },
-        { name: 'Leranka#3767',       class: 'footer__contact--discord', link:'https://discord.com' },
-        { name: '@lera.novaya',       class: 'footer__contact--facebook',link:'https://www.facebook.com/lera.novaya' },
-        { name: 'tash7272@gmail.com', class: 'footer__contact--mail',    link:'https://gmail.com' },
-        { name: '@EnglishNerd',       class: 'footer__contact--skype',   link:'https://skype.com' },
+        { name: '@Lerankara',         class: 'footer__contact--twetter',  link:'https://twitter.com/Lerankara' },
+        { name: 'youtube',            class: 'footer__contact--youtube',  link:'https://youtube.com' },
+        { name: '@lera.novaya',       class: 'footer__contact--facebook', link:'https://www.facebook.com/lera.novaya' },
+        { name: 'Leranka#3767',       class: 'footer__contact--discord',  link:'https://discord.com' },
+        { name: '@EnglishNerd',       class: 'footer__contact--skype',    link:'https://skype.com' },
+        { name: 'tash7272@gmail.com', class: 'footer__contact--mail',     link:'mailto:tash7272@gmail.com' },
       ],
 
       links: [
