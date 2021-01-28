@@ -190,6 +190,11 @@ export default {
       preview => Object.assign(this.preview, preview)});
   },
 
+  beforeDestroy() {
+    if (this.player)
+      this.player.pause();
+  },
+
   methods: {
     formatTime(seconds) {
       let parsedSeconds = Math.floor(seconds);

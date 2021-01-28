@@ -58,7 +58,11 @@ export default {
   computed: {
     firstPost() {
       return this.parsed[0];
-    }
+    },
+
+    postId() {
+      return this.$route.params.id;
+    },
   },
 
   mounted() {
@@ -83,13 +87,13 @@ export default {
         this.$options.selectedPost = null
       }
       
-       // Selecting current post
+      // Selecting current post
       if (post) {
         this.$options.selectedPost = post;
         this.$set(post, 'selected', true);
         
         // Updating url without appending it to router history
-        if (this.$route.params.id === post.id)
+        if (this.postId === post.id)
           return;
 
         this.$router.replace({ params: { id: post.id} })
@@ -110,7 +114,7 @@ export default {
         this.parseFavorites();
 
       // Selecting post from uri or simply first
-      let id = parseInt(this.$route.params.id);
+      let id = parseInt(this.postId);
       let post = this.findById(id);
 
       if (post)
