@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import Echo from "laravel-echo"
-import Pusher from 'pusher-js'
 import Http from '@services/Http';
 
 export default class DrawingsStorage {
@@ -19,7 +18,7 @@ export default class DrawingsStorage {
 
     this.Echo = new Echo({
       broadcaster: 'pusher',
-      key: '546cc2506c4883dfb50f',
+      key: '546cc2506c4883dfb50f',  
       cluster: 'eu',
       authEndpoint: Http.origin + 'broadcasting/auth',
       encrypted: true,

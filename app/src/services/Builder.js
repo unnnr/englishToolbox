@@ -1,10 +1,10 @@
 class Builder {
   samples = [
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
   ];
 
   history = [];

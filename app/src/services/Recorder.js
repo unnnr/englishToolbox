@@ -1,11 +1,8 @@
 class Recorder {
   samples = [
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '0 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '1 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '2 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '3 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '4 Some text, some text, some text, some text, some text, some text, some text, some text' },
-    {audio: 'https://cors-anywhere.herokuapp.com/https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3', text: '5 Some text, some text, some text, some text, some text, some text, some text, some text' },
+    {audio: 'https://englishnerd.org/storage/records/chin_chan.mp3', text: '近前看其詳上寫著 秦香蓮年三十二歲那狀告當朝 駙馬郎欺君王瞞皇上 那悔婚男兒招東床' },
+    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'auf' },
+    {audio: 'https://englishnerd.org/storage/records/cow.mp3', text: 'Tylko jedno w głowie mam koksu pięć gram odlecieć sam W krainę za zapomnienia W głowie myśli mam kiedy skończy się ten stan Gdy już nie będę sam Bo wjedzie biały węgorz' },
   ];
 
   history = [];

@@ -3,13 +3,13 @@
 
     <div class="about-me__person">
       <div class="abot-me__photo">
-        <h3 class="about-me__name heading-third">Irina Ivanova</h3>
+        <h4 class="about-me__name heading-fourth">Irina Ivanova</h4>
       </div>
     </div>
 
     <div class="about-me__paragraph">
       <h2 class="about-me__title heading-first">About me</h2>
-      <p class="about-me__text text-first">
+      <p class="about-me__text text-second">
         {{ description }}
       </p>
     </div>
@@ -20,9 +20,9 @@
       :key="index">
 
       <div class="about-me__merit-picture about-me__picture--first">
-        <h4 class="about-me__merit-title heading-fourth">
+        <h5 class="about-me__merit-title heading-fifth">
           {{ title }}
-        </h4>
+        </h5>
       </div>
       
       <p class="about-me__merit-text text-second">
@@ -39,29 +39,25 @@ export default {
     return {
       image: '',
 
-      description: 'My name is Mary Cousins, lorem ipsum dolor sit amet, consectetur adipiscing '
+     /*  description: 'My name is Mary Cousins, lorem ipsum dolor sit amet, consectetur adipiscing '
                  + 'elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere morbi leo urna molestie at '
                  + 'Morbi tristique senectus et netus et malesuada fames ac turpis. Etiam sit amet nisl purus in mollis nunc sed. ',
+ */
+      description: 'The art of learning any foreign language has its tiny secrets and cute gimmicks that can be turned into powerful tools in the hands of dedicated. An experienced educator and a communication skills specialist joined their efforts and knowledge and created this website to help students and teachers reach their goals. If you are an English learner, you will be able to reinforce your knowledge here. If you teach English, we invite you to use our materials to save your time and energy. Everybody is welcomed here, everyone is appreciated',
     
       achivments: [
         {
-          title: 'Nulla porttitor',
-          description: 'Elit eget gravida cum sociis natoque penatibus. Lobortis mattis '
-                     + 'aliquam faucibus purus in massa tempor nec. '
-                     + 'Rhoncus est pellentesque elit ullam. ' 
+          title: 'Grammar practice',
+          description: `"Their" or 'there"? "What's up?" or "WhatsApp"? "Lie" or "lay"? All those tine but critical nuances can be sometimes annoying. Learn the difference and practise using them with confidence.`
         },
         {
-          title: 'Nulla porttitor',
-          description: 'Elit eget gravida cum sociis natoque penatibus. Lobortis mattis '
-                     + 'aliquam faucibus purus in massa tempor nec. '
-                     + 'Rhoncus est pellentesque elit ullam.'
+          title: 'Real Life English',
+          description: 'All the exercises on our website are based on American, Canadian, Australian, and British TV shows, movies, series, ans real-life situations.'
         },
-        {
-          title: 'Nulla porttitor',
-          description: 'Elit eget gravida cum sociis natoque penatibus. Lobortis mattis '
-                     + 'aliquam faucibus purus in massa tempor nec. '
-                     + 'Rhoncus est pellentesque elit ullam.'
-        }
+         {
+          title: 'Grammar practice',
+          description: 'Master all four essential skills (listening, speaking, writing, reading) with us to boost your exam scores.'
+        },
       ],
     }
   }
