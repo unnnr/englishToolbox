@@ -2900,6 +2900,12 @@ button:active {
   z-index: 20;
 }
 
+@supports (-moz-appearance: none) {
+  .register-overlay {
+    background: #fafafa;
+  }
+}
+
 .register-overlay__body {
   height: calc( 100vh - 50px);
   display: -ms-grid;
@@ -2992,6 +2998,7 @@ button:active {
   border: transparent 3px solid;
   -webkit-transition: border-color .2s ease-in-out;
   transition: border-color .2s ease-in-out;
+  -moz-appearance: textfield;
 }
 
 .register-overlay__input::-webkit-outer-spin-button, .register-overlay__input::-webkit-inner-spin-button {
