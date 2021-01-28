@@ -113,7 +113,7 @@ export default {
 
   computed: {
     userName() {
-      return this.user ? this.user.name : '蒼空';
+      return this.user ? this.user.name : 'John Doe';
     },
     
     userEmail() {
@@ -199,7 +199,7 @@ export default {
         return;
 
       bus.dispatch('alert-error', {
-        message: 'Incorrect password'
+        message: 'Incorrect password' 
       }); 
     },
     
@@ -211,7 +211,7 @@ export default {
     async submit(data, hasChanges) { 
       if (hasChanges)
         this.user = await Auth.user.edit(data);
-
+      
       this.hide();
     }
   }

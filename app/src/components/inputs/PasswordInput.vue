@@ -59,7 +59,8 @@ export default {
 
   methods: {
     clear() {
-      this.$refs.input.entry = ''
+      this.$refs.input.entry = '';
+      this.$refs.input.$options.defaultValue = '';
     }
   }
 }

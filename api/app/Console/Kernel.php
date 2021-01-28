@@ -27,14 +27,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
-            
+
             (new VerificationService())
                 ->clearExceeded();
 
             (new RecoveryService)
                 ->clearExceeded();
 
-        })->everyMinute();
+        })->daily();
     }
 
     /**

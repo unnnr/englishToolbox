@@ -51,7 +51,7 @@ export default {
     Alert,
   },
   
-  errorCaptured(error) {
+  errorCaptured() {
     bus.dispatch('alert-error');
   },
 }
