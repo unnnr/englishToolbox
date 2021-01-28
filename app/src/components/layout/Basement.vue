@@ -9,7 +9,10 @@
           :key="index"     
 
           class="footer__contact text-fourth"
-          :class="contact.class">
+          :class="contact.class"
+          
+          target="_blank"
+          :href="contact.link">
 
           {{ contact.name }}
         </a>
@@ -49,20 +52,20 @@ export default {
   data() {
     return {
       contacts: [
-        { name: 'youtube',             class: 'footer__contact--youtube' },
-        { name: '@twetter',            class: 'footer__contact--twetter' },
-        { name: '@facebook',           class: 'footer__contact--facebook' },
-        { name: 'mailadress@mail.com', class: 'footer__contact--mail' },
-        { name: 'discord#3221',        class: 'footer__contact--discord'},
-        { name: '@skype',              class: 'footer__contact--skype'},
+        { name: 'youtube',            class: 'footer__contact--youtube', link:'https://youtube.com' },
+        { name: '@Lerankara',         class: 'footer__contact--twetter', link:'https://twitter.com/Lerankara' },
+        { name: 'Leranka#3767',       class: 'footer__contact--discord', link:'https://discord.com' },
+        { name: '@lera.novaya',       class: 'footer__contact--facebook',link:'https://www.facebook.com/lera.novaya' },
+        { name: 'tash7272@gmail.com', class: 'footer__contact--mail',    link:'https://gmail.com' },
+        { name: '@EnglishNerd',       class: 'footer__contact--skype',   link:'https://skype.com' },
       ],
 
       links: [
-				{ name: '/home#about', label: 'about me'},
-				{ name: '/videos', label: 'videos'},
-				{ name: '/audio', label: 'audio'},
-				{ name: '/charts', label: 'charts'},
-				{ name: '/games', label: 'games'},
+				{ name: '/home#about',      label: 'about me'},
+				{ name: '/videos',          label: 'videos'},
+				{ name: '/audio',           label: 'audio'},
+				{ name: '/charts',          label: 'charts'},
+				{ name: '/games',           label: 'games'},
 				{ name: '/recommendations', label: 'I recommend'},
 			]
     }
