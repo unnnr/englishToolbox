@@ -113,7 +113,7 @@ export default {
     },
 
     overlayUrl() {
-      return 'url(' + this.overlay + ')'
+      return 'url(' + window.origin + '/' + this.overlay + ')'
     },
 
     disabled() {
@@ -188,6 +188,11 @@ export default {
   mounted() {
     this.listen({'preview-changed':
       preview => Object.assign(this.preview, preview)});
+  },
+
+  beforeDestroy() {
+    if (this.player)
+      this.player.pause();
   },
 
   methods: {

@@ -128,7 +128,9 @@ export default {
       }
 
       if (data.status !== 422) {
-        bus.dispatch('alert-error');
+        bus.dispatch('alert-error', {
+          message: data.body ? data.body.message : ''
+        });
         return;
       }
     },

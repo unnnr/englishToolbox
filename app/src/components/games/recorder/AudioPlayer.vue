@@ -57,6 +57,9 @@ export default {
   beforeDestroy() {
     if (this.blob)
       URL.revokeObjectURL(this.blob);
+
+    if (this.player)
+      this.player.pause();
   },
 
   methods: {

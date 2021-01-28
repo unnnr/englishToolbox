@@ -16,8 +16,11 @@ const HandlePoolEvents = {
     // Initialising bus events
     this.listen({
       'post-selected': this.onSelected,
+      'post-founded': this.onFounded,
+      
       'post-creating': this.onCreating,
       'post-created': this.onCreated,
+
       'post-deleted': this.onDeleted,
       'post-edited': this.onEdited,
 
@@ -55,6 +58,16 @@ const HandlePoolEvents = {
         post = this.findById(event.post.id);
   
       this.select(post);
+    },
+
+    onFounded(event) {
+      let post = null;
+      let id = parseInt(event.hit.objectID);
+
+      if (event.hit)
+        post = this.findById(id);
+
+      bus.dispatch('post-selecting', { post });
     },
 
     needToPaginate() {

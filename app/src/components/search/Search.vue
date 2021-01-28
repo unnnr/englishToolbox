@@ -103,10 +103,12 @@ export default {
   methods: {
     show() {
       this.shown = true;
+      this.$emit('open');
     },
 
     hide() {
       this.shown = false;
+      this.$emit('close');
     },
 
     request(helper) {
@@ -127,6 +129,14 @@ export default {
     redirectTo(hit) {
       let id = hit.objectID;
       let type = hit.type;
+      
+      for (let part of location.pathname.split('/')) {
+        if (part !== type)
+          continue; 
+
+        bus.dispatch('post-founded', { hit });
+        return;
+      }
 
       this.$router.push({
         path: '/'  + type + '/' + id

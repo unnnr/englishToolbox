@@ -108,7 +108,7 @@ export default {
       immediate: true
     }
   },
-
+  
   methods: {
     onFocus(event) {
       if (!!!this.moving)

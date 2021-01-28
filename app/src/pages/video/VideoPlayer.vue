@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      img: '/img/svg/overlay-videos.svg',
+      img: 'img/svg/overlay-videos.svg',
       preview: null 
     }
   },
@@ -63,7 +63,7 @@ export default {
     },
 
     imageUrl() {
-      return 'url(' + window.origin  + this.img + ')';
+      return 'url(' + window.origin + '/' + this.img + ')';
     },
 
     overlayShown() {

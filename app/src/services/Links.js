@@ -49,7 +49,6 @@ class Links {
     this.createRouter();
   }
 
-
   _computeComponent(route) {
     let componentName = route.component;
 
@@ -65,7 +64,8 @@ class Links {
     let route = {};
 
     route.component = link.component;
-    route.path = '/' + link.name+ '/:id'
+    route.path = '/' + link.name+ '/:id';
+    route.name = link.name;
 
     return route;
   }
@@ -128,12 +128,28 @@ class Links {
     waitFor(scrollToHash);
   }
   
-  scrollToTop(to, from, next) {
+  scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    next();
   }
 
-  createRouter() {
+  updateTitle(route) {
+    let title = document.querySelector('title');
+    if (!!!title)
+      return;
+    
+    let name = route.name;
+    if (!!!route) {
+      title.innerText = 'EnglishNerd';
+      return;
+    }
+
+    let capitalized = 
+      name.charAt(0).toUpperCase() + name.slice(1);
+    
+    title.innerText = 'EnglishNerd ‒ ' + capitalized
+  }
+
+  createRouter() {  
     this.router = new VueRouter({
       mode: 'history',
 
@@ -143,7 +159,12 @@ class Links {
       scrollBehavior: this.scrollBehavior,
     });
 
-    this.router.beforeEach(this.scrollToTop);
+    this.router.beforeEach((to, from, next) => {
+      this.scrollToTop();
+      this.updateTitle(to);
+      
+      next();
+    });
   }
 }
 

@@ -1,11 +1,10 @@
 class Builder {
   samples = [
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'Lorem ipsum dolor sit amet' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '1 dummy text dummy text dummy text dummy text dummy text dummy text' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '2 dummy text dummy text dummy text dummy text dummy text dummy text' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '3 dummy text dummy text dummy text dummy text dummy text dummy text' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '4 dummy text dummy text dummy text dummy text dummy text dummy text' },
-    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: '5 dummy text dummy text dummy text dummy text dummy text dummy text' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
+    {audio: 'http://halleonard-audio.s3.amazonaws.com/35022797.mp3', text: 'I am a dummy text, try to build me up' },
   ];
 
   history = [];

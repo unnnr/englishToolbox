@@ -1,7 +1,7 @@
 class Http
 {
-    // origin = 'https://' + window.location.host + '/api/';
-    origin = 'http://192.168.31.215/api/';
+    //origin = 'https://' + window.location.host + '/api/';
+    origin = 'http://192.168.31.3/api/';
 
     defaultHeaders = {
          // 'X-CSRF-TOKEN': token,

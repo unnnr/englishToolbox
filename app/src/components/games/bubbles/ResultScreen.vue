@@ -12,7 +12,7 @@
       <div class="game__alert-group">
         <div class="game__alert-text">
           <h6 class="game__alert-error">
-            You was too close!
+            Nice try. You were too close!
           </h6>
 
           <h5 class="game__alert-title">

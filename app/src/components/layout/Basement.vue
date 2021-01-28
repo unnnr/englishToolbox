@@ -32,7 +32,7 @@
 
     <div class="copyright container">
       <p class="copyright__text">
-        © Copyright 2021 englishnerd − All Rights Reserved
+        © Copyright {{ year }} englishnerd − All Rights Reserved
       </p>
     </div>
   </section>
@@ -40,6 +40,12 @@
 
 <script>
 export default {
+  computed: {
+    year() {
+      return new Date().getFullYear();
+    }
+  },
+
   data() {
     return {
       contacts: [

@@ -10,7 +10,7 @@
       :disabled="disabled"
       @click="toggle">
     </button>
-      <!-- record your reading the text above -->
+    <!-- record your reading the text above -->
 
     <audio-timeline
       :recording="recording"
@@ -18,7 +18,6 @@
       :value="position"
       :src="blob"
       @input="moveto"/>
-
 
     <button
       class="recorder__card-button recorder__card-button--rerecord"
@@ -64,17 +63,12 @@ export default {
     }
   },
 
-  mounted() {
-    return;
-    fetch(this.src)
-      .then(response => response.blob())
-      .then(blob => this.blob = URL.createObjectURL(blob))
-      .then(this.load)
-  },
-
   beforeDestroy() {
     if (this.blob)
       URL.revokeObjectURL(this.blob);
+
+    if (this.player)
+      this.player.pause();
   },
 
   methods: {
@@ -122,9 +116,12 @@ export default {
 
       this.recorder.addEventListener("stop", () => {
         let blob = new Blob(audioChunks);
+
         this.blob = URL.createObjectURL(blob);
-        
         this.loadPlayer();
+        
+        stream.getTracks()
+          .forEach( track => track.stop());
       });
 
       this.recorder.start();

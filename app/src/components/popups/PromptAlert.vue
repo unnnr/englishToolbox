@@ -164,9 +164,10 @@ export default {
     
     async resetPassword() {
       function onError(error) {
-				bus.dispatch('alert-error', {	
-          message: 'Some problem occurred during the recovery creation. Please try again'
-        });
+        let message = (error && error.body &&  error.body.message) ?
+          error.body.message : 'Some problem occurred during the recovery creation. Please try again';
+      
+				bus.dispatch('alert-error', {	message });
 			}
 
       let user = await Auth.user.get();

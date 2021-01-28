@@ -47,6 +47,9 @@ class RecoveryService
         $user = $this->getUser($request);
 
         // If recovery already exist -> return
+        if ($user->recoveryCode && $user->recoveryCode->attempts >= self::MAX_ATTEMPTS)
+          abort(Response::HTTP_BAD_REQUEST, 'You have failed too many attempts. Please try again later');
+ 
         if ($user->recoveryCode)
             return;
 
