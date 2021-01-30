@@ -8,7 +8,7 @@ export default {
 	data() {
     return {
       captchaHref: 'https://www.google.com/recaptcha/api.js',
-      key: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+      key: '6LclcEIaAAAAAPpDOJaEpMvC0o66fdck1mxLH_Nc',
      
       widgetId: null,
       resolve: null
@@ -77,7 +77,7 @@ export default {
       return window.grecaptcha.execute(this.widgetId, {action: 'login'});
     },
 
-    validate(passed) {
+    validate() {
       if (!!!this.rendered)
         return null;
 

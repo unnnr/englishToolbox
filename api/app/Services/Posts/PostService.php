@@ -61,26 +61,22 @@ abstract class PostService
     public function get(Model $post) : JsonResource
     {
         // Updating views
-        $authenticated = auth('sanctum')->check();
-
-        if (!!!$authenticated)
-        {
+        $user = auth('sanctum')->check() ? 
+            auth('sanctum')->user() : null;
+        
+        $post->withoutSyncingToSearch(function() use ($post) {
             $post->update(['views' => $post->views + 1]);
+        });
 
-            $post->viewList()
-                ->create([ 'user_id' => null]);
-        }
-        else  
+        if (!!!$user)
         {
-            $user = auth('sanctum')->user();
-            if ($user->hasntViewed($post))
-            {
-                $post->update(['views' => $post->views + 1]);
-    
-                $post->viewList()->create([
-                    'user_id' => auth('sanctum')->user()->id
-                ]);
-            }
+            $post->viewList()
+                 ->create([ 'user_id' => null]);
+        }
+        else if ($user->hasntViewed($post))
+        {    
+            $post->viewList()
+                 ->create(['user_id' => $user->id]);
         }
         
         // Calling child callback

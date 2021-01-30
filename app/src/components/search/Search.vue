@@ -49,7 +49,7 @@ export default {
       hits: [],
 
       searchClient: algoliasearch(
-        '935M213CXE', 'cd89ba96eb6549adb8d90b48d8c9e685',
+        '8KVQRME8TR', 'a6bfdf8b0b8b59c0ad3b8baa2977a9c7',
       ),
 
       // Throttled onInput event
