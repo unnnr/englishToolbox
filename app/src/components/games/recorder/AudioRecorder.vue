@@ -124,8 +124,13 @@ export default {
           .forEach( track => track.stop());
       });
 
-      this.recorder.start();
-      this.recording = true;
+      try {
+        this.recorder.start();
+        this.recording = true;
+      }
+      catch {
+        console.error('Can`t start recording: Permissions denied')
+      }
     },
 
     stopRecording() {

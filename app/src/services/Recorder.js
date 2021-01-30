@@ -42,7 +42,7 @@ class Recorder {
 
     let index;
     do 
-      index = Math.floor(Math.random() * (this.samples.length - 1));
+      index = Math.floor(Math.random() * (this.samples.length ));
     while (this.current === index)
 
     if (this.current > -1)

@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import Http from '@services/Http'
 import User from '@models/User';
 
-const AUTH_TOKEN_EXPIRES = 12;
+const AUTH_TOKEN_EXPIRES = 666;
 
 class Auth 
 {

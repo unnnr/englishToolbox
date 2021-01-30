@@ -35,7 +35,9 @@ export default {
   methods: {
     gotIt() {
       this.shown = false;
-      Cookies.set(this.name, true);
+      Cookies.set(this.name, true, {
+        expires: AUTH_TOKEN_EXPIRES 
+      });
     }
   }
 }
