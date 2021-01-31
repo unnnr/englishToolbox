@@ -1,5 +1,5 @@
 <template>
-  <div :id="id">
+  <div class="captcha" :id="id">
   </div>
 </template>
 
@@ -8,7 +8,7 @@ export default {
 	data() {
     return {
       captchaHref: 'https://www.google.com/recaptcha/api.js',
-      key: '6LclcEIaAAAAAPpDOJaEpMvC0o66fdck1mxLH_Nc',
+      key: '6Le1AkQaAAAAAMYLeFdenUu_-MRcco0-N6OEeLBh',
      
       widgetId: null,
       resolve: null
@@ -91,3 +91,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.captcha
+  position: absolute
+
+</style>
