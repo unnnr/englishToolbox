@@ -65,7 +65,7 @@ class Links {
 
     route.component = link.component;
     route.path = '/' + link.name+ '/:id';
-    route.name = link.name;
+    route.meta = { title: link.name };
 
     return route;
   }
@@ -91,10 +91,11 @@ class Links {
       let route = Object.assign({}, link);
       route.component = this._computeComponent(route);
       route.path = this._computePath(route);
+      route.meta = { title: link.name };
       
       if (route.guest)  {
         route.beforeEnter = this._redirectAuthed.bind(this);
-        route.meta = {guest: true};
+        route.meta.guest = true;
       }
 
       if (route.postPage) {
@@ -137,7 +138,7 @@ class Links {
     if (!!!title)
       return;
     
-    let name = route.name;
+    let name = route.meta.title;
     if (!!!route) {
       title.innerText = 'EnglishNerd';
       return;

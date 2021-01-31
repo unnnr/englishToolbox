@@ -20,7 +20,12 @@
 						
 						<u @click="onChanging">change your mail</u>, or 
 						
-						<u @click="onResend">resend verification mail</u>
+						<u 
+							@click="onResend"
+							:class="{'clicked': resended}">
+							
+							resend verification mail
+						</u>
 					</p>
 
 					<code-input
@@ -69,6 +74,7 @@ export default {
 			authenticated: false,
 			changingMail: false,
 			verified: false,
+			resended: false
 		}
 	},
 
@@ -181,6 +187,7 @@ export default {
 		},
 
 		async resend() {
+			this.resended = true;
 			await Auth.resendCode();
 		},
 
@@ -201,3 +208,11 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass" scoped>
+
+.clicked
+	color: #848499
+	transition: color .5s
+
+</style>
