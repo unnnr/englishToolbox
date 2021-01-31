@@ -54,6 +54,7 @@ abstract class PostService
         ]);
 
         event(new PostCreated($post));
+        $post->searchable();
 
         return $this->createScalarResponce($post);
     }

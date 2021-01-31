@@ -57,3 +57,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+.search__item-image
+    background-size: 175%
+
+</style>
