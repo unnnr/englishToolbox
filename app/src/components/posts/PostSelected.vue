@@ -225,6 +225,9 @@ export default {
     },
 
     onTagDeleted(event) {
+      if (this.creating)
+        return;
+        
       let tag = event.tag;
       let post = this.target;
 

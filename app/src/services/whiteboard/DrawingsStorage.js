@@ -81,14 +81,11 @@ export default class DrawingsStorage {
       return;
 
     this.collection.splice(index, 1);
-    if (typeof this.onCreated === 'function')
-      this.onCreated();
+    if (typeof this.onRemoved === 'function')
+      this.onRemoved();
   }
 
   created(raw) {
-    if (raw.type !== 'inspector')
-      return;
-
     let el = this.parseResponse(raw);
     this.collection.push(el);
 
