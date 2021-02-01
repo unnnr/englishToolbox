@@ -24,7 +24,7 @@ trait HandlePostThumbnails
 
         // Bluring
         if (defined(get_class($post).'::THUMBNAIL_BLURED') && $post::THUMBNAIL_BLURED)
-            $thumbnail->blur(25);
+            $thumbnail->blur(40);
         
         // Saving
         $path = $post::THUMBNAIL_PATH.'/'.$fileName;
