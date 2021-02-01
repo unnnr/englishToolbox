@@ -17,7 +17,7 @@ class TagController extends Controller
     {
         $this->service = new TagService();
 
-        $this->middleware('auth')
+        $this->middleware('auth:sanctum')
             ->only(['store', 'destroy']);
     }
     
