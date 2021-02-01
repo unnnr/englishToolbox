@@ -86,6 +86,9 @@ export default class DrawingsStorage {
   }
 
   created(raw) {
+    if (raw.type !== 'inspector')
+      return;
+
     let el = this.parseResponse(raw);
     this.collection.push(el);
 
