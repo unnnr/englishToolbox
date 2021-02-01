@@ -98,7 +98,7 @@ export default {
   methods: {
     createContext(id) {
       if (!!!this.canDelete)
-        return null;
+        return {};
 
       function okay() {
         _this.send(() => 

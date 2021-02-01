@@ -21,7 +21,7 @@
       width: 100%;
       max-width: 600px;
       border-radius: 15px;
-      border: 2px solid #f5f5f5">
+      border: 2px solid #f5f5f5">var/www/etoolbox/api
     <tr>
       <th>
         <h1 
@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td>
-        <img  style="width: 100%; max-width: 250px;" alt="#" src="">
+        <img src="https://englishnerd.org/img/email-recovery.png" style="width: 100%; max-width: 250px;" alt="#" src="">
       </td>
     </tr>
     <tr>

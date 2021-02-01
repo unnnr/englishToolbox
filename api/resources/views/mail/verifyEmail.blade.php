@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td>
-        <img  style="width: 100%; max-width: 250px;" alt="#" src="">
+        <img src="https://englishnerd.org/img/email-verify.png" style="width: 100%; max-width: 250px;" alt="#" src="">
       </td>
     </tr>
     <tr>

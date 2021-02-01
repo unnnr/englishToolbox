@@ -6,7 +6,7 @@
         class="abot-me__photo"
         :style="{'background-image': getUrl(photo)}">
         
-        <h4 class="about-me__name heading-fourth">Irina Ivanova</h4>
+        <h4 class="about-me__name heading-fourth">Natalya Novoseltseva</h4>
       </div>
     </div>
 
@@ -44,18 +44,13 @@ export default {
   data() {
     return {
       photo: 'img/about_me_photo.png',
-
-     /*  description: 'My name is Mary Cousins, lorem ipsum dolor sit amet, consectetur adipiscing '
-                 + 'elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Posuere morbi leo urna molestie at '
-                 + 'Morbi tristique senectus et netus et malesuada fames ac turpis. Etiam sit amet nisl purus in mollis nunc sed. ',
- */
       description: 'The art of learning any foreign language has its tiny secrets and cute gimmicks that can be turned into powerful tools in the hands of dedicated. An experienced educator and a communication skills specialist joined their efforts and knowledge and created this website to help students and teachers reach their goals. If you are an English learner, you will be able to reinforce your knowledge here. If you teach English, we invite you to use our materials to save your time and energy. Everybody is welcomed here, everyone is appreciated',
     
       achivments: [
         {
           image: 'img/about_me_merit_1.png',
-          title: 'Grammar practice',
-          description: `"Their" or 'there"? "What's up?" or "WhatsApp"? "Lie" or "lay"? All those tine but critical nuances can be sometimes annoying. Learn the difference and practise using them with confidence.`
+          title: 'Exam preparation',
+          description: `"Their" or 'there"? "What's up?" or "WhatsApp"? "Lie" or "lay"? All those tiny but critical nuances can be sometimes annoying. Learn the difference and practise using them with confidence.`
         },
         {
           image: 'img/about_me_merit_2.png',
