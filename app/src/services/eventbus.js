@@ -15,6 +15,8 @@ const Bus = new function ()
 
     this.dispatch  = (event, options = {}) =>
     {
+        console.error('DUMP ' + event);
+
         if (typeof event !== 'string')
             return false;
 
