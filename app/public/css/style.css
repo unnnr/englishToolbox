@@ -3839,8 +3839,8 @@ button:active {
 }
 
 .player__content--blurred {
-  -webkit-filter: blur(10px);
-          filter: blur(10px);
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
 }
 
 .addition {
