@@ -1,5 +1,6 @@
 .basement 
   grid-area: basement 
+  -webkit-user-drag: none
 
 .footer
   display: grid
@@ -21,6 +22,9 @@
   @include lg-devices
     grid-row-start: 2
 
+.footer__links
+  user-select: none
+
 .footer__contacts,
 .footer__links
   display: grid
@@ -33,6 +37,8 @@
 .footer__contact
   display: flex
   align-items: center
+  width: max-content
+  -webkit-user-drag: none
   &:before
     font-family: "Font Awesome 5 Brands"
     font-size: 25px

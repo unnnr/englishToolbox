@@ -778,6 +778,7 @@ body {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: basement;
+  -webkit-user-drag: none;
 }
 
 .footer {
@@ -817,6 +818,13 @@ body {
   }
 }
 
+.footer__links {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .footer__contacts,
 .footer__links {
   display: -ms-grid;
@@ -844,6 +852,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  -webkit-user-drag: none;
 }
 
 .footer__contact:before {
