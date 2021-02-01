@@ -21,7 +21,7 @@
       width: 100%;
       max-width: 600px;
       border-radius: 15px;
-      border: 2px solid #f5f5f5">var/www/etoolbox/api
+      border: 2px solid #f5f5f5">
     <tr>
       <th>
         <h1 

@@ -62,6 +62,10 @@ export default {
     value: { type: Object, default: null }
   },
 
+  mounted() {
+    this.select('pencil');
+  },
+
   methods: {
     isSelected(type) {
       return this.value && this.value.type === type;
