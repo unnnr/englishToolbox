@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Verify Mail</title>
+  <title>Recovery Mail</title>
 </head>
 
 <body>
@@ -26,17 +26,29 @@
       <th>
         <h1 
           style="
-          font-size: 35px;
-          color:#2f2e44;
-          margin: 0;
-          padding-bottom: 30px;">
-          EnglishNerd
+            font-size: 35px;
+            color:#2f2e44;
+            margin: 0;
+            padding-bottom: 30px;
+            font-weight: 600;">
+              EnglishNerd
         </h1>
       </th>
     </tr>
     <tr>
       <td>
-        <img src="https://englishnerd.org/img/email-recovery.png" style="width: 100%; max-width: 250px;" alt="#" src="">
+        <img 
+          style="
+            width: 100%; 
+            max-width: 250px; 
+            outline: none;
+            text-decoration: none;
+            border:none;
+            margin: 0;
+            color: #a1a1b1;
+            font-weight: 500;" 
+          alt="Here should be an image, but your email client has blocked it 😔"  
+          src="https://englishnerd.org/img/email-recovery.png">
       </td>
     </tr>
     <tr>
@@ -45,7 +57,8 @@
           font-size: 25px;
           color: #2f2e44;
           margin: 0;
-          padding: 20px 0;">
+          padding: 20px 0;
+          font-weight: 600;">
           Your recovery code: {{ $code }}
         </h1>
       </td>
@@ -74,3 +87,6 @@
   </table>
 
 </body>
+
+</html>
+
