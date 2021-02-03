@@ -4685,12 +4685,6 @@ button:active {
   margin-right: 20px;
 }
 
-@media (max-width: 1000px) {
-  .i-recommend__card-link {
-    margin-right: 0;
-  }
-}
-
 .i-recommend__card--editor {
   -ms-grid-rows: 50px 1fr 50px;
       grid-template-rows: 50px 1fr 50px;
@@ -4829,6 +4823,17 @@ button:active {
   -ms-grid-row: 3;
   -ms-grid-column: 3;
   grid-area: button;
+}
+
+.i-recommend__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 30px;
 }
 
 .games__selected {
