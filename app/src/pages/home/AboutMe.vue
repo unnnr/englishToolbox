@@ -49,7 +49,7 @@ export default {
       achivments: [
         {
           image: 'img/about_me_merit_1.png',
-          title: 'Exam preparation',
+          title: 'Grammar practice',
           description: `"Their" or 'there"? "What's up?" or "WhatsApp"? "Lie" or "lay"? All those tiny but critical nuances can be sometimes annoying. Learn the difference and practise using them with confidence.`
         },
         {
@@ -59,7 +59,7 @@ export default {
         },
          {
           image: 'img/about_me_merit_3.png',
-          title: 'Grammar practice',
+          title: 'Exam preparation',
           description: 'Master all four essential skills (listening, speaking, writing, reading) with us to boost your exam scores.'
         },
       ],
