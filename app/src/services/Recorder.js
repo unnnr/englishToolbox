@@ -11,7 +11,7 @@ class Recorder {
 
 
   constructor() {
-    this,preparse();
+    this.preparse();
   }
 
 
