@@ -96,14 +96,6 @@ export default {
     this.reset();
   },
 
-  mounted() {
-    let player = new Audio(this.sample.audio);
-
-    player.addEventListener('canplaythrough', 
-      () => this.player = player);
-  },
-
-
   beforeDestroy() {
     if (this.timer !== null)
       clearInterval(this.timer);
@@ -113,6 +105,14 @@ export default {
   },
 
   methods: {
+    loadPlayer() {
+      let newPlayer = new Audio(this.sample.audio);
+      this.player = null;
+
+      newPlayer.addEventListener('canplaythrough', 
+        () => this.player = newPlayer);
+    },
+
     reset() {
       this.sample = this.builder.next();
       this.sentance = [];
@@ -123,6 +123,7 @@ export default {
       this.counter++;
 
       this.timer = setInterval(() => this.seconds++, 1000);
+      this.loadPlayer();
     },
 
     done() {

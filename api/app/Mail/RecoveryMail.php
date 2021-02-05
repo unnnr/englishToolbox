@@ -30,9 +30,11 @@ class RecoveryMail extends Mailable
 
         $key = $this->user->recoveryCode->key;
         $code = str_pad($key, 4, "0", STR_PAD_LEFT);
+        $subject =  $code . ' - your verification code';
 
         return $this->view('mail.changePassword')
-            ->to($email, $name)
-            ->with(['code' => $code]);
+                    ->subject($subject)
+                    ->to($email, $name)
+                    ->with(['code' => $code]);
     }
 }
