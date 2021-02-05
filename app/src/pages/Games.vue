@@ -28,7 +28,7 @@ export default {
       game: null,
       component: null,
 
-      authenticated: true
+      authenticated: false
     }
   },
 
