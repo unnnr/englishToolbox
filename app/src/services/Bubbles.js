@@ -1,8 +1,10 @@
-import nouns from 'noun-json'
+const Tag = require('en-pos').Tag;
 
 class Bubless {
+  
   clear(text) {
     let parsed = text
+      .replace(/(?<=He|She|It)'s/, ' is')
       .replace(/'ll/, ' will')
       .replace(/'ve/, ' have')
       .replace(/'re/, ' are')
@@ -10,7 +12,6 @@ class Bubless {
       .replace(/'d/, ' had')
       .replace(/'d/, ' had')
       .replace(/'m/, ' am')
-      .replace(/'s/, ' is')
 
     return parsed;
   }
@@ -29,28 +30,34 @@ class Bubless {
     return splitted;
   }
 
-  isKeyword(word) {
+  isCapitalized(word) {
     if (/^[A-Z]/.test(word))
       return true;
+  }
 
-    if (/`s$/.test(word))
-      return true;
-  
-    if (nouns.indexOf(word) !== -1)
-      return true
-
-    return false
+  isKeyword(tag) {
+    let tags = [ 
+      'CD', 'NN', 'NNS' , 'NNP', 'NNPS', 'PRP', 'PRP$'
+    ];
+    
+    return tags.indexOf(tag) !== -1
   }
 
   selectKeywords(words) {
-    let splitted = [];
+    let tags = new Tag(words)
+      .initial()
+      .smooth()
+      .tags;
 
+    let splitted = [];
     let line = { keyword: null, missing: null };
     splitted.push(line);
 
-    for (let word of words) {
-      
-      if (this.isKeyword(word)) {
+    for (let i in words) {
+      let word = words[i];
+      let tag = tags[i];
+
+      if (this.isCapitalized(word) || this.isKeyword(tag)) {
         line = { keyword: word, missing: null };
         splitted.push(line);
         continue

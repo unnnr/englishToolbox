@@ -1,11 +1,7 @@
+import AudioSamples from '@services/AudioSamples';
+
 class Builder {
-  samples = [
-    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
-    {audio: 'https://englishnerd.org/storage/records/auf.mp3', text: 'I am a dummy text, try to build me up' },
-  ];
+  samples = AudioSamples
 
   history = [];
 
