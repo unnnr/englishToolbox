@@ -4,6 +4,7 @@ class Bubless {
   
   clear(text) {
     let parsed = text
+      .replace(/(?<=He|She|It)'s/, ' is')
       .replace(/'ll/, ' will')
       .replace(/'ve/, ' have')
       .replace(/'re/, ' are')
@@ -11,7 +12,6 @@ class Bubless {
       .replace(/'d/, ' had')
       .replace(/'d/, ' had')
       .replace(/'m/, ' am')
-      .replace(/(?<=He|She|It)'s/, ' is')
 
     return parsed;
   }
@@ -37,7 +37,7 @@ class Bubless {
 
   isKeyword(tag) {
     let tags = [ 
-      'NN', 'NNS' , 'NNP', 'NNPS', 'PRP', 'PRP$'
+      'CD', 'NN', 'NNS' , 'NNP', 'NNPS', 'PRP', 'PRP$'
     ];
     
     return tags.indexOf(tag) !== -1
