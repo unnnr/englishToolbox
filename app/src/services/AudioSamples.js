@@ -9,7 +9,7 @@ class AudioSamples {
     
         for (let index in this.list) {
           let sample = this.list[index];
-          sample.audio = url + index;
+          sample.audio = url + index + '.mp3';
         }
     }
 
